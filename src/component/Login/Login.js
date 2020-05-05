@@ -44,8 +44,8 @@ class Login extends Component {
                                     <i className="fas fa-user"></i>
                                 </div>
                                 <div id="user">
-                                    <h5>Username</h5>
-                                    <input name="name" value={this.state.name} onChange={this.onChange} type="text" id="inputUser" />
+                                    {/* <h5>Username</h5> */}
+                                    <input name="name" value={this.state.name} onChange={this.onChange} type="text" id="inputUser" placeholder="username" autoComplete="off"/>
                                 </div>
                             </div>
                             <div className="input-div pass">
@@ -53,11 +53,11 @@ class Login extends Component {
                                     <i className="fas fa-lock"></i>
                                 </div>
                                 <div id="passwd">
-                                    <h5>Password</h5>
-                                    <input name="password" value={this.state.password} onChange={this.onChange} type="password" id="inputPass" />
+                                    {/* <h5>Password</h5> */}
+                                    <input name="password" value={this.state.password} onChange={this.onChange} type="password" id="inputPass" placeholder="password"/>
                                 </div>
                             </div>
-                            <a id="forgetPass" href="#">Forgot Password?</a>
+                            <Link to="/verify-id" id="forgetPass" >Forgot Password?</Link>
                             <input type="submit" id="btn" value="Login" />
                             {/* <Link to="/dashboard" id="btn" >Login</Link> */}
                         </form>

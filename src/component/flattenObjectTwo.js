@@ -14,7 +14,8 @@ import Vission from './Dashboard/NestedComponentDemo/Vission';
 import Goal from './Dashboard/NestedComponentDemo/Goal';
 import Achievement from './Dashboard/NestedComponentDemo/Achievement';
 
-
+import CreateUser from './E-KYC/User/CreateUser';
+import UpdateUser from './E-KYC/User/UpdateUser';
 
 
 
@@ -108,7 +109,7 @@ const allRoutes = [
                     "featureName": "Create User",
                     "path": "/user-create",
                     "exact": true,
-                    "component": <Target />
+                    "component": <CreateUser />
                 }
 
             },
@@ -127,7 +128,7 @@ const allRoutes = [
                     "featureName": "Update User",
                     "path": "/user-update",
                     "exact": true,
-                    "component": <Goal />
+                    "component": <UpdateUser />
                 }
             },
             {
