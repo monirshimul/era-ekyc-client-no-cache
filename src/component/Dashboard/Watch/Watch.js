@@ -13,16 +13,16 @@ const Watch = () => {
         const sec = document.querySelector(".sec");
         const min = document.querySelector(".min");
         const hr = document.querySelector(".hr");
-        console.log("Sec", sec)
+        // console.log("Sec", sec)
 
         setInterval(function () {
             let time = new Date();
             let secs = time.getSeconds() * 6;
             let mins = time.getMinutes() * 6;
             let hrs = time.getHours() * 30;
-            console.log(time.getSeconds());
-            console.log(time.getMinutes());
-            console.log(time.getHours());
+            // console.log(time.getSeconds());
+            // console.log(time.getMinutes());
+            // console.log(time.getHours());
 
             sec.style.transform = `rotateZ(${secs}deg)`;
             min.style.transform = `rotateZ(${mins}deg)`;

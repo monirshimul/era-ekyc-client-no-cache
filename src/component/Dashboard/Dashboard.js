@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, useRouteMatch, Link } from 'rea
 import MultiStepFace from '../E-KYC/Simplified/MainFace'
 import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';
+import UpdateRoleDetails from '../E-KYC/Role/UpdateRoleDetails';
 import "./sidebar.css";
 import { pruneRouteArray, getFlatRouteArray } from '../flattenObjectTwo';
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
@@ -177,6 +178,7 @@ function Dashboard() {
                                 <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />
 
                                 <Route path={`${path}/success`} component={Success} />
+                                <Route path={`${path}/update-role-details`} component={UpdateRoleDetails} />
                             </Switch>
 
 

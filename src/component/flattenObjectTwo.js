@@ -9,6 +9,8 @@ import Account from './E-KYC/Simplified/Account';
 import Test from './E-KYC/Role/Test'
 
 import RoleCreate from './E-KYC/Role/CreateRole';
+import RoleApprove from './E-KYC/Role/ApproveRole';
+import RoleUpdate from './E-KYC/Role/UpdateRole';
 import Target from './Dashboard/NestedComponentDemo/Target';
 import Vission from './Dashboard/NestedComponentDemo/Vission';
 import Goal from './Dashboard/NestedComponentDemo/Goal';
@@ -28,7 +30,7 @@ const allRoutes = [
             "className": "fas fa-home",
             "path": "/home",
             "exact": true,
-            "component": <Home />
+            "component": ""
         },
         nested: [
             {
@@ -48,7 +50,7 @@ const allRoutes = [
                     "featureName": "Approve Role",
                     "path": "/role-approve",
                     "exact": true,
-                    "component": <Test />
+                    "component": <RoleApprove />
                 }
             },
             {
@@ -57,7 +59,7 @@ const allRoutes = [
                     "featureName": "Update Role",
                     "path": "/role-update",
                     "exact": true,
-                    "component": <Vission />
+                    "component": <RoleUpdate />
                 }
             },
             {
