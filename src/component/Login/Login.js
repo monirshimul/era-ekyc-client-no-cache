@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import './Login.css'
 import bg from './image/wave2.png'
 import { withRouter, Link } from 'react-router-dom';
-import { loginRequest, loginSuccess } from '../../actions/loginAction';
+//=====Redux work above
+//import { loginRequest, loginSuccess } from '../../actions/loginAction';
 
 class Login extends Component {
 
@@ -23,7 +24,10 @@ class Login extends Component {
             name,
             password
         }
-        this.props.onSubmit(obj)
+       //============================= 
+        //Redux work
+       // this.props.onSubmit(obj)
+        //=============================
         this.props.history.push("/dashboard");
     }
 
@@ -68,21 +72,28 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
 
-    }
-}
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onSubmit: (p) => {
-            dispatch(loginSuccess(p));
-        }
-    }
-}
+//Redux work Above===================================
 
-// export default withRouter(newLogin)
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps)(withRouter(Login));
+// const mapStateToProps = (state) => {
+//     return {
+
+//     }
+// }
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         onSubmit: (p) => {
+//             dispatch(loginSuccess(p));
+//         }
+//     }
+// }
+
+// // export default withRouter(newLogin)
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps)(withRouter(Login));
+//Redux work ===================================
+
+export default withRouter(Login);

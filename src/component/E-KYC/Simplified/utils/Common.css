@@ -80,6 +80,47 @@
   color: #f9f9f9;
 }
 
+.sbtn {
+  min-width: 60px;
+  min-height: 20px;
+  background-image: linear-gradient(to right, #0cbdb4, #74dad3, #308f8f);
+  background-size: 200%;
+
+  color: #fff;
+  font-size: 10px;
+  line-height: 20px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24);
+  text-align: center;
+  text-decoration: none;
+}
+
+.sbtn:hover {
+  background-position: right;
+  color: #656666;
+}
+.sbtnx {
+  min-width: 60px;
+  min-height: 20px;
+  background-image: linear-gradient(to right, #e3174c, #f55882, #af1e45);
+  background-size: 200%;
+
+  color: #fff;
+  font-size: 10px;
+  line-height: 20px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24);
+  text-align: center;
+  text-decoration: none;
+}
+
+.sbtnx:hover {
+  background-position: right;
+  color: #f9f9f9;
+}
+
 .bigB {
   min-width: 250px;
   min-height: 60px;

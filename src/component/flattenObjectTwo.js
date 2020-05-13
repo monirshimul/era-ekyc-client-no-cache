@@ -16,7 +16,10 @@ import Vission from './Dashboard/NestedComponentDemo/Vission';
 import Goal from './Dashboard/NestedComponentDemo/Goal';
 import Achievement from './Dashboard/NestedComponentDemo/Achievement';
 
+//User Management
 import CreateUser from './E-KYC/User/CreateUser';
+import UserList from './E-KYC/User/UserList';
+import UserApproval from './E-KYC/User/UserApproval';
 import UpdateUser from './E-KYC/User/UpdateUser';
 
 
@@ -121,7 +124,7 @@ const allRoutes = [
                     "featureName": "Approve User",
                     "path": "/user-approve",
                     "exact": true,
-                    "component": <Vission />
+                    "component": <UserApproval />
                 }
             },
             {
@@ -148,7 +151,7 @@ const allRoutes = [
                     "featureName": "User List",
                     "path": "/user-list",
                     "exact": true,
-                    "component": <Vission />
+                    "component": <UserList />
                 }
             },
             {
