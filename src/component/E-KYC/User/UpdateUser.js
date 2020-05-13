@@ -32,7 +32,6 @@ class UpdateUser extends Component {
     async componentDidMount() {
     //    console.log(this.props.location.state);
         let getId = this.props.location.state;
-        this.setState({id: getId});
         let arr = [];
         //Update user api
         const obj = { userId: this.props.location.state };
@@ -41,8 +40,9 @@ class UpdateUser extends Component {
         try {
             let updata = await axios.post(getupdateUser + 1, obj);
             const prefillData = updata.data.data;
-        //    console.log("prefilled", prefillData);
+          // console.log("prefilled", prefillData);
             this.setState({
+                id:prefillData[0].id,
                 userId: prefillData[0].userId,
                 name: prefillData[0].name,
                 mobile: prefillData[0].mobile,
@@ -118,11 +118,11 @@ class UpdateUser extends Component {
         let idValue = id;
 
         if (isChecked === false) {
-            console.log("false");
+          //  console.log("false");
             try {
                 let r = this.state.checking.filter(repo => repo !== idValue);
 
-                console.log("false inside", r);
+             //   console.log("false inside", r);
                 this.setState({ checking: r });
             } catch (err) {
 
@@ -217,7 +217,7 @@ class UpdateUser extends Component {
       
 
         const obj = {
-            id: parseInt(id),
+            id,
             userId,
             name,
             mobile,
