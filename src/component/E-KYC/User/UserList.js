@@ -163,7 +163,7 @@ export class UserList extends Component {
 
     // Update user 
     onUpdate = (id) => {
-        console.log(id);
+   //     console.log(id);
         this.props.history.push('/dashboard/user-update', id);
     }
 
