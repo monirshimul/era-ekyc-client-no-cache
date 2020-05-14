@@ -56,6 +56,7 @@ class UpdateRole extends Component {
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
+                    searchValue: "",
                     checkBoxOne: false
                 })
 
@@ -73,6 +74,7 @@ class UpdateRole extends Component {
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
+                    searchValue: "",
                     checkBoxTwo: false
                 })
 
@@ -90,6 +92,7 @@ class UpdateRole extends Component {
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
+                    searchValue: "",
                     checkBoxThree: false
                 })
 

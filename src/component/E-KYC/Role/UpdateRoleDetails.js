@@ -103,7 +103,12 @@ class UpdateRoleDetails extends Component {
         let { id, status, roleName, description, ipList, grantedIPList, featureList } = this.state
 
         try {
-            grantedIPList = ipList.split(',')
+            if (ipList === "") {
+                grantedIPList = []
+            } else {
+                grantedIPList = ipList.split(',')
+            }
+
 
             let data = {
                 id: id,
@@ -120,7 +125,7 @@ class UpdateRoleDetails extends Component {
             console.log("response", res.data)
 
             localStorage.setItem("Role Data", JSON.stringify(data))
-            this.props.history.push("/dashboard/role-update", data)
+            this.props.history.push("/dashboard/role-list", data)
 
         } catch (error) {
             //let { reason } = error.response.data

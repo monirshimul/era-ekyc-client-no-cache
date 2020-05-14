@@ -23,18 +23,17 @@ import UserApproval from './E-KYC/User/UserApproval';
 import UpdateUser from './E-KYC/User/UpdateUser';
 
 //Profile Management
- import ChangePassword from './E-KYC/Profile/ChangePass';
+import ChangePassword from './E-KYC/Profile/ChangePass';
 
 
-
-
-const allRoutes = [
+const allRoutesInt = [
     {
         items: {
             "key": 1,
+            'isShowing': true,
             "featureName": "Role",
             "className": "fas fa-home",
-            "path": "/home",
+            "path": "",
             "exact": true,
             "component": ""
         },
@@ -42,6 +41,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 1.1,
+                    'isShowing': true,
                     "featureName": "Create Role",
                     "path": "/role-create",
                     "exact": true,
@@ -53,6 +53,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 1.2,
+                    'isShowing': true,
                     "featureName": "Approve Role",
                     "path": "/role-approve",
                     "exact": true,
@@ -62,33 +63,37 @@ const allRoutes = [
             {
                 items: {
                     "key": 1.3,
+                    'isShowing': false,
                     "featureName": "Update Role",
                     "path": "/role-update",
+                    "exact": true,
+                    "component": ""
+                }
+            },
+            {
+                items: {
+                    "key": 1.4,
+                    'isShowing': false,
+                    "featureName": "Update Approve Role",
+                    "path": "/role-update-approve",
+                    "exact": true,
+                    "component": ""
+                }
+            },
+            {
+                items: {
+                    "key": 1.5,
+                    'isShowing': true,
+                    "featureName": "Role List",
+                    "path": "/role-list",
                     "exact": true,
                     "component": <RoleUpdate />
                 }
             },
             {
                 items: {
-                    "key": 1.4,
-                    "featureName": "Update Approve Role",
-                    "path": "/role-update-approve",
-                    "exact": true,
-                    "component": <Vission />
-                }
-            },
-            {
-                items: {
-                    "key": 1.5,
-                    "featureName": "Role List",
-                    "path": "/role-list",
-                    "exact": true,
-                    "component": <Vission />
-                }
-            },
-            {
-                items: {
                     "key": 1.6,
+                    'isShowing': false,
                     "featureName": "Delete Role",
                     "path": "/role-delete",
                     "exact": true,
@@ -104,16 +109,18 @@ const allRoutes = [
     {
         items: {
             "key": 2,
+            'isShowing': true,
             "featureName": "User",
             "className": "fas fa-user",
-            "path": "/profile",
+            "path": "",
             "exact": true,
-            "component": <Profile />
+            "component": ""
         },
         nested: [
             {
                 items: {
                     "key": 2.1,
+                    'isShowing': true,
                     "featureName": "Create User",
                     "path": "/user-create",
                     "exact": true,
@@ -124,6 +131,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 2.2,
+                    'isShowing': true,
                     "featureName": "Approve User",
                     "path": "/user-approve",
                     "exact": true,
@@ -133,6 +141,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 2.3,
+                    'isShowing': false,
                     "featureName": "Update User",
                     "path": "/user-update",
                     "exact": true,
@@ -142,6 +151,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 2.4,
+                    'isShowing': false,
                     "featureName": "Update Approve User",
                     "path": "/user-update-approve",
                     "exact": true,
@@ -151,6 +161,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 2.5,
+                    'isShowing': true,
                     "featureName": "User List",
                     "path": "/user-list",
                     "exact": true,
@@ -160,6 +171,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 2.6,
+                    'isShowing': false,
                     "featureName": "Delete User",
                     "path": "/user-delete",
                     "exact": true,
@@ -175,16 +187,18 @@ const allRoutes = [
     {
         items: {
             "key": 3,
+            'isShowing': true,
             "featureName": "Profile",
             "className": "fas fa-address-card",
-            "path": "/about",
+            "path": "",
             "exact": true,
-            "component": <About />
+            "component": ""
         },
         nested: [
             {
                 items: {
                     "key": 3.1,
+                    'isShowing': true,
                     "featureName": "Update",
                     "path": "/profile-update",
                     "exact": true,
@@ -195,6 +209,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 3.2,
+                    'isShowing': true,
                     "featureName": "Picture Update",
                     "path": "/profile-picture-update",
                     "exact": true,
@@ -204,6 +219,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 3.3,
+                    'isShowing': true,
                     "featureName": "Password Change",
                     "path": "/password-change",
                     "exact": true,
@@ -215,6 +231,7 @@ const allRoutes = [
     {
         items: {
             "key": 4,
+            'isShowing': true,
             "featureName": "Setting",
             "className": "fas fa-project-diagram",
             "path": "/portfolio",
@@ -225,6 +242,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 4.1,
+                    'isShowing': true,
                     "featureName": "App Setting",
                     "path": "/app-setting",
                     "exact": true,
@@ -241,6 +259,7 @@ const allRoutes = [
     {
         items: {
             "key": 5,
+            'isShowing': true,
             "featureName": "E-KYC",
             "className": "fas fa-blog",
             "path": "/blogs",
@@ -251,6 +270,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 5.1,
+                    'isShowing': true,
                     "featureName": "Simplified",
                     "path": "/e-kyc-simplified",
                     "exact": true,
@@ -260,6 +280,7 @@ const allRoutes = [
                     {
                         items: {
                             "key": 5.11,
+                            'isShowing': true,
                             "featureName": "Create",
                             "path": "/simplified-create",
                             "exact": true,
@@ -270,6 +291,7 @@ const allRoutes = [
                     {
                         items: {
                             "key": 5.12,
+                            'isShowing': true,
                             "featureName": "Review",
                             "path": "/simplified-review",
                             "exact": true,
@@ -280,6 +302,7 @@ const allRoutes = [
                     {
                         items: {
                             "key": 5.13,
+                            'isShowing': true,
                             "featureName": "Upgrade",
                             "path": "/simplified-upgrade",
                             "exact": true,
@@ -294,6 +317,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 5.2,
+                    'isShowing': true,
                     "featureName": "Regular",
                     "path": "/e-kyc-regular",
                     "exact": true,
@@ -303,6 +327,7 @@ const allRoutes = [
                     {
                         items: {
                             "key": 5.21,
+                            'isShowing': true,
                             "featureName": "Create",
                             "path": "/regular-create",
                             "exact": true,
@@ -313,6 +338,7 @@ const allRoutes = [
                     {
                         items: {
                             "key": 5.22,
+                            'isShowing': true,
                             "featureName": "Review",
                             "path": "/regular-review",
                             "exact": true,
@@ -328,6 +354,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 5.3,
+                    'isShowing': true,
                     "featureName": "List & Search",
                     "path": "/e-kyc-list-&-search",
                     "exact": true,
@@ -338,6 +365,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 5.4,
+                    'isShowing': true,
                     "featureName": "List For User",
                     "path": "/e-kyc-list-for-user",
                     "exact": true,
@@ -353,6 +381,7 @@ const allRoutes = [
     {
         items: {
             "key": 6,
+            'isShowing': true,
             "featureName": "Report",
             "className": "fas fa-address-book",
             "path": "/contact",
@@ -363,6 +392,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 6.1,
+                    'isShowing': true,
                     "featureName": "Statistics",
                     "path": "/report-statistics",
                     "exact": true,
@@ -373,6 +403,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 6.2,
+                    'isShowing': true,
                     "featureName": "Access Log",
                     "path": "/reposrt-access-log",
                     "exact": true,
@@ -382,6 +413,7 @@ const allRoutes = [
             {
                 items: {
                     "key": 6.3,
+                    'isShowing': true,
                     "featureName": "Activity Log",
                     "path": "/reposrt-activity-log",
                     "exact": true,
@@ -392,6 +424,9 @@ const allRoutes = [
 
         ]
     },
+
+
+
 
 
     // {
@@ -437,6 +472,418 @@ const allRoutes = [
 
 
 
+export const allRoutes = [
+    {
+        items: {
+            "key": "1",
+            'isShowing': true,
+            "featureName": "Role",
+            "className": "fas fa-home",
+            "path": "",
+            "exact": true,
+            "component": ""
+        },
+        nested: [
+            {
+                items: {
+                    "key": "1.1",
+                    'isShowing': true,
+                    "featureName": "Create Role",
+                    "path": "/role-create",
+                    "exact": true,
+                    "component": <RoleCreate />
+                }
+
+
+            },
+            {
+                items: {
+                    "key": "1.2",
+                    'isShowing': true,
+                    "featureName": "Approve Role",
+                    "path": "/role-approve",
+                    "exact": true,
+                    "component": <RoleApprove />
+                }
+            },
+            {
+                items: {
+                    "key": "1.3",
+                    'isShowing': false,
+                    "featureName": "Update Role",
+                    "path": "/role-update",
+                    "exact": true,
+                    "component": ""
+                }
+            },
+            {
+                items: {
+                    "key": "1.4",
+                    'isShowing': false,
+                    "featureName": "Update Approve Role",
+                    "path": "/role-update-approve",
+                    "exact": true,
+                    "component": ""
+                }
+            },
+            {
+                items: {
+                    "key": "1.5",
+                    'isShowing': true,
+                    "featureName": "Role List",
+                    "path": "/role-list",
+                    "exact": true,
+                    "component": <RoleUpdate />
+                }
+            },
+            {
+                items: {
+                    "key": "1.6",
+                    'isShowing': false,
+                    "featureName": "Delete Role",
+                    "path": "/role-delete",
+                    "exact": true,
+                    "component": <Vission />
+                }
+            }
+
+        ]
+    },
+
+
+
+    {
+        items: {
+            "key": "2",
+            'isShowing': true,
+            "featureName": "User",
+            "className": "fas fa-user",
+            "path": "",
+            "exact": true,
+            "component": ""
+        },
+        nested: [
+            {
+                items: {
+                    "key": "2.1",
+                    'isShowing': true,
+                    "featureName": "Create User",
+                    "path": "/user-create",
+                    "exact": true,
+                    "component": <CreateUser />
+                }
+
+            },
+            {
+                items: {
+                    "key": "2.2",
+                    'isShowing': true,
+                    "featureName": "Approve User",
+                    "path": "/user-approve",
+                    "exact": true,
+                    "component": <UserApproval />
+                }
+            },
+            {
+                items: {
+                    "key": "2.3",
+                    'isShowing': false,
+                    "featureName": "Update User",
+                    "path": "/user-update",
+                    "exact": true,
+                    "component": <UpdateUser />
+                }
+            },
+            {
+                items: {
+                    "key": "2.4",
+                    'isShowing': false,
+                    "featureName": "Update Approve User",
+                    "path": "/user-update-approve",
+                    "exact": true,
+                    "component": <Achievement />
+                }
+            },
+            {
+                items: {
+                    "key": "2.5",
+                    'isShowing': true,
+                    "featureName": "User List",
+                    "path": "/user-list",
+                    "exact": true,
+                    "component": <UserList />
+                }
+            },
+            {
+                items: {
+                    "key": "2.6",
+                    'isShowing': false,
+                    "featureName": "Delete User",
+                    "path": "/user-delete",
+                    "exact": true,
+                    "component": <Vission />
+                }
+            }
+
+        ]
+    },
+
+
+
+    {
+        items: {
+            "key": "3",
+            'isShowing': true,
+            "featureName": "Profile",
+            "className": "fas fa-address-card",
+            "path": "",
+            "exact": true,
+            "component": ""
+        },
+        nested: [
+            {
+                items: {
+                    "key": "3.1",
+                    'isShowing': true,
+                    "featureName": "Update",
+                    "path": "/profile-update",
+                    "exact": true,
+                    "component": <Target />
+                }
+
+            },
+            {
+                items: {
+                    "key": "3.2",
+                    'isShowing': true,
+                    "featureName": "Picture Update",
+                    "path": "/profile-picture-update",
+                    "exact": true,
+                    "component": <Vission />
+                }
+            },
+            {
+                items: {
+                    "key": "3.3",
+                    'isShowing': true,
+                    "featureName": "Password Change",
+                    "path": "/password-change",
+                    "exact": true,
+                    "component": <ChangePassword />
+                }
+            }
+        ]
+    },
+    {
+        items: {
+            "key": "4",
+            'isShowing': true,
+            "featureName": "Setting",
+            "className": "fas fa-project-diagram",
+            "path": "/portfolio",
+            "exact": true,
+            "component": <Portfolio />
+        },
+        nested: [
+            {
+                items: {
+                    "key": "4.1",
+                    'isShowing': true,
+                    "featureName": "App Setting",
+                    "path": "/app-setting",
+                    "exact": true,
+                    "component": <Target />
+                }
+
+            }
+
+
+        ]
+    },
+
+
+    {
+        items: {
+            "key": "5",
+            'isShowing': true,
+            "featureName": "E-KYC",
+            "className": "fas fa-blog",
+            "path": "/blogs",
+            "exact": true,
+            "component": <Blogs />
+        },
+        nested: [
+            {
+                items: {
+                    "key": "5.1",
+                    'isShowing': true,
+                    "featureName": "Simplified",
+                    "path": "/e-kyc-simplified",
+                    "exact": true,
+                    "component": <Target />
+                },
+                nested: [
+                    {
+                        items: {
+                            "key": "5.1.1",
+                            'isShowing': true,
+                            "featureName": "Create",
+                            "path": "/simplified-create",
+                            "exact": true,
+                            "component": <Account />
+                        }
+
+                    },
+                    {
+                        items: {
+                            "key": "5.1.2",
+                            'isShowing': true,
+                            "featureName": "Review",
+                            "path": "/simplified-review",
+                            "exact": true,
+                            "component": <Target />
+                        }
+
+                    },
+                    {
+                        items: {
+                            "key": "5.1.3",
+                            'isShowing': true,
+                            "featureName": "Upgrade",
+                            "path": "/simplified-upgrade",
+                            "exact": true,
+                            "component": <Target />
+                        }
+
+                    },
+
+                ]
+
+            },
+            {
+                items: {
+                    "key": "5.2",
+                    'isShowing': true,
+                    "featureName": "Regular",
+                    "path": "/e-kyc-regular",
+                    "exact": true,
+                    "component": <Target />
+                },
+                nested: [
+                    {
+                        items: {
+                            "key": "5.2.1",
+                            'isShowing': true,
+                            "featureName": "Create",
+                            "path": "/regular-create",
+                            "exact": true,
+                            "component": <Target />
+                        }
+
+                    },
+                    {
+                        items: {
+                            "key": "5.2.2",
+                            'isShowing': true,
+                            "featureName": "Review",
+                            "path": "/regular-review",
+                            "exact": true,
+                            "component": <Target />
+                        }
+
+                    }
+
+
+                ]
+
+            },
+            {
+                items: {
+                    "key": '5.3',
+                    'isShowing': true,
+                    "featureName": "List & Search",
+                    "path": "/e-kyc-list-&-search",
+                    "exact": true,
+                    "component": <Target />
+                },
+
+            },
+            {
+                items: {
+                    "key": "5.4",
+                    'isShowing': true,
+                    "featureName": "List For User",
+                    "path": "/e-kyc-list-for-user",
+                    "exact": true,
+                    "component": <Target />
+                },
+
+            }
+
+        ]
+    },
+
+
+    {
+        items: {
+            "key": "6",
+            'isShowing': true,
+            "featureName": "Report",
+            "className": "fas fa-address-book",
+            "path": "/contact",
+            "exact": true,
+            "component": <Contact />
+        },
+        nested: [
+            {
+                items: {
+                    "key": "6.1",
+                    'isShowing': true,
+                    "featureName": "Statistics",
+                    "path": "/report-statistics",
+                    "exact": true,
+                    "component": <Target />
+                }
+
+            },
+            {
+                items: {
+                    "key": "6.2",
+                    'isShowing': true,
+                    "featureName": "Access Log",
+                    "path": "/reposrt-access-log",
+                    "exact": true,
+                    "component": <Vission />
+                }
+            },
+            {
+                items: {
+                    "key": "6.3",
+                    'isShowing': true,
+                    "featureName": "Activity Log",
+                    "path": "/reposrt-activity-log",
+                    "exact": true,
+                    "component": <Vission />
+                }
+            }
+
+
+        ]
+    }
+
+
+
+
+
+
+];
+
+
+
+
+
+
+
 
 
 //
@@ -459,8 +906,12 @@ export function getFlatRouteArray(routes) {
 
 //
 export function pruneRouteArray(featureArray) {
+    console.log("feature Array", featureArray)
+    //let allRoutesCopy = Object.assign({}, allRoutes)
     let pruneRoutes = Object.assign([], allRoutes);
+    console.log("All routes", allRoutes)
     function recursivePrune(objArr) {
+        console.log("Obj Array", objArr)
         for (let i = 0; i < objArr.length; i++) {
             if ('nested' in objArr[i]) {
                 recursivePrune(objArr[i].nested);

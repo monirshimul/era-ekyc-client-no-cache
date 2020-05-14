@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
+import { allRoutes } from '../../flattenObjectTwo'
 
 
 
@@ -9,8 +10,9 @@ import { pruneRouteArray, getFlatRouteArray } from '../../flattenObjectTwo';
 class CreateRole extends Component {
     constructor() {
         super();
-        this.firstMenu = pruneRouteArray([1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3, 3.1, 3.2, 3.3, 4, 4.1, 5, 5.1, 5.11, 5.12, 5.13, 5.2, 5.21, 5.22, 5.3, 5.4, 6, 6.1, 6.2, 6.3]);
-        this.allMenu = getFlatRouteArray(this.firstMenu);
+        console.log("Create Role All Routes", allRoutes);
+        this.allMenu = getFlatRouteArray(allRoutes);
+
     }
 
 
@@ -54,14 +56,19 @@ class CreateRole extends Component {
         e.preventDefault();
         let { roleName, description, ipList, grantedIPList, rolePrivileges } = this.state
         try {
-            grantedIPList = ipList.split(',')
+            if (ipList === "") {
+                grantedIPList = []
+            } else {
+                grantedIPList = ipList.split(',')
+            }
+
             let data = {
                 roleName: roleName,
                 description: description,
                 grantedIPList: grantedIPList,
                 rolePrivileges: rolePrivileges
             }
-            console.log("Data", data)
+            console.log("Create Role Data", data)
             let url = 'http://127.0.0.1:3001/role/';
             let res = await axios.post(url, data)
             console.log("response", res.data)
