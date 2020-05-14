@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './VerifyLoginCode.css';
-//import '../../'
-import bg from '../../../Login/image/wave2.png';
+import bg from '../../Login/image/wave2.png';
 import { withRouter, Link } from 'react-router-dom';
 
 export class VerifyLoginCode extends Component {

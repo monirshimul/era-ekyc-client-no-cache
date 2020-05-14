@@ -22,6 +22,9 @@ import UserList from './E-KYC/User/UserList';
 import UserApproval from './E-KYC/User/UserApproval';
 import UpdateUser from './E-KYC/User/UpdateUser';
 
+//Profile Management
+ import ChangePassword from './E-KYC/Profile/ChangePass';
+
 
 
 
@@ -204,7 +207,7 @@ const allRoutes = [
                     "featureName": "Password Change",
                     "path": "/password-change",
                     "exact": true,
-                    "component": <Goal />
+                    "component": <ChangePassword />
                 }
             }
         ]
