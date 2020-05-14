@@ -66,10 +66,10 @@ class UpdateUser extends Component {
         //getRolewithFilter
 
         try {
-            let listRoles = await axios.post(getRoleWithFilter + 1, actRole);
+            let listRoles = await axios.post(getRoleWithFilter, actRole);
 
             //listRoles data get from API
-            let filterRoles = listRoles.data.data.data;
+            let filterRoles = listRoles.data.data;
             //Create an array filter data for filter id and roleName key from each object get from API
             let filterData = Object.assign([], this.state.role_list);
             //Filter id and roleName from listRoles API

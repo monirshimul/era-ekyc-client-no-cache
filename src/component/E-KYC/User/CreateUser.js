@@ -31,11 +31,11 @@ class CreateUser extends Component {
         const {page} = this.state;
         const roleObj = { status: "A" }
         try {
-            let listRoles = await axios.post(getRoleWithFilter+page, roleObj);
+            let listRoles = await axios.post(getRoleWithFilter, roleObj);
             
             //listRoles data get from API
-            let filterRoles = listRoles.data.data.data;
-            //console.log("filterroles ", filterRoles);
+            let filterRoles = listRoles.data.data;
+            console.log("filterroles ", filterRoles);
             //Create an array filter data for filter id and roleName key from each object get from API
             let filterData = Object.assign([], this.state.role_list);
             //Filter id and roleName from listRoles API

@@ -35,9 +35,9 @@ class Login extends Component {
             let features = loginSuccess.data.features;
 
             //Session Storage
-            localStorage.setItem('authToken', token);
-            localStorage.setItem('featureList', features);
-
+            sessionStorage.setItem('x-auth-token',JSON.stringify(token));
+            sessionStorage.setItem('featureList', JSON.stringify(features));
+            console.log("token", token);
             let statusCode = loginSuccess.statusCode;
 
             if (statusCode === 200) {
@@ -51,6 +51,7 @@ class Login extends Component {
         } catch (err) {
             // console.log(err.response);
             let error = err.response;
+            console.log(err.response);
             let statusCode = err.response.data.statusCode;
             if (statusCode === 400) {
                 let errorMessage = "Invalid Credentials";
@@ -59,7 +60,14 @@ class Login extends Component {
                     userId:'',
                     password:''
                 });
-            } else {
+            }else if (statusCode === 401){
+                let errorMessage = "Invalid Credentials";
+                alert(statusCode + ' ' + errorMessage);
+                this.setState({
+                    userId:'',
+                    password:''
+                });
+            }else {
                 let errorMessage = "Server Error";
                 alert(statusCode + ' ' + errorMessage);
                 this.setState({
