@@ -1,38 +1,145 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import { withRouter } from 'react-router-dom'
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import { getFlatRouteArray } from '../../flattenObjectTwo';
+import { allRoutes } from '../../flattenObjectTwo';
 
-class UpdateRole extends Component {
+
+export class UpdateRole extends Component {
+    constructor(props) {
+        super(props);
+        //console.log("props", props)
+        this.allMenu = getFlatRouteArray(allRoutes)
+    }
+
+
+
     state = {
-        pendingList: [],
-        modalData: [],
-        searchValue: "",
-        checkBoxOne: false,
-        checkBoxValue: "",
-        checkBoxTwo: false,
-        checkBoxThree: false,
+        id: "",
+        status: "",
+        roleName: "",
+        description: "",
+        ipList: "",
+        grantedIPList: [],
+        featureList: this.props.history.location.state.rolePrivileges
+
+
     }
 
-    async componentDidMount() {
-
-        const Obj = { status: "A" };
-        let url = 'http://127.0.0.1:3001/role/get/';
-        let res = await axios.post(url, Obj);
+    componentDidMount() {
+        let { id, status, roleName, description, grantedIPList } = this.props.history.location.state
         this.setState({
-            pendingList: res.data.data
+            id: id,
+            status: status,
+            roleName: roleName,
+            description: description,
+            ipList: grantedIPList.toString()
+
+
+
+
         })
-        //console.log("All Data", this.state.pendingList.data)
+
+        // console.log("this.state.featureList", this.state.featureList)
+        // console.log("this.state.iplist", this.state.ipList)
 
     }
 
-    // async componentDidUpdate() {
-    //     const Obj = { status: "A" };
-    //     let url = 'http://127.0.0.1:3001/role/get/';
-    //     let res = await axios.post(url, Obj);
-    //     this.setState({
-    //         pendingList: res.data.data
-    //     })
-    // }
+
+
+
+
+
+
+
+    // ================== Multi Check box onChange Method ==========================
+
+    isChecked = (key) => {
+        //console.log("Feature key", key)
+        //console.log("Feature List", this.state.featureList.map(f => f[0]))
+        const existingFeaturesFlat = this.state.featureList.map(f => f[0]);
+        //console.log("existingFeaturesFlat.includes(key)", existingFeaturesFlat.includes(key))
+        return existingFeaturesFlat.includes(key.toString());
+    }
+
+
+    getIndex = (key) => {
+        const featureList = this.state.featureList;
+        for (let i = 0; i < featureList.length; i++) {
+            if (featureList[i][0] === key)
+                return i;
+        }
+        return -1;
+    }
+
+    handleCheckBoxChange = (e) => {
+        const keyValue = e.value.split(',');
+        const featureList = this.state.featureList;
+        const index = this.getIndex(keyValue[0]);
+        if (index > -1) {
+            featureList.splice(index, 1);
+            this.setState({
+                featureList: featureList
+            }, () => {
+                console.log(this.state.featureList);
+            });
+        }
+        else {
+            featureList.push(keyValue);
+            this.setState({
+                featureList: featureList
+            }, () => {
+                console.log(this.state.featureList);
+            });
+        }
+    }
+
+    // ==================End of Multi Check box onChange Method =====================
+
+
+
+
+
+    onFormSubmit = async (e) => {
+        e.preventDefault();
+        let { id, status, roleName, description, ipList, grantedIPList, featureList } = this.state
+
+        try {
+            if (ipList === "") {
+                grantedIPList = []
+            } else {
+                grantedIPList = ipList.split(',')
+            }
+
+
+            let data = {
+                id: id,
+                status: status,
+                roleName: roleName,
+                description: description,
+                grantedIPList: grantedIPList,
+                rolePrivileges: featureList
+
+            }
+            //console.log("Data", data)
+            let url = 'http://127.0.0.1:3001/role';
+            let res = await axios.put(url, data)
+            //console.log("response", res.data)
+
+            localStorage.setItem("Role Data", JSON.stringify(data))
+            this.props.history.push("/dashboard/role-update", data)
+
+        } catch (error) {
+            //let { reason } = error.response.data
+
+            // alert(reason.map(v => (
+            //     JSON.stringify(Object.values(v.constraints))
+            // )))
+            console.log("This is Error==>", error.message)
+        }
+
+
+    }
 
     textHandleChange = e => {
         e.preventDefault()
@@ -40,463 +147,109 @@ class UpdateRole extends Component {
     }
 
 
-    onSearchSubmit = async (e) => {
-        e.preventDefault();
-        let { searchValue } = this.state
-        if (this.state.checkBoxValue === "id") {
-
-            try {
-                let obj = {
-                    id: parseInt(searchValue)
-                }
-
-
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj);
-                this.setState({
-                    pendingList: res.data.data,
-                    checkBoxValue: "",
-                    searchValue: "",
-                    checkBoxOne: false
-                })
-
-            } catch (error) {
-                console.log(error.message)
-            }
-        }
-        if (this.state.checkBoxValue === "status") {
-            try {
-                let obj = {
-                    status: searchValue
-                }
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj);
-                this.setState({
-                    pendingList: res.data.data,
-                    checkBoxValue: "",
-                    searchValue: "",
-                    checkBoxTwo: false
-                })
-
-            } catch (error) {
-                console.log(error.message)
-            }
-        }
-        if (this.state.checkBoxValue === "roleName") {
-            try {
-                let obj = {
-                    roleName: searchValue
-                }
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj);
-                this.setState({
-                    pendingList: res.data.data,
-                    checkBoxValue: "",
-                    searchValue: "",
-                    checkBoxThree: false
-                })
-
-            } catch (error) {
-                console.log(error.message)
-            }
-        }
-    }
-
-    onCheckOneChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxOne === false) {
-            this.setState({
-                checkBoxOne: !this.state.checkBoxOne,
-                checkBoxValue: value
-
-            })
-        } else {
-            this.setState({
-                checkBoxOne: !this.state.checkBoxOne,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
-    onCheckTwoChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxTwo === false) {
-            this.setState({
-                checkBoxTwo: !this.state.checkBoxTwo,
-                checkBoxValue: value
-
-            })
-        } else {
-            this.setState({
-                checkBoxTwo: !this.state.checkBoxTwo,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
-    onCheckThreeChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxThree === false) {
-            this.setState({
-                checkBoxThree: !this.state.checkBoxThree,
-                checkBoxValue: value
-
-            })
-        } else {
-            this.setState({
-                checkBoxThree: !this.state.checkBoxThree,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
-
-
-    onUpdate = async (id) => {
-        try {
-            //console.log("id", id)
-            let url = 'http://127.0.0.1:3001/role/get/';
-            let obj = {
-                id: id
-
-            }
-            let res = await axios.post(url, obj)
-            //console.log(res.data.data)
-            let data = res.data.data
-            console.log(data)
-
-            let roleData = {
-                id: data[0].id,
-                status: data[0].status,
-                roleName: data[0].roleName,
-                description: data[0].description,
-                grantedIPList: data[0].grantedIPList,
-                rolePrivileges: data[0].rolePrivileges
-
-            }
-            console.log("All Role Data", roleData)
-
-            this.props.history.push("/dashboard/update-role-details", roleData)
-        } catch (error) {
-            // let { reason } = error.response.data
-
-            // alert(reason.map(v => (
-            //     JSON.stringify(Object.values(v.constraints))
-            // )))
-        }
-
-
-
-    }
-    onArchive = async (id) => {
-        console.log("id", id)
-        let url = 'http://127.0.0.1:3001/role/status';
-        let data = {
-            id: id,
-            status: "D"
-        }
-        let res = await axios.put(url, data)
-        console.log(res.data)
-
-    }
-
-    onModalShow = async (id) => {
-        try {
-
-            let url = 'http://127.0.0.1:3001/role/get/';
-            let obj = {
-                id: id
-            }
-            let res = await axios.post(url, obj)
-            let data = res.data.data
-            this.setState({
-                modalData: data
-            })
-            console.log(data)
-
-        } catch (error) {
-            // let { reason } = error.response.data
-
-            // alert(reason.map(v => (
-            //     JSON.stringify(Object.values(v.constraints))
-            // )))
-        }
-    }
-
-
-
-
-
     render() {
-        const { pendingList, modalData, checkBoxOne, checkBoxTwo, checkBoxThree, checkBoxValue, searchValue } = this.state
+        const { id, status, roleName, description, ipList, grantedIPList, rolePrivileges, rolePrivilegesOne, rolePrivilegesTwo } = this.state
 
-        // {
-        //     console.log("Check One", checkBoxOne)
-        //     console.log("Check One value", checkBoxValue)
-        //     console.log("Check Two", checkBoxTwo)
-        //     console.log("Check Two value", checkBoxValue)
-        //     console.log("Check Three", checkBoxThree)
-        //     console.log("Check Three value", checkBoxValue)
-        // }
+
+
         return (
-            <div className="col-sm-12" >
+            <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
 
-
-                <div className="d-flex justify-content-center">
-                    <div className="card col" style={{ padding: "25px" }}>
-                        <div className="im">
-                            <h5 className="text-muted text-center pt-2">
-                                Search Role
-                        </h5>
-                        </div>
-                        <div className="card-body d-flex justify-content-center">
-                            <form className="col-sm-8">
-                                <div className="form-group " >
-                                    <label htmlFor=""></label>
-                                    <input style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by Id / Role Name / Status" />
-                                    <small className="text-muted pl-2">
-                                        <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
-                            </small>
-                                </div>
-                                <div className="form-group d-flex justify-content-center">
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxOne}
-                                            onChange={(e) => this.onCheckOneChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="id"
-                                            style={{ cursor: "pointer" }}
-                                            id="one"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" for="one">Search By ID</label>
-
-                                    </div>
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxTwo}
-                                            onChange={(e) => this.onCheckTwoChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="status"
-                                            style={{ cursor: "pointer" }}
-                                            id="two"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" for="two">Search By Status</label>
-
-                                    </div>
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxThree}
-                                            onChange={(e) => this.onCheckThreeChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="roleName"
-                                            style={{ cursor: "pointer" }}
-                                            id="three"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" for="three">Search By Role Name</label>
-
-                                    </div>
-                                </div>
-                                <div className="d-flex justify-content-center pt-2" >
-                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" >Search</button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-
+                <div className="card-header divBg">
+                    <h3 className="text-center pt-3">
+                        Update Role
+                    </h3>
                 </div>
-
-                {/* <table className="table table-hover mt-5" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)" }}>
-                    <thead>
-
-                        <tr className="text-center text-muted im">
-
-                            <th scope="col" style={{ fontSize: "17px", borderRight: "1px solid #d4d4d4" }}>ID</th>
-                            <th scope="col" style={{ fontSize: "17px", borderRight: "1px solid #d4d4d4" }}>RoleName</th>
-                            <th scope="col" style={{ fontSize: "17px", borderRight: "1px solid #d4d4d4" }}>Description</th>
-                            <th scope="col" style={{ fontSize: "17px", borderRight: "1px solid #d4d4d4" }}>IP List</th>
-                            <th scope="col" style={{ fontSize: "17px", borderRight: "1px solid #d4d4d4" }}>Features</th>
-                            <th scope="col" style={{ fontSize: "17px", borderRight: "1px solid #d4d4d4" }}>Status</th>
-                            <th scope="col" style={{ fontSize: "17px" }}>Action</th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        {pendingList.map((value, index) => (
-                            <tr key={index} className="text-center" style={{ padding: "10px" }}>
-                                <td style={{ fontSize: "14px", borderRight: "1px solid #d4d4d4" }}>{value.id}</td>
-                                <td style={{ fontSize: "14px", borderRight: "1px solid #d4d4d4" }}>{value.roleName}</td>
-                                <td style={{ fontSize: "14px", borderRight: "1px solid #d4d4d4" }}>{value.description}</td>
-                                <td style={{ fontSize: "14px", borderRight: "1px solid #d4d4d4" }}>{value.grantedIPList.map(v => v + ", ")}</td>
-                                <td style={{ fontSize: "14px", borderRight: "1px solid #d4d4d4" }}>{value.rolePrivileges.map(v => v[1] + ", ")}</td>
-                                <td style={{ fontSize: "14px", borderRight: "1px solid #d4d4d4" }}>{value.status === "P" ? "Pending" : value.status}</td>
-                                <td style={{ fontSize: "14px" }}>
-                                    <div className="d-flex">
-                                        <span className="sbtn" onClick={() => this.onUpdate(value.id)}>Update</span>
-                                        <span className="sbtnx" onClick={() => this.onReject(value.id)}>Archive</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                <div className="card-body">
+                    <form >
 
 
-                    </tbody>
-                </table> */}
+                        <div className="form-group">
+                            <label htmlFor="">Role Name</label>
+                            <input name="roleName" type="text" value={roleName} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Name" />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="">Role Status</label>
+                            <input name="status" type="text" value={status} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Status P/A/R" />
+                        </div>
+
+
+                        <div className="form-group">
+                            <label htmlFor="">Description</label>
+                            <textarea name="description" value={description} onChange={this.textHandleChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Role Description"></textarea>
+
+                        </div>
+
+                        <div className="form-group">
+                            <label for="exampleTextarea">IP List</label>
+                            <textarea name="ipList" value={ipList} onChange={this.textHandleChange} class="form-control" id="exampleTextareaTwo" rows="3" placeholder="Enter Granted IP list"></textarea>
+
+                        </div>
 
 
 
-                <div className="card mt-3">
-                    <div className="im">
-                        <h5 className="text-muted text-center pt-2">
-                            Role List
-                        </h5>
-                    </div>
-                    <div className="card-body">
-                        <div className="row d-flex justify-content-center">
+
+                        <div className="form-group"  >
+
+
+
+
+                            <p className="text-muted">Choose Feature From Feature's List</p>
                             {
-                                pendingList.map((value, index) => (
-                                    <div key={index} className="col-sm-3 mr-2 divBgCard" style={{ color: "#333", padding: "15px" }}>
-                                        <div className="text-center im">
-                                            <small className="text-muted"><i class="fas fa-sort-numeric-up"></i> ID : <span>{value.id}</span></small>
-                                        </div>
-                                        <hr />
+                                this.allMenu.map((features, index) => (
+                                    <div>
+                                        {
+                                            features.key % 1 === 0 ? (
+                                                <div className="">
+                                                    <hr />
+                                                    <h1 className="text-center im" >{features.featureName}</h1>
+                                                    <hr />
 
-
-                                        <div>
-                                            <small className="text-muted"><i class="fas fa-battery-three-quarters"></i> Status : <span>{value.status}</span></small>
-                                        </div>
-                                        <div>
-                                            <small className="text-muted"><i class="fab fa-mizuni"></i> Role Name : <span>{value.roleName}</span></small>
-                                        </div>
-
-                                        <div>
-                                            <small className="text-muted"><i class="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
-                                        </div>
-                                        <div>
-                                            <small className="text-muted"><i class="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList.map(v => v + ", ")}</span></small>
-                                        </div>
-                                        <hr />
-
-                                        <div className="d-flex justify-content-center mt-2">
-                                            <span className="sbtn mr-2" onClick={() => this.onUpdate(value.id)}>Update</span>
-                                            <span className="sbtnx mr-2" onClick={() => this.onArchive(value.id)}>Archive</span>
-                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} >Details</span>
-                                        </div>
-
-
-
-                                        {/* <!-- Modal --> */}
-                                        <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div className="modal-dialog modal-dialog-centered" role="document">
-                                                <div className="modal-content imTwo">
-                                                    <div className="modal-header divBg">
-                                                        <h5 className="modal-title" id="exampleModalCenterTitle">Role Details</h5>
-                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div className="modal-body">
-                                                        {modalData.map(val => (
-                                                            <div className="">
-                                                                <div className="">
-                                                                    <small className="text-muted"><i class="fas fa-sort-numeric-up"></i> ID : <span>{val.id}</span></small>
-                                                                </div>
-
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fas fa-battery-three-quarters"></i> Status : <span>{val.status}</span></small>
-                                                                </div>
-
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fab fa-mizuni"></i> Role Name : <span>{val.roleName}</span></small>
-                                                                </div>
-                                                                <hr />
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fas fa-pen-nib"></i> Description : <span>{val.description}</span></small>
-                                                                </div>
-
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fas fa-digital-tachograph"></i> IP List : <span>{val.grantedIPList.map(v => v + ", ")}</span></small>
-                                                                </div>
-
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fab fa-elementor"></i> Features : <span>{val.rolePrivileges.map(v => v[1] + ", ")}</span></small>
-                                                                </div>
-                                                                <hr />
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fas fa-user-shield"></i> Created By : <span>{val.createdBy}</span></small>
-                                                                </div>
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fas fa-user-tag"></i> Approved By : <span>{val.approvedBy}</span></small>
-                                                                </div>
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fas fa-user-edit"></i> Updated By : <span>{val.updatedBy}</span></small>
-                                                                </div>
-
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fas fa-calendar-check"></i> Created Date : <span>{val.createDate}</span></small>
-                                                                </div>
-
-                                                                <div>
-                                                                    <small className="text-muted"><i class="far fa-calendar-alt"></i> Approved Date : <span>{val.approveDate}</span></small>
-                                                                </div>
-
-
-                                                                <div>
-                                                                    <small className="text-muted"><i class="far fa-calendar-check"></i> Updated Date : <span>{val.updateDate}</span></small>
-                                                                </div>
-
-                                                            </div>
-
-                                                        ))}
-                                                    </div>
-                                                    <div className="modal-footer imTwo">
-                                                        <span className="sbtnx" data-dismiss="modal">Close</span>
-
-                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
+                                            ) : (
+
+                                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} key={index} >
+
+                                                        <input
+                                                            type="checkbox"
+                                                            name={features.key}
+                                                            checked={this.isChecked(features.key)}
+                                                            className="custom-control-input"
+                                                            id={index + 1}
+                                                            style={{ marginRight: "5px" }}
+                                                            onChange={(e) => {
+                                                                this.handleCheckBoxChange({
+                                                                    value: e.target.value
+                                                                })
+                                                            }}
+                                                            value={features.key + "," + features.featureName}
+                                                            style={{ cursor: "pointer" }}
+
+                                                        />
+                                                        <label className="custom-control-label" for={index + 1}>{features.featureName}</label>
+
+                                                    </div>
+                                                )
+                                        }
                                     </div>
 
                                 ))
                             }
+
+
                         </div>
 
-                    </div>
 
+                        <div className="d-flex justify-content-center" >
+                            <button onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} >Update</button>
+                        </div>
 
-
-
-
+                    </form>
                 </div>
+
+
 
             </div>
         )

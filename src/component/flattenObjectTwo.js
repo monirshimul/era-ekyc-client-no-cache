@@ -1,19 +1,17 @@
 import React from 'react';
-import Home from './Dashboard/NestedComponentDemo/Home';
-import Profile from './Dashboard/NestedComponentDemo/Profile';
-import About from './Dashboard/NestedComponentDemo/About';
+
 import Portfolio from './Dashboard/NestedComponentDemo/Portfolio';
 import Blogs from './Dashboard/NestedComponentDemo/Blogs';
 import Contact from './Dashboard/NestedComponentDemo/Contact';
 import Account from './E-KYC/Simplified/Account';
-import Test from './E-KYC/Role/Test'
+
 
 import RoleCreate from './E-KYC/Role/CreateRole';
 import RoleApprove from './E-KYC/Role/ApproveRole';
-import RoleUpdate from './E-KYC/Role/UpdateRole';
+import RoleList from './E-KYC/Role/RoleList';
+import UpdateRole from './E-KYC/Role/UpdateRole'
 import Target from './Dashboard/NestedComponentDemo/Target';
 import Vission from './Dashboard/NestedComponentDemo/Vission';
-import Goal from './Dashboard/NestedComponentDemo/Goal';
 import Achievement from './Dashboard/NestedComponentDemo/Achievement';
 
 //User Management
@@ -26,10 +24,13 @@ import UpdateUser from './E-KYC/User/UpdateUser';
 import ChangePassword from './E-KYC/Profile/ChangePass';
 
 
-const allRoutesInt = [
+
+
+
+export const allRoutesCopy = [
     {
         items: {
-            "key": 1,
+            "key": "1",
             'isShowing': true,
             "featureName": "Role",
             "className": "fas fa-home",
@@ -40,7 +41,7 @@ const allRoutesInt = [
         nested: [
             {
                 items: {
-                    "key": 1.1,
+                    "key": "1.1",
                     'isShowing': true,
                     "featureName": "Create Role",
                     "path": "/role-create",
@@ -52,7 +53,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 1.2,
+                    "key": "1.2",
                     'isShowing': true,
                     "featureName": "Approve Role",
                     "path": "/role-approve",
@@ -62,17 +63,17 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 1.3,
+                    "key": "1.3",
                     'isShowing': false,
                     "featureName": "Update Role",
-                    "path": "/role-update",
+                    "path": "/update-role",
                     "exact": true,
-                    "component": ""
+                    "component": <UpdateRole />
                 }
             },
             {
                 items: {
-                    "key": 1.4,
+                    "key": "1.4",
                     'isShowing': false,
                     "featureName": "Update Approve Role",
                     "path": "/role-update-approve",
@@ -82,17 +83,17 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 1.5,
+                    "key": "1.5",
                     'isShowing': true,
                     "featureName": "Role List",
                     "path": "/role-list",
                     "exact": true,
-                    "component": <RoleUpdate />
+                    "component": <RoleList />
                 }
             },
             {
                 items: {
-                    "key": 1.6,
+                    "key": "1.6",
                     'isShowing': false,
                     "featureName": "Delete Role",
                     "path": "/role-delete",
@@ -108,7 +109,7 @@ const allRoutesInt = [
 
     {
         items: {
-            "key": 2,
+            "key": "2",
             'isShowing': true,
             "featureName": "User",
             "className": "fas fa-user",
@@ -119,7 +120,7 @@ const allRoutesInt = [
         nested: [
             {
                 items: {
-                    "key": 2.1,
+                    "key": "2.1",
                     'isShowing': true,
                     "featureName": "Create User",
                     "path": "/user-create",
@@ -130,7 +131,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 2.2,
+                    "key": "2.2",
                     'isShowing': true,
                     "featureName": "Approve User",
                     "path": "/user-approve",
@@ -140,7 +141,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 2.3,
+                    "key": "2.3",
                     'isShowing': false,
                     "featureName": "Update User",
                     "path": "/user-update",
@@ -150,7 +151,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 2.4,
+                    "key": "2.4",
                     'isShowing': false,
                     "featureName": "Update Approve User",
                     "path": "/user-update-approve",
@@ -160,7 +161,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 2.5,
+                    "key": "2.5",
                     'isShowing': true,
                     "featureName": "User List",
                     "path": "/user-list",
@@ -170,7 +171,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 2.6,
+                    "key": "2.6",
                     'isShowing': false,
                     "featureName": "Delete User",
                     "path": "/user-delete",
@@ -186,7 +187,7 @@ const allRoutesInt = [
 
     {
         items: {
-            "key": 3,
+            "key": "3",
             'isShowing': true,
             "featureName": "Profile",
             "className": "fas fa-address-card",
@@ -197,7 +198,7 @@ const allRoutesInt = [
         nested: [
             {
                 items: {
-                    "key": 3.1,
+                    "key": "3.1",
                     'isShowing': true,
                     "featureName": "Update",
                     "path": "/profile-update",
@@ -208,7 +209,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 3.2,
+                    "key": "3.2",
                     'isShowing': true,
                     "featureName": "Picture Update",
                     "path": "/profile-picture-update",
@@ -218,7 +219,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 3.3,
+                    "key": "3.3",
                     'isShowing': true,
                     "featureName": "Password Change",
                     "path": "/password-change",
@@ -230,7 +231,7 @@ const allRoutesInt = [
     },
     {
         items: {
-            "key": 4,
+            "key": "4",
             'isShowing': true,
             "featureName": "Setting",
             "className": "fas fa-project-diagram",
@@ -241,7 +242,7 @@ const allRoutesInt = [
         nested: [
             {
                 items: {
-                    "key": 4.1,
+                    "key": "4.1",
                     'isShowing': true,
                     "featureName": "App Setting",
                     "path": "/app-setting",
@@ -258,7 +259,7 @@ const allRoutesInt = [
 
     {
         items: {
-            "key": 5,
+            "key": "5",
             'isShowing': true,
             "featureName": "E-KYC",
             "className": "fas fa-blog",
@@ -269,7 +270,7 @@ const allRoutesInt = [
         nested: [
             {
                 items: {
-                    "key": 5.1,
+                    "key": "5.1",
                     'isShowing': true,
                     "featureName": "Simplified",
                     "path": "/e-kyc-simplified",
@@ -279,7 +280,7 @@ const allRoutesInt = [
                 nested: [
                     {
                         items: {
-                            "key": 5.11,
+                            "key": "5.1.1",
                             'isShowing': true,
                             "featureName": "Create",
                             "path": "/simplified-create",
@@ -290,7 +291,7 @@ const allRoutesInt = [
                     },
                     {
                         items: {
-                            "key": 5.12,
+                            "key": "5.1.2",
                             'isShowing': true,
                             "featureName": "Review",
                             "path": "/simplified-review",
@@ -301,7 +302,7 @@ const allRoutesInt = [
                     },
                     {
                         items: {
-                            "key": 5.13,
+                            "key": "5.1.3",
                             'isShowing': true,
                             "featureName": "Upgrade",
                             "path": "/simplified-upgrade",
@@ -316,7 +317,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 5.2,
+                    "key": "5.2",
                     'isShowing': true,
                     "featureName": "Regular",
                     "path": "/e-kyc-regular",
@@ -326,7 +327,7 @@ const allRoutesInt = [
                 nested: [
                     {
                         items: {
-                            "key": 5.21,
+                            "key": "5.2.1",
                             'isShowing': true,
                             "featureName": "Create",
                             "path": "/regular-create",
@@ -337,7 +338,7 @@ const allRoutesInt = [
                     },
                     {
                         items: {
-                            "key": 5.22,
+                            "key": "5.2.2",
                             'isShowing': true,
                             "featureName": "Review",
                             "path": "/regular-review",
@@ -353,7 +354,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 5.3,
+                    "key": '5.3',
                     'isShowing': true,
                     "featureName": "List & Search",
                     "path": "/e-kyc-list-&-search",
@@ -364,7 +365,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 5.4,
+                    "key": "5.4",
                     'isShowing': true,
                     "featureName": "List For User",
                     "path": "/e-kyc-list-for-user",
@@ -380,7 +381,7 @@ const allRoutesInt = [
 
     {
         items: {
-            "key": 6,
+            "key": "6",
             'isShowing': true,
             "featureName": "Report",
             "className": "fas fa-address-book",
@@ -391,7 +392,7 @@ const allRoutesInt = [
         nested: [
             {
                 items: {
-                    "key": 6.1,
+                    "key": "6.1",
                     'isShowing': true,
                     "featureName": "Statistics",
                     "path": "/report-statistics",
@@ -402,7 +403,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 6.2,
+                    "key": "6.2",
                     'isShowing': true,
                     "featureName": "Access Log",
                     "path": "/reposrt-access-log",
@@ -412,7 +413,7 @@ const allRoutesInt = [
             },
             {
                 items: {
-                    "key": 6.3,
+                    "key": "6.3",
                     'isShowing': true,
                     "featureName": "Activity Log",
                     "path": "/reposrt-activity-log",
@@ -423,50 +424,13 @@ const allRoutesInt = [
 
 
         ]
-    },
+    }
 
 
 
 
 
-    // {
-    //     items: {
-    //         "id": 7,
-    //         "featureName": "Map",
-    //         "className": "fas fa-map-pin",
-    //         "path": "/map",
-    //         "exact": true,
-    //         "component": <Map />
-    //     },
-    //     nested: [
-    //         {
-    //             items: {
-    //                 "featureName": "Target",
-    //                 "path": "/target",
-    //                 "exact": true,
-    //                 "component": <Target />
-    //             }
 
-    //         },
-    //         {
-    //             items: {
-    //                 "featureName": "Vission",
-    //                 "path": "/vission",
-    //                 "exact": true,
-    //                 "component": <Vission />
-    //             }
-    //         },
-    //         {
-    //             items: {
-    //                 "featureName": "Goal",
-    //                 "path": "/goal",
-    //                 "exact": true,
-    //                 "component": <Goal />
-    //             }
-    //         },
-
-    //     ]
-    // },
 ];
 
 
@@ -511,9 +475,9 @@ export const allRoutes = [
                     "key": "1.3",
                     'isShowing': false,
                     "featureName": "Update Role",
-                    "path": "/role-update",
+                    "path": "/update-role",
                     "exact": true,
-                    "component": ""
+                    "component": <UpdateRole />
                 }
             },
             {
@@ -533,7 +497,7 @@ export const allRoutes = [
                     "featureName": "Role List",
                     "path": "/role-list",
                     "exact": true,
-                    "component": <RoleUpdate />
+                    "component": <RoleList />
                 }
             },
             {
@@ -906,9 +870,11 @@ export function getFlatRouteArray(routes) {
 
 //
 export function pruneRouteArray(featureArray) {
-    console.log("feature Array", featureArray)
+
+    let pruneRoutes = Object.assign([], allRoutesCopy);
+    //console.log("feature Array", featureArray)
     //let allRoutesCopy = Object.assign({}, allRoutes)
-    let pruneRoutes = Object.assign([], allRoutes);
+    //let pruneRoutes = Object.assign([], allRoutes);
     console.log("All routes", allRoutes)
     function recursivePrune(objArr) {
         console.log("Obj Array", objArr)

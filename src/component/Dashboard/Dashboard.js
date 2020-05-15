@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route, useRouteMatch, Link } from 'rea
 import MultiStepFace from '../E-KYC/Simplified/MainFace'
 import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';
-import UpdateRoleDetails from '../E-KYC/Role/UpdateRoleDetails';
+
 import "./sidebar.css";
 import { pruneRouteArray, getFlatRouteArray } from '../flattenObjectTwo';
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
@@ -13,6 +13,7 @@ import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 function Dashboard() {
     // console.log("In the DashboardTwo")
     let feature = JSON.parse(sessionStorage.getItem("featureList"))
+    //console.log("Feature List", feature)
 
     //const firstMenu = pruneRouteArray([1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3, 3.1, 3.2, 3.3, 4, 4.1, 5, 5.1, 5.11, 5.12, 5.13, 5.2, 5.21, 5.22, 5.3, 5.4, 6, 6.1, 6.2, 6.3]);
     const firstMenu = pruneRouteArray(feature);
@@ -181,7 +182,7 @@ function Dashboard() {
                                 <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />
 
                                 <Route path={`${path}/success`} component={Success} />
-                                <Route path={`${path}/update-role-details`} component={UpdateRoleDetails} />
+
 
                             </Switch>
 

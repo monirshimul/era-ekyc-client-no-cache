@@ -5,12 +5,12 @@ import { allRoutes } from '../../flattenObjectTwo'
 
 
 
-import { pruneRouteArray, getFlatRouteArray } from '../../flattenObjectTwo';
+import { getFlatRouteArray } from '../../flattenObjectTwo';
 
 class CreateRole extends Component {
     constructor() {
         super();
-        console.log("Create Role All Routes", allRoutes);
+        //console.log("Create Role All Routes", allRoutes);
         this.allMenu = getFlatRouteArray(allRoutes);
 
     }
@@ -68,10 +68,10 @@ class CreateRole extends Component {
                 grantedIPList: grantedIPList,
                 rolePrivileges: rolePrivileges
             }
-            console.log("Create Role Data", data)
+            //console.log("Create Role Data", data)
             let url = 'http://127.0.0.1:3001/role/';
             let res = await axios.post(url, data)
-            console.log("response", res.data)
+            //console.log("response", res.data)
 
             localStorage.setItem("Role Data", JSON.stringify(data))
             this.props.history.push("/dashboard/success", data)
