@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Nav from './Nav';
 import Welcome from './Welcome';
 import { BrowserRouter as Router, Switch, Route, useRouteMatch, Link } from 'react-router-dom';
@@ -21,6 +21,10 @@ function Dashboard() {
     //console.dir(firstMenu, { depth: null });
     const allMenu = getFlatRouteArray(firstMenu);
     //console.log("All Menu", allMenu)
+
+
+    //const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem("profile")));
+
 
 
 
@@ -70,10 +74,18 @@ function Dashboard() {
                     <div id="sidebar">
                         <div id="profile_info">
                             <div id="profile_img">
-                                <img src={profileImage} alt="profile_img" />
+                                <img src={profileImage}
+                                    alt="profile_img"
+
+                                    style={{
+                                        width: "50px",
+                                        height: "50px",
+                                        borderRadius: "50%"
+                                    }}
+                                />
                             </div>
                             <div id="profile_data">
-                                <p id="name">Abdur Rahim</p>
+                                {/* <p id="name">{profile.name}</p> */}
 
                             </div>
                         </div>

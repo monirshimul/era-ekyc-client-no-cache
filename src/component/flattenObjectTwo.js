@@ -22,6 +22,7 @@ import UpdateUser from './E-KYC/User/UpdateUser';
 
 //Profile Management
 import ChangePassword from './E-KYC/Profile/ChangePass';
+import GetProfile from './E-KYC/Profile/GetProfile';
 
 
 
@@ -200,6 +201,17 @@ export const allRoutesCopy = [
                 items: {
                     "key": "3.1",
                     'isShowing': true,
+                    "featureName": "Profile Data",
+                    "path": "/profile-data",
+                    "exact": true,
+                    "component": <GetProfile />
+                }
+
+            },
+            {
+                items: {
+                    "key": "3.2",
+                    'isShowing': false,
                     "featureName": "Update",
                     "path": "/profile-update",
                     "exact": true,
@@ -209,8 +221,8 @@ export const allRoutesCopy = [
             },
             {
                 items: {
-                    "key": "3.2",
-                    'isShowing': true,
+                    "key": "3.3",
+                    'isShowing': false,
                     "featureName": "Picture Update",
                     "path": "/profile-picture-update",
                     "exact": true,
@@ -219,7 +231,7 @@ export const allRoutesCopy = [
             },
             {
                 items: {
-                    "key": "3.3",
+                    "key": "3.4",
                     'isShowing': true,
                     "featureName": "Password Change",
                     "path": "/password-change",
@@ -436,6 +448,24 @@ export const allRoutesCopy = [
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const allRoutes = [
     {
         items: {
@@ -609,6 +639,17 @@ export const allRoutes = [
                 items: {
                     "key": "3.1",
                     'isShowing': true,
+                    "featureName": "Profile Data",
+                    "path": "/profile-data",
+                    "exact": true,
+                    "component": <GetProfile />
+                }
+
+            },
+            {
+                items: {
+                    "key": "3.2",
+                    'isShowing': false,
                     "featureName": "Update",
                     "path": "/profile-update",
                     "exact": true,
@@ -618,8 +659,8 @@ export const allRoutes = [
             },
             {
                 items: {
-                    "key": "3.2",
-                    'isShowing': true,
+                    "key": "3.3",
+                    'isShowing': false,
                     "featureName": "Picture Update",
                     "path": "/profile-picture-update",
                     "exact": true,
@@ -628,7 +669,7 @@ export const allRoutes = [
             },
             {
                 items: {
-                    "key": "3.3",
+                    "key": "3.4",
                     'isShowing': true,
                     "featureName": "Password Change",
                     "path": "/password-change",
