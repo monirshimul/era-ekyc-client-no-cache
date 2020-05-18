@@ -10,7 +10,7 @@ export class GetProfile extends Component {
         name: '',
         mobile: '',
         email: '',
-        pinAuthStatus: "",
+        pinAuthStatus: '',
         profileData: {},
         profileImage: {},
         profileImageType: '',
@@ -29,7 +29,7 @@ export class GetProfile extends Component {
         try {
             let res = await axios.get(getProfile, token);
             let profileData = res.data.data;
-            //console.log("profileData", profileData)
+            console.log("profileData", profileData)
             this.setState({
                 name: profileData.name,
                 email: profileData.email,
@@ -38,6 +38,7 @@ export class GetProfile extends Component {
                 profileData: profileData,
                 profileImage: profileData.userImage.data
             })
+            console.log("Two data", this.state.pinAuthStatus)
             let Obj = {
                 name: this.state.profileData.name,
                 image: this.state.profileImage
@@ -118,9 +119,10 @@ export class GetProfile extends Component {
                 name: this.state.name,
                 mobile: this.state.mobile,
                 email: this.state.email,
-                pinAuthStatus: this.state.pinAuthStatus
+                pinAuthStatus: this.state.pinAuthStatus === "true" ? true : false
 
             }
+            //console.log("p data", profileData)
 
             let resProfile = await axios.put(dataUpdate, profileData, token);
             //console.log("Profile Response", resProfile)
@@ -292,7 +294,7 @@ export class GetProfile extends Component {
                                                     name="pinAuthStatus"
                                                 >
                                                     <option value='' disabled>--Select--</option>
-                                                    <option value="true">Yes</option>
+                                                    <option value='true'>Yes</option>
                                                     <option value='false'>No</option>
 
                                                 </select>
