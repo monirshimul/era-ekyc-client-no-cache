@@ -15,14 +15,14 @@ class Welcome extends Component {
         return (
             <div className="container">
 
-                <div className="bigB" style={{ padding: "5px" }}>
-                    <hr />
+                <div className="" style={{ padding: "5px" }}>
+
                     <Watch />
                     <hr />
                 </div>
 
-                <hr />
-                <div className="row justify-content-center" style={{ padding: "10px 0px" }}>
+
+                <div className="row divBg justify-content-center" style={{ padding: "10px 0px" }}>
 
                     <img src={profileImage}
                         alt="profile_img"
