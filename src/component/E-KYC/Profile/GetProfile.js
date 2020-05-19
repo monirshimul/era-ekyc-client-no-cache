@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import { withRouter } from 'react-router-dom';
 import NidThree from '../Simplified/images/nid-f4.svg';
+import { NotificationManager } from "react-notifications";
 import { getProfile, imageUpdate, dataUpdate } from '../Url/ApiList'
 
 export class GetProfile extends Component {
@@ -29,7 +30,7 @@ export class GetProfile extends Component {
         try {
             let res = await axios.get(getProfile, token);
             let profileData = res.data.data;
-            console.log("profileData", profileData)
+            //console.log("profileData", profileData)
             this.setState({
                 name: profileData.name,
                 email: profileData.email,
@@ -110,9 +111,10 @@ export class GetProfile extends Component {
                 data: this.state.profileImage,
                 mimeType: this.state.profileImageType === "" ? "image/jpeg" : this.state.profileImageType
             }
-            console.log("Mime Type", imgData.mimeType)
+            //console.log("Mime Type", imgData.mimeType)
             let resImage = await axios.put(imageUpdate, imgData, token);
             //console.log("Image Response", resImage)
+
 
             let profileData = {
 
@@ -150,10 +152,13 @@ export class GetProfile extends Component {
             sessionStorage.setItem("profile", JSON.stringify(Obj))
 
 
-
+            NotificationManager.success("Profile Updated", "Success", 5000);
 
         } catch (error) {
-            console.log("error.response", error.response)
+            let { message } = error.response.data
+            let { statusCode } = error.response.data
+            console.log("error.response", error.response.data)
+            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
         }
     }
 

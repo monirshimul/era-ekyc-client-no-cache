@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 //import { connect } from 'react-redux';
+import { NotificationManager } from "react-notifications";
 import './Login.css'
 import bg from './image/wave2.png'
 import { withRouter, Link } from 'react-router-dom';
@@ -35,14 +36,15 @@ class Login extends Component {
             let features = loginSuccess.data.features;
 
             //Session Storage
-            sessionStorage.setItem('x-auth-token',JSON.stringify(token));
+            sessionStorage.setItem('x-auth-token', JSON.stringify(token));
             sessionStorage.setItem('featureList', JSON.stringify(features));
             console.log("token", token);
             let statusCode = loginSuccess.statusCode;
 
             if (statusCode === 200) {
                 let message = "Login Successfull";
-                alert(statusCode + ' ' + message);
+                //alert(statusCode + ' ' + message);
+                NotificationManager.success(message, "Success", 5000);
                 this.props.history.replace('/dashboard');
             } else {
                 this.props.history.push('/verify-login');
@@ -55,24 +57,27 @@ class Login extends Component {
             let statusCode = err.response.data.statusCode;
             if (statusCode === 400) {
                 let errorMessage = "Invalid Credentials";
-                alert(statusCode + ' ' + errorMessage);
+                //alert(statusCode + ' ' + errorMessage);
+                NotificationManager.error(statusCode + ' ' + errorMessage, "Error", 5000);
                 this.setState({
-                    userId:'',
-                    password:''
+                    userId: '',
+                    password: ''
                 });
-            }else if (statusCode === 401){
+            } else if (statusCode === 401) {
                 let errorMessage = "Invalid Credentials";
-                alert(statusCode + ' ' + errorMessage);
+                //alert(statusCode + ' ' + errorMessage);
+                NotificationManager.warning(statusCode + ' ' + errorMessage, "Error", 5000);
                 this.setState({
-                    userId:'',
-                    password:''
+                    userId: '',
+                    password: ''
                 });
-            }else {
+            } else {
                 let errorMessage = "Server Error";
-                alert(statusCode + ' ' + errorMessage);
+                //alert(statusCode + ' ' + errorMessage);
+                NotificationManager.error(statusCode + ' ' + errorMessage, "Error", 5000);
                 this.setState({
-                    userId:'',
-                    password:''
+                    userId: '',
+                    password: ''
                 });
             }
         }

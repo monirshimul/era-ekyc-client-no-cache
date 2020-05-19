@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import { allRoutes } from '../../flattenObjectTwo'
+import { NotificationManager } from "react-notifications";
 
 
 
@@ -73,16 +74,20 @@ class CreateRole extends Component {
             let res = await axios.post(url, data)
             //console.log("response", res.data)
 
-            localStorage.setItem("Role Data", JSON.stringify(data))
+            // localStorage.setItem("Role Data", JSON.stringify(data))
+            NotificationManager.success("Role Created", "Success", 5000);
             this.props.history.push("/dashboard/success", data)
 
         } catch (error) {
+            let { message } = error.response.data
+            let { statusCode } = error.response.data
             let { reason } = error.response.data
 
-            // alert(reason.map(v => (
-            //     JSON.stringify(Object.values(v.constraints))
-            // )))
-            console.log(reason)
+            reason.map(v => (
+                NotificationManager.error(statusCode + ' ' + JSON.stringify(Object.values(v.constraints)), "Error", 5000)
+            ))
+
+            console.log(error.response.data)
         }
 
 

@@ -1,54 +1,116 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { NotificationManager } from "react-notifications";
+
+
+
 
 class ApproveRole extends Component {
     state = {
         pendingList: [],
-        modalData: []
+        modalData: [],
+        approvedReject: false
     }
 
-    async componentDidMount() {
+    componentDidMount() {
 
-        const Obj = { status: "P" };
-        let url = 'http://127.0.0.1:3001/role/get/';
-        let res = await axios.post(url, Obj);
-        this.setState({
-            pendingList: res.data.data
-        })
+        let apiCall = async () => {
+            try {
+                const Obj = { status: "P" };
+                let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(url, Obj);
+                this.setState({
+                    pendingList: res.data.data
+                })
+                //console.log("PendingList", this.state.pendingList)
+            } catch (error) {
+                console.log(error.response)
+            }
+        }
+
+        apiCall();
+
+
+
+
         //console.log("All Data", this.state.pendingList.data)
 
     }
 
-    async componentDidUpdate() {
-        const Obj = { status: "P" };
-        let url = 'http://127.0.0.1:3001/role/get/';
-        let res = await axios.post(url, Obj);
-        this.setState({
-            pendingList: res.data.data
-        })
+
+
+
+    async componentDidUpdate(prevProps, prevState) {
+
+
+        //console.log("prevState", prevState)
+
+        if (prevState.approvedReject !== this.state.approvedReject) {
+            console.log("prevState", prevState)
+            console.log("this.state.pendingList", this.state.pendingList)
+            const Obj = { status: "P" };
+            let url = 'http://127.0.0.1:3001/role/get/';
+            let res = await axios.post(url, Obj);
+            //console.log("res", res)
+            this.setState({
+                pendingList: res.data.data
+            })
+        }
+        else {
+            return false
+        }
+
+
+
+
     }
 
 
     onApprove = async (id) => {
-        console.log("id", id)
-        let url = 'http://127.0.0.1:3001/role/status';
-        let data = {
-            id: id,
-            status: "A"
+
+        try {
+            //console.log("id", id)
+            let url = 'http://127.0.0.1:3001/role/status';
+            let data = {
+                id: id,
+                status: "A"
+            }
+            let res = await axios.put(url, data)
+            this.setState({
+                approvedReject: !this.state.approvedReject
+            })
+            NotificationManager.success("Role Approved", "Success", 5000);
+            //console.log(res.data)
+        } catch (error) {
+            let { message } = error.response.data
+            let { statusCode } = error.response.data
+            console.log("error.response", error.response.data)
+            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
         }
-        let res = await axios.put(url, data)
-        console.log(res.data)
+
 
     }
     onReject = async (id) => {
-        console.log("id", id)
-        let url = 'http://127.0.0.1:3001/role/status';
-        let data = {
-            id: id,
-            status: "R"
+        try {
+            //console.log("id", id)
+            let url = 'http://127.0.0.1:3001/role/status';
+            let data = {
+                id: id,
+                status: "R"
+            }
+            let res = await axios.put(url, data)
+            this.setState({
+                approvedReject: !this.state.approvedReject
+            })
+            NotificationManager.warning("Role Rejected", "Confirmed", 5000);
+            //console.log(res.data)
+        } catch (error) {
+            let { message } = error.response.data
+            let { statusCode } = error.response.data
+            console.log("error.response", error.response.data)
+            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
         }
-        let res = await axios.put(url, data)
-        console.log(res.data)
+
 
     }
 
@@ -146,23 +208,23 @@ class ApproveRole extends Component {
                                 pendingList.map((value, index) => (
                                     <div key={index} className="col-sm-3 mr-2 divBgCard" style={{ color: "#333", padding: "15px" }}>
                                         <div className="text-center im">
-                                            <small className="text-muted"><i class="fas fa-sort-numeric-up"></i> ID : <span>{value.id}</span></small>
+                                            <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> ID : <span>{value.id}</span></small>
                                         </div>
                                         <hr />
 
 
                                         <div>
-                                            <small className="text-muted"><i class="fas fa-battery-three-quarters"></i> Status : <span>{value.status}</span></small>
+                                            <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{value.status}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i class="fab fa-mizuni"></i> Role Name : <span>{value.roleName}</span></small>
+                                            <small className="text-muted"><i className="fab fa-mizuni"></i> Role Name : <span>{value.roleName}</span></small>
                                         </div>
 
                                         <div>
-                                            <small className="text-muted"><i class="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
+                                            <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i class="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList.map(v => v + ", ")}</span></small>
+                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList.map(v => v + ", ")}</span></small>
                                         </div>
                                         <hr />
 
@@ -175,7 +237,7 @@ class ApproveRole extends Component {
 
 
                                         {/* <!-- Modal --> */}
-                                        <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div className="modal fade" id="exampleModalCenter" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div className="modal-dialog modal-dialog-centered" role="document">
                                                 <div className="modal-content imTwo">
                                                     <div className="modal-header divBg">
@@ -188,50 +250,50 @@ class ApproveRole extends Component {
                                                         {modalData.map(val => (
                                                             <div className="">
                                                                 <div className="">
-                                                                    <small className="text-muted"><i class="fas fa-sort-numeric-up"></i> ID : <span>{val.id}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> ID : <span>{val.id}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i class="fas fa-battery-three-quarters"></i> Status : <span>{val.status}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{val.status}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i class="fab fa-mizuni"></i> Role Name : <span>{val.roleName}</span></small>
+                                                                    <small className="text-muted"><i className="fab fa-mizuni"></i> Role Name : <span>{val.roleName}</span></small>
                                                                 </div>
                                                                 <hr />
                                                                 <div>
-                                                                    <small className="text-muted"><i class="fas fa-pen-nib"></i> Description : <span>{val.description}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{val.description}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i class="fas fa-digital-tachograph"></i> IP List : <span>{val.grantedIPList.map(v => v + ", ")}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.grantedIPList.map(v => v + ", ")}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i class="fab fa-elementor"></i> Features : <span>{val.rolePrivileges.map(v => v[1] + ", ")}</span></small>
+                                                                    <small className="text-muted"><i className="fab fa-elementor"></i> Features : <span>{val.rolePrivileges.map(v => v[1] + ", ")}</span></small>
                                                                 </div>
                                                                 <hr />
                                                                 <div>
-                                                                    <small className="text-muted"><i class="fas fa-user-shield"></i> Created By : <span>{val.createdBy}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-user-shield"></i> Created By : <span>{val.createdBy}</span></small>
                                                                 </div>
                                                                 <div>
-                                                                    <small className="text-muted"><i class="fas fa-user-tag"></i> Approved By : <span>{val.approvedBy}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-user-tag"></i> Approved By : <span>{val.approvedBy}</span></small>
                                                                 </div>
                                                                 <div>
-                                                                    <small className="text-muted"><i class="fas fa-user-edit"></i> Updated By : <span>{val.updatedBy}</span></small>
-                                                                </div>
-
-                                                                <div>
-                                                                    <small className="text-muted"><i class="fas fa-calendar-check"></i> Created Date : <span>{val.createDate}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-user-edit"></i> Updated By : <span>{val.updatedBy}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i class="far fa-calendar-alt"></i> Approved Date : <span>{val.approveDate}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-calendar-check"></i> Created Date : <span>{val.createDate}</span></small>
+                                                                </div>
+
+                                                                <div>
+                                                                    <small className="text-muted"><i className="far fa-calendar-alt"></i> Approved Date : <span>{val.approveDate}</span></small>
                                                                 </div>
 
 
                                                                 <div>
-                                                                    <small className="text-muted"><i class="far fa-calendar-check"></i> Updated Date : <span>{val.updateDate}</span></small>
+                                                                    <small className="text-muted"><i className="far fa-calendar-check"></i> Updated Date : <span>{val.updateDate}</span></small>
                                                                 </div>
 
                                                             </div>

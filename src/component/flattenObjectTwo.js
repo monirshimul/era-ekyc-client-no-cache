@@ -916,9 +916,9 @@ export function pruneRouteArray(featureArray) {
     //console.log("feature Array", featureArray)
     //let allRoutesCopy = Object.assign({}, allRoutes)
     //let pruneRoutes = Object.assign([], allRoutes);
-    console.log("All routes", allRoutes)
+    //console.log("All routes", allRoutes)
     function recursivePrune(objArr) {
-        console.log("Obj Array", objArr)
+        //console.log("Obj Array", objArr)
         for (let i = 0; i < objArr.length; i++) {
             if ('nested' in objArr[i]) {
                 recursivePrune(objArr[i].nested);

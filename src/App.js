@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
 
 import Dashboard from './component/Dashboard/Dashboard';
 
@@ -40,6 +42,7 @@ class App extends Component {
 
 
             </Switch>
+            <NotificationContainer />
 
 
           </div >

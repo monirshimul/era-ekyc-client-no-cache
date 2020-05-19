@@ -100,7 +100,7 @@
   background-position: right;
   color: #656666;
 }
-.sbtnx {
+/* .sbtnx {
   min-width: 60px;
   min-height: 20px;
   background-image: linear-gradient(to right, #e3174c, #f55882, #af1e45);
@@ -119,7 +119,7 @@
 .sbtnx:hover {
   background-position: right;
   color: #f9f9f9;
-}
+} */
 
 .bigB {
   min-width: 250px;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 import { getFlatRouteArray } from '../../flattenObjectTwo';
 import { allRoutes } from '../../flattenObjectTwo';
@@ -126,16 +127,15 @@ export class UpdateRole extends Component {
             let res = await axios.put(url, data)
             //console.log("response", res.data)
 
-            localStorage.setItem("Role Data", JSON.stringify(data))
-            this.props.history.push("/dashboard/role-update", data)
+            //localStorage.setItem("Role Data", JSON.stringify(data))
+            NotificationManager.success("Role Updated Successfully", "Great", 5000);
+            this.props.history.push("/dashboard/role-list")
 
         } catch (error) {
-            //let { reason } = error.response.data
-
-            // alert(reason.map(v => (
-            //     JSON.stringify(Object.values(v.constraints))
-            // )))
-            console.log("This is Error==>", error.message)
+            let { message } = error.response.data
+            let { statusCode } = error.response.data
+            console.log("error.response", error.response.data)
+            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
         }
 
 

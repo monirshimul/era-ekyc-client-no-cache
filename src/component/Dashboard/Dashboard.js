@@ -65,7 +65,7 @@ function Dashboard() {
                 <Nav />
                 <div className="d-flex" style={{ margin: "0", padding: "0", overflowX: "hidden" }}>
                     <input type="checkbox" id="check" />
-                    <label for="check">
+                    <label htmlFor="check">
 
 
                         <i className="fas fa-backspace" id="cancel"></i>

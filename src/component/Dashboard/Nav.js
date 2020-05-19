@@ -20,14 +20,14 @@ const Nav = () => {
 
                     <ul className="navbar-nav m-auto mt-2 mt-lg-0 d-flex justify-content-between" style={{ width: '800px' }}>
                         <li className="nav-item ">
-                            <Link className="nav-link text-white" to="#"><i class="fa fa-home"></i> Home</Link>
+                            <Link className="nav-link text-white" to="#"><i className="fa fa-home"></i> Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-white" to="#"><i class="fa fa-user"></i> About</Link>
+                            <Link className="nav-link text-white" to="#"><i className="fa fa-user"></i> About</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-clone"></i> Services</Link>
+                                <i className="fa fa-clone"></i> Services</Link>
                             <div id="sub-menu-1">
                                 <ul>
                                     <li><a href="#">Goal</a></li>
@@ -39,7 +39,7 @@ const Nav = () => {
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-users"></i> Clients</Link>
+                                <i className="fa fa-users"></i> Clients</Link>
                             <div id="sub-menu-1">
                                 <ul>
                                     <li><a href="#">Goal</a></li>
@@ -52,7 +52,7 @@ const Nav = () => {
 
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-phone"></i> Contact</Link>
+                                <i className="fa fa-phone"></i> Contact</Link>
                             <div id="sub-menu-1">
                                 <ul>
                                     <li><a href="#">Goal</a></li>
@@ -64,7 +64,7 @@ const Nav = () => {
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-edit"></i> Business</Link>
+                                <i className="fa fa-edit"></i> Business</Link>
                             <div id="sub-menu-1">
                                 <ul>
                                     <li><a href="#">Goal</a></li>
