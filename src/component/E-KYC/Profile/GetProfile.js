@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import NidThree from '../Simplified/images/nid-f4.svg';
 import { NotificationManager } from "react-notifications";
 import { getProfile, imageUpdate, dataUpdate } from '../Url/ApiList'
+import { image } from './damiImage'
 
 export class GetProfile extends Component {
 
@@ -20,6 +21,7 @@ export class GetProfile extends Component {
     }
 
     async componentDidMount() {
+        //console.log("Image Data", image.data)
         const token = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -30,16 +32,16 @@ export class GetProfile extends Component {
         try {
             let res = await axios.get(getProfile, token);
             let profileData = res.data.data;
-            //console.log("profileData", profileData)
+            console.log("profileData", profileData.userImage)
             this.setState({
                 name: profileData.name,
                 email: profileData.email,
                 mobile: profileData.mobile,
                 pinAuthStatus: profileData.pinAuthStatus,
                 profileData: profileData,
-                profileImage: profileData.userImage.data
+                profileImage: profileData.userImage === null ? image.data : profileData.userImage.data
             })
-            console.log("Two data", this.state.pinAuthStatus)
+            //console.log("this.state.profileData", this.state.profileImage)
             let Obj = {
                 name: this.state.profileData.name,
                 image: this.state.profileImage
@@ -47,7 +49,7 @@ export class GetProfile extends Component {
             sessionStorage.setItem("profile", JSON.stringify(Obj))
 
         } catch (error) {
-            console.log(error.response)
+            console.log(error)
         }
 
 
@@ -111,9 +113,9 @@ export class GetProfile extends Component {
                 data: this.state.profileImage,
                 mimeType: this.state.profileImageType === "" ? "image/jpeg" : this.state.profileImageType
             }
-            //console.log("Mime Type", imgData.mimeType)
+            console.log("Mime Type", imgData.mimeType)
             let resImage = await axios.put(imageUpdate, imgData, token);
-            //console.log("Image Response", resImage)
+            console.log("Image Response", resImage)
 
 
             let profileData = {
@@ -124,10 +126,10 @@ export class GetProfile extends Component {
                 pinAuthStatus: this.state.pinAuthStatus === "true" ? true : false
 
             }
-            //console.log("p data", profileData)
+            console.log("p data", profileData)
 
             let resProfile = await axios.put(dataUpdate, profileData, token);
-            //console.log("Profile Response", resProfile)
+            console.log("Profile Response", resProfile)
 
 
             this.setState({
@@ -178,7 +180,7 @@ export class GetProfile extends Component {
 
                                 <div className="divBgCard col-sm-6" >
                                     <div className="card-header up">
-                                        <h5>Profile Details</h5>
+                                        <h5><i class="fas fa-user-alt"></i> Profile Details</h5>
                                     </div>
                                     <div className="card-body text-muted">
                                         <div className="row d-flex justify-content-around align-items-center">
@@ -219,7 +221,7 @@ export class GetProfile extends Component {
 
                                     </div>
                                     <div className="card-footer im" style={{ background: "none" }}>
-                                        <button className="b" onClick={() => this.onUpdate()} >Update</button>
+                                        <button className="b" onClick={() => this.onUpdate()} ><i class="fas fa-pen-alt"></i> Update</button>
                                     </div>
 
 
@@ -237,7 +239,7 @@ export class GetProfile extends Component {
                                 <div className="imTwo col-sm-6">
                                     <div className="card-header divBg">
 
-                                        <h3 className="text-center pt-3">Update Profile</h3>
+                                        <h3 className="text-center pt-3"><i class="fas fa-user-edit"></i> Update Profile</h3>
 
                                     </div>
                                     <div className="card-body">
@@ -264,7 +266,7 @@ export class GetProfile extends Component {
                                                             onChange={this.fileSelectedHandler}
 
                                                             class="form-control-file" id="input-file" />
-                                                        <label class="custom-file-label" for="input-file">Choose Image</label>
+                                                        <label class="custom-file-label text-muted" htmlFor="input-file"><i class="fas fa-images"></i> Choose Image</label>
                                                     </div>
 
                                                 </div>
@@ -272,26 +274,26 @@ export class GetProfile extends Component {
                                             </div>
                                             {/* User Name */}
                                             <div className="form-group mt-3">
-                                                <label htmlFor="">Name</label>
+                                                <label htmlFor="" className="text-muted"><i class="fas fa-user"></i> Name</label>
                                                 <input type="text" value={this.state.name} onChange={this.onChange} className="form-control" name="name" id="inputUserName" aria-describedby="emailHelp" placeholder="Name" />
                                             </div>
 
                                             {/* Email */}
                                             <div className="form-group">
-                                                <label htmlFor="">Email</label>
+                                                <label htmlFor="" className="text-muted"><i class="fas fa-envelope"></i> Email</label>
                                                 <input type="email" value={this.state.email} onChange={this.onChange} className="form-control" name="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Email" />
                                             </div>
 
 
                                             {/* Mobile */}
                                             <div className="form-group">
-                                                <label htmlFor="">Mobile</label>
+                                                <label htmlFor="" className="text-muted"><i class="fas fa-mobile-alt"></i> Mobile</label>
                                                 <input type="text" value={this.state.mobile} onChange={this.onChange} className="form-control" name="mobile" id="inputMobileNumber" aria-describedby="emailHelp" placeholder="Mobile Number" />
                                             </div>
 
                                             {/* Two factor Verification */}
                                             <div className='form-group'>
-                                                <label htmlFor="">Two Steps Verification</label>
+                                                <label htmlFor="" className="text-muted"><i class="fas fa-dice-two"></i> Two Steps Verification</label>
                                                 <select
                                                     className='custom-select'
                                                     value={this.state.pinAuthStatus}
@@ -307,7 +309,7 @@ export class GetProfile extends Component {
                                         </form>
                                     </div>
                                     <div className="card-footer im" style={{ background: "none" }}>
-                                        <button className="b" onClick={(e) => this.onSubmit(e)} >Submit</button>
+                                        <button className="b" onClick={(e) => this.onSubmit(e)} ><i class="fas fa-paper-plane"></i> Submit</button>
                                     </div>
                                 </div>
                             </div>

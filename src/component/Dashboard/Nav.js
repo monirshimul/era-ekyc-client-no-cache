@@ -20,7 +20,7 @@ const Nav = () => {
 
                     <ul className="navbar-nav m-auto mt-2 mt-lg-0 d-flex justify-content-between" style={{ width: '800px' }}>
                         <li className="nav-item ">
-                            <Link className="nav-link text-white" to="#"><i className="fa fa-home"></i> Home</Link>
+                            <Link to="/dashboard" className="nav-link text-white"><i className="fa fa-home"></i> Home</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link text-white" to="#"><i className="fa fa-user"></i> About</Link>

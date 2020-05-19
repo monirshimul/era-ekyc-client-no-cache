@@ -116,24 +116,24 @@ class CreateRole extends Component {
 
                 <div className="card-header divBg">
                     <h3 className="text-center pt-3">
-                        Create Role
+                        <i class="fas fa-users-cog"></i> Create Role
                     </h3>
                 </div>
                 <div className="card-body">
                     <form >
 
                         <div className="form-group">
-                            <label htmlFor="">Role Name</label>
+                            <label htmlFor="" className="text-muted"><i class="fas fa-file-signature"></i> Role Name</label>
                             <input name="roleName" type="text" value={roleName} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Name" />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="">Description</label>
+                            <label htmlFor="" className="text-muted"><i class="fas fa-align-left"></i> Description</label>
                             <textarea name="description" value={description} onChange={this.textHandleChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Role Description"></textarea>
 
                         </div>
 
                         <div className="form-group">
-                            <label for="exampleTextarea">IP List</label>
+                            <label htmlFor="exampleTextarea" className="text-muted"><i class="fas fa-clipboard-list"></i> IP List</label>
                             <textarea name="ipList" value={ipList} onChange={this.textHandleChange} class="form-control" id="exampleTextareaTwo" rows="3" placeholder="Enter Granted IP list"></textarea>
 
                         </div>
@@ -145,7 +145,7 @@ class CreateRole extends Component {
 
 
 
-                            <p className="text-muted">Choose Feature From Feature's List</p>
+                            <p className="text-muted"><i class="fas fa-check-square"></i> Choose Feature From Feature's List</p>
                             {
                                 this.allMenu.map((features, index) => (
                                     <div>
@@ -160,6 +160,7 @@ class CreateRole extends Component {
 
                                             ) : (
                                                     <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} key={index} >
+
                                                         <input
                                                             type="checkbox"
                                                             name={features.key}
@@ -186,7 +187,7 @@ class CreateRole extends Component {
 
 
                         <div className="d-flex justify-content-center" >
-                            <button onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} >Create</button>
+                            <button onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} ><i class="fas fa-plus-circle"></i> Create</button>
                         </div>
 
                     </form>

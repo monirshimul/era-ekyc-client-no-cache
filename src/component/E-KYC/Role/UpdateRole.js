@@ -157,7 +157,7 @@ export class UpdateRole extends Component {
 
                 <div className="card-header divBg">
                     <h3 className="text-center pt-3">
-                        Update Role
+                        <i class="fas fa-user-edit"></i> Update Role
                     </h3>
                 </div>
                 <div className="card-body">
@@ -243,7 +243,7 @@ export class UpdateRole extends Component {
 
 
                         <div className="d-flex justify-content-center" >
-                            <button onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} >Update</button>
+                            <button onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} ><i class="fas fa-edit"></i> Update</button>
                         </div>
 
                     </form>

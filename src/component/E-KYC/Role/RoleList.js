@@ -276,7 +276,7 @@ class RoleList extends Component {
                     <div className="card col" style={{ padding: "25px" }}>
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                Search Role
+                                <i class="fas fa-search"></i> Search Role
                         </h5>
                         </div>
                         <div className="card-body d-flex justify-content-center">
@@ -342,7 +342,7 @@ class RoleList extends Component {
                                     </div>
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" >Search</button>
+                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i class="fas fa-search"></i> Search</button>
                                 </div>
                             </form>
                         </div>
@@ -393,7 +393,7 @@ class RoleList extends Component {
                 <div className="card mt-3">
                     <div className="im">
                         <h5 className="text-muted text-center pt-2">
-                            Role List
+                            <i class="fas fa-list-ul"></i> Role List
                         </h5>
                     </div>
                     <div className="card-body">
@@ -423,9 +423,9 @@ class RoleList extends Component {
                                         <hr />
 
                                         <div className="d-flex justify-content-center mt-2">
-                                            <span className="sbtn mr-2" onClick={() => this.onUpdate(value.id)}>Update</span>
-                                            <span className="sbtnx mr-2" onClick={() => this.onArchive(value.id)}>Archive</span>
-                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} >Details</span>
+                                            <span className="sbtn mr-2" onClick={() => this.onUpdate(value.id)}><i class="far fa-edit"></i> Update</span>
+                                            <span className="sbtnx mr-2" onClick={() => this.onArchive(value.id)}><i class="fas fa-archive"></i> Archive</span>
+                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i class="fas fa-binoculars"></i> Details</span>
                                         </div>
 
 
@@ -435,7 +435,7 @@ class RoleList extends Component {
                                             <div className="modal-dialog modal-dialog-centered" role="document">
                                                 <div className="modal-content imTwo">
                                                     <div className="modal-header divBg">
-                                                        <h5 className="modal-title" id="exampleModalCenterTitle">Role Details</h5>
+                                                        <h5 className="modal-title" id="exampleModalCenterTitle"><i class="far fa-arrow-alt-circle-right"></i> Role Details</h5>
                                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>

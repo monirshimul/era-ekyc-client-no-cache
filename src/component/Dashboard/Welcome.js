@@ -37,7 +37,7 @@ class Welcome extends Component {
 
                 </div>
                 <div className="row justify-content-center" style={{ color: "green" }}>
-                    <small className="text-center">Welcome, Anis</small>
+                    <small className="text-center"><i class="fas fa-dungeon"></i> Welcome, Anis</small>
 
                 </div>
                 <hr />
@@ -47,8 +47,8 @@ class Welcome extends Component {
 
                 <div className="jumbotron im" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)" }} >
 
-                    <h4 className="text-center">
-                        Quick Links
+                    <h4 className="text-center text-muted">
+                        <i class="fas fa-link"></i> Quick Links
                 </h4>
                     <div className="row d-flex justify-content-center">
                         <div className="col-sm-2 sbtnx mr-2 mt-2">

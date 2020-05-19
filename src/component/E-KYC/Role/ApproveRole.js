@@ -199,7 +199,7 @@ class ApproveRole extends Component {
                 <div className="card mt-3">
                     <div className="im">
                         <h5 className="text-muted text-center pt-2">
-                            Approve Role
+                            <i class="fas fa-user-check"></i> Approve Role
                         </h5>
                     </div>
                     <div className="card-body">
@@ -229,9 +229,9 @@ class ApproveRole extends Component {
                                         <hr />
 
                                         <div className="d-flex justify-content-center mt-2">
-                                            <span className="sbtn mr-2" onClick={() => this.onApprove(value.id)}>Approve</span>
-                                            <span className="sbtnx mr-2" onClick={() => this.onReject(value.id)}>Reject</span>
-                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} >Details</span>
+                                            <span className="sbtn mr-2" onClick={() => this.onApprove(value.id)}><i class="far fa-check-circle"></i> Approve</span>
+                                            <span className="sbtnx mr-2" onClick={() => this.onReject(value.id)}><i class="far fa-window-close"></i> Reject</span>
+                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i class="fas fa-binoculars"></i> Details</span>
                                         </div>
 
 
@@ -241,7 +241,7 @@ class ApproveRole extends Component {
                                             <div className="modal-dialog modal-dialog-centered" role="document">
                                                 <div className="modal-content imTwo">
                                                     <div className="modal-header divBg">
-                                                        <h5 className="modal-title" id="exampleModalCenterTitle">Role Details</h5>
+                                                        <h5 className="modal-title" id="exampleModalCenterTitle"><i class="far fa-arrow-alt-circle-right"></i> Role Details</h5>
                                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
