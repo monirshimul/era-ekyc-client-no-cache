@@ -32,7 +32,7 @@ export class GetProfile extends Component {
         try {
             let res = await axios.get(getProfile, token);
             let profileData = res.data.data;
-            console.log("profileData", profileData.userImage)
+            console.log("profileData", profileData)
             this.setState({
                 name: profileData.name,
                 email: profileData.email,
@@ -115,7 +115,7 @@ export class GetProfile extends Component {
             }
             console.log("Mime Type", imgData.mimeType)
             let resImage = await axios.put(imageUpdate, imgData, token);
-            console.log("Image Response", resImage)
+            //console.log("Image Response", resImage)
 
 
             let profileData = {
@@ -126,10 +126,10 @@ export class GetProfile extends Component {
                 pinAuthStatus: this.state.pinAuthStatus === "true" ? true : false
 
             }
-            console.log("p data", profileData)
+            //console.log("p data", profileData)
 
             let resProfile = await axios.put(dataUpdate, profileData, token);
-            console.log("Profile Response", resProfile)
+            //console.log("Profile Response", resProfile)
 
 
             this.setState({
