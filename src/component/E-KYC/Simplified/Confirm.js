@@ -8,6 +8,13 @@ export class Confirm extends Component {
         const { values } = this.props;
         e.preventDefault();
         //Process form//
+        console.log("all data", values);
+        // localStorage.removeItem("NidImage");
+        // localStorage.removeItem("CaptureImage");
+        // localStorage.removeItem("PersonalDetailsJoin");
+        // localStorage.removeItem("NomineeArray");
+        // localStorage.removeItem("Signature");
+        // // localStorage.setItem("StableButton",JSON.stringify(true));
         this.props.nextStep();
     };
 
@@ -17,7 +24,7 @@ export class Confirm extends Component {
     }
     render() {
         const { values } = this.props;
-        console.log(values);
+     // console.log(values);
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
@@ -40,14 +47,39 @@ export class Confirm extends Component {
                                 <h5>Nominee Details</h5>
                             </div>
                             <div className="card-body">
-                                {values.fields.map((val, i) => (
-                                    <div>
+                                {values.jointArray.map((arr, i) => (
+                                    arr.isShow === true ?
 
-                                        <p className="text-muted">Nominee {i + 1}</p >
-                                        <p className="text-muted">Nominee : {values.fields[i].nominee}</p>
-                                        <p className="text-muted">Relation : {values.fields[i].relation}</p>
-                                        <p className="text-muted">Photograph : {values.fields[i].photograph}</p>
-                                    </div>
+                                    <div>
+                                    <p className="text-muted">Nominee {i + 1}</p >
+                                    <p className="text-muted">Nominee : {arr.nominee}</p>
+                                    <p className="text-muted">Relation : {arr.relation}</p>
+                                    <p className="text-muted">Date of Birth : {arr.dob}</p>
+                                    <p className="text-muted">Picture :
+                            <img src={values.flag + arr.photograph} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                    </p>
+                                    {/* <p className="text-muted">Photograph : {arr.photograph}</p> */}
+                                    <p className="text-muted">Percentage : {arr.percentage}&#37;</p>
+                                </div>
+                                :
+                                // Minor
+                                <div>
+                                <p className="text-muted">Nominee {i + 1}</p >
+                                <p className="text-muted">Minor Nominee : {arr.minorNominee}</p>
+                                <p className="text-muted">Name of Guardian : {arr.minorGuarrdian}</p>
+                                <p className="text-muted">Address : {arr.minorAddress}</p>
+                                <p className="text-muted">Relation : {arr.minorRelation}</p>
+                                <p className="text-muted">Guardian Nid No : {arr.minorNidGuardian}</p>
+                                {/* <p className="text-muted">NID Image of Guardian :
+                        <img src={values.flag + arr.minorNidGuardian} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                </p> */}
+                                <p className="text-muted">Photograph of Guardian :
+                        <img src={values.flag + arr.minorPhotoGuardian} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                </p>
+
+                                <p className="text-muted">Percentage : {arr.minorPercentage}&#37;</p>
+
+                            </div>
                                 ))}
 
                             </div>

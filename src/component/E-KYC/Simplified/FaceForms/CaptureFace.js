@@ -1,62 +1,72 @@
-import React, { Component } from "react";
-import Camera from "./utils/Camera";
-import { formatDate } from "./utils/DateFormat";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import Spinner from "./Reusable/Spinner";
-import "./utils/Common.css";
-import Face from "./images/face.svg";
+import React, { Component } from 'react';
+import "../utils/Common.css";
+import Camera from '../utils/Camera';
+import Face from "../images/face.svg";
+import {withRouter} from 'react-router-dom';
+import { image } from '../images/images';
 
-export class CaptureImage extends Component {
-  continue = (e) => {
-    const { values } = this.props;
-    e.preventDefault();
-    let obj={
-      faceImage: values.faceImage,
-      imageFlag:true
+export class CaptureFace extends Component {
+    state={
+        faceImage:'',
+        imageFlag: false,
+        showCamera:false,
+        flag: 'data:image/jpeg;base64,'
     }
-    localStorage.setItem("CaptureImage", JSON.stringify(obj));
-    this.props.nextStep();
-  };
 
-  back = (e) => {
-    const { values } = this.props;
-    e.preventDefault();
-    this.props.prevStep();
-  };
 
-  onImageConfirm = (base64Image) => {
-    //console.log("In image confirm");
-    //console.log(base64Image);
-    //this.setState({faceImage: base64Image, imageFlag: true});
-    this.props.handleState("faceImage", base64Image);
-    this.props.handleState("imageFlag", true);
-    this.closeCamera();
-  };
+    componentDidMount(){
+        if('CaptureFace' in localStorage){
+            let data = JSON.parse(localStorage.getItem('CaptureFace'));
+           // console.log(data);
+            this.setState({ 
+              faceImage: data.faceImage,
+            });
+       }
+    }
 
-  showCamera = () => this.props.handleState("showCamera", true);
+    
+    onImageConfirm = (base64Image) => {
+        this.setState({faceImage: base64Image, imageFlag: true});
+        this.closeCamera();
+      };
 
-  closeCamera = () => this.props.handleState("showCamera", false);
 
-  onSubmit = (e) => {
-    e.preventDefault();
-  };
+    showCamera = () => this.setState({showCamera:true});
 
-  render() {
-    const { values, handleState, handleChange, handleDate } = this.props;
-    console.log(values.dob);
+    closeCamera = () => this.setState({showCamera:false});
 
-    return (
-      <div className="container">
+    continue = (e) => {
+        e.preventDefault();
+        const{faceImage} = this.state;
+        const capFace = {
+            faceImage
+        };
+
+        localStorage.setItem("CaptureFace", JSON.stringify(capFace));
+
+        
+        this.props.history.push('/dashboard/personal-details');
+        
+      };
+    
+      back = (e) => {
+        e.preventDefault();
+        this.props.history.push('/dashboard/nid-images');
+      };
+
+    render() {
+        const {faceImage, imageFlag,showCamera, flag} = this.state;
+        return (
+            <div className="container">
         <div className="row d-flex justify-content-center">
           <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
             <div className="card-header up">
               <h3>Face Verification</h3>
             </div>
             <div className="card-body d-flex justify-content-center">
-              {values.imageFlag ? (
+              {/* {imageFlag ? ( */}
                 <img
-                  src={values.flag + values.faceImage}
+                  src={faceImage? (flag + faceImage): Face}
                   style={{
                     display: "block",
                     marginLeft: "auto",
@@ -64,12 +74,14 @@ export class CaptureImage extends Component {
                     width: "250px",
                     height: "200px",
                   }}
+                  value ={faceImage}
                   className=" img-thumbnail center animated slideInDown"
                   id="imagePicture"
                   alt="cameraPicture"
                 />
+{/*             
               ) : (
-                  <img
+                 <img
                     src={Face}
                     style={{
                       margin: "auto",
@@ -82,7 +94,7 @@ export class CaptureImage extends Component {
                     alt=""
                   />
                 )}
-
+ */}
 
             </div>
             <div className="up "
@@ -137,7 +149,7 @@ export class CaptureImage extends Component {
                   </button>
                 </div>
                 <div className="modal-body">
-                  {values.showCamera ? (
+                  {showCamera ? (
                     <Camera onConfirm={this.onImageConfirm} />
                   ) : (
                       ""
@@ -153,8 +165,8 @@ export class CaptureImage extends Component {
           {/* End Content*/}
         </div>
       </div>
-    );
-  }
+        )
+    }
 }
 
-export default CaptureImage;
+export default withRouter(CaptureFace);

@@ -6,6 +6,18 @@ export class PersonalDetails extends Component {
     continue = e => {
         const { values } = this.props;
         e.preventDefault();
+        // const obj={
+        //     applicantName: values.applicantName,
+        //     motherName: values.motherName,
+        //     fatherName: values.fatherName,
+        //     spouseName: values.spouseName,
+        //     gender: values.gender,
+        //     profession: values.profession,
+        //     mobileNumber: values.mobileNumber,
+        //     presentAddress: values.presentAddress,
+        //     permanentAddress: values.permanentAddress,
+        // };
+        // localStorage.setItem("PersonalDetailsJoin", JSON.stringify(obj));
         this.props.nextStep();
     };
 
@@ -16,7 +28,7 @@ export class PersonalDetails extends Component {
 
     render() {
         const { values, handleChange } = this.props;
-        console.log(values.fatherName);
+       // console.log(values.fatherName);
         return (
             <div className="row d-flex justify-content-center my-5">
                 <div className="col-sm-12">

@@ -180,7 +180,7 @@ class RoleList extends Component {
 
             }
             let res = await axios.post(url, obj)
-            //console.log(res.data.data)
+            console.log("200line",res.data)
             let data = res.data.data
             //console.log(data)
 
@@ -189,7 +189,7 @@ class RoleList extends Component {
                 status: data[0].status,
                 roleName: data[0].roleName,
                 description: data[0].description,
-                grantedIPList: data[0].grantedIPList,
+                grantedIPList: data[0].grantedIPList !== null ? data[0].grantedIPList : "",
                 rolePrivileges: data[0].rolePrivileges
 
             }
@@ -268,6 +268,9 @@ class RoleList extends Component {
         //     console.log("Check Three", checkBoxThree)
         //     console.log("Check Three value", checkBoxValue)
         // }
+
+        //console.log("Pendinglist", pendingList);
+
         return (
             <div className="col-sm-12" >
 
@@ -418,7 +421,7 @@ class RoleList extends Component {
                                             <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList.map(v => v + ", ")}</span></small>
+                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", "): ""}</span></small>
                                         </div>
                                         <hr />
 

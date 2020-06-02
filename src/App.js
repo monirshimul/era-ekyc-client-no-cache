@@ -15,6 +15,19 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 class App extends Component {
+  
+  handleTabClose= (ev)=>{
+    ev.preventDefault();
+    ev.returnValue = '';
+  }
+
+  componentDidMount(){
+    window.addEventListener('beforeunload', this.handleTabClose);
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('beforeunload', this.handleTabClose);
+  }
 
   render() {
     return (

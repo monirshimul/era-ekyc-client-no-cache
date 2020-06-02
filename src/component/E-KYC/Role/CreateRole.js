@@ -57,7 +57,7 @@ class CreateRole extends Component {
         e.preventDefault();
         let { roleName, description, ipList, grantedIPList, rolePrivileges } = this.state
         try {
-            if (ipList === "") {
+            if (ipList === "" || ipList === null) {
                 grantedIPList = []
             } else {
                 grantedIPList = ipList.split(',')

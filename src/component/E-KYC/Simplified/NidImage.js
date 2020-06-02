@@ -9,7 +9,16 @@ export class NidImage extends Component {
   continue = (e) => {
     const { values } = this.props;
     e.preventDefault();
-    this.props.nextStep();
+
+  //   const obj ={
+  //     NidFront:values.NidFront,
+  //     NidFrontType:values.NidFrontType,
+  //     NidBack:values.NidBack,
+  //     NidBackType:values.NidBackType
+  // }
+  // localStorage.setItem("NidImage", JSON.stringify(obj));
+  
+  this.props.nextStep();
   };
 
   //Nid front Image upload

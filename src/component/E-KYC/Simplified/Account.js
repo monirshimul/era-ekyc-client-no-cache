@@ -5,9 +5,15 @@ class Account extends Component {
     state = {
 
         product: "",
-        accountType: ''
+        accountType: '',
+        channelName:''
 
     }
+
+    componentDidMount(){
+        localStorage.clear();
+    }
+
 
     onChange = e => {
         e.preventDefault();
@@ -16,11 +22,28 @@ class Account extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        const { product, accountType } = this.state;
+        const { product, accountType,channelName } = this.state;
+
+        if(product === ''){
+            alert('Please Select Product');
+            return;
+        }
+
+        if(accountType === ''){
+            alert('Please Select Account Type');
+            return;
+        }
+
+        if(channelName === ''){
+            alert('Please Select Channel Name');
+            return;
+        }
+
         const obj = {
 
             product,
-            accountType
+            accountType,
+            channelName,
         }
         localStorage.setItem("accountInfo", JSON.stringify(obj));
 
@@ -31,9 +54,9 @@ class Account extends Component {
         })
         // this.props.history.push('/dashboard/face-account');
         if (accountType === 'Joint') {
-            this.props.history.push('/dashboard/dynamic-comp');
-        } else {
-            this.props.history.push('/dashboard/face-account');
+            this.props.history.replace('/dashboard/dynamic-comp');
+        } else if(accountType === 'Single'){
+            this.props.history.replace('/dashboard/nid-images');
         }
     }
 
@@ -89,6 +112,27 @@ class Account extends Component {
 
                             </select>
                         </div>
+
+
+                     {/* Channel Name */}
+                     <div className='form-group'>
+                            <label htmlFor="">Channel Name</label>
+                            <select
+                                className='custom-select'
+                                value={this.state.channelName}
+                                onChange={this.onChange}
+                                name="channelName"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='CBS'>CBS</option>
+                                <option value='ABS'>ABS</option>
+                                {/* <option value='Credit Account'>Credit Accounts</option>
+                                <option value='Debit Card'>Debit Card</option>
+                                <option value='Credit Card'>Credit Card</option> */}
+
+                            </select>
+                        </div>
+
 
 
                         <div className="d-flex justify-content-center" >

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import MainFace from '../Simplified/MainFace';
+//import NidImages from './FaceForms/NidImages';
 import Finger from '../Simplified/FingerMultiForm/Finger';
+import {withRouter} from 'react-router-dom';
 import './utils/Common.css'
 
 export class DynamicComp extends Component {
@@ -8,6 +10,9 @@ export class DynamicComp extends Component {
         jointArray: [],
         comp: ''
     }
+
+
+  
 
     deleteComp = (index) => {
         const copyArray = Object.assign([], this.state.jointArray);
@@ -23,13 +28,14 @@ export class DynamicComp extends Component {
             comp: val
         })
         this.setState({
-            jointArray: copyArray
+            jointArray: copyArray,
         })
     }
 
 
 
     render() {
+       // console.log("stable", this.state.stableButton);
         return (
             <div className="col text-center" >
 
@@ -41,7 +47,8 @@ export class DynamicComp extends Component {
                                 <h2 className="text-muted"><i className="fas fa-user" style={{ color: "#e3174c" }}></i> Applicant <small >{index + 1}</small></h2>
                                 {arr.comp}
                                 <hr />
-                                <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => window.confirm("Are you sure? All your data will be lost.") && this.deleteComp(index)}>Delete</button>
+                                {/* <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => window.confirm("Are you sure? All your data will be lost.") && this.deleteComp(index)}>Delete</button> */}
+                                <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) =>this.deleteComp(index)}>Delete</button>
                                 <br />
                                 <hr />
                             </div>
@@ -50,11 +57,11 @@ export class DynamicComp extends Component {
                     })
                 }
 
-                <button className="bigB mr-2" style={{ border: "none" }} onClick={() => this.addComp(<MainFace />)}>Face</button>
-                <button className="bigB" style={{ border: "none" }} onClick={() => this.addComp(<Finger />)}>Finger</button>
+                <button disabled={this.state.stableButton} className="bigB mr-2" style={{ border: "none" }} onClick={() => this.addComp(<MainFace/>)}>Face</button>
+                <button disabled={this.state.stableButton} className="bigB" style={{ border: "none" }} onClick={() => this.addComp(<Finger />)}>Finger</button>
             </div>
         )
     }
 }
 
-export default DynamicComp;
+export default withRouter(DynamicComp);

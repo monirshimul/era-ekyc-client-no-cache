@@ -224,7 +224,7 @@ class ApproveRole extends Component {
                                             <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList.map(v => v + ", ")}</span></small>
+                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", "): ""}</span></small>
                                         </div>
                                         <hr />
 

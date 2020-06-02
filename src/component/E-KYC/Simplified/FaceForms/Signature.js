@@ -1,21 +1,38 @@
-import React, { Component } from 'react'
-import Sign from './images/sign.svg'
+import React, { Component } from 'react';
+import Sign from '../images/sign.svg'
 
 export class Signature extends Component {
+    state={
+        signature: '',
+        signatureType: '',
+        flag: 'data:image/jpeg;base64,'
+    }
+
+
+    componentDidMount(){
+        if('Signature' in localStorage){
+            let data = JSON.parse(localStorage.getItem('Signature'));
+           // console.log(data);
+            this.setState({ 
+                signature: data.signature,
+            });
+       }
+    }
+
     continue = e => {
-        const { values } = this.props;
+        const {signature} = this.state;
         e.preventDefault();
-        // let obj = {
-        //     signature: values.signature,
-        //     signatureType: values.signatureType
-        // }
-        // localStorage.setItem("Signature", JSON.stringify(obj));
-        this.props.nextStep();
+        const sigObj = {
+            signature
+        };
+
+        localStorage.setItem('Signature', JSON.stringify(sigObj));
+        this.props.history.push('/dashboard/confirm-info');
     };
 
     back = e => {
         e.preventDefault();
-        this.props.prevStep();
+        this.props.history.push('/dashboard/nominee');
     }
 
     fileSelectedHandler = event => {
@@ -26,18 +43,11 @@ export class Signature extends Component {
             reader.readAsBinaryString(file);
 
             reader.onload = () => {
-                // console.log(typeof reader.result);
-                // console.log(btoa(reader.result));
                 let base64Image = btoa(reader.result);
-                // this.setState({
-                //   profilePic: base64Image,
-                //   profilePicType: file.type
-
-                //   //nidImage: URL.createObjectURL(event.target.files[0])
-                // });
-                this.props.handleState('signature', base64Image);
-
-                this.props.handleState('signatureType', file.type)
+                this.setState({
+                  signature: base64Image,
+                  signatureType: file.type
+                });
             };
             reader.onerror = () => {
                 console.log('there are some problems');
@@ -46,13 +56,10 @@ export class Signature extends Component {
         }
     };
 
-
     render() {
-        const { values } = this.props;
-       // console.log(values.signature);
+        let {signature,signatureType,flag} = this.state;
         return (
-
-
+           
             <div className="col-sm-12 d-flex justify-content-center" >
                 <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
                     <div className="card-header up">
@@ -62,7 +69,7 @@ export class Signature extends Component {
 
                         <img
 
-                            src={values.signature ? (values.flag + values.signature) : Sign}
+                            src={signature ? (flag + signature) : Sign}
                             style={{
 
                                 width: "300px",
@@ -87,7 +94,7 @@ export class Signature extends Component {
                                     onChange={this.fileSelectedHandler}
 
                                     class="form-control-file" id="input-file" />
-                                <label class="custom-file-label" for="input-file">Choose Image</label>
+                                <label class="custom-file-label" htmlFor="input-file">Choose Image</label>
                             </div>
 
                         </div>
@@ -109,14 +116,8 @@ export class Signature extends Component {
                 </div>
 
             </div>
-
-
-
-
-
-
         )
     }
 }
 
-export default Signature
+export default Signature;

@@ -269,7 +269,7 @@ export class UserList extends Component {
                                 {
                                     this.state.allAppUser.map((user, index) => (
 
-                                        <div key={index} className="col-sm-3 mr-2 divBgCard" style={{ color: "#333", padding: "15px" }}>
+                                        <div key={index} className="col-sm-6 mr-2 divBgCard" style={{ color: "#333", padding: "15px" }}>
                                             <div className="text-center im">
                                                 <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> User ID : <span style={{ color: "green" }}>{user.userId}</span></small>
                                             </div>
