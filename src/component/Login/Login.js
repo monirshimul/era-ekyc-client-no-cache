@@ -29,27 +29,33 @@ class Login extends Component {
 
         try {
             let userLogin = await axios.post(loginAPI, obj);
-            //console.log("loginapi ", userLogin.data);
+            console.log("loginapi ", userLogin.data);
+            
+            let loginSuccess = userLogin.data.data;
+            console.log("login",loginSuccess)
 
-            let loginSuccess = userLogin.data;
-            let token = loginSuccess.data.authToken;
-            let features = loginSuccess.data.features;
+            if(loginSuccess.loginToken){
+                let loginToken = loginSuccess.loginToken;
+                this.props.history.push('/verify-login', loginToken);
+            }else{
+
+            let token = loginSuccess.authToken;
+            let features = loginSuccess.features;
 
             //Session Storage
             sessionStorage.setItem('x-auth-token', JSON.stringify(token));
             sessionStorage.setItem('featureList', JSON.stringify(features));
-            console.log("token", token);
-            let statusCode = loginSuccess.statusCode;
-
-            if (statusCode === 200) {
+         //   console.log("token", token);
+           
                 let message = "Login Successfull";
                 //alert(statusCode + ' ' + message);
                 NotificationManager.success(message, "Success", 5000);
                 this.props.history.replace('/dashboard');
-            } else {
-                this.props.history.push('/verify-login');
+
             }
 
+
+        
         } catch (err) {
             // console.log(err.response);
             let error = err.response;

@@ -59,7 +59,7 @@ class ChangePass extends Component {
 
 
         try{
-            console.log("token", sessionStorage.getItem('x-auth-token'));
+           // console.log("token", sessionStorage.getItem('x-auth-token'));
             let passChange = await axios.post(changePassword,obj, config  );
                 // {
                 // headers: {
@@ -67,7 +67,7 @@ class ChangePass extends Component {
                 //         } 
                 //        } 
                
-            console.log("Api Status",passChange.data);
+           // console.log("Api Status",passChange.data);
             let statusCode = passChange.data.statusCode;
             let message = "Change Password Completed";
             alert(statusCode+ " "+ message);

@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 // import './CreateUser.css';
 import '../../E-KYC/Simplified/utils/Common.css';
 import '../CSS/table.css';
-import { getRoleWithFilter, createUserWithRole } from '../Url/ApiList';
+import { getRoleWithFilter, createUserWithRole, checkUserId,checkUserMobile,checkUserEmail} from '../Url/ApiList';
 import { convertNumber } from '../../Utils/StrToNum';
 
 import axios from 'axios';
@@ -81,96 +81,137 @@ class CreateUser extends Component {
         }
     }
 
-    // OnSubmit for Submit button
-    onSubmit = async (e) => {
-        e.preventDefault();
-        const { userId, name, password, mobile, email, roles, pinAuthStatus } = this.state;
+   // OnSubmit for Submit button
+   onSubmit = async (e) => {
+    e.preventDefault();
+    const { userId, name, password, mobile, email, roles, pinAuthStatus } = this.state;
 
-        if (userId === "") {
-            alert("Please Provide your User ID");
-            return;
-        }
-
-        if (name === "") {
-            alert("Please Provide your Name");
-            return;
-        }
-
-        if (password === "") {
-            alert("Please Provide your Password");
-            return;
-        }
-
-        if (mobile === "") {
-            alert("Please Provide your Mobile");
-            return;
-        }
-
-        if (email === "") {
-            alert("Please Provide your Email");
-            return;
-        }
-
-        if (pinAuthStatus === "") {
-            alert("please fill up two factor verification");
-            return;
-        }
-        if(roles.length === 0){
-            alert("Please select Role Selection");
-            return;
-        }
-        const myrole = convertNumber(roles);
-        //const dualVerification = JSON.parse(pinAuthStatus);
-
-        const obj = {
-            userId,
-            name,
-            password,
-            mobile,
-            email,
-            roles: myrole,
-            pinAuthStatus: JSON.parse(pinAuthStatus)
-
-        }
-
-        if (pinAuthStatus === "") {
-            alert("Please fill up two factor verification field");
-        }
-
-        console.log("CreateObj", obj);
-        try {
-            let createUser = await axios.post(createUserWithRole, obj);
-            console.log(createUser.data);
-            let succ = createUser.data.statusCode;
-            let suc_message = createUser.data.message;
-            alert(succ + "  " + suc_message);
-            this.props.history.push('/dashboard');
-            
-            
-             
-        } catch (err) {
-           // console.log(err.response.data);
-            let error = err.response.data;
-            let errorStatus = error.statusCode;
-            let errorMessage = error.message;
-            
-            alert(errorStatus + " " + errorMessage );
-            window.location.reload(true);
-
-        }
-
-
-        //alert("User created Successful and wait for the approval");
-
-        this.setState({
-            userId: '',
-            name: '',
-            password: '',
-            mobile: '',
-            email: '',
-            pinAuthStatus: ''
-        })
+    if (userId === "") {
+        alert("Please Provide your User ID");
+        return;
     }
+
+    try{
+        const data1 = {userId};
+        let checkUserIdApi = await axios.post( checkUserId, data1);
+        let checkId = checkUserIdApi.data.data;
+        if(checkId === true){
+            alert("UserId is already taken");
+            return;
+        } 
+        
+
+    }catch(err){
+        console.log(err.response);
+    }
+
+
+    if (name === "") {
+        alert("Please Provide your Name");
+        return;
+    }
+
+    if (password === "") {
+        alert("Please Provide your Password");
+        return;
+    }
+
+    if (mobile === "") {
+        alert("Please Provide your Mobile");
+        return;
+    }
+
+    try{
+        const data2 = {mobile};
+        let checkMobileApi = await axios.post(checkUserMobile, data2);
+        let checkMobile = checkMobileApi.data.data;
+        if(checkMobile === true){
+            alert("Mobile Number is already given by user");
+            return;
+        } 
+        
+
+    }catch(err){
+        //console.log(err.response);
+    }
+
+    if (email === "") {
+        alert("Please Provide your Email");
+        return;
+    }
+
+    try{
+        const data3 = {email};
+        let checkEmailApi = await axios.post(checkUserEmail, data3);
+        let checkEmail = checkEmailApi.data.data;
+       // console.log("email",checkEmail)
+        if(checkEmail === true){
+            alert("email is already given by user");
+            return;
+        } 
+        
+
+    }catch(err){
+        // console.log(err.response);
+    }
+
+    if (pinAuthStatus === "") {
+        alert("please fill up two factor verification");
+        return;
+    }
+    if(roles.length === 0){
+        alert("Please select Role Selection");
+        return;
+    }
+    const myrole = convertNumber(roles);
+    //const dualVerification = JSON.parse(pinAuthStatus);
+
+    const obj = {
+        userId,
+        name,
+        password,
+        mobile,
+        email,
+        roles: myrole,
+        pinAuthStatus: JSON.parse(pinAuthStatus)
+
+    }
+
+
+    console.log("CreateObj", obj);
+    try {
+        let createUser = await axios.post(createUserWithRole, obj);
+       // console.log(createUser.data);
+        let succ = createUser.data.statusCode;
+        let suc_message = createUser.data.message;
+        alert(succ + "  " + suc_message);
+        this.props.history.push('/dashboard');
+        
+        
+         
+    } catch (err) {
+       // console.log(err.response.data);
+        let error = err.response.data;
+        let errorStatus = error.statusCode;
+        let errorMessage = error.message;
+        
+        alert(errorStatus + " " + errorMessage );
+        window.location.reload(true);
+
+    }
+
+
+    //alert("User created Successful and wait for the approval");
+
+    this.setState({
+        userId: '',
+        name: '',
+        password: '',
+        mobile: '',
+        email: '',
+        pinAuthStatus: ''
+    })
+}
 
     renderTableData() {
         return this.state.role_list.map((role, index) => {
@@ -200,9 +241,9 @@ class CreateUser extends Component {
     }
 
 
-    onRefresh = () =>{
-        window.location.reload(true);
-    }
+    // onRefresh = () =>{
+    //     window.location.reload(true);
+    // }
 
     render() {
         return (

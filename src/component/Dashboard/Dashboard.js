@@ -19,7 +19,12 @@ import Signature from '../E-KYC/Simplified/FaceForms/Signature';
 import ConfirmInfo from '../E-KYC/Simplified/FaceForms/ConfirmInfo';
 import Complete from '../E-KYC/Simplified/FaceForms/Complete';
 
-function Dashboard() {
+import {withRouter} from 'react-router-dom';
+
+function Dashboard(props) {
+    // if (sessionStorage.length == 0) {
+    //     props.history.push('/');
+    // }
     // console.log("In the DashboardTwo")
     let feature = JSON.parse(sessionStorage.getItem("featureList"))
     //console.log("Feature List", feature)
@@ -183,6 +188,7 @@ function Dashboard() {
 
                             <Switch>
                                 <Route exact path={`${path}`} component={Welcome} />
+                                
                                 {allMenu.map((route, index) => (
 
 
@@ -240,4 +246,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default withRouter(Dashboard);

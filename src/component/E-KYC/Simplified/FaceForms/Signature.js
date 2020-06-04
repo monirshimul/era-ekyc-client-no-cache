@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Sign from '../images/sign.svg'
+import { NotificationManager } from "react-notifications";
+import Account from '../Account';
 
 export class Signature extends Component {
     state={
@@ -22,6 +24,13 @@ export class Signature extends Component {
     continue = e => {
         const {signature} = this.state;
         e.preventDefault();
+        
+        if(signature === ''){
+            let signatureMessage = "Please Provide Signature image";
+            NotificationManager.error(signatureMessage, "Error", 5000);
+            return;
+        }
+
         const sigObj = {
             signature
         };
@@ -58,6 +67,9 @@ export class Signature extends Component {
 
     render() {
         let {signature,signatureType,flag} = this.state;
+        if(localStorage.length === 0){
+            return <Account/>;
+        }
         return (
            
             <div className="col-sm-12 d-flex justify-content-center" >

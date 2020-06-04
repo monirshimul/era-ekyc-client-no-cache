@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NotificationManager } from "react-notifications";
 import "../utils/Common.css";
 import Camera from '../utils/Camera';
 import Face from "../images/face.svg";
@@ -38,6 +39,13 @@ export class CaptureFace extends Component {
     continue = (e) => {
         e.preventDefault();
         const{faceImage} = this.state;
+
+        if(faceImage === ''){
+          let faceImageMessage = 'Please Provide your faceImage';
+          NotificationManager.error(faceImageMessage, "Error", 5000);
+          return;
+        }
+
         const capFace = {
             faceImage
         };

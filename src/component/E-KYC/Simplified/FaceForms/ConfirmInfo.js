@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import Account from '../Account';
 
 export class ConfirmInfo extends Component {
     state = {
+        // accountData:'' ,
+        // nidImagesData: '',
+        // captureFaceData:'' ,
+        // personalDetailsData:'',
+        // nomineeData:'' ,
+        // signatureData:'' ,
+        // flag: 'data:image/jpeg;base64,'
         accountData: JSON.parse(localStorage.getItem('accountInfo')),
         nidImagesData: JSON.parse(localStorage.getItem('NidImages')),
         captureFaceData: JSON.parse(localStorage.getItem('CaptureFace')),
@@ -11,6 +19,18 @@ export class ConfirmInfo extends Component {
         signatureData: JSON.parse(localStorage.getItem('Signature')),
         flag: 'data:image/jpeg;base64,'
     }
+
+    // componentDidMount(){
+    //     this.setState({
+    //     accountData: JSON.parse(localStorage.getItem('accountInfo')),
+    //     nidImagesData: JSON.parse(localStorage.getItem('NidImages')),
+    //     captureFaceData: JSON.parse(localStorage.getItem('CaptureFace')),
+    //     personalDetailsData: JSON.parse(localStorage.getItem('PersonalDetails')),
+    //     nomineeData: JSON.parse(localStorage.getItem('NomineeArray')),
+    //     signatureData: JSON.parse(localStorage.getItem('Signature')),
+    //     flag: 'data:image/jpeg;base64,'
+    //     })
+    // }
 
     continue = e => {
         e.preventDefault();
@@ -27,6 +47,9 @@ export class ConfirmInfo extends Component {
 
 
     render() {
+        if(localStorage.length === 0){
+            return <Account/>;
+        }
         let { accountData, nidImagesData, captureFaceData, personalDetailsData, nomineeData, signatureData, flag } = this.state;
         // console.log("Nominee data", nomineeData);
         return (
@@ -52,7 +75,7 @@ export class ConfirmInfo extends Component {
                             </div>
                             <div className="card-body">
                                 {nomineeData.map((val, i) => (
-                                    nomineeData[i].isShow === true ?
+                                    val.isShow === true ?
                                         // Major
                                         <div>
                                             <p className="text-muted">Nominee {i + 1}</p >

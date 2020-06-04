@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
@@ -34,7 +35,7 @@ class App extends Component {
       <Provider store={store}>
 
 
-        <Router>
+        <Router >
           <div className="App">
 
             <Switch>

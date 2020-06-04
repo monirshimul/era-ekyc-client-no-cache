@@ -4,6 +4,7 @@ import NidOne from '../images/nid-f2.svg';
 import NidTwo from '../images/nid-f3.svg';
 import NidThree from '../images/nid-f4.svg';
 import {withRouter} from 'react-router-dom';
+import { NotificationManager } from "react-notifications";
 
 export class NidImages extends Component {
     state={
@@ -79,6 +80,19 @@ export class NidImages extends Component {
   continue = (e) =>{
       e.preventDefault();
       const{NidFront,NidFrontType,NidBack,NidBackType} = this.state;
+      
+      if(NidFront === ""){
+        let NidFrontMessage = "Please Provide Nid Front Image";
+        NotificationManager.error(NidFrontMessage, "Error", 5000);
+        return;
+      }
+
+      if(NidBack === ""){
+        let NidBackMessage = "Please Provide Nid Back Image";
+        NotificationManager.error(NidBackMessage, "Error", 5000);
+        return;
+      }
+
       const obj ={
           NidFront,
           NidFrontType,

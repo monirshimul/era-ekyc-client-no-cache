@@ -3,9 +3,43 @@ import { Link } from 'react-router-dom';
 import Logo from './image/bankAsia-removebg.png'
 import './nav.css'
 import '../E-KYC/Simplified/utils/Common.css'
+import axios from 'axios';
+import {withRouter} from 'react-router-dom';
+import { logoutUser } from '../E-KYC/Url/ApiList';
+import Login from '../Login/Login';
 
 
-const Nav = () => {
+
+const Nav = (props) => {
+
+     if (sessionStorage.length == 0) {
+        return <Login/>
+    }
+    //=======================Logout button start========================
+    const logoutAPI = async (e) => {
+        e.preventDefault();
+
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        try {
+           // console.log("config", config);
+            let res = await axios.post(logoutUser, null, config);
+            console.log(res.data);
+            sessionStorage.clear();
+            props.history.push('/');
+            
+        }catch (err) {
+             //console.log(err.response);
+        }
+    }
+    //===================Logout button end===============================
+
+   
+
     return (
 
         <div className="col-sm-12" style={{ margin: "0", zIndex: "10", position: "sticky", top: "0", padding: "0", background: "#099e96", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)" }}>
@@ -74,6 +108,12 @@ const Nav = () => {
                                 </ul>
                             </div>
                         </li>
+
+                        <li className="nav-item">
+                            <Link className="nav-link  text-white" to="#" id="navbarDropdown" role="button" onClick={logoutAPI}>
+                                <i class="fas fa-sign-out-alt"></i> Logout</Link>
+                        </li>
+
                     </ul>
                 </div>
             </nav>
@@ -84,4 +124,4 @@ const Nav = () => {
     )
 }
 
-export default Nav;
+export default withRouter(Nav);

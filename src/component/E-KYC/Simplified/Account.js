@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { NotificationManager } from "react-notifications";
 
 class Account extends Component {
     state = {
@@ -25,17 +26,20 @@ class Account extends Component {
         const { product, accountType,channelName } = this.state;
 
         if(product === ''){
-            alert('Please Select Product');
+            let productMessage = "Please select Product & Services";
+            NotificationManager.error(productMessage, "Error", 5000);
             return;
         }
 
         if(accountType === ''){
-            alert('Please Select Account Type');
+            let accountTypeMessage = 'Please Select Account Type';
+            NotificationManager.error(accountTypeMessage, "Error", 5000);
             return;
         }
 
         if(channelName === ''){
-            alert('Please Select Channel Name');
+            let channelNameMessage = 'Please Select Channel Name';
+            NotificationManager.error(channelNameMessage, "Error", 5000);
             return;
         }
 

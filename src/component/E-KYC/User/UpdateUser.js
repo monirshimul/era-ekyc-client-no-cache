@@ -214,6 +214,13 @@ class UpdateUser extends Component {
             alert("please fill up two factor verification");
             return;
         }
+
+        if(checking.length === 0){
+            if(roles.length === 0){
+                alert("Please select Role");
+                return;
+            }
+        }
       
 
         const obj = {
