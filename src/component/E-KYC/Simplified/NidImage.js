@@ -10,15 +10,15 @@ export class NidImage extends Component {
     const { values } = this.props;
     e.preventDefault();
 
-  //   const obj ={
-  //     NidFront:values.NidFront,
-  //     NidFrontType:values.NidFrontType,
-  //     NidBack:values.NidBack,
-  //     NidBackType:values.NidBackType
-  // }
-  // localStorage.setItem("NidImage", JSON.stringify(obj));
-  
-  this.props.nextStep();
+    //   const obj ={
+    //     NidFront:values.NidFront,
+    //     NidFrontType:values.NidFrontType,
+    //     NidBack:values.NidBack,
+    //     NidBackType:values.NidBackType
+    // }
+    // localStorage.setItem("NidImage", JSON.stringify(obj));
+
+    this.props.nextStep();
   };
 
   //Nid front Image upload
@@ -77,7 +77,7 @@ export class NidImage extends Component {
     // console.log(values.profilePicType);
     // console.log(values.flag)
     return (
-      <div className="">
+      <div className="animated zoomIn">
         <div className="row d-flex justify-content-center">
           <div className="col-sm-12 d-flex justify-content-around">
             <div className="card col-sm-6" style={{ paddingTop: "25px", marginRight: "30px" }}>

@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Account from '../Account';
 import Family from '../images/family.svg'
+import Avater from '../images/user-two.svg'
+import front from '../images/id-front-three.svg'
+
+import back from '../images/id-back-three.svg'
+import Sign from '../images/signature.svg'
 import Familyes from '../images/candidates.svg'
 import adult from '../images/age-limit-one.svg'
 import child from '../images/age-limit-two.svg'
@@ -63,7 +68,7 @@ export class ConfirmInfo extends Component {
                         <h3>All Information</h3>
                     </div>
                     <div class="row card-body d-flex justify-content-around">
-                        <div className="col-sm-5" style={{ margin: "20px 0px" }}>
+                        <div className="col-sm-5 animated zoomIn" style={{ margin: "20px 0px" }}>
                             <div className="">
                                 <h1 style={{ color: "green" }}>Account Details</h1>
                             </div>
@@ -75,36 +80,22 @@ export class ConfirmInfo extends Component {
                             </div>
                             <hr />
                         </div>
-                        {/* <div className="col-sm-5" style={{ margin: "20px 0px" }}>
-                            <img
-                                src={adult}
-                                style={{
-                                    margin: "0 auto",
-                                    width: "300px",
-                                    height: "200px",
-                                    border: "none",
-                                }}
 
-                                className="img-fluid img-thumbnail"
-                                id="FrontNidPic"
-                                alt=""
-                            />
-                            <hr />
-                        </div> */}
 
-                        <div className=" col-sm-5" style={{ margin: "20px 0px" }}>
+                        <div className=" col-sm-5 animated zoomIn" style={{ margin: "20px 0px" }}>
                             <div className="text-center">
                                 <h1 style={{ color: "green" }}>Applicant Image</h1>
                             </div>
                             <hr />
                             <div className="text-center" style={{ margin: "20px 0px" }}>
 
-                                <img src={captureFaceData.faceImage ? flag + captureFaceData.faceImage : adult}
+                                <img src={captureFaceData.faceImage ? flag + captureFaceData.faceImage : Avater}
                                     style={{
                                         margin: "0 auto",
-                                        width: "300px",
-                                        height: "200px",
-                                        border: "none",
+                                        width: "200px",
+                                        height: "150px",
+                                        border: "none"
+
                                     }}
                                     className="img-fluid img-thumbnail"
                                 />
@@ -114,85 +105,12 @@ export class ConfirmInfo extends Component {
                             </div>
                         </div>
 
-
-
-                        <div className="col-sm-5" style={{ margin: "20px 0px" }}>
-
+                        <div className="col-sm-5 animated zoomIn" style={{ margin: "20px 0px" }}>
                             <div className="">
-                                <h1 style={{ color: "green" }}>Nominee Details</h1>
+                                <h1 style={{ color: "green" }}>Personal Information</h1>
                             </div>
                             <hr />
                             <div className="">
-                                {nomineeData.map((val, i) => (
-                                    val.isShow === true ?
-                                        // Major
-                                        <div>
-                                            <p className="text-muted">Nominee {i + 1}, <br />
-                                            Nominee : {nomineeData[i].nominee},<br />
-                                            Relation : {nomineeData[i].relation},<br />
-                                            Picture :
-                                    <img src={nomineeData[i].photograph ? flag + nomineeData[i].photograph : adult} alt="" style={{ width: "100px", height: "100px", borderRadius: "50px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
-                                            ,<br />
-                                            percentage : {nomineeData[i].percentage}&#37;
-                                            </p >
-                                            {/* <p className="text-muted">Nominee : {nomineeData[i].nominee}</p>
-                                            <p className="text-muted">Relation : {nomineeData[i].relation}</p>
-                                            <p className="text-muted">Picture :
-                                    <img src={flag + nomineeData[i].photograph} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
-                                            </p> */}
-                                            {/* <p className="text-muted">Photograph : {nomineeData[i].photograph}</p> */}
-                                            {/* <p className="text-muted">percentage : {nomineeData[i].percentage}&#37;</p> */}
-                                            <hr />
-                                        </div>
-                                        :
-                                        // Minor
-
-                                        <div>
-
-                                            <p className="text-muted">Nominee {i + 1}</p >
-                                            <p className="text-muted">Minor Nominee : {nomineeData[i].minorNominee}</p>
-                                            <p className="text-muted">Name of Guardian : {nomineeData[i].minorGuarrdian}</p>
-                                            <p className="text-muted">Address : {nomineeData[i].minorAddress}</p>
-                                            <p className="text-muted">Relation : {nomineeData[i].minorRelation}</p>
-                                            <p className="text-muted">Guardian Nid No : {nomineeData[i].minorNidGuardian}</p>
-                                            {/* <p className="text-muted">NID Image of Guardian :
-                                    <img src={flag + nomineeData[i].minorNidGuardian} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
-                                            </p> */}
-                                            <p className="text-muted">Photograph of Guardian :
-                                    <img src={nomineeData[i].minorPhotoGuardian ? flag + nomineeData[i].minorPhotoGuardian : child} alt="" style={{ width: "100px", height: "100px", borderRadius: "50px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
-                                            </p>
-                                            <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}&#37;</p>
-                                            <hr />
-                                        </div>
-                                ))}
-
-                            </div>
-                        </div>
-
-
-
-                        <div className="col-sm-5" style={{ margin: "20px 0px" }}>
-                            <img
-                                src={adult}
-                                style={{
-                                    margin: "0 auto",
-                                    width: "300px",
-                                    height: "200px",
-                                    border: "none",
-                                }}
-
-                                className="img-fluid img-thumbnail"
-                                id="FrontNidPic"
-                                alt=""
-                            />
-                            <hr />
-                        </div>
-
-                        <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
-                            <div className="card-header im">
-                                <h5>Personal Information</h5>
-                            </div>
-                            <div className="card-body">
 
                                 <p className="text-muted">Applicant's Name : {personalDetailsData.applicantName}</p>
                                 <p className="text-muted">Mother's Name : {personalDetailsData.motherName}</p>
@@ -210,8 +128,145 @@ export class ConfirmInfo extends Component {
 
 
 
+                        <div className=" col-sm-5 animated zoomIn" style={{ margin: "20px 0px" }}>
+                            <div className="text-center">
+                                <h1 style={{ color: "green" }}>NID Images</h1>
+                            </div>
+                            <hr />
+                            <div className="text-center" style={{ margin: "20px 0px" }}>
+                                <div className="">
+                                    <h5>NID Front</h5>
+                                </div>
 
-                        <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
+                                <img src={nidImagesData.NidFront ? flag + nidImagesData.NidFront : front}
+                                    style={{
+                                        margin: "0 auto",
+                                        width: "300px",
+                                        height: "200px",
+                                        border: "none",
+                                    }}
+                                    className="img-fluid img-thumbnail"
+                                />
+                                <hr />
+
+
+                            </div>
+                            <div className="text-center" style={{ margin: "20px 0px" }}>
+                                <div className="">
+                                    <h5>NID Back</h5>
+                                </div>
+
+                                <img src={nidImagesData.NidBack ? flag + nidImagesData.NidBack : back}
+                                    style={{
+                                        margin: "0 auto",
+                                        width: "300px",
+                                        height: "200px",
+                                        border: "none",
+                                    }}
+                                    className="img-fluid img-thumbnail"
+                                />
+                                <hr />
+
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                        <div className="col-sm-5 animated zoomIn" style={{ margin: "20px 0px" }}>
+
+                            <div className="">
+                                <h1 style={{ color: "green" }}>Nominee Details</h1>
+                            </div>
+                            <hr />
+                            <div className="">
+                                {nomineeData.map((val, i) => (
+                                    val.isShow === true ?
+                                        // Major
+                                        <div>
+                                            <p className="text-muted">Nominee {i + 1}, <br />
+                                            Picture :   <img src={nomineeData[i].photograph ? flag + nomineeData[i].photograph : adult} alt="" style={{ width: "100px", height: "100px", borderRadius: "50px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                                 ,<br />
+                                            Nominee : {nomineeData[i].nominee},<br />
+                                            Relation : {nomineeData[i].relation},<br />
+
+
+
+                                            percentage : {nomineeData[i].percentage}&#37;
+                                            </p >
+                                            {/* <p className="text-muted">Nominee : {nomineeData[i].nominee}</p>
+                                            <p className="text-muted">Relation : {nomineeData[i].relation}</p>
+                                            <p className="text-muted">Picture :
+                                    <img src={flag + nomineeData[i].photograph} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                            </p> */}
+                                            {/* <p className="text-muted">Photograph : {nomineeData[i].photograph}</p> */}
+                                            {/* <p className="text-muted">percentage : {nomineeData[i].percentage}&#37;</p> */}
+                                            <hr />
+                                        </div>
+                                        :
+                                        // Minor
+
+                                        <div>
+
+                                            <p className="text-muted">Nominee {i + 1}</p >
+
+                                            <p className="text-muted">Minor Nominee : {nomineeData[i].minorNominee}</p>
+                                            <p className="text-muted">Name of Guardian : {nomineeData[i].minorGuarrdian}</p>
+                                            <p className="text-muted">Address : {nomineeData[i].minorAddress}</p>
+                                            <p className="text-muted">Relation : {nomineeData[i].minorRelation}</p>
+                                            <p className="text-muted">Guardian Nid No : {nomineeData[i].minorNidGuardian}</p>
+                                            {/* <p className="text-muted">NID Image of Guardian :
+                                    <img src={flag + nomineeData[i].minorNidGuardian} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                            </p> */}
+
+                                            <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}&#37;</p>
+                                            <p className="text-muted">Photograph of Guardian :
+                                    <img src={nomineeData[i].minorPhotoGuardian ? flag + nomineeData[i].minorPhotoGuardian : child} alt="" style={{ width: "100px", height: "100px", borderRadius: "50px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                            </p>
+                                            <hr />
+                                        </div>
+                                ))}
+
+                            </div>
+                        </div>
+
+
+
+                        <div className=" col-sm-5 animated zoomIn" style={{ margin: "20px 0px" }}>
+                            <div className="text-center">
+                                <h1 style={{ color: "green" }}>Applicant Signature</h1>
+                            </div>
+                            <hr />
+                            <div className="text-center" style={{ margin: "20px 0px" }}>
+
+                                <img src={signatureData.signature ? flag + signatureData.signature : Sign}
+                                    style={{
+                                        margin: "0 auto",
+                                        width: "200px",
+                                        height: "200px",
+                                        border: "none"
+
+                                    }}
+                                    className="img-fluid img-thumbnail"
+                                />
+                                <hr />
+
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        {/* <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
                             <div className="card-header im">
                                 <h5>Nid Details</h5>
                             </div>
@@ -224,10 +279,10 @@ export class ConfirmInfo extends Component {
                                     <img src={flag + nidImagesData.NidBack} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                 </p>
                             </div>
-                        </div>
+                        </div> */}
 
 
-                        <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
+                        {/* <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
                             <div className="card-header im">
                                 <h5>Applicant Image</h5>
                             </div>
@@ -237,9 +292,9 @@ export class ConfirmInfo extends Component {
                                 </p>
 
                             </div>
-                        </div>
+                        </div> */}
 
-                        <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
+                        {/* <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
                             <div className="card-header im">
                                 <h5>Applicant Signature</h5>
                             </div>
@@ -249,7 +304,7 @@ export class ConfirmInfo extends Component {
                                 </p>
 
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                     <div className="d-flex justify-content-center"

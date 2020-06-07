@@ -129,7 +129,7 @@ export class Nominee extends Component {
         this.setState({
             showHide: !this.state.showHide
         })
-        console.log("ShowHide", this.state.showHide)
+        //console.log("ShowHide", this.state.showHide)
     }
 
 
