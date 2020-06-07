@@ -4,32 +4,32 @@ import { NotificationManager } from "react-notifications";
 import Account from '../Account';
 
 export class Signature extends Component {
-    state={
+    state = {
         signature: '',
         signatureType: '',
         flag: 'data:image/jpeg;base64,'
     }
 
 
-    componentDidMount(){
-        if('Signature' in localStorage){
+    componentDidMount() {
+        if ('Signature' in localStorage) {
             let data = JSON.parse(localStorage.getItem('Signature'));
-           // console.log(data);
-            this.setState({ 
+            // console.log(data);
+            this.setState({
                 signature: data.signature,
             });
-       }
+        }
     }
 
     continue = e => {
-        const {signature} = this.state;
+        const { signature } = this.state;
         e.preventDefault();
-        
-        if(signature === ''){
-            let signatureMessage = "Please Provide Signature image";
-            NotificationManager.error(signatureMessage, "Error", 5000);
-            return;
-        }
+
+        // if(signature === ''){
+        //     let signatureMessage = "Please Provide Signature image";
+        //     NotificationManager.error(signatureMessage, "Error", 5000);
+        //     return;
+        // }
 
         const sigObj = {
             signature
@@ -54,8 +54,8 @@ export class Signature extends Component {
             reader.onload = () => {
                 let base64Image = btoa(reader.result);
                 this.setState({
-                  signature: base64Image,
-                  signatureType: file.type
+                    signature: base64Image,
+                    signatureType: file.type
                 });
             };
             reader.onerror = () => {
@@ -66,12 +66,12 @@ export class Signature extends Component {
     };
 
     render() {
-        let {signature,signatureType,flag} = this.state;
-        if(localStorage.length === 0){
-            return <Account/>;
+        let { signature, signatureType, flag } = this.state;
+        if (localStorage.length === 0) {
+            return <Account />;
         }
         return (
-           
+
             <div className="col-sm-12 d-flex justify-content-center" >
                 <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
                     <div className="card-header up">

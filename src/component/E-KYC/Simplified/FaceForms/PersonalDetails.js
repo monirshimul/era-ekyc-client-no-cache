@@ -25,7 +25,7 @@ export class PersonalDetails extends Component {
             this.setState({
                 applicantName: data.applicantName,
                 applicantDob: data.applicantDob,
-                applicantNidNo:data.applicantNidNo,
+                applicantNidNo: data.applicantNidNo,
                 motherName: data.motherName,
                 fatherName: data.fatherName,
                 spouseName: data.spouseName,
@@ -44,90 +44,90 @@ export class PersonalDetails extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     continue = e => {
-        let { applicantName,applicantDob,applicantNidNo, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress } = this.state;
+        let { applicantName, applicantDob, applicantNidNo, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress } = this.state;
         e.preventDefault();
         //  let mydate = new Date(applicantDob);
         //  let dateBirth = mydate.toLocaleDateString('en-GB');
 
-        if(applicantName === ''){
-            let applicantNameMessage = "Please Provide Applicant Name";
-            NotificationManager.error(applicantNameMessage, "Error", 5000);
-            return;
-        }
+        // if(applicantName === ''){
+        //     let applicantNameMessage = "Please Provide Applicant Name";
+        //     NotificationManager.error(applicantNameMessage, "Error", 5000);
+        //     return;
+        // }
 
-        if(applicantDob === ''){
-            let applicantDobMessage = "Please Provide Applicant Date Of Birth";
-            NotificationManager.error(applicantDobMessage, "Error", 5000);
-            return;
-        }
+        // if(applicantDob === ''){
+        //     let applicantDobMessage = "Please Provide Applicant Date Of Birth";
+        //     NotificationManager.error(applicantDobMessage, "Error", 5000);
+        //     return;
+        // }
 
-        if(applicantNidNo === '' ){
-            let applicantNidNoMessage = 'Please Provide Applicant Nid No'; 
-            NotificationManager.error(applicantNidNoMessage, "Error", 5000);
-            return;
-        }else if(applicantNidNo.length < 10 ){
-            let NidLengthError1 = "Applicant NID No must be 10, 13 & 17 characters long1";
-            NotificationManager.error(NidLengthError1, "Error", 5000);
-            return;
-        }else if(applicantNidNo.length >= 11 && applicantNidNo.length <= 12 ){
-            let NidLengthError2 = "Applicant NID No must be 10, 13 & 17 characters long2";
-            NotificationManager.error(NidLengthError2, "Error", 5000);
-            return;
-        }else if(applicantNidNo.length >= 14 && applicantNidNo.length <= 16 ){
-                let NidLengthError3 = "Applicant NID No must be 10, 13 & 17 characters long2";
-                NotificationManager.error(NidLengthError3, "Error", 5000);
-                return;
-        }else if(applicantNidNo.length > 17){
-            let NidLengthError4 = "Applicant NID No must be 10, 13 & 17 characters long3";
-            NotificationManager.error(NidLengthError4, "Error", 5000);
-            return;
-        }
+        // if(applicantNidNo === '' ){
+        //     let applicantNidNoMessage = 'Please Provide Applicant Nid No'; 
+        //     NotificationManager.error(applicantNidNoMessage, "Error", 5000);
+        //     return;
+        // }else if(applicantNidNo.length < 10 ){
+        //     let NidLengthError1 = "Applicant NID No must be 10, 13 & 17 characters long1";
+        //     NotificationManager.error(NidLengthError1, "Error", 5000);
+        //     return;
+        // }else if(applicantNidNo.length >= 11 && applicantNidNo.length <= 12 ){
+        //     let NidLengthError2 = "Applicant NID No must be 10, 13 & 17 characters long2";
+        //     NotificationManager.error(NidLengthError2, "Error", 5000);
+        //     return;
+        // }else if(applicantNidNo.length >= 14 && applicantNidNo.length <= 16 ){
+        //         let NidLengthError3 = "Applicant NID No must be 10, 13 & 17 characters long2";
+        //         NotificationManager.error(NidLengthError3, "Error", 5000);
+        //         return;
+        // }else if(applicantNidNo.length > 17){
+        //     let NidLengthError4 = "Applicant NID No must be 10, 13 & 17 characters long3";
+        //     NotificationManager.error(NidLengthError4, "Error", 5000);
+        //     return;
+        // }
 
-        if(motherName === ''){
-            let motherNameMessage = "Please Provide Applicant's Mother Name";
-            NotificationManager.error(motherNameMessage, "Error", 5000);
-            return;
-        }
+        // if(motherName === ''){
+        //     let motherNameMessage = "Please Provide Applicant's Mother Name";
+        //     NotificationManager.error(motherNameMessage, "Error", 5000);
+        //     return;
+        // }
 
-        if(fatherName === ''){
-            let fatherNameMessage ="Please Provide Applicant's Father Name";
-            NotificationManager.error(fatherNameMessage, "Error", 5000);
-            return;
-        }
+        // if(fatherName === ''){
+        //     let fatherNameMessage ="Please Provide Applicant's Father Name";
+        //     NotificationManager.error(fatherNameMessage, "Error", 5000);
+        //     return;
+        // }
 
-        if(gender === ''){
-            let genderMessage = 'Please Select Gender';
-            NotificationManager.error(genderMessage, "Error", 5000);
-            return;
-        }
+        // if(gender === ''){
+        //     let genderMessage = 'Please Select Gender';
+        //     NotificationManager.error(genderMessage, "Error", 5000);
+        //     return;
+        // }
 
-        if(profession === ""){
-            let professionMessage = "Please Provide Applicant Profession";
-            NotificationManager.error(professionMessage, "Error", 5000);
-            return;
-        }
+        // if(profession === ""){
+        //     let professionMessage = "Please Provide Applicant Profession";
+        //     NotificationManager.error(professionMessage, "Error", 5000);
+        //     return;
+        // }
 
-        if(mobileNumber === ""){
-            let mobileNumberMessage = "Please Provide Applicant Mobile Number";
-            NotificationManager.error(mobileNumberMessage, "Error", 5000);
-            return;
-        }else if( mobileNumber.length < 11){
-            let mobileNumberLenth = "Mobile Number Must be 11 digits";
-            NotificationManager.error(mobileNumberLenth, "Error", 5000);
-            return;
-        }
+        // if(mobileNumber === ""){
+        //     let mobileNumberMessage = "Please Provide Applicant Mobile Number";
+        //     NotificationManager.error(mobileNumberMessage, "Error", 5000);
+        //     return;
+        // }else if( mobileNumber.length < 11){
+        //     let mobileNumberLenth = "Mobile Number Must be 11 digits";
+        //     NotificationManager.error(mobileNumberLenth, "Error", 5000);
+        //     return;
+        // }
 
-        if(presentAddress === ''){
-            let presentAddressMessage = "Please Provide Applicant Present Address";
-            NotificationManager.error(presentAddressMessage, "Error", 5000);
-            return;
-        }
+        // if(presentAddress === ''){
+        //     let presentAddressMessage = "Please Provide Applicant Present Address";
+        //     NotificationManager.error(presentAddressMessage, "Error", 5000);
+        //     return;
+        // }
 
-        if(permanentAddress === ''){
-            let permanentAddressMessage = "Please Provide Applicant Permanent Address";
-            NotificationManager.error(permanentAddressMessage, "Error", 5000);
-            return;
-        }
+        // if(permanentAddress === ''){
+        //     let permanentAddressMessage = "Please Provide Applicant Permanent Address";
+        //     NotificationManager.error(permanentAddressMessage, "Error", 5000);
+        //     return;
+        // }
 
 
         const personal = {
@@ -155,7 +155,7 @@ export class PersonalDetails extends Component {
     }
 
     render() {
-        let { applicantName,applicantDob,applicantNidNo, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress } = this.state;
+        let { applicantName, applicantDob, applicantNidNo, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress } = this.state;
         //console.log("nidno", applicantNidNo.length);
         return (
             <div className="row d-flex justify-content-center my-5">
@@ -174,10 +174,10 @@ export class PersonalDetails extends Component {
                                 </div>
 
                                 {/* Applicant's Date Of Birth */}
-                            <div className="form-group col-sm-4">
-                                <label htmlFor="">Applicant's Date of Birth</label>
-                                <input style={{ borderRadius: "50px" }} type="date" value={applicantDob} name='applicantDob' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Date of Birth" />
-                            </div>
+                                <div className="form-group col-sm-4">
+                                    <label htmlFor="">Applicant's Date of Birth</label>
+                                    <input style={{ borderRadius: "50px" }} type="date" value={applicantDob} name='applicantDob' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Date of Birth" />
+                                </div>
                                 {/* Applicant's Date Of Birth
                                 <div className="form-group col-sm-4">
                                 <label htmlFor="">Applicant's Date of Birth</label>

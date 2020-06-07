@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Account from '../Account';
+import Family from '../images/family.svg'
+import Familyes from '../images/candidates.svg'
+import adult from '../images/age-limit-one.svg'
+import child from '../images/age-limit-two.svg'
 
 export class ConfirmInfo extends Component {
     state = {
@@ -47,8 +51,8 @@ export class ConfirmInfo extends Component {
 
 
     render() {
-        if(localStorage.length === 0){
-            return <Account/>;
+        if (localStorage.length === 0) {
+            return <Account />;
         }
         let { accountData, nidImagesData, captureFaceData, personalDetailsData, nomineeData, signatureData, flag } = this.state;
         // console.log("Nominee data", nomineeData);
@@ -59,37 +63,92 @@ export class ConfirmInfo extends Component {
                         <h3>All Information</h3>
                     </div>
                     <div class="row card-body d-flex justify-content-around">
-                        <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
-                            <div className="card-header im">
-                                <h5>Account Details</h5>
+                        <div className="col-sm-5" style={{ margin: "20px 0px" }}>
+                            <div className="">
+                                <h1 style={{ color: "green" }}>Account Details</h1>
                             </div>
-                            <div className="card-body">
-                                <p className="text-muted">Account Type : {accountData.accountType}</p>
-                                <p className="text-muted">Product and Services : {accountData.product}</p>
-                                <p className="text-muted">channel Name : {accountData.channelName}</p>
+                            <hr />
+                            <div className="">
+                                <p className="text-muted">Account Type : {accountData.accountType},<br /> Product and Services : {accountData.product},<br /> channel Name : {accountData.channelName}</p>
+                                {/* <p className="text-muted">Product and Services : {accountData.product}</p>
+                                <p className="text-muted">channel Name : {accountData.channelName}</p> */}
+                            </div>
+                            <hr />
+                        </div>
+                        {/* <div className="col-sm-5" style={{ margin: "20px 0px" }}>
+                            <img
+                                src={adult}
+                                style={{
+                                    margin: "0 auto",
+                                    width: "300px",
+                                    height: "200px",
+                                    border: "none",
+                                }}
+
+                                className="img-fluid img-thumbnail"
+                                id="FrontNidPic"
+                                alt=""
+                            />
+                            <hr />
+                        </div> */}
+
+                        <div className=" col-sm-5" style={{ margin: "20px 0px" }}>
+                            <div className="text-center">
+                                <h1 style={{ color: "green" }}>Applicant Image</h1>
+                            </div>
+                            <hr />
+                            <div className="text-center" style={{ margin: "20px 0px" }}>
+
+                                <img src={captureFaceData.faceImage ? flag + captureFaceData.faceImage : adult}
+                                    style={{
+                                        margin: "0 auto",
+                                        width: "300px",
+                                        height: "200px",
+                                        border: "none",
+                                    }}
+                                    className="img-fluid img-thumbnail"
+                                />
+                                <hr />
+
+
                             </div>
                         </div>
-                        <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
-                            <div className="card-header im">
-                                <h5>Nominee Details</h5>
+
+
+
+                        <div className="col-sm-5" style={{ margin: "20px 0px" }}>
+
+                            <div className="">
+                                <h1 style={{ color: "green" }}>Nominee Details</h1>
                             </div>
-                            <div className="card-body">
+                            <hr />
+                            <div className="">
                                 {nomineeData.map((val, i) => (
                                     val.isShow === true ?
                                         // Major
                                         <div>
-                                            <p className="text-muted">Nominee {i + 1}</p >
-                                            <p className="text-muted">Nominee : {nomineeData[i].nominee}</p>
+                                            <p className="text-muted">Nominee {i + 1}, <br />
+                                            Nominee : {nomineeData[i].nominee},<br />
+                                            Relation : {nomineeData[i].relation},<br />
+                                            Picture :
+                                    <img src={nomineeData[i].photograph ? flag + nomineeData[i].photograph : adult} alt="" style={{ width: "100px", height: "100px", borderRadius: "50px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                            ,<br />
+                                            percentage : {nomineeData[i].percentage}&#37;
+                                            </p >
+                                            {/* <p className="text-muted">Nominee : {nomineeData[i].nominee}</p>
                                             <p className="text-muted">Relation : {nomineeData[i].relation}</p>
                                             <p className="text-muted">Picture :
                                     <img src={flag + nomineeData[i].photograph} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
-                                            </p>
+                                            </p> */}
                                             {/* <p className="text-muted">Photograph : {nomineeData[i].photograph}</p> */}
-                                            <p className="text-muted">percentage : {nomineeData[i].percentage}&#37;</p>
+                                            {/* <p className="text-muted">percentage : {nomineeData[i].percentage}&#37;</p> */}
+                                            <hr />
                                         </div>
                                         :
                                         // Minor
+
                                         <div>
+
                                             <p className="text-muted">Nominee {i + 1}</p >
                                             <p className="text-muted">Minor Nominee : {nomineeData[i].minorNominee}</p>
                                             <p className="text-muted">Name of Guardian : {nomineeData[i].minorGuarrdian}</p>
@@ -100,9 +159,10 @@ export class ConfirmInfo extends Component {
                                     <img src={flag + nomineeData[i].minorNidGuardian} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                             </p> */}
                                             <p className="text-muted">Photograph of Guardian :
-                                    <img src={flag + nomineeData[i].minorPhotoGuardian} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                    <img src={nomineeData[i].minorPhotoGuardian ? flag + nomineeData[i].minorPhotoGuardian : child} alt="" style={{ width: "100px", height: "100px", borderRadius: "50px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                             </p>
                                             <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}&#37;</p>
+                                            <hr />
                                         </div>
                                 ))}
 
@@ -111,20 +171,23 @@ export class ConfirmInfo extends Component {
 
 
 
-                        <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
-                            <div className="card-header im">
-                                <h5>Nid Details</h5>
-                            </div>
-                            <div className="card-body text-center">
-                                <p className="text-muted">Nid front side :
-                                    <img src={flag + nidImagesData.NidFront} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
-                                </p>
+                        <div className="col-sm-5" style={{ margin: "20px 0px" }}>
+                            <img
+                                src={adult}
+                                style={{
+                                    margin: "0 auto",
+                                    width: "300px",
+                                    height: "200px",
+                                    border: "none",
+                                }}
 
-                                <p className="text-muted">Nid back side :
-                                    <img src={flag + nidImagesData.NidBack} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
-                                </p>
-                            </div>
+                                className="img-fluid img-thumbnail"
+                                id="FrontNidPic"
+                                alt=""
+                            />
+                            <hr />
                         </div>
+
                         <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
                             <div className="card-header im">
                                 <h5>Personal Information</h5>
@@ -143,6 +206,26 @@ export class ConfirmInfo extends Component {
 
                             </div>
                         </div>
+
+
+
+
+
+                        <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
+                            <div className="card-header im">
+                                <h5>Nid Details</h5>
+                            </div>
+                            <div className="card-body text-center">
+                                <p className="text-muted">Nid front side :
+                                    <img src={flag + nidImagesData.NidFront} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                </p>
+
+                                <p className="text-muted">Nid back side :
+                                    <img src={flag + nidImagesData.NidBack} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                </p>
+                            </div>
+                        </div>
+
 
                         <div className="card col-sm-5" style={{ margin: "20px 0px" }}>
                             <div className="card-header im">

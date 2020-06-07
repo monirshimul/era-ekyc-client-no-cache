@@ -3,35 +3,35 @@ import "../utils/Common.css";
 import NidOne from '../images/nid-f2.svg';
 import NidTwo from '../images/nid-f3.svg';
 import NidThree from '../images/nid-f4.svg';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 
 export class NidImages extends Component {
-    state={
-        NidFront: "",
-        NidFrontType: '',
-        NidBack: '',
-        NidBackType: '',
-        flag: 'data:image/jpeg;base64,'
+  state = {
+    NidFront: "",
+    NidFrontType: '',
+    NidBack: '',
+    NidBackType: '',
+    flag: 'data:image/jpeg;base64,'
+  }
+
+
+  componentDidMount() {
+    if ('NidImages' in localStorage) {
+      let data = JSON.parse(localStorage.getItem('NidImages'));
+      console.log(data);
+      this.setState({
+        NidFront: data.NidFront,
+        NidFrontType: data.NidFrontType,
+        NidBack: data.NidBack,
+        NidBackType: data.NidBackType
+
+      })
     }
 
+  }
 
-    componentDidMount(){
-         if('NidImages' in localStorage){
-            let data = JSON.parse(localStorage.getItem('NidImages'));
-            console.log(data);
-            this.setState({ 
-              NidFront: data.NidFront,
-              NidFrontType: data.NidFrontType,
-              NidBack:data.NidBack,
-              NidBackType:data.NidBackType
-
-            })
-       }
-
-    }
-
-     //Nid front Image upload
+  //Nid front Image upload
   fileSelectedHandler = (event) => {
     if (event.target.files[0]) {
       let file = event.target.files[0];
@@ -66,8 +66,8 @@ export class NidImages extends Component {
         let base64Image = btoa(reader.result);
 
         this.setState({
-            NidBack:base64Image,
-            NidBackType:file.type
+          NidBack: base64Image,
+          NidBackType: file.type
         })
       };
       reader.onerror = () => {
@@ -77,45 +77,45 @@ export class NidImages extends Component {
     }
   };
 
-  continue = (e) =>{
-      e.preventDefault();
-      const{NidFront,NidFrontType,NidBack,NidBackType} = this.state;
-      
-      if(NidFront === ""){
-        let NidFrontMessage = "Please Provide Nid Front Image";
-        NotificationManager.error(NidFrontMessage, "Error", 5000);
-        return;
-      }
+  continue = (e) => {
+    e.preventDefault();
+    const { NidFront, NidFrontType, NidBack, NidBackType } = this.state;
 
-      if(NidBack === ""){
-        let NidBackMessage = "Please Provide Nid Back Image";
-        NotificationManager.error(NidBackMessage, "Error", 5000);
-        return;
-      }
+    // if (NidFront === "") {
+    //   let NidFrontMessage = "Please Provide Nid Front Image";
+    //   NotificationManager.error(NidFrontMessage, "Error", 5000);
+    //   return;
+    // }
 
-      const obj ={
-          NidFront,
-          NidFrontType,
-          NidBack,
-          NidBackType
-      }
-      localStorage.setItem("NidImages", JSON.stringify(obj));
+    // if (NidBack === "") {
+    //   let NidBackMessage = "Please Provide Nid Back Image";
+    //   NotificationManager.error(NidBackMessage, "Error", 5000);
+    //   return;
+    // }
 
-      this.props.history.push('/dashboard/capture-face');
-    
+    const obj = {
+      NidFront,
+      NidFrontType,
+      NidBack,
+      NidBackType
+    }
+    localStorage.setItem("NidImages", JSON.stringify(obj));
+
+    this.props.history.push('/dashboard/capture-face');
+
   }
 
 
-    render() {
-     
-       const {NidFront, NidBack,flag} = this.state;
-        return (
-            <div className="">
+  render() {
+
+    const { NidFront, NidBack, flag } = this.state;
+    return (
+      <div className="">
         <div className="row d-flex justify-content-center">
           <div className="col-sm-12 d-flex justify-content-around">
             <div className="card col-sm-6" style={{ paddingTop: "25px", marginRight: "30px" }}>
               <div className="card-header up">
-                <h3>Nid Front Side</h3>
+                <h3>NID Front</h3>
               </div>
               <div className="card-body d-flex justify-content-center">
 
@@ -127,7 +127,7 @@ export class NidImages extends Component {
                     width: "300px",
                     height: "200px",
                   }}
-                  defaultValue ={NidFront}
+                  defaultValue={NidFront}
                   className="img-fluid img-thumbnail im"
                   id="FrontNidPic"
                   alt=""
@@ -145,14 +145,14 @@ export class NidImages extends Component {
                       class="form-control-file" id="input-file" />
                     <label class="custom-file-label" for="input-file">Choose Image</label>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
 
             <div className="card col-sm-6" style={{ paddingTop: "25px" }}>
               <div className="card-header up">
-                <h3>Nid Back Side</h3>
+                <h3>NID Back</h3>
               </div>
               <div className="card-body d-flex justify-content-center">
                 <img
@@ -163,7 +163,7 @@ export class NidImages extends Component {
                     width: "300px",
                     height: "200px",
                   }}
-                  defaultValue ={NidBack}
+                  defaultValue={NidBack}
                   className="img-fluid img-thumbnail im"
                   id="nidBack"
                   alt=""
@@ -193,10 +193,10 @@ export class NidImages extends Component {
             Next
           </div>
         </div>
-       
+
       </div>
-        )
-    }
+    )
+  }
 }
 
 export default withRouter(NidImages);

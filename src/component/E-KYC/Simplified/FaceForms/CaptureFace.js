@@ -3,69 +3,69 @@ import { NotificationManager } from "react-notifications";
 import "../utils/Common.css";
 import Camera from '../utils/Camera';
 import Face from "../images/face.svg";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { image } from '../images/images';
 
 export class CaptureFace extends Component {
-    state={
-        faceImage:'',
-        imageFlag: false,
-        showCamera:false,
-        flag: 'data:image/jpeg;base64,'
+  state = {
+    faceImage: '',
+    imageFlag: false,
+    showCamera: false,
+    flag: 'data:image/jpeg;base64,'
+  }
+
+
+  componentDidMount() {
+    if ('CaptureFace' in localStorage) {
+      let data = JSON.parse(localStorage.getItem('CaptureFace'));
+      // console.log(data);
+      this.setState({
+        faceImage: data.faceImage,
+      });
     }
+  }
 
 
-    componentDidMount(){
-        if('CaptureFace' in localStorage){
-            let data = JSON.parse(localStorage.getItem('CaptureFace'));
-           // console.log(data);
-            this.setState({ 
-              faceImage: data.faceImage,
-            });
-       }
-    }
-
-    
-    onImageConfirm = (base64Image) => {
-        this.setState({faceImage: base64Image, imageFlag: true});
-        this.closeCamera();
-      };
+  onImageConfirm = (base64Image) => {
+    this.setState({ faceImage: base64Image, imageFlag: true });
+    this.closeCamera();
+  };
 
 
-    showCamera = () => this.setState({showCamera:true});
+  showCamera = () => this.setState({ showCamera: true });
 
-    closeCamera = () => this.setState({showCamera:false});
+  closeCamera = () => this.setState({ showCamera: false });
 
-    continue = (e) => {
-        e.preventDefault();
-        const{faceImage} = this.state;
+  continue = (e) => {
+    e.preventDefault();
+    const { faceImage } = this.state;
 
-        if(faceImage === ''){
-          let faceImageMessage = 'Please Provide your faceImage';
-          NotificationManager.error(faceImageMessage, "Error", 5000);
-          return;
-        }
+    // if(faceImage === ''){
+    //   let faceImageMessage = 'Please Provide your faceImage';
+    //   NotificationManager.error(faceImageMessage, "Error", 5000);
+    //   return;
+    // }
 
-        const capFace = {
-            faceImage
-        };
+    const capFace = {
+      faceImage
+    };
 
-        localStorage.setItem("CaptureFace", JSON.stringify(capFace));
+    localStorage.setItem("CaptureFace", JSON.stringify(capFace));
 
-        
-        this.props.history.push('/dashboard/personal-details');
-        
-      };
-    
-      back = (e) => {
-        e.preventDefault();
-        this.props.history.push('/dashboard/nid-images');
-      };
 
-    render() {
-        const {faceImage, imageFlag,showCamera, flag} = this.state;
-        return (
-            <div className="container">
+    this.props.history.push('/dashboard/personal-details');
+
+  };
+
+  back = (e) => {
+    e.preventDefault();
+    this.props.history.push('/dashboard/nid-images');
+  };
+
+  render() {
+    const { faceImage, imageFlag, showCamera, flag } = this.state;
+    return (
+      <div className="container">
         <div className="row d-flex justify-content-center">
           <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
             <div className="card-header up">
@@ -73,21 +73,21 @@ export class CaptureFace extends Component {
             </div>
             <div className="card-body d-flex justify-content-center">
               {/* {imageFlag ? ( */}
-                <img
-                  src={faceImage? (flag + faceImage): Face}
-                  style={{
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "250px",
-                    height: "200px",
-                  }}
-                  value ={faceImage}
-                  className=" img-thumbnail center animated slideInDown"
-                  id="imagePicture"
-                  alt="cameraPicture"
-                />
-{/*             
+              <img
+                src={faceImage ? (flag + faceImage) : Face}
+                style={{
+                  display: "block",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  width: "250px",
+                  height: "200px",
+                }}
+                value={faceImage}
+                className=" img-thumbnail center animated slideInDown"
+                id="imagePicture"
+                alt="cameraPicture"
+              />
+              {/*             
               ) : (
                  <img
                     src={Face}
@@ -173,8 +173,8 @@ export class CaptureFace extends Component {
           {/* End Content*/}
         </div>
       </div>
-        )
-    }
+    )
+  }
 }
 
 export default withRouter(CaptureFace);
