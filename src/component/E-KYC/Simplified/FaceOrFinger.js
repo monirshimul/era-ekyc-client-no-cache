@@ -45,7 +45,7 @@ export class FaceOrFinger extends Component {
 
                         {/* <button className="b" type="submit" style={{ border: "none" }} ><i class="fas fa-walking"></i> Get Start</button> */}
 
-                        <Link className="imTwoBtn" style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
+                        <Link className="imTwoBtn" to="/dashboard/nid-images" style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
                         <hr />
                     </div>
 
@@ -85,7 +85,7 @@ export class FaceOrFinger extends Component {
                         />
                         {/* <i class="fas fa-long-arrow-alt-right" style={{ color: "green" }}></i> */}
 
-                        <Link className="imTwoBtn" style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
+                        <Link className="imTwoBtn"  style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
                         <hr />
 
 

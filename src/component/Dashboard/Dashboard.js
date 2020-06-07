@@ -20,6 +20,7 @@ import ConfirmInfo from '../E-KYC/Simplified/FaceForms/ConfirmInfo';
 import Complete from '../E-KYC/Simplified/FaceForms/Complete';
 
 import {withRouter} from 'react-router-dom';
+import FaceOrFinger from '../E-KYC/Simplified/FaceOrFinger';
 
 function Dashboard(props) {
     // if (sessionStorage.length == 0) {
@@ -210,6 +211,7 @@ function Dashboard(props) {
 
                                  {/* face forms */}
                                  <Route path={`${path}/nid-images`} component={NidImages} />
+                                 <Route path={`${path}/type-verification`} component={FaceOrFinger} />
                                 <Route path={`${path}/capture-face`} component={CaptureFace} />
                                 <Route path={`${path}/personal-details`} component={PersonalDetails} />
                                 <Route path={`${path}/nominee`} component={Nominee} />

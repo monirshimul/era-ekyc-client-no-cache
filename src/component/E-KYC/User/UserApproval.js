@@ -4,6 +4,7 @@ import '../../E-KYC/Simplified/utils/Common.css';
 //import '../CSS/table.css';
 import { getUserWithStatus, userApprovalAPI } from '../Url/ApiList';
 // import {getUnique} from '../../Utils/UniqueArr';
+import { NotificationManager } from "react-notifications";
 
 
 export class UserApproval extends Component {
@@ -12,7 +13,8 @@ export class UserApproval extends Component {
         page: 1,
         totalPages: '',
         details: [],
-        showPending: []
+        showPending: [],
+        approvedReject: false
 
     }
 
@@ -36,35 +38,61 @@ export class UserApproval extends Component {
 
     }
 
+    async componentDidUpdate(prevProps, prevState){
+        const { page } = this.state;
+        
+        if (prevState.approvedReject !== this.state.approvedReject) {
+            let  didApproveObj = { status: "P" };
+            try {
+                // API call for Pending User List
+                let AppUserList = await axios.post(getUserWithStatus + 1, didApproveObj);
+                console.log("didupdate", AppUserList);
+                //Get User Data
+                let appUserData = AppUserList.data.data;
+                
+                // console.log("AppUserData", appUserData);
+                let numberPages = AppUserList.data.totalPages;
+                let pendingStatus = new Array(appUserData.length).fill(false);
+    
+    
+                this.setState({ ApproveUser: appUserData, showPending: pendingStatus, totalPages: numberPages });
+            } catch (e) {
+                console.log(e.response);
+            }
+    
+        }
+        else {
+            return false
+        }
+    }
+
 
 
     // Approve / Reject button clicked then accept/reject  user approval 
     onDecisionApprove = async (id) => {
-        // console.log("approveid", id);
-        // let showload = this.state.showPendingStatus;
-        // showload[index] = true;
-        // this.setState({ showPendingStatus: showload });
-        //obj creating for api call
         const obj = { id, status: "A" };
         //console.log(obj);
 
         try {
             let approveUser = await axios.put(userApprovalAPI, obj);
+            this.setState({
+                approvedReject: !this.state.approvedReject
+            })
             // console.log(approveUser.data);
-            // this.state.showPendingStatus[index].status = "Approve";
-            // showload[index] = false;
-            // this.setState({ showPendingStatus: showload });
-            console.log(approveUser.data);
             let statusCode = approveUser.data.statusCode;
 
             let message = "Approve " + approveUser.data.message;
-            alert(statusCode + " " + message);
+           // alert(statusCode + " " + message);
+           NotificationManager.success(message, "Success", 5000);
 
 
-        } catch (e) {
+        } catch (error) {
             // showload[index] = false;
             // this.setState({ showPendingStatus: showload });
-            console.log(e.response);
+            let { message } = error.response.data
+            let { statusCode } = error.response.data
+            console.log("error.response", error.response.data)
+            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
         }
 
 
@@ -83,6 +111,9 @@ export class UserApproval extends Component {
 
         try {
             let approveUser = await axios.put(userApprovalAPI, obj);
+            this.setState({
+                approvedReject: !this.state.approvedReject
+            });
             // console.log(approveUser.data);
             // this.state.showPendingStatus[index].status = "Approve";
             // showload[index] = false;
@@ -93,13 +124,17 @@ export class UserApproval extends Component {
 
 
             let message = "Reject " + approveUser.data.message;
-            alert(statusCode + " " + message);
+           // alert(statusCode + " " + message);
+           NotificationManager.success(message, "Success", 5000);
 
 
-        } catch (e) {
+        } catch (error) {
             // showload[index] = false;
             // this.setState({ showPendingStatus: showload });
-            console.log(e.response);
+            let { message } = error.response.data
+            let { statusCode } = error.response.data
+            console.log("error.response", error.response.data)
+            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
         }
 
 

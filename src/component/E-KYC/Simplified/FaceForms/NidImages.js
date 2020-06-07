@@ -83,13 +83,13 @@ export class NidImages extends Component {
 
     // if (NidFront === "") {
     //   let NidFrontMessage = "Please Provide Nid Front Image";
-    //   NotificationManager.error(NidFrontMessage, "Error", 5000);
+    //   NotificationManager.warning(NidFrontMessage, "Warning", 5000);
     //   return;
     // }
 
     // if (NidBack === "") {
     //   let NidBackMessage = "Please Provide Nid Back Image";
-    //   NotificationManager.error(NidBackMessage, "Error", 5000);
+    //   NotificationManager.warning(NidBackMessage, "Warning", 5000);
     //   return;
     // }
 

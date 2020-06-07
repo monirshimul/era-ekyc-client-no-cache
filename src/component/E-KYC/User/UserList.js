@@ -6,7 +6,7 @@ import Pagination from '../../Reusable/Pagination';
 import { withRouter } from 'react-router-dom';
 import { image } from '../Profile/damiImage'
 import NidThree from '../Simplified/images/nid-f4.svg';
-
+import { NotificationManager } from "react-notifications";
 
 export class UserList extends Component {
     state = {
@@ -22,7 +22,8 @@ export class UserList extends Component {
         searchFlag: false,
         profileImage: {},
         profileName: "",
-        flag: 'data:image/jpeg;base64,'
+        flag: 'data:image/jpeg;base64,',
+        deleteToggle: false
     }
 
     async componentDidMount() {
@@ -56,10 +57,51 @@ export class UserList extends Component {
                 profileName: profileData.name
             });
         } catch (err) {
-            console.log(err.response);
+            console.log(err.response.data);
         }
     }
 
+
+    // async componentDidUpdate(prevProps, prevState){
+    //     const { pages } = this.state;
+    //     const token = {
+    //         headers: {
+    //             'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+    //         }
+
+    //     };
+        
+    //     if (prevState.deleteToggle !== this.state.deleteToggle) {
+    //         try {
+    //             // API called name getAllUser here no status need... page used for pagination
+    //             let appUser = await axios.post(getAllUser + pages);
+    //             console.log("getAllUser", appUser.data.data);
+    //             let divide1 = appUser.data.data;
+    //             let numberOfPages = divide1.totalPages;
+    //             let numberOfUsers = divide1.totalUsers;
+    //             let divide2 = divide1.users;
+    
+    
+    //             let res = await axios.get(getProfile, token);
+    //             let profileData = res.data.data;
+    //             //console.log("profileData", profileData.userImage)
+    
+    //             this.setState({
+    //                 totalPages: numberOfPages,
+    //                 totalUsers: numberOfUsers,
+    //                 allAppUser: divide2,
+    //                 profileImage: profileData.userImage === null ? image.data : profileData.userImage.data,
+    //                 profileName: profileData.name
+    //             });
+    //         } catch (err) {
+    //             console.log(err.response.data);
+    //         }  
+    
+    //     }
+    //     else {
+    //         return false
+    //     }
+    // }
 
     //Search bar handler
     handleSearch = (e) => this.setState({ search: e.target.value });
@@ -79,7 +121,9 @@ export class UserList extends Component {
             let error = err.response.data;
             let statusCode = error.statusCode;
             let message = "Wrong Search"
-            alert(statusCode + ' ' + message);
+            //alert(statusCode + ' ' + message);
+            this.setState({search:''});
+            NotificationManager.error(message, "Error", 5000);
         }
 
 
@@ -111,7 +155,9 @@ export class UserList extends Component {
             this.pageChanges(pageReq);
         } else {
             console.log('Invalid Page No.');
-            alert('Invalid Page No.');
+            //alert('Invalid Page No.');
+            let invalidMessage = 'Invalid Page No.';
+            NotificationManager.warning(invalidMessage, "Warning", 5000);
             this.setState({ text_input: "", goButton: false });
         }
 
@@ -126,7 +172,8 @@ export class UserList extends Component {
             this.pageChanges(nextPage);
         } else {
             console.log('Page out of bound');
-            alert('Page out of bound');
+            let pageOutBoundMessage = 'Page out of bound';
+            NotificationManager.warning(pageOutBoundMessage, "Warning", 5000);
 
         }
     }
@@ -142,7 +189,9 @@ export class UserList extends Component {
             this.pageChanges(nextPage);
         } else {
             console.log('Page out of bound');
-            alert('Page out of bound');
+            //alert('Page out of bound');
+            let pageOutBoundMessage = 'Page out of bound';
+            NotificationManager.warning(pageOutBoundMessage, "Warning", 5000);
 
         }
     }
@@ -198,10 +247,14 @@ export class UserList extends Component {
 
         try {
             let delUser = await axios.put(userDeleteAPI, deleteObj);
+            this.setState({
+                deleteToggle:!this.state.deleteToggle
+            })
             console.log(delUser.data);
             let statusCode = delUser.data.statusCode;
-            let message = "Delete " + delUser.data.message;
-            alert(statusCode + ' ' + message);
+            let delMessage = "Delete " + delUser.data.message;
+            //alert(statusCode + ' ' + message);
+            NotificationManager.success(delMessage, "Success", 5000);
 
         } catch (err) {
             console.log(err.response);
@@ -245,7 +298,8 @@ export class UserList extends Component {
                             <button className="btn btn-primary" onClick={this.onBack}><i class="fas fa-arrow-alt-circle-left"></i> Back</button>
                         </div>
                         :
-                        <h1>Back</h1>
+                        // <h1>Back</h1>
+                        ""
                 }
                 <br />
 

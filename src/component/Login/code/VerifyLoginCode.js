@@ -20,6 +20,12 @@ export class VerifyLoginCode extends Component {
         const {otp} = this.state;
         e.preventDefault();
 
+        if(otp === ""){
+            let otpMessage = "Please Provide OTP";
+            NotificationManager.warning(otpMessage, "Warning", 5000);
+            return;
+        }
+
         //console.log("otp", otp);
         //console.log("loginToken", this.props.location.state);
         const loginConfig =  {
@@ -55,7 +61,7 @@ export class VerifyLoginCode extends Component {
              if (statusCode === 401) {
                 let errorMessage = "Invalid OTP";
                 //alert(statusCode + ' ' + errorMessage);
-                NotificationManager.warning(statusCode + ' ' + errorMessage, "Error", 5000);
+                NotificationManager.error(statusCode + ' ' + errorMessage, "Error", 5000);
                 this.setState({
                    otp:""
                 });

@@ -3,6 +3,7 @@ import './VerifyPassCode.css';
 //import '../Login/focusBlur.js'
 import bg from '../../../Login/image/wave2.png';
 import { withRouter, Link } from 'react-router-dom';
+import { NotificationManager } from "react-notifications";
 
 export class VerifyPassCode extends Component {
     state= {
@@ -17,7 +18,8 @@ export class VerifyPassCode extends Component {
         console.log("verifaction code for forget password ", verifyCode);
 
         if(verifyCode === ""){
-            alert("Verify Code field is empty");
+            let verifyCodeMessage = "Verify Code field is empty";
+            NotificationManager.warning(verifyCodeMessage, "Warning", 5000);
             return;
         }
         

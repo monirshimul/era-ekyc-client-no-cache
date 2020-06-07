@@ -42,7 +42,7 @@ export class CaptureFace extends Component {
 
     // if(faceImage === ''){
     //   let faceImageMessage = 'Please Provide your faceImage';
-    //   NotificationManager.error(faceImageMessage, "Error", 5000);
+    //   NotificationManager.warning(faceImageMessage, "Warning", 5000);
     //   return;
     // }
 

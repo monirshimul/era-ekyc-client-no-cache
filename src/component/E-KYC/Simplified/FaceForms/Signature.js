@@ -27,7 +27,7 @@ export class Signature extends Component {
 
         // if(signature === ''){
         //     let signatureMessage = "Please Provide Signature image";
-        //     NotificationManager.error(signatureMessage, "Error", 5000);
+        //     NotificationManager.warning(signatureMessage, "Warning", 5000);
         //     return;
         // }
 

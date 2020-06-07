@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../E-KYC/Simplified/utils/Common.css';
 import { withRouter } from 'react-router-dom';
 import { getupdateUser, getRoleWithFilter,userUpdate } from '../Url/ApiList';
+import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 
 class UpdateUser extends Component {
@@ -191,38 +192,53 @@ class UpdateUser extends Component {
         const { id,userId, name, mobile, email, pinAuthStatus, checking,roles } = this.state;
 
         if (userId === "") {
-            alert("Please Provide your User ID");
+            let userIdMessage = "Please Provide your User ID";
+            NotificationManager.warning(userIdMessage, "Warning", 5000);
             return;
         }
-
+    
+    
         if (name === "") {
-            alert("Please Provide your Name");
+            let nameMessage = "Please Provide your Name";
+            NotificationManager.warning(nameMessage, "Warning", 5000);
             return;
         }
-
+    
+    
         if (mobile === "") {
-            alert("Please Provide your Mobile");
+            let mobileMessage = "Please Provide your Mobile Number";
+            NotificationManager.warning(mobileMessage, "Warning", 5000);
             return;
         }
-
+    
+        if(mobile.length<11){
+            let mobileLengthMessage = "Mobile Number must be 11 digits long";
+            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            return;
+        }
+    
+    
         if (email === "") {
-            alert("Please Provide your Email");
+            let emailMessage = "Please Provide Email Address";
+            NotificationManager.warning(emailMessage, "Warning", 5000);
             return;
         }
-
+    
+    
         if (pinAuthStatus === "") {
-            alert("please fill up two factor verification");
+            let pinAuthStatusMessage = "Please fill up two factor verification";
+            NotificationManager.warning(pinAuthStatusMessage, "Warning", 5000);
             return;
         }
 
         if(checking.length === 0){
             if(roles.length === 0){
-                alert("Please select Role");
+                let rolesMessage = "Please Select Role";
+                NotificationManager.warning(rolesMessage, "Warning", 5000);
                 return;
             }
         }
-      
-
+      const dualVerification = JSON.parse(pinAuthStatus);
         const obj = {
             id,
             userId,
@@ -230,7 +246,7 @@ class UpdateUser extends Component {
             mobile,
             email,
             roles: checking,
-            pinAuthStatus: JSON.parse(pinAuthStatus),
+            pinAuthStatus: dualVerification,
         };
         console.log("obj", obj);
         //alert("User Update Successful and wait for the approval");
@@ -239,14 +255,16 @@ class UpdateUser extends Component {
          console.log(update.data);
          let statusCode = update.data.statusCode;
          let message ="Update Completed"
-         alert(statusCode + " " + message);
+         //alert(statusCode + " " + message);
+         NotificationManager.success(statusCode + " " + message, "Success", 5000);
          this.props.history.push('/dashboard');
         }catch(err){
          console.log(err.response);
          let error = err.response.data;
          let statusCode = error.statusCode;
          let message = error.message;
-         alert(statusCode + ' ' + message);
+         //alert(statusCode + ' ' + message);
+         NotificationManager.error(statusCode + ' ' + message, "Error", 5000);
         }
     }
 

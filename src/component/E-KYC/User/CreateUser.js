@@ -5,6 +5,7 @@ import '../../E-KYC/Simplified/utils/Common.css';
 import '../CSS/table.css';
 import { getRoleWithFilter, createUserWithRole, checkUserId,checkUserMobile,checkUserEmail} from '../Url/ApiList';
 import { convertNumber } from '../../Utils/StrToNum';
+import { NotificationManager } from "react-notifications";
 
 import axios from 'axios';
 
@@ -87,7 +88,8 @@ class CreateUser extends Component {
     const { userId, name, password, mobile, email, roles, pinAuthStatus } = this.state;
 
     if (userId === "") {
-        alert("Please Provide your User ID");
+        let userIdMessage = "Please Provide your User ID";
+        NotificationManager.warning(userIdMessage, "Warning", 5000);
         return;
     }
 
@@ -96,7 +98,8 @@ class CreateUser extends Component {
         let checkUserIdApi = await axios.post( checkUserId, data1);
         let checkId = checkUserIdApi.data.data;
         if(checkId === true){
-            alert("UserId is already taken");
+            let checkIdMessage = "UserId is already taken";
+            NotificationManager.warning(checkIdMessage, "Warning", 5000);
             return;
         } 
         
@@ -107,17 +110,30 @@ class CreateUser extends Component {
 
 
     if (name === "") {
-        alert("Please Provide your Name");
+        let nameMessage = "Please Provide your Name";
+        NotificationManager.warning(nameMessage, "Warning", 5000);
         return;
     }
 
     if (password === "") {
-        alert("Please Provide your Password");
+        let passMessage = "Please Provide your Password";
+        NotificationManager.warning(passMessage, "Warning", 5000);
         return;
     }
 
     if (mobile === "") {
-        alert("Please Provide your Mobile");
+        let mobileMessage = "Please Provide your Mobile Number";
+        NotificationManager.warning(mobileMessage, "Warning", 5000);
+        return;
+    }
+
+    if(mobile.length >11){
+        let mobileLengthMessage = "Mobile Number must be 11 digits long";
+        NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+        return;
+    }else if(mobile.length <= 10){
+        let mobileLengthMessage = "Mobile Number must be 11 digits long";
+        NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
         return;
     }
 
@@ -126,7 +142,8 @@ class CreateUser extends Component {
         let checkMobileApi = await axios.post(checkUserMobile, data2);
         let checkMobile = checkMobileApi.data.data;
         if(checkMobile === true){
-            alert("Mobile Number is already given by user");
+            let checkMobileMessage = "Mobile Number is already given by User, Please Provide another";
+            NotificationManager.warning(checkMobileMessage, "Warning", 5000);
             return;
         } 
         
@@ -136,7 +153,8 @@ class CreateUser extends Component {
     }
 
     if (email === "") {
-        alert("Please Provide your Email");
+        let emailMessage = "Please Provide Email Address";
+        NotificationManager.warning(emailMessage, "Warning", 5000);
         return;
     }
 
@@ -146,7 +164,8 @@ class CreateUser extends Component {
         let checkEmail = checkEmailApi.data.data;
        // console.log("email",checkEmail)
         if(checkEmail === true){
-            alert("email is already given by user");
+            let checkemailMessage = "email is already given by User";
+            NotificationManager.warning(checkemailMessage, "Warning", 5000);
             return;
         } 
         
@@ -156,11 +175,13 @@ class CreateUser extends Component {
     }
 
     if (pinAuthStatus === "") {
-        alert("please fill up two factor verification");
+        let pinAuthStatusMessage = "please fill up two factor verification";
+        NotificationManager.warning(pinAuthStatusMessage, "Warning", 5000);
         return;
     }
     if(roles.length === 0){
-        alert("Please select Role Selection");
+        let roleMessage = "Please select Role Selection";
+        NotificationManager.warning(roleMessage, "Warning", 5000);
         return;
     }
     const myrole = convertNumber(roles);
@@ -182,9 +203,11 @@ class CreateUser extends Component {
     try {
         let createUser = await axios.post(createUserWithRole, obj);
        // console.log(createUser.data);
-        let succ = createUser.data.statusCode;
-        let suc_message = createUser.data.message;
-        alert(succ + "  " + suc_message);
+        let statCode = createUser.data.statusCode;
+        // let suc_message = createUser.data.message;
+        let suc_message = "User Created Successful";
+        // alert(statCode + "  " + suc_message);
+        NotificationManager.success(statCode + "  " + suc_message, "Success", 5000);
         this.props.history.push('/dashboard');
         
         
@@ -193,10 +216,19 @@ class CreateUser extends Component {
        // console.log(err.response.data);
         let error = err.response.data;
         let errorStatus = error.statusCode;
-        let errorMessage = error.message;
-        
-        alert(errorStatus + " " + errorMessage );
-        window.location.reload(true);
+        let errorMessage = error.message; 
+        // alert(errorStatus + " " + errorMessage );
+        NotificationManager.error(errorStatus + " " + errorMessage, "Error", 5000);
+        //window.location.reload(true);
+        this.setState({
+            userId: '',
+            name: '',
+            password: '',
+            mobile: '',
+            email: '',
+            pinAuthStatus: '',
+            roles:[]
+        });
 
     }
 

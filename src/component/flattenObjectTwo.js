@@ -25,8 +25,8 @@ import ChangePassword from './E-KYC/Profile/ChangePass';
 import GetProfile from './E-KYC/Profile/GetProfile';
 
 
-//EKYC Simplified
-import FaceOrFinger from './E-KYC/Simplified/FaceOrFinger'
+// //EKYC Simplified
+// import FaceOrFinger from './E-KYC/Simplified/FaceOrFinger'
 
 
 
@@ -311,7 +311,7 @@ export const allRoutesCopy = [
                             "featureName": "Review",
                             "path": "/simplified-review",
                             "exact": true,
-                            "component": <FaceOrFinger />
+                            "component": <Vission />
                         }
 
                     },
@@ -749,7 +749,7 @@ export const allRoutes = [
                             "featureName": "Review",
                             "path": "/simplified-review",
                             "exact": true,
-                            "component": <FaceOrFinger />
+                            "component": <Vission />
                         }
 
                     },

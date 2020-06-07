@@ -60,7 +60,7 @@ class Account extends Component {
         if (accountType === 'Joint') {
             this.props.history.replace('/dashboard/dynamic-comp');
         } else if(accountType === 'Single'){
-            this.props.history.replace('/dashboard/nid-images');
+            this.props.history.replace('/dashboard/type-verification');
         }
     }
 

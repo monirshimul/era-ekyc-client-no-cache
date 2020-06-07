@@ -46,86 +46,89 @@ export class PersonalDetails extends Component {
     continue = e => {
         let { applicantName, applicantDob, applicantNidNo, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress } = this.state;
         e.preventDefault();
-        //  let mydate = new Date(applicantDob);
-        //  let dateBirth = mydate.toLocaleDateString('en-GB');
+
 
         // if(applicantName === ''){
         //     let applicantNameMessage = "Please Provide Applicant Name";
-        //     NotificationManager.error(applicantNameMessage, "Error", 5000);
+        //     NotificationManager.warning(applicantNameMessage, "Warning", 5000);
         //     return;
         // }
 
         // if(applicantDob === ''){
         //     let applicantDobMessage = "Please Provide Applicant Date Of Birth";
-        //     NotificationManager.error(applicantDobMessage, "Error", 5000);
+        //     NotificationManager.warning(applicantDobMessage, "Warning", 5000);
         //     return;
         // }
 
         // if(applicantNidNo === '' ){
         //     let applicantNidNoMessage = 'Please Provide Applicant Nid No'; 
-        //     NotificationManager.error(applicantNidNoMessage, "Error", 5000);
+        //     NotificationManager.warning(applicantNidNoMessage, "Warning", 5000);
         //     return;
         // }else if(applicantNidNo.length < 10 ){
         //     let NidLengthError1 = "Applicant NID No must be 10, 13 & 17 characters long1";
-        //     NotificationManager.error(NidLengthError1, "Error", 5000);
+        //     NotificationManager.warning(NidLengthError1, "Warning", 5000);
         //     return;
         // }else if(applicantNidNo.length >= 11 && applicantNidNo.length <= 12 ){
         //     let NidLengthError2 = "Applicant NID No must be 10, 13 & 17 characters long2";
-        //     NotificationManager.error(NidLengthError2, "Error", 5000);
+        //     NotificationManager.warning(NidLengthError2, "Warning", 5000);
         //     return;
         // }else if(applicantNidNo.length >= 14 && applicantNidNo.length <= 16 ){
         //         let NidLengthError3 = "Applicant NID No must be 10, 13 & 17 characters long2";
-        //         NotificationManager.error(NidLengthError3, "Error", 5000);
+        //         NotificationManager.warning(NidLengthError3, "Warning", 5000);
         //         return;
         // }else if(applicantNidNo.length > 17){
         //     let NidLengthError4 = "Applicant NID No must be 10, 13 & 17 characters long3";
-        //     NotificationManager.error(NidLengthError4, "Error", 5000);
+        //     NotificationManager.warning(NidLengthError4, "Warning", 5000);
         //     return;
         // }
 
         // if(motherName === ''){
         //     let motherNameMessage = "Please Provide Applicant's Mother Name";
-        //     NotificationManager.error(motherNameMessage, "Error", 5000);
+        //     NotificationManager.warning(motherNameMessage, "Warning", 5000);
         //     return;
         // }
 
         // if(fatherName === ''){
         //     let fatherNameMessage ="Please Provide Applicant's Father Name";
-        //     NotificationManager.error(fatherNameMessage, "Error", 5000);
+        //     NotificationManager.warning(fatherNameMessage, "Warning", 5000);
         //     return;
         // }
 
         // if(gender === ''){
         //     let genderMessage = 'Please Select Gender';
-        //     NotificationManager.error(genderMessage, "Error", 5000);
+        //     NotificationManager.warning(genderMessage, "Warning", 5000);
         //     return;
         // }
 
         // if(profession === ""){
         //     let professionMessage = "Please Provide Applicant Profession";
-        //     NotificationManager.error(professionMessage, "Error", 5000);
+        //     NotificationManager.warning(professionMessage, "Warning", 5000);
         //     return;
         // }
 
         // if(mobileNumber === ""){
         //     let mobileNumberMessage = "Please Provide Applicant Mobile Number";
-        //     NotificationManager.error(mobileNumberMessage, "Error", 5000);
+        //     NotificationManager.warning(mobileNumberMessage, "Warning", 5000);
         //     return;
         // }else if( mobileNumber.length < 11){
         //     let mobileNumberLenth = "Mobile Number Must be 11 digits";
-        //     NotificationManager.error(mobileNumberLenth, "Error", 5000);
+        //     NotificationManager.warning(mobileNumberLenth, "Error", 5000);
         //     return;
+        // }else if(mobileNumber.length <=1 0){
+             // let mobileNumberLenth1 = "Mobile Number Must be 11 digits";
+            //NotificationManager.warning(mobileNumberLenth1, "Error", 5000);
+            //return;
         // }
 
         // if(presentAddress === ''){
         //     let presentAddressMessage = "Please Provide Applicant Present Address";
-        //     NotificationManager.error(presentAddressMessage, "Error", 5000);
+        //     NotificationManager.warning(presentAddressMessage, "Warning", 5000);
         //     return;
         // }
 
         // if(permanentAddress === ''){
         //     let permanentAddressMessage = "Please Provide Applicant Permanent Address";
-        //     NotificationManager.error(permanentAddressMessage, "Error", 5000);
+        //     NotificationManager.warning(permanentAddressMessage, "Warning", 5000);
         //     return;
         // }
 
