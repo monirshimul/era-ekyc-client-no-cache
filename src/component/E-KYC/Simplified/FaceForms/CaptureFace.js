@@ -3,6 +3,7 @@ import { NotificationManager } from "react-notifications";
 import "../utils/Common.css";
 import Camera from '../utils/Camera';
 import Face from "../images/face.svg";
+import Done from "../images/done.svg";
 import { withRouter } from 'react-router-dom';
 import { image } from '../images/images';
 
@@ -11,6 +12,7 @@ export class CaptureFace extends Component {
     faceImage: '',
     imageFlag: false,
     showCamera: false,
+    validate: false,
     flag: 'data:image/jpeg;base64,'
   }
 
@@ -23,6 +25,13 @@ export class CaptureFace extends Component {
         faceImage: data.faceImage,
       });
     }
+  }
+
+  validate = (e) => {
+    e.preventDefault();
+    this.setState({
+      validate: !this.state.validate
+    })
   }
 
 
@@ -63,58 +72,119 @@ export class CaptureFace extends Component {
   };
 
   render() {
-    const { faceImage, imageFlag, showCamera, flag } = this.state;
+    const { faceImage, imageFlag, showCamera, flag, validate } = this.state;
     return (
       <div className="container">
         <div className="row d-flex justify-content-center">
-          <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
+          <div className="imTwoWhite col-sm-8" style={{ paddingTop: "25px" }}>
             <div className="card-header up">
-              <h3>Face Verification</h3>
+              <h3><i class="fas fa-camera-retro"></i> Face Verification</h3>
             </div>
-            <div className="card-body d-flex justify-content-center">
-              {/* {imageFlag ? ( */}
-              <img
-                src={faceImage ? (flag + faceImage) : Face}
-                style={{
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  width: "250px",
-                  height: "200px",
-                }}
-                value={faceImage}
-                className=" img-thumbnail center animated slideInDown"
-                id="imagePicture"
-                alt="cameraPicture"
-              />
-              {/*             
-              ) : (
-                 <img
+            <div className="row card-body d-flex justify-content-center align-items-center" >
+              <div className="imTwoWhite col-sm-6" >
+                {/* {imageFlag ? ( */}
+                <div className="animated zoomIn">
+                  <img
                     src={Face}
                     style={{
-                      margin: "auto",
-                      cursor: "pointer",
+                      display: "block",
+                      marginLeft: "auto",
+                      marginRight: "auto",
                       width: "300px",
                       height: "200px",
                     }}
-                    className="img-fluid round img-thumbnail im"
-                    id="FrontNidPic"
-                    alt=""
+                    value={faceImage}
+                    className=" img-thumbnail center "
+                    id="imagePicture"
+                    alt="cameraPicture"
                   />
-                )}
- */}
 
+                  <div className="im"
+                    style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
+                    data-toggle="modal"
+                    data-target="#cameraModal"
+                    onClick={this.showCamera}
+                  >
+                    <i class="fas fa-camera"></i> Check Liveness
             </div>
-            <div className="up "
-              style={{ width: "300px", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
-              data-toggle="modal"
-              data-target="#cameraModal"
-              onClick={this.showCamera}
-            >
-              Capture Image
+                </div>
+
+
+              </div>
+
+              <div className="col-sm-6" >
+
+                {
+                  faceImage ? (
+                    <div className="row imTwoWhite d-flex justify-content-center ">
+                      {
+                        validate ? (
+                          <div className="animated slideInDown">
+                            <img
+                              src={Done}
+                              style={{
+                                display: "block",
+                                marginLeft: "auto",
+                                marginRight: "auto",
+                                width: "300px",
+                                height: "200px",
+                              }}
+                              value={faceImage}
+                              className=" img-thumbnail center"
+                              id="imagePicture"
+                              alt="cameraPicture"
+                            />
+                            <div className="im"
+                              style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
+                              onClick={this.validate}
+                            >
+                              <i class="fas fa-user-check"></i> Success, Click Next
+                            </div>
+                          </div>
+                        ) : (
+                            <div className="animated zoomIn">
+                              <img
+                                src={flag + faceImage}
+                                style={{
+                                  display: "block",
+                                  marginLeft: "auto",
+                                  marginRight: "auto",
+                                  width: "300px",
+                                  height: "200px",
+
+                                }}
+                                value={faceImage}
+                                className=" img-thumbnail center"
+                                id="imagePicture"
+                                alt="cameraPicture"
+                              />
+                              <div className="im"
+                                style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
+                                onClick={this.validate}
+                              >
+                                <i class="fas fa-user-check"></i> Check Validation
+                            </div>
+                            </div>
+                          )
+                      }
+
+                    </div>
+                  ) : (
+                      <p className="text-muted" style={{ fontSize: "14px" }}>
+                        <span style={{ color: "green", fontSize: "20px" }}>A facial recognition</span> system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source.<hr /> <span style={{ color: "green", fontSize: "20px" }}>Face verification</span> is the task of comparing a candidate face to another, and verifying whether it is a match. It is a one-to-one mapping: you have to check if this person is the correct one.
+                      </p>
+                    )
+                }
+
+
+
+
+              </div>
             </div>
+
+
             <div
-              className="card-footer d-flex justify-content-between"
+              className="card-footer d-flex justify-content-center mt-2"
               style={{ background: "#fff" }}
             >
 

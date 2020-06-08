@@ -113,7 +113,7 @@ export class NidImages extends Component {
       <div className="">
         <div className="row d-flex justify-content-center">
           <div className="col-sm-12 d-flex justify-content-around">
-            <div className="card col-sm-6" style={{ paddingTop: "25px", marginRight: "30px" }}>
+            <div className="imTwoWhite col-sm-6" style={{ paddingTop: "25px", marginRight: "30px" }}>
               <div className="card-header up">
                 <h3>NID Front</h3>
               </div>
@@ -150,7 +150,7 @@ export class NidImages extends Component {
               </div>
             </div>
 
-            <div className="card col-sm-6" style={{ paddingTop: "25px" }}>
+            <div className="imTwoWhite col-sm-6" style={{ paddingTop: "25px" }}>
               <div className="card-header up">
                 <h3>NID Back</h3>
               </div>

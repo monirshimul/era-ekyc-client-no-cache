@@ -28,10 +28,10 @@ export class PersonalDetails extends Component {
 
     render() {
         const { values, handleChange } = this.props;
-       // console.log(values.fatherName);
+        // console.log(values.fatherName);
         return (
-            <div className="row d-flex justify-content-center my-5">
-                <div className="col-sm-12">
+            <div className="row d-flex justify-content-center my-5" style={{ border: "1px solid red" }}>
+                <div className="col-sm-12" >
                     <div className="col " style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)" }}>
                         <div className="col">
                             <div className="divBg">
