@@ -284,24 +284,27 @@ export class UserList extends Component {
         return (
             <div className="container">
                 {/* Search bar  */}
-
+                <div className="row d-flex justify-content-center">
                 <div className='form-group col-md-3' style={{ display: "inline", float: "right" }}>
 
-                    <input type="text" value={this.state.search} placeholder="Search.." name="search" autoComplete="off" onChange={this.handleSearch} />
-                    <button onClick={this.submitSearch} type="submit"><i className="fa fa-search"></i></button>
+<input type="text" value={this.state.search} placeholder="Search.." name="search" autoComplete="off" onChange={this.handleSearch} />
+<button onClick={this.submitSearch} type="submit"><i className="fa fa-search"></i></button>
 
 
+</div>
+{
+this.state.searchFlag ?
+    <div>
+        <button className="btn btn-primary" onClick={this.onBack}><i class="fas fa-arrow-alt-circle-left"></i> Back</button>
+    </div>
+    :
+    // <h1>Back</h1>
+    ""
+}
+<br />
                 </div>
-                {
-                    this.state.searchFlag ?
-                        <div>
-                            <button className="btn btn-primary" onClick={this.onBack}><i class="fas fa-arrow-alt-circle-left"></i> Back</button>
-                        </div>
-                        :
-                        // <h1>Back</h1>
-                        ""
-                }
-                <br />
+
+                
 
 
 

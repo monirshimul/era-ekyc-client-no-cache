@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 import "../utils/Common.css";
+import axios from 'axios'
+import {faceValidate} from '../../Url/ApiList'
 import Camera from '../Liveness/Camera';
 import Face from "../images/face.svg";
 import Done from "../images/done.svg";
+import buffer from "../images/loading.svg";
 import { withRouter } from 'react-router-dom';
 import { image } from '../images/images';
 
@@ -13,6 +16,7 @@ export class CaptureFace extends Component {
     imageFlag: false,
     showCamera: false,
     validate: false,
+    loading:false,
     flag: 'data:image/jpeg;base64,'
   }
 
@@ -20,6 +24,7 @@ export class CaptureFace extends Component {
   componentDidMount() {
     if ('CaptureFace' in localStorage) {
       let data = JSON.parse(localStorage.getItem('CaptureFace'));
+      
       // console.log(data);
       this.setState({
         faceImage: data.faceImage,
@@ -27,11 +32,58 @@ export class CaptureFace extends Component {
     }
   }
 
-  validate = (e) => {
+  validate = async (e) => {
     e.preventDefault();
+
     this.setState({
-      validate: !this.state.validate
+      loading: !this.state.loading
     })
+
+    const token = {
+      headers: {
+          'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+      }
+
+    };
+
+    try {
+      let nidf = JSON.parse(localStorage.getItem('NidImages'))
+      //console.log("nidF",nidf.NidFront)   
+      let imgData = {
+        photo: this.state.faceImage,
+        nidFront: nidf.NidFront
+      }
+
+    let resValidation = await axios.post(faceValidate, imgData, token);
+    console.log("resValidation",resValidation.data.data.faceVerificationResult.status)
+    if(resValidation.data.data.faceVerificationResult.status){
+      
+    }
+    
+    if (resValidation.data.data.faceVerificationResult.status === true) {
+      this.setState({
+        validate: resValidation.data.data.faceVerificationResult.status,
+        loading: !this.state.loading
+      })
+      NotificationManager.success("Face Validated", "Success", 5000);
+    } 
+    if(resValidation.data.data.faceVerificationResult.status === false){
+      this.setState({
+        loading: false
+      })
+      NotificationManager.error("Face does not match", "Error", 5000);
+    }
+    
+
+    } catch (error) {
+      let { message } = error.response.data
+            let { statusCode } = error.response.data
+            console.log("error.response", error.response.data)
+            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+      
+    }
+
+    
   }
 
 
@@ -72,7 +124,8 @@ export class CaptureFace extends Component {
   };
 
   render() {
-    const { faceImage, imageFlag, showCamera, flag, validate } = this.state;
+    const { faceImage, imageFlag, showCamera, flag, validate, loading } = this.state;
+    //console.log("LiveImage", faceImage)
     return (
       <div className="container">
         <div className="row d-flex justify-content-center">
@@ -118,7 +171,15 @@ export class CaptureFace extends Component {
                   faceImage ? (
                     <div className="row imTwoWhite d-flex justify-content-center ">
                       {
-                        validate ? (
+                        loading ? (
+                          <div className="animated slideInDown d-flex justify-content-center align-items-center" style={{height:"250px"}}>
+                            <h1 className="text-muted text-center">Loading...</h1>
+                            
+                          </div>
+                        ):(
+                          <div>
+                            {
+                        validate === true ? (
                           <div className="animated slideInDown">
                             <img
                               src={Done}
@@ -136,7 +197,7 @@ export class CaptureFace extends Component {
                             />
                             <div className="im"
                               style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
-                              onClick={this.validate}
+                              
                             >
                               <i class="fas fa-user-check"></i> Success, Click Next
                             </div>
@@ -165,8 +226,15 @@ export class CaptureFace extends Component {
                                 <i class="fas fa-user-check"></i> Check Validation
                             </div>
                             </div>
-                          )
+                          
+                            )
                       }
+                          </div>
+
+                        )
+                      }
+                     
+                      
 
                     </div>
                   ) : (
@@ -214,8 +282,8 @@ export class CaptureFace extends Component {
               <div className="modal-content">
                 <div className="modal-header divBg">
                   <h5 className="modal-title" id="cameraModalLabel">
-                    Capture Your Image
-                          </h5>
+                    
+                  </h5>
                   <button
                     type="button"
                     className="close"

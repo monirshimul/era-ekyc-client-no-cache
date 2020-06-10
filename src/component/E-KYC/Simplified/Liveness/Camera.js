@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LibImage from "./liveness";
 import { getElementError } from "@testing-library/react";
-import Face from "../images/bio.svg";
+import Face from "../images/loading.svg";
 
 export class Camera extends Component {
   base64Image = "";
@@ -103,7 +103,7 @@ export class Camera extends Component {
 
     const imgData = document.getElementById("imageCap");
     this.base64Image = imgData.src.split(",")[1];
-    console.log("imgData", this.base64Image);
+    //console.log("imgData", this.base64Image);
 
     this.props.onConfirm(this.base64Image);
   };
@@ -112,6 +112,14 @@ export class Camera extends Component {
     let { status, modelType } = this.state
     return (
       <div className="container mb-3" style={{margin:"0 auto", padding:"0"}}>
+        <div className="row d-flex justify-content-center align-items-center divBg">
+          {/* <div className="col-sm-10">
+          <p className="">
+                   <span style={{color:"green", fontSize:"20px"}}>Liveness detection</span> is any technique used to detect a spoof attempt by determining whether the source of a biometric sample is a live human being or a fake representation. This is accomplished through algorithms that analyze data collected from biometric sensors to determine whether the source is live or reproduced.
+          </p>
+          </div> */}
+          <h3>Face Liveness Detection</h3>
+        </div>
         <div
           className="row imTwoWhite d-flex justify-content-center"
           
@@ -127,16 +135,18 @@ export class Camera extends Component {
                 <video className="imTwoWhite" autoPlay width="340px" height="240px" id="videoCap"></video>
               )
               :(
-              <img
+            //   <img
 
-              className="imTwoWhite"
-              width="340px"
-              height="240px"
-              src={Face}
-              style={{ marginBottom: "7px" }}
-              id=""
-              alt="Live Image "
-            />
+            //   className="imTwoWhite"
+            //   width="340px"
+            //   height="240px"
+            //   src={Face}
+            //   style={{ marginBottom: "7px" }}
+            //   id=""
+            //   alt="Live Image "
+            // />
+            <h1 className="text-muted">Loading...</h1>
+
               )
           }
             
@@ -145,14 +155,19 @@ export class Camera extends Component {
             {/* <button className="btn btn-info" id="capBtn">
               Capture
             </button> */}
-            <button
-              className="imTwoWhite text-center"
+            {
+              modelType ? (
+                <button
+              className="imTwo text-center"
               id="startDetection"
               style={{border:"none", width:"340px", color:"green", fontSize:"17px"}}
               onClick={this.startDetection}
             >
-              START DETECTION
+              <i class="fas fa-play"></i> START DETECTION
             </button>
+              ):""
+            }
+            
           </div>
         
             <div className="col-sm-6 imTwo text-center animated zoomIn" id="imageContainer">
@@ -165,19 +180,19 @@ export class Camera extends Component {
               src=""
               style={{ marginBottom: "7px" }}
               id="imageCap"
-              alt="Live Image "
+              alt="Liveness detection is any technique used to detect a spoof attempt by determining whether the source of a biometric sample is a live human being or a fake representation. This is accomplished through algorithms that analyze data collected from biometric sensors to determine whether the source is live or reproduced."
             />
             <br />
             {
               status ? (
                 <button
-              className="imTwoWhite text-center"
+              className="imTwo text-center"
               id="conBtn"
               style={{border:"none", width:"315px", color:"green", fontSize:"17px"}}
               onClick={this.onConfirm}
               data-dismiss="modal"
             >
-              CONFIRM
+              <i class="fas fa-check-circle"></i> CONFIRM
             </button>
               ):""
             }
@@ -190,10 +205,10 @@ export class Camera extends Component {
         
         <div className="row imTwoWhite d-flex justify-content-center align-items-center">
           
-          <h3 className="imPlain text-muted">STATUS : </h3>
+          <h1 className="imPlain text-muted"><i class="far fa-smile-beam" style={{color:"green"}}></i> STATUS : </h1>
           &nbsp;&nbsp;&nbsp;
          
-          <h3 className="imPlain"  style={{textTransform:"uppercase", color:"green"}}><i class="far fa-surprise"></i> <span id="status"></span></h3>
+          <h1 className="imPlain"  style={{textTransform:"uppercase", color:"green"}}> <span id="status"></span></h1>
             
           
           

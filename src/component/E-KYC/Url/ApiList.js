@@ -22,6 +22,10 @@ export const getProfile = hostIp + `profile/`;
 export const imageUpdate = hostIp + `profile/picture`;
 export const dataUpdate = hostIp + `profile/`;
 
+// face Verification
+
+export const faceValidate = hostIp + `ai/face-verification`;
+
 
 // Check userId,email, mobile no
 export const checkUserId = hostIp + `user/check`
@@ -30,3 +34,5 @@ export const checkUserEmail = hostIp + `user/check`
 
 //Logout
 export const logoutUser = hostIp + `user/logout`;
+
+
