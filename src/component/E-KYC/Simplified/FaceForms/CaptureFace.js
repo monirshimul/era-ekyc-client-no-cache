@@ -17,6 +17,7 @@ export class CaptureFace extends Component {
     showCamera: false,
     validate: false,
     loading:false,
+    verifyToken:'',
     flag: 'data:image/jpeg;base64,'
   }
 
@@ -55,7 +56,8 @@ export class CaptureFace extends Component {
       }
 
     let resValidation = await axios.post(faceValidate, imgData, token);
-    console.log("resValidation",resValidation.data.data.faceVerificationResult.status)
+    console.log("resValidation",resValidation.data.data.faceVerificationResult)
+    console.log("ver-token",resValidation.data.data.verificationToken)
     if(resValidation.data.data.faceVerificationResult.status){
       
     }
@@ -63,8 +65,13 @@ export class CaptureFace extends Component {
     if (resValidation.data.data.faceVerificationResult.status === true) {
       this.setState({
         validate: resValidation.data.data.faceVerificationResult.status,
-        loading: !this.state.loading
+        loading: !this.state.loading,
+        verifyToken: resValidation.data.data.verificationToken
       })
+
+
+      sessionStorage.setItem('x-verification-token',JSON.stringify(this.state.verifyToken))
+      
       NotificationManager.success("Face Validated", "Success", 5000);
     } 
     if(resValidation.data.data.faceVerificationResult.status === false){
