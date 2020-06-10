@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Camera from "./utils/Camera";
+import Camera from "./Liveness/Camera";
 import { formatDate } from "./utils/DateFormat";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

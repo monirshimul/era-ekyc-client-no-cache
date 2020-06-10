@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 import "../utils/Common.css";
-import Camera from '../utils/Camera';
+import Camera from '../Liveness/Camera';
 import Face from "../images/face.svg";
 import Done from "../images/done.svg";
 import { withRouter } from 'react-router-dom';
@@ -212,7 +212,7 @@ export class CaptureFace extends Component {
           >
             <div className="modal-dialog mw-100 w-75" role="document">
               <div className="modal-content">
-                <div className="modal-header">
+                <div className="modal-header divBg">
                   <h5 className="modal-title" id="cameraModalLabel">
                     Capture Your Image
                           </h5>
