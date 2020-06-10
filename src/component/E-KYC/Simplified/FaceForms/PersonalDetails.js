@@ -25,26 +25,28 @@ export class PersonalDetails extends Component {
 
     componentDidMount() {
         if ('PersonalDetails' in localStorage) {
-            let data = JSON.parse(localStorage.getItem('PersonalDetails'));
-            // console.log(data);
+            let data = JSON.parse(localStorage.getItem('NidImages'));
+            console.log("All Nid Data",data.OcrData);
             this.setState({
-                applicantName: data.applicantName,
-                applicantNameBangla:data.applicantNameBangla,
-                applicantDob: data.applicantDob,
-                applicantNidNo: data.applicantNidNo,
-                motherName: data.motherName,
-                motherNameBangla: data.motherNameBangla,
-                fatherName: data.fatherName,
-                fatherNameBangla:data.fatherNameBangla,
-                spouseName: data.spouseName,
-                gender: data.gender,
-                profession: data.profession,
-                mobileNumber: data.mobileNumber,
-                presentAddress: data.presentAddress,
-                permanentAddress: data.permanentAddress,
-                permanentAddressBangla: data.permanentAddressBangla
+                applicantName: data.OcrData["Name English"],
+                applicantNameBangla:data.OcrData["Name Bangla"],
+                applicantDob: data.OcrData.DOB,
+                applicantNidNo: data.OcrData.id,
+                motherName: "",
+                motherNameBangla: data.OcrData.Mother,
+                fatherName: "",
+                fatherNameBangla:data.OcrData.Father,
+                spouseName: "",
+                gender: "",
+                profession: "",
+                mobileNumber: "",
+                presentAddress: "",
+                permanentAddress: "",
+                permanentAddressBangla: data.OcrData.Address
             });
+
         }
+        
     }
 
 
@@ -174,6 +176,7 @@ export class PersonalDetails extends Component {
 
     render() {
         let { applicantName,applicantNameBangla, applicantDob, applicantNidNo, motherName, motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla } = this.state;
+        console.log("================",applicantNidNo)
         //console.log("nidno", applicantNidNo.length);
         return (
             <div className="container my-5">

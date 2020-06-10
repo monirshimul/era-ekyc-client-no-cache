@@ -140,6 +140,7 @@ export class ConfirmInfo extends Component {
         if (localStorage.length === 0) {
             return <Account />;
         }
+        console.log("personalDetailsData",this.state.personalDetailsData)
         let { accountData, nidImagesData, captureFaceData, personalDetailsData, nomineeData, signatureData, flag } = this.state;
         // console.log("Nominee data", nomineeData);
         return (
@@ -194,14 +195,19 @@ export class ConfirmInfo extends Component {
                             <div className="">
 
                                 <p className="text-muted">Applicant's Name : {personalDetailsData.applicantName}</p>
+                                <p className="text-muted">Applicant's Name Bangla : {personalDetailsData.applicantNameBangla}</p>
+                                <p className="text-muted">Applicant's DOB : {personalDetailsData.applicantDob}</p>
                                 <p className="text-muted">Mother's Name : {personalDetailsData.motherName}</p>
+                                <p className="text-muted">Mother's Name Bangla : {personalDetailsData.motherNameBangla}</p>
                                 <p className="text-muted">Father's Name : {personalDetailsData.fatherName}</p>
+                                <p className="text-muted">Father's Name Bangla : {personalDetailsData.fatherNameBangla}</p>
                                 <p className="text-muted">Spouse Name : {personalDetailsData.spouseName}</p>
                                 <p className="text-muted">Gender : {personalDetailsData.gender}</p>
                                 <p className="text-muted">Profession : {personalDetailsData.profession}</p>
                                 <p className="text-muted">Mobile Phone Number : {personalDetailsData.mobileNumber}</p>
                                 <p className="text-muted">Present Address : {personalDetailsData.presentAddress}</p>
                                 <p className="text-muted">Permanent Address : {personalDetailsData.permanentAddress}</p>
+                                <p className="text-muted">Permanent Address Bangla : {personalDetailsData.permanentAddressBangla}</p>
 
                             </div>
                         </div>
@@ -271,7 +277,7 @@ export class ConfirmInfo extends Component {
                                         // Major
                                         <div>
                                             <p className="text-muted">Nominee {i + 1}, <br />
-                                            Picture :   <img src={nomineeData[i].photograph ? flag + nomineeData[i].photograph : adult} alt="" style={{ width: "100px", height: "100px", borderRadius: "50px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                            Picture :   <img src={nomineeData[i].photograph ? flag + nomineeData[i].photograph : adult} alt="" style={{ width: "300px", height: "200px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                                  ,<br />
                                             Nominee : {nomineeData[i].nominee},<br />
                                             Relation : {nomineeData[i].relation},<br />
@@ -295,7 +301,9 @@ export class ConfirmInfo extends Component {
                                         <div>
 
                                             <p className="text-muted">Nominee {i + 1}</p >
-
+                                            <p className="text-muted">Photograph of Guardian :
+                                    <img src={nomineeData[i].minorPhotoGuardian ? flag + nomineeData[i].minorPhotoGuardian : child} alt="" style={{ width: "300px", height: "200px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                            </p>
                                             <p className="text-muted">Minor Nominee : {nomineeData[i].minorNominee}</p>
                                             <p className="text-muted">Name of Guardian : {nomineeData[i].minorGuarrdian}</p>
                                             <p className="text-muted">Address : {nomineeData[i].minorAddress}</p>
@@ -306,9 +314,7 @@ export class ConfirmInfo extends Component {
                                             </p> */}
 
                                             <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}&#37;</p>
-                                            <p className="text-muted">Photograph of Guardian :
-                                    <img src={nomineeData[i].minorPhotoGuardian ? flag + nomineeData[i].minorPhotoGuardian : child} alt="" style={{ width: "100px", height: "100px", borderRadius: "50px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
-                                            </p>
+                                            
                                             <hr />
                                         </div>
                                 ))}
