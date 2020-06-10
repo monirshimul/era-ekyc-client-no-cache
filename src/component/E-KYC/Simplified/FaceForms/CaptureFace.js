@@ -114,7 +114,7 @@ export class CaptureFace extends Component {
     //   return;
     // }
 
-    const capFace = {
+    let capFace = {
       faceImage
     };
 
@@ -127,6 +127,14 @@ export class CaptureFace extends Component {
 
   back = (e) => {
     e.preventDefault();
+
+    const { faceImage } = this.state;
+    
+    let capFace = {
+      faceImage
+    };
+
+    localStorage.setItem("CaptureFace", JSON.stringify(capFace));
     this.props.history.push('/dashboard/nid-images');
   };
 

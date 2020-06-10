@@ -36,7 +36,7 @@ class Login extends Component {
 
             if(loginSuccess.loginToken){
                 let loginToken = loginSuccess.loginToken;
-                this.props.history.push('/verify-login', loginToken);
+                this.props.history.replace('/verify-login', loginToken);
             }else{
 
             let token = loginSuccess.authToken;

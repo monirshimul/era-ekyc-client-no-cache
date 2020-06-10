@@ -5,6 +5,19 @@ import { Link } from 'react-router-dom';
 
 
 export class FaceOrFinger extends Component {
+    state ={
+        verification:""
+    }
+
+    typeVerification = (val)=>{
+        const {verification} = this.state;
+        //e.preventDefault();
+        this.setState({
+            verification: val
+        });
+        const obj= { verification };
+        localStorage.setItem("VerificationType", JSON.stringify(obj));
+    }
     render() {
         return (
             // style = {{ border: "1px solid red" }}
@@ -45,7 +58,7 @@ export class FaceOrFinger extends Component {
 
                         {/* <button className="b" type="submit" style={{ border: "none" }} ><i class="fas fa-walking"></i> Get Start</button> */}
 
-                        <Link className="imTwoBtn" to="/dashboard/nid-images" style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
+                        <Link className="imTwoBtn" to="/dashboard/nid-images" onClick={()=>this.typeVerification("Face")} style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
                         <hr />
                     </div>
 

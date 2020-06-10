@@ -59,7 +59,7 @@ class Account extends Component {
         // this.props.history.push('/dashboard/face-account');
         if (accountType === 'Joint') {
             this.props.history.replace('/dashboard/dynamic-comp');
-        } else if(accountType === 'Single'){
+        } else if(accountType === 'S'){
             this.props.history.replace('/dashboard/type-verification');
         }
     }
@@ -111,7 +111,7 @@ class Account extends Component {
                                 name="accountType"
                             >
                                 <option value='' disabled>--Select--</option>
-                                <option value='Single'>Single Account</option>
+                                <option value='S'>Single Account</option>
                                 <option value='Joint'>Joint Account</option>
 
                             </select>

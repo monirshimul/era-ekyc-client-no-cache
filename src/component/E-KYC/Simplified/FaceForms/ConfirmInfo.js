@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import {confirmFaceApi} from '../../Url/ApiList';
 import Account from '../Account';
 import Family from '../images/family.svg'
 import Avater from '../images/user-two.svg'
@@ -21,6 +23,7 @@ export class ConfirmInfo extends Component {
         // signatureData:'' ,
         // flag: 'data:image/jpeg;base64,'
         accountData: JSON.parse(localStorage.getItem('accountInfo')),
+        verificationData: JSON.parse(localStorage.getItem('VerificationType')),
         nidImagesData: JSON.parse(localStorage.getItem('NidImages')),
         captureFaceData: JSON.parse(localStorage.getItem('CaptureFace')),
         personalDetailsData: JSON.parse(localStorage.getItem('PersonalDetails')),
@@ -41,9 +44,87 @@ export class ConfirmInfo extends Component {
     //     })
     // }
 
-    continue = e => {
+    continue = async(e) => {
+        const { accountData, nidImagesData, captureFaceData, personalDetailsData, nomineeData, signatureData,verificationData } = this.state;
         e.preventDefault();
-        this.props.history.replace('/dashboard/complete');
+        let accountInfo = {
+            title: personalDetailsData.applicantName,
+            type: accountData.accountType,
+            productType: accountData.product,
+            productCode: "S01",
+            channelCode: accountData.channelName
+        }
+
+        let dobDateFormat = personalDetailsData.applicantDob;
+        let applicantInfo = {
+            nid: personalDetailsData.applicantNidNo,
+            name: personalDetailsData.applicantName,
+            nameBangla: personalDetailsData.applicantNameBangla,
+            dob: personalDetailsData.applicantDob,
+            dobDate: personalDetailsData.applicantDobDate,
+            motherName: personalDetailsData.motherName,
+            motherNameBangla: personalDetailsData.motherNameBangla,
+            fatherName: personalDetailsData.fatherName,
+            fatherNameBangla: personalDetailsData.fatherNameBangla,
+            spouseName: personalDetailsData.spouseName,
+            gender: personalDetailsData.gender,
+            profession: personalDetailsData.profession,
+            mobile: personalDetailsData.mobileNumber,
+            presentAddress: personalDetailsData.presentAddress,
+            permanentAddress: personalDetailsData.permanentAddress,
+            permanentAddressBangla: personalDetailsData.permanentAddressBangla,
+            verificationType: "FACE"
+        }
+
+        let applicantFileInfo ={
+            nidFront:nidImagesData.NidFront,
+            nidBack:nidImagesData.NidFront,
+            photo:captureFaceData.faceImage,
+            signature:signatureData.signature
+        }
+
+        let nomineesInfo =[];
+        for(let i =0; i< nomineeData.length; i++){  
+            if(nomineeData[i].isShow === true){
+                let nomineeObj={
+                name: nomineeData[i].nominee,
+                relation:nomineeData[i].relation,
+                dob: nomineeData[i].dob,
+                photo: nomineeData[i].photograph,
+                isMinor: !(nomineeData[i].isShow) ,
+                percentage: parseInt(nomineeData[i].percentage)
+            }
+            nomineesInfo.push(nomineeObj);
+            }
+            
+        }
+        
+        let confirmObj ={
+            account:accountInfo ,
+            applicant:applicantInfo ,
+            applicantFile: applicantFileInfo,
+            nominees:nomineesInfo
+        }
+
+        // console.log("confirm", confirmObj);
+        console.log(JSON.stringify(confirmObj));
+
+        // const config =  {
+        //     headers: {
+        //     'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+        //     'x-verification-token': JSON.parse(sessionStorage.getItem('x-auth-token'));
+        //     } 
+        //  };
+
+        // try{
+        // let res = await axios.post(confirmFaceApi,confirmObj,config);
+        // let resData =
+        // }catch(err){
+
+        // }
+
+
+        //this.props.history.replace('/dashboard/complete');
     }
 
     back = e => {

@@ -35,4 +35,5 @@ export const checkUserEmail = hostIp + `user/check`
 //Logout
 export const logoutUser = hostIp + `user/logout`;
 
-
+// confirm Api
+export const confirmFaceApi = hostIp +`/ekyc/simplified`;

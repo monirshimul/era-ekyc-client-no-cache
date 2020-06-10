@@ -5,14 +5,18 @@ import NidTwo from '../images/nid-f3.svg';
 import NidThree from '../images/nid-f4.svg';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
+import axios from 'axios';
 
 export class NidImages extends Component {
   state = {
     NidFront: "",
+    NidFrontOcr:"",
     NidFrontType: '',
     NidBack: '',
+    NidBackOcr: '',
     NidBackType: '',
-    flag: 'data:image/jpeg;base64,'
+    flag: 'data:image/jpeg;base64,',
+    binaryFlag:"updateimage"
   }
 
 
@@ -35,7 +39,10 @@ export class NidImages extends Component {
   fileSelectedHandler = (event) => {
     if (event.target.files[0]) {
       let file = event.target.files[0];
-      console.log(file.type);
+      this.setState({
+        NidFrontOcr: file
+      })
+     // console.log(file.type);
       var reader = new FileReader();
       reader.readAsBinaryString(file);
 
@@ -54,17 +61,36 @@ export class NidImages extends Component {
     }
   };
 
-  //Nid Back Image upload
+  // fileSelectedHandler = (event) => {
+  //   if (event.target.files[0]) {
+  //     this.setState({
+  //       NidFront:event.target.files[0]
+  //     })
+  //   }
+  // }
+
+
+  // fileSelectedHandlerTwo = (event) => {
+  //   if (event.target.files[0]) {
+  //     this.setState({
+  //       NidBack:event.target.files[0]
+  //     })
+  //   }
+  // }
+
+  // //Nid Back Image upload
   fileSelectedHandlerTwo = (event) => {
     if (event.target.files[0]) {
       let file = event.target.files[0];
-      console.log(file.type);
+      this.setState({
+        NidBackOcr: file
+      })
+     // console.log(file.type);
       var reader = new FileReader();
       reader.readAsBinaryString(file);
 
       reader.onload = () => {
         let base64Image = btoa(reader.result);
-
         this.setState({
           NidBack: base64Image,
           NidBackType: file.type
@@ -77,7 +103,7 @@ export class NidImages extends Component {
     }
   };
 
-  continue = (e) => {
+  continue = async (e) => {
     e.preventDefault();
     const { NidFront, NidFrontType, NidBack, NidBackType } = this.state;
 
@@ -93,17 +119,35 @@ export class NidImages extends Component {
     //   return;
     // }
 
+
+    const formData = new FormData();
+
+    formData.append("userimage", this.state.NidFrontOcr);
+    formData.append("backPart", this.state.NidBackOcr);
+    formData.append("api_pass", "updateimage");
+    let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
+    console.log(nidData.data);
+
+   
+    if(nidData.data.Response_Code){
+   
+
     const obj = {
       NidFront,
       NidFrontType,
       NidBack,
-      NidBackType
+      NidBackType,
+      OcrData : nidData.data
     }
     localStorage.setItem("NidImages", JSON.stringify(obj));
 
     this.props.history.push('/dashboard/capture-face');
-
+  }else{
+    let nidOcrMessage = "Please Again Input Nid";
+    NotificationManager.warning(nidOcrMessage, "Warning", 5000);
   }
+  
+}
 
 
   render() {
@@ -113,14 +157,14 @@ export class NidImages extends Component {
       <div className="">
         <div className="row d-flex justify-content-center">
           <div className="col-sm-12 d-flex justify-content-around">
-            <div className="imTwoWhite col-sm-6" style={{ paddingTop: "25px", marginRight: "30px" }}>
+            <div className="card col-sm-6" style={{ paddingTop: "25px", marginRight: "30px" }}>
               <div className="card-header up">
                 <h3>NID Front</h3>
               </div>
               <div className="card-body d-flex justify-content-center">
 
                 <img
-                  src={NidFront ? (flag + NidFront) : NidThree}
+                  src={NidFront ? (flag+NidFront) : NidThree}
                   style={{
                     margin: "auto",
                     cursor: "pointer",
@@ -150,13 +194,13 @@ export class NidImages extends Component {
               </div>
             </div>
 
-            <div className="imTwoWhite col-sm-6" style={{ paddingTop: "25px" }}>
+            <div className="card col-sm-6" style={{ paddingTop: "25px" }}>
               <div className="card-header up">
                 <h3>NID Back</h3>
               </div>
               <div className="card-body d-flex justify-content-center">
                 <img
-                  src={NidBack ? (flag + NidBack) : NidTwo}
+                  src={NidBack ? (flag+ NidBack) : NidTwo}
                   style={{
                     margin: "auto",
                     cursor: "pointer",

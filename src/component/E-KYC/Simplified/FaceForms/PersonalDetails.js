@@ -6,16 +6,21 @@ import { NotificationManager } from "react-notifications";
 export class PersonalDetails extends Component {
     state = {
         applicantName: '',
+        applicantNameBangla:'',
         applicantDob: '',
+        applicantDobDate: '',
         applicantNidNo: '',
         motherName: '',
+        motherNameBangla: '',
         fatherName: '',
+        fatherNameBangla:'',
         spouseName: '',
         gender: '',
         profession: '',
         mobileNumber: '',
         presentAddress: '',
-        permanentAddress: ''
+        permanentAddress: '',
+        permanentAddressBangla: ''
     }
 
     componentDidMount() {
@@ -24,16 +29,20 @@ export class PersonalDetails extends Component {
             // console.log(data);
             this.setState({
                 applicantName: data.applicantName,
+                applicantNameBangla:data.applicantNameBangla,
                 applicantDob: data.applicantDob,
                 applicantNidNo: data.applicantNidNo,
                 motherName: data.motherName,
+                motherNameBangla: data.motherNameBangla,
                 fatherName: data.fatherName,
+                fatherNameBangla:data.fatherNameBangla,
                 spouseName: data.spouseName,
                 gender: data.gender,
                 profession: data.profession,
                 mobileNumber: data.mobileNumber,
                 presentAddress: data.presentAddress,
-                permanentAddress: data.permanentAddress
+                permanentAddress: data.permanentAddress,
+                permanentAddressBangla: data.permanentAddressBangla
             });
         }
     }
@@ -44,7 +53,7 @@ export class PersonalDetails extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     continue = e => {
-        let { applicantName, applicantDob, applicantNidNo, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress } = this.state;
+        let { applicantName,applicantNameBangla, applicantDob,applicantDobDate, applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla } = this.state;
         e.preventDefault();
 
 
@@ -132,19 +141,25 @@ export class PersonalDetails extends Component {
         //     return;
         // }
 
-
+        let parts= applicantDob.split('-');
+        let convertDob = new Date(parts[0], parts[1], parts[2]); 
         const personal = {
             applicantName,
+            applicantNameBangla,
             applicantDob,
+            applicantDobDate:convertDob,
             applicantNidNo,
             motherName,
+            motherNameBangla,
             fatherName,
+            fatherNameBangla,
             spouseName,
             gender,
             profession,
             mobileNumber,
             presentAddress,
-            permanentAddress
+            permanentAddress,
+            permanentAddressBangla
         }
 
         localStorage.setItem("PersonalDetails", JSON.stringify(personal));
@@ -158,7 +173,7 @@ export class PersonalDetails extends Component {
     }
 
     render() {
-        let { applicantName, applicantDob, applicantNidNo, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress } = this.state;
+        let { applicantName,applicantNameBangla, applicantDob, applicantNidNo, motherName, motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla } = this.state;
         //console.log("nidno", applicantNidNo.length);
         return (
             <div className="container my-5">
@@ -181,10 +196,16 @@ export class PersonalDetails extends Component {
                                 <input style={{ borderRadius: "50px" }} type="text" value={applicantName} name='applicantName' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Name" />
                             </div>
 
+                             {/* Applicant's Name  Bangla*/}
+                             <div className="form-group">
+                                <label htmlFor="">Applicant's Name (Bangla)</label>
+                                <input style={{ borderRadius: "50px" }} type="text" value={applicantNameBangla} name='applicantNameBangla' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Name (Bangla)" />
+                            </div>
+
                             {/* Applicant's Date Of Birth */}
                             <div className="form-group">
                                 <label htmlFor="">Applicant's Date of Birth</label>
-                                <input style={{ borderRadius: "50px" }} type="date" value={applicantDob} name='applicantDob' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Date of Birth" />
+                                <input style={{ borderRadius: "50px" }} type="date" value={applicantDob} name='applicantDob' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="dd-mm-YYYY" />
                             </div>
                             {/* Applicant's Date Of Birth
                                 <div className="form-group">
@@ -203,39 +224,6 @@ export class PersonalDetails extends Component {
                             <div className="form-group">
                                 <label htmlFor="">Applicant's Nid No</label>
                                 <input style={{ borderRadius: "50px" }} type="text" value={applicantNidNo} name='applicantNidNo' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Nid No" />
-                            </div>
-
-                            {/* Mother Name */}
-                            <div className="form-group">
-                                <label htmlFor="">Mother's Name</label>
-                                <input style={{ borderRadius: "50px" }} type="text" value={motherName} name='motherName' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Mother's Name" />
-                                {/* <small className="form-text text-muted">Enter Mother's Name</small> */}
-                            </div>
-                            <div className="form-group ">
-                                <label htmlFor="">Father's Name</label>
-                                <input style={{ borderRadius: "50px" }} type="text" value={fatherName} name='fatherName' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Father's Name" />
-                                {/* <small className="form-text text-muted">Enter Father's Name</small> */}
-                            </div>
-                        </div>
-
-
-                        <div className="col-sm-4 imTwo">
-                            <div className="im" style={{ color: "green" }}>
-                                <p>Relations</p>
-                            </div>
-                            {/* Father Name */}
-                            <div className="form-group ">
-                                <label htmlFor="">Father's Name</label>
-                                <input style={{ borderRadius: "50px" }} type="text" value={fatherName} name='fatherName' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Father's Name" />
-                                {/* <small className="form-text text-muted">Enter Father's Name</small> */}
-                            </div>
-
-
-                            {/* Spouse Name */}
-                            <div className="form-group ">
-                                <label htmlFor="">Spouse Name</label>
-                                <input style={{ borderRadius: "50px" }} type="text" value={spouseName} name="spouseName" onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Spouse Name" />
-                                {/* <small className="form-text text-muted">Enter Spouse Name</small> */}
                             </div>
 
                             {/* Gender */}
@@ -261,6 +249,52 @@ export class PersonalDetails extends Component {
                                 <input style={{ borderRadius: "50px" }} type="text" value={profession} name="profession" onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Profession" />
 
                             </div>
+
+                           
+                        
+                        </div>
+
+
+                        <div className="col-sm-4 imTwo">
+                            <div className="im" style={{ color: "green" }}>
+                                <p>Relations</p>
+                            </div>
+                            {/* Mother Name */}
+                            <div className="form-group">
+                                <label htmlFor="">Mother's Name</label>
+                                <input style={{ borderRadius: "50px" }} type="text" value={motherName} name='motherName' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Mother's Name" />
+                                {/* <small className="form-text text-muted">Enter Mother's Name</small> */}
+                            </div>
+
+                            {/* Mother Name Bangla*/}
+                            <div className="form-group">
+                                <label htmlFor="">Mother's Name (Bangla)</label>
+                                <input style={{ borderRadius: "50px" }} type="text" value={motherNameBangla} name='motherNameBangla' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Mother's Name (Bangla)" />
+                                {/* <small className="form-text text-muted">Enter Mother's Name</small> */}
+                            </div>
+
+                                {/* Father Name */}
+                            <div className="form-group ">
+                                <label htmlFor="">Father's Name</label>
+                                <input style={{ borderRadius: "50px" }} type="text" value={fatherName} name='fatherName' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Father's Name" />
+                                {/* <small className="form-text text-muted">Enter Father's Name</small> */}
+                            </div>
+                            { /* Father Name Bangla*/}
+                            <div className="form-group ">
+                                <label htmlFor="">Father's Name (Bangla) </label>
+                                <input style={{ borderRadius: "50px" }} type="text" value={fatherNameBangla} name='fatherNameBangla' onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Father's Name (Bangla)" />
+                                {/* <small className="form-text text-muted">Enter Father's Name</small> */}
+                            </div>
+
+
+                            {/* Spouse Name */}
+                            <div className="form-group ">
+                                <label htmlFor="">Spouse Name</label>
+                                <input style={{ borderRadius: "50px" }} type="text" value={spouseName} name="spouseName" onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Spouse Name" />
+                                {/* <small className="form-text text-muted">Enter Spouse Name</small> */}
+                            </div>
+
+                            
                         </div>
                         <div className="col-sm-4 imTwo">
 
@@ -287,9 +321,11 @@ export class PersonalDetails extends Component {
                                 <input style={{ borderRadius: "50px" }} type="text" value={permanentAddress} name="permanentAddress" onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Provide Permanent Address" />
 
                             </div>
+
+                            {/* Permanent Address Bangla */}
                             <div className="form-group">
-                                <label htmlFor="">Permanent Address</label>
-                                <input style={{ borderRadius: "50px" }} type="text" value={permanentAddress} name="permanentAddress" onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Provide Permanent Address" />
+                                <label htmlFor="">Permanent Address (Bangla)</label>
+                                <input style={{ borderRadius: "50px" }} type="text" value={permanentAddressBangla} name="permanentAddressBangla" onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Provide Permanent Address(Bangla)" />
 
                             </div>
 
