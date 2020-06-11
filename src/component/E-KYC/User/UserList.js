@@ -255,6 +255,7 @@ export class UserList extends Component {
             let delMessage = "Delete " + delUser.data.message;
             //alert(statusCode + ' ' + message);
             NotificationManager.success(delMessage, "Success", 5000);
+            this.props.history.push('/dashboard');
 
         } catch (err) {
             console.log(err.response);
@@ -287,7 +288,7 @@ export class UserList extends Component {
                 <div className="row d-flex justify-content-center">
                 <div className='form-group col-md-3' style={{ display: "inline", float: "right" }}>
 
-<input type="text" value={this.state.search} placeholder="Search.." name="search" autoComplete="off" onChange={this.handleSearch} />
+<input type="text" value={this.state.search} placeholder="Search by UserId" name="search" autoComplete="off" onChange={this.handleSearch} />
 <button onClick={this.submitSearch} type="submit"><i className="fa fa-search"></i></button>
 
 

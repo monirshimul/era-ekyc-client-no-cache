@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import {confirmFaceApi} from '../../Url/ApiList';
+import { NotificationManager } from "react-notifications";
 import Account from '../Account';
 import Family from '../images/family.svg'
 import Avater from '../images/user-two.svg'
@@ -107,24 +108,35 @@ export class ConfirmInfo extends Component {
         }
 
         // console.log("confirm", confirmObj);
-        console.log(JSON.stringify(confirmObj));
+       // console.log(JSON.stringify(confirmObj));
 
-        // const config =  {
-        //     headers: {
-        //     'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-        //     'x-verification-token': JSON.parse(sessionStorage.getItem('x-auth-token'));
-        //     } 
-        //  };
+        const config =  {
+            headers: {
+                'x-verification-token': JSON.parse(sessionStorage.getItem('x-verification-token')),
+            'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            
+            } 
+         };
 
-        // try{
-        // let res = await axios.post(confirmFaceApi,confirmObj,config);
-        // let resData =
-        // }catch(err){
+        try{
+        let res = await axios.post(confirmFaceApi,confirmObj,config);
+        console.log(res.data);
+         let resData =res.data;
+         let statusCode = resData.statusCode;
+         let successMessage = "Account Opening "+ resData.message;
+         NotificationManager.success(statusCode +" "+ successMessage ,"Success", 5000);
+         localStorage.clear();
+        this.props.history.replace('/dashboard/complete');
 
-        // }
+        }catch(err){
+            console.log(err.response);
+            let statusCodeError = err.response.data.statusCode;
+            let messageError = err.response.data.message;
+            NotificationManager.error(statusCodeError +" "+ messageError ,"Error", 5000);
+        }
 
 
-        //this.props.history.replace('/dashboard/complete');
+        
     }
 
     back = e => {

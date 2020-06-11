@@ -30,6 +30,7 @@ const Nav = (props) => {
             let res = await axios.post(logoutUser, null, config);
             console.log(res.data);
             sessionStorage.clear();
+            localStorage.clear();
             props.history.push('/');
             
         }catch (err) {

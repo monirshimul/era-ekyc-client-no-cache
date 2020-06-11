@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import '../../E-KYC/Simplified/utils/Common.css';
 import axios from 'axios';
 import {changePassword} from '../Url/ApiList';
+import { NotificationManager } from "react-notifications";
 
 
 class ChangePass extends Component {
@@ -23,22 +24,26 @@ class ChangePass extends Component {
 
 
         if(oldPassword === ''){
-            alert("Please Provide Old Password");
+            let msg1= "Please Provide Old Password";
+            NotificationManager.warning(msg1, "Warning", 5000);
             return;
         }
 
         if(newPassword === ''){
-            alert("Please Provide New Password");
+            let msg2="Please Provide New Password";
+            NotificationManager.warning(msg2, "Warning", 5000);
             return;
         }
 
         if(confirmPassword === ''){
-            alert("Please Provide Confirm Password");
+            let msg3 ="Please Provide Confirm Password";
+            NotificationManager.warning(msg3, "Warning", 5000);
             return;
         }
 
         if(confirmPassword !== newPassword ){
-            alert("Confirm Password and New Password are not same");
+            let msg4="Confirm Password and New Password are not same";
+            NotificationManager.warning(msg4, "Warning", 5000);
             return;
         }
 
@@ -69,12 +74,14 @@ class ChangePass extends Component {
                
            // console.log("Api Status",passChange.data);
             let statusCode = passChange.data.statusCode;
-            let message = "Change Password Completed";
-            alert(statusCode+ " "+ message);
+            let message = "Password Change Completed";
+            // alert(statusCode+ " "+ message);
+            NotificationManager.success(statusCode+" "+ message, "Success", 5000);
             //Session Storage clear
             sessionStorage.clear();
+            localStorage.clear();
             this.props.history.push('/');
-            window.location.reload(true);
+            //window.location.reload(true);
             
             // axios({
             //     method: 'post', //you can set what request you want to be
@@ -92,7 +99,8 @@ class ChangePass extends Component {
             let error = err.response.data;
             let statusCode = error.statusCode;
             let errorMessage = error.reason;
-            alert(statusCode+ '  '+ errorMessage);
+            // alert(statusCode+ '  '+ errorMessage);
+            NotificationManager.error(statusCode+" "+ errorMessage, "Error", 5000);
         }
     
     }
@@ -113,14 +121,14 @@ class ChangePass extends Component {
                       {/* Old Password */}
                       <div className="form-group">
                             <label htmlFor="">Old Password</label>
-                            <input type="text" value={this.state.oldPassword} onChange={this.onChange} className="form-control" name="oldPassword" id="inputUserId" aria-describedby="emailHelp" placeholder="Old Password" />
+                            <input type="password" value={this.state.oldPassword} onChange={this.onChange} className="form-control" name="oldPassword" id="inputUserId" aria-describedby="emailHelp" placeholder="Old Password" />
                         </div>
 
 
                      {/* New Password */}
                      <div className="form-group">
                             <label htmlFor="">New Password</label>
-                            <input type="text" value={this.state.newPassword} onChange={this.onChange} className="form-control" name="newPassword" id="inputUserId" aria-describedby="emailHelp" placeholder="New Password" />
+                            <input type="password" value={this.state.newPassword} onChange={this.onChange} className="form-control" name="newPassword" id="inputUserId" aria-describedby="emailHelp" placeholder="New Password" />
                         </div>
 
 
@@ -128,7 +136,7 @@ class ChangePass extends Component {
                      {/* Old Password */}
                      <div className="form-group">
                             <label htmlFor="">Confirm Password</label>
-                            <input type="text" value={this.state.confirmPassword} onChange={this.onChange} className="form-control" name="confirmPassword" id="inputUserId" aria-describedby="emailHelp" placeholder="Confirm Password" />
+                            <input type="password" value={this.state.confirmPassword} onChange={this.onChange} className="form-control" name="confirmPassword" id="inputUserId" aria-describedby="emailHelp" placeholder="Confirm Password" />
                         </div>
                     
                      

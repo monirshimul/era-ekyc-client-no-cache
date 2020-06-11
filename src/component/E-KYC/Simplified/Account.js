@@ -128,8 +128,9 @@ class Account extends Component {
                                 name="channelName"
                             >
                                 <option value='' disabled>--Select--</option>
-                                <option value='CBS'>CBS</option>
-                                <option value='ABS'>ABS</option>
+                                <option value='ABS'>Agent Banking</option>
+                                <option value='iStelar'>iStelar</option>
+                                <option value='Hikmah'>HIKMAH</option>
                                 {/* <option value='Credit Account'>Credit Accounts</option>
                                 <option value='Debit Card'>Debit Card</option>
                                 <option value='Credit Card'>Credit Card</option> */}

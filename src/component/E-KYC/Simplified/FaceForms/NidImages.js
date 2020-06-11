@@ -26,7 +26,9 @@ export class NidImages extends Component {
       console.log(data);
       this.setState({
         NidFront: data.NidFront,
+        NidFrontOcr: data.NidFrontOcr,
         NidFrontType: data.NidFrontType,
+        NidBackOcr:data.NidBackOcr,
         NidBack: data.NidBack,
         NidBackType: data.NidBackType
 
@@ -105,7 +107,7 @@ export class NidImages extends Component {
 
   continue = async (e) => {
     e.preventDefault();
-    const { NidFront, NidFrontType, NidBack, NidBackType } = this.state;
+    const { NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr,NidBackType } = this.state;
 
     // if (NidFront === "") {
     //   let NidFrontMessage = "Please Provide Nid Front Image";
@@ -134,8 +136,10 @@ export class NidImages extends Component {
 
     const obj = {
       NidFront,
+      NidFrontOcr,
       NidFrontType,
       NidBack,
+      NidBackOcr,
       NidBackType,
       OcrData : nidData.data
     }
@@ -153,6 +157,7 @@ export class NidImages extends Component {
   render() {
 
     const { NidFront, NidBack, flag } = this.state;
+    // console.log(this.state.NidFrontOcr);
     return (
       <div className="">
         <div className="row d-flex justify-content-center">
