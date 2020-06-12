@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LibImage from "./liveness";
+import Loading from '../utils/CustomLoding/Loading'
 import { getElementError } from "@testing-library/react";
 import Face from "../images/loading.svg";
 
 export class Camera extends Component {
   base64Image = "";
   streamObject;
+  
 
   static propTypes = {
     onConfirm: PropTypes.func.isRequired,
@@ -15,6 +17,7 @@ export class Camera extends Component {
   state = {
     status:"",
     modelType:"",
+    loading:false
   }
 
   libImage;
@@ -44,7 +47,8 @@ export class Camera extends Component {
     libImage.addEventListener("expressionDetected", (e) => {
       console.log(e.detail);
       this.setState({
-        status:e.detail
+        status:e.detail,
+        loading:false
       })
       let show = document.getElementById("status");
       show.innerHTML = e.detail;
@@ -93,8 +97,16 @@ export class Camera extends Component {
   // }
 
   startDetection = (e) => {
-    console.log("In the Start Detection");
+    
+    
+    this.setState({
+      loading:!this.state.loading
+    })
     this.libImage.startDetection();
+    
+    
+    
+    
   
   };
 
@@ -109,7 +121,7 @@ export class Camera extends Component {
   };
 
   render() {
-    let { status, modelType } = this.state
+    let { status, modelType, loading } = this.state
     return (
       <div className="container mb-3" style={{margin:"0 auto", padding:"0"}}>
         <div className="row d-flex justify-content-center align-items-center divBg">
@@ -145,7 +157,11 @@ export class Camera extends Component {
             //   id=""
             //   alt="Live Image "
             // />
-            <h1 className="text-muted">Loading...</h1>
+            // <h1 className="text-muted">Loading...</h1>
+
+            <div className="row d-flex justify-content-center align-items-center mt-3">
+                  <Loading/>
+            </div>
 
               )
           }
@@ -184,18 +200,30 @@ export class Camera extends Component {
             />
             <br />
             {
-              status ? (
-                <button
-              className="imTwo text-center"
-              id="conBtn"
-              style={{border:"none", width:"315px", color:"green", fontSize:"17px"}}
-              onClick={this.onConfirm}
-              data-dismiss="modal"
-            >
-              <i class="fas fa-check-circle"></i> CONFIRM
-            </button>
-              ):""
+              loading ? (
+                <div className="row d-flex justify-content-center align-items-center mt-3">
+                  <Loading/>
+                </div>
+              ) : (
+                <div>
+                {
+                  status ? (
+                    <button
+                  className="imTwo text-center"
+                  id="conBtn"
+                  style={{border:"none", width:"315px", color:"green", fontSize:"17px"}}
+                  onClick={this.onConfirm}
+                  data-dismiss="modal"
+                >
+                  <i class="fas fa-check-circle"></i> CONFIRM
+                </button>
+                  ):""
+                  
+                }
+                </div>
+              ) 
             }
+            
             
           </div>
             

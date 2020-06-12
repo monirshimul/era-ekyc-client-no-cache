@@ -24,6 +24,27 @@ export class PersonalDetails extends Component {
     }
 
     componentDidMount() {
+        if ('NidImages' in localStorage ){
+            let data = JSON.parse(localStorage.getItem('NidImages'));
+            console.log("All Nid Data",data.OcrData);
+            this.setState({
+                applicantName: data.OcrData["Name English"],
+                applicantNameBangla:data.OcrData["Name Bangla"],
+                applicantDob: data.OcrData.DOB,
+                applicantNidNo: data.OcrData.id,
+                motherName: "",
+                motherNameBangla: data.OcrData.Mother,
+                fatherName: "",
+                fatherNameBangla:data.OcrData.Father,
+                spouseName: "",
+                gender: "",
+                profession: "",
+                mobileNumber: "",
+                presentAddress: "",
+                permanentAddress: "",
+                permanentAddressBangla: data.OcrData.Address
+            });
+        }
         if ('PersonalDetails' in localStorage) {
             let data = JSON.parse(localStorage.getItem('NidImages'));
             console.log("All Nid Data",data.OcrData);
@@ -179,7 +200,7 @@ export class PersonalDetails extends Component {
         console.log("================",applicantNidNo)
         //console.log("nidno", applicantNidNo.length);
         return (
-            <div className="container my-5">
+            <div className="container">
 
                 <div className="col-sm-12" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)" }}>
 

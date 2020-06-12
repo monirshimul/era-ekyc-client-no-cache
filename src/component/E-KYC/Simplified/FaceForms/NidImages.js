@@ -3,6 +3,7 @@ import "../utils/Common.css";
 import NidOne from '../images/nid-f2.svg';
 import NidTwo from '../images/nid-f3.svg';
 import NidThree from '../images/nid-f4.svg';
+import Loading from '../utils/CustomLoding/Loading.js';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
@@ -15,6 +16,8 @@ export class NidImages extends Component {
     NidBack: '',
     NidBackOcr: '',
     NidBackType: '',
+    allData:'',
+    loading:false,
     flag: 'data:image/jpeg;base64,',
     binaryFlag:"updateimage"
   }
@@ -105,33 +108,58 @@ export class NidImages extends Component {
     }
   };
 
-  continue = async (e) => {
+
+
+  doOcr = async (e)=>{
     e.preventDefault();
     const { NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr,NidBackType } = this.state;
+    if(NidFront && NidBack){
+      this.setState({
+        loading: !this.state.loading
+      })
+  
+      // if (NidFront === "") {
+      //   let NidFrontMessage = "Please Provide Nid Front Image";
+      //   NotificationManager.warning(NidFrontMessage, "Warning", 5000);
+      //   return;
+      // }
+  
+      // if (NidBack === "") {
+      //   let NidBackMessage = "Please Provide Nid Back Image";
+      //   NotificationManager.warning(NidBackMessage, "Warning", 5000);
+      //   return;
+      // }
+  
+  
+      const formData = new FormData();
+  
+      formData.append("userimage", this.state.NidFrontOcr);
+      formData.append("backPart", this.state.NidBackOcr);
+      formData.append("api_pass", "updateimage");
+      let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
+      console.log(nidData.data);
+      this.setState({
+        allData:nidData.data,
+        loading: false
+      })
+      console.log("OCR STate",this.state.allData);
+  
+      NotificationManager.success("OCR Completed", "Success",5000);
+    }else{
+      NotificationManager.warning("Please Provide NID Images", "Warning",5000);
+    }
+    
+    
+    
+  }
 
-    // if (NidFront === "") {
-    //   let NidFrontMessage = "Please Provide Nid Front Image";
-    //   NotificationManager.warning(NidFrontMessage, "Warning", 5000);
-    //   return;
-    // }
-
-    // if (NidBack === "") {
-    //   let NidBackMessage = "Please Provide Nid Back Image";
-    //   NotificationManager.warning(NidBackMessage, "Warning", 5000);
-    //   return;
-    // }
-
-
-    const formData = new FormData();
-
-    formData.append("userimage", this.state.NidFrontOcr);
-    formData.append("backPart", this.state.NidBackOcr);
-    formData.append("api_pass", "updateimage");
-    let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
-    console.log(nidData.data);
-
+  continue = async (e) => {
+    e.preventDefault();
+    const { NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr,NidBackType, allData } = this.state;
+    
+ 
    
-    if(nidData.data.Response_Code){
+    if(allData.Response_Code){
    
 
     const obj = {
@@ -141,13 +169,13 @@ export class NidImages extends Component {
       NidBack,
       NidBackOcr,
       NidBackType,
-      OcrData : nidData.data
+      OcrData : allData
     }
     localStorage.setItem("NidImages", JSON.stringify(obj));
 
     this.props.history.push('/dashboard/capture-face');
   }else{
-    let nidOcrMessage = "Please Again Input Nid";
+    let nidOcrMessage = "Please Do OCR First";
     NotificationManager.warning(nidOcrMessage, "Warning", 5000);
   }
   
@@ -156,7 +184,7 @@ export class NidImages extends Component {
 
   render() {
 
-    const { NidFront, NidBack, flag } = this.state;
+    const { NidFront, NidBack, flag, allData, loading } = this.state;
     // console.log(this.state.NidFrontOcr);
     return (
       <div className="">
@@ -237,10 +265,36 @@ export class NidImages extends Component {
             </div>
           </div>
         </div>
+
+        {
+          loading ? (
+            <div className="row d-flex justify-content-center mt-5">
+                  <Loading/>
+
+          </div>
+          ):""
+          
+        }
+                  
+                  
+                  
+       
+
+
+
+
         <div className="row d-flex justify-content-center my-5">
-          <div className="b" onClick={this.continue}>
+        <div className="b mr-2" onClick={this.doOcr}>
+            OCR
+          </div>
+          {
+            allData.Response_Code ? (
+              <div className="b" onClick={this.continue}>
             Next
           </div>
+            ):""
+          }
+          
         </div>
 
       </div>

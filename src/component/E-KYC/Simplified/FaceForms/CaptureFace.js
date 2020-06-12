@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 import "../utils/Common.css";
 import axios from 'axios'
-import {faceValidate} from '../../Url/ApiList'
+import Loading from '../utils/CustomLoding/Loading'
+import { faceValidate } from '../../Url/ApiList'
 import Camera from '../Liveness/Camera';
 import Face from "../images/face.svg";
 import Done from "../images/done.svg";
@@ -16,8 +17,8 @@ export class CaptureFace extends Component {
     imageFlag: false,
     showCamera: false,
     validate: false,
-    loading:false,
-    verifyToken:'',
+    loading: false,
+    verifyToken: '',
     flag: 'data:image/jpeg;base64,'
   }
 
@@ -25,7 +26,7 @@ export class CaptureFace extends Component {
   componentDidMount() {
     if ('CaptureFace' in localStorage) {
       let data = JSON.parse(localStorage.getItem('CaptureFace'));
-      
+
       // console.log(data);
       this.setState({
         faceImage: data.faceImage,
@@ -42,7 +43,7 @@ export class CaptureFace extends Component {
 
     const token = {
       headers: {
-          'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+        'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
       }
 
     };
@@ -55,42 +56,42 @@ export class CaptureFace extends Component {
         nidFront: nidf.NidFront
       }
 
-    let resValidation = await axios.post(faceValidate, imgData, token);
-    console.log("resValidation",resValidation.data.data.faceVerificationResult)
-    console.log("ver-token",resValidation.data.data.verificationToken)
-    if(resValidation.data.data.faceVerificationResult.status){
-      
-    }
-    
-    if (resValidation.data.data.faceVerificationResult.status === true) {
-      this.setState({
-        validate: resValidation.data.data.faceVerificationResult.status,
-        loading: !this.state.loading,
-        verifyToken: resValidation.data.data.verificationToken
-      })
+      let resValidation = await axios.post(faceValidate, imgData, token);
+      console.log("resValidation", resValidation.data.data.faceVerificationResult)
+      console.log("ver-token", resValidation.data.data.verificationToken)
+      if (resValidation.data.data.faceVerificationResult.status) {
+
+      }
+
+      if (resValidation.data.data.faceVerificationResult.status === true) {
+        this.setState({
+          validate: resValidation.data.data.faceVerificationResult.status,
+          loading: !this.state.loading,
+          verifyToken: resValidation.data.data.verificationToken
+        })
 
 
-      sessionStorage.setItem('x-verification-token',JSON.stringify(this.state.verifyToken))
-      
-      NotificationManager.success("Face Validated", "Success", 5000);
-    } 
-    if(resValidation.data.data.faceVerificationResult.status === false){
-      this.setState({
-        loading: false
-      })
-      NotificationManager.error("Face does not match", "Error", 5000);
-    }
-    
+        sessionStorage.setItem('x-verification-token', JSON.stringify(this.state.verifyToken))
+
+        NotificationManager.success("Face Validated", "Success", 5000);
+      }
+      if (resValidation.data.data.faceVerificationResult.status === false) {
+        this.setState({
+          loading: false
+        })
+        NotificationManager.error("Face does not match", "Error", 5000);
+      }
+
 
     } catch (error) {
       let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
-      
+      let { statusCode } = error.response.data
+      console.log("error.response", error.response.data)
+      NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+
     }
 
-    
+
   }
 
 
@@ -129,7 +130,7 @@ export class CaptureFace extends Component {
     e.preventDefault();
 
     const { faceImage } = this.state;
-    
+
     let capFace = {
       faceImage
     };
@@ -139,7 +140,7 @@ export class CaptureFace extends Component {
   };
 
   render() {
-    const { faceImage, imageFlag, showCamera, flag, validate, loading } = this.state;
+    const { faceImage, imageFlag, showCamera, flag, validate, loading, verifyToken } = this.state;
     //console.log("LiveImage", faceImage)
     return (
       <div className="container">
@@ -187,69 +188,72 @@ export class CaptureFace extends Component {
                     <div className="row imTwoWhite d-flex justify-content-center ">
                       {
                         loading ? (
-                          <div className="animated slideInDown d-flex justify-content-center align-items-center" style={{height:"250px"}}>
-                            <h1 className="text-muted text-center">Loading...</h1>
-                            
-                          </div>
-                        ):(
-                          <div>
-                            {
-                        validate === true ? (
-                          <div className="animated slideInDown">
-                            <img
-                              src={Done}
-                              style={{
-                                display: "block",
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                width: "300px",
-                                height: "200px",
-                              }}
-                              value={faceImage}
-                              className=" img-thumbnail center"
-                              id="imagePicture"
-                              alt="cameraPicture"
-                            />
-                            <div className="im"
-                              style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
-                              
-                            >
-                              <i class="fas fa-user-check"></i> Success, Click Next
-                            </div>
+                          // <div className="animated slideInDown d-flex justify-content-center align-items-center" style={{height:"250px"}}>
+                          //   <h1 className="text-muted text-center">Loading...</h1>
+
+                          // </div>
+                          <div className="row d-flex justify-content-center align-items-center mt-3">
+                            <Loading />
                           </div>
                         ) : (
-                            <div className="animated zoomIn">
-                              <img
-                                src={flag + faceImage}
-                                style={{
-                                  display: "block",
-                                  marginLeft: "auto",
-                                  marginRight: "auto",
-                                  width: "300px",
-                                  height: "200px",
+                            <div>
+                              {
+                                validate === true ? (
+                                  <div className="animated slideInDown">
+                                    <img
+                                      src={Done}
+                                      style={{
+                                        display: "block",
+                                        marginLeft: "auto",
+                                        marginRight: "auto",
+                                        width: "300px",
+                                        height: "200px",
+                                      }}
+                                      value={faceImage}
+                                      className=" img-thumbnail center"
+                                      id="imagePicture"
+                                      alt="cameraPicture"
+                                    />
+                                    <div className="im"
+                                      style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
 
-                                }}
-                                value={faceImage}
-                                className=" img-thumbnail center"
-                                id="imagePicture"
-                                alt="cameraPicture"
-                              />
-                              <div className="im"
-                                style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
-                                onClick={this.validate}
-                              >
-                                <i class="fas fa-user-check"></i> Check Validation
+                                    >
+                                      <i class="fas fa-user-check"></i> Success, Click Next
                             </div>
-                            </div>
-                          
-                            )
-                      }
-                          </div>
+                                  </div>
+                                ) : (
+                                    <div className="animated zoomIn">
+                                      <img
+                                        src={flag + faceImage}
+                                        style={{
+                                          display: "block",
+                                          marginLeft: "auto",
+                                          marginRight: "auto",
+                                          width: "300px",
+                                          height: "200px",
 
-                        )
+                                        }}
+                                        value={faceImage}
+                                        className=" img-thumbnail center"
+                                        id="imagePicture"
+                                        alt="cameraPicture"
+                                      />
+                                      <div className="im"
+                                        style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
+                                        onClick={this.validate}
+                                      >
+                                        <i class="fas fa-user-check"></i> Check Validation
+                            </div>
+                                    </div>
+
+                                  )
+                              }
+                            </div>
+
+                          )
                       }
-                     
-                      
+
+
 
                     </div>
                   ) : (
@@ -272,7 +276,12 @@ export class CaptureFace extends Component {
             >
 
               <span className="b mr-5" onClick={this.back}>Back</span>
-              <span className="b" onClick={this.continue}>Next</span>
+              {
+                verifyToken ? (
+                  <span className="b" onClick={this.continue}>Next</span>
+                ):""
+              }
+              
 
 
 
@@ -297,7 +306,7 @@ export class CaptureFace extends Component {
               <div className="modal-content">
                 <div className="modal-header divBg">
                   <h5 className="modal-title" id="cameraModalLabel">
-                    
+
                   </h5>
                   <button
                     type="button"
