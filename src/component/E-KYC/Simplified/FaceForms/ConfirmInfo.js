@@ -30,6 +30,7 @@ export class ConfirmInfo extends Component {
         personalDetailsData: JSON.parse(localStorage.getItem('PersonalDetails')),
         nomineeData: JSON.parse(localStorage.getItem('NomineeArray')),
         signatureData: JSON.parse(localStorage.getItem('Signature')),
+        verificationData: JSON.parse(localStorage.getItem('Verification')),
         flag: 'data:image/jpeg;base64,'
     }
 
@@ -74,7 +75,7 @@ export class ConfirmInfo extends Component {
             presentAddress: personalDetailsData.presentAddress,
             permanentAddress: personalDetailsData.permanentAddress,
             permanentAddressBangla: personalDetailsData.permanentAddressBangla,
-            verificationType: "FACE"
+            verificationType: verificationData.type
         }
 
         let applicantFileInfo ={
@@ -96,6 +97,26 @@ export class ConfirmInfo extends Component {
                 percentage: parseInt(nomineeData[i].percentage)
             }
             nomineesInfo.push(nomineeObj);
+            }else{
+                let guardianInfo ={
+                    nid:nomineeData[i].minorGuardianNid,
+                    name:nomineeData[i].minorGuardianName,
+                    relation:nomineeData[i].guardianRelationWMinor,
+                    address:nomineeData[i].minorGuardianAddress,
+                    photo:nomineeData[i].minorPhotoGuardian
+                }
+
+                let nomineeObj={
+                    name:nomineeData[i].minorNominee,
+                    relation:nomineeData[i].minorRelationWAccH,
+                    dob:nomineeData[i].minorDob,
+                    photo:nomineeData[i].minorNomineePhoto,
+                    isMinor:!(nomineeData[i].isShow),
+                    percentage:parseInt(nomineeData[i].minorPercentage),
+                    guardian:guardianInfo
+                }
+                nomineesInfo.push(nomineeObj);
+
             }
             
         }
@@ -313,19 +334,36 @@ export class ConfirmInfo extends Component {
                                         <div>
 
                                             <p className="text-muted">Nominee {i + 1}</p >
+                                            <p className="text-muted">Minor Nominee : {nomineeData[i].minorNominee}</p>
+                                            <p className="text-muted">Minor Nominee Date of Birth : {nomineeData[i].minorDob}</p>
+                                            <p className="text-muted">Minor Nominee Relation With Account Holder: {nomineeData[i].minorRelationWAccH}</p>
+                                            <p className="text-muted">Photograph of Minor Nominee :
+                                                <img src={nomineeData[i].minorNomineePhoto ? flag + nomineeData[i].minorNomineePhoto : child} alt="" style={{ width: "300px", height: "200px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                            </p>
+                                            
+                                            <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}</p>
+
+                                            <p className="text-muted">Minor Nominee Guardian NID No : {nomineeData[i].minorGuardianNid}</p>
+                                            <p className="text-muted">Minor Nominee Guardian Name : {nomineeData[i].minorGuardianName}</p>
+                                            <p className="text-muted">Guardian Relation with Minor Nominee : {nomineeData[i].guardianRelationWMinor}</p>
+                                            <p className="text-muted"> Guardian Address : {nomineeData[i].minorGuardianAddress}</p>
                                             <p className="text-muted">Photograph of Guardian :
+                                                <img src={nomineeData[i].minorPhotoGuardian ? flag + nomineeData[i].minorPhotoGuardian : child} alt="" style={{ width: "300px", height: "200px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
+                                            </p>
+
+                                            {/* <p className="text-muted">Photograph of Guardian :
                                     <img src={nomineeData[i].minorPhotoGuardian ? flag + nomineeData[i].minorPhotoGuardian : child} alt="" style={{ width: "300px", height: "200px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                             </p>
                                             <p className="text-muted">Minor Nominee : {nomineeData[i].minorNominee}</p>
                                             <p className="text-muted">Name of Guardian : {nomineeData[i].minorGuarrdian}</p>
                                             <p className="text-muted">Address : {nomineeData[i].minorAddress}</p>
                                             <p className="text-muted">Relation : {nomineeData[i].minorRelation}</p>
-                                            <p className="text-muted">Guardian Nid No : {nomineeData[i].minorNidGuardian}</p>
+                                            <p className="text-muted">Guardian Nid No : {nomineeData[i].minorNidGuardian}</p> */}
                                             {/* <p className="text-muted">NID Image of Guardian :
                                     <img src={flag + nomineeData[i].minorNidGuardian} alt="" style={{ width: "150px", height: "120px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                             </p> */}
 
-                                            <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}&#37;</p>
+                                            {/* <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}&#37;</p> */}
                                             
                                             <hr />
                                         </div>

@@ -10,7 +10,7 @@ import "./sidebar.css";
 import { pruneRouteArray, getFlatRouteArray } from '../flattenObjectTwo';
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 
-// face-forms
+// face Verification forms
 import NidImages from '../E-KYC/Simplified/FaceForms/NidImages';
 import CaptureFace from '../E-KYC/Simplified/FaceForms/CaptureFace';
 import PersonalDetails from '../E-KYC/Simplified/FaceForms/PersonalDetails';
@@ -18,6 +18,9 @@ import Nominee from '../E-KYC/Simplified/FaceForms/Nominee';
 import Signature from '../E-KYC/Simplified/FaceForms/Signature';
 import ConfirmInfo from '../E-KYC/Simplified/FaceForms/ConfirmInfo';
 import Complete from '../E-KYC/Simplified/FaceForms/Complete';
+
+// Finger Verification Forms
+import FingerPrint from '../E-KYC/Simplified/FingerForms/FingerPrint';
 
 import {withRouter} from 'react-router-dom';
 import FaceOrFinger from '../E-KYC/Simplified/FaceOrFinger';
@@ -218,6 +221,9 @@ function Dashboard(props) {
                                 <Route path={`${path}/signature`} component={Signature} />
                                 <Route path={`${path}/confirm-info`} component={ConfirmInfo} />
                                 <Route path={`${path}/complete`} component={Complete} />
+
+                                {/* Finger Forms  */}
+                                <Route path={`${path}/finger-print`} component={FingerPrint} />
 
                                 <Route path={`${path}/success`} component={Success} />
 

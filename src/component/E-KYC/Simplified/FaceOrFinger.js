@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 import Face from '../Simplified/images/face-scan.svg';
 import Finger from '../Simplified/images/fingerP.svg';
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 
 
 export class FaceOrFinger extends Component {
-    state ={
-        verification:""
-    }
+   
 
     typeVerification = (val)=>{
-        const {verification} = this.state;
         //e.preventDefault();
-        this.setState({
-            verification: val
-        });
-        const obj= { verification };
-        localStorage.setItem("VerificationType", JSON.stringify(obj));
+        
+        const obj= { type: val };
+        localStorage.setItem("Verification", JSON.stringify(obj));
+        this.props.history.push("/dashboard/nid-images");
     }
     render() {
         return (
@@ -58,10 +54,10 @@ export class FaceOrFinger extends Component {
 
                         {/* <button className="b" type="submit" style={{ border: "none" }} ><i class="fas fa-walking"></i> Get Start</button> */}
 
-                        <Link className="imTwoBtn" to="/dashboard/nid-images" onClick={()=>this.typeVerification("Face")} style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
+                        <Link className="imTwoBtn"  onClick={()=>this.typeVerification("FACE")} style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
                         <hr />
                     </div>
-
+                            
                 </div>
 
                 <div className=" row d-flex justify-content-center align-items-center mt-3" style={{ paddingTop: "70px" }}>
@@ -98,7 +94,7 @@ export class FaceOrFinger extends Component {
                         />
                         {/* <i class="fas fa-long-arrow-alt-right" style={{ color: "green" }}></i> */}
 
-                        <Link className="imTwoBtn"  style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
+                        <Link className="imTwoBtn" onClick={()=>this.typeVerification("FINGER")} style={{ color: "#fff", borderRadius: "50px", textDecoration: "none" }}><i class="fas fa-walking"></i> Get Start</Link>
                         <hr />
 
 
@@ -119,4 +115,4 @@ export class FaceOrFinger extends Component {
     }
 }
 
-export default FaceOrFinger
+export default withRouter(FaceOrFinger);

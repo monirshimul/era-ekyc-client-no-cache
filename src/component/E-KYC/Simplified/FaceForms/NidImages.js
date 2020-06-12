@@ -172,8 +172,15 @@ export class NidImages extends Component {
       OcrData : allData
     }
     localStorage.setItem("NidImages", JSON.stringify(obj));
+    
+    let nextRoute = JSON.parse(localStorage.getItem('Verification'));
 
-    this.props.history.push('/dashboard/capture-face');
+    if (nextRoute.type === "FACE") {
+
+      this.props.history.push('/dashboard/capture-face');
+    } else {
+      this.props.history.push('/dashboard/finger-print');
+    }
   }else{
     let nidOcrMessage = "Please Do OCR First";
     NotificationManager.warning(nidOcrMessage, "Warning", 5000);
@@ -303,3 +310,4 @@ export class NidImages extends Component {
 }
 
 export default withRouter(NidImages);
+
