@@ -192,7 +192,15 @@ export class PersonalDetails extends Component {
 
     back = e => {
         e.preventDefault();
-        this.props.history.push('/dashboard/capture-face');
+        let nextRoute = JSON.parse(localStorage.getItem('Verification'));
+
+        if (nextRoute.type === "FACE") {
+    
+          this.props.history.push('/dashboard/capture-face');
+        } else {
+          this.props.history.push('/dashboard/finger-print');
+        }
+
     }
 
     render() {

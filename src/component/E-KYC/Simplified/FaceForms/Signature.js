@@ -41,7 +41,15 @@ export class Signature extends Component {
 
     back = e => {
         e.preventDefault();
-        this.props.history.push('/dashboard/nominee');
+        let nextRoute = JSON.parse(localStorage.getItem('Verification'));
+
+        if (nextRoute.type === "FACE") {
+    
+            this.props.history.push('/dashboard/nominee');
+        } else {
+          this.props.history.push('/dashboard/customer-photo');
+        }
+        
     }
 
     fileSelectedHandler = event => {

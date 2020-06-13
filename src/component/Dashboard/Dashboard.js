@@ -21,6 +21,7 @@ import Complete from '../E-KYC/Simplified/FaceForms/Complete';
 
 // Finger Verification Forms
 import FingerPrint from '../E-KYC/Simplified/FingerForms/FingerPrint';
+import CustomerPic from '../E-KYC/Simplified/FingerForms/CustomerPic';
 
 import {withRouter} from 'react-router-dom';
 import FaceOrFinger from '../E-KYC/Simplified/FaceOrFinger';
@@ -224,6 +225,7 @@ function Dashboard(props) {
 
                                 {/* Finger Forms  */}
                                 <Route path={`${path}/finger-print`} component={FingerPrint} />
+                                <Route path={`${path}/customer-photo`} component={CustomerPic} />
 
                                 <Route path={`${path}/success`} component={Success} />
 

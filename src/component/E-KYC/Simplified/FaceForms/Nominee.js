@@ -64,8 +64,8 @@ export class Nominee extends Component {
         //     copyArray[index].minorNidGuardian = event.target.value;
         // } 
         copyArray[index][event.target.name] = event.target.value;
-        
-         if (event.target.name === "photograph") {
+
+        if (event.target.name === "photograph") {
             if (event.target.files[0]) {
                 let file = event.target.files[0];
                 //console.log(file.type);
@@ -140,7 +140,16 @@ export class Nominee extends Component {
     continue = e => {
         e.preventDefault();
         localStorage.setItem("NomineeArray", JSON.stringify(this.state.jointArray));
-        this.props.history.push('/dashboard/signature');
+
+        let nextRoute = JSON.parse(localStorage.getItem('Verification'));
+
+        if (nextRoute.type === "FACE") {
+
+            this.props.history.push('/dashboard/signature');
+        } else {
+            this.props.history.push('/dashboard/customer-photo');
+        }
+        
     }
 
     back = e => {
@@ -259,8 +268,8 @@ export class Nominee extends Component {
                                                         </div>
 
 
-                                                          {/* Minor Nominee Date of Birth  */}
-                                                          <div className="form-group">
+                                                        {/* Minor Nominee Date of Birth  */}
+                                                        <div className="form-group">
                                                             <label htmlFor="nominee">Minor Nominee Date of Birth</label>
                                                             <input
                                                                 type="date"
@@ -301,8 +310,8 @@ export class Nominee extends Component {
                                                         </div>
 
 
-                                                         {/* Minor Nominee Percentage  */}
-                                                         <div className="form-group">
+                                                        {/* Minor Nominee Percentage  */}
+                                                        <div className="form-group">
                                                             <label htmlFor="percent">Percentage</label>
                                                             <input
                                                                 type="number"
@@ -318,7 +327,7 @@ export class Nominee extends Component {
 
 
 
-                    {/*================= Minor Nominee Guardian part started from above ================================= */}
+                                                        {/*================= Minor Nominee Guardian part started from above ================================= */}
 
                                                         {/* Minor Nominee Guardian NID */}
                                                         <div className="form-group">
@@ -349,8 +358,8 @@ export class Nominee extends Component {
                                                         </div>
 
 
-                                                          {/* Guardian relation With Minor Nominee  */}
-                                                          <div className="form-group">
+                                                        {/* Guardian relation With Minor Nominee  */}
+                                                        <div className="form-group">
                                                             <label htmlFor="nominee">Relation With Minor Nominee</label>
                                                             <input
                                                                 type="text"
@@ -379,7 +388,7 @@ export class Nominee extends Component {
                                                         </div>
 
 
-                                                      
+
 
                                                         {/* ===========if Guardian Nid Image */}
 
@@ -525,7 +534,7 @@ export class Nominee extends Component {
                                         <h4 className="im" style={{ color: "green" }}>Adult</h4>
 
                                     </button>
-                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp({ minorNominee: '',minorDob:'', minorRelationWAccH:'', minorNomineePhoto:'' ,minorPercentage: '',minorGuardianNid: '',minorGuardianName: '',guardianRelationWMinor:'',  minorGuardianAddress: '', minorPhotoGuardian: '',  isShow: false })}>
+                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', isShow: false })}>
 
                                         <img
                                             src={child}
