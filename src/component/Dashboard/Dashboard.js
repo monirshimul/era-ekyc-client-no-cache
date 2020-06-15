@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import Nav from './Nav';
 import Welcome from './Welcome';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import MultiStepFace from '../E-KYC/Simplified/MainFace'
 import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';
+
+import { logoutUser } from '../E-KYC/Url/ApiList';
 
 import "./sidebar.css";
 import { pruneRouteArray, getFlatRouteArray } from '../flattenObjectTwo';
@@ -24,16 +26,15 @@ import FingerPrint from '../E-KYC/Simplified/FingerForms/FingerPrint';
 import CustomerPic from '../E-KYC/Simplified/FingerForms/CustomerPic';
 
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 import FaceOrFinger from '../E-KYC/Simplified/FaceOrFinger';
 
 
 class Dashboard extends Component {
 
-    // state = {
-    //     feature:JSON.parse(sessionStorage.getItem("featureList")),
-    //     firstMenu:pruneRouteArray(this.feature),
-    //     allMenu:getFlatRouteArray(this.firstMenu)
-    // }
+    state = {
+        isLogOut: false
+    }
 
     feature = JSON.parse(sessionStorage.getItem("featureList"));
     firstMenu = pruneRouteArray(this.feature);
@@ -43,6 +44,7 @@ class Dashboard extends Component {
     //const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem("profile")));
 
     componentDidMount() {
+        console.log("componentDidMount Called==============")
 
         this.feature = JSON.parse(sessionStorage.getItem("featureList"))
 
@@ -51,14 +53,50 @@ class Dashboard extends Component {
 
         this.allMenu = getFlatRouteArray(this.firstMenu);
 
-        console.log("mount Called")
+        // console.log("mount Called")
 
     }
+    // componentWillMount(){
+    //     console.log("In the will mount")
+    // }
 
-    componentWillUnmount(){
+    // componentWillUnmount(){
        
 
-        console.log("Unmount Called")
+    //     console.log("Unmount Called")
+    // }
+
+
+
+    //======================== Logout Function In the Navbar ==================================
+    logOut = async (e)=>{
+
+        e.preventDefault();
+
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        try {
+           // console.log("config", config);
+            let res = await axios.post(logoutUser, null, config);
+            console.log(res.data);
+            sessionStorage.clear();
+            localStorage.clear();
+            this.setState({
+                isLogOut: !this.state.isLogOut
+            })
+            
+
+           
+            
+        }catch (err) {
+             console.log(err.response);
+        }
+        
+
     }
 
 
@@ -95,20 +133,21 @@ class Dashboard extends Component {
 
 
     render() {
-        //let { path, url } = useRouteMatch();
         let path = this.props.match.path;
-        console.log("DashBoard")
         let url = this.props.match.url;
+
+        //================= Redirect to login page,,,for componentUnmount =====================
+        if (this.state.isLogOut) {
+            return <Redirect to="/" push={true} />
+        } 
 
         return (
             <Router>
-                <div>
-                    <Nav />
+                <div>                 
+                    <Nav logOut = {this.logOut}/>
                     <div className="d-flex" style={{ margin: "0", padding: "0", overflowX: "hidden" }}>
                         <input type="checkbox" id="check" />
                         <label htmlFor="check">
-
-
                             <i className="fas fa-backspace" id="cancel"></i>
                             <i className="fas fa-arrow-right" id="showMenu"></i>
                         </label>

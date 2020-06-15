@@ -227,9 +227,10 @@ export class UserList extends Component {
             let detailsUser = await axios.post(getUserWithStatus + 1, detailsObj);
             let pendingDetails = detailsUser.data.data;
             console.log("pendingDetails", pendingDetails)
+            //console.log("pendingDetails", pendingDetails.map(v=>v.roles.map(c=>c.grantedIPList === null)))
             this.setState({ details: pendingDetails });
         } catch (e) {
-            console.log(e.response);
+            console.log("Error",e.response);
         }
 
     }
@@ -426,7 +427,7 @@ this.state.searchFlag ?
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList.map(ip => ip + ", "))}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList === null ? "" : v.grantedIPList.map(ip => ip))}</span></small>
                                                                     </div>
 
                                                                     <div>

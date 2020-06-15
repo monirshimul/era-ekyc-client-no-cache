@@ -245,6 +245,7 @@ class RoleList extends Component {
             //console.log(data)
 
         } catch (error) {
+            console.log(error.response)
             // let { reason } = error.response.data
 
             // alert(reason.map(v => (
