@@ -119,7 +119,7 @@ export class UserList extends Component {
         } catch (err) {
             // console.log(err.response.data);
             let error = err.response.data;
-            let statusCode = error.statusCode;
+            let statusCode = err.statusCode;
             let message = "Wrong Search"
             //alert(statusCode + ' ' + message);
             this.setState({search:''});
@@ -426,7 +426,7 @@ this.state.searchFlag ?
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList.map(ip => ip))}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList.map(ip => ip + ", "))}</span></small>
                                                                     </div>
 
                                                                     <div>

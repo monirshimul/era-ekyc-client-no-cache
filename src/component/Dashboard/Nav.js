@@ -12,7 +12,7 @@ import Login from '../Login/Login';
 
 const Nav = (props) => {
 
-     if (sessionStorage.length == 0) {
+     if (sessionStorage.length === 0) {
         return <Login/>
     }
     //=======================Logout button start========================
@@ -31,7 +31,7 @@ const Nav = (props) => {
             console.log(res.data);
             sessionStorage.clear();
             localStorage.clear();
-            props.history.push('/');
+            props.history.replace('/');
             
         }catch (err) {
              //console.log(err.response);
