@@ -26,6 +26,10 @@ export const dataUpdate = hostIp + `profile/`;
 
 export const faceValidate = hostIp + `ai/face-verification`;
 
+// Finger Verification
+
+export const fingerValidate = hostIp + `integration/fingerprint-verification`;
+
 
 // Check userId,email, mobile no
 export const checkUserId = hostIp + `user/check`
@@ -36,4 +40,4 @@ export const checkUserEmail = hostIp + `user/check`
 export const logoutUser = hostIp + `user/logout`;
 
 // confirm Api
-export const confirmFaceApi = hostIp +`ekyc/simplified`;
+export const confirmApi = hostIp +`ekyc/simplified`;

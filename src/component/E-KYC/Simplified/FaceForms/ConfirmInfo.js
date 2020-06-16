@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import {confirmFaceApi} from '../../Url/ApiList';
+import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import Account from '../Account';
 import Family from '../images/family.svg'
@@ -24,7 +24,6 @@ export class ConfirmInfo extends Component {
         // signatureData:'' ,
         // flag: 'data:image/jpeg;base64,'
         accountData: JSON.parse(localStorage.getItem('accountInfo')),
-        verificationData: JSON.parse(localStorage.getItem('VerificationType')),
         nidImagesData: JSON.parse(localStorage.getItem('NidImages')),
         captureFaceData: JSON.parse(localStorage.getItem('CaptureFace')),
         personalDetailsData: JSON.parse(localStorage.getItem('PersonalDetails')),
@@ -46,8 +45,11 @@ export class ConfirmInfo extends Component {
     //     })
     // }
 
-    continue = async(e) => {
-        const { accountData, nidImagesData, captureFaceData, personalDetailsData, nomineeData, signatureData,verificationData } = this.state;
+    continue = async (e) => {
+
+
+        const { accountData, nidImagesData, captureFaceData, personalDetailsData, nomineeData, signatureData, verificationData } = this.state;
+
         e.preventDefault();
         let accountInfo = {
             title: personalDetailsData.applicantName,
@@ -57,7 +59,7 @@ export class ConfirmInfo extends Component {
             channelCode: accountData.channelName
         }
 
-        let dobDateFormat = personalDetailsData.applicantDob;
+        //let dobDateFormat = personalDetailsData.applicantDob;
         let applicantInfo = {
             nid: personalDetailsData.applicantNidNo,
             name: personalDetailsData.applicantName,
@@ -78,86 +80,146 @@ export class ConfirmInfo extends Component {
             verificationType: verificationData.type
         }
 
-        let applicantFileInfo ={
-            nidFront:nidImagesData.NidFront,
-            nidBack:nidImagesData.NidFront,
-            photo:captureFaceData.faceImage,
-            signature:signatureData.signature
+        let applicantFileInfo = {
+            nidFront: nidImagesData.NidFront,
+            nidBack: nidImagesData.NidFront,
+            photo: captureFaceData.faceImage,
+            signature: signatureData.signature
         }
 
-        let nomineesInfo =[];
-        for(let i =0; i< nomineeData.length; i++){  
-            if(nomineeData[i].isShow === true){
-                let nomineeObj={
-                name: nomineeData[i].nominee,
-                relation:nomineeData[i].relation,
-                dob: nomineeData[i].dob,
-                photo: nomineeData[i].photograph,
-                isMinor: !(nomineeData[i].isShow) ,
-                percentage: parseInt(nomineeData[i].percentage)
-            }
-            nomineesInfo.push(nomineeObj);
-            }else{
-                let guardianInfo ={
-                    nid:nomineeData[i].minorGuardianNid,
-                    name:nomineeData[i].minorGuardianName,
-                    relation:nomineeData[i].guardianRelationWMinor,
-                    address:nomineeData[i].minorGuardianAddress,
-                    photo:nomineeData[i].minorPhotoGuardian
+        let nomineesInfo = [];
+        for (let i = 0; i < nomineeData.length; i++) {
+            if (nomineeData[i].isShow === true) {
+                let nomineeObj = {
+                    name: nomineeData[i].nominee,
+                    relation: nomineeData[i].relation,
+                    dob: nomineeData[i].dob,
+                    photo: nomineeData[i].photograph,
+                    isMinor: !(nomineeData[i].isShow),
+                    percentage: parseInt(nomineeData[i].percentage)
+                }
+                nomineesInfo.push(nomineeObj);
+            } else {
+                let guardianInfo = {
+                    nid: nomineeData[i].minorGuardianNid,
+                    name: nomineeData[i].minorGuardianName,
+                    relation: nomineeData[i].guardianRelationWMinor,
+                    address: nomineeData[i].minorGuardianAddress,
+                    photo: nomineeData[i].minorPhotoGuardian
                 }
 
-                let nomineeObj={
-                    name:nomineeData[i].minorNominee,
-                    relation:nomineeData[i].minorRelationWAccH,
-                    dob:nomineeData[i].minorDob,
-                    photo:nomineeData[i].minorNomineePhoto,
-                    isMinor:!(nomineeData[i].isShow),
-                    percentage:parseInt(nomineeData[i].minorPercentage),
-                    guardian:guardianInfo
+                let nomineeObj = {
+                    name: nomineeData[i].minorNominee,
+                    relation: nomineeData[i].minorRelationWAccH,
+                    dob: nomineeData[i].minorDob,
+                    photo: nomineeData[i].minorNomineePhoto,
+                    isMinor: !(nomineeData[i].isShow),
+                    percentage: parseInt(nomineeData[i].minorPercentage),
+                    guardian: guardianInfo
                 }
                 nomineesInfo.push(nomineeObj);
 
             }
-            
+
         }
+
+
+
+
         
-        let confirmObj ={
-            account:accountInfo ,
-            applicant:applicantInfo ,
-            applicantFile: applicantFileInfo,
-            nominees:nomineesInfo
+
+
+        if (verificationData.type === "FINGER") {
+
+            let fingerObj = {
+                rIndex: JSON.parse(localStorage.getItem("FingerPrint")).rIndex
+            }
+            console.log("fingerObj", fingerObj)
+
+            
+            const confFingerObj = {
+                account: accountInfo,
+                applicant: applicantInfo,
+                applicantFile: applicantFileInfo,
+                nominees: nomineesInfo,
+                fingerprint: fingerObj
+            }
+
+
+
+            const config = {
+                headers: {
+                    'x-verification-token': JSON.parse(sessionStorage.getItem('x-verification-token')),
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+                }
+            };
+
+            try {
+                let res = await axios.post(confirmApi, confFingerObj, config);
+                console.log(res.data);
+                let resData = res.data;
+                let statusCode = resData.statusCode;
+                let successMessage = "Account Opening " + resData.message;
+                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                localStorage.clear();
+                this.props.history.replace('/dashboard/complete');
+
+            } catch (err) {
+                console.log(err.response);
+                let statusCodeError = err.response.data.statusCode;
+                let messageError = err.response.data.message;
+                NotificationManager.error(statusCodeError + " " + messageError, "Error", 5000);
+            }
+
+
+        } else {
+            let confirmObj = {
+                account: accountInfo,
+                applicant: applicantInfo,
+                applicantFile: applicantFileInfo,
+                nominees: nomineesInfo
+            }
+
+            const config = {
+                headers: {
+                    'x-verification-token': JSON.parse(sessionStorage.getItem('x-verification-token')),
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+                }
+            };
+
+            try {
+                let res = await axios.post(confirmApi, confirmObj, config);
+                console.log(res.data);
+                let resData = res.data;
+                let statusCode = resData.statusCode;
+                let successMessage = "Account Opening " + resData.message;
+                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                localStorage.clear();
+                this.props.history.replace('/dashboard/complete');
+
+            } catch (err) {
+                console.log(err.response);
+                let statusCodeError = err.response.data.statusCode;
+                let messageError = err.response.data.message;
+                NotificationManager.error(statusCodeError + " " + messageError, "Error", 5000);
+            }
+
         }
+
+
+
+
 
         // console.log("confirm", confirmObj);
-       // console.log(JSON.stringify(confirmObj));
-
-        const config =  {
-            headers: {
-                'x-verification-token': JSON.parse(sessionStorage.getItem('x-verification-token')),
-            'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            
-            } 
-         };
-
-        try{
-        let res = await axios.post(confirmFaceApi,confirmObj,config);
-        console.log(res.data);
-         let resData =res.data;
-         let statusCode = resData.statusCode;
-         let successMessage = "Account Opening "+ resData.message;
-         NotificationManager.success(statusCode +" "+ successMessage ,"Success", 5000);
-         localStorage.clear();
-        this.props.history.replace('/dashboard/complete');
-
-        }catch(err){
-            console.log(err.response);
-            let statusCodeError = err.response.data.statusCode;
-            let messageError = err.response.data.message;
-            NotificationManager.error(statusCodeError +" "+ messageError ,"Error", 5000);
-        }
+        // console.log(JSON.stringify(confirmObj));
 
 
-        
+
+
+
+
     }
 
     back = e => {
@@ -173,7 +235,7 @@ export class ConfirmInfo extends Component {
         if (localStorage.length === 0) {
             return <Account />;
         }
-        console.log("personalDetailsData",this.state.personalDetailsData)
+        console.log("personalDetailsData", this.state.personalDetailsData)
         let { accountData, nidImagesData, captureFaceData, personalDetailsData, nomineeData, signatureData, flag } = this.state;
         // console.log("Nominee data", nomineeData);
         return (
@@ -340,7 +402,7 @@ export class ConfirmInfo extends Component {
                                             <p className="text-muted">Photograph of Minor Nominee :
                                                 <img src={nomineeData[i].minorNomineePhoto ? flag + nomineeData[i].minorNomineePhoto : child} alt="" style={{ width: "300px", height: "200px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                             </p>
-                                            
+
                                             <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}</p>
 
                                             <p className="text-muted">Minor Nominee Guardian NID No : {nomineeData[i].minorGuardianNid}</p>
@@ -364,7 +426,7 @@ export class ConfirmInfo extends Component {
                                             </p> */}
 
                                             {/* <p className="text-muted">Percentage : {nomineeData[i].minorPercentage}&#37;</p> */}
-                                            
+
                                             <hr />
                                         </div>
                                 ))}

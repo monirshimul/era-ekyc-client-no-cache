@@ -19,6 +19,27 @@
   background-position: right;
 }
 
+.bLogOut {
+  min-width: 110px;
+  min-height: 30px;
+  background-image: linear-gradient(to right, #e3174c, #f55882, #af1e45);
+  background-size: 200%;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 15px;
+  line-height: 30px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24);
+  text-align: center;
+  text-decoration: none;
+  border: none;
+}
+
+.bLogOut:hover {
+  background-position: right;
+}
+
 .sbtn {
   min-width: 60px;
   min-height: 20px;

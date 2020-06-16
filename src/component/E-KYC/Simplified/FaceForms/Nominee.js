@@ -175,7 +175,7 @@ export class Nominee extends Component {
                                         return (
 
                                             <div key={`${this.state.jointArray}~${index}`} className="my-3" >
-                                                <h2 className="imTwo text-muted"> Nominee : <small >{index + 1}</small></h2>
+                                                <h2 className="imTwo" style={{color:"green", fontWeight:"bold"}}> Nominee : {index + 1}</h2>
                                                 {arr.isShow === true ?
 
                                                     <div >

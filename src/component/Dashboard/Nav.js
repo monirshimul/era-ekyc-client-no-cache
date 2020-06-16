@@ -89,14 +89,19 @@ const Nav = (props) => {
                             </div>
                         </li>
 
-                        <li className="nav-item">
-                            <button onClick={props.logOut}>
-                                Logout
-                            </button>
-                        </li>
+                        
 
                     </ul>
                 </div>
+                
+                {/* <h4>Hello</h4> */}
+                        <li className="mr-5 b" style={{listStyle:"none"}}>
+                            <Link className=" text-white" style={{textDecoration:"none"}}  onClick={props.logOut}>
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                            </Link>
+                        </li>
+                
+                
             </nav>
 
 

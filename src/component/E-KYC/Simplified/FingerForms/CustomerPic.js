@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Sign from '../images/sign.svg';
+import Sign from '../images/man.svg';
 export class CustomerPic extends Component {
     state={
         faceImage:'',
