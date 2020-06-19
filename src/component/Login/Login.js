@@ -30,23 +30,23 @@ class Login extends Component {
         try {
             let userLogin = await axios.post(loginAPI, obj);
             console.log("loginapi ", userLogin.data);
-            
-            let loginSuccess = userLogin.data.data;
-            console.log("login",loginSuccess)
 
-            if(loginSuccess.loginToken){
+            let loginSuccess = userLogin.data.data;
+            console.log("login", loginSuccess)
+
+            if (loginSuccess.loginToken) {
                 let loginToken = loginSuccess.loginToken;
                 this.props.history.replace('/verify-login', loginToken);
-            }else{
+            } else {
 
-            let token = loginSuccess.authToken;
-            let features = loginSuccess.features;
+                let token = loginSuccess.authToken;
+                let features = loginSuccess.features;
 
-            //Session Storage
-            sessionStorage.setItem('x-auth-token', JSON.stringify(token));
-            sessionStorage.setItem('featureList', JSON.stringify(features));
-         //   console.log("token", token);
-           
+                //Session Storage
+                sessionStorage.setItem('x-auth-token', JSON.stringify(token));
+                sessionStorage.setItem('featureList', JSON.stringify(features));
+                //   console.log("token", token);
+
                 let message = "Login Successfull";
                 //alert(statusCode + ' ' + message);
                 NotificationManager.success(message, "Success", 5000);
@@ -55,7 +55,7 @@ class Login extends Component {
             }
 
 
-        
+
         } catch (err) {
             // console.log(err.response);
             let error = err.response;
@@ -105,18 +105,18 @@ class Login extends Component {
                 <img className="wave" src={bg} />
                 <div id="container">
 
-                    <div className="login-content">
+                    <div className="login-content imTwoOffWhite">
                         <form id="loginForm" onSubmit={this.onSubmit}>
 
                             {/* <img id="proImg" src={logo} /> */}
-                            <div id="proImg"><h1>E-KYC</h1></div>
-                            <h2 className="title">Login</h2>
-                            <div className="input-div one">
+                            <div className="divBg pt-2"><h1>E-KYC</h1></div>
+                            <h2 className="heading mb-5">Login</h2>
+                            {/* <div className="input-div one">
                                 <div className="i">
                                     <i className="fas fa-user"></i>
                                 </div>
                                 <div id="user">
-                                    {/* <h5>Username</h5> */}
+                                    <h5>Username</h5>
                                     <input name="userId" value={this.state.userId} onChange={this.onChange} type="text" id="inputUser" placeholder="User ID" autoComplete="off" />
                                 </div>
                             </div>
@@ -125,12 +125,29 @@ class Login extends Component {
                                     <i className="fas fa-lock"></i>
                                 </div>
                                 <div id="passwd">
-                                    {/* <h5>Password</h5> */}
+                                    <h5>Password</h5>
                                     <input name="password" value={this.state.password} onChange={this.onChange} type="password" id="inputPass" placeholder="Password" />
                                 </div>
+                            </div> */}
+
+
+                            <div className="field mb-3">
+                            <input name="userId" value={this.state.userId} onChange={this.onChange} type="text" id="inputUser" placeholder="User ID" autoComplete="off" />
+                                <span className="fas fa-user"></span>
+                                <label>User ID</label>
                             </div>
+                            <div className="field">
+                            <input name="password" value={this.state.password} onChange={this.onChange} type="password" id="inputPass" placeholder="Password" />
+                                <span className="fas fa-lock"></span>
+                                <label>Password</label>
+                            </div>
+
+                            <div className="mt-2">
                             <Link to="/verify-id" id="forgetPass" >Forgot Password?</Link>
-                            <input type="submit" id="btn" value="Login" />
+                            </div>
+                            
+                            <input type="submit" className="neoBtn" value="Login" />
+                            {/* <button type="submit" className="neoBtn">Login</button> */}
                             {/* <Link to="/dashboard" id="btn" >Login</Link> */}
                         </form>
                     </div>
