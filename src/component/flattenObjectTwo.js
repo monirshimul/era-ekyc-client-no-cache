@@ -24,6 +24,9 @@ import UpdateUser from './E-KYC/User/UpdateUser';
 import ChangePassword from './E-KYC/Profile/ChangePass';
 import GetProfile from './E-KYC/Profile/GetProfile';
 
+//Ekyc List and Search
+import EkycListSearch from './E-KYC/ekyc-list/EkycListSearch'
+
 
 // //EKYC Simplified
 // import FaceOrFinger from './E-KYC/Simplified/FaceOrFinger'
@@ -397,7 +400,7 @@ export const allRoutes = [
                     "featureName": "List & Search",
                     "path": "/e-kyc-list-&-search",
                     "exact": true,
-                    "component": <Target />
+                    "component": <EkycListSearch />
                 },
 
             },

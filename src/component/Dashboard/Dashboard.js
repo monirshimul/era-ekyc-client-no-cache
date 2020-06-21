@@ -11,6 +11,8 @@ import { logoutUser } from '../E-KYC/Url/ApiList';
 import "./sidebar.css";
 import { pruneRouteArray, getFlatRouteArray } from '../flattenObjectTwo';
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
+// E-kyc List
+import ShowMore from '../E-KYC/ekyc-list/ShowMore';
 
 // face Verification forms
 import NidImages from '../E-KYC/Simplified/FaceForms/NidImages';
@@ -271,6 +273,11 @@ class Dashboard extends Component {
 
                                     ))}
 
+                                    {/* E-kyc List */}
+                                    <Route path={`${path}/showMore`} component={ShowMore} />
+
+
+                                    {/* MultiSteps */}
                                     <Route path={`${path}/face-account`} component={MultiStepFace} />
                                     <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />
 

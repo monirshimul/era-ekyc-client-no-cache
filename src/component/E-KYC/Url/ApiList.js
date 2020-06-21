@@ -41,3 +41,6 @@ export const logoutUser = hostIp + `user/logout`;
 
 // confirm Api
 export const confirmApi = hostIp +`ekyc/simplified`;
+
+//e-kyc api
+export const ekycWithFilter = hostIp +`ekyc/get/`;

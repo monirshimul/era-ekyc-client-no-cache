@@ -159,7 +159,7 @@ export class NidImages extends Component {
     
  
    
-    if(allData.Response_Code){
+    // if(allData.Response_Code){
    
 
     const obj = {
@@ -181,10 +181,10 @@ export class NidImages extends Component {
     } else {
       this.props.history.push('/dashboard/finger-print');
     }
-  }else{
-    let nidOcrMessage = "Please Do OCR First";
-    NotificationManager.warning(nidOcrMessage, "Warning", 5000);
-  }
+  // }else{
+  //   let nidOcrMessage = "Please Do OCR First";
+  //   NotificationManager.warning(nidOcrMessage, "Warning", 5000);
+  // }
   
 }
 
@@ -294,13 +294,16 @@ export class NidImages extends Component {
         <div className="b mr-2" onClick={this.doOcr}>
             OCR
           </div>
-          {
+          {/* {
             allData.Response_Code ? (
               <div className="b" onClick={this.continue}>
             Next
           </div>
             ):""
-          }
+          } */}
+          <div className="b" onClick={this.continue}>
+            Next
+          </div>
           
         </div>
 
