@@ -3,9 +3,10 @@ import React, { Component } from 'react'
 import { NotificationManager } from "react-notifications";
 import './Login.css'
 import bg from './image/wave2.png'
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link,Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { loginAPI } from '../E-KYC/Url/ApiList';
+//import Dashboard from '../Dashboard/Dashboard';
 //=====Redux work above
 //import { loginRequest, loginSuccess } from '../../actions/loginAction';
 
@@ -51,7 +52,6 @@ class Login extends Component {
                 //alert(statusCode + ' ' + message);
                 NotificationManager.success(message, "Success", 5000);
                 this.props.history.replace('/dashboard');
-
             }
 
 

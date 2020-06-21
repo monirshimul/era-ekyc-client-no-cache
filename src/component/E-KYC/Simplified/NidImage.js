@@ -4,10 +4,12 @@ import Nid from './images/nid-f.svg';
 import NidOne from './images/nid-f2.svg';
 import NidTwo from './images/nid-f3.svg';
 import NidThree from './images/nid-f4.svg';
+import axios from 'axios';
 
 export class NidImage extends Component {
-  continue = (e) => {
-    const { values } = this.props;
+
+  continue = async (e) => {
+    const {  NidFrontOcr, NidBackOcr } = this.props.values;
     e.preventDefault();
 
     //   const obj ={
@@ -18,6 +20,24 @@ export class NidImage extends Component {
     // }
     // localStorage.setItem("NidImage", JSON.stringify(obj));
 
+    const formData = new FormData();
+  
+    formData.append("userimage",  NidFrontOcr);
+    formData.append("backPart", NidBackOcr);
+    formData.append("api_pass", "updateimage");
+    let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
+    console.log(nidData.data);
+
+    this.props.handleState("applicantName", nidData.data["Name English"]);
+    this.props.handleState("applicantNameBangla", nidData.data["Name Bangla"]);
+    this.props.handleState("applicantNidNo", nidData.data["id"]);
+    this.props.handleState("applicantDob", nidData.data["DOB"]);
+    
+    this.props.handleState("fatherNameBangla", nidData.data["Father"]);
+    this.props.handleState("motherNameBangla", nidData.data["Mother"]);
+    this.props.handleState("spouseName", nidData.data["Husband"]);
+    this.props.handleState("permanentAddressBangla", nidData.data["Address"]);
+
     this.props.nextStep();
   };
 
@@ -25,7 +45,8 @@ export class NidImage extends Component {
   fileSelectedHandler = (event) => {
     if (event.target.files[0]) {
       let file = event.target.files[0];
-      console.log(file.type);
+      this.props.handleState("NidFrontOcr", event.target.files[0]);
+      //console.log(file.type);
       var reader = new FileReader();
       reader.readAsBinaryString(file);
 
@@ -54,6 +75,7 @@ export class NidImage extends Component {
   fileSelectedHandlerTwo = (event) => {
     if (event.target.files[0]) {
       let file = event.target.files[0];
+      this.props.handleState("NidBackOcr", event.target.files[0]);
       console.log(file.type);
       var reader = new FileReader();
       reader.readAsBinaryString(file);
@@ -181,165 +203,10 @@ export class NidImage extends Component {
           <div className="b" onClick={this.continue}>
             Next
           </div>
-          {/* <button
-            className="btn text-white mb-3"
-            onClick={this.continue}
-            style={{
-              borderRadius: "50px",
-              minWidth: "100px",
-              background: "#099e96",
-            }}
-          >
-            Next
-          </button> */}
+          
         </div>
 
-        {/* <div className="container">
-              <div className="d-flex flex-column">
-                <div className="d-flex justify-content-center">
-                  <div
-                    className="col-sm-6 p-3 mb-2"
-                    style={{
-                      backgroundColor: "#56c9ef",
-                      color: "#fff",
-                      textAlign: "center",
-                      marginTop: "15px",
-                      boxShadow: "1px 2px 3px rgba(0, 0, 0, .1)",
-                    }}
-                  >
-                    <i className="fas fa-edit" />
-                    &nbsp;Upload FrontNid Image
-                  </div>
-                </div>
-                <br />
-                <div className="d-flex justify-content-center">
-                  <img
-                    src={values.flag + values.NidFront}
-                    style={{
-                      margin: "auto",
-                      cursor: "pointer",
-                      width: "300px",
-                      height: "200px",
-                    }}
-                    className="img-fluid img-thumbnail"
-                    id="FrontNidPic"
-                    alt=""
-                  />
-                </div>
-                <br />
-                <div className="d-flex justify-content-center">
-                  <div
-                    className="card mb-3"
-                    style={{ boxShadow: "1px 2px 3px rgba(0, 0, 0, .1)" }}
-                  >
-                    <div className="card-body d-flex justify-content-between">
-                      <div className="">
-                        <input
-                          type="file"
-                          onChange={this.fileSelectedHandler}
-                          className="form-control-file"
-                          id="input-file"
-                          aria-describedby="fileHelp"
-                        ></input>
-                      </div>
-                      <div className="">
-                        <button
-                          type="button"
-                          onClick={() => console.log("uploaded")}
-                          style={{
-                            backgroundColor: "#56c9ef",
-                            boxShadow: "1px 2px 3px rgba(0, 0, 0, .1)",
-                          }}
-                          className="btn btn-primary"
-                        >
-                          Upload
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
-        {/* <div className="container">
-          <div className="d-flex flex-column">
-            <div className="d-flex justify-content-center">
-              <div
-                className="col-sm-6 p-3 mb-2"
-                style={{
-                  backgroundColor: "#56c9ef",
-                  color: "#fff",
-                  textAlign: "center",
-                  marginTop: "15px",
-                  boxShadow: "1px 2px 3px rgba(0, 0, 0, .1)",
-                }}
-              >
-                <i className="fas fa-edit" />
-                &nbsp;Upload BackNid Image
-              </div>
-            </div>
-            <br />
-            <div className="d-flex justify-content-center">
-              <img
-                src={values.flag + values.NidBack}
-                style={{
-                  margin: "auto",
-                  cursor: "pointer",
-                  width: "300px",
-                  height: "200px",
-                }}
-                className="img-fluid img-thumbnail"
-                id="nidBack"
-                alt=""
-              />
-            </div>
-            <br />
-            <div className="d-flex justify-content-center">
-              <div
-                className="card mb-3"
-                style={{ boxShadow: "1px 2px 3px rgba(0, 0, 0, .1)" }}
-              >
-                <div className="card-body d-flex justify-content-between">
-                  <div className="">
-                    <input
-                      type="file"
-                      onChange={this.fileSelectedHandlerTwo}
-                      className="form-control-file"
-                      id="input-file"
-                      aria-describedby="fileHelp"
-                    ></input>
-                  </div>
-                  <div className="">
-                    <button
-                      type="button"
-                      onClick={() => console.log("uploadedback")}
-                      style={{
-                        backgroundColor: "#56c9ef",
-                        boxShadow: "1px 2px 3px rgba(0, 0, 0, .1)",
-                      }}
-                      className="btn btn-primary"
-                    >
-                      Upload
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="d-flex justify-content-center">
-          <button
-            className="btn text-white mb-3"
-            onClick={this.continue}
-            style={{
-              borderRadius: "50px",
-              minWidth: "100px",
-              background: "#099e96",
-            }}
-          >
-            Next Page
-          </button>
-        </div> */}
+       
       </div>
     );
   }

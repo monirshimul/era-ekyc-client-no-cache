@@ -71,7 +71,18 @@ export class DynamicComp extends Component {
 
                         )
                     })
+
+
                 }
+
+                {
+                        this.state.jointArray.length > 1 ? 
+                        <div> 
+                        <button className="b" style={{ border: "none", background: "#e3174c" }} >Complete</button>
+                        </div>
+                        :
+                        ""
+                    }
 
                 {!showHide ? (
                     <div>
@@ -98,9 +109,14 @@ export class DynamicComp extends Component {
                             </div>
                         </div>
                         <hr />
+                        
                     </div>
+                    
 
                 ) : ""}
+
+                  
+
 
 
                 {

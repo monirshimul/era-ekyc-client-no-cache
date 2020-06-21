@@ -16,10 +16,13 @@ export class MainFace extends Component {
         //Account
         accountType: '',
         product: '',
+        channelName:'',
         //Step1
         NidFront: "",
+        NidFrontOcr:'',
         NidFrontType: '',
         NidBack: '',
+        NidBackOcr:"",
         NidBackType: '',
         //Step2
 
@@ -31,17 +34,25 @@ export class MainFace extends Component {
         dob: '',
         loading: false,
         //step3
-        applicantName: '',
-        motherName: '',
-        fatherName: '',
-        spouseName: '',
-        gender: '',
-        profession: '',
-        mobileNumber: '',
-        presentAddress: '',
-        permanentAddress: '',
+        applicantName:'',
+        applicantNameBangla:'',
+        applicantDob:'',
+        applicantDobDate:"",
+        applicantNidNo:'',
+        motherName:'',
+        motherNameBangla:'',
+        fatherName:'',
+        fatherNameBangla:'',
+        spouseName:'',
+        gender:'',
+        profession:'',
+        mobileNumber:'',
+        presentAddress:'',
+        permanentAddress:'',
+        permanentAddressBangla:'',
         //Step 4 
         jointArray: [],
+        showHide: false,
         //Step 5
         signature: '',
         signatureType: '',
@@ -65,6 +76,13 @@ export class MainFace extends Component {
         });
     }
 
+    //Nominee part function
+    showHideChange = () => {
+        this.setState({
+            showHide: !this.state.showHide
+        })
+    }
+
     componentDidMount() {
         // Account Info
 
@@ -76,7 +94,8 @@ export class MainFace extends Component {
             this.setState({
 
                 accountType: acc.accountType,
-                product: acc.product
+                product: acc.product,
+                channelName: acc.channelName
             })
           
         } catch (e) {
@@ -158,13 +177,13 @@ export class MainFace extends Component {
 
     addNomineeOne = ()=> {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({ nominee: '', dob:'',relation:'',photograph:'', percentage:"", isShow: true });
+        copyArray.push({  nominee: '', dob: '', relation: '', photograph: '', percentage: '', isShow: true  });
         this.setState({jointArray:copyArray});
     }
 
     addNomineeTwo = ()=> {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({ minorNominee: '',minorGuarrdian:'',minorAddress:'',minorRelation:'',minorNidGuardian:'',minorPhotoGuardian:'',minorPercentage:'', isShow: false });
+        copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', isShow: false });
         this.setState({jointArray:copyArray});
     }
 
@@ -172,50 +191,83 @@ export class MainFace extends Component {
     handleInputChange = (index, event) => {
         console.log(event.target);
         let copyArray = Object.assign([], this.state.jointArray);
-        if (event.target.name === "nominee") {
-         copyArray[index].nominee = event.target.value;
-     } else if (event.target.name === "minorNominee") {
-         copyArray[index].minorNominee = event.target.value;
-     }else if (event.target.name === "relation") {
-         copyArray[index].relation = event.target.value;
-     }else if (event.target.name === "minorRelation") {
-         copyArray[index].minorRelation = event.target.value;
+        copyArray[index][event.target.name] = event.target.value;
+        if (event.target.name === "photograph") {
+            if (event.target.files[0]) {
+                let file = event.target.files[0];
+                //console.log(file.type);
+                var reader = new FileReader();
+                reader.readAsBinaryString(file);
 
-     }else if (event.target.name === "percentage") {
-        copyArray[index].percentage = event.target.value;
-    }else if (event.target.name === "minorPercentage") {
-        copyArray[index].minorPercentage = event.target.value;
-    }else if (event.target.name === 'dob') {
-         copyArray[index].dob = event.target.value;
-     }else if (event.target.name === 'dob') {
-             copyArray[index].dob = event.target.value;
-     }else if (event.target.name === "minorGuarrdian") {
-         copyArray[index].minorGuarrdian = event.target.value;
-     }else if (event.target.name === "minorAddress") {
-         copyArray[index].minorAddress = event.target.value;
-     }else if (event.target.name === "minorNidGuardian") {
-        copyArray[index].minorNidGuardian = event.target.value;
-    }
-     
-     else if (event.target.name === "photograph") {
-         if (event.target.files[0]) {
-             let file = event.target.files[0];
-             //console.log(file.type);
-             var reader = new FileReader();
-             reader.readAsBinaryString(file);
+                reader.onload = () => {
+
+                    let base64Image = btoa(reader.result);
+
+                    copyArray[index].photograph = base64Image;
+                };
+                reader.onerror = () => {
+                    console.log('there are some problems');
+                    alert('File can not be read');
+                };
+            }
+        }
+        else if (event.target.name === "minorNomineePhoto") {
+            if (event.target.files[0]) {
+                let file = event.target.files[0];
+                //console.log(file.type);
+                var reader = new FileReader();
+                reader.readAsBinaryString(file);
+
+                reader.onload = () => {
+
+                    let base64Image = btoa(reader.result);
+
+                    copyArray[index].minorNomineePhoto = base64Image;
+                };
+                reader.onerror = () => {
+                    console.log('there are some problems');
+                    alert('File can not be read');
+                };
+            }
+        }
+        else if (event.target.name === "minorPhotoGuardian") {
+            if (event.target.files[0]) {
+                let file = event.target.files[0];
+                //console.log(file.type);
+                var reader = new FileReader();
+                reader.readAsBinaryString(file);
+
+                reader.onload = () => {
+
+                    let base64Image = btoa(reader.result);
+
+                    copyArray[index].minorPhotoGuardian = base64Image;
+                };
+                reader.onerror = () => {
+                    console.log('there are some problems');
+                    alert('File can not be read');
+                };
+            }
+        }
+    //   if (event.target.name === "photograph") {
+    //      if (event.target.files[0]) {
+    //          let file = event.target.files[0];
+    //          //console.log(file.type);
+    //          var reader = new FileReader();
+    //          reader.readAsBinaryString(file);
  
-             reader.onload = () => {
+    //          reader.onload = () => {
  
-                 let base64Image = btoa(reader.result);
+    //              let base64Image = btoa(reader.result);
  
-                 copyArray[index].photograph = base64Image;
-             };
-             reader.onerror = () => {
-                 console.log('there are some problems');
-                 alert('File can not be read');
-             };
-         }
-     }
+    //              copyArray[index].photograph = base64Image;
+    //          };
+    //          reader.onerror = () => {
+    //              console.log('there are some problems');
+    //              alert('File can not be read');
+    //          };
+    //      }
+    //  }
     //  else if (event.target.name === "minorNidGuardian") {
     //      if (event.target.files[0]) {
     //          let file = event.target.files[0];
@@ -235,25 +287,25 @@ export class MainFace extends Component {
     //          };
     //      }
     //  }
-     else if (event.target.name === "minorPhotoGuardian") {
-         if (event.target.files[0]) {
-             let file = event.target.files[0];
-             //console.log(file.type);
-             var reader = new FileReader();
-             reader.readAsBinaryString(file);
+    //  else if (event.target.name === "minorPhotoGuardian") {
+    //      if (event.target.files[0]) {
+    //          let file = event.target.files[0];
+    //          //console.log(file.type);
+    //          var reader = new FileReader();
+    //          reader.readAsBinaryString(file);
  
-             reader.onload = () => {
+    //          reader.onload = () => {
  
-                 let base64Image = btoa(reader.result);
+    //              let base64Image = btoa(reader.result);
  
-                 copyArray[index].minorPhotoGuardian = base64Image;
-             };
-             reader.onerror = () => {
-                 console.log('there are some problems');
-                 alert('File can not be read');
-             };
-         }
-     }
+    //              copyArray[index].minorPhotoGuardian = base64Image;
+    //          };
+    //          reader.onerror = () => {
+    //              console.log('there are some problems');
+    //              alert('File can not be read');
+    //          };
+    //      }
+    //  }
  
      this.setState({ jointArray: copyArray });
 
@@ -270,8 +322,8 @@ export class MainFace extends Component {
     render() {
 
         const { step } = this.state;
-        const { NidFront, NidFrontType, NidBack, NidBackType, flag, faceImage, showCamera, imageFlag, isEnable, nidNo, dob, loading, applicantName, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, signature, signatureType, jointArray, accountType, product } = this.state;
-        const values = { NidFront, NidFrontType, NidBack, NidBackType, flag, faceImage, showCamera, imageFlag, isEnable, nidNo, dob, loading, applicantName, motherName, fatherName, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, signature, signatureType, jointArray, accountType, product }
+        const { NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType, flag, faceImage, showCamera, imageFlag, isEnable, nidNo, dob, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla, signature, signatureType, jointArray,showHide, accountType, product, channelName } = this.state;
+        const values = { NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType, flag, faceImage, showCamera, imageFlag, isEnable, nidNo, dob, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla, signature, signatureType, jointArray,showHide, accountType, product, channelName }
 
 
         switch (step) {
@@ -314,6 +366,7 @@ export class MainFace extends Component {
                         prevStep={this.prevStep}
                         handleState={this.handleState}
                         onChange={this.handleInputChange}
+                        showHideChange={this.showHideChange}
                         addNomineeOne={this.addNomineeOne}
                         addNomineeTwo={this.addNomineeTwo}
                         deteteRow={this.deteteRow}

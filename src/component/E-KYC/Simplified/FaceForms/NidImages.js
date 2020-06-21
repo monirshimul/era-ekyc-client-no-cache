@@ -221,13 +221,13 @@ export class NidImages extends Component {
                 className="card-footer d-flex justify-content-around"
                 style={{ background: "#fff" }}
               >
-                <div class="input-group mb-3 ">
-                  <div class="custom-file">
+                <div className="input-group mb-3 ">
+                  <div className="custom-file">
                     <input type="file"
                       onChange={this.fileSelectedHandler}
 
-                      class="form-control-file" id="input-file" />
-                    <label class="custom-file-label" for="input-file">Choose Image</label>
+                      className="form-control-file" id="input-file" />
+                    <label className="custom-file-label" htmlFor="input-file">Choose Image</label>
                   </div>
 
                 </div>
@@ -257,13 +257,13 @@ export class NidImages extends Component {
                 className="card-footer d-flex justify-content-around"
                 style={{ background: "#fff" }}
               >
-                <div class="input-group mb-3 ">
-                  <div class="custom-file">
+                <div className="input-group mb-3 ">
+                  <div className="custom-file">
                     <input type="file"
                       onChange={this.fileSelectedHandlerTwo}
 
-                      class="form-control-file" id="input-file-two" />
-                    <label class="custom-file-label" for="input-file-two">Choose Image</label>
+                      className="form-control-file" id="input-file-two" />
+                    <label className="custom-file-label" htmlFor="input-file-two">Choose Image</label>
                   </div>
                 </div>
 

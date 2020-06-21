@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
+import {convertIso} from '../utils/DateFormat';
 import Account from '../Account';
 import Family from '../images/family.svg'
 import Avater from '../images/user-two.svg'
@@ -59,7 +60,6 @@ export class ConfirmInfo extends Component {
             channelCode: accountData.channelName
         }
 
-        //let dobDateFormat = personalDetailsData.applicantDob;
         let applicantInfo = {
             nid: personalDetailsData.applicantNidNo,
             name: personalDetailsData.applicantName,
@@ -87,35 +87,36 @@ export class ConfirmInfo extends Component {
             signature: signatureData.signature
         }
 
-        let nomineesInfo = [];
-        for (let i = 0; i < nomineeData.length; i++) {
-            if (nomineeData[i].isShow === true) {
-                let nomineeObj = {
-                    name: nomineeData[i].nominee,
-                    relation: nomineeData[i].relation,
-                    dob: nomineeData[i].dob,
-                    photo: nomineeData[i].photograph,
-                    isMinor: !(nomineeData[i].isShow),
-                    percentage: parseInt(nomineeData[i].percentage)
-                }
-                nomineesInfo.push(nomineeObj);
-            } else {
-                let guardianInfo = {
-                    nid: nomineeData[i].minorGuardianNid,
-                    name: nomineeData[i].minorGuardianName,
-                    relation: nomineeData[i].guardianRelationWMinor,
-                    address: nomineeData[i].minorGuardianAddress,
-                    photo: nomineeData[i].minorPhotoGuardian
+        let nomineesInfo =[];
+        for(let i =0; i< nomineeData.length; i++){  
+            if(nomineeData[i].isShow === true){
+                let nomineeObj={
+                name: nomineeData[i].nominee,
+                relation:nomineeData[i].relation,
+                dob: new Date(nomineeData[i].dob).toISOString(),
+                photo: nomineeData[i].photograph,
+                isMinor: !(nomineeData[i].isShow) ,
+                percentage: parseInt(nomineeData[i].percentage)
+            }
+            nomineesInfo.push(nomineeObj);
+            }else{
+                let guardianInfo ={
+                    nid:nomineeData[i].minorGuardianNid,
+                    name:nomineeData[i].minorGuardianName,
+                    relation:nomineeData[i].guardianRelationWMinor,
+                    address:nomineeData[i].minorGuardianAddress,
+                    photo:nomineeData[i].minorPhotoGuardian
                 }
 
-                let nomineeObj = {
-                    name: nomineeData[i].minorNominee,
-                    relation: nomineeData[i].minorRelationWAccH,
-                    dob: nomineeData[i].minorDob,
-                    photo: nomineeData[i].minorNomineePhoto,
-                    isMinor: !(nomineeData[i].isShow),
-                    percentage: parseInt(nomineeData[i].minorPercentage),
-                    guardian: guardianInfo
+                let nomineeObj={
+                    name:nomineeData[i].minorNominee,
+                    relation:nomineeData[i].minorRelationWAccH,
+                    dob: new Date(nomineeData[i].minorDob).toISOString(),
+                    //dob: convertminorIso,
+                    photo:nomineeData[i].minorNomineePhoto,
+                    isMinor:!(nomineeData[i].isShow),
+                    percentage:parseInt(nomineeData[i].minorPercentage),
+                    guardian:guardianInfo
                 }
                 nomineesInfo.push(nomineeObj);
 

@@ -1,7 +1,19 @@
 import React, { Component } from 'react'
 import Face from "./images/face.svg";
+import Family from './images/family.svg';
+import Familyes from './images/candidates.svg';
+import adult from './images/age-limit-one.svg';
+import child from './images/age-limit-two.svg';
 
 export class Nominee extends Component {
+
+
+    // showHideChange = (e) => {
+    //     const{values} = this.props;
+    //     e.preventDefault();
+    //     this.props.handleState("showHide", values.showHide);
+    //     //console.log("ShowHide", this.state.showHide)
+    // }
 
 
     continue = e => {
@@ -52,30 +64,27 @@ export class Nominee extends Component {
 
 
     render() {
-        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange } = this.props;
+        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange,showHideChange } = this.props;
         //console.log(values.jointArray.isShow);
         return (
-            <div>
+            <div className="container card" style={{ margin: "0", padding: "0" }}>
                 <div className="row d-flex justify-content-center">
-                    <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
-                        <div className="card-header up">
-                            <h3>Nominee's Information</h3>
-                        </div>
-                        <div className="card-body d-flex justify-content-center">
-                            <form onSubmit={this.handleSubmit}>
-
-
+                    <div className="col-sm-6 imTwoWhite mt-3" >
+                        <h4 className="im text-muted mt-2"><i className="fas fa-user" style={{ color: "green" }}></i> Nominee</h4>
+                        <div className="col">
+                            <form>
                                 {
                                     values.jointArray.map((arr, index) => {
-                                       // console.log("nominee value", arr);
-                                        // let nomineeId = `nominee-${idx}`, relationId = `relation-${idx}`, photographId = `photograph-${idx}`
                                         return (
-                                            <div>
+
+                                            <div key={`${values.jointArray}~${index}`} className="my-3" >
+                                                <h2 className="imTwo text-muted"> Nominee : <small >{index + 1}</small></h2>
                                                 {arr.isShow === true ?
+
                                                     <div >
-                                                        <h1>Nominee{index + 1}</h1>
+
                                                         {/* Nominee Name */}
-                                                        <div className="form-group col-sm-10">
+                                                        <div className="form-group">
                                                             <label htmlFor="nominee">Nominee</label>
                                                             <input
                                                                 type="text"
@@ -88,7 +97,7 @@ export class Nominee extends Component {
                                                         </div>
 
                                                         {/* Nominee Date of Birth */}
-                                                        <div className="form-group col-sm-10">
+                                                        <div className="form-group">
                                                             <label htmlFor="dob">Date of Birth</label>
                                                             {/* Using Html input but dateformat = mm-dd-yyyy */}
                                                             <input
@@ -102,7 +111,7 @@ export class Nominee extends Component {
                                                         </div>
 
                                                         {/* Relation With Account holder */}
-                                                        <div className="form-group col-sm-10">
+                                                        <div className="form-group">
                                                             <label htmlFor="relation">Relation</label>
                                                             <input
                                                                 type="text"
@@ -115,7 +124,7 @@ export class Nominee extends Component {
                                                         </div>
 
                                                         {/* Nominee Photograph */}
-                                                        <div className="form-group col-sm-10">
+                                                        <div className="form-group">
                                                             <label htmlFor="photograph">Photo</label>
                                                             <input
                                                                 type="file"
@@ -127,13 +136,14 @@ export class Nominee extends Component {
                                                             />
                                                         </div>
 
-
-                                                         {/* Percentage for Major */}
-                                                         <div className="form-group col-sm-10">
+                                                        {/* Percentage for Major Nominee */}
+                                                        <div className="form-group">
                                                             <label htmlFor="percentage">Percentage</label>
                                                             <input
                                                                 type="number"
                                                                 className="form-control"
+                                                                min="1"
+                                                                max="100"
                                                                 id="percentage"
                                                                 name="percentage"
                                                                 onChange={event => onChange(index, event)}
@@ -144,12 +154,11 @@ export class Nominee extends Component {
 
 
                                                     </div>
-                                                    :
 
+                                                    :
                                                     <div>
-                                                        <h1>Nominee{index + 1}</h1>
                                                         {/* Minor Nominee  */}
-                                                        <div className="form-group col-sm-10">
+                                                        <div className="form-group">
                                                             <label htmlFor="nominee">Minor Nominee Name</label>
                                                             <input
                                                                 type="text"
@@ -162,52 +171,150 @@ export class Nominee extends Component {
                                                         </div>
 
 
-                                                        {/* Minor Nominee Guardian  */}
-                                                        <div className="form-group col-sm-10">
+                                                        {/* Minor Nominee Date of Birth  */}
+                                                        <div className="form-group">
+                                                            <label htmlFor="nominee">Minor Nominee Date of Birth</label>
+                                                            <input
+                                                                type="date"
+                                                                className="form-control"
+                                                                id="minorDob"
+                                                                name="minorDob"
+                                                                onChange={event => onChange(index, event)}
+                                                                value={arr.minorDob}
+                                                            />
+                                                        </div>
+
+
+                                                        {/* Minor Nominee Relation With Account Holder  */}
+                                                        <div className="form-group">
+                                                            <label htmlFor="nominee">Relation With Account Holder</label>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                id="minorRelationWAccH"
+                                                                name="minorRelationWAccH"
+                                                                onChange={event => onChange(index, event)}
+                                                                value={arr.minorRelationWAccH}
+                                                            />
+                                                        </div>
+
+
+                                                        {/*Minor Nominee's Photo */}
+                                                        <div className="form-group">
+                                                            <label htmlFor="photograph">Minor Nominee Photo</label>
+                                                            <input
+                                                                type="file"
+                                                                className="form-control"
+                                                                id="minorNomineePhoto"
+                                                                name="minorNomineePhoto"
+                                                                onChange={event => onChange(index, event)}
+                                                            //defaultValue={arr.minorNomineePhoto}
+                                                            />
+                                                        </div>
+
+
+                                                        {/* Minor Nominee Percentage  */}
+                                                        <div className="form-group">
+                                                            <label htmlFor="percent">Percentage</label>
+                                                            <input
+                                                                type="number"
+                                                                className="form-control"
+                                                                min="1"
+                                                                max="100"
+                                                                id="minorPercentage"
+                                                                name="minorPercentage"
+                                                                onChange={event => onChange(index, event)}
+                                                                value={arr.minorPercentage}
+                                                            />
+                                                        </div>
+
+
+
+                                                        {/*================= Minor Nominee Guardian part started from above ================================= */}
+
+                                                        {/* Minor Nominee Guardian NID */}
+                                                        <div className="form-group">
+                                                            <label htmlFor="nominee">Minor Nominee Guardian NID</label>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                id="minorGuardianNid"
+                                                                name="minorGuardianNid"
+                                                                onChange={event => onChange(index, event)}
+                                                                value={arr.minorGuardianNid}
+                                                            />
+                                                        </div>
+
+
+
+                                                        {/* Minor Nominee Guardian Name */}
+                                                        <div className="form-group">
                                                             <label htmlFor="nominee">Minor Nominee Guardian Name</label>
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                id="minorGuarrdian"
-                                                                name="minorGuarrdian"
+                                                                id="minorGuardianName"
+                                                                name="minorGuardianName"
                                                                 onChange={event => onChange(index, event)}
-                                                                value={arr.minorGuarrdian}
+                                                                value={arr.minorGuardianName}
                                                             />
                                                         </div>
 
 
-
-                                                        {/* Minor Nominee Address  */}
-                                                        <div className="form-group col-sm-10">
-                                                            <label htmlFor="nominee">Minor Nominee Address</label>
+                                                        {/* Guardian relation With Minor Nominee  */}
+                                                        <div className="form-group">
+                                                            <label htmlFor="nominee">Relation With Minor Nominee</label>
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                id="minorAddress"
-                                                                name="minorAddress"
+                                                                id="guardianRelationWMinor"
+                                                                name="guardianRelationWMinor"
                                                                 onChange={event => onChange(index, event)}
-                                                                value={arr.minorAddress}
+                                                                value={arr.guardianRelationWMinor}
                                                             />
                                                         </div>
 
 
-                                                        {/* Minor Nominee Relation  */}
-                                                        <div className="form-group col-sm-10">
-                                                            <label htmlFor="nominee">Relation</label>
+
+
+                                                        {/*Guardian Address  */}
+                                                        <div className="form-group">
+                                                            <label htmlFor="nominee">Guardian Address</label>
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                id="minorRelation"
-                                                                name="minorRelation"
+                                                                id="minorGuardianAddress"
+                                                                name="minorGuardianAddress"
                                                                 onChange={event => onChange(index, event)}
-                                                                value={arr.minorRelation}
+                                                                value={arr.minorGuardianAddress}
                                                             />
                                                         </div>
 
 
-                                                         {/* Minor Nominee Guardian Nid No  */}
-                                                         <div className="form-group col-sm-10">
-                                                            <label htmlFor="guardianNidNo">Guardian NID No</label>
+
+
+                                                        {/* ===========if Guardian Nid Image */}
+
+                                                        {/* Minor Nominee Guardian NID
+                                         <div className="form-group">
+                                                <label htmlFor="photograph">Guardian NID</label>
+                                                <input
+                                                    type="file"
+                                                    className="form-control"
+                                                    id="minorNidGuardian"
+                                                    name="minorNidGuardian"
+                                                    onChange={event => onChange(index, event)}
+                                                    //defaultValue={arr.minorNidGuardian}
+                                                />
+                                            </div> */}
+
+                                                        {/* ===========if Guardian Nid Image */}
+
+
+
+                                                        {/* Minor Nid NO of Guardian */}
+                                                        {/* <div className="form-group">
+                                                            <label htmlFor="guardianNidNo">Guardian Nid No</label>
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
@@ -216,29 +323,13 @@ export class Nominee extends Component {
                                                                 onChange={event => onChange(index, event)}
                                                                 value={arr.minorNidGuardian}
                                                             />
-                                                        </div>
-
-
-                                                    {/* Minor Nominee guardian nid image if needed */}
-
-                                                        {/* Minor Nominee Guardian NID
-                                                        <div className="form-group col-sm-10">
-                                                            <label htmlFor="photograph">Guardian NID</label>
-                                                            <input
-                                                                type="file"
-                                                                className="form-control"
-                                                                id="minorNidGuardian"
-                                                                name="minorNidGuardian"
-                                                                onChange={event => onChange(index, event)}
-                                                            //defaultValue={arr.minorNidGuardian}
-                                                            />
                                                         </div> */}
 
-                                                        {/* Minor Nominee guardian nid image if needed */}
+
 
 
                                                         {/*Minor Nominee Guardian Photo */}
-                                                        <div className="form-group col-sm-10">
+                                                        <div className="form-group">
                                                             <label htmlFor="photograph">Guardian Photo</label>
                                                             <input
                                                                 type="file"
@@ -250,35 +341,30 @@ export class Nominee extends Component {
                                                             />
                                                         </div>
 
-
-                                                         {/* Minor Nominee Percentage  */}
-                                                         <div className="form-group col-sm-10">
-                                                            <label htmlFor="percentage">Minor Nominee Percentage</label>
+                                                        {/* Minor Nominee Percentage  */}
+                                                        {/* <div className="form-group">
+                                                            <label htmlFor="percent">Percentage</label>
                                                             <input
                                                                 type="number"
                                                                 className="form-control"
+                                                                min="1"
+                                                                max="100"
                                                                 id="minorPercentage"
                                                                 name="minorPercentage"
                                                                 onChange={event => onChange(index, event)}
                                                                 value={arr.minorPercentage}
                                                             />
-                                                        </div>
+                                                        </div> */}
+
+
 
                                                     </div>
                                                 }
-
-                                                {/* Delete Button */}
-
-                                                <div className="form-group ">
-                                                    <button
-                                                        className="b"
-                                                        style={{ border: "none", background: "#e3174c" }}
-                                                        onClick={() => deteteRow(index)}
-                                                    >
-                                                        Delete
-                                    </button>
-
+                                                <hr />
+                                                <div className="d-flex justify-content-center">
+                                                    <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => deteteRow(e, index)}>Cancel</button>
                                                 </div>
+
 
 
                                             </div>
@@ -287,52 +373,109 @@ export class Nominee extends Component {
                                     })
 
                                 }
-
-
-
                             </form>
-
-                            {/* Add Adult Nominee */}
-                            <div className="form-group ">
-                                <button
-                                    type="button"
-                                    className="bigB mr-2"
-                                    style={{ border: "none" }}
-                                    onClick={() => addNomineeOne()}
-                                >
-                                    Adult
-                                    </button>
-                            </div>
-
-                                {/* Add Minor Nominee */}
-                            <div className="form-group ">
-                                <button
-                                    type="button"
-                                    className="bigB mr-2"
-                                    style={{ border: "none" }}
-                                    onClick={() => addNomineeTwo()}
-                                >
-                                    Minor
-                                    </button>
-                            </div>
-
-                        </div>
-
-
-                                {/* Back and Continue button */}
-                        <div
-                            className="card-footer d-flex justify-content-between"
-                            style={{ background: "#fff" }}
-                        >
-
-                            <span className="b mr-5" onClick={this.back}>Back</span>
-                            <span className="b" onClick={this.continue}>Next</span>
-
                         </div>
 
                     </div>
 
                 </div>
+
+                <hr />
+                {!(values.showHide) ? (
+                    <div className="row d-flex justify-content-center" >
+                        <div className="imTwoWhite text-center">
+                            <img
+                                src={Family}
+                                style={{
+                                    margin: "0 auto",
+                                    width: "300px",
+                                    height: "200px",
+                                    border: "none",
+                                }}
+
+                                className="img-fluid img-thumbnail"
+                                id="FrontNidPic"
+                                alt=""
+                            />
+
+                            <h4 className="im" style={{ color: "green" }} onClick={()=>showHideChange()}><i class="fas fa-user-plus"></i> Add Nominee</h4>
+
+
+
+
+
+                        </div>
+                    </div>
+                ) : ""}
+
+
+                {
+                    (values.showHide) ? (
+                        <div>
+                            <hr />
+                            <div className="row d-flex justify-content-center ">
+                                <div className="col-sm-8 d-flex justify-content-around">
+                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() => addNomineeOne()}>
+
+                                        <img
+                                            src={adult}
+                                            style={{
+                                                margin: "0 auto",
+                                                width: "300px",
+                                                height: "150px",
+                                                border: "none"
+
+                                            }}
+
+                                            className="img-fluid img-thumbnail"
+                                            id="FrontNidPic"
+                                            alt=""
+                                        />
+
+
+
+                                        <h4 className="im" style={{ color: "green" }}>Adult</h4>
+
+                                    </button>
+                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() => addNomineeTwo()}>
+
+                                        <img
+                                            src={child}
+                                            style={{
+                                                margin: "0 auto",
+                                                width: "300px",
+                                                height: "150px",
+                                                border: "none"
+
+                                            }}
+
+                                            className="img-fluid img-thumbnail"
+                                            id="FrontNidPic"
+                                            alt=""
+                                        />
+                                        <h4 className="im" style={{ color: "green" }}>Minor</h4>
+
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    ) : ""
+                }
+                <hr />
+
+
+                <div className="row d-flex justify-content-center mb-3">
+
+                    <button className="b mr-2" style={{ border: "none" }} onClick={(e) => this.back(e)}>Back</button>
+                    <button className="b" style={{ border: "none" }} onClick={(e) => this.continue(e)}>Next</button>
+                </div>
+
+
+
             </div>
         )
     }

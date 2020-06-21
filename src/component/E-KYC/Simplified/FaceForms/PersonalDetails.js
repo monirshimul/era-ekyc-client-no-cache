@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {convertIso} from '../utils/DateFormat';
 import { NotificationManager } from "react-notifications";
 
 export class PersonalDetails extends Component {
@@ -164,13 +165,15 @@ export class PersonalDetails extends Component {
         //     return;
         // }
 
-        let parts= applicantDob.split('-');
-        let convertDob = new Date(parts[0], parts[1], parts[2]); 
+        // let parts= applicantDob.split('-');
+        // let convertDob = new Date(parts[0], parts[1], parts[2]); 
+        //let parts = applicantDob.toString();
+        //let convertDob = new Date(applicantDob).toISOString();
         const personal = {
             applicantName,
             applicantNameBangla,
             applicantDob,
-            applicantDobDate:convertDob,
+            applicantDobDate:new Date(applicantDob).toISOString(),
             applicantNidNo,
             motherName,
             motherNameBangla,
@@ -191,7 +194,31 @@ export class PersonalDetails extends Component {
     };
 
     back = e => {
+        let { applicantName,applicantNameBangla, applicantDob,applicantDobDate, applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla } = this.state;
         e.preventDefault();
+
+        const personal = {
+            applicantName,
+            applicantNameBangla,
+            applicantDob,
+            applicantDobDate:new Date(applicantDob).toISOString(),
+            applicantNidNo,
+            motherName,
+            motherNameBangla,
+            fatherName,
+            fatherNameBangla,
+            spouseName,
+            gender,
+            profession,
+            mobileNumber,
+            presentAddress,
+            permanentAddress,
+            permanentAddressBangla
+        }
+
+        localStorage.setItem("PersonalDetails", JSON.stringify(personal));
+
+
         let nextRoute = JSON.parse(localStorage.getItem('Verification'));
 
         if (nextRoute.type === "FACE") {
@@ -205,7 +232,8 @@ export class PersonalDetails extends Component {
 
     render() {
         let { applicantName,applicantNameBangla, applicantDob, applicantNidNo, motherName, motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla } = this.state;
-        console.log("================",applicantNidNo)
+        //console.log("================",typeof applicantDob);
+        //console.log("======convert==========",);
         //console.log("nidno", applicantNidNo.length);
         return (
             <div className="container">

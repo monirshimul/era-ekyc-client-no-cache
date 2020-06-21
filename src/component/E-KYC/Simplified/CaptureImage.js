@@ -11,11 +11,11 @@ export class CaptureImage extends Component {
   continue = (e) => {
     const { values } = this.props;
     e.preventDefault();
-    let obj={
-      faceImage: values.faceImage,
-      imageFlag:true
-    }
-    localStorage.setItem("CaptureImage", JSON.stringify(obj));
+    // let obj={
+    //   faceImage: values.faceImage,
+    //   imageFlag:true
+    // }
+    //localStorage.setItem("CaptureImage", JSON.stringify(obj));
     this.props.nextStep();
   };
 
