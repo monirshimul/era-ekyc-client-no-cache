@@ -13,6 +13,7 @@ import { pruneRouteArray, getFlatRouteArray } from '../flattenObjectTwo';
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 // E-kyc List
 import ShowMore from '../E-KYC/ekyc-list/ShowMore';
+import fullEkyc from '../E-KYC/ekyc-list/FullEkyc';
 
 // face Verification forms
 import NidImages from '../E-KYC/Simplified/FaceForms/NidImages';
@@ -275,6 +276,7 @@ class Dashboard extends Component {
 
                                     {/* E-kyc List */}
                                     <Route path={`${path}/showMore`} component={ShowMore} />
+                                    <Route path={`${path}/fullEkyc`} component={fullEkyc} />
 
 
                                     {/* MultiSteps */}
