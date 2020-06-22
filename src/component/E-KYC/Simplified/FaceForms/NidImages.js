@@ -301,10 +301,11 @@ export class NidImages extends Component {
           </div>
             ):""
           } */}
+          
           <div className="b" onClick={this.continue}>
             Next
           </div>
-          
+
         </div>
 
       </div>

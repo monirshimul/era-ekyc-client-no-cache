@@ -1,21 +1,57 @@
 import React, { Component } from 'react';
+import { NotificationManager } from "react-notifications";
 import MainFace from '../Simplified/MainFace';
 //import NidImages from './FaceForms/NidImages';
-import Finger from '../Simplified/FingerMultiForm/Finger';
+//import Finger from '../Simplified/FingerMultiForm/Finger';
+import FingerPrintMain from './FingerPrintJoint/FingerPrintMain';
+import { simplifiedJointConfirmAPI} from '../Url/ApiList';
 import { withRouter } from 'react-router-dom';
 import './utils/Common.css'
 import adult from './images/face-scan.svg'
 import child from './images/fingerprint-three.svg'
 import bio from './images/verified.svg'
+import axios from 'axios';
 
 export class DynamicComp extends Component {
     state = {
         jointArray: [],
         comp: '',
-        showHide: false
+        showHide: false,
+        accountId: '',
     }
 
+    complete =async(e) =>{
+        e.preventDefault();
+        this.setState({
+            accountId:JSON.parse(localStorage.getItem('accountId'))
+        })
 
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        let obj ={
+            accountId: this.state.accountId
+        }
+
+        try{
+        let completeApi = await axios.post(simplifiedJointConfirmAPI,obj,config);
+       // console.log(completeApi.data);
+        let statusCode = completeApi.data.statusCode;
+        let successMessage = completeApi.data.message;
+        NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+        localStorage.clear();
+        this.props.history.push('/dashboard');
+    }catch (err){
+        //console.log(err.response.data);
+        let ErrorStatus = err.response.data.statusCode;
+        let ErrorMessage = err.response.data.message;
+        NotificationManager.error(ErrorStatus + " " + ErrorMessage, "Error", 5000);
+    }
+        
+    }
 
 
     deleteComp = (index) => {
@@ -27,7 +63,8 @@ export class DynamicComp extends Component {
         })
     }
 
-    addComp = (val) => {
+    addComp = (val,verType) => {
+        localStorage.setItem("VerificationType", JSON.stringify(verType));
         const copyArray = Object.assign([], this.state.jointArray);
         copyArray.push({
             comp: val
@@ -50,7 +87,7 @@ export class DynamicComp extends Component {
 
 
     render() {
-        // console.log("stable", this.state.stableButton);
+        //console.log("stable", this.state.applicantId);
         let { showHide } = this.state
         return (
             <div className="col text-center" >
@@ -78,7 +115,7 @@ export class DynamicComp extends Component {
                 {
                         this.state.jointArray.length > 1 ? 
                         <div> 
-                        <button className="b" style={{ border: "none", background: "#e3174c" }} >Complete</button>
+                        <button className="b" style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button>
                         </div>
                         :
                         ""
@@ -126,7 +163,7 @@ export class DynamicComp extends Component {
                             <hr />
                             <div className="row d-flex justify-content-center ">
                                 <div className="col-sm-8 d-flex justify-content-around">
-                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<MainFace />)}>
+                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<MainFace />, "FACE")}>
 
                                         <img
                                             src={adult}
@@ -148,7 +185,7 @@ export class DynamicComp extends Component {
                                         <h4 className="im" style={{ color: "green" }}>Face</h4>
 
                                     </button>
-                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<Finger />)}>
+                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<FingerPrintMain />, "FINGER")}>
 
                                         <img
                                             src={child}

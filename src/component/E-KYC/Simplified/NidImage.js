@@ -25,18 +25,18 @@ export class NidImage extends Component {
     formData.append("userimage",  NidFrontOcr);
     formData.append("backPart", NidBackOcr);
     formData.append("api_pass", "updateimage");
-    let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
-    console.log(nidData.data);
+    // let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
+    // console.log(nidData.data);
 
-    this.props.handleState("applicantName", nidData.data["Name English"]);
-    this.props.handleState("applicantNameBangla", nidData.data["Name Bangla"]);
-    this.props.handleState("applicantNidNo", nidData.data["id"]);
-    this.props.handleState("applicantDob", nidData.data["DOB"]);
+    // this.props.handleState("applicantName", nidData.data["Name English"]);
+    // this.props.handleState("applicantNameBangla", nidData.data["Name Bangla"]);
+    // this.props.handleState("applicantNidNo", nidData.data["id"]);
+    // this.props.handleState("applicantDob", nidData.data["DOB"]);
     
-    this.props.handleState("fatherNameBangla", nidData.data["Father"]);
-    this.props.handleState("motherNameBangla", nidData.data["Mother"]);
-    this.props.handleState("spouseName", nidData.data["Husband"]);
-    this.props.handleState("permanentAddressBangla", nidData.data["Address"]);
+    // this.props.handleState("fatherNameBangla", nidData.data["Father"]);
+    // this.props.handleState("motherNameBangla", nidData.data["Mother"]);
+    // this.props.handleState("spouseName", nidData.data["Husband"]);
+    // this.props.handleState("permanentAddressBangla", nidData.data["Address"]);
 
     this.props.nextStep();
   };

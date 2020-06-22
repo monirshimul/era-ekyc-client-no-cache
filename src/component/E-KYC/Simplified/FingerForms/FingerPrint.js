@@ -8,8 +8,8 @@ import { NotificationManager } from "react-notifications";
 
 export class FingerVerification extends Component {
   state = {
-    nid: JSON.parse(localStorage.getItem("NidImages")).OcrData.id,
-    dob: JSON.parse(localStorage.getItem("NidImages")).OcrData.DOB,
+    nid: JSON.parse(localStorage.getItem("NidImages")) ? JSON.parse(localStorage.getItem("NidImages")).OcrData.id: "",
+    dob: JSON.parse(localStorage.getItem("NidImages"))? JSON.parse(localStorage.getItem("NidImages")).OcrData.DOB: "",
     rIndex: "",
     rThumb: "",
     lIndex: "",
@@ -47,71 +47,71 @@ export class FingerVerification extends Component {
       },
     };
 
-    const fingerobj = {
-      MinQ: 30,
-      Retry: 3,
-      TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
-    };
+    // const fingerobj = {
+    //   MinQ: 30,
+    //   Retry: 3,
+    //   TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
+    // };
 
-    axios
-      .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
-      .then((res) => {
-        //  console.log(res);
-        const data = res.data;
-        let rightThumb = data[0].fingerData;
-        let rightIndex = data[1].fingerData;
-        let leftThumb = data[2].fingerData;
-        let leftIndex = data[3].fingerData;
+    // axios
+    //   .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
+    //   .then((res) => {
+    //     //  console.log(res);
+    //     const data = res.data;
+    //     let rightThumb = data[0].fingerData;
+    //     let rightIndex = data[1].fingerData;
+    //     let leftThumb = data[2].fingerData;
+    //     let leftIndex = data[3].fingerData;
 
-        if (data[0].fingerId === 1) {
-          this.setState({ rThumb: rightThumb });
-        } else {
-          alert("data not found!!");
-        }
-        if (data[1].fingerId === 2) {
-          this.setState({ rIndex: rightIndex });
-        } else {
-          alert("data not found!!");
-        }
-        if (data[2].fingerId === 6) {
-          this.setState({ lThumb: leftThumb });
-        } else {
-          alert("data not found!!");
-        }
-        if (data[3].fingerId === 7) {
-          this.setState({ lIndex: leftIndex });
-        } else {
-          alert("data not found!!");
-        }
+    //     if (data[0].fingerId === 1) {
+    //       this.setState({ rThumb: rightThumb });
+    //     } else {
+    //       alert("data not found!!");
+    //     }
+    //     if (data[1].fingerId === 2) {
+    //       this.setState({ rIndex: rightIndex });
+    //     } else {
+    //       alert("data not found!!");
+    //     }
+    //     if (data[2].fingerId === 6) {
+    //       this.setState({ lThumb: leftThumb });
+    //     } else {
+    //       alert("data not found!!");
+    //     }
+    //     if (data[3].fingerId === 7) {
+    //       this.setState({ lIndex: leftIndex });
+    //     } else {
+    //       alert("data not found!!");
+    //     }
 
-        this.setState({
-          isEnable: false,
-          loading: !this.state.loading,
-        });
-      })
-      .catch((err) => {
-        if (err.response) {
-          if (err.response.status === 400 || err.response.status === 401) {
-            console.log(err.response.data);
-            alert(err.response.data.message);
-            this.setState({ isEnable: false });
-          } else if (err.response.status === 404) {
-            alert("Not Found");
-            this.setState({ isEnable: false });
-          } else if (err.response.status === 500) {
-            alert(err.response.data.message);
-            this.setState({ isEnable: false });
-          }
-        } else if (err.request) {
-          console.log(err.request);
-          alert("Error Connectiong");
-          this.setState({ isEnable: false });
-        } else {
-          console.log("Error", err.message);
-          alert(err.message);
-          this.setState({ isEnable: false });
-        }
-      });
+    //     this.setState({
+    //       isEnable: false,
+    //       loading: !this.state.loading,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     if (err.response) {
+    //       if (err.response.status === 400 || err.response.status === 401) {
+    //         console.log(err.response.data);
+    //         alert(err.response.data.message);
+    //         this.setState({ isEnable: false });
+    //       } else if (err.response.status === 404) {
+    //         alert("Not Found");
+    //         this.setState({ isEnable: false });
+    //       } else if (err.response.status === 500) {
+    //         alert(err.response.data.message);
+    //         this.setState({ isEnable: false });
+    //       }
+    //     } else if (err.request) {
+    //       console.log(err.request);
+    //       alert("Error Connectiong");
+    //       this.setState({ isEnable: false });
+    //     } else {
+    //       console.log("Error", err.message);
+    //       alert(err.message);
+    //       this.setState({ isEnable: false });
+    //     }
+    //   });
   };
 
   continue = async(e) => {
@@ -133,31 +133,32 @@ export class FingerVerification extends Component {
       lIndex,
       lThumb,
     };
+    this.props.history.push("/dashboard/personal-details");
 
-    try {
+    // try {
       
 
-      //console.log("Token",obj)
+    //   //console.log("Token",obj)
   
-      let fingerRes = await axios.post(fingerValidate, obj, config)
-      //console.log("fingerRes",fingerRes.data.data.verificationToken)
-      this.setState({
-        verifyToken: fingerRes.data.data.verificationToken
-      })
+    //   let fingerRes = await axios.post(fingerValidate, obj, config)
+    //   //console.log("fingerRes",fingerRes.data.data.verificationToken)
+    //   this.setState({
+    //     verifyToken: fingerRes.data.data.verificationToken
+    //   })
       
-      localStorage.setItem("FingerPrint", JSON.stringify(obj));
-      sessionStorage.setItem('x-verification-token', JSON.stringify(this.state.verifyToken))
-      this.props.history.push("/dashboard/personal-details");
-      // if(verifyToken){
+    //   localStorage.setItem("FingerPrint", JSON.stringify(obj));
+    //   sessionStorage.setItem('x-verification-token', JSON.stringify(this.state.verifyToken))
+    //   this.props.history.push("/dashboard/personal-details");
+    //   // if(verifyToken){
         
         
-      // }else{
-      //   NotificationManager.error("Please Provide Finger","Error",5000)
-      // }
+    //   // }else{
+    //   //   NotificationManager.error("Please Provide Finger","Error",5000)
+    //   // }
       
-    } catch (error) {
-      console.log(error.response)
-    }
+    // } catch (error) {
+    //   console.log(error.response)
+    // }
     
   };
 

@@ -18,8 +18,10 @@ import store from './store';
 class App extends Component {
   
   handleTabClose= (ev)=>{
+    localStorage.removeItem('accountId');
     ev.preventDefault();
     ev.returnValue = '';
+    
   }
 
   componentDidMount(){

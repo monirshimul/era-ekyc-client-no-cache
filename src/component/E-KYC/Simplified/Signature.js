@@ -3,7 +3,7 @@ import Sign from './images/sign.svg'
 
 export class Signature extends Component {
     continue = e => {
-        const { values } = this.props;
+      //  const { values } = this.props;
         e.preventDefault();
         // let obj = {
         //     signature: values.signature,

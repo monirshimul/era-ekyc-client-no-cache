@@ -39,9 +39,13 @@ export const checkUserEmail = hostIp + `user/check`
 //Logout
 export const logoutUser = hostIp + `user/logout`;
 
-// confirm Api
+// confirm Api Simplied Single
 export const confirmApi = hostIp +`ekyc/simplified`;
 
 //e-kyc api
 export const ekycWithFilter = hostIp +`ekyc/get/`;
 export const ekycFullProfile = hostIp +`ekyc/full/get`;
+//API for JOINT Account
+export const simplifiedJointAPI = hostIp + `ekyc/simplified/joint`;
+export const simplifiedJointAddAPI = hostIp + `ekyc/simplified/joint/add`;
+export const simplifiedJointConfirmAPI = hostIp + `ekyc/simplified/joint/confirm`;

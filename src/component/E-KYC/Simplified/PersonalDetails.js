@@ -104,6 +104,23 @@ export class PersonalDetails extends Component {
 
                         </div>
 
+                        {/* Operator Type */}
+                         {/* Gender */}
+                         <div className='form-group '>
+                            <label htmlFor="">Operator Type</label>
+                            <select
+                                style={{ borderRadius: "50px" }}
+                                className='custom-select'
+                                value={values.operatorType}
+                                name="operatorType"
+                                onChange={handleChange('operatorType')}
+                            >
+                                <option value='' disabled>---Operator Type---</option>
+                                <option value='M'>Mandatory</option>
+                                <option value='O'>Optional</option>
+                            </select>
+                        </div>
+
                        
                     
                     </div>

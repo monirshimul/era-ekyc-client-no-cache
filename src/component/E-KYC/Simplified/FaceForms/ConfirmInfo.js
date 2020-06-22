@@ -93,7 +93,7 @@ export class ConfirmInfo extends Component {
                 let nomineeObj={
                 name: nomineeData[i].nominee,
                 relation:nomineeData[i].relation,
-                dob: new Date(nomineeData[i].dob).toISOString(),
+                dob: nomineeData[i].dob ? new Date(nomineeData[i].dob).toISOString() : "" ,
                 photo: nomineeData[i].photograph,
                 isMinor: !(nomineeData[i].isShow) ,
                 percentage: parseInt(nomineeData[i].percentage)
@@ -111,7 +111,7 @@ export class ConfirmInfo extends Component {
                 let nomineeObj={
                     name:nomineeData[i].minorNominee,
                     relation:nomineeData[i].minorRelationWAccH,
-                    dob: new Date(nomineeData[i].minorDob).toISOString(),
+                    dob:nomineeData[i].minorDob ? new Date(nomineeData[i].minorDob).toISOString(): '',
                     //dob: convertminorIso,
                     photo:nomineeData[i].minorNomineePhoto,
                     isMinor:!(nomineeData[i].isShow),

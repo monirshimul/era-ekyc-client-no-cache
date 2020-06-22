@@ -3,6 +3,9 @@ import { formatDate } from './utils/DateFormat';
 import Family from './images/family.svg';
 import Avater from './images/user-two.svg';
 import front from './images/id-front-three.svg';
+import axios from 'axios';
+import { NotificationManager } from "react-notifications";
+import {simplifiedJointAPI, simplifiedJointAddAPI} from '../Url/ApiList';
 
 import back from './images/id-back-three.svg';
 import Sign from './images/signature.svg';
@@ -13,12 +16,17 @@ import child from './images/age-limit-two.svg';
 
 export class Confirm extends Component {
 
+    state={
+        typeVerification: JSON.parse(localStorage.getItem('VerificationType')) ? JSON.parse(localStorage.getItem('VerificationType')): ''
+    }
 
-
-    continue = e => {
+    continue = async(e) => {
         const { values } = this.props;
         e.preventDefault();
         //Process form//
+        console.log(values.applicantEkycId);
+        if(values.applicantEkycId === ''){
+
         let accountInfo = {
             title: values.applicantName,
             type: values.accountType,
@@ -28,6 +36,7 @@ export class Confirm extends Component {
         }
 
         let applicantInfo = {
+            operatorType: values.operatorType,
             nid: values.applicantNidNo,
             name: values.applicantName,
             nameBangla: values.applicantNameBangla,
@@ -44,7 +53,8 @@ export class Confirm extends Component {
             presentAddress: values.presentAddress,
             permanentAddress: values.permanentAddress,
             permanentAddressBangla: values.permanentAddressBangla,
-            verificationType: "FACE"
+            operatorType: values.operatorType,
+            verificationType: this.state.typeVerification
         }
 
         let applicantFileInfo ={
@@ -97,10 +107,143 @@ export class Confirm extends Component {
             applicantFile: applicantFileInfo,
             nominees:nomineesInfo
         }
+        console.log("Confirm obj", confirmObj);
 
-         console.log("confirm", confirmObj);
+        const config = {
+            headers: {
+                'x-verification-token': values.verifyToken,
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
+
+        try{
+
+         let responseFirst = await axios.post(simplifiedJointAPI, confirmObj, config);
+        // console.log("responseforFIRST", responseFirst.data);
+         let data = responseFirst.data;
+         let statusCode= data.statusCode;
+         let successMessage = data.message;
+         NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+         let resAccountId=  responseFirst.data.data.accountId;
+         this.props.handleState('applicantEkycId', resAccountId);
+         localStorage.setItem("accountId", JSON.stringify(resAccountId));
+         this.props.nextStep();
+        
+        } catch (err) {
+           // console.log(err.response);
+             let apiError = err.response.data;
+             let errorStatus = apiError.statusCode;
+             let errorMessage = apiError.message;
+            NotificationManager.error(errorStatus + " " + errorMessage, "Error", 5000);
+        }
+
+    }
+    else{
+
+        let accountIdInfo = values.applicantEkycId;
+        let applicantInfo = {
+            operatorType: values.operatorType,
+            nid: values.applicantNidNo,
+            name: values.applicantName,
+            nameBangla: values.applicantNameBangla,
+            dob: values.applicantDob,
+            dobDate: new Date(values.applicantDob).toISOString(),
+            motherName: values.motherName,
+            motherNameBangla: values.motherNameBangla,
+            fatherName: values.fatherName,
+            fatherNameBangla: values.fatherNameBangla,
+            spouseName: values.spouseName,
+            gender: values.gender,
+            profession: values.profession,
+            mobile: values.mobileNumber,
+            presentAddress: values.presentAddress,
+            permanentAddress: values.permanentAddress,
+            permanentAddressBangla: values.permanentAddressBangla,
+            operatorType: values.operatorType,
+            verificationType: "FACE"
+        }
+
+        let applicantFileInfo ={
+            nidFront:values.NidFront,
+            nidBack:values.NidFront,
+            photo:values.faceImage,
+            signature:values.signature
+        }
+
+        let nomineesInfo =[];
+        for(let i =0; i< values.jointArray.length; i++){  
+            if(values.jointArray[i].isShow === true){
+                let nomineeObj={
+                name: values.jointArray[i].nominee,
+                relation:values.jointArray[i].relation,
+                dob: new Date(values.jointArray[i].dob).toISOString(),
+                photo: values.jointArray[i].photograph,
+                isMinor: !(values.jointArray[i].isShow) ,
+                percentage: parseInt(values.jointArray[i].percentage)
+            }
+            nomineesInfo.push(nomineeObj);
+            }else{
+                let guardianInfo ={
+                    nid:values.jointArray[i].minorGuardianNid,
+                    name:values.jointArray[i].minorGuardianName,
+                    relation:values.jointArray[i].guardianRelationWMinor,
+                    address:values.jointArray[i].minorGuardianAddress,
+                    photo:values.jointArray[i].minorPhotoGuardian
+                }
+
+                let nomineeObj={
+                    name:values.jointArray[i].minorNominee,
+                    relation:values.jointArray[i].minorRelationWAccH,
+                    dob: new Date(values.jointArray[i].minorDob).toISOString(),
+                    //dob: convertminorIso,
+                    photo:values.jointArray[i].minorNomineePhoto,
+                    isMinor:!(values.jointArray[i].isShow),
+                    percentage:parseInt(values.jointArray[i].minorPercentage),
+                    guardian:guardianInfo
+                }
+                nomineesInfo.push(nomineeObj);
+
+            }
+            
+        }
+        
+        let confirmObjSecond ={
+            accountId:accountIdInfo,
+            applicant:applicantInfo,
+            applicantFile:applicantFileInfo,
+            nominees:nomineesInfo,
+        }
+
+        //console.log('SecondApi', confirmObjSecond);
+
+        const config = {
+            headers: {
+                'x-verification-token': values.verifyToken,
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
+
+        try{
+            let resJointAdded = await axios.post(simplifiedJointAddAPI, confirmObjSecond, config);
+            console.log(resJointAdded.data);
+            
+            let respStatus = resJointAdded.data.statusCode;
+            let respMessage =resJointAdded.data.message;
+            NotificationManager.success(respStatus + " " + respMessage, "Success", 5000);
+            this.props.nextStep();
+        }catch (err){
+            //console.log(err.response.data);
+            let errStatusCode = err.response.data.statusCode;
+            let errStatusMessage = err.response.data.message;
+            NotificationManager.error(errStatusCode + " " + errStatusMessage, "Error", 5000);
+        }
+        
+
+    }
        
-        this.props.nextStep();
+       
     };
 
     back = e => {
@@ -175,6 +318,7 @@ export class Confirm extends Component {
                                 <p className="text-muted">Present Address : {values.presentAddress}</p>
                                 <p className="text-muted">Permanent Address : {values.permanentAddress}</p>
                                 <p className="text-muted">Permanent Address Bangla : {values.permanentAddressBangla}</p>
+                                <p className="text-muted">Operator Type : {values.operatorType}</p>
 
                             </div>
                         </div>

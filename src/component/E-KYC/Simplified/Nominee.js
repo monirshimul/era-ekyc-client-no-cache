@@ -6,7 +6,17 @@ import adult from './images/age-limit-one.svg';
 import child from './images/age-limit-two.svg';
 
 export class Nominee extends Component {
+ state ={
+     showHide: false
+ }
 
+
+  //Nominee part function
+  showHideChange = () => {
+    this.setState({
+        showHide: !(this.state.showHide)
+    })
+}
 
     // showHideChange = (e) => {
     //     const{values} = this.props;
@@ -64,8 +74,9 @@ export class Nominee extends Component {
 
 
     render() {
-        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange,showHideChange } = this.props;
+        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange } = this.props;
         //console.log(values.jointArray.isShow);
+        console.log("showHide",this.state.showHide);
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
                 <div className="row d-flex justify-content-center">
@@ -381,7 +392,7 @@ export class Nominee extends Component {
                 </div>
 
                 <hr />
-                {!(values.showHide) ? (
+                {!(this.state.showHide) ? (
                     <div className="row d-flex justify-content-center" >
                         <div className="imTwoWhite text-center">
                             <img
@@ -398,7 +409,7 @@ export class Nominee extends Component {
                                 alt=""
                             />
 
-                            <h4 className="im" style={{ color: "green" }} onClick={()=>showHideChange()}><i class="fas fa-user-plus"></i> Add Nominee</h4>
+                            <h4 className="im" style={{ color: "green" }} onClick={this.showHideChange}><i class="fas fa-user-plus"></i> Add Nominee</h4>
 
 
 
@@ -410,12 +421,12 @@ export class Nominee extends Component {
 
 
                 {
-                    (values.showHide) ? (
+                    (this.state.showHide) ? (
                         <div>
                             <hr />
                             <div className="row d-flex justify-content-center ">
                                 <div className="col-sm-8 d-flex justify-content-around">
-                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() => addNomineeOne()}>
+                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() =>{ addNomineeOne(); this.showHideChange()}}>
 
                                         <img
                                             src={adult}
@@ -437,7 +448,7 @@ export class Nominee extends Component {
                                         <h4 className="im" style={{ color: "green" }}>Adult</h4>
 
                                     </button>
-                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() => addNomineeTwo()}>
+                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() =>{ addNomineeTwo(); this.showHideChange();}}>
 
                                         <img
                                             src={child}

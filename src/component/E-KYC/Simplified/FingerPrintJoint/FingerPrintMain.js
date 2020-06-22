@@ -1,61 +1,72 @@
 import React, { Component } from 'react'
-import NidImage from './NidImage';
-import CaptureImage from './CaptureImage';
-import PersonalDetails from './PersonalDetails';
-import Signature from './Signature';
-import Nominee from './Nominee';
-import Confirm from './Confirm';
-import Success from './Success';
+import NidImage from '../NidImage';
+import CaptureImage from '../CaptureImage';
+import PersonalDetails from '../PersonalDetails';
+import JointFingerPrint from './JointFingerPrint';
+import JointPicture from './JointPicture';
+import Signature from '../Signature';
+import Nominee from '../Nominee';
+import Confirm from '../Confirm';
+import Success from '../Success';
 
-export class MainFace extends Component {
+export class FingerPrintMain extends Component {
 
     state = {
         step: 1,
         //Account
         accountType: '',
         product: '',
-        channelName:'',
+        channelName: '',
         //Step1
         NidFront: "",
-        NidFrontOcr:'',
+        NidFrontOcr: '',
         NidFrontType: '',
         NidBack: '',
-        NidBackOcr:"",
+        NidBackOcr: "",
         NidBackType: '',
         //Step2
+        nid: "",
+        dob: "",
+        rIndex: "",
+        rThumb: "",
+        lIndex: "",
+        lThumb: "",
+        isEnableFinger: false,
+        loadingPrint: false,
+        verifyToken: "",
+        //step3
+        applicantName: '',
+        applicantNameBangla: '',
+        applicantDob: '',
+        applicantDobDate: "",
+        applicantNidNo: '',
+        motherName: '',
+        motherNameBangla: '',
+        fatherName: '',
+        fatherNameBangla: '',
+        spouseName: '',
+        gender: '',
+        profession: '',
+        mobileNumber: '',
+        presentAddress: '',
+        permanentAddress: '',
+        permanentAddressBangla: '',
+        operatorType: '',
+        //Step 4 
+        jointArray: [],
+        // showHide: false,
+        //Step 5
         faceImage: "",
         showCamera: false,
         imageFlag: false,
         isEnable: false,
         validate: false,
-        verifyToken:'',
         loading: false,
-        //step3
-        applicantName:'',
-        applicantNameBangla:'',
-        applicantDob:'',
-        applicantDobDate:"",
-        applicantNidNo:'',
-        motherName:'',
-        motherNameBangla:'',
-        fatherName:'',
-        fatherNameBangla:'',
-        spouseName:'',
-        gender:'',
-        profession:'',
-        mobileNumber:'',
-        presentAddress:'',
-        permanentAddress:'',
-        permanentAddressBangla:'',
-        operatorType:'',
-        //Step 4 
-        jointArray: [],
-       // showHide: false,
-        //Step 5
+        //Step 6
         signature: '',
         signatureType: '',
         //common for all component
-        applicantEkycId: JSON.parse(localStorage.getItem('accountId'))? JSON.parse(localStorage.getItem('accountId')):'',
+        applicantEkycId: '',
         flag: 'data:image/jpeg;base64,'
     }
 
@@ -75,7 +86,7 @@ export class MainFace extends Component {
         });
     }
 
-   
+
 
     componentDidMount() {
         // Account Info
@@ -91,7 +102,7 @@ export class MainFace extends Component {
                 product: acc.product,
                 channelName: acc.channelName
             })
-          
+
         } catch (e) {
 
         }
@@ -112,18 +123,18 @@ export class MainFace extends Component {
         this.setState({ [input]: date });
     }
 
-  
 
-    addNomineeOne = ()=> {
+
+    addNomineeOne = () => {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({  nominee: '', dob: '', relation: '', photograph: '', percentage: '', isShow: true  });
-        this.setState({jointArray:copyArray});
+        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '', isShow: true });
+        this.setState({ jointArray: copyArray });
     }
 
-    addNomineeTwo = ()=> {
+    addNomineeTwo = () => {
         let copyArray = Object.assign([], this.state.jointArray);
         copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', isShow: false });
-        this.setState({jointArray:copyArray});
+        this.setState({ jointArray: copyArray });
     }
 
 
@@ -188,8 +199,8 @@ export class MainFace extends Component {
                 };
             }
         }
- 
-     this.setState({ jointArray: copyArray });
+
+        this.setState({ jointArray: copyArray });
 
     }
 
@@ -204,8 +215,12 @@ export class MainFace extends Component {
     render() {
 
         const { step } = this.state;
-        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName } = this.state;
-        const values = {applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName }
+        
+        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, flag, nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+           signature, signatureType, jointArray, accountType, product, channelName } = this.state;
+       
+            const values = { applicantEkycId,NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, flag,nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+            signature, signatureType, jointArray, accountType, product, channelName }
 
 
         switch (step) {
@@ -221,12 +236,12 @@ export class MainFace extends Component {
 
             case 2:
                 return (
-                    <CaptureImage
+                    <JointFingerPrint
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}
-                        handleDate={this.handleDate}
+                        //handleDate={this.handleDate}
                         values={values}
                     />
                 )
@@ -256,7 +271,19 @@ export class MainFace extends Component {
                     />
                 )
 
-            case 5:
+                case 5:
+                return (
+                    <JointPicture
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        handleDate={this.handleDate}
+                        values={values}
+                    />
+                )
+
+            case 6:
                 return (
                     <Signature
                         nextStep={this.nextStep}
@@ -267,20 +294,17 @@ export class MainFace extends Component {
                     />
                 )
 
-            case 6:
+            case 7:
                 return (
                     <Confirm
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
-                        handleState={this.handleState}
                         values={values}
                     />
                 )
 
-            case 7:
-                return <Success 
-                values={values}
-                />
+            case 8:
+                return <Success />
 
 
         }
@@ -293,4 +317,4 @@ export class MainFace extends Component {
     }
 }
 
-export default MainFace;
+export default FingerPrintMain;
