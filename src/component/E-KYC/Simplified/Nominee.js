@@ -76,7 +76,7 @@ export class Nominee extends Component {
     render() {
         const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange } = this.props;
         //console.log(values.jointArray.isShow);
-        console.log("showHide",this.state.showHide);
+        //console.log("showHide",this.state.showHide);
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
                 <div className="row d-flex justify-content-center">

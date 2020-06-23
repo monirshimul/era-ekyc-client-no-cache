@@ -1,24 +1,18 @@
-import React, { Component } from 'react'
-import { formatDate } from './utils/DateFormat';
-import Family from './images/family.svg';
-import Avater from './images/user-two.svg';
-import front from './images/id-front-three.svg';
+import React, { Component } from 'react';
+import { formatDate } from '../utils/DateFormat';
+import Avater from '../images/user-two.svg';
+import front from '../images/id-front-three.svg';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
-import {simplifiedJointAPI, simplifiedJointAddAPI} from '../Url/ApiList';
+import {simplifiedJointAPI, simplifiedJointAddAPI} from '../../Url/ApiList';
 
-import back from './images/id-back-three.svg';
-import Sign from './images/signature.svg';
-import Familyes from './images/candidates.svg';
-import adult from './images/age-limit-one.svg';
-import child from './images/age-limit-two.svg';
+import back from '../images/id-back-three.svg';
+import Sign from '../images/signature.svg';
+import adult from '../images/age-limit-one.svg';
+import child from '../images/age-limit-two.svg';
 
-
-export class Confirm extends Component {
-
-    state={
-        typeVerification: JSON.parse(localStorage.getItem('VerificationType')) ? JSON.parse(localStorage.getItem('VerificationType')): ''
-    }
+export class JointFingerConfirm extends Component {
+   
 
     continue = async(e) => {
         const { values } = this.props;
@@ -53,7 +47,7 @@ export class Confirm extends Component {
             presentAddress: values.presentAddress,
             permanentAddress: values.permanentAddress,
             permanentAddressBangla: values.permanentAddressBangla,
-            verificationType: 'FACE'
+            verificationType: "FINGER"
         }
 
         let applicantFileInfo ={
@@ -99,12 +93,17 @@ export class Confirm extends Component {
             }
             
         }
+
+        let fingerObj = {
+            rIndex: values.rIndex
+        }
         
         let confirmObj ={
             account:accountInfo ,
             applicant:applicantInfo ,
             applicantFile: applicantFileInfo,
-            nominees:nomineesInfo
+            nominees:nomineesInfo,
+            fingerprint: fingerObj
         }
         console.log("Confirm obj", confirmObj);
 
@@ -130,7 +129,7 @@ export class Confirm extends Component {
          this.props.nextStep();
         
         } catch (err) {
-           console.log(err.response);
+            console.log(err.response);
              let apiError = err.response.data;
              let errorStatus = apiError.statusCode;
              let errorMessage = apiError.message;
@@ -159,7 +158,7 @@ export class Confirm extends Component {
             presentAddress: values.presentAddress,
             permanentAddress: values.permanentAddress,
             permanentAddressBangla: values.permanentAddressBangla,
-            verificationType: 'FACE'
+            verificationType: 'FINGER'
         }
 
         let applicantFileInfo ={
@@ -205,12 +204,17 @@ export class Confirm extends Component {
             }
             
         }
+
+        let fingerObj = {
+            rIndex: values.rIndex
+        }
         
         let confirmObjSecond ={
             accountId:accountIdInfo,
             applicant:applicantInfo,
             applicantFile:applicantFileInfo,
             nominees:nomineesInfo,
+            fingerprint: fingerObj
         }
 
         console.log('SecondApi', confirmObjSecond);
@@ -232,7 +236,7 @@ export class Confirm extends Component {
             NotificationManager.success(respStatus + " " + respMessage, "Success", 5000);
             this.props.nextStep();
         }catch (err){
-            console.log(err.response);
+            console.log(err.response.data);
             let errStatusCode = err.response.data.statusCode;
             let errStatusMessage = err.response.data.message;
             NotificationManager.error(errStatusCode + " " + errStatusMessage, "Error", 5000);
@@ -250,7 +254,7 @@ export class Confirm extends Component {
     }
     render() {
         const { values } = this.props;
-     // console.log(values);
+        console.log("Mehedi");
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
@@ -463,4 +467,4 @@ export class Confirm extends Component {
     }
 }
 
-export default Confirm;
+export default JointFingerConfirm;

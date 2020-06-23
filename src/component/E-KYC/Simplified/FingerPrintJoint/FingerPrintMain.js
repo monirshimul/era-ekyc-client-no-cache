@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import NidImage from '../NidImage';
-import CaptureImage from '../CaptureImage';
+//import CaptureImage from '../CaptureImage';
 import PersonalDetails from '../PersonalDetails';
 import JointFingerPrint from './JointFingerPrint';
 import JointPicture from './JointPicture';
 import Signature from '../Signature';
 import Nominee from '../Nominee';
-import Confirm from '../Confirm';
+import JointFingerConfirm from './JointFingerConfirm';
 import Success from '../Success';
 
 export class FingerPrintMain extends Component {
@@ -296,7 +296,7 @@ export class FingerPrintMain extends Component {
 
             case 7:
                 return (
-                    <Confirm
+                    <JointFingerConfirm
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         values={values}

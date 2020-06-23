@@ -112,13 +112,15 @@ export class DynamicComp extends Component {
 
                 }
 
-                {
-                        this.state.jointArray.length > 1 ? 
+                {   
+                   
+                       this.state.jointArray.length > 1 ? 
                         <div> 
                         <button className="b" style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button>
                         </div>
                         :
                         ""
+                       
                     }
 
                 {!showHide ? (
@@ -163,7 +165,7 @@ export class DynamicComp extends Component {
                             <hr />
                             <div className="row d-flex justify-content-center ">
                                 <div className="col-sm-8 d-flex justify-content-around">
-                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<MainFace />, "FACE")}>
+                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<MainFace />)}>
 
                                         <img
                                             src={adult}
@@ -185,7 +187,7 @@ export class DynamicComp extends Component {
                                         <h4 className="im" style={{ color: "green" }}>Face</h4>
 
                                     </button>
-                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<FingerPrintMain />, "FINGER")}>
+                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<FingerPrintMain />)}>
 
                                         <img
                                             src={child}

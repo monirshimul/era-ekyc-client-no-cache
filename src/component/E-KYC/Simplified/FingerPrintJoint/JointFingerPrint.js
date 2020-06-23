@@ -1,97 +1,98 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 import {fingerValidate} from "../../Url/ApiList";
 import Loading from "../utils/CustomLoding/Loading.js";
 import Finger from "../images/tap.svg";
 import FingerOk from ".././images/fingerprintOk.svg";
-import { NotificationManager } from "react-notifications";
+//import { NotificationManager } from "react-notifications";
 
 export class FingerPrintJoint extends Component {
   handleClick = (e) => {
     e.preventDefault();
 
     // this.setState({ isEnable: true, loading: !this.state.loading });
-    this.props.handelState('isEnableFinger', true);
-    this.props.handelState('loadingPrint', true);
+    this.props.handleState('isEnableFinger', true);
+    this.props.handleState('loadingPrint', true);
     const config = {
       headers: {
         "x-auth-token": sessionStorage.getItem("x-auth-token"),
       },
     };
 
-    // const fingerobj = {
-    //   MinQ: 30,
-    //   Retry: 3,
-    //   TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
-    // };
+    const fingerobj = {
+      MinQ: 30,
+      Retry: 3,
+      TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
+    };
 
-    // axios
-    //   .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
-    //   .then((res) => {
-    //     //  console.log(res);
-    //     const data = res.data;
-    //     let rightThumb = data[0].fingerData;
-    //     let rightIndex = data[1].fingerData;
-    //     let leftThumb = data[2].fingerData;
-    //     let leftIndex = data[3].fingerData;
+    axios
+      .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
+      .then((res) => {
+        //  console.log(res);
+        const data = res.data;
+        let rightThumb = data[0].fingerData;
+        let rightIndex = data[1].fingerData;
+        let leftThumb = data[2].fingerData;
+        let leftIndex = data[3].fingerData;
 
-    //     if (data[0].fingerId === 1) {
-    //       this.props.handelState('rThumb', rightThumb);
-    //     } else {
-    //       alert("data not found!!");
-    //     }
-    //     if (data[1].fingerId === 2) {
-    //      this.props.handelState('rIndex', rightIndex);
-    //     } else {
-    //       alert("data not found!!");
-    //     }
-    //     if (data[2].fingerId === 6) {
+        if (data[0].fingerId === 1) {
+          this.props.handleState('rThumb', rightThumb);
+        } else {
+          alert("data not found!!");
+        }
+        if (data[1].fingerId === 2) {
+         this.props.handleState('rIndex', rightIndex);
+        } else {
+          alert("data not found!!");
+        }
+        if (data[2].fingerId === 6) {
     
-    //      this.props.handelState('lThumb', leftThumb);
-    //     } else {
-    //       alert("data not found!!");
-    //     }
-    //     if (data[3].fingerId === 7) {
+         this.props.handleState('lThumb', leftThumb);
+        } else {
+          alert("data not found!!");
+        }
+        if (data[3].fingerId === 7) {
     
-    //         this.props.handelState('lIndex', leftIndex);
-    //     } else {
-    //       alert("data not found!!");
-    //     }
+            this.props.handleState('lIndex', leftIndex);
+        } else {
+          alert("data not found!!");
+        }
 
-    //     this.setState({
-    //       isEnable: false,
-    //       loading: !this.state.loading,
-    //     });
-    //    this.props.handelState('isEnableFinger', false);
-    //   this.props.handelState('isEnableFinger', false);
-    //   })
-    //   .catch((err) => {
-    //     if (err.response) {
-    //       if (err.response.status === 400 || err.response.status === 401) {
-    //         console.log(err.response.data);
-    //         alert(err.response.data.message);
-    //          this.props.handelState('isEnableFinger', false);
-    //       } else if (err.response.status === 404) {
-    //         alert("Not Found");
-    //          this.props.handelState('isEnableFinger', false);
-    //       } else if (err.response.status === 500) {
-    //         alert(err.response.data.message);
-    //          this.props.handelState('isEnableFinger', false);
-    //       }
-    //     } else if (err.request) {
-    //       console.log(err.request);
-    //       alert("Error Connectiong");
-    //        this.props.handelState('isEnableFinger', false);
-    //     } else {
-    //       console.log("Error", err.message);
-    //       alert(err.message);
-    //        this.props.handelState('isEnableFinger', false);
-    //     }
-    //   });
+        // this.setState({
+        //   isEnable: false,
+        //   loading: !this.state.loading,
+        // });
+       this.props.handleState('isEnableFinger', false);
+      this.props.handleState('loadingPrint', false);
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.status === 400 || err.response.status === 401) {
+            console.log(err.response.data);
+            alert(err.response.data.message);
+             this.props.handleState('isEnableFinger', false);
+          } else if (err.response.status === 404) {
+            alert("Not Found");
+             this.props.handleState('isEnableFinger', false);
+          } else if (err.response.status === 500) {
+            alert(err.response.data.message);
+             this.props.handleState('isEnableFinger', false);
+          }
+        } else if (err.request) {
+          console.log(err.request);
+          alert("Error Connectiong");
+           this.props.handleState('isEnableFinger', false);
+        } else {
+          console.log("Error", err.message);
+          alert(err.message);
+           this.props.handleState('isEnableFinger', false);
+        }
+      });
   };
 
   continue = async(e) => {
     e.preventDefault();
-    const { nid, dob, rThumb, rIndex, lThumb, lIndex, verifyToken } = this.props.values;
+    const { nid, dob, rThumb, rIndex, lThumb, lIndex} = this.props.values;
 
     
     const config = {
@@ -110,28 +111,29 @@ export class FingerPrintJoint extends Component {
     };
     this.props.nextStep();
 
-    // try {
+    try {
       
 
-    //   //console.log("Token",obj)
+      //console.log("Token",obj)
   
-    //   let fingerRes = await axios.post(fingerValidate, obj, config)
-    //   //console.log("fingerRes",fingerRes.data.data.verificationToken)
+      let fingerRes = await axios.post(fingerValidate, obj, config)
+      console.log("fingerRes",fingerRes.data.data.verificationToken)
     
-     //     this.props.handelState('verifyToken',fingerRes.data.data.verificationToken);
+         this.props.handleState('verifyToken',fingerRes.data.data.verificationToken);
+
       
     
     
-    //   // if(verifyToken){
+      // if(verifyToken){
         
         
-    //   // }else{
-    //   //   NotificationManager.error("Please Provide Finger","Error",5000)
-    //   // }
+      // }else{
+      //   NotificationManager.error("Please Provide Finger","Error",5000)
+      // }
       
-    // } catch (error) {
-    //   console.log(error.response)
-    // }
+    } catch (error) {
+      console.log(error.response)
+    }
     
   };
 
