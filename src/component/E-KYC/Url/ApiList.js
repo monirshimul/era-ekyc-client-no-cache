@@ -45,6 +45,7 @@ export const confirmApi = hostIp +`ekyc/simplified`;
 //e-kyc api
 export const ekycWithFilter = hostIp +`ekyc/get/`;
 export const ekycFullProfile = hostIp +`ekyc/full/get`;
+export const ekycForUser = hostIp +`ekyc/user/get/`;
 //API for JOINT Account
 export const simplifiedJointAPI = hostIp + `ekyc/simplified/joint`;
 export const simplifiedJointAddAPI = hostIp + `ekyc/simplified/joint/add`;

@@ -97,6 +97,8 @@ export class JointFingerConfirm extends Component {
         let fingerObj = {
             rIndex: values.rIndex
         }
+
+        console.log("Finger Obj===========>", fingerObj)
         
         let confirmObj ={
             account:accountInfo ,
@@ -122,18 +124,19 @@ export class JointFingerConfirm extends Component {
          let data = responseFirst.data;
          let statusCode= data.statusCode;
          let successMessage = data.message;
-         NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+         
          let resAccountId=  responseFirst.data.data.accountId;
          this.props.handleState('applicantEkycId', resAccountId);
          localStorage.setItem("accountId", JSON.stringify(resAccountId));
+         NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
          this.props.nextStep();
         
         } catch (err) {
-            console.log(err.response);
-             let apiError = err.response.data;
-             let errorStatus = apiError.statusCode;
-             let errorMessage = apiError.message;
-            NotificationManager.error(errorStatus + " " + errorMessage, "Error", 5000);
+            console.log(err);
+            //  let apiError = err.response.data;
+            //  let errorStatus = apiError.statusCode;
+            //  let errorMessage = apiError.message;
+            // NotificationManager.error(errorStatus + " " + errorMessage, "Error", 5000);
         }
 
     }

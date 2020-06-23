@@ -112,6 +112,7 @@ export class Confirm extends Component {
 
             }
         };
+        console.log(config)
 
         try{
 

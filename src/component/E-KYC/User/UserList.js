@@ -70,7 +70,7 @@ export class UserList extends Component {
     //         }
 
     //     };
-        
+
     //     if (prevState.deleteToggle !== this.state.deleteToggle) {
     //         try {
     //             // API called name getAllUser here no status need... page used for pagination
@@ -80,12 +80,12 @@ export class UserList extends Component {
     //             let numberOfPages = divide1.totalPages;
     //             let numberOfUsers = divide1.totalUsers;
     //             let divide2 = divide1.users;
-    
-    
+
+
     //             let res = await axios.get(getProfile, token);
     //             let profileData = res.data.data;
     //             //console.log("profileData", profileData.userImage)
-    
+
     //             this.setState({
     //                 totalPages: numberOfPages,
     //                 totalUsers: numberOfUsers,
@@ -96,7 +96,7 @@ export class UserList extends Component {
     //         } catch (err) {
     //             console.log(err.response.data);
     //         }  
-    
+
     //     }
     //     else {
     //         return false
@@ -122,7 +122,7 @@ export class UserList extends Component {
             let statusCode = err.statusCode;
             let message = "Wrong Search"
             //alert(statusCode + ' ' + message);
-            this.setState({search:''});
+            this.setState({ search: '' });
             NotificationManager.error(message, "Error", 5000);
         }
 
@@ -230,7 +230,7 @@ export class UserList extends Component {
             //console.log("pendingDetails", pendingDetails.map(v=>v.roles.map(c=>c.grantedIPList === null)))
             this.setState({ details: pendingDetails });
         } catch (e) {
-            console.log("Error",e.response);
+            console.log("Error", e.response);
         }
 
     }
@@ -249,7 +249,7 @@ export class UserList extends Component {
         try {
             let delUser = await axios.put(userDeleteAPI, deleteObj);
             this.setState({
-                deleteToggle:!this.state.deleteToggle
+                deleteToggle: !this.state.deleteToggle
             })
             console.log(delUser.data);
             let statusCode = delUser.data.statusCode;
@@ -286,27 +286,74 @@ export class UserList extends Component {
         return (
             <div className="container">
                 {/* Search bar  */}
-                <div className="row d-flex justify-content-center">
-                <div className='form-group col-md-3' style={{ display: "inline", float: "right" }}>
+                {/* <div className="row d-flex justify-content-center">
+                    <div className='form-group col-md-3' style={{ display: "inline", float: "right" }}>
 
-<input type="text" value={this.state.search} placeholder="Search by UserId" name="search" autoComplete="off" onChange={this.handleSearch} />
-<button onClick={this.submitSearch} type="submit"><i className="fa fa-search"></i></button>
+                        <input type="text" value={this.state.search} placeholder="Search by UserId" name="search" autoComplete="off" onChange={this.handleSearch} />
+                        <button onClick={this.submitSearch} type="submit"><i className="fa fa-search"></i></button>
 
 
-</div>
-{
-this.state.searchFlag ?
-    <div>
-        <button className="btn btn-primary" onClick={this.onBack}><i class="fas fa-arrow-alt-circle-left"></i> Back</button>
-    </div>
-    :
-    // <h1>Back</h1>
-    ""
-}
-<br />
-                </div>
+                    </div>
+                    {
+                        this.state.searchFlag ?
+                            <div>
+                                <button className="btn btn-primary" onClick={this.onBack}><i class="fas fa-arrow-alt-circle-left"></i> Back</button>
+                            </div>
+                            :
+                            // <h1>Back</h1>
+                            ""
+                    }
+                    <br />
+                </div> */}
 
-                
+                {/* <div className="row">
+                    <div className="imTwoWhite col-sm-12" style={{ padding: "25px" }}>
+                        <div className="im">
+                            <h5 className="text-muted text-center pt-2">
+                                <i class="fas fa-search"></i> Search E-KYC
+                        </h5>
+                        </div>
+                        <div className="card-body d-flex justify-content-center">
+                            <form className="col-sm-8">
+                                <div className="form-group " >
+                                    <label htmlFor=""></label>
+                                    <input style={{ borderRadius: "50px" }} onChange={this.searchHandle} name="search" value={search} type="text" className="form-control" placeholder="Search by E-kyc Id / Nid / Name" />
+                                    <small className="text-muted pl-2">
+                                        <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
+                            </small>
+                                </div>
+                                <div className="form-group d-flex justify-content-center">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="id" />
+                                            Search By e-kyc id
+                                        </label>
+                                    </div>&nbsp;&nbsp;&nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="nid" />
+                                            Search By Nid
+                                        </label>
+                                    </div>&nbsp;&nbsp;&nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="name" />
+                                            Search By Name
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <div className="d-flex justify-content-center pt-2" >
+                                    <button className="b" onClick={this.doSearch} style={{ outline: "none" }} ><i class="fas fa-search"></i> Search</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div> */}
+
+
 
 
 

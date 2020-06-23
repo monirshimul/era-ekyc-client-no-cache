@@ -26,6 +26,7 @@ import GetProfile from './E-KYC/Profile/GetProfile';
 
 //Ekyc List and Search
 import EkycListSearch from './E-KYC/ekyc-list/EkycListSearch'
+import EkycListUser from './E-KYC/ekyc-list/EkycListUser'
 
 
 // //EKYC Simplified
@@ -291,6 +292,43 @@ export const allRoutes = [
                     "component": <Target />
                 }
 
+            },
+            {
+                items: {
+                    "key": "4.2",
+                    'isShowing': true,
+                    "featureName": "TP Setting",
+                    "path": "/tp-setting",
+                    "exact": true,
+                    "component": <Target />
+                },
+                nested: [
+                    {
+                        items: {
+                            "key": "4.2.1",
+                            'isShowing': true,
+                            "featureName": "Create TP",
+                            "path": "/create-tp",
+                            "exact": true,
+                            "component": <Target />
+                        }
+
+                    },
+                    {
+                        items: {
+                            "key": "4.2.2",
+                            'isShowing': true,
+                            "featureName": "List TP",
+                            "path": "/list-tp",
+                            "exact": true,
+                            "component": <Vission />
+                        }
+
+                    }
+                    
+
+                ]
+
             }
 
 
@@ -411,7 +449,7 @@ export const allRoutes = [
                     "featureName": "List For User",
                     "path": "/e-kyc-list-for-user",
                     "exact": true,
-                    "component": <Target />
+                    "component": <EkycListUser />
                 },
 
             }
@@ -464,6 +502,61 @@ export const allRoutes = [
             }
 
 
+        ]
+    },
+    {
+        items: {
+            "key": "7",
+            'isShowing': true,
+            "featureName": "Product",
+            "className": "fas fa-blog",
+            "path": "/blogs",
+            "exact": true,
+            "component": <Blogs />
+        },
+        nested: [
+            {
+                items: {
+                    "key": "7.1",
+                    'isShowing': true,
+                    "featureName": "Create Product",
+                    "path": "/create-product",
+                    "exact": true,
+                    "component": <Target />
+                }
+            },
+            {
+                items: {
+                    "key": "7.2",
+                    'isShowing': true,
+                    "featureName": "Product List",
+                    "path": "/product-list",
+                    "exact": true,
+                    "component": <Target />
+                }
+            },
+            {
+                items: {
+                    "key": "7.3",
+                    'isShowing': false,
+                    "featureName": "Product Update",
+                    "path": "/product-update",
+                    "exact": true,
+                    "component": <Target />
+                }
+            },
+            {
+                items: {
+                    "key": "7.4",
+                    'isShowing': false,
+                    "featureName": "Product Delete",
+                    "path": "/product-delete",
+                    "exact": true,
+                    "component": <Target />
+                }
+               
+
+            }
         ]
     }
 

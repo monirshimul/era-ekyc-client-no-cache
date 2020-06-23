@@ -107,7 +107,7 @@ class CreateRole extends Component {
 
 
         return (
-            <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
+            <div className="card col-sm-10" style={{ paddingTop: "25px" }}>
                 {
 
                     rolePrivileges.map(v => console.log("Create Role", v))

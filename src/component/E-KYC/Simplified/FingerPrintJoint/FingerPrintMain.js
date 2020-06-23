@@ -299,6 +299,7 @@ export class FingerPrintMain extends Component {
                     <JointFingerConfirm
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
+                        handleState={this.handleState}
                         values={values}
                     />
                 )

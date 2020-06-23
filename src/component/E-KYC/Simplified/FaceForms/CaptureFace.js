@@ -57,8 +57,8 @@ export class CaptureFace extends Component {
       }
 
       let resValidation = await axios.post(faceValidate, imgData, token);
-      console.log("resValidation", resValidation.data.data.faceVerificationResult)
-      console.log("ver-token", resValidation.data.data.verificationToken)
+      //console.log("resValidation", resValidation.data.data.faceVerificationResult)
+      //console.log("ver-token", resValidation.data.data.verificationToken)
       if (resValidation.data.data.faceVerificationResult.status) {
 
       }
