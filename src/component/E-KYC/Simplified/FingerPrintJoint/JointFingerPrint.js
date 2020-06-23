@@ -165,7 +165,7 @@ export class FingerPrintJoint extends Component {
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                placeholder="Enter Applicant's Name"
+                placeholder="Enter NID NO"
               />
             </div>
             <div className="form-group">

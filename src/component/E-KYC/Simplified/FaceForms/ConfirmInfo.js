@@ -82,7 +82,7 @@ export class ConfirmInfo extends Component {
 
         let applicantFileInfo = {
             nidFront: nidImagesData.NidFront,
-            nidBack: nidImagesData.NidFront,
+            nidBack: nidImagesData.NidBack,
             photo: captureFaceData.faceImage,
             signature: signatureData.signature
         }

@@ -16,9 +16,6 @@ import child from './images/age-limit-two.svg';
 
 export class Confirm extends Component {
 
-    state={
-        typeVerification: JSON.parse(localStorage.getItem('VerificationType')) ? JSON.parse(localStorage.getItem('VerificationType')): ''
-    }
 
     continue = async(e) => {
         const { values } = this.props;

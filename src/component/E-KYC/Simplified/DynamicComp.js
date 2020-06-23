@@ -4,7 +4,7 @@ import MainFace from '../Simplified/MainFace';
 //import NidImages from './FaceForms/NidImages';
 //import Finger from '../Simplified/FingerMultiForm/Finger';
 import FingerPrintMain from './FingerPrintJoint/FingerPrintMain';
-import { simplifiedJointConfirmAPI} from '../Url/ApiList';
+import { simplifiedJointConfirmAPI } from '../Url/ApiList';
 import { withRouter } from 'react-router-dom';
 import './utils/Common.css'
 import adult from './images/face-scan.svg'
@@ -20,10 +20,10 @@ export class DynamicComp extends Component {
         accountId: '',
     }
 
-    complete =async(e) =>{
+    complete = async (e) => {
         e.preventDefault();
         this.setState({
-            accountId:JSON.parse(localStorage.getItem('accountId'))
+            accountId: JSON.parse(localStorage.getItem('accountId'))
         })
 
         const config = {
@@ -32,25 +32,32 @@ export class DynamicComp extends Component {
             }
         };
 
-        let obj ={
-            accountId: this.state.accountId
+
+        if (this.state.accountId !== '') {
+
+            let obj = {
+                accountId: this.state.accountId
+            }
+
+            try {
+                let completeApi = await axios.post(simplifiedJointConfirmAPI, obj, config);
+                // console.log(completeApi.data);
+                let statusCode = completeApi.data.statusCode;
+                let successMessage = completeApi.data.message;
+                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                localStorage.clear();
+                this.props.history.push('/dashboard');
+            } catch (err) {
+                //console.log(err.response.data);
+                let ErrorStatus = err.response.data.statusCode;
+                let ErrorMessage = err.response.data.message;
+                NotificationManager.error(ErrorStatus + " " + ErrorMessage, "Error", 5000);
+            }
+        }else{
+            NotificationManager.warning("Please again press Complete Button", "Warning", 5000);
+            return;
         }
 
-        try{
-        let completeApi = await axios.post(simplifiedJointConfirmAPI,obj,config);
-       // console.log(completeApi.data);
-        let statusCode = completeApi.data.statusCode;
-        let successMessage = completeApi.data.message;
-        NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-        localStorage.clear();
-        this.props.history.push('/dashboard');
-    }catch (err){
-        //console.log(err.response.data);
-        let ErrorStatus = err.response.data.statusCode;
-        let ErrorMessage = err.response.data.message;
-        NotificationManager.error(ErrorStatus + " " + ErrorMessage, "Error", 5000);
-    }
-        
     }
 
 
@@ -63,8 +70,8 @@ export class DynamicComp extends Component {
         })
     }
 
-    addComp = (val,verType) => {
-        localStorage.setItem("VerificationType", JSON.stringify(verType));
+    addComp = (val) => {
+
         const copyArray = Object.assign([], this.state.jointArray);
         copyArray.push({
             comp: val
@@ -112,16 +119,16 @@ export class DynamicComp extends Component {
 
                 }
 
-                {   
-                   
-                       this.state.jointArray.length > 1 ? 
-                        <div> 
-                        <button className="b" style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button>
+                {
+
+                    this.state.jointArray.length > 1 ?
+                        <div>
+                            <button className="b" style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button>
                         </div>
                         :
                         ""
-                       
-                    }
+
+                }
 
                 {!showHide ? (
                     <div>
@@ -148,13 +155,13 @@ export class DynamicComp extends Component {
                             </div>
                         </div>
                         <hr />
-                        
+
                     </div>
-                    
+
 
                 ) : ""}
 
-                  
+
 
 
 
