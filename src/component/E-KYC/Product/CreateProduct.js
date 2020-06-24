@@ -114,8 +114,8 @@ class CreateProduct extends Component {
                                 name="productCategory"
                             >
                                 <option value='' disabled>--Select Category--</option>
-                                <option value='SO'>Savings Account</option>
-                                <option value='CO'>Current Account</option>
+                                <option value='S0'>Savings Account</option>
+                                <option value='C0'>Current Account</option>
                                 <option value='TD'>Term Deposit</option>
                                 <option value='RD'>Recurring Deposit</option>
 

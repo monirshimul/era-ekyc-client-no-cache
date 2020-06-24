@@ -32,6 +32,11 @@ import GetProfile from './E-KYC/Profile/GetProfile';
 import EkycListSearch from './E-KYC/ekyc-list/EkycListSearch'
 import EkycListUser from './E-KYC/ekyc-list/EkycListUser'
 
+// Transaction Profile
+import CreateTP from './E-KYC/TP/CreateTP';
+import  TPList  from './E-KYC/TP/TPList';
+import UpdateTP from './E-KYC/TP/UpdateTP';
+
 
 
 // //EKYC Simplified
@@ -315,7 +320,7 @@ export const allRoutes = [
                             "featureName": "Create TP",
                             "path": "/create-tp",
                             "exact": true,
-                            "component": <Target />
+                            "component": <CreateTP />
                         }
 
                     },
@@ -325,6 +330,28 @@ export const allRoutes = [
                             'isShowing': true,
                             "featureName": "List TP",
                             "path": "/list-tp",
+                            "exact": true,
+                            "component": <TPList />
+                        }
+
+                    },
+                    {
+                        items: {
+                            "key": "4.2.3",
+                            'isShowing': false,
+                            "featureName": "Update TP",
+                            "path": "/update-tp",
+                            "exact": true,
+                            "component": <UpdateTP/>
+                        }
+
+                    },
+                    {
+                        items: {
+                            "key": "4.2.4",
+                            'isShowing': false,
+                            "featureName": "Delete TP",
+                            "path": "/delete-tp",
                             "exact": true,
                             "component": <Vission />
                         }

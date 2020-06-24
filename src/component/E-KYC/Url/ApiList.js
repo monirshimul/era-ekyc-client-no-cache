@@ -55,3 +55,11 @@ export const simplifiedJointConfirmAPI = hostIp + `ekyc/simplified/joint/confirm
 export const createProduct = hostIp +`product`;
 export const deleteProduct = hostIp +`product`;
 export const getProduct = hostIp +`product/get`;
+
+
+// Transaction Profile
+export const createTPAPI = hostIp + `tp`;
+export const getTPAPI = hostIp + `tp/get`;
+export const updateTPAPI = hostIp + `tp`;
+export const deleteTPAPI = hostIp + `tp`;
+

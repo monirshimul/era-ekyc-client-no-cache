@@ -31,7 +31,7 @@ class UpdateUser extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     async componentDidMount() {
-    //    console.log(this.props.location.state);
+       //console.log(this.props.location.state);
         let getId = this.props.location.state;
         let arr = [];
         //Update user api
