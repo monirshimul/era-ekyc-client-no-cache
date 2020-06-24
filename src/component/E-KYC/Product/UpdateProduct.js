@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { createProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 
-class CreateProduct extends Component {
+class UpdateProduct extends Component {
 
     state = {
-        
+        id:"",
         productName: "",
         productCode: '',
         productCategory: '',
@@ -16,6 +16,27 @@ class CreateProduct extends Component {
 
     }
 
+    componentDidMount(){
+       
+        
+        if(this.props.history.location.state === undefined){
+            return ''
+        }else{
+            let data = this.props.history.location.state.data
+            console.log("In the mount",data)
+            this.setState({
+
+                id: parseInt(data.map(v=>v.id)),
+                productName: data.map(v=>v.name).toString(),
+                productCode: data.map(v=>v.code).toString(),
+                productCategory: data.map(v=>v.categoryCode).toString(),
+                status: data.map(v=>v.status).toString(),
+                description: data.map(v=>v.description).toString()
+
+            })
+        }
+        
+    }
 
     onChange = e => {
         e.preventDefault();
@@ -24,7 +45,7 @@ class CreateProduct extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { productName, description, productCode, productCategory, status } = this.state;
+        const { productName, description, productCode, productCategory, status, id } = this.state;
 
         if (productName === '') {
             let productNameMessage = "Please provide Product Name";
@@ -63,6 +84,7 @@ class CreateProduct extends Component {
         };
 
         let obj = {
+            id: id,
             name: productName,
             code: productCode,
             categoryCode: productCategory,
@@ -70,11 +92,13 @@ class CreateProduct extends Component {
             description: description
         }
 
+        console.log("update data", obj)
+
         try {
 
-            let productCreateRes = await axios.post(createProduct, obj, token);
-            console.log("productCreateRes", productCreateRes)
-            NotificationManager.success("Product Successfully Created", "Success", 5000);
+            let productUpdateRes = await axios.put(createProduct, obj, token);
+            console.log("productCreateRes", productUpdateRes)
+            NotificationManager.success("Product Successfully Updated", "Success", 5000);
             localStorage.setItem("productInfo", JSON.stringify(obj));
             this.props.history.replace('/dashboard/product-list');
 
@@ -99,7 +123,9 @@ class CreateProduct extends Component {
 
                 <div className="card-header divBg">
 
-                    <h3 className="text-center pt-3">Create Product</h3>
+                    <h3 className="text-center pt-3">
+                        Update Product
+                    </h3>
 
                 </div>
                 <div className="card-body">
@@ -114,8 +140,8 @@ class CreateProduct extends Component {
                                 name="productCategory"
                             >
                                 <option value='' disabled>--Select Category--</option>
-                                <option value='SO'>Savings Account</option>
-                                <option value='CO'>Current Account</option>
+                                <option value='SA'>Savings Account</option>
+                                <option value='CA'>Current Account</option>
                                 <option value='TD'>Term Deposit</option>
                                 <option value='RD'>Recurring Deposit</option>
 
@@ -162,8 +188,12 @@ class CreateProduct extends Component {
 
 
                         <div className="d-flex justify-content-center" >
-
-                            <button className="b" type="submit" style={{ border: "none" }} >Create</button>
+                            
+                                
+                                    <button className="b" type="submit" style={{ border: "none" }} >Update</button>
+                                
+                            
+                            
 
                         </div>
 
@@ -177,4 +207,4 @@ class CreateProduct extends Component {
     }
 }
 
-export default withRouter(CreateProduct)
+export default withRouter(UpdateProduct)

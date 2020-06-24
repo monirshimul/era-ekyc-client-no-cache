@@ -203,7 +203,7 @@ class Dashboard extends Component {
                                                                                                         nest.nested.map((deepNest, index) => (
                                                                                                             <div key={index}>
                                                                                                                 {
-                                                                                                                    deepNest !== undefined ? (
+                                                                                                                    deepNest !== undefined && deepNest.items.isShowing === true ? (
                                                                                                                         <li>
                                                                                                                             {/* Second Nested menu */}
                                                                                                                             <Link to={`${url}${deepNest.items.path}`}>{deepNest.items.featureName} {deepNest.nested ? <i className="fas fa-angle-right" style={{ marginTop: "3px" }}></i> : ""}</Link>

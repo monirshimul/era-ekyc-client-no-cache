@@ -22,6 +22,7 @@ import UpdateUser from './E-KYC/User/UpdateUser';
 // Product
  import CreateProduct from './E-KYC/Product/CreateProduct';
  import GetProduct from './E-KYC/Product/GetProduct';
+ import UpdateProduct from './E-KYC/Product/UpdateProduct';
 
 //Profile Management
 import ChangePassword from './E-KYC/Profile/ChangePass';
@@ -30,6 +31,7 @@ import GetProfile from './E-KYC/Profile/GetProfile';
 //Ekyc List and Search
 import EkycListSearch from './E-KYC/ekyc-list/EkycListSearch'
 import EkycListUser from './E-KYC/ekyc-list/EkycListUser'
+
 
 
 // //EKYC Simplified
@@ -327,6 +329,28 @@ export const allRoutes = [
                             "component": <Vission />
                         }
 
+                    },
+                    {
+                        items: {
+                            "key": "4.2.3",
+                            'isShowing': false,
+                            "featureName": "Update TP",
+                            "path": "/update-tp",
+                            "exact": true,
+                            "component": <Target />
+                        }
+
+                    },
+                    {
+                        items: {
+                            "key": "4.2.4",
+                            'isShowing': false,
+                            "featureName": "Delete TP",
+                            "path": "/delete-tp",
+                            "exact": true,
+                            "component": <Vission />
+                        }
+
                     }
                     
 
@@ -545,7 +569,7 @@ export const allRoutes = [
                     "featureName": "Product Update",
                     "path": "/product-update",
                     "exact": true,
-                    "component": <Target />
+                    "component": <UpdateProduct />
                 }
             },
             {

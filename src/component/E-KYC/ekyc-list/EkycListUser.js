@@ -231,7 +231,7 @@ class EkycListUser extends Component {
                     <div className="imTwoWhite col-sm-12">
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-list-ul"></i> E-kyc List
+                                <i class="fas fa-list-ul"></i> E-kyc List User
                         </h5>
                         </div>
                         <div className="imTwoGray mt-2">

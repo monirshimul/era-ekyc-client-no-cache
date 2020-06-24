@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import { getProduct } from '../Url/ApiList';
+import { getProduct, createProduct, deleteProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 
 class GetProduct extends Component {
@@ -27,6 +27,66 @@ class GetProduct extends Component {
         }
     }
 
+    onUpdate = async(id)=>{
+        let {productData} = this.state
+        
+        let token = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+        
+
+        let idObj = {
+            id:id
+        }
+    
+
+        try {
+            let updateRes = await axios.post(getProduct, idObj, token)
+            console.log('updateRes', updateRes.data.data)
+            let updateData = {
+                data: updateRes.data.data
+            }
+            console.log(updateData)
+            this.props.history.push('/dashboard/product-update', updateData);
+        } catch (error) {
+            console.log("Error====>", error)
+        }
+    }
+
+
+    onDelete = async (id)=>{
+        let token = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+        
+            
+        
+       
+        try {
+            let deleteRes = await axios.delete(deleteProduct, {
+                headers: {
+                  'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+                },
+                data: {
+                  id: id
+                }
+              })
+            console.log('updateRes', deleteRes)
+            NotificationManager.warning("Product Deleted", "Warning", 5000);
+            let getProductRes = await axios.post(getProduct, null ,token)
+            this.setState({
+                productData: getProductRes.data.data
+            })
+
+        } catch (error) {
+            console.log("Error===>",error.response)
+        }
+    }
+
     render() {
         let { productData } = this.state
         return (
@@ -47,7 +107,7 @@ class GetProduct extends Component {
 
                                         </div>
                                         <hr />
-                                        <div className="" style={{ fontSize: "16px" }}>
+                                        <div className="neoBg" style={{ fontSize: "16px" }}>
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>ID : </span>{data.id}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Status : </span>{data.status}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Code : </span>{data.code}</small><br />
@@ -62,8 +122,8 @@ class GetProduct extends Component {
 
                                         <hr />
                                         <div className="row d-flex justify-content-around">
-                                            <button className="neoBtnSmall" style={{ color: "#308f8f" }} >Update</button>
-                                            <button className="neoBtnSmall" style={{ color: "#d3830a" }} >Delete</button>
+                                            <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={()=>this.onUpdate(data.id)} >Update</button>
+                                            <button className="neoBtnSmall" style={{ color: "#d3830a" }} onClick={()=>this.onDelete(parseInt(data.id))}>Delete</button>
 
                                         </div>
 
@@ -81,4 +141,4 @@ class GetProduct extends Component {
     }
 }
 
-export default GetProduct
+export default withRouter(GetProduct) 
