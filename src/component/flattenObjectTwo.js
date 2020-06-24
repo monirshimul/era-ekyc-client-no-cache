@@ -19,6 +19,8 @@ import CreateUser from './E-KYC/User/CreateUser';
 import UserList from './E-KYC/User/UserList';
 import UserApproval from './E-KYC/User/UserApproval';
 import UpdateUser from './E-KYC/User/UpdateUser';
+// Product
+ import CreateProduct from './E-KYC/Product/CreateProduct';
 
 //Profile Management
 import ChangePassword from './E-KYC/Profile/ChangePass';
@@ -276,7 +278,7 @@ export const allRoutes = [
             "key": "4",
             'isShowing': true,
             "featureName": "Setting",
-            "className": "fas fa-project-diagram",
+            "className": "fas fa-tools",
             "path": "/portfolio",
             "exact": true,
             "component": <Portfolio />
@@ -341,7 +343,7 @@ export const allRoutes = [
             "key": "5",
             'isShowing': true,
             "featureName": "E-KYC",
-            "className": "fas fa-blog",
+            "className": "fas fa-book-reader",
             "path": "/blogs",
             "exact": true,
             "component": <Blogs />
@@ -509,7 +511,7 @@ export const allRoutes = [
             "key": "7",
             'isShowing': true,
             "featureName": "Product",
-            "className": "fas fa-blog",
+            "className": "fas fa-microchip",
             "path": "/blogs",
             "exact": true,
             "component": <Blogs />
@@ -522,7 +524,7 @@ export const allRoutes = [
                     "featureName": "Create Product",
                     "path": "/create-product",
                     "exact": true,
-                    "component": <Target />
+                    "component": <CreateProduct />
                 }
             },
             {

@@ -19,8 +19,7 @@ class EkycListUser extends Component {
         const token = {
             headers: {
               'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-      
+            }     
           };
           
         
