@@ -53,3 +53,4 @@ export const simplifiedJointConfirmAPI = hostIp + `ekyc/simplified/joint/confirm
 
 // product Api 
 export const createProduct = hostIp +`product`;
+export const getProduct = hostIp +`product/get`;

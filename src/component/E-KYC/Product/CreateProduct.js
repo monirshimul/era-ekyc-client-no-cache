@@ -10,9 +10,9 @@ class CreateProduct extends Component {
 
         productName: "",
         productCode: '',
-        productCategory:'',
-        status:"",
-        description:""
+        productCategory: '',
+        status: "",
+        description: ""
 
     }
 
@@ -23,33 +23,33 @@ class CreateProduct extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const {productName, description, productCode, productCategory, status } = this.state;
+        const { productName, description, productCode, productCategory, status } = this.state;
 
-        if(productName === ''){
+        if (productName === '') {
             let productNameMessage = "Please provide Product Name";
             NotificationManager.error(productNameMessage, "Error", 5000);
             return;
         }
 
-        if(productCode === ''){
+        if (productCode === '') {
             let productCodeMessage = 'Please provide Product Code';
             NotificationManager.error(productCodeMessage, "Error", 5000);
             return;
         }
 
-        if(productCategory === ''){
+        if (productCategory === '') {
             let productCategoryMessage = 'Please provide Product Category';
             NotificationManager.error(productCategoryMessage, "Error", 5000);
             return;
         }
 
-        if(status === ''){
+        if (status === '') {
             let productStatusMessage = 'Please select Product status';
             NotificationManager.error(productStatusMessage, "Error", 5000);
             return;
         }
 
-        if(description === ''){
+        if (description === '') {
             let productDescriptionMessage = 'Please provide Product Description';
             NotificationManager.error(productDescriptionMessage, "Error", 5000);
             return;
@@ -57,40 +57,41 @@ class CreateProduct extends Component {
 
         let token = {
             headers: {
-              'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }     
-          };
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
 
         let obj = {
             name: productName,
             code: productCode,
-            categoryCode: productCategory, 
-            status: status,  
+            categoryCode: productCategory,
+            status: status,
             description: description
         }
 
-          try {
+        try {
 
-              let productCreateRes = await axios.post(createProduct, obj, token);
-              console.log("productCreateRes", productCreateRes)
-              //localStorage.setItem("productInfo", JSON.stringify(obj));
+            let productCreateRes = await axios.post(createProduct, obj, token);
+            console.log("productCreateRes", productCreateRes)
+            NotificationManager.success("Product Successfully Created", "Success", 5000);
+            //localStorage.setItem("productInfo", JSON.stringify(obj));
 
-          } catch (error) {
-              console.log("Error====>", error.response)
-          }
+        } catch (error) {
+            console.log("Error====>", error.response)
+        }
 
-        
 
-        
 
-        
+
+
+
         // this.props.history.push('/dashboard/face-account');
-        
+
     }
 
 
     render() {
-        let{productName, description, productCode, productCategory, status} = this.state
+        let { productName, description, productCode, productCategory, status } = this.state
         return (
             <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
 
@@ -101,19 +102,6 @@ class CreateProduct extends Component {
                 </div>
                 <div className="card-body">
                     <form onSubmit={this.onSubmit}>
-                        
-
-                        <div className="form-group">
-                            <label htmlFor="" className="text-muted"><i class="fas fa-file-signature"></i> Product Name</label>
-                            <input name="productName" type="text" value={productName} onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Name" />
-                        </div>
-
-
-                        <div className="form-group">
-                            <label htmlFor="" className="text-muted"><i class="fas fa-file-signature"></i> Product Code</label>
-                            <input name="productCode" type="text" value={productCode} onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Code" />
-                        </div>
-
 
                         <div className='form-group'>
                             <label htmlFor="">Product Category</label>
@@ -128,7 +116,7 @@ class CreateProduct extends Component {
                                 <option value='C01'>Current Account</option>
                                 <option value='TD01'>Term Deposit</option>
                                 <option value='RD01'>Recurring Deposit</option>
-                                
+
 
                             </select>
                         </div>
@@ -150,11 +138,26 @@ class CreateProduct extends Component {
 
 
                         <div className="form-group">
+                            <label htmlFor="" className="text-muted"><i class="fas fa-file-signature"></i> Product Name</label>
+                            <input name="productName" type="text" value={productName} onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Name" />
+                        </div>
+
+
+                        <div className="form-group">
+                            <label htmlFor="" className="text-muted"><i class="fas fa-file-signature"></i> Product Code</label>
+                            <input name="productCode" type="text" value={productCode} onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Code" />
+                        </div>
+
+
+
+
+
+                        <div className="form-group">
                             <label htmlFor="" className="text-muted"><i class="fas fa-align-left"></i> Description</label>
                             <textarea name="description" value={description} onChange={this.onChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Role Description"></textarea>
 
                         </div>
-                        
+
 
                         <div className="d-flex justify-content-center" >
 
@@ -172,4 +175,4 @@ class CreateProduct extends Component {
     }
 }
 
-export default CreateProduct
+export default withRouter(CreateProduct)

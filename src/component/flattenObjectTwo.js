@@ -21,6 +21,7 @@ import UserApproval from './E-KYC/User/UserApproval';
 import UpdateUser from './E-KYC/User/UpdateUser';
 // Product
  import CreateProduct from './E-KYC/Product/CreateProduct';
+ import GetProduct from './E-KYC/Product/GetProduct';
 
 //Profile Management
 import ChangePassword from './E-KYC/Profile/ChangePass';
@@ -534,7 +535,7 @@ export const allRoutes = [
                     "featureName": "Product List",
                     "path": "/product-list",
                     "exact": true,
-                    "component": <Target />
+                    "component": <GetProduct />
                 }
             },
             {
