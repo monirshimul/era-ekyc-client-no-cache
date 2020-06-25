@@ -31,7 +31,7 @@ class FullEkyc extends Component {
                                 <i class="fas fa-user-tag"></i> Full E-KYC Profile
                         </h5>
                         </div>
-                        <div className="row d-flex justify-content-center">
+                        <div className="row d-flex justify-content-center ">
                             <div className="col-sm-10">
 
 
@@ -42,7 +42,7 @@ class FullEkyc extends Component {
                                             <h5>Account Info</h5>
                                             <hr />
                                         </div>
-                                        <div className="pl-3" style={{ fontSize: "14px" }}>
+                                        <div className="" style={{ fontSize: "17px" }}>
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{ekyc.account.title}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{ekyc.account.productType}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc.account.productCode}</small><br />
@@ -56,34 +56,13 @@ class FullEkyc extends Component {
                                         </div>
                                         <hr />
 
-                                        <div className="text-muted">
-                                            <h5>Nominee Info</h5>
-                                            <hr />
-                                        </div>
-                                        <div className="pl-3" style={{ fontSize: "14px" }}>
-                                            {
-                                                ekyc.nominees.map((data, ind) => (
-                                                    <div>
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name : </span>{data.name}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{data.dob}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.id}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Gurdian : </span>{data.gurdian}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Minor : </span>{data.isMinor}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Percentage : </span>{data.percentage}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Relation : </span>{data.relation}</small><br />
-
-                                                    </div>
-                                                ))
-                                            }
-
-                                        </div>
-                                        <hr />
+                                        
 
                                         <div className="text-muted">
                                             <h5>Others Info</h5>
                                             <hr />
                                         </div>
-                                        <div className="pl-3" style={{ fontSize: "14px" }}>
+                                        <div className="" style={{ fontSize: "17px" }}>
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{ekyc.updateBy === null ? "" : ekyc.updateBy}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{ekyc.updateDate}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Pin : </span>{ekyc.pin}</small><br />
@@ -96,13 +75,13 @@ class FullEkyc extends Component {
 
 
                                     </div>
-                                    <div className="col-sm-6  ">
+                                    <div className="col-sm-6">
                                         <hr />
                                         <div className="text-muted">
                                             <h5>Personal Info</h5>
                                             <hr />
                                         </div>
-                                        <div className="pl-3" style={{ fontSize: "14px" }}>
+                                        <div className="" style={{ fontSize: "17px" }}>
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name : </span>{ekyc.name}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name Bangla : </span>{ekyc.nameBangla}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Gender : </span>{ekyc.gender}</small><br />
@@ -129,6 +108,34 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Permanent Address Bangla : </span>{ekyc.permanentAddressBangla}</small><br />
                                         </div>
 
+                                    </div>
+
+                                    <div className="col-sm-12">
+                                    <div className="text-muted">
+                                            <h5>Nominee Info</h5>
+                                            <hr />
+                                        </div>
+                                        <div className="row d-flex justify-content-around" style={{ fontSize: "17px" }}>
+                                            {
+                                                ekyc.nominees.map((data, ind) => (
+                                                    <div className="col-sm-6">
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Nominee : </span>{ind}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name : </span>{data.name}</small><br />
+                                                        
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{data.dob}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.id}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Gurdian : </span>{data.gurdian}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Minor : </span>{data.isMinor}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Percentage : </span>{data.percentage}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Relation : </span>{data.relation}</small><br />
+                                                        <hr/>
+
+                                                    </div>
+                                                ))
+                                            }
+
+                                        </div>
+                                        
                                     </div>
 
 

@@ -67,20 +67,32 @@ class GetProduct extends Component {
         
        
         try {
-            let deleteRes = await axios.delete(deleteProduct, {
-                headers: {
-                  'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-                },
-                data: {
-                  id: id
-                }
-              })
-            console.log('updateRes', deleteRes)
-            NotificationManager.warning("Product Deleted", "Warning", 5000);
-            let getProductRes = await axios.post(getProduct, null ,token)
-            this.setState({
-                productData: getProductRes.data.data
-            })
+
+            var retVal = window.confirm("Do you want to Delete? All data of this product will be deleted. ");
+               if( retVal === true ) {
+                let deleteRes = await axios.delete(deleteProduct, {
+                    headers: {
+                      'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+                    },
+                    data: {
+                      id: id
+                    }
+                  })
+                console.log('updateRes', deleteRes)
+                NotificationManager.warning("Product Deleted", "Warning", 5000);
+                let getProductRes = await axios.post(getProduct, null ,token)
+                this.setState({
+                    productData: getProductRes.data.data
+                })
+               } else {
+                let getProductRes = await axios.post(getProduct, null ,token)
+                this.setState({
+                    productData: getProductRes.data.data
+                })
+               }
+
+
+            
 
         } catch (error) {
             console.log("Error===>",error.response)
@@ -101,7 +113,7 @@ class GetProduct extends Component {
                         <div className="imTwoGray mt-2">
                             <div className="row d-flex justify-content-center">
                                 {productData.map((data, index) => (
-                                    <div key={index} className="neoBg col-sm-3 m-2 p-3 animated zoomIn">
+                                    <div key={index} className="neoBg col-sm-4 m-2 p-3 animated zoomIn">
                                         <div className="im">
                                             <small style={{ color: "#308f8f" }}>{data.name}</small>
 

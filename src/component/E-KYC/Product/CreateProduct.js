@@ -76,7 +76,14 @@ class CreateProduct extends Component {
             console.log("productCreateRes", productCreateRes)
             NotificationManager.success("Product Successfully Created", "Success", 5000);
             localStorage.setItem("productInfo", JSON.stringify(obj));
-            this.props.history.replace('/dashboard/product-list');
+            //this.props.history.replace('/dashboard/product-list');
+            this.setState({
+                productName: "",
+                productCode: '',
+                productCategory: '',
+                status: "",
+                description: ""
+            })
 
         } catch (error) {
             console.log("Error====>", error.response)

@@ -18,10 +18,16 @@ export class FaceOrFinger extends Component {
         return (
             // style = {{ border: "1px solid red" }}
             <div className="container" >
+                <div className="row d-flex justify-content-center">
+                    <div className="col-sm-12">
+                        <h2 className="im" style={{color:"green"}}>Simplified E-KYC</h2>
+                    </div>
+
+                </div>
                 <div className=" row d-flex justify-content-center align-items-center mt-5" >
                     <div className="col-sm-6" >
                         <div>
-                            <h1 className="" style={{ color: "#099e96" }}><i class="fas fa-user-circle"></i> Facial Recognition</h1>
+                            <h3 className="" style={{ color: "#099e96" }}><i class="fas fa-user-circle"></i> Facial Recognition</h3>
                         </div>
                         <hr />
 
@@ -63,7 +69,7 @@ export class FaceOrFinger extends Component {
                 <div className=" row d-flex justify-content-center align-items-center mt-3" style={{ paddingTop: "70px" }}>
                     <div className="col-sm-6 " >
                         <div>
-                            <h1 className="" style={{ color: "#099e96" }}><i class="fas fa-fingerprint"></i> Fingerprint Validation</h1>
+                            <h3 className="" style={{ color: "#099e96" }}><i class="fas fa-fingerprint"></i> Fingerprint Validation</h3>
                         </div>
                         <hr />
 
