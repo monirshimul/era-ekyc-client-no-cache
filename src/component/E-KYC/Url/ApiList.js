@@ -63,3 +63,6 @@ export const getTPAPI = hostIp + `tp/get`;
 export const updateTPAPI = hostIp + `tp`;
 export const deleteTPAPI = hostIp + `tp`;
 
+// Get Ekyc Type BY TP
+export const getEkycType = hostIp + `tp/ekyc-type`;
+

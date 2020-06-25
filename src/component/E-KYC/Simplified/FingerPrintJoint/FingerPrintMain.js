@@ -16,6 +16,7 @@ export class FingerPrintMain extends Component {
         //Account
         accountType: '',
         product: '',
+        productName:'',
         channelName: '',
         //Step1
         NidFront: "",
@@ -99,7 +100,8 @@ export class FingerPrintMain extends Component {
             this.setState({
 
                 accountType: acc.accountType,
-                product: acc.product,
+                product: acc.productCategory,
+                productName:acc.productName,
                 channelName: acc.channelName
             })
 
@@ -217,10 +219,10 @@ export class FingerPrintMain extends Component {
         const { step } = this.state;
         
         const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, flag, nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-           signature, signatureType, jointArray, accountType, product, channelName } = this.state;
+           signature, signatureType, jointArray, accountType, product, channelName,productName } = this.state;
        
             const values = { applicantEkycId,NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, flag,nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-            signature, signatureType, jointArray, accountType, product, channelName }
+            signature, signatureType, jointArray, accountType, product, channelName,productName }
 
 
         switch (step) {

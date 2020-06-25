@@ -280,7 +280,7 @@ class Dashboard extends Component {
 
 
                                     {/* MultiSteps */}
-                                    <Route path={`${path}/face-account`} component={MultiStepFace} />
+                                    {/* <Route path={`${path}/face-account`} component={MultiStepFace} /> */}
                                     <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />
 
                                     {/* face forms */}

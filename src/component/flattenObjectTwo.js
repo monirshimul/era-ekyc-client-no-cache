@@ -405,6 +405,18 @@ export const allRoutes = [
                 items: {
                     "key": "5.1",
                     'isShowing': true,
+                    "featureName": "Create e-KYC",
+                    "path": "/create-ekyc",
+                    "exact": true,
+                    "component": <Account />
+                }
+            },
+            
+            {
+               
+                items: {
+                    "key": "5.2",
+                    'isShowing': true,
                     "featureName": "Simplified",
                     "path": "/e-kyc-simplified",
                     "exact": true,
@@ -413,7 +425,7 @@ export const allRoutes = [
                 nested: [
                     {
                         items: {
-                            "key": "5.1.1",
+                            "key": "5.2.1",
                             'isShowing': true,
                             "featureName": "Create",
                             "path": "/simplified-create",
@@ -424,7 +436,7 @@ export const allRoutes = [
                     },
                     {
                         items: {
-                            "key": "5.1.2",
+                            "key": "5.2.2",
                             'isShowing': true,
                             "featureName": "Review",
                             "path": "/simplified-review",
@@ -435,7 +447,7 @@ export const allRoutes = [
                     },
                     {
                         items: {
-                            "key": "5.1.3",
+                            "key": "5.2.3",
                             'isShowing': true,
                             "featureName": "Upgrade",
                             "path": "/simplified-upgrade",
@@ -450,7 +462,7 @@ export const allRoutes = [
             },
             {
                 items: {
-                    "key": "5.2",
+                    "key": "5.3",
                     'isShowing': true,
                     "featureName": "Regular",
                     "path": "/e-kyc-regular",
@@ -460,7 +472,7 @@ export const allRoutes = [
                 nested: [
                     {
                         items: {
-                            "key": "5.2.1",
+                            "key": "5.3.1",
                             'isShowing': true,
                             "featureName": "Create",
                             "path": "/regular-create",
@@ -471,7 +483,7 @@ export const allRoutes = [
                     },
                     {
                         items: {
-                            "key": "5.2.2",
+                            "key": "5.3.2",
                             'isShowing': true,
                             "featureName": "Review",
                             "path": "/regular-review",
@@ -487,7 +499,7 @@ export const allRoutes = [
             },
             {
                 items: {
-                    "key": '5.3',
+                    "key": '5.4',
                     'isShowing': true,
                     "featureName": "List & Search",
                     "path": "/e-kyc-list-&-search",
@@ -498,7 +510,7 @@ export const allRoutes = [
             },
             {
                 items: {
-                    "key": "5.4",
+                    "key": "5.5",
                     'isShowing': true,
                     "featureName": "List For User",
                     "path": "/e-kyc-list-for-user",

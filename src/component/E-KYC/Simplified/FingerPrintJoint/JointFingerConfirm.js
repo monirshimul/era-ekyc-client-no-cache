@@ -21,11 +21,12 @@ export class JointFingerConfirm extends Component {
         console.log(values.applicantEkycId);
         if(values.applicantEkycId === ''){
 
+
         let accountInfo = {
             title: values.applicantName,
             type: values.accountType,
-            productType: values.product,
-            productCode: "S01",
+            productType: values.productCategory,
+            productCode: values.productName,
             channelCode: values.channelName
         }
 

@@ -24,13 +24,13 @@ export class ConfirmInfo extends Component {
         // nomineeData:'' ,
         // signatureData:'' ,
         // flag: 'data:image/jpeg;base64,'
-        accountData: JSON.parse(localStorage.getItem('accountInfo')),
-        nidImagesData: JSON.parse(localStorage.getItem('NidImages')),
-        captureFaceData: JSON.parse(localStorage.getItem('CaptureFace')),
-        personalDetailsData: JSON.parse(localStorage.getItem('PersonalDetails')),
-        nomineeData: JSON.parse(localStorage.getItem('NomineeArray')),
-        signatureData: JSON.parse(localStorage.getItem('Signature')),
-        verificationData: JSON.parse(localStorage.getItem('Verification')),
+        accountData: JSON.parse(localStorage.getItem('accountInfo'))? JSON.parse(localStorage.getItem('accountInfo')):'',
+        nidImagesData: JSON.parse(localStorage.getItem('NidImages')) ? JSON.parse(localStorage.getItem('NidImages')): "",
+        captureFaceData: JSON.parse(localStorage.getItem('CaptureFace')) ? JSON.parse(localStorage.getItem('CaptureFace')) : "",
+        personalDetailsData: JSON.parse(localStorage.getItem('PersonalDetails')) ? JSON.parse(localStorage.getItem('PersonalDetails')) : "",
+        nomineeData: JSON.parse(localStorage.getItem('NomineeArray')) ? JSON.parse(localStorage.getItem('NomineeArray')) : "",
+        signatureData: JSON.parse(localStorage.getItem('Signature')) ? JSON.parse(localStorage.getItem('Signature')) : "",
+        verificationData: JSON.parse(localStorage.getItem('Verification')) ? JSON.parse(localStorage.getItem('Verification')) : "",
         flag: 'data:image/jpeg;base64,'
     }
 
@@ -55,8 +55,8 @@ export class ConfirmInfo extends Component {
         let accountInfo = {
             title: personalDetailsData.applicantName,
             type: accountData.accountType,
-            productType: accountData.product,
-            productCode: "S01",
+            productType: accountData.productCategory,
+            productCode: accountData.productName,
             channelCode: accountData.channelName
         }
 
@@ -252,7 +252,7 @@ export class ConfirmInfo extends Component {
                             </div>
                             <hr />
                             <div className="">
-                                <p className="text-muted">Account Type : {accountData.accountType},<br /> Product and Services : {accountData.product},<br /> channel Name : {accountData.channelName}</p>
+                                <p className="text-muted">Account Type : {accountData.accountType},<br /> Product and Services : {accountData.productCategory},<br /> channel Name : {accountData.channelName}</p>
                                 {/* <p className="text-muted">Product and Services : {accountData.product}</p>
                                 <p className="text-muted">channel Name : {accountData.channelName}</p> */}
                             </div>

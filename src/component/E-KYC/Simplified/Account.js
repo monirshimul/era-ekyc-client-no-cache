@@ -1,18 +1,52 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
+import { getProduct, getEkycType } from '../Url/ApiList';
+import axios from 'axios';
 
 class Account extends Component {
     state = {
-
-        product: "",
+        SimReg: '',
+        channelName: '',
+        productCategory: "",
+        productName: "",
+        productNameData: [],
         accountType: '',
-        channelName:''
+        amount: '',
+        tenor: ''
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         localStorage.clear();
+    }
+
+
+    handleCategory = async (e) => {
+        e.preventDefault();
+        this.setState({ productCategory: e.target.value });
+
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        const obj = {
+            categoryCode: e.target.value
+        }
+
+
+        try {
+            let getCode = await axios.post(getProduct, obj, config);
+            let getCodeData = getCode.data.data;
+            this.setState({ productNameData: getCodeData });
+            //console.log("state", this.state.productNameData);
+        } catch (error) {
+            console.log(error.response);
+        }
+
+
     }
 
 
@@ -21,47 +55,103 @@ class Account extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    onSubmit = e => {
+    dependentLabel = () => {
+        if (this.state.productCategory === 'S0' || this.state.productCategory === 'C0') {
+            return (
+                <label htmlFor="">Cash Transaction Per Month</label>
+            )
+        } else if (this.state.productCategory === "TD" || this.state.productCategory === "RD") {
+            return (
+                <label htmlFor="">Maturity Amount</label>
+            )
+        } else {
+
+        }
+    }
+
+    onSubmit = async (e) => {
         e.preventDefault();
-        const { product, accountType,channelName } = this.state;
+        const { productCategory, productName, amount, tenor, accountType, channelName, SimReg } = this.state;
 
-        if(product === ''){
-            let productMessage = "Please select Product & Services";
-            NotificationManager.error(productMessage, "Error", 5000);
-            return;
-        }
-
-        if(accountType === ''){
-            let accountTypeMessage = 'Please Select Account Type';
-            NotificationManager.error(accountTypeMessage, "Error", 5000);
-            return;
-        }
-
-        if(channelName === ''){
+        if (channelName === '') {
             let channelNameMessage = 'Please Select Channel Name';
-            NotificationManager.error(channelNameMessage, "Error", 5000);
+            NotificationManager.warning(channelNameMessage, "Warning", 5000);
             return;
         }
+
+        if (productCategory === '') {
+            let productMessage = "Please select Product Category";
+            NotificationManager.warning(productMessage, "Warning", 5000);
+            return;
+        }
+
+        if (productName === '') {
+            let productNameMessage = "Please select Product Name";
+            NotificationManager.warning(productNameMessage, "Warning", 5000);
+            return;
+        }
+
+        if (accountType === '') {
+            let accountTypeMessage = 'Please Select Account Type';
+            NotificationManager.warning(accountTypeMessage, "Warning", 5000);
+            return;
+        }
+
+        if (amount === '') {
+            let amountMessage = 'Please fill up the transaction limit';
+            NotificationManager.warning(amountMessage, "Warning", 5000);
+            return;
+        }
+
+
 
         const obj = {
-
-            product,
-            accountType,
-            channelName,
+            channelCode: channelName,
+            productCategoryCode: productCategory,
+            amount: parseInt(amount)
         }
-        localStorage.setItem("accountInfo", JSON.stringify(obj));
 
-        this.setState({
 
-            accountType: '',
-            product: ''
-        })
-        // this.props.history.push('/dashboard/face-account');
-        if (accountType === 'J') {
-            this.props.history.replace('/dashboard/dynamic-comp');
-        } else if(accountType === 'S'){
-            this.props.history.replace('/dashboard/type-verification');
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+
+        try {
+            let dec = await axios.post(getEkycType, obj, config);
+            console.log("decisionData", dec.data);
+            this.setState({ SimReg: dec.data.data.ekycType })
+            let routing = dec.data.data.ekycType;
+            let statusCode = dec.data.statusCode;
+            let successMessage = dec.data.message;
+            let myObj={
+                accountType,
+                productCategory,
+                productName,
+                channelName
+            }
+
+            localStorage.setItem("accountInfo", JSON.stringify(myObj));
+
+            if (accountType === 'S' && routing === 'S') {
+                this.props.history.replace('/dashboard/type-verification');
+            } else if (accountType === 'J' && routing === 'S') {
+                this.props.history.replace('/dashboard/dynamic-comp');
+            }
+
+            NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+
+
+
+        } catch (err) {
+            console.log(err.response);
+            let ErrorCode = err.response.data.status;
+            let ErrorMessage = err.response.data.message;
+            NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
         }
+
     }
 
     render() {
@@ -80,27 +170,63 @@ class Account extends Component {
                 </div>
                 <div className="card-body">
                     <form onSubmit={this.onSubmit}>
-                        {/* Account Number */}
 
-
-                        {/* Product and Service */}
+                        {/* Channel Name */}
                         <div className='form-group'>
-                            <label htmlFor="">Product and Service</label>
+                            <label htmlFor="">Channel Name</label>
                             <select
                                 className='custom-select'
-                                value={this.state.product}
+                                value={this.state.channelName}
                                 onChange={this.onChange}
-                                name="product"
+                                name="channelName"
                             >
                                 <option value='' disabled>--Select--</option>
-                                <option value='Current Account'>Current Account</option>
-                                <option value='Savings Account'>Savings Account</option>
-                                <option value='Credit Account'>Credit Accounts</option>
-                                <option value='Debit Card'>Debit Card</option>
-                                <option value='Credit Card'>Credit Card</option>
+                                <option value='ABS'>Agent Banking</option>
+                                <option value='CBS'>Conventional Core Banking</option>
+                                <option value='ICBS'>Islamic Core Banking</option>
+                                <option value='OMNI'>Omni Channel </option>
+                            </select>
+                        </div>
+
+
+                        {/* Product Category */}
+                        <div className='form-group'>
+                            <label htmlFor="">Product Category</label>
+                            <select
+                                className='custom-select'
+                                value={this.state.productCategory}
+                                onChange={this.handleCategory}
+                                name="productCategory"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='S0'>Savings Account</option>
+                                <option value='C0'>Current Account</option>
+                                <option value='TD'>Term Deposit</option>
+                                <option value='RD'>Recurring Deposit</option>
 
                             </select>
                         </div>
+
+                        {/* Product Name */}
+                        <div className='form-group'>
+                            <label htmlFor="">Product Name</label>
+                            <select
+                                className='custom-select'
+                                value={this.state.productName}
+                                onChange={this.onChange}
+                                name="productName"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                {
+                                    this.state.productNameData.map((val, index) => {
+                                        return (
+                                            <option key={val.id} value={val.code}>{val.code}---{val.name} </option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+
                         {/* Account Type */}
                         <div className='form-group'>
                             <label htmlFor="">Account Type</label>
@@ -117,28 +243,36 @@ class Account extends Component {
                             </select>
                         </div>
 
+                        <hr></hr>
+                        <h4>Transaction Limit</h4>
 
-                     {/* Channel Name */}
-                     <div className='form-group'>
-                            <label htmlFor="">Channel Name</label>
+                        {/* amount */}
+                        <div className="form-group">
+                            {this.dependentLabel()}
+                            <input type="text" value={this.state.amount} onChange={this.onChange} className="form-control" name="amount" id="inputUserId" aria-describedby="emailHelp" placeholder="amount" />
+                        </div>
+                        <hr></hr>
+
+
+                        {/* Tenor */}
+                        <div className='form-group'>
+                            <label htmlFor="">Tenor</label>
                             <select
                                 className='custom-select'
-                                value={this.state.channelName}
+                                value={this.state.tenor}
                                 onChange={this.onChange}
-                                name="channelName"
+                                name="tenor"
                             >
                                 <option value='' disabled>--Select--</option>
-                                <option value='ABS'>Agent Banking</option>
-                                <option value='iStelar'>iStelar</option>
-                                <option value='Hikmah'>HIKMAH</option>
-                                {/* <option value='Credit Account'>Credit Accounts</option>
-                                <option value='Debit Card'>Debit Card</option>
-                                <option value='Credit Card'>Credit Card</option> */}
-
+                                <option value='3'>3 months</option>
+                                <option value='6'>6 months</option>
+                                <option value='9'>9 months</option>
+                                <option value='12'>12 months</option>
+                                <option value='24'>24 months</option>
+                                <option value='36'>36 months</option>
+                                <option value='48'>48 months</option>
                             </select>
                         </div>
-
-
 
                         <div className="d-flex justify-content-center" >
 
@@ -162,4 +296,4 @@ class Account extends Component {
     }
 }
 
-export default withRouter(Account)
+export default withRouter(Account);

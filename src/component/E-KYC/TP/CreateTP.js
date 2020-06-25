@@ -34,33 +34,7 @@ export class CreateTP extends Component {
     }
 
 
-    // handleCategory = async(e) =>{
-    //     e.preventDefault();
-    //     this.setState({productCategoryCode: e.target.value});
-
-    //      const config = {
-    //         headers: {
-    //             'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-    //         }
-    //     };
-
-    //     const obj={
-    //         categoryCode: e.target.value
-    //     }
-
-    //     console.log("Obj", obj);
-
-    //     try{
-    //         let getCode = await axios.post(getProduct,obj,config);
-    //         let getCodeData = getCode.data.data;
-    //         this.setState({productCategoryCodeCode: getCodeData});
-    //         console.log("state", this.state.productCategoryCodeCode);
-    //     }catch(error){
-    //         console.log(error.response);
-    //     }
-
-
-    // }
+    
 
 
     onSubmit = async (e) => {
