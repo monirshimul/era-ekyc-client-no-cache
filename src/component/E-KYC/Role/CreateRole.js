@@ -149,7 +149,11 @@ class CreateRole extends Component {
                             {
                                 this.allMenu.map((features, index) => (
                                     <div>
+
                                         {
+                                            features.key !== "*" ? (
+                                                <div>
+                                                    {
                                             features.key % 1 === 0 ? (
                                                 <div className="">
                                                     <hr />
@@ -158,7 +162,11 @@ class CreateRole extends Component {
 
                                                 </div>
 
-                                            ) : (
+                                            ) : 
+                                            
+                                            
+                                            (
+                                                
                                                     <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} key={index} >
 
                                                         <input
@@ -177,6 +185,10 @@ class CreateRole extends Component {
                                                     </div>
                                                 )
                                         }
+                                                </div>
+                                            ): ""
+                                        }
+                                        
                                     </div>
 
                                 ))

@@ -403,7 +403,7 @@ export const allRoutes = [
         nested: [
             {
                 items: {
-                    "key": "5.1",
+                    "key": "*",
                     'isShowing': true,
                     "featureName": "Create e-KYC",
                     "path": "/create-ekyc",
@@ -675,7 +675,7 @@ export function pruneRouteArray(featureArray) {
                 }
             }
             else {
-                if (featureArray.indexOf(objArr[i].items.key) === -1) {
+                if (featureArray.indexOf(objArr[i].items.key) === -1 && objArr[i].items.key !== "*") {
                     objArr[i] = undefined;
                 }
             }

@@ -199,7 +199,11 @@ export class UpdateRole extends Component {
                             {
                                 this.allMenu.map((features, index) => (
                                     <div>
+
                                         {
+                                            features.key !== "*" ? (
+                                                <div>
+                                                    {
                                             features.key % 1 === 0 ? (
                                                 <div className="">
                                                     <hr />
@@ -233,6 +237,10 @@ export class UpdateRole extends Component {
                                                     </div>
                                                 )
                                         }
+                                                </div>
+                                            ):""
+                                        }
+                                        
                                     </div>
 
                                 ))

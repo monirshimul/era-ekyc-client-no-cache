@@ -274,7 +274,7 @@ class UpdateUser extends Component {
         // console.log("getRoles", this.state.getRoleName);
        // console.log("checking from state", this.state.checking);
         return (
-            <div className="card col-sm-7 " style={{ paddingTop: "25px" }}>
+            <div className="card col-sm-10 " style={{ paddingTop: "25px" }}>
 
                 <div className="card-header divBg">
 
@@ -348,7 +348,7 @@ class UpdateUser extends Component {
                                 <thead>
                                     <tr>
 
-                                        <th>Role Name</th>
+                                        <th style={{width:"150px"}}>Role Name</th>
                                         <th>Privileges</th>
                                         <th>Checkbox</th>
                                     </tr>
