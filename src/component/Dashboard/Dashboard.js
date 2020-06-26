@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Nav from './Nav';
 import Welcome from './Welcome';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
-import MultiStepFace from '../E-KYC/Simplified/MainFace'
+//import MultiStepFace from '../E-KYC/Simplified/MainFace'
 import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';
 
@@ -14,7 +14,8 @@ import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 // E-kyc List
 import ShowMore from '../E-KYC/ekyc-list/ShowMore';
 import fullEkyc from '../E-KYC/ekyc-list/FullEkyc';
-
+// ===============Simplified start==============
+import FaceOrFinger from '../E-KYC/Simplified/FaceOrFinger';
 // face Verification forms
 import NidImages from '../E-KYC/Simplified/FaceForms/NidImages';
 import CaptureFace from '../E-KYC/Simplified/FaceForms/CaptureFace';
@@ -27,10 +28,30 @@ import Complete from '../E-KYC/Simplified/FaceForms/Complete';
 // Finger Verification Forms
 import FingerPrint from '../E-KYC/Simplified/FingerForms/FingerPrint';
 import CustomerPic from '../E-KYC/Simplified/FingerForms/CustomerPic';
+// ===============Simplified end==============
+
+//==================Regular Start======================
+import FaceOrFingerReg from '../E-KYC/Regular/FaceOrFingerReg'; 
+// Face Verification
+import NidImagesReg from '../E-KYC/Regular/FaceFormsRegular/NidImagesReg';
+import CaptureFaceReg from '../E-KYC/Regular/FaceFormsRegular/CaptureFaceReg';
+import PersonalDetailsReg from '../E-KYC/Regular/FaceFormsRegular/PersonalDetailsReg';
+import NomineeReg from '../E-KYC/Regular/FaceFormsRegular/NomineeReg';
+import SignatureReg from '../E-KYC/Regular/FaceFormsRegular/SignatureReg';
+import ConfirmInfoReg from '../E-KYC/Regular/FaceFormsRegular/ConfirmInfoReg';
+import CompleteReg from '../E-KYC/Regular/FaceFormsRegular/CompleteReg';
+
+// Finger Verification Forms
+import FingerPrintReg from '../E-KYC/Regular/FingerFormsRegular/FingerPrintReg';
+import CustomerPicReg from '../E-KYC/Regular/FingerFormsRegular/CustomerPicReg';
+
+//==================Regular End========================
+
+
 
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import FaceOrFinger from '../E-KYC/Simplified/FaceOrFinger';
+
 
 
 class Dashboard extends Component {
@@ -282,7 +303,11 @@ class Dashboard extends Component {
                                     {/* MultiSteps */}
                                     {/* <Route path={`${path}/face-account`} component={MultiStepFace} /> */}
                                     <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />
+                                    {/* Success Role */}
+                                    <Route path={`${path}/success`} component={Success} />
 
+
+                                    {/* Simplified */}
                                     {/* face forms */}
                                     <Route path={`${path}/nid-images`} component={NidImages} />
                                     <Route path={`${path}/type-verification`} component={FaceOrFinger} />
@@ -297,7 +322,22 @@ class Dashboard extends Component {
                                     <Route path={`${path}/finger-print`} component={FingerPrint} />
                                     <Route path={`${path}/customer-photo`} component={CustomerPic} />
 
-                                    <Route path={`${path}/success`} component={Success} />
+                                    
+                                    {/* Regular */}
+
+                                    {/* face forms */}
+                                    <Route path={`${path}/regular-nidimages`} component={NidImagesReg} />
+                                    <Route path={`${path}/regular-typeverification`} component={FaceOrFingerReg} />
+                                    <Route path={`${path}/regular-captureface`} component={CaptureFaceReg} />
+                                    <Route path={`${path}/regular-personaldetails`} component={PersonalDetailsReg} />
+                                    <Route path={`${path}/regular-nominee`} component={NomineeReg} />
+                                    <Route path={`${path}/regular-signature`} component={SignatureReg} />
+                                    <Route path={`${path}/regular-confirminfo`} component={ConfirmInfoReg} />
+                                    <Route path={`${path}/regular-complete`} component={CompleteReg} />
+
+                                    {/* Finger Forms  */}
+                                    <Route path={`${path}/regular-fingerprint`} component={FingerPrintReg} />
+                                    <Route path={`${path}/regular-customerphoto`} component={CustomerPicReg} />
 
 
                                 </Switch>

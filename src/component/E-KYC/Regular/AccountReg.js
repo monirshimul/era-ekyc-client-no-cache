@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import { getProduct, getEkycType } from '../Url/ApiList';
 import axios from 'axios';
 
-class Account extends Component {
+export class AccountReg extends Component {
     state = {
         SimReg: '',
         channelName: '',
@@ -135,24 +135,16 @@ class Account extends Component {
 
             localStorage.setItem("accountInfo", JSON.stringify(myObj));
 
-           
-
-            if (accountType === 'S' && typeEkyc === 'S') {
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-                this.props.history.replace('/dashboard/type-verification');
-            }else if (accountType === 'J' && typeEkyc === 'S') {
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-                this.props.history.replace('/dashboard/dynamic-comp');
-            }else if (accountType === 'S' && typeEkyc === 'R'){
+            if (accountType === 'S' && typeEkyc === 'R') {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/regular-typeverification');
-            }else if (accountType === 'J' && typeEkyc === 'R'){
-
+            } else if (accountType === 'J' && typeEkyc === 'R') {
+                //this.props.history.replace('/dashboard/dynamic-comp');
             }else{
-                NotificationManager.warning("Please Check Your TP and Product List", "Warning", 5000);
+                NotificationManager.warning('Simplified Ekyc is not applicable For You', "Warning", 5000);
             }
 
-            
+           
 
 
 
@@ -166,12 +158,7 @@ class Account extends Component {
     }
 
     render() {
-
         return (
-
-
-
-
             <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
 
                 <div className="card-header divBg">
@@ -298,13 +285,8 @@ class Account extends Component {
 
             </div>
 
-
-
-
-
-
         )
     }
 }
 
-export default withRouter(Account);
+export default withRouter(AccountReg);
