@@ -126,7 +126,7 @@ class Account extends Component {
             let typeEkyc = dec.data.data.ekycType;
             let statusCode = dec.data.statusCode;
             let successMessage = dec.data.message;
-            let myObj={
+            let myObj = {
                 accountType,
                 productCategory,
                 productName,
@@ -137,31 +137,31 @@ class Account extends Component {
 
             let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
 
-            if (accountType === 'S' && typeEkyc === 'S' && featureTest.includes('5.1') === true ) {
+            if (accountType === 'S' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/type-verification');
-            }else if (accountType === 'J' && typeEkyc === 'S' && featureTest.includes('5.1') === true ) {
+            } else if (accountType === 'J' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/dynamic-comp');
-            }else if (accountType === 'S' && typeEkyc === 'R' && featureTest.includes('5.2') === true){
+            } else if (accountType === 'S' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/regular-typeverification');
-            }else if (accountType === 'J' && typeEkyc === 'R' && featureTest.includes('5.2') === true ){
+            } else if (accountType === 'J' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
 
-            }else{
+            } else {
                 NotificationManager.warning("Please Check Your TP and Product List", "Warning", 5000);
             }
 
-            
+
 
 
 
         } catch (error) {
             if (error.response) {
                 //     console.log(err.response);
-            let ErrorCode = error.response.data.status;
-            let ErrorMessage = error.response.data.message;
-            NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
+                let ErrorCode = error.response.data.status;
+                let ErrorMessage = error.response.data.message;
+                NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
             }
             else if (error.request) {
                 console.log(error.request);
@@ -172,7 +172,7 @@ class Account extends Component {
                 NotificationManager.error(error.message, "Error", 5000);
             }
         }
-        
+
         // catch (err) {
         //     console.log(err.response);
         //     let ErrorCode = err.response.data.status;
@@ -281,26 +281,38 @@ class Account extends Component {
                         </div>
                         <hr></hr>
 
+                        {this.state.productCategory === 'TD' || this.state.productCategory === 'RD' ? (<div>
+                            {/* Tenor */}
+                            <div className='form-group'>
+                                <label htmlFor="">Tenor</label>
+                                <select
+                                    className='custom-select'
+                                    value={this.state.tenor}
+                                    onChange={this.onChange}
+                                    name="tenor"
+                                >
+                                    <option value='' disabled>--Select--</option>
+                                    <option value='3'>3 months</option>
+                                    <option value='6'>6 months</option>
+                                    <option value='9'>9 months</option>
+                                    <option value='12'>12 months</option>
+                                    <option value='24'>24 months</option>
+                                    <option value='36'>36 months</option>
+                                    <option value='48'>48 months</option>
+                                </select>
+                            </div>
 
-                        {/* Tenor */}
-                        <div className='form-group'>
-                            <label htmlFor="">Tenor</label>
-                            <select
-                                className='custom-select'
-                                value={this.state.tenor}
-                                onChange={this.onChange}
-                                name="tenor"
-                            >
-                                <option value='' disabled>--Select--</option>
-                                <option value='3'>3 months</option>
-                                <option value='6'>6 months</option>
-                                <option value='9'>9 months</option>
-                                <option value='12'>12 months</option>
-                                <option value='24'>24 months</option>
-                                <option value='36'>36 months</option>
-                                <option value='48'>48 months</option>
-                            </select>
-                        </div>
+
+
+
+                        </div>)
+                            :
+                            ""
+                        }
+
+
+
+
 
                         <div className="d-flex justify-content-center" >
 

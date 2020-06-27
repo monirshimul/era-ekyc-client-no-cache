@@ -269,25 +269,36 @@ export class AccountReg extends Component {
                         <hr></hr>
 
 
-                        {/* Tenor */}
-                        <div className='form-group'>
-                            <label htmlFor="">Tenor</label>
-                            <select
-                                className='custom-select'
-                                value={this.state.tenor}
-                                onChange={this.onChange}
-                                name="tenor"
-                            >
-                                <option value='' disabled>--Select--</option>
-                                <option value='3'>3 months</option>
-                                <option value='6'>6 months</option>
-                                <option value='9'>9 months</option>
-                                <option value='12'>12 months</option>
-                                <option value='24'>24 months</option>
-                                <option value='36'>36 months</option>
-                                <option value='48'>48 months</option>
-                            </select>
-                        </div>
+                        {this.state.productCategory === 'TD' || this.state.productCategory === 'RD' ? (<div>
+                            {/* Tenor */}
+                            <div className='form-group'>
+                                <label htmlFor="">Tenor</label>
+                                <select
+                                    className='custom-select'
+                                    value={this.state.tenor}
+                                    onChange={this.onChange}
+                                    name="tenor"
+                                >
+                                    <option value='' disabled>--Select--</option>
+                                    <option value='3'>3 months</option>
+                                    <option value='6'>6 months</option>
+                                    <option value='9'>9 months</option>
+                                    <option value='12'>12 months</option>
+                                    <option value='24'>24 months</option>
+                                    <option value='36'>36 months</option>
+                                    <option value='48'>48 months</option>
+                                </select>
+                            </div>
+
+
+
+
+                        </div>)
+                            :
+                            ""
+                        }
+
+
 
                         <div className="d-flex justify-content-center" >
 
