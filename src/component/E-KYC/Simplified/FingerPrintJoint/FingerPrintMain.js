@@ -70,7 +70,8 @@ export class FingerPrintMain extends Component {
         signatureType: '',
         //common for all component
         applicantEkycId: '',
-        flag: 'data:image/jpeg;base64,'
+        flag: 'data:image/jpeg;base64,',
+        confirmFlag: false
     }
 
     //Proceed to next step
@@ -221,10 +222,10 @@ export class FingerPrintMain extends Component {
         const { step } = this.state;
         
         const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag, nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-           signature, signatureType, jointArray, accountType, product, channelName,productName } = this.state;
+           signature, signatureType, jointArray, accountType, product, channelName,productName,confirmFlag } = this.state;
        
             const values = { applicantEkycId,NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag,nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-            signature, signatureType, jointArray, accountType, product, channelName,productName }
+            signature, signatureType, jointArray, accountType, product, channelName,productName,confirmFlag }
 
 
         switch (step) {

@@ -11,6 +11,7 @@ import adult from './images/face-scan.svg'
 import child from './images/fingerprint-three.svg'
 import bio from './images/verified.svg'
 import axios from 'axios';
+import Loading from './utils/CustomLoding/Loading';
 
 export class DynamicComp extends Component {
     state = {
@@ -18,7 +19,8 @@ export class DynamicComp extends Component {
         comp: '',
         showHide: false,
         accountId: '',
-        processComplete: false
+        processComplete: false,
+        loadingFlag: false,
     }
 
 
@@ -50,8 +52,10 @@ export class DynamicComp extends Component {
         }
 
         try {
+            this.setState({loadingFlag: true});
             let completeApi = await axios.post(simplifiedJointConfirmAPI, obj, config);
             console.log(completeApi.data);
+            this.setState({loadingFlag: false});
             let statusCode = completeApi.data.statusCode;
             let successMessage = completeApi.data.message;
             NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
@@ -59,6 +63,7 @@ export class DynamicComp extends Component {
             this.props.history.push('/dashboard');
         } catch (err) {
             //console.log(err.response.data);
+            this.setState({loadingFlag: false});
             let ErrorStatus = err.response.data.statusCode;
             let ErrorMessage = err.response.data.message;
             NotificationManager.error(ErrorStatus + " " + ErrorMessage, "Error", 5000);
@@ -126,6 +131,11 @@ export class DynamicComp extends Component {
 
                 }
 
+
+
+                { this.state.loadingFlag ? <Loading/> : ''}
+                <br/>
+
                 {
 
                     this.state.jointArray.length > 1 && this.state.processComplete === false ?
@@ -140,8 +150,9 @@ export class DynamicComp extends Component {
                 {
 
                     this.state.jointArray.length > 1 && this.state.processComplete === true ?
+
                         <div>
-                            <button className="b" style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button>
+                            <button className="b" disabled={this.state.loadingFlag} style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button>
                         </div>
                         :
                         ""

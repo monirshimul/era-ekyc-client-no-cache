@@ -59,7 +59,8 @@ export class MainFace extends Component {
         signatureType: '',
         //common for all component
         applicantEkycId: JSON.parse(localStorage.getItem('accountId'))? JSON.parse(localStorage.getItem('accountId')):'',
-        flag: 'data:image/jpeg;base64,'
+        flag: 'data:image/jpeg;base64,',
+        confirmFlag: false
     }
 
     //Proceed to next step
@@ -208,8 +209,8 @@ export class MainFace extends Component {
     render() {
 
         const { step } = this.state;
-        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName,productName } = this.state;
-        const values = {applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName,productName }
+        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName,productName,confirmFlag } = this.state;
+        const values = {applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName,productName,confirmFlag }
 
 
         switch (step) {

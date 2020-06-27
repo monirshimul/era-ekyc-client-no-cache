@@ -8,7 +8,7 @@ import Account from '../Account';
 import Family from '../images/family.svg'
 import Avater from '../images/user-two.svg'
 import front from '../images/id-front-three.svg'
-
+import Loading from '../utils/CustomLoding/Loading';
 import back from '../images/id-back-three.svg'
 import Sign from '../images/signature.svg'
 import Familyes from '../images/candidates.svg'
@@ -31,7 +31,8 @@ export class ConfirmInfo extends Component {
         nomineeData: JSON.parse(localStorage.getItem('NomineeArray')) ? JSON.parse(localStorage.getItem('NomineeArray')) : "",
         signatureData: JSON.parse(localStorage.getItem('Signature')) ? JSON.parse(localStorage.getItem('Signature')) : "",
         verificationData: JSON.parse(localStorage.getItem('Verification')) ? JSON.parse(localStorage.getItem('Verification')) : "",
-        flag: 'data:image/jpeg;base64,'
+        flag: 'data:image/jpeg;base64,',
+        confirmFlag: false
     }
 
     // componentDidMount(){
@@ -157,7 +158,9 @@ export class ConfirmInfo extends Component {
             };
 
             try {
+                this.setState({confirmFlag: true});
                 let res = await axios.post(confirmApi, confFingerObj, config);
+                this.setState({confirmFlag: false})
                 console.log(res.data);
                 let resData = res.data;
                 let statusCode = resData.statusCode;
@@ -168,6 +171,7 @@ export class ConfirmInfo extends Component {
 
             } catch (err) {
                 console.log(err.response);
+                this.setState({confirmFlag: false})
                 let statusCodeError = err.response.data.statusCode;
                 let messageError = err.response.data.message;
                 NotificationManager.error(statusCodeError + " " + messageError, "Error", 5000);
@@ -191,7 +195,9 @@ export class ConfirmInfo extends Component {
             };
 
             try {
+                this.setState({confirmFlag: true});
                 let res = await axios.post(confirmApi, confirmObj, config);
+                this.setState({confirmFlag: false});
                 console.log(res.data);
                 let resData = res.data;
                 let statusCode = resData.statusCode;
@@ -202,6 +208,7 @@ export class ConfirmInfo extends Component {
 
             } catch (err) {
                 console.log(err.response);
+                this.setState({confirmFlag: false});
                 let statusCodeError = err.response.data.statusCode;
                 let messageError = err.response.data.message;
                 NotificationManager.error(statusCodeError + " " + messageError, "Error", 5000);
@@ -507,12 +514,19 @@ export class ConfirmInfo extends Component {
                         </div> */}
 
                     </div>
+
+                    {
+                            this.state.confirmFlag ?  <Loading/> : ''
+                        }
+
+                        <br/>
+
                     <div className="d-flex justify-content-center"
                         style={{ marginBottom: "20px" }}
                     >
-
+                       
                         <span className="b mr-5" onClick={this.back}>Back</span>
-                        <span className="b" onClick={this.continue}>Confirm</span>
+                        <span className="b" disabled={this.state.confirmFlag} onClick={this.continue}>Confirm</span>
                     </div>
                 </div>
 

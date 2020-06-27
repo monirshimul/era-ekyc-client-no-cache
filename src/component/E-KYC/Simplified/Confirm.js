@@ -6,6 +6,7 @@ import front from './images/id-front-three.svg';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
 import {simplifiedJointAPI, simplifiedJointAddAPI} from '../Url/ApiList';
+import Loading from './utils/CustomLoding/Loading';
 
 import back from './images/id-back-three.svg';
 import Sign from './images/signature.svg';
@@ -116,8 +117,9 @@ export class Confirm extends Component {
         console.log(config)
 
         try{
-
+        this.props.handleState('confirmFlag', true);
          let responseFirst = await axios.post(simplifiedJointAPI, confirmObj, config);
+         this.props.handleState('confirmFlag', false);
          console.log("responseforFIRST", responseFirst.data);
          let data = responseFirst.data;
          let statusCode= data.statusCode;
@@ -130,6 +132,7 @@ export class Confirm extends Component {
         
         } catch (err) {
            console.log(err.response);
+           this.props.handleState('confirmFlag', false);
              let apiError = err.response.data;
              let errorStatus = apiError.statusCode;
              let errorMessage = apiError.message;
@@ -223,7 +226,9 @@ export class Confirm extends Component {
         };
 
         try{
+            this.props.handleState('confirmFlag', true);
             let resJointAdded = await axios.post(simplifiedJointAddAPI, confirmObjSecond, config);
+            this.props.handleState('confirmFlag', false);
             console.log(resJointAdded.data);
             
             let respStatus = resJointAdded.data.statusCode;
@@ -232,6 +237,7 @@ export class Confirm extends Component {
             this.props.nextStep();
         }catch (err){
             console.log(err);
+            this.props.handleState('confirmFlag', false);
             let errStatusCode = err.response.data.statusCode;
             let errStatusMessage = err.response.data.message;
             NotificationManager.error(errStatusCode + " " + errStatusMessage, "Error", 5000);
@@ -447,12 +453,20 @@ export class Confirm extends Component {
 
 
                     </div>
+
+
+                {
+                    values.confirmFlag ? <Loading/> : ''
+                }
+
+                    <br/>
+
                     <div className="d-flex justify-content-center"
                         style={{ marginBottom: "20px" }}
                     >
 
                         <span className="b mr-5" onClick={this.back}>Back</span>
-                        <span className="b" onClick={this.continue}>Confirm</span>
+                        <span className="b" disabled={values.confirmFlag} onClick={this.continue}>Confirm</span>
                     </div>
                 </div>
 
