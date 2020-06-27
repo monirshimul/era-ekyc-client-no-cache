@@ -351,28 +351,8 @@ export const allRoutes = [
                         }
 
                     },
-                    {
-                        items: {
-                            "key": "4.2.4",
-                            'isShowing': false,
-                            "featureName": "Delete TP",
-                            "path": "/delete-tp",
-                            "exact": true,
-                            "component": <Vission />
-                        }
-
-                    },
-                    {
-                        items: {
-                            "key": "4.2.3",
-                            'isShowing': false,
-                            "featureName": "Update TP",
-                            "path": "/update-tp",
-                            "exact": true,
-                            "component": <Target />
-                        }
-
-                    },
+                    
+                    
                     {
                         items: {
                             "key": "4.2.4",

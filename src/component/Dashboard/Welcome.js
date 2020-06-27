@@ -37,7 +37,7 @@ class Welcome extends Component {
 
                 </div>
                 <div className="row justify-content-center" style={{ color: "green" }}>
-                    <small className="text-center"><i class="fas fa-dungeon"></i> Welcome, Anis</small>
+                    <small className="text-center"><i class="fas fa-dungeon"></i> Welcome</small>
 
                 </div>
                 <hr />
