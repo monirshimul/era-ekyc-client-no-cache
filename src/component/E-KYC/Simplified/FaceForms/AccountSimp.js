@@ -134,11 +134,13 @@ export class AccountSimp extends Component {
 
             localStorage.setItem("accountInfo", JSON.stringify(myObj));
            
+            let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
+            console.log("feature is true or not ", featureTest.includes('5.1'))
 
-            if (accountType === 'S' && typeEkyc === 'S') {
+            if (accountType === 'S' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/type-verification');
-            } else if (accountType === 'J' && typeEkyc === 'S') {
+            } else if (accountType === 'J' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/dynamic-comp');
             }else{
@@ -149,12 +151,27 @@ export class AccountSimp extends Component {
 
 
 
-        } catch (err) {
-            console.log(err.response);
-            let ErrorCode = err.response.data.status;
-            let ErrorMessage = err.response.data.message;
-            NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
+        } catch (error) {
+            if (error.response) {
+                let ErrorCode = error.response.data.status;
+                    let ErrorMessage = error.response.data.message;
+                     NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
+            }
+            else if (error.request) {
+                console.log(error.request);
+                NotificationManager.error("Error Connecting", "Error", 5000);
+            }
+            else {
+                console.log("Error", error.message);
+                NotificationManager.error(error.message, "Error", 5000);
+            }
         }
+        // catch (err) {
+        //     console.log(err.response);
+        //     let ErrorCode = err.response.data.status;
+        //     let ErrorMessage = err.response.data.message;
+        //     NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
+        // }
 
     }
     render() {
@@ -289,4 +306,4 @@ export class AccountSimp extends Component {
     }
 }
 
-export default AccountSimp
+export default withRouter(AccountSimp)

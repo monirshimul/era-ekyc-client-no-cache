@@ -28,7 +28,7 @@ export class Confirm extends Component {
         let accountInfo = {
             title: values.applicantName,
             type: values.accountType,
-            productType: values.productCategory,
+            productType: values.product,
             productCode: values.productName,
             channelCode: values.channelName
         }
@@ -231,7 +231,7 @@ export class Confirm extends Component {
             NotificationManager.success(respStatus + " " + respMessage, "Success", 5000);
             this.props.nextStep();
         }catch (err){
-            console.log(err.response);
+            console.log(err);
             let errStatusCode = err.response.data.statusCode;
             let errStatusMessage = err.response.data.message;
             NotificationManager.error(errStatusCode + " " + errStatusMessage, "Error", 5000);

@@ -37,7 +37,7 @@ class RiskGrading extends Component {
         })
     }
 
-    onSubmit = async (e) => {
+    continue = async (e) => {
         e.preventDefault();
         let { onBoardingValue,
             geoRiskClient,
@@ -108,7 +108,9 @@ class RiskGrading extends Component {
 
             console.log("Risk Data", obj)
 
-            alert("Risk Grading Measured", obj)
+            //alert("Risk Grading Measured", obj)
+
+            NotificationManager.success("Risk Grading Completed", "Success", 5000);
 
             // let productCreateRes = await axios.post(createProduct, obj, token);
             // console.log("productCreateRes", productCreateRes)
@@ -131,10 +133,17 @@ class RiskGrading extends Component {
 
 
             // })
+            this.props.history.push('/dashboard/regular-complete');
 
         } catch (error) {
             console.log("Error====>", error.response)
         }
+    }
+
+    back = e => {
+        e.preventDefault();
+        this.props.history.push('/dashboard/regular-signature');
+        
     }
 
     render() {
@@ -520,10 +529,16 @@ class RiskGrading extends Component {
 
 
 
-                        <div className="d-flex justify-content-center" >
+                        {/* <div className="d-flex justify-content-center" >
 
                             <button className="b" type="submit" style={{ border: "none" }} >Create</button>
 
+                        </div> */}
+
+                        <hr />
+                        <div className="row d-flex justify-content-center">
+                            <div className="b mb-3" onClick={this.back} >Back</div>&nbsp; &nbsp;
+                        <div className="b mb-3" onClick={this.continue} >Next</div>
                         </div>
 
                     </form>

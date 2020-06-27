@@ -36,7 +36,7 @@ export class Signature extends Component {
         };
 
         localStorage.setItem('Signature', JSON.stringify(sigObj));
-        this.props.history.push('/dashboard/regular-confirminfo');
+        this.props.history.push('/dashboard/regular-riskGrading');
     };
 
     back = e => {

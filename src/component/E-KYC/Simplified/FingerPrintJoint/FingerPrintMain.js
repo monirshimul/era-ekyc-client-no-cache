@@ -20,11 +20,13 @@ export class FingerPrintMain extends Component {
         channelName: '',
         //Step1
         NidFront: "",
-        NidFrontOcr: '',
+        NidFrontOcr:'',
         NidFrontType: '',
         NidBack: '',
-        NidBackOcr: "",
+        NidBackOcr:"",
         NidBackType: '',
+        loadingSpin: false,
+        allData:'',
         //Step2
         nid: "",
         dob: "",
@@ -218,10 +220,10 @@ export class FingerPrintMain extends Component {
 
         const { step } = this.state;
         
-        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, flag, nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag, nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
            signature, signatureType, jointArray, accountType, product, channelName,productName } = this.state;
        
-            const values = { applicantEkycId,NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, flag,nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+            const values = { applicantEkycId,NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag,nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, operatorType, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
             signature, signatureType, jointArray, accountType, product, channelName,productName }
 
 

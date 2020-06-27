@@ -51,6 +51,7 @@ import CustomerPicReg from '../E-KYC/Regular/FingerFormsRegular/CustomerPicReg';
 
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import RiskGrading from '../E-KYC/Regular/RiskGrading';
 
 
 
@@ -334,6 +335,8 @@ class Dashboard extends Component {
                                     <Route path={`${path}/regular-signature`} component={SignatureReg} />
                                     <Route path={`${path}/regular-confirminfo`} component={ConfirmInfoReg} />
                                     <Route path={`${path}/regular-complete`} component={CompleteReg} />
+                                    <Route path={`${path}/regular-riskGrading`} component={RiskGrading} />
+
 
                                     {/* Finger Forms  */}
                                     <Route path={`${path}/regular-fingerprint`} component={FingerPrintReg} />

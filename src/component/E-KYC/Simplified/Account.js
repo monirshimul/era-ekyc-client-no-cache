@@ -121,7 +121,7 @@ class Account extends Component {
 
         try {
             let dec = await axios.post(getEkycType, obj, config);
-            console.log("decisionData", dec.data);
+            //console.log("decisionData", dec.data);
             this.setState({ SimReg: dec.data.data.ekycType })
             let typeEkyc = dec.data.data.ekycType;
             let statusCode = dec.data.statusCode;
@@ -135,18 +135,18 @@ class Account extends Component {
 
             localStorage.setItem("accountInfo", JSON.stringify(myObj));
 
-           
+            let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
 
-            if (accountType === 'S' && typeEkyc === 'S') {
+            if (accountType === 'S' && typeEkyc === 'S' && featureTest.includes('5.1') === true ) {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/type-verification');
-            }else if (accountType === 'J' && typeEkyc === 'S') {
+            }else if (accountType === 'J' && typeEkyc === 'S' && featureTest.includes('5.1') === true ) {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/dynamic-comp');
-            }else if (accountType === 'S' && typeEkyc === 'R'){
+            }else if (accountType === 'S' && typeEkyc === 'R' && featureTest.includes('5.2') === true){
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/regular-typeverification');
-            }else if (accountType === 'J' && typeEkyc === 'R'){
+            }else if (accountType === 'J' && typeEkyc === 'R' && featureTest.includes('5.2') === true ){
 
             }else{
                 NotificationManager.warning("Please Check Your TP and Product List", "Warning", 5000);
@@ -156,12 +156,29 @@ class Account extends Component {
 
 
 
-        } catch (err) {
-            console.log(err.response);
-            let ErrorCode = err.response.data.status;
-            let ErrorMessage = err.response.data.message;
+        } catch (error) {
+            if (error.response) {
+                //     console.log(err.response);
+            let ErrorCode = error.response.data.status;
+            let ErrorMessage = error.response.data.message;
             NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
+            }
+            else if (error.request) {
+                console.log(error.request);
+                NotificationManager.error("Error Connecting", "Error", 5000);
+            }
+            else {
+                console.log("Error", error.message);
+                NotificationManager.error(error.message, "Error", 5000);
+            }
         }
+        
+        // catch (err) {
+        //     console.log(err.response);
+        //     let ErrorCode = err.response.data.status;
+        //     let ErrorMessage = err.response.data.message;
+        //     NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
+        // }
 
     }
 

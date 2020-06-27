@@ -30,10 +30,10 @@ class Login extends Component {
 
         try {
             let userLogin = await axios.post(loginAPI, obj);
-            console.log("loginapi ", userLogin.data);
+           // console.log("loginapi ", userLogin.data);
 
             let loginSuccess = userLogin.data.data;
-            console.log("login", loginSuccess)
+            //console.log("login", loginSuccess)
 
             if (loginSuccess.loginToken) {
                 let loginToken = loginSuccess.loginToken;

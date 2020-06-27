@@ -89,12 +89,14 @@ export class CaptureImage extends Component {
     //   imageFlag:true
     // }
     //localStorage.setItem("CaptureImage", JSON.stringify(obj));
+    this.closeCamera();
     this.props.nextStep();
   };
 
   back = (e) => {
    // const { values } = this.props;
     e.preventDefault();
+    this.closeCamera();
     this.props.prevStep();
   };
 

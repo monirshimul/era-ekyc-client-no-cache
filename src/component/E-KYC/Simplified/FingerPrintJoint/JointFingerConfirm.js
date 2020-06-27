@@ -25,7 +25,7 @@ export class JointFingerConfirm extends Component {
         let accountInfo = {
             title: values.applicantName,
             type: values.accountType,
-            productType: values.productCategory,
+            productType: values.product,
             productCode: values.productName,
             channelCode: values.channelName
         }

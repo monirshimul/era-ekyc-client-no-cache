@@ -23,6 +23,8 @@ export class MainFace extends Component {
         NidBack: '',
         NidBackOcr:"",
         NidBackType: '',
+        loadingSpin: false,
+        allData:'',
         //Step2
         faceImage: "",
         showCamera: false,
@@ -206,8 +208,8 @@ export class MainFace extends Component {
     render() {
 
         const { step } = this.state;
-        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName,productName } = this.state;
-        const values = {applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName,productName }
+        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName,productName } = this.state;
+        const values = {applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, accountType, product, channelName,productName }
 
 
         switch (step) {

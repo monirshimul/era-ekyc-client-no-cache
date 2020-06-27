@@ -18,13 +18,23 @@ export class DynamicComp extends Component {
         comp: '',
         showHide: false,
         accountId: '',
+        processComplete: false
+    }
+
+
+    onProcess = e => {
+        e.preventDefault();
+        this.setState({
+            accountId: JSON.parse(localStorage.getItem('accountId')),
+            processComplete: true
+        })
     }
 
     complete = async (e) => {
         e.preventDefault();
-        this.setState({
-            accountId: JSON.parse(localStorage.getItem('accountId'))
-        })
+        // this.setState({
+        //     accountId: JSON.parse(localStorage.getItem('accountId'))
+        // })
 
         const config = {
             headers: {
@@ -33,32 +43,29 @@ export class DynamicComp extends Component {
         };
 
 
-        if (this.state.accountId !== '') {
 
-            let obj = {
-                accountId: this.state.accountId
-            }
 
-            try {
-                let completeApi = await axios.post(simplifiedJointConfirmAPI, obj, config);
-                // console.log(completeApi.data);
-                let statusCode = completeApi.data.statusCode;
-                let successMessage = completeApi.data.message;
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-                localStorage.clear();
-                this.props.history.push('/dashboard');
-            } catch (err) {
-                //console.log(err.response.data);
-                let ErrorStatus = err.response.data.statusCode;
-                let ErrorMessage = err.response.data.message;
-                NotificationManager.error(ErrorStatus + " " + ErrorMessage, "Error", 5000);
-            }
-        }else{
-            NotificationManager.warning("Please again press Complete Button", "Warning", 5000);
-            return;
+        let obj = {
+            accountId: this.state.accountId
         }
 
+        try {
+            let completeApi = await axios.post(simplifiedJointConfirmAPI, obj, config);
+            console.log(completeApi.data);
+            let statusCode = completeApi.data.statusCode;
+            let successMessage = completeApi.data.message;
+            NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+            localStorage.clear();
+            this.props.history.push('/dashboard');
+        } catch (err) {
+            //console.log(err.response.data);
+            let ErrorStatus = err.response.data.statusCode;
+            let ErrorMessage = err.response.data.message;
+            NotificationManager.error(ErrorStatus + " " + ErrorMessage, "Error", 5000);
+        }
     }
+
+
 
 
     deleteComp = (index) => {
@@ -121,7 +128,18 @@ export class DynamicComp extends Component {
 
                 {
 
-                    this.state.jointArray.length > 1 ?
+                    this.state.jointArray.length > 1 && this.state.processComplete === false ?
+                        <div>
+                            <button className="neoBg" style={{ border: "none", background: "gray", color:'white' }} onClick={this.onProcess} >Finish Adding</button>
+                        </div>
+                        :
+                        ""
+
+                }
+
+                {
+
+                    this.state.jointArray.length > 1 && this.state.processComplete === true ?
                         <div>
                             <button className="b" style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button>
                         </div>
@@ -129,6 +147,8 @@ export class DynamicComp extends Component {
                         ""
 
                 }
+
+
 
                 {!showHide ? (
                     <div>

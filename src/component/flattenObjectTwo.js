@@ -40,7 +40,7 @@ import  TPList  from './E-KYC/TP/TPList';
 import UpdateTP from './E-KYC/TP/UpdateTP';
 
 // RiskGrading
-import RiskGrading from './E-KYC/Regular/RiskGrading';
+//import RiskGrading from './E-KYC/Regular/RiskGrading';
 
 
 
@@ -545,9 +545,9 @@ export const allRoutes = [
                     "key": "6.1",
                     'isShowing': true,
                     "featureName": "Statistics",
-                    "path": "/risk-grading",
+                    "path": "/statistics",
                     "exact": true,
-                    "component": <RiskGrading />
+                    "component": <Target/>
                 }
 
             },
