@@ -6,18 +6,18 @@ import { NotificationManager } from "react-notifications";
 
 class GetProduct extends Component {
 
-    state={
-        productData:[]
+    state = {
+        productData: []
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let token = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
         try {
-            let getProductRes = await axios.post(getProduct, null ,token)
+            let getProductRes = await axios.post(getProduct, null, token)
             console.log('getProductRes', getProductRes.data.data)
             this.setState({
                 productData: getProductRes.data.data
@@ -27,20 +27,20 @@ class GetProduct extends Component {
         }
     }
 
-    onUpdate = async(id)=>{
-        let {productData} = this.state
-        
+    onUpdate = async (id) => {
+        let { productData } = this.state
+
         let token = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-        
+
 
         let idObj = {
-            id:id
+            id: id
         }
-    
+
 
         try {
             let updateRes = await axios.post(getProduct, idObj, token)
@@ -56,46 +56,46 @@ class GetProduct extends Component {
     }
 
 
-    onDelete = async (id)=>{
+    onDelete = async (id) => {
         let token = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-        
-            
-        
-       
+
+
+
+
         try {
 
             var retVal = window.confirm("Do you want to Delete? All data of this product will be deleted. ");
-               if( retVal === true ) {
+            if (retVal === true) {
                 let deleteRes = await axios.delete(deleteProduct, {
                     headers: {
-                      'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+                        'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
                     },
                     data: {
-                      id: id
+                        id: id
                     }
-                  })
+                })
                 console.log('updateRes', deleteRes)
                 NotificationManager.warning("Product Deleted", "Warning", 5000);
-                let getProductRes = await axios.post(getProduct, null ,token)
+                let getProductRes = await axios.post(getProduct, null, token)
                 this.setState({
                     productData: getProductRes.data.data
                 })
-               } else {
-                let getProductRes = await axios.post(getProduct, null ,token)
+            } else {
+                let getProductRes = await axios.post(getProduct, null, token)
                 this.setState({
                     productData: getProductRes.data.data
                 })
-               }
+            }
 
 
-            
+
 
         } catch (error) {
-            console.log("Error===>",error.response)
+            console.log("Error===>", error.response)
         }
     }
 
@@ -134,8 +134,8 @@ class GetProduct extends Component {
 
                                         <hr />
                                         <div className="row d-flex justify-content-around">
-                                            <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={()=>this.onUpdate(data.id)} >Update</button>
-                                            <button className="neoBtnSmall" style={{ color: "#d3830a" }} onClick={()=>this.onDelete(parseInt(data.id))}>Delete</button>
+                                            <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={() => this.onUpdate(data.id)} >Update</button>
+                                            <button className="neoBtnSmall" style={{ color: "#d3830a" }} onClick={() => this.onDelete(parseInt(data.id))}>Delete</button>
 
                                         </div>
 
