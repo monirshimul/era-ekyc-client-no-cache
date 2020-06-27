@@ -66,3 +66,7 @@ export const deleteTPAPI = hostIp + `tp`;
 // Get Ekyc Type BY TP
 export const getEkycType = hostIp + `tp/ekyc-type`;
 
+// Download
+
+export const profileDownload = hostIp + `report/ekyc/simplified/pdf`;
+

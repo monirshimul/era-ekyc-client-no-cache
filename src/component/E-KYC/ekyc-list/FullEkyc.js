@@ -3,12 +3,17 @@ import NidThree from '../Simplified/images/nid-f4.svg';
 import NidTwo from '../Simplified/images/nid-f3.svg';
 import face from '../Simplified/images/face.svg';
 import man from '../Simplified/images/man.svg';
+import { Loading } from '../Simplified/utils/CustomLoding/Loading'
+import { profileDownload } from '../Url/ApiList'
+import axios from 'axios';
+import { saveAs } from 'file-saver';
 
 class FullEkyc extends Component {
 
     state = {
         ekyc: this.props.location.state.data,
-        flag: 'data:image/jpeg;base64,'
+        flag: 'data:image/jpeg;base64,',
+        loading: false
     }
 
     componentDidMount() {
@@ -19,8 +24,50 @@ class FullEkyc extends Component {
         this.props.history.push('/dashboard/e-kyc-list-&-search')
     }
 
+    onDownload = async (id) => {
+
+        let config = {
+            responseType: 'arraybuffer',
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        let idObj = {
+            applicantId: id
+        }
+
+        try {
+
+            this.setState({
+                loading: !this.state.loading
+            })
+
+            let downloalData = await axios.post(profileDownload, idObj, config)
+
+            //console.log("downloalData", downloalData.data)
+
+            const blob = new Blob([downloalData.data], { type: 'application/pdf', encoding: 'UTF-8' })
+
+            saveAs(blob, `${this.state.ekyc.nid}.pdf`);
+            this.setState({
+                loading: !this.state.loading
+            })
+
+        } catch (error) {
+            console.log("Error=====>", error.response)
+            this.setState({
+                loading: !this.state.loading
+            })
+        }
+
+
+
+    }
+
     render() {
-        let { ekyc, flag } = this.state
+        let { ekyc, flag, loading } = this.state
         return (
             <div className="container">
 
@@ -56,7 +103,7 @@ class FullEkyc extends Component {
                                         </div>
                                         <hr />
 
-                                        
+
 
                                         <div className="text-muted">
                                             <h5>Others Info</h5>
@@ -111,31 +158,31 @@ class FullEkyc extends Component {
                                     </div>
 
                                     <div className="col-sm-12">
-                                    <div className="text-muted">
+                                        <div className="text-muted">
                                             <h5>Nominee Info</h5>
                                             <hr />
                                         </div>
-                                        <div className="row d-flex justify-content-around" style={{ fontSize: "17px" }}>
+                                        <div className="row d-flex justify-content-between" style={{ fontSize: "17px" }}>
                                             {
                                                 ekyc.nominees.map((data, ind) => (
                                                     <div className="col-sm-6">
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Nominee : </span>{ind}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Nominee : </span>{ind + 1}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name : </span>{data.name}</small><br />
-                                                        
+
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{data.dob}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.id}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Gurdian : </span>{data.gurdian}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Minor : </span>{data.isMinor}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Percentage : </span>{data.percentage}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Relation : </span>{data.relation}</small><br />
-                                                        <hr/>
+                                                        <hr />
 
                                                     </div>
                                                 ))
                                             }
 
                                         </div>
-                                        
+
                                     </div>
 
 
@@ -149,14 +196,14 @@ class FullEkyc extends Component {
                                             <hr />
                                         </div>
                                         <div className="row justify-content-center" style={{ fontSize: "14px" }}>
-                                        <div className="imTwoWhite col-sm-3" >
+                                            <div className="imTwoWhite col-sm-3" >
                                                 <div className="text-center">
                                                     <small>NID Front</small>
                                                 </div>
                                                 <div className="d-flex justify-content-center">
 
                                                     <img
-                                                        src={ ekyc.files.nidFront ? flag + ekyc.files.nidFront : NidThree}
+                                                        src={ekyc.files.nidFront ? flag + ekyc.files.nidFront : NidThree}
                                                         style={{
                                                             margin: "auto",
                                                             cursor: "pointer",
@@ -219,36 +266,36 @@ class FullEkyc extends Component {
                                             </div>
 
                                             {
-                                                ekyc.nominees.map((data, ind)=>(
+                                                ekyc.nominees.map((data, ind) => (
                                                     <div key={ind} className="imTwoWhite col-sm-3" >
-                                                <div className="text-center">
-                                                <small>Nominee {data.id} Photo</small>
-                                                </div>
-                                                <div className="d-flex justify-content-center">
+                                                        <div className="text-center">
+                                                            <small>Nominee {data.id} Photo</small>
+                                                        </div>
+                                                        <div className="d-flex justify-content-center">
 
-                                                    <img
-                                                        src={data.photo ? flag + data.photo : face}
-                                                        style={{
-                                                            margin: "auto",
-                                                            cursor: "pointer",
-                                                            width: "200px",
-                                                            height: "150px",
-                                                        }}
-                                                        defaultValue=""
-                                                        className="img-fluid img-thumbnail im"
-                                                        id="FrontNidPic"
-                                                        alt=""
-                                                    />
-                                                </div>
+                                                            <img
+                                                                src={data.photo ? flag + data.photo : face}
+                                                                style={{
+                                                                    margin: "auto",
+                                                                    cursor: "pointer",
+                                                                    width: "200px",
+                                                                    height: "150px",
+                                                                }}
+                                                                defaultValue=""
+                                                                className="img-fluid img-thumbnail im"
+                                                                id="FrontNidPic"
+                                                                alt=""
+                                                            />
+                                                        </div>
 
-                                            </div>
+                                                    </div>
                                                 ))
                                             }
 
-                                            
 
-                                            
-                                            
+
+
+
                                         </div>
 
                                     </div>
@@ -261,9 +308,21 @@ class FullEkyc extends Component {
                             </div>
                         </div>
                         <hr />
+                        
+                            <div className="row d-flex justify-content-center">
+                                {
+                                    loading ? (<Loading/>):""
+                                    
+                                }
+                                
+                                
+                            </div>
+                            
+                        
                         <div className="row d-flex justify-content-center">
                             <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} onClick={this.backEkyc}>Back</button>
-                            <button className="neoBtnSmall" style={{ color: "#308f8f" }}>Print</button>
+                            <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} >Print</button>
+                            <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={() => this.onDownload(ekyc.id)}>Download</button>
                         </div>
                     </div>
                 </div>

@@ -133,7 +133,7 @@ class RiskGrading extends Component {
 
 
             // })
-            this.props.history.push('/dashboard/regular-complete');
+            this.props.history.push('/dashboard/regular-confirminfo');
 
         } catch (error) {
             console.log("Error====>", error.response)
