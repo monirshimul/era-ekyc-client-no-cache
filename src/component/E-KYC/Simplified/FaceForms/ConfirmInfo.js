@@ -147,6 +147,8 @@ export class ConfirmInfo extends Component {
                 fingerprint: fingerObj
             }
 
+            console.log('Finger Data', confFingerObj);
+
 
 
             const config = {
@@ -167,7 +169,7 @@ export class ConfirmInfo extends Component {
                 let successMessage = "Account Opening " + resData.message;
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 localStorage.clear();
-                this.props.history.replace('/dashboard/complete');
+                //this.props.history.replace('/dashboard/complete');
 
             } catch (err) {
                 console.log(err.response);
@@ -185,6 +187,8 @@ export class ConfirmInfo extends Component {
                 applicantFile: applicantFileInfo,
                 nominees: nomineesInfo
             }
+
+            console.log('Face', confirmObj);
 
             const config = {
                 headers: {
@@ -204,7 +208,7 @@ export class ConfirmInfo extends Component {
                 let successMessage = "Account Opening " + resData.message;
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 localStorage.clear();
-                this.props.history.replace('/dashboard/complete');
+               // this.props.history.replace('/dashboard/complete');
 
             } catch (err) {
                 console.log(err.response);

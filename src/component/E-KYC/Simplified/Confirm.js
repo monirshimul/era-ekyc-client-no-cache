@@ -128,7 +128,7 @@ export class Confirm extends Component {
          let resAccountId=  responseFirst.data.data.accountId;
          this.props.handleState('applicantEkycId', resAccountId);
          localStorage.setItem("accountId", JSON.stringify(resAccountId));
-         this.props.nextStep();
+        // this.props.nextStep();
         
         } catch (err) {
            console.log(err.response);
@@ -234,7 +234,7 @@ export class Confirm extends Component {
             let respStatus = resJointAdded.data.statusCode;
             let respMessage =resJointAdded.data.message;
             NotificationManager.success(respStatus + " " + respMessage, "Success", 5000);
-            this.props.nextStep();
+          //  this.props.nextStep();
         }catch (err){
             console.log(err);
             this.props.handleState('confirmFlag', false);
