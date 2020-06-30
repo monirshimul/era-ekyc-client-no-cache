@@ -1,30 +1,18 @@
-import React, { Component } from 'react'
-import { formatDate } from './utils/DateFormat';
-import Family from './images/family.svg';
-import Avater from './images/user-two.svg';
-import front from './images/id-front-three.svg';
+import React, { Component } from 'react';
+import Avater from '../../Simplified/images/user-two.svg';
+import front from '../../Simplified/images/id-front-three.svg';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
-import {simplifiedJointAPI, simplifiedJointAddAPI} from '../Url/ApiList';
-import Loading from './utils/CustomLoding/Loading';
+import Loading from '../../Simplified/utils/CustomLoding/Loading';
+import back from '../../Simplified/images/id-back-three.svg';
+import Sign from '../../Simplified/images/signature.svg';
+import adult from '../../Simplified/images/age-limit-one.svg';
+import child from '../../Simplified/images/age-limit-two.svg';
 
-import back from './images/id-back-three.svg';
-import Sign from './images/signature.svg';
-import Familyes from './images/candidates.svg';
-import adult from './images/age-limit-one.svg';
-import child from './images/age-limit-two.svg';
-
-
-export class Confirm extends Component {
-
-
-    continue = async(e) => {
+export class RegFingerPrintConfirm extends Component {
+    continue = (e) => {
         const { values } = this.props;
         e.preventDefault();
-        //Process form//
-        console.log(values.applicantEkycId);
-        if(values.applicantEkycId === ''){
-
 
         let accountInfo = {
             title: values.applicantName,
@@ -35,12 +23,11 @@ export class Confirm extends Component {
         }
 
         let applicantInfo = {
-            operatorType: values.operatorType,
             nid: values.applicantNidNo,
             name: values.applicantName,
             nameBangla: values.applicantNameBangla,
             dob: values.applicantDob,
-            dobDate:values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
+            dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : "",
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
             fatherName: values.fatherName,
@@ -52,210 +39,85 @@ export class Confirm extends Component {
             presentAddress: values.presentAddress,
             permanentAddress: values.permanentAddress,
             permanentAddressBangla: values.permanentAddressBangla,
-            verificationType: 'FACE'
+            monthlyIncome: values.monthlyIncome,
+            sourceOfFund: values.sourceOfFund,
+            nationality: values.nationality,
+            tin: values.tin,
+            verificationType: "FINGER"
         }
 
-        let applicantFileInfo ={
-            nidFront:values.NidFront,
-            nidBack:values.NidFront,
-            photo:values.faceImage,
-            signature:values.signature
+        let applicantFileInfo = {
+            nidFront: values.NidFront,
+            nidBack: values.NidFront,
+            photo: values.faceImage,
+            signature: values.signature
         }
 
-        let nomineesInfo =[];
-        for(let i =0; i< values.jointArray.length; i++){  
-            if(values.jointArray[i].isShow === true){
-                let nomineeObj={
-                name: values.jointArray[i].nominee,
-                relation:values.jointArray[i].relation,
-                dob:values.jointArray[i].dob ? new Date(values.jointArray[i].dob).toISOString() : '',
-                photo: values.jointArray[i].photograph,
-                isMinor: !(values.jointArray[i].isShow) ,
-                percentage: parseInt(values.jointArray[i].percentage)
-            }
-            nomineesInfo.push(nomineeObj);
-            }else{
-                let guardianInfo ={
-                    nid:values.jointArray[i].minorGuardianNid,
-                    name:values.jointArray[i].minorGuardianName,
-                    relation:values.jointArray[i].guardianRelationWMinor,
-                    address:values.jointArray[i].minorGuardianAddress,
-                    photo:values.jointArray[i].minorPhotoGuardian
+        let nomineesInfo = [];
+        for (let i = 0; i < values.jointArray.length; i++) {
+            if (values.jointArray[i].isShow === true) {
+                let nomineeObj = {
+                    name: values.jointArray[i].nominee,
+                    relation: values.jointArray[i].relation,
+                    dob: values.jointArray[i].dob ? new Date(values.jointArray[i].dob).toISOString(): '',
+                    photo: values.jointArray[i].photograph,
+                    isMinor: !(values.jointArray[i].isShow),
+                    percentage: parseInt(values.jointArray[i].percentage)
+                }
+                nomineesInfo.push(nomineeObj);
+            } else {
+                let guardianInfo = {
+                    nid: values.jointArray[i].minorGuardianNid,
+                    name: values.jointArray[i].minorGuardianName,
+                    relation: values.jointArray[i].guardianRelationWMinor,
+                    address: values.jointArray[i].minorGuardianAddress,
+                    photo: values.jointArray[i].minorPhotoGuardian
                 }
 
-                let nomineeObj={
-                    name:values.jointArray[i].minorNominee,
-                    relation:values.jointArray[i].minorRelationWAccH,
-                    dob: values.jointArray[i].minorDob ? new Date(values.jointArray[i].minorDob).toISOString() : '',
+                let nomineeObj = {
+                    name: values.jointArray[i].minorNominee,
+                    relation: values.jointArray[i].minorRelationWAccH,
+                    dob: values.jointArray[i].minorDob ? new Date(values.jointArray[i].minorDob).toISOString(): '',
                     //dob: convertminorIso,
-                    photo:values.jointArray[i].minorNomineePhoto,
-                    isMinor:!(values.jointArray[i].isShow),
-                    percentage:parseInt(values.jointArray[i].minorPercentage),
-                    guardian:guardianInfo
+                    photo: values.jointArray[i].minorNomineePhoto,
+                    isMinor: !(values.jointArray[i].isShow),
+                    percentage: parseInt(values.jointArray[i].minorPercentage),
+                    guardian: guardianInfo
                 }
                 nomineesInfo.push(nomineeObj);
 
             }
-            
+
         }
-        
-        let confirmObj ={
-            account:accountInfo ,
-            applicant:applicantInfo ,
+
+        let fingerObj = {
+            rIndex: values.rIndex
+        }
+
+        console.log("Finger Obj===========>", fingerObj)
+
+        let confirmObj = {
+            account: accountInfo,
+            applicant: applicantInfo,
             applicantFile: applicantFileInfo,
-            nominees:nomineesInfo
+            nominees: nomineesInfo,
+            fingerprint: fingerObj
         }
         console.log("Confirm obj", confirmObj);
 
-        const config = {
-            headers: {
-                'x-verification-token': values.verifyToken,
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-
-            }
-        };
-        console.log(config)
-
-        try{
-        this.props.handleState('confirmFlag', true);
-         let responseFirst = await axios.post(simplifiedJointAPI, confirmObj, config);
-         this.props.handleState('confirmFlag', false);
-         console.log("responseforFIRST", responseFirst.data);
-         let data = responseFirst.data;
-         let statusCode= data.statusCode;
-         let successMessage = data.message;
-         NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-         let resAccountId=  responseFirst.data.data.accountId;
-         this.props.handleState('applicantEkycId', resAccountId);
-         localStorage.setItem("accountId", JSON.stringify(resAccountId));
-        // this.props.nextStep();
-        
-        } catch (err) {
-           console.log(err.response);
-           this.props.handleState('confirmFlag', false);
-             let apiError = err.response.data;
-             let errorStatus = apiError.statusCode;
-             let errorMessage = apiError.message;
-            NotificationManager.error(errorStatus + " " + errorMessage, "Error", 5000);
-        }
+        this.props.nextStep();
 
     }
-    else{
 
-        let accountIdInfo = values.applicantEkycId;
-        let applicantInfo = {
-            operatorType: values.operatorType,
-            nid: values.applicantNidNo,
-            name: values.applicantName,
-            nameBangla: values.applicantNameBangla,
-            dob: values.applicantDob,
-            dobDate: new Date(values.applicantDob).toISOString(),
-            motherName: values.motherName,
-            motherNameBangla: values.motherNameBangla,
-            fatherName: values.fatherName,
-            fatherNameBangla: values.fatherNameBangla,
-            spouseName: values.spouseName,
-            gender: values.gender,
-            profession: values.profession,
-            mobile: values.mobileNumber,
-            presentAddress: values.presentAddress,
-            permanentAddress: values.permanentAddress,
-            permanentAddressBangla: values.permanentAddressBangla,
-            verificationType: 'FACE'
-        }
-
-        let applicantFileInfo ={
-            nidFront:values.NidFront,
-            nidBack:values.NidFront,
-            photo:values.faceImage,
-            signature:values.signature
-        }
-
-        let nomineesInfo =[];
-        for(let i =0; i< values.jointArray.length; i++){  
-            if(values.jointArray[i].isShow === true){
-                let nomineeObj={
-                name: values.jointArray[i].nominee,
-                relation:values.jointArray[i].relation,
-                dob: new Date(values.jointArray[i].dob).toISOString(),
-                photo: values.jointArray[i].photograph,
-                isMinor: !(values.jointArray[i].isShow) ,
-                percentage: parseInt(values.jointArray[i].percentage)
-            }
-            nomineesInfo.push(nomineeObj);
-            }else{
-                let guardianInfo ={
-                    nid:values.jointArray[i].minorGuardianNid,
-                    name:values.jointArray[i].minorGuardianName,
-                    relation:values.jointArray[i].guardianRelationWMinor,
-                    address:values.jointArray[i].minorGuardianAddress,
-                    photo:values.jointArray[i].minorPhotoGuardian
-                }
-
-                let nomineeObj={
-                    name:values.jointArray[i].minorNominee,
-                    relation:values.jointArray[i].minorRelationWAccH,
-                    dob: new Date(values.jointArray[i].minorDob).toISOString(),
-                    //dob: convertminorIso,
-                    photo:values.jointArray[i].minorNomineePhoto,
-                    isMinor:!(values.jointArray[i].isShow),
-                    percentage:parseInt(values.jointArray[i].minorPercentage),
-                    guardian:guardianInfo
-                }
-                nomineesInfo.push(nomineeObj);
-
-            }
-            
-        }
-        
-        let confirmObjSecond ={
-            accountId:accountIdInfo,
-            applicant:applicantInfo,
-            applicantFile:applicantFileInfo,
-            nominees:nomineesInfo,
-        }
-
-        console.log('SecondApi', confirmObjSecond);
-
-        const config = {
-            headers: {
-                'x-verification-token': values.verifyToken,
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-
-            }
-        };
-
-        try{
-            this.props.handleState('confirmFlag', true);
-            let resJointAdded = await axios.post(simplifiedJointAddAPI, confirmObjSecond, config);
-            this.props.handleState('confirmFlag', false);
-            console.log(resJointAdded.data);
-            
-            let respStatus = resJointAdded.data.statusCode;
-            let respMessage =resJointAdded.data.message;
-            NotificationManager.success(respStatus + " " + respMessage, "Success", 5000);
-          //  this.props.nextStep();
-        }catch (err){
-            console.log(err);
-            this.props.handleState('confirmFlag', false);
-            let errStatusCode = err.response.data.statusCode;
-            let errStatusMessage = err.response.data.message;
-            NotificationManager.error(errStatusCode + " " + errStatusMessage, "Error", 5000);
-        }
-        
-
-    }
-       
-       
-    };
 
     back = e => {
         e.preventDefault();
         this.props.prevStep();
     }
+
+
     render() {
         const { values } = this.props;
-     // console.log(values);
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
@@ -322,7 +184,10 @@ export class Confirm extends Component {
                                 <p className="text-muted">Permanent Address : {values.permanentAddress}</p>
                                 <p className="text-muted">Permanent Address Bangla : {values.permanentAddressBangla}</p>
                                 <p className="text-muted">Operator Type : {values.operatorType}</p>
-
+                                <p className="text-muted">Monthly Income : {values.monthlyIncome}</p>
+                                <p className="text-muted">Source Of Fund : {values.sourceOfFund}</p>
+                                <p className="text-muted">Nationality : {values.nationality}</p>
+                                <p className="text-muted">Tin NO : {values.tin}</p>
                             </div>
                         </div>
 
@@ -388,6 +253,7 @@ export class Confirm extends Component {
                                             Picture :   <img src={val.photograph ? values.flag + val.photograph : adult} alt="" style={{ width: "300px", height: "200px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                                  ,<br />
                                             Nominee : {val.nominee},<br />
+                                            Date Of Birth: {val.dob},<br />
                                             Relation : {val.relation},<br />
 
 
@@ -408,7 +274,7 @@ export class Confirm extends Component {
                                             <p className="text-muted">Photograph of Minor Nominee :
                                                 <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child} alt="" style={{ width: "300px", height: "200px", border: "1px solid #00bdaa", marginLeft: "25px" }}></img>
                                             </p>
-                                            
+
                                             <p className="text-muted">Percentage : {val.minorPercentage}</p>
 
                                             <p className="text-muted">Minor Nominee Guardian NID No : {val.minorGuardianNid}</p>
@@ -454,12 +320,11 @@ export class Confirm extends Component {
 
                     </div>
 
+                    {
+                        values.confirmFlag ? <Loading /> : ''
+                    }
 
-                {
-                    values.confirmFlag ? <Loading/> : ''
-                }
-
-                    <br/>
+                    <br />
 
                     <div className="d-flex justify-content-center"
                         style={{ marginBottom: "20px" }}
@@ -476,4 +341,4 @@ export class Confirm extends Component {
     }
 }
 
-export default Confirm;
+export default RegFingerPrintConfirm;

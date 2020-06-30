@@ -36,7 +36,7 @@ export class JointFingerConfirm extends Component {
             name: values.applicantName,
             nameBangla: values.applicantNameBangla,
             dob: values.applicantDob,
-            dobDate: new Date(values.applicantDob).toISOString(),
+            dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
             fatherName: values.fatherName,
@@ -64,7 +64,7 @@ export class JointFingerConfirm extends Component {
                 let nomineeObj={
                 name: values.jointArray[i].nominee,
                 relation:values.jointArray[i].relation,
-                dob: new Date(values.jointArray[i].dob).toISOString(),
+                dob: values.jointArray[i].dob ? new Date(values.jointArray[i].dob).toISOString() : '',
                 photo: values.jointArray[i].photograph,
                 isMinor: !(values.jointArray[i].isShow) ,
                 percentage: parseInt(values.jointArray[i].percentage)
@@ -82,7 +82,7 @@ export class JointFingerConfirm extends Component {
                 let nomineeObj={
                     name:values.jointArray[i].minorNominee,
                     relation:values.jointArray[i].minorRelationWAccH,
-                    dob: new Date(values.jointArray[i].minorDob).toISOString(),
+                    dob: values.jointArray[i].minorDob ? new Date(values.jointArray[i].minorDob).toISOString() : '',
                     //dob: convertminorIso,
                     photo:values.jointArray[i].minorNomineePhoto,
                     isMinor:!(values.jointArray[i].isShow),
@@ -264,7 +264,7 @@ export class JointFingerConfirm extends Component {
     }
     render() {
         const { values } = this.props;
-        console.log("Mehedi");
+       
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>

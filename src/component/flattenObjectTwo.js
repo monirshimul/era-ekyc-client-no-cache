@@ -5,7 +5,7 @@ import Blogs from './Dashboard/NestedComponentDemo/Blogs';
 import Contact from './Dashboard/NestedComponentDemo/Contact';
 
 import Account from './E-KYC/Simplified/Account';
-import AccountSimp from './E-KYC/Simplified/FaceForms/AccountSimp';
+import AccountSimp from './E-KYC/Simplified/SimFace/AccountSimp';
 import AccountReg from './E-KYC/Regular/AccountReg';
 
 import RoleCreate from './E-KYC/Role/CreateRole';

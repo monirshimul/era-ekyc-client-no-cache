@@ -1,18 +1,22 @@
-import React, { Component } from 'react'
-import Face from '../Simplified/images/face-scan.svg';
-import Finger from '../Simplified/images/fingerP.svg';
+import React, { Component } from 'react';
+import Face from '../images/face-scan.svg';
+import Finger from '../images/fingerP.svg';
 import { Link,withRouter } from 'react-router-dom';
 
 
-export class FaceOrFinger extends Component {
+export class SimFaceOrFinger extends Component {
    
 
     typeVerification = (val)=>{
         //e.preventDefault();
         
         const obj= { type: val };
-        localStorage.setItem("Verification", JSON.stringify(obj));
-        this.props.history.push("/dashboard/regular-nidimages");
+        if(val === 'FACE'){
+            this.props.history.push('/dashboard/simplified-face');
+        }else{
+            this.props.history.push('/dashboard/simplified-finger');
+        }
+        // this.props.history.push("/dashboard/nid-images");
     }
     render() {
         return (
@@ -20,7 +24,7 @@ export class FaceOrFinger extends Component {
             <div className="container" >
                 <div className="row d-flex justify-content-center">
                     <div className="col-sm-12">
-                        <h2 className="im" style={{color:"green"}}>Regular E-KYC</h2>
+                        <h2 className="im" style={{color:"green"}}>Simplified E-KYC</h2>
                     </div>
 
                 </div>
@@ -121,4 +125,4 @@ export class FaceOrFinger extends Component {
     }
 }
 
-export default withRouter(FaceOrFinger);
+export default withRouter(SimFaceOrFinger);
