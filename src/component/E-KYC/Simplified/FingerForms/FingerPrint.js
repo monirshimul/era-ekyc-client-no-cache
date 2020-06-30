@@ -147,7 +147,7 @@ export class FingerVerification extends Component {
       })
       
       localStorage.setItem("FingerPrint", JSON.stringify(obj));
-      sessionStorage.setItem('x-verification-token', JSON.stringify(this.state.verifyToken))
+      sessionStorage.setItem('x-verification-token', JSON.stringify(fingerRes.data.data.verificationToken))
       this.props.history.push("/dashboard/personal-details");
       // if(verifyToken){
         

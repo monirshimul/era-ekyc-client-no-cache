@@ -20,7 +20,7 @@ class EkycListSearch extends Component {
             let ekycList = await axios.post(ekycWithFilter + page)
             console.log("ekycList", ekycList.data.data.ekyc)
             this.setState({
-                ekycData: ekycList.data.data.ekyc
+                ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc
             })
         } catch (error) {
             console.log(error.response)
@@ -148,7 +148,7 @@ class EkycListSearch extends Component {
 
     render() {
         let { ekycData, radioValue, search } = this.state
-        console.log("state data", ekycData.map(kyc => kyc))
+        // console.log("state data", ekycData.map(kyc => kyc))
         return (
             <div className="container">
 
