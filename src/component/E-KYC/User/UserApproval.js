@@ -21,9 +21,16 @@ export class UserApproval extends Component {
     async componentDidMount() {
         const { page } = this.state;
         const ApproveObj = { status: "P" };
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
             // API call for Pending User List
-            let AppUserList = await axios.post(getUserWithStatus + 1, ApproveObj);
+            let AppUserList = await axios.post(getUserWithStatus + 1, ApproveObj, config);
             //Get User Data
             let appUserData = AppUserList.data.data;
             // console.log("AppUserData", appUserData);

@@ -37,7 +37,7 @@ export class UserList extends Component {
 
         try {
             // API called name getAllUser here no status need... page used for pagination
-            let appUser = await axios.post(getAllUser + pages);
+            let appUser = await axios.post(getAllUser + pages,null, token);
             console.log("getAllUser", appUser.data.data);
             let divide1 = appUser.data.data;
             let numberOfPages = divide1.totalPages;

@@ -18,8 +18,15 @@ class RoleList extends Component {
     async componentDidMount() {
 
         const Obj = { status: "A" };
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         let url = 'http://127.0.0.1:3001/role/get/';
-        let res = await axios.post(url, Obj);
+        let res = await axios.post(url, Obj, config);
         this.setState({
             pendingList: res.data.data
         })
