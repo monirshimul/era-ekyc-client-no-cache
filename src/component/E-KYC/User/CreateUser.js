@@ -198,10 +198,18 @@ class CreateUser extends Component {
 
     }
 
+    const config = {
+        headers: {
+            
+            'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+        }
+    };
+
 
     console.log("CreateObj", obj);
     try {
-        let createUser = await axios.post(createUserWithRole, obj);
+        let createUser = await axios.post(createUserWithRole, obj, config);
        // console.log(createUser.data);
         let statCode = createUser.data.statusCode;
         // let suc_message = createUser.data.message;

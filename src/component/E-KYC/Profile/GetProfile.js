@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import NidThree from '../Simplified/images/nid-f4.svg';
 import { NotificationManager } from "react-notifications";
 import { getProfile, imageUpdate, dataUpdate } from '../Url/ApiList'
-import { image } from './damiImage'
+import { image } from './damiImage';
+const Joi = require('@hapi/joi');
 
 export class GetProfile extends Component {
 
@@ -19,6 +20,8 @@ export class GetProfile extends Component {
         showUpdate: false,
         flag: 'data:image/jpeg;base64,'
     }
+
+    
 
     async componentDidMount() {
         //console.log("Image Data", image.data)
@@ -49,7 +52,11 @@ export class GetProfile extends Component {
             sessionStorage.setItem("profile", JSON.stringify(Obj))
 
         } catch (error) {
-            console.log(error)
+            if(error.response){
+                console.log("Error",error.response)
+            }else if(error.request){
+                console.log("NetWork Error",error.request)
+            }
         }
 
 
@@ -128,6 +135,9 @@ export class GetProfile extends Component {
             }
             //console.log("p data", profileData)
 
+
+            // const validationValue = await schema.validateAsync(profileData);
+            // console.log("validationValue", validationValue)
             let resProfile = await axios.put(dataUpdate, profileData, token);
             //console.log("Profile Response", resProfile)
 
@@ -321,5 +331,12 @@ export class GetProfile extends Component {
         )
     }
 }
+
+// const schema = Joi.object({
+//     name: Joi.string().required(),
+//     mobile: Joi.number().min(11).max(11).required(),
+//     email: Joi.string().email().required(),
+//     pinAuthStatus: Joi.string().required()
+// })
 
 export default withRouter(GetProfile)

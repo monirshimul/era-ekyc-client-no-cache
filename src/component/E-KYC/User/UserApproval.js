@@ -73,8 +73,16 @@ export class UserApproval extends Component {
         const obj = { id, status: "A" };
         //console.log(obj);
 
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
+
         try {
-            let approveUser = await axios.put(userApprovalAPI, obj);
+            let approveUser = await axios.put(userApprovalAPI, obj, config);
             this.setState({
                 approvedReject: !this.state.approvedReject
             })
@@ -109,8 +117,16 @@ export class UserApproval extends Component {
         const obj = { id, status: "R" };
         //console.log(obj);
 
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
+
         try {
-            let approveUser = await axios.put(userApprovalAPI, obj);
+            let approveUser = await axios.put(userApprovalAPI, obj, config);
             this.setState({
                 approvedReject: !this.state.approvedReject
             });

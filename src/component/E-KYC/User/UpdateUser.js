@@ -248,10 +248,18 @@ class UpdateUser extends Component {
             roles: checking,
             pinAuthStatus: dualVerification,
         };
+
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         console.log("obj", obj);
         //alert("User Update Successful and wait for the approval");
         try{
-        let update = await axios.put(userUpdate, obj);
+        let update = await axios.put(userUpdate, obj, config);
          console.log(update.data);
          let statusCode = update.data.statusCode;
          let message ="Update Completed"

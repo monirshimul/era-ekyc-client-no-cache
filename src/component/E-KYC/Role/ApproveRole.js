@@ -68,6 +68,14 @@ class ApproveRole extends Component {
 
     onApprove = async (id) => {
 
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
+
         try {
             //console.log("id", id)
             let url = 'http://127.0.0.1:3001/role/status';
@@ -75,7 +83,7 @@ class ApproveRole extends Component {
                 id: id,
                 status: "A"
             }
-            let res = await axios.put(url, data)
+            let res = await axios.put(url, data, config)
             this.setState({
                 approvedReject: !this.state.approvedReject
             })

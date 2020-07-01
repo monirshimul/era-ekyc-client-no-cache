@@ -4,6 +4,7 @@ import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 import { getFlatRouteArray } from '../../flattenObjectTwo';
 import { allRoutes } from '../../flattenObjectTwo';
+const Joi = require('@hapi/joi');
 
 
 export class UpdateRole extends Component {
@@ -122,9 +123,29 @@ export class UpdateRole extends Component {
                 rolePrivileges: featureList
 
             }
+
+            let joiData = {
+                
+                status: status,
+                roleName: roleName,
+                description: description,
+                grantedIPList: grantedIPList,
+                rolePrivileges: featureList
+
+            }
+            const config = {
+                headers: {
+                    
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+                }
+            };
             //console.log("Data", data)
+            const validationValue = await schema.validateAsync(joiData);
+            console.log("validationValue", validationValue)
+
             let url = 'http://127.0.0.1:3001/role';
-            let res = await axios.put(url, data)
+            let res = await axios.put(url, data, config)
             //console.log("response", res.data)
 
             //localStorage.setItem("Role Data", JSON.stringify(data))
@@ -132,10 +153,10 @@ export class UpdateRole extends Component {
             this.props.history.push("/dashboard/role-list")
 
         } catch (error) {
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+            // let { message } = error.response.data
+            // let { statusCode } = error.response.data
+            // console.log("error.response", error.response.data)
+            NotificationManager.error(error.toString(),"Error", 5000);
         }
 
 
@@ -263,5 +284,14 @@ export class UpdateRole extends Component {
         )
     }
 }
+
+const schema = Joi.object({
+    status: Joi.string().required(),
+    roleName: Joi.string().min(5).max(30).required(),
+    description: Joi.string().optional(),
+    grantedIPList: Joi.array().min(0),
+    rolePrivileges: Joi.array().min(0)
+
+})
 
 export default withRouter(UpdateRole)

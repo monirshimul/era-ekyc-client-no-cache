@@ -3,10 +3,9 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import { allRoutes } from '../../flattenObjectTwo'
 import { NotificationManager } from "react-notifications";
-
-
-
 import { getFlatRouteArray } from '../../flattenObjectTwo';
+
+const Joi = require('@hapi/joi');
 
 class CreateRole extends Component {
     constructor() {
@@ -15,6 +14,9 @@ class CreateRole extends Component {
         this.allMenu = getFlatRouteArray(allRoutes);
 
     }
+
+
+    
 
 
 
@@ -69,25 +71,41 @@ class CreateRole extends Component {
                 grantedIPList: grantedIPList,
                 rolePrivileges: rolePrivileges
             }
+
+            const config = {
+                headers: {
+                    
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+                }
+            };
+            
+            const validationValue = await schema.validateAsync(data);
+            console.log("validationValue", validationValue)
+            
             //console.log("Create Role Data", data)
             let url = 'http://127.0.0.1:3001/role/';
-            let res = await axios.post(url, data)
-            //console.log("response", res.data)
+            let res = await axios.post(url, data, config)
+            console.log("response", res.data)
 
             // localStorage.setItem("Role Data", JSON.stringify(data))
             NotificationManager.success("Role Created", "Success", 5000);
             this.props.history.push("/dashboard/success", data)
 
         } catch (error) {
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            let { reason } = error.response.data
+            console.log("Validation Error===>",error)
+            NotificationManager.error(error.toString(), "Error", 5000);
+            // let { message } = error.response.data
+            // let { statusCode } = error.response.data
+            // let { reason } = error.response.data
 
-            reason.map(v => (
-                NotificationManager.error(statusCode + ' ' + JSON.stringify(Object.values(v.constraints)), "Error", 5000)
-            ))
+            // reason.map(v => (
+            //     NotificationManager.error(statusCode + ' ' + JSON.stringify(Object.values(v.constraints)), "Error", 5000)
+            // ))
 
-            console.log(error.response.data)
+            // console.log(error.response.data)
+            // let erRes = error.response.data.reason.toString()
+            // NotificationManager.error(erRes, "Error", 5000)
         }
 
 
@@ -211,5 +229,13 @@ class CreateRole extends Component {
         )
     }
 }
+
+const schema = Joi.object({
+    roleName: Joi.string().min(5).max(30).required(),
+    description: Joi.string().optional(),
+    grantedIPList: Joi.array().min(0),
+    rolePrivileges: Joi.array().min(0)
+
+})
 
 export default withRouter(CreateRole)

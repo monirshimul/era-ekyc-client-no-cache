@@ -6,11 +6,18 @@ import bg from './image/wave2.png'
 import { withRouter, Link,Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { loginAPI } from '../E-KYC/Url/ApiList';
+const Joi = require('@hapi/joi');
 //import Dashboard from '../Dashboard/Dashboard';
 //=====Redux work above
 //import { loginRequest, loginSuccess } from '../../actions/loginAction';
 
+
+
 class Login extends Component {
+
+
+    
+
 
     state = {
         userId: '',
@@ -28,7 +35,13 @@ class Login extends Component {
         }
         //console.log("loginObj", obj);
 
+        //this.schema.validate(obj)
+
+
         try {
+
+            const validationValue = await schema.validateAsync(obj);
+            console.log("validationValue", validationValue)
             let userLogin = await axios.post(loginAPI, obj);
            // console.log("loginapi ", userLogin.data);
 
@@ -59,6 +72,8 @@ class Login extends Component {
         } catch (err) {
             // console.log(err.response);
             let error = err.response;
+            console.log("Validation Error===>",err)
+            NotificationManager.error(err.toString(), "Error", 5000);
             console.log(err.response);
             let statusCode = err.response.data.statusCode;
             if (statusCode === 400) {
@@ -158,7 +173,11 @@ class Login extends Component {
 }
 
 
+const schema = Joi.object({
+    userId: Joi.string().min(6).max(30).required(),
+    password: Joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')),
 
+})
 //Redux work Above===================================
 
 // const mapStateToProps = (state) => {
