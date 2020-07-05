@@ -8,16 +8,16 @@ import Face from "../images/loading.svg";
 export class Camera extends Component {
   base64Image = "";
   streamObject;
-  
+
 
   static propTypes = {
     onConfirm: PropTypes.func.isRequired,
   };
 
   state = {
-    status:"",
-    modelType:"",
-    loading:false
+    status: "",
+    modelType: "",
+    loading: false
   }
 
   libImage;
@@ -38,17 +38,17 @@ export class Camera extends Component {
 
     //Event Emiter
     libImage.addEventListener("modelLoaded", (e) => {
-      console.log("model loaded successfully",e.type);
+      console.log("model loaded successfully", e.type);
       this.setState({
-        modelType:e.type
+        modelType: e.type
       })
     });
 
     libImage.addEventListener("expressionDetected", (e) => {
       console.log(e.detail);
       this.setState({
-        status:e.detail,
-        loading:false
+        status: e.detail,
+        loading: false
       })
       let show = document.getElementById("status");
       show.innerHTML = e.detail;
@@ -96,22 +96,22 @@ export class Camera extends Component {
   //   });
   // }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.libImage.closeStream();
   }
 
   startDetection = (e) => {
-    
-    
+
+
     this.setState({
-      loading:!this.state.loading
+      loading: !this.state.loading
     })
     this.libImage.startDetection();
-    
-    
-    
-    
-  
+
+
+
+
+
   };
 
   onConfirm = (e) => {
@@ -127,7 +127,7 @@ export class Camera extends Component {
   render() {
     let { status, modelType, loading } = this.state
     return (
-      <div className="container mb-3" style={{margin:"0 auto", padding:"0"}}>
+      <div className="container mb-3" style={{ margin: "0 auto", padding: "0" }}>
         <div className="row d-flex justify-content-center align-items-center divBg">
           {/* <div className="col-sm-10">
           <p className="">
@@ -138,7 +138,7 @@ export class Camera extends Component {
         </div>
         <div
           className="row imTwoWhite d-flex justify-content-center"
-          
+
         >
           <div
             className="col-sm-6 imTwo text-center"
@@ -146,30 +146,30 @@ export class Camera extends Component {
             id="videoContainer"
           >
             {
-              modelType ? 
-              (
-                <video className="imTwoWhite" autoPlay width="340px" height="240px" id="videoCap"></video>
-              )
-              :(
-            //   <img
+              modelType ?
+                (
+                  <video className="imTwoWhite" autoPlay width="340px" height="240px" id="videoCap"></video>
+                )
+                : (
+                  //   <img
 
-            //   className="imTwoWhite"
-            //   width="340px"
-            //   height="240px"
-            //   src={Face}
-            //   style={{ marginBottom: "7px" }}
-            //   id=""
-            //   alt="Live Image "
-            // />
-            // <h1 className="text-muted">Loading...</h1>
+                  //   className="imTwoWhite"
+                  //   width="340px"
+                  //   height="240px"
+                  //   src={Face}
+                  //   style={{ marginBottom: "7px" }}
+                  //   id=""
+                  //   alt="Live Image "
+                  // />
+                  // <h1 className="text-muted">Loading...</h1>
 
-            <div className="row d-flex justify-content-center align-items-center mt-3">
-                  <Loading/>
-            </div>
+                  <div className="row d-flex justify-content-center align-items-center mt-3">
+                    <Loading />
+                  </div>
 
-              )
-          }
-            
+                )
+            }
+
 
             <br />
             {/* <button className="btn btn-info" id="capBtn">
@@ -178,20 +178,20 @@ export class Camera extends Component {
             {
               modelType ? (
                 <button
-              className="imTwo text-center"
-              id="startDetection"
-              style={{border:"none", width:"340px", color:"green", fontSize:"17px"}}
-              onClick={this.startDetection}
-            >
-              <i class="fas fa-play"></i> START DETECTION
-            </button>
-              ):""
+                  className="imTwo text-center"
+                  id="startDetection"
+                  style={{ border: "none", width: "340px", color: "green", fontSize: "17px" }}
+                  onClick={this.startDetection}
+                >
+                  <i class="fas fa-play"></i> START DETECTION
+                </button>
+              ) : ""
             }
-            
+
           </div>
-        
-            <div className="col-sm-6 imTwo text-center animated zoomIn" id="imageContainer">
-              
+
+          <div className="col-sm-6 imTwo text-center animated zoomIn" id="imageContainer">
+
             <img
 
               className="imTwoWhite"
@@ -206,49 +206,49 @@ export class Camera extends Component {
             {
               loading ? (
                 <div className="row d-flex justify-content-center align-items-center mt-3">
-                  <Loading/>
+                  <Loading />
                 </div>
               ) : (
-                <div>
-                {
-                  status ? (
-                    <button
-                  className="imTwo text-center"
-                  id="conBtn"
-                  style={{border:"none", width:"315px", color:"green", fontSize:"17px"}}
-                  onClick={this.onConfirm}
-                  data-dismiss="modal"
-                >
-                  <i class="fas fa-check-circle"></i> CONFIRM
-                </button>
-                  ):""
-                  
-                }
-                </div>
-              ) 
+                  <div>
+                    {
+                      status ? (
+                        <button
+                          className="imTwo text-center"
+                          id="conBtn"
+                          style={{ border: "none", width: "315px", color: "green", fontSize: "17px" }}
+                          onClick={this.onConfirm}
+                          data-dismiss="modal"
+                        >
+                          <i class="fas fa-check-circle"></i> CONFIRM
+                        </button>
+                      ) : ""
+
+                    }
+                  </div>
+                )
             }
-            
-            
+
+
           </div>
-            
-          
-          
+
+
+
         </div>
-        
+
         <div className="row imTwoWhite d-flex justify-content-center align-items-center">
-          
-          <h1 className="imPlain text-muted"><i class="far fa-smile-beam" style={{color:"green"}}></i> STATUS : </h1>
+
+          <h1 className="imPlain text-muted"><i class="far fa-smile-beam" style={{ color: "green" }}></i> STATUS : </h1>
           &nbsp;&nbsp;&nbsp;
-         
-          <h1 className="imPlain"  style={{textTransform:"uppercase", color:"green"}}> <span id="status"></span></h1>
-            
-          
-          
-          
+
+          <h1 className="imPlain" style={{ textTransform: "uppercase", color: "green" }}> <span id="status"></span></h1>
+
+
+
+
         </div>
-        
+
         <div className="row d-flex justify-content-center">
-          
+
         </div>
       </div>
     );

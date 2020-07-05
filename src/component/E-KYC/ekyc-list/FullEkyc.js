@@ -4,6 +4,7 @@ import NidTwo from '../Simplified/images/nid-f3.svg';
 import face from '../Simplified/images/face.svg';
 import man from '../Simplified/images/man.svg';
 import { Loading } from '../Simplified/utils/CustomLoding/Loading'
+import { NotificationManager } from "react-notifications";
 import { profileDownload } from '../Url/ApiList'
 import axios from 'axios';
 import { saveAs } from 'file-saver';
@@ -16,9 +17,9 @@ class FullEkyc extends Component {
         loading: false
     }
 
-    componentDidMount() {
-        console.log("All data", this.state.ekyc)
-    }
+    // componentDidMount() {
+    //     console.log("All data", this.state.ekyc)
+    // }
 
     backEkyc = () => {
         this.props.history.push('/dashboard/e-kyc-list-&-search')
@@ -56,7 +57,16 @@ class FullEkyc extends Component {
             })
 
         } catch (error) {
-            console.log("Error=====>", error.response)
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
             this.setState({
                 loading: !this.state.loading
             })

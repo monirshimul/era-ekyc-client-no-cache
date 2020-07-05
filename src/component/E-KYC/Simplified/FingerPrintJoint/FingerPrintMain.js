@@ -8,6 +8,7 @@ import Signature from '../Signature';
 import Nominee from '../Nominee';
 import JointFingerConfirm from './JointFingerConfirm';
 import Success from '../Success';
+import { NotificationManager } from 'react-notifications'
 
 export class FingerPrintMain extends Component {
 
@@ -108,8 +109,17 @@ export class FingerPrintMain extends Component {
                 channelName: acc.channelName
             })
 
-        } catch (e) {
-
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
     }

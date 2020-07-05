@@ -25,12 +25,21 @@ class EkycListSearch extends Component {
 
         try {
             let ekycList = await axios.post(ekycWithFilter + page, null, config)
-            console.log("ekycList", ekycList.data.data.ekyc)
+            //console.log("ekycList", ekycList.data.data.ekyc)
             this.setState({
                 ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc
             })
         } catch (error) {
-            console.log(error.response)
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -74,7 +83,16 @@ class EkycListSearch extends Component {
                     ekycData:searchResult.data.data
                 })
             } catch (error) {
-                console.error("Error====>",error.response)
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
             
         }
@@ -94,7 +112,16 @@ class EkycListSearch extends Component {
                     ekycData:searchResult.data.data
                 })
             } catch (error) {
-                console.error("Error====>",error.response)
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
         }
 
@@ -113,7 +140,16 @@ class EkycListSearch extends Component {
                     ekycData:searchResult.data.data
                 })
             } catch (error) {
-                console.error("Error====>",error.response)
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
         }
     }
@@ -140,7 +176,16 @@ class EkycListSearch extends Component {
 
             this.props.history.push('/dashboard/showMore', dataObj)
         } catch (error) {
-            console.log(error.response)
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -170,7 +215,16 @@ class EkycListSearch extends Component {
 
             this.props.history.push('/dashboard/fullEkyc', dataObj)
         } catch (error) {
-            console.log(error.response)
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 

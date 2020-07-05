@@ -43,7 +43,16 @@ class Account extends Component {
             this.setState({ productNameData: getCodeData });
             //console.log("state", this.state.productNameData);
         } catch (error) {
-            console.log(error.response);
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -158,18 +167,14 @@ class Account extends Component {
 
         } catch (error) {
             if (error.response) {
-                //     console.log(err.response);
-                let ErrorCode = error.response.data.status;
-                let ErrorMessage = error.response.data.message;
-                NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
-            }
-            else if (error.request) {
-                console.log(error.request);
-                NotificationManager.error("Error Connecting", "Error", 5000);
-            }
-            else {
-                console.log("Error", error.message);
-                NotificationManager.error(error.message, "Error", 5000);
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
 

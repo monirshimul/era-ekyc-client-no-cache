@@ -117,14 +117,14 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <img className="wave" src={bg} />
+                <img className="wave" src={bg} alt="" />
                 <div id="container">
 
-                    <div className="login-content imTwoOffWhite">
+                    <div className="login-content">
                         <form id="loginForm" onSubmit={this.onSubmit}>
 
                             {/* <img id="proImg" src={logo} /> */}
-                            <div className="divBg pt-2"><h1>E-KYC</h1></div>
+                            <div className="loginDivBg pt-2"><h1>E-KYC</h1></div>
                             <h2 className="heading mb-5">Login</h2>
                             {/* <div className="input-div one">
                                 <div className="i">

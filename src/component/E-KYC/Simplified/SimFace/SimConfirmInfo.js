@@ -121,12 +121,19 @@ export class SimConfirmInfo extends Component {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.nextStep();
 
-            } catch (err) {
-                console.log(err.response);
+            } catch (error) {
+                
                 this.props.handleState('confirmFlag', false);
-                let statusCodeError = err.response.data.statusCode;
-                let messageError = err.response.data.message;
-                NotificationManager.error(statusCodeError + " " + messageError, "Error", 5000);
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
 
 

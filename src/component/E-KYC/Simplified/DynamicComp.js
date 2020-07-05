@@ -52,21 +52,28 @@ export class DynamicComp extends Component {
         }
 
         try {
-            this.setState({loadingFlag: true});
+            this.setState({ loadingFlag: true });
             let completeApi = await axios.post(simplifiedJointConfirmAPI, obj, config);
             console.log(completeApi.data);
-            this.setState({loadingFlag: false});
+            this.setState({ loadingFlag: false });
             let statusCode = completeApi.data.statusCode;
             let successMessage = completeApi.data.message;
             NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
             localStorage.clear();
             this.props.history.push('/dashboard');
-        } catch (err) {
+        } catch (error) {
             //console.log(err.response.data);
-            this.setState({loadingFlag: false});
-            let ErrorStatus = err.response.data.statusCode;
-            let ErrorMessage = err.response.data.message;
-            NotificationManager.error(ErrorStatus + " " + ErrorMessage, "Error", 5000);
+            this.setState({ loadingFlag: false });
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 
@@ -133,14 +140,14 @@ export class DynamicComp extends Component {
 
 
 
-                { this.state.loadingFlag ? <Loading/> : ''}
-                <br/>
+                {this.state.loadingFlag ? <Loading /> : ''}
+                <br />
 
                 {
 
                     this.state.jointArray.length > 1 && this.state.processComplete === false ?
                         <div>
-                            <button className="neoBg" style={{ border: "none", background: "gray", color:'white' }} onClick={this.onProcess} >Finish Adding</button>
+                            <button className="neoBg" style={{ border: "none", background: "gray", color: 'white' }} onClick={this.onProcess} >Finish Adding</button>
                         </div>
                         :
                         ""

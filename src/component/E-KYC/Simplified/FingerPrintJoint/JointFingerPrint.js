@@ -4,7 +4,7 @@ import {fingerValidate} from "../../Url/ApiList";
 import Loading from "../utils/CustomLoding/Loading.js";
 import Finger from "../images/tap.svg";
 import FingerOk from ".././images/fingerprintOk.svg";
-//import { NotificationManager } from "react-notifications";
+import { NotificationManager } from "react-notifications";
 
 export class FingerPrintJoint extends Component {
   handleClick = (e) => {
@@ -132,7 +132,16 @@ export class FingerPrintJoint extends Component {
       // }
       
     } catch (error) {
-      console.log(error.response)
+      if (error.response) {
+        let message = error.response.data.message
+        //console.log("Error",error.response)
+        NotificationManager.error(message, "Error", 5000);
+    } else if (error.request) {
+        console.log("Error Connecting...", error.request)
+        NotificationManager.error("Error Connecting...", "Error", 5000);
+    } else if (error) {
+        NotificationManager.error(error.toString(), "Error", 5000);
+    }
     }
     
   };

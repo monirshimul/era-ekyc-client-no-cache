@@ -8,6 +8,7 @@ import SimCutomerPic from './SimCutomerPic';
 import SimSignature from '../SimFace/SimSignature';
 import SimFingerConfirm from '../SimFinger/SimFingerConfirm';
 import SimComplete from '../SimFace/SimComplete';
+import {NotificationManager} from 'react-notifications'
 
 export class SimFingerMain extends Component {
     state = {
@@ -107,8 +108,17 @@ export class SimFingerMain extends Component {
                 channelName: acc.channelName
             })
 
-        } catch (e) {
-
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
     }

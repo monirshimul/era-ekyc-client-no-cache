@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NidImage from './NidImage';
 import CaptureImage from './CaptureImage';
 import PersonalDetails from './PersonalDetails';
+import { NotificationManager } from "react-notifications";
 import Signature from './Signature';
 import Nominee from './Nominee';
 import Confirm from './Confirm';
@@ -97,8 +98,17 @@ export class MainFace extends Component {
                 channelName: acc.channelName
             })
           
-        } catch (e) {
-
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
     }
