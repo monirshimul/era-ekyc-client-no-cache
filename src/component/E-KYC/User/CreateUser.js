@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 // import './CreateUser.css';
 import '../../E-KYC/Simplified/utils/Common.css';
 import '../CSS/table.css';
-import { getRoleWithFilter, createUserWithRole, checkUserId,checkUserMobile,checkUserEmail} from '../Url/ApiList';
+import { getRoleWithFilter, createUserWithRole, checkUserId, checkUserMobile, checkUserEmail } from '../Url/ApiList';
 import { convertNumber } from '../../Utils/StrToNum';
 import { NotificationManager } from "react-notifications";
 
@@ -23,17 +23,24 @@ class CreateUser extends Component {
         role_list: [],
         roles: [],
         features: [],
-        page:1,
+        page: 1,
         pinAuthStatus: ""
     }
 
 
     async componentDidMount() {
-        const {page} = this.state;
+        const { page } = this.state;
         const roleObj = { status: "A" }
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
-            let listRoles = await axios.post(getRoleWithFilter, roleObj);
-            
+            let listRoles = await axios.post(getRoleWithFilter, roleObj, config);
+
             //listRoles data get from API
             let filterRoles = listRoles.data.data;
             console.log("filterroles ", filterRoles);
@@ -46,17 +53,26 @@ class CreateUser extends Component {
                 const filtered = filteredKeys.reduce((obj, key) => ({ ...obj, [key]: filterRoles[i][key] }), {});
                 //console.log("after filter", filtered);
                 filtered['isAdded'] = false;
-               // console.log("isAdded add", filtered);
+                // console.log("isAdded add", filtered);
                 filterData.push(filtered);
             });
-          
+
 
             this.setState({ role_list: filterData });
-    
+
             //  console.log(this.state.role_list[0].rolePrivileges[0][1]); 
 
-        } catch (err) {
-            console.log(err.response);
+        } catch (error) {
+            if(error.response){
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            }else if(error.request){
+                console.log("Error Connecting...",error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            }else if(error){
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 
@@ -77,197 +93,223 @@ class CreateUser extends Component {
             this.setState(prevState => ({ roles: [...prevState.roles, value] }));
         else {
             const newAddedroles = this.state.roles.filter(roll => roll !== value)
-            
+
             this.setState({ roles: newAddedroles });
         }
     }
 
-   // OnSubmit for Submit button
-   onSubmit = async (e) => {
-    e.preventDefault();
-    const { userId, name, password, mobile, email, roles, pinAuthStatus } = this.state;
+    // OnSubmit for Submit button
+    onSubmit = async (e) => {
+        e.preventDefault();
+        const { userId, name, password, mobile, email, roles, pinAuthStatus } = this.state;
 
-    if (userId === "") {
-        let userIdMessage = "Please Provide your User ID";
-        NotificationManager.warning(userIdMessage, "Warning", 5000);
-        return;
-    }
-
-    try{
-        const data1 = {userId};
-        let checkUserIdApi = await axios.post( checkUserId, data1);
-        let checkId = checkUserIdApi.data.data;
-        if(checkId === true){
-            let checkIdMessage = "UserId is already taken";
-            NotificationManager.warning(checkIdMessage, "Warning", 5000);
+        if (userId === "") {
+            let userIdMessage = "Please Provide your User ID";
+            NotificationManager.warning(userIdMessage, "Warning", 5000);
             return;
-        } 
-        
+        }
+        const config = {
+            headers: {
 
-    }catch(err){
-        console.log(err.response);
-    }
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
+
+        try {
+            const data1 = { userId };
+            let checkUserIdApi = await axios.post(checkUserId, data1, config);
+            let checkId = checkUserIdApi.data.data;
+            if (checkId === true) {
+                let checkIdMessage = "UserId is already taken";
+                NotificationManager.warning(checkIdMessage, "Warning", 5000);
+                return;
+            }
 
 
-    if (name === "") {
-        let nameMessage = "Please Provide your Name";
-        NotificationManager.warning(nameMessage, "Warning", 5000);
-        return;
-    }
+        } catch (error) {
+            if(error.response){
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            }else if(error.request){
+                console.log("Error Connecting...",error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            }else if(error){
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
 
-    if (password === "") {
-        let passMessage = "Please Provide your Password";
-        NotificationManager.warning(passMessage, "Warning", 5000);
-        return;
-    }
 
-    if (mobile === "") {
-        let mobileMessage = "Please Provide your Mobile Number";
-        NotificationManager.warning(mobileMessage, "Warning", 5000);
-        return;
-    }
-
-    if(mobile.length >11){
-        let mobileLengthMessage = "Mobile Number must be 11 digits long";
-        NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
-        return;
-    }else if(mobile.length <= 10){
-        let mobileLengthMessage = "Mobile Number must be 11 digits long";
-        NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
-        return;
-    }
-
-    try{
-        const data2 = {mobile};
-        let checkMobileApi = await axios.post(checkUserMobile, data2);
-        let checkMobile = checkMobileApi.data.data;
-        if(checkMobile === true){
-            let checkMobileMessage = "Mobile Number is already given by User, Please Provide another";
-            NotificationManager.warning(checkMobileMessage, "Warning", 5000);
+        if (name === "") {
+            let nameMessage = "Please Provide your Name";
+            NotificationManager.warning(nameMessage, "Warning", 5000);
             return;
-        } 
-        
+        }
 
-    }catch(err){
-        //console.log(err.response);
-    }
-
-    if (email === "") {
-        let emailMessage = "Please Provide Email Address";
-        NotificationManager.warning(emailMessage, "Warning", 5000);
-        return;
-    }
-
-    try{
-        const data3 = {email};
-        let checkEmailApi = await axios.post(checkUserEmail, data3);
-        let checkEmail = checkEmailApi.data.data;
-       // console.log("email",checkEmail)
-        if(checkEmail === true){
-            let checkemailMessage = "email is already given by User";
-            NotificationManager.warning(checkemailMessage, "Warning", 5000);
+        if (password === "") {
+            let passMessage = "Please Provide your Password";
+            NotificationManager.warning(passMessage, "Warning", 5000);
             return;
-        } 
-        
+        }
 
-    }catch(err){
-        // console.log(err.response);
-    }
+        if (mobile === "") {
+            let mobileMessage = "Please Provide your Mobile Number";
+            NotificationManager.warning(mobileMessage, "Warning", 5000);
+            return;
+        }
 
-    if (pinAuthStatus === "") {
-        let pinAuthStatusMessage = "please fill up two factor verification";
-        NotificationManager.warning(pinAuthStatusMessage, "Warning", 5000);
-        return;
-    }
-    if(roles.length === 0){
-        let roleMessage = "Please select Role Selection";
-        NotificationManager.warning(roleMessage, "Warning", 5000);
-        return;
-    }
-    const myrole = convertNumber(roles);
-    //const dualVerification = JSON.parse(pinAuthStatus);
+        if (mobile.length > 11) {
+            let mobileLengthMessage = "Mobile Number must be 11 digits long";
+            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            return;
+        } else if (mobile.length <= 10) {
+            let mobileLengthMessage = "Mobile Number must be 11 digits long";
+            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            return;
+        }
 
-    const obj = {
-        userId,
-        name,
-        password,
-        mobile,
-        email,
-        roles: myrole,
-        pinAuthStatus: JSON.parse(pinAuthStatus)
+        try {
+            const data2 = { mobile };
+            let checkMobileApi = await axios.post(checkUserMobile, data2, config);
+            let checkMobile = checkMobileApi.data.data;
+            if (checkMobile === true) {
+                let checkMobileMessage = "Mobile Number is already given by User, Please Provide another";
+                NotificationManager.warning(checkMobileMessage, "Warning", 5000);
+                return;
+            }
 
-    }
 
-    const config = {
-        headers: {
-            
-            'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+        } catch (error) {
+            if(error.response){
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            }else if(error.request){
+                console.log("Error Connecting...",error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            }else if(error){
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+
+        if (email === "") {
+            let emailMessage = "Please Provide Email Address";
+            NotificationManager.warning(emailMessage, "Warning", 5000);
+            return;
+        }
+
+        try {
+            const data3 = { email };
+            let checkEmailApi = await axios.post(checkUserEmail, data3, config);
+            let checkEmail = checkEmailApi.data.data;
+            // console.log("email",checkEmail)
+            if (checkEmail === true) {
+                let checkemailMessage = "email is already given by User";
+                NotificationManager.warning(checkemailMessage, "Warning", 5000);
+                return;
+            }
+
+
+        } catch (error) {
+            if(error.response){
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            }else if(error.request){
+                console.log("Error Connecting...",error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            }else if(error){
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+
+        if (pinAuthStatus === "") {
+            let pinAuthStatusMessage = "please fill up two factor verification";
+            NotificationManager.warning(pinAuthStatusMessage, "Warning", 5000);
+            return;
+        }
+        if (roles.length === 0) {
+            let roleMessage = "Please select Role Selection";
+            NotificationManager.warning(roleMessage, "Warning", 5000);
+            return;
+        }
+        const myrole = convertNumber(roles);
+        //const dualVerification = JSON.parse(pinAuthStatus);
+
+        const obj = {
+            userId,
+            name,
+            password,
+            mobile,
+            email,
+            roles: myrole,
+            pinAuthStatus: JSON.parse(pinAuthStatus)
 
         }
-    };
 
 
-    console.log("CreateObj", obj);
-    try {
-        let createUser = await axios.post(createUserWithRole, obj, config);
-       // console.log(createUser.data);
-        let statCode = createUser.data.statusCode;
-        // let suc_message = createUser.data.message;
-        let suc_message = "User Created Successful";
-        // alert(statCode + "  " + suc_message);
-        NotificationManager.success(statCode + "  " + suc_message, "Success", 5000);
-        this.props.history.push('/dashboard');
-        
-        
-         
-    } catch (err) {
-       // console.log(err.response.data);
-        let error = err.response.data;
-        let errorStatus = error.statusCode;
-        let errorMessage = error.message; 
-        // alert(errorStatus + " " + errorMessage );
-        NotificationManager.error(errorStatus + " " + errorMessage, "Error", 5000);
-        //window.location.reload(true);
+        console.log("CreateObj", obj);
+        try {
+            let createUser = await axios.post(createUserWithRole, obj, config);
+            // console.log(createUser.data);
+            let statCode = createUser.data.statusCode;
+            // let suc_message = createUser.data.message;
+            let suc_message = "User Created Successful";
+            // alert(statCode + "  " + suc_message);
+            NotificationManager.success(statCode + "  " + suc_message, "Success", 5000);
+            this.props.history.push('/dashboard');
+        } catch (error) {
+            if(error.response){
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            }else if(error.request){
+                console.log("Error Connecting...",error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            }else if(error){
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+            this.setState({
+                userId: '',
+                name: '',
+                password: '',
+                mobile: '',
+                email: '',
+                pinAuthStatus: '',
+                roles: []
+            });
+
+        }
+
+
+        //alert("User created Successful and wait for the approval");
+
         this.setState({
             userId: '',
             name: '',
             password: '',
             mobile: '',
             email: '',
-            pinAuthStatus: '',
-            roles:[]
-        });
-
+            pinAuthStatus: ''
+        })
     }
-
-
-    //alert("User created Successful and wait for the approval");
-
-    this.setState({
-        userId: '',
-        name: '',
-        password: '',
-        mobile: '',
-        email: '',
-        pinAuthStatus: ''
-    })
-}
 
     renderTableData() {
         return this.state.role_list.map((role, index) => {
             const { id, roleName, rolePrivileges } = role //destructuring
             return (
                 <tr key={id}>
-                    
+
                     <td>{roleName}</td>
                     <td>
-                    {rolePrivileges.map((val, i) => (
-                       rolePrivileges[i][1] + " ,"
-                    ))
-                    }
-                        </td>
-                        
-                    
+                        {rolePrivileges.map((val, i) => (
+                            rolePrivileges[i][1] + " ,"
+                        ))
+                        }
+                    </td>
+
+
                     <td>
                         <div >
                             <input type="checkbox" id="myCheckbox" name="role_checkbox" checked={role.isChecked} value={(role.id)} onChange={this.onAddingItem} />
@@ -363,21 +405,21 @@ class CreateUser extends Component {
                         {/* Table for Selected Role */}
 
                         <div className='form-group'>
-                        <label htmlFor="">Role Selection:</label>
-                        <table id='data' style={{ fontSize: '11pt' }}>
-                            <thead>
-                                <tr>
-                                  
-                                    <th>Role Name</th>
-                                    <th>Privileges</th>
-                                    <th>Checkbox</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.renderTableData()}
-                            </tbody>
-                        </table>
-                    </div>
+                            <label htmlFor="">Role Selection:</label>
+                            <table id='data' style={{ fontSize: '11pt' }}>
+                                <thead>
+                                    <tr>
+
+                                        <th>Role Name</th>
+                                        <th>Privileges</th>
+                                        <th>Checkbox</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.renderTableData()}
+                                </tbody>
+                            </table>
+                        </div>
 
                         {/* Roles Added show */}
                         {/* <div style={{ marginTop: "20px" }}>Selected: {this.state.roles.join(', ')}</div> */}
@@ -391,7 +433,7 @@ class CreateUser extends Component {
 
                     </form>
 
-                   
+
                 </div>
 
 

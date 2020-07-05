@@ -96,6 +96,10 @@ export class Camera extends Component {
   //   });
   // }
 
+  componentWillUnmount(){
+    this.libImage.closeStream();
+  }
+
   startDetection = (e) => {
     
     
@@ -111,7 +115,7 @@ export class Camera extends Component {
   };
 
   onConfirm = (e) => {
-    this.libImage.closeStream();
+    //this.libImage.closeStream();
 
     const imgData = document.getElementById("imageCap");
     this.base64Image = imgData.src.split(",")[1];

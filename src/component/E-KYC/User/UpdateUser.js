@@ -37,11 +37,18 @@ class UpdateUser extends Component {
         //Update user api
         const obj = { userId: this.props.location.state };
         const actRole = { status: "A" };
-        // 
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
+        
         try {
-            let updata = await axios.post(getupdateUser + 1, obj);
+            let updata = await axios.post(getupdateUser + 1, obj, config);
             const prefillData = updata.data.data;
-          // console.log("prefilled", prefillData);
+          console.log("prefilled", prefillData);
             this.setState({
                 id:prefillData[0].id,
                 userId: prefillData[0].userId,
@@ -61,13 +68,22 @@ class UpdateUser extends Component {
             }
             this.setState({checking: arr});
 
-        } catch (err) {
-            //console.log(err.response);
+        } catch (error) {
+            if(error.response){
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            }else if(error.request){
+                console.log("Error Connecting...",error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            }else if(error){
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
         //getRolewithFilter
 
         try {
-            let listRoles = await axios.post(getRoleWithFilter, actRole);
+            let listRoles = await axios.post(getRoleWithFilter, actRole, config);
 
             //listRoles data get from API
             let filterRoles = listRoles.data.data;
@@ -103,8 +119,17 @@ class UpdateUser extends Component {
             this.setState({ role_list: filterData });
             //console.log("role_list", this.state.role_list);
 
-        } catch (err) {
-            console.log(err.response);
+        } catch (error) {
+            if(error.response){
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            }else if(error.request){
+                console.log("Error Connecting...",error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            }else if(error){
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -125,7 +150,17 @@ class UpdateUser extends Component {
 
              //   console.log("false inside", r);
                 this.setState({ checking: r });
-            } catch (err) {
+            } catch (error) {
+                if(error.response){
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                }else if(error.request){
+                    console.log("Error Connecting...",error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                }else if(error){
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
 
             }
         } else {

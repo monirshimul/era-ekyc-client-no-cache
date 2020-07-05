@@ -105,11 +105,17 @@ export class CreateTP extends Component {
                 maxLimit: '',
                 status: ''
             })
-        } catch (err) {
-           // console.log(err.response.data);
-            let errorStatus = err.response.data.statusCode;
-            let errorMessage = err.response.data.message;
-            NotificationManager.error(errorStatus + " " + errorMessage, "Error", 5000);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 

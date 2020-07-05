@@ -77,7 +77,7 @@ class UpdateProduct extends Component {
             return;
         }
 
-        let token = {
+        let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
@@ -96,7 +96,7 @@ class UpdateProduct extends Component {
 
         try {
 
-            let productUpdateRes = await axios.put(createProduct, obj, token);
+            let productUpdateRes = await axios.put(createProduct, obj, config);
             console.log("productCreateRes", productUpdateRes)
             NotificationManager.success("Product Successfully Updated", "Success", 5000);
             localStorage.setItem("productInfo", JSON.stringify(obj));

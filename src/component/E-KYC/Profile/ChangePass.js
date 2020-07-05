@@ -94,13 +94,17 @@ class ChangePass extends Component {
             //   })
            
             console.log("passChange", passChange.data);
-        }catch(err){
-            console.log(err.response.data);
-            let error = err.response.data;
-            let statusCode = error.statusCode;
-            let errorMessage = error.reason;
-            // alert(statusCode+ '  '+ errorMessage);
-            NotificationManager.error(statusCode+" "+ errorMessage, "Error", 5000);
+        }catch(error){
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     
     }

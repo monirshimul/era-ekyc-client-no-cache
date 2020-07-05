@@ -28,7 +28,7 @@ export class UserList extends Component {
 
     async componentDidMount() {
         const { pages } = this.state;
-        const token = {
+        const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
@@ -37,7 +37,7 @@ export class UserList extends Component {
 
         try {
             // API called name getAllUser here no status need... page used for pagination
-            let appUser = await axios.post(getAllUser + pages,null, token);
+            let appUser = await axios.post(getAllUser + pages,null, config);
             console.log("getAllUser", appUser.data.data);
             let divide1 = appUser.data.data;
             let numberOfPages = divide1.totalPages;
@@ -45,7 +45,7 @@ export class UserList extends Component {
             let divide2 = divide1.users;
 
 
-            let res = await axios.get(getProfile, token);
+            let res = await axios.get(getProfile, config);
             let profileData = res.data.data;
             //console.log("profileData", profileData.userImage)
 
@@ -56,8 +56,17 @@ export class UserList extends Component {
                 profileImage: profileData.userImage === null ? image.data : profileData.userImage.data,
                 profileName: profileData.name
             });
-        } catch (err) {
-            console.log(err.response.data);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 
@@ -109,21 +118,31 @@ export class UserList extends Component {
     // Submit Search button
     submitSearch = async (e) => {
         e.preventDefault();
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         const obj = { userId: this.state.search };
 
         try {
-            let searchAttemp = await axios.post(searchUser + 1, obj);
+            let searchAttemp = await axios.post(searchUser + 1, obj, config);
             // console.log('searchAttempt', searchAttemp.data.data);
             let searchFilter = searchAttemp.data.data;
             this.setState({ allAppUser: searchFilter, searchFlag: true, search: '' });
-        } catch (err) {
-            // console.log(err.response.data);
-            let error = err.response.data;
-            let statusCode = err.statusCode;
-            let message = "Wrong Search"
-            //alert(statusCode + ' ' + message);
-            this.setState({ search: '' });
-            NotificationManager.error(message, "Error", 5000);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -198,8 +217,15 @@ export class UserList extends Component {
 
 
     pageChanges = async (newPage) => {
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
-            let paginationUser = await axios.post(getAllUser + newPage);
+            let paginationUser = await axios.post(getAllUser + newPage, config);
             console.log("pagination pages", paginationUser.data.data.users);
             let paginUser = paginationUser.data.data;
             let numPages = paginUser.totalPages;
@@ -207,8 +233,17 @@ export class UserList extends Component {
             let approveNew = paginUser.users;
             this.setState({ totalPages: numPages, totalUsers: numUsers, allAppUser: approveNew });
 
-        } catch (err) {
-            console.log(err.response);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -222,15 +257,31 @@ export class UserList extends Component {
 
     onDetails = async (id) => {
         const detailsObj = { id };
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
 
         try {
-            let detailsUser = await axios.post(getUserWithStatus + 1, detailsObj);
+            let detailsUser = await axios.post(getUserWithStatus + 1, detailsObj, config);
             let pendingDetails = detailsUser.data.data;
             console.log("pendingDetails", pendingDetails)
             //console.log("pendingDetails", pendingDetails.map(v=>v.roles.map(c=>c.grantedIPList === null)))
             this.setState({ details: pendingDetails });
-        } catch (e) {
-            console.log("Error", e.response);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
     }
@@ -245,9 +296,16 @@ export class UserList extends Component {
     onDelete = async (id) => {
         console.log("Delete", id);
         const deleteObj = { id, status: "D" };
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
 
         try {
-            let delUser = await axios.put(userDeleteAPI, deleteObj);
+            let delUser = await axios.put(userDeleteAPI, deleteObj, config);
             this.setState({
                 deleteToggle: !this.state.deleteToggle
             })
@@ -258,8 +316,17 @@ export class UserList extends Component {
             NotificationManager.success(delMessage, "Success", 5000);
             this.props.history.push('/dashboard');
 
-        } catch (err) {
-            console.log(err.response);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
     }
@@ -267,12 +334,28 @@ export class UserList extends Component {
 
     //Back button
     onBack = async (e) => {
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
-            let bac = await axios.post(getAllUser + this.state.pages);
+            let bac = await axios.post(getAllUser + this.state.pages, config);
             let backpage = bac.data.data.users;
             this.setState({ allAppUser: backpage, searchFlag: false, search: '' });
-        } catch (err) {
-            console.log(err.response);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 

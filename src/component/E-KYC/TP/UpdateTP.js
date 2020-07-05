@@ -43,8 +43,17 @@ export class UpdateTP extends Component {
                 status: data.status
             })
 
-        } catch (err) {
-            console.log(err.response);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
     }
@@ -125,11 +134,17 @@ export class UpdateTP extends Component {
             let tpDataMessage = tpData.data.message;
             NotificationManager.success(tpDataStatus + " " + "Update Successfull", "Success", 5000);
             this.props.history.push('/dashboard/list-tp');
-        } catch (err) {
-            //console.log(err.response);
-            let errorStatus = err.response.data.statusCode;
-            let errorMessage = err.response.data.message;
-            NotificationManager.error(errorStatus + " " + errorMessage, "Error", 5000);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 

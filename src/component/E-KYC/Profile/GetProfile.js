@@ -25,7 +25,7 @@ export class GetProfile extends Component {
 
     async componentDidMount() {
         //console.log("Image Data", image.data)
-        const token = {
+        const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
@@ -33,7 +33,7 @@ export class GetProfile extends Component {
         };
 
         try {
-            let res = await axios.get(getProfile, token);
+            let res = await axios.get(getProfile, config);
             let profileData = res.data.data;
             console.log("profileData", profileData)
             this.setState({
@@ -52,10 +52,15 @@ export class GetProfile extends Component {
             sessionStorage.setItem("profile", JSON.stringify(Obj))
 
         } catch (error) {
-            if(error.response){
-                console.log("Error",error.response)
-            }else if(error.request){
-                console.log("NetWork Error",error.request)
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
 
@@ -107,7 +112,7 @@ export class GetProfile extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const token = {
+        const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
@@ -121,7 +126,7 @@ export class GetProfile extends Component {
                 mimeType: this.state.profileImageType === "" ? "image/jpeg" : this.state.profileImageType
             }
             console.log("Mime Type", imgData.mimeType)
-            let resImage = await axios.put(imageUpdate, imgData, token);
+            let resImage = await axios.put(imageUpdate, imgData, config);
             //console.log("Image Response", resImage)
 
 
@@ -136,9 +141,9 @@ export class GetProfile extends Component {
             //console.log("p data", profileData)
 
 
-            // const validationValue = await schema.validateAsync(profileData);
-            // console.log("validationValue", validationValue)
-            let resProfile = await axios.put(dataUpdate, profileData, token);
+            const validationValue = await schema.validateAsync(profileData);
+            //console.log("validationValue", validationValue)
+            let resProfile = await axios.put(dataUpdate, profileData, config);
             //console.log("Profile Response", resProfile)
 
 
@@ -146,7 +151,7 @@ export class GetProfile extends Component {
                 showUpdate: !this.state.showUpdate
             })
 
-            let res = await axios.get(getProfile, token);
+            let res = await axios.get(getProfile, config);
             let profData = res.data.data;
             //console.log("profileData", profileData)
             this.setState({
@@ -167,10 +172,16 @@ export class GetProfile extends Component {
             NotificationManager.success("Profile Updated", "Success", 5000);
 
         } catch (error) {
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 
@@ -332,11 +343,11 @@ export class GetProfile extends Component {
     }
 }
 
-// const schema = Joi.object({
-//     name: Joi.string().required(),
-//     mobile: Joi.number().min(11).max(11).required(),
-//     email: Joi.string().email().required(),
-//     pinAuthStatus: Joi.string().required()
-// })
+const schema = Joi.object({
+    name: Joi.string().required(),
+    mobile: Joi.number().min(11).required(),
+    email: Joi.string().required(),
+    pinAuthStatus: Joi.boolean().required()
+})
 
 export default withRouter(GetProfile)

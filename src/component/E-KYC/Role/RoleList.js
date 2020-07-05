@@ -20,16 +20,30 @@ class RoleList extends Component {
         const Obj = { status: "A" };
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
         };
-        let url = 'http://127.0.0.1:3001/role/get/';
-        let res = await axios.post(url, Obj, config);
-        this.setState({
-            pendingList: res.data.data
-        })
+        try {
+            let url = 'http://127.0.0.1:3001/role/get/';
+            let res = await axios.post(url, Obj, config);
+            this.setState({
+                pendingList: res.data.data
+            })
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+
         //console.log("All Data", this.state.pendingList.data)
 
     }
@@ -37,11 +51,32 @@ class RoleList extends Component {
     async componentDidUpdate(prevProps, prevState) {
         if (prevState.archeived !== this.state.archeived) {
             const Obj = { status: "A" };
-            let url = 'http://127.0.0.1:3001/role/get/';
-            let res = await axios.post(url, Obj);
-            this.setState({
-                pendingList: res.data.data
-            })
+            const config = {
+                headers: {
+
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+                }
+            };
+            try {
+                let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(url, Obj, config);
+                this.setState({
+                    pendingList: res.data.data
+                })
+            } catch (error) {
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
+            }
+
         } else {
             return false
         }
@@ -56,8 +91,17 @@ class RoleList extends Component {
 
     onSearchSubmit = async (e) => {
         e.preventDefault();
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         let { searchValue } = this.state
         if (this.state.checkBoxValue === "id") {
+
+
 
             try {
                 let obj = {
@@ -65,8 +109,10 @@ class RoleList extends Component {
                 }
 
 
+
+
                 let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj);
+                let res = await axios.post(url, obj, config);
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
@@ -75,7 +121,16 @@ class RoleList extends Component {
                 })
 
             } catch (error) {
-                console.log(error.message)
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
         }
         if (this.state.checkBoxValue === "status") {
@@ -84,7 +139,7 @@ class RoleList extends Component {
                     status: searchValue
                 }
                 let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj);
+                let res = await axios.post(url, obj, config);
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
@@ -93,7 +148,16 @@ class RoleList extends Component {
                 })
 
             } catch (error) {
-                console.log(error.message)
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
         }
         if (this.state.checkBoxValue === "roleName") {
@@ -102,7 +166,7 @@ class RoleList extends Component {
                     roleName: searchValue
                 }
                 let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj);
+                let res = await axios.post(url, obj, config);
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
@@ -111,7 +175,16 @@ class RoleList extends Component {
                 })
 
             } catch (error) {
-                console.log(error.message)
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
         }
     }
@@ -179,6 +252,14 @@ class RoleList extends Component {
 
 
     onUpdate = async (id) => {
+
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
             //console.log("id", id)
             let url = 'http://127.0.0.1:3001/role/get/';
@@ -186,8 +267,8 @@ class RoleList extends Component {
                 id: id
 
             }
-            let res = await axios.post(url, obj)
-            console.log("200line",res.data)
+            let res = await axios.post(url, obj, config)
+            console.log("200line", res.data)
             let data = res.data.data
             //console.log(data)
 
@@ -204,16 +285,29 @@ class RoleList extends Component {
 
             this.props.history.push("/dashboard/update-role", roleData)
         } catch (error) {
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
 
     }
     onArchive = async (id) => {
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
             //console.log("id", id)
             let url = 'http://127.0.0.1:3001/role/status';
@@ -221,30 +315,43 @@ class RoleList extends Component {
                 id: id,
                 status: "D"
             }
-            let res = await axios.put(url, data)
+            let res = await axios.put(url, data, config)
             this.setState({
                 archeived: !this.state.archeived
             })
             NotificationManager.warning("Role Archeived", "Confirmed", 5000);
             //console.log(res.data)
         } catch (error) {
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
     }
 
     onModalShow = async (id) => {
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
 
             let url = 'http://127.0.0.1:3001/role/get/';
             let obj = {
                 id: id
             }
-            let res = await axios.post(url, obj)
+            let res = await axios.post(url, obj, config)
             let data = res.data.data
             this.setState({
                 modalData: data
@@ -252,12 +359,16 @@ class RoleList extends Component {
             //console.log(data)
 
         } catch (error) {
-            console.log(error.response)
-            // let { reason } = error.response.data
-
-            // alert(reason.map(v => (
-            //     JSON.stringify(Object.values(v.constraints))
-            // )))
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 
@@ -429,7 +540,7 @@ class RoleList extends Component {
                                             <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", "): ""}</span></small>
+                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", ") : ""}</span></small>
                                         </div>
                                         <hr />
 

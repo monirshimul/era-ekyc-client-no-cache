@@ -23,7 +23,7 @@ export class UserApproval extends Component {
         const ApproveObj = { status: "P" };
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -39,34 +39,59 @@ export class UserApproval extends Component {
 
 
             this.setState({ ApproveUser: appUserData, showPending: pendingStatus, totalPages: numberPages });
-        } catch (e) {
-            console.log(e.response);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
     }
 
-    async componentDidUpdate(prevProps, prevState){
+    async componentDidUpdate(prevProps, prevState) {
         const { page } = this.state;
-        
+
         if (prevState.approvedReject !== this.state.approvedReject) {
-            let  didApproveObj = { status: "P" };
+            let didApproveObj = { status: "P" };
+            const config = {
+                headers: {
+
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+                }
+            };
             try {
                 // API call for Pending User List
-                let AppUserList = await axios.post(getUserWithStatus + 1, didApproveObj);
+                let AppUserList = await axios.post(getUserWithStatus + 1, didApproveObj, config);
                 console.log("didupdate", AppUserList);
                 //Get User Data
                 let appUserData = AppUserList.data.data;
-                
+
                 // console.log("AppUserData", appUserData);
                 let numberPages = AppUserList.data.totalPages;
                 let pendingStatus = new Array(appUserData.length).fill(false);
-    
-    
+
+
                 this.setState({ ApproveUser: appUserData, showPending: pendingStatus, totalPages: numberPages });
-            } catch (e) {
-                console.log(e.response);
+            } catch (error) {
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
-    
+
         }
         else {
             return false
@@ -82,7 +107,7 @@ export class UserApproval extends Component {
 
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -97,17 +122,21 @@ export class UserApproval extends Component {
             let statusCode = approveUser.data.statusCode;
 
             let message = "Approve " + approveUser.data.message;
-           // alert(statusCode + " " + message);
-           NotificationManager.success(message, "Success", 5000);
+            // alert(statusCode + " " + message);
+            NotificationManager.success(message, "Success", 5000);
 
 
         } catch (error) {
-            // showload[index] = false;
-            // this.setState({ showPendingStatus: showload });
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -126,7 +155,7 @@ export class UserApproval extends Component {
 
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -147,17 +176,21 @@ export class UserApproval extends Component {
 
 
             let message = "Reject " + approveUser.data.message;
-           // alert(statusCode + " " + message);
-           NotificationManager.success(message, "Success", 5000);
+            // alert(statusCode + " " + message);
+            NotificationManager.success(message, "Success", 5000);
 
 
         } catch (error) {
-            // showload[index] = false;
-            // this.setState({ showPendingStatus: showload });
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -171,13 +204,29 @@ export class UserApproval extends Component {
     // 
     onDetails = async (id) => {
         const detailsObj = { id, status: "P" };
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
 
         try {
-            let detailsUser = await axios.post(getUserWithStatus + 1, detailsObj);
+            let detailsUser = await axios.post(getUserWithStatus + 1, detailsObj, config);
             let pendingDetails = detailsUser.data.data;
             this.setState({ details: pendingDetails });
-        } catch (e) {
-            console.log(e.response);
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
     }

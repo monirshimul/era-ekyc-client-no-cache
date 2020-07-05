@@ -41,7 +41,7 @@ export class CaptureFace extends Component {
       loading: !this.state.loading
     })
 
-    const token = {
+    const config = {
       headers: {
         'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
       }
@@ -56,7 +56,7 @@ export class CaptureFace extends Component {
         nidFront: nidf.NidFront
       }
 
-      let resValidation = await axios.post(faceValidate, imgData, token);
+      let resValidation = await axios.post(faceValidate, imgData, config);
       //console.log("resValidation", resValidation.data.data.faceVerificationResult)
       //console.log("ver-token", resValidation.data.data.verificationToken)
       if (resValidation.data.data.faceVerificationResult.status) {

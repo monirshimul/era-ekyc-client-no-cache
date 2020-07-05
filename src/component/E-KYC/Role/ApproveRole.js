@@ -18,9 +18,9 @@ class ApproveRole extends Component {
 
             const config = {
                 headers: {
-                    
+
                     'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-    
+
                 }
             };
 
@@ -33,7 +33,16 @@ class ApproveRole extends Component {
                 })
                 //console.log("PendingList", this.state.pendingList)
             } catch (error) {
-                console.log(error.response)
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
         }
 
@@ -53,17 +62,38 @@ class ApproveRole extends Component {
 
 
         //console.log("prevState", prevState)
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
 
         if (prevState.approvedReject !== this.state.approvedReject) {
             console.log("prevState", prevState)
             console.log("this.state.pendingList", this.state.pendingList)
             const Obj = { status: "P" };
-            let url = 'http://127.0.0.1:3001/role/get/';
-            let res = await axios.post(url, Obj);
-            //console.log("res", res)
-            this.setState({
-                pendingList: res.data.data
-            })
+            try {
+                let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(url, Obj, config);
+                //console.log("res", res)
+                this.setState({
+                    pendingList: res.data.data
+                })
+
+            } catch (error) {
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
+            }
         }
         else {
             return false
@@ -79,7 +109,7 @@ class ApproveRole extends Component {
 
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -99,15 +129,29 @@ class ApproveRole extends Component {
             NotificationManager.success("Role Approved", "Success", 5000);
             //console.log(res.data)
         } catch (error) {
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
     }
     onReject = async (id) => {
+
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
             //console.log("id", id)
             let url = 'http://127.0.0.1:3001/role/status';
@@ -115,17 +159,23 @@ class ApproveRole extends Component {
                 id: id,
                 status: "R"
             }
-            let res = await axios.put(url, data)
+            let res = await axios.put(url, data, config)
             this.setState({
                 approvedReject: !this.state.approvedReject
             })
             NotificationManager.warning("Role Rejected", "Confirmed", 5000);
             //console.log(res.data)
         } catch (error) {
-            let { message } = error.response.data
-            let { statusCode } = error.response.data
-            console.log("error.response", error.response.data)
-            NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -133,25 +183,37 @@ class ApproveRole extends Component {
 
 
     onModalShow = async (id) => {
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
 
             let url = 'http://127.0.0.1:3001/role/get/';
             let obj = {
                 id: id
             }
-            let res = await axios.post(url, obj)
+            let res = await axios.post(url, obj, config)
             let data = res.data.data
             this.setState({
                 modalData: data
             })
-            console.log(data)
+            //console.log(data)
 
         } catch (error) {
-            // let { reason } = error.response.data
-
-            // alert(reason.map(v => (
-            //     JSON.stringify(Object.values(v.constraints))
-            // )))
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
     }
 
@@ -241,7 +303,7 @@ class ApproveRole extends Component {
                                             <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", "): ""}</span></small>
+                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", ") : ""}</span></small>
                                         </div>
                                         <hr />
 

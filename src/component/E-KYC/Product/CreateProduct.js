@@ -56,7 +56,7 @@ class CreateProduct extends Component {
             return;
         }
 
-        let token = {
+        let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
@@ -72,7 +72,7 @@ class CreateProduct extends Component {
 
         try {
 
-            let productCreateRes = await axios.post(createProduct, obj, token);
+            let productCreateRes = await axios.post(createProduct, obj, config);
             console.log("productCreateRes", productCreateRes)
             NotificationManager.success("Product Successfully Created", "Success", 5000);
             localStorage.setItem("productInfo", JSON.stringify(obj));

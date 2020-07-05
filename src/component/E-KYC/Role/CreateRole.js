@@ -16,7 +16,7 @@ class CreateRole extends Component {
     }
 
 
-    
+
 
 
 
@@ -74,15 +74,15 @@ class CreateRole extends Component {
 
             const config = {
                 headers: {
-                    
+
                     'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
                 }
             };
-            
+
             const validationValue = await schema.validateAsync(data);
             console.log("validationValue", validationValue)
-            
+
             //console.log("Create Role Data", data)
             let url = 'http://127.0.0.1:3001/role/';
             let res = await axios.post(url, data, config)
@@ -93,8 +93,19 @@ class CreateRole extends Component {
             this.props.history.push("/dashboard/success", data)
 
         } catch (error) {
-            console.log("Validation Error===>",error)
-            NotificationManager.error(error.toString(), "Error", 5000);
+
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+
+
             // let { message } = error.response.data
             // let { statusCode } = error.response.data
             // let { reason } = error.response.data
@@ -172,41 +183,41 @@ class CreateRole extends Component {
                                             features.key !== "*" ? (
                                                 <div>
                                                     {
-                                            features.key % 1 === 0 ? (
-                                                <div className="">
-                                                    <hr />
-                                                    <h1 className="text-center im" >{features.featureName}</h1>
-                                                    <hr />
+                                                        features.key % 1 === 0 ? (
+                                                            <div className="">
+                                                                <hr />
+                                                                <h1 className="text-center im" >{features.featureName}</h1>
+                                                                <hr />
 
+                                                            </div>
+
+                                                        ) :
+
+
+                                                            (
+
+                                                                <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} key={index} >
+
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name={features.key}
+                                                                        checked={this.state.checkedItems.get(features.key)}
+                                                                        className="custom-control-input" id={index + 1}
+                                                                        style={{ marginRight: "5px" }}
+                                                                        onChange={this.checkHandleChange}
+                                                                        value={features.featureName}
+                                                                        style={{ cursor: "pointer" }}
+
+                                                                    />
+                                                                    <label className="custom-control-label" for={index + 1}>{features.featureName}</label>
+
+                                                                </div>
+                                                            )
+                                                    }
                                                 </div>
-
-                                            ) : 
-                                            
-                                            
-                                            (
-                                                
-                                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} key={index} >
-
-                                                        <input
-                                                            type="checkbox"
-                                                            name={features.key}
-                                                            checked={this.state.checkedItems.get(features.key)}
-                                                            className="custom-control-input" id={index + 1}
-                                                            style={{ marginRight: "5px" }}
-                                                            onChange={this.checkHandleChange}
-                                                            value={features.featureName}
-                                                            style={{ cursor: "pointer" }}
-
-                                                        />
-                                                        <label className="custom-control-label" for={index + 1}>{features.featureName}</label>
-
-                                                    </div>
-                                                )
+                                            ) : ""
                                         }
-                                                </div>
-                                            ): ""
-                                        }
-                                        
+
                                     </div>
 
                                 ))

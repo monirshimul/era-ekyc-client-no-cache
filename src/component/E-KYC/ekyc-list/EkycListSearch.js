@@ -15,9 +15,16 @@ class EkycListSearch extends Component {
 
     async componentDidMount() {
         const { page } = this.state
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
 
         try {
-            let ekycList = await axios.post(ekycWithFilter + page)
+            let ekycList = await axios.post(ekycWithFilter + page, null, config)
             console.log("ekycList", ekycList.data.data.ekyc)
             this.setState({
                 ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc
@@ -45,13 +52,20 @@ class EkycListSearch extends Component {
     doSearch = async (e)=>{
         e.preventDefault();
         let {radioValue, search, page} = this.state
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         if(radioValue === "id"){
             //console.log(radioValue)
             let val = {
                 id:search
             }
             try {
-                let searchResult = await axios.post(ekycWithFilter + page, val)
+                let searchResult = await axios.post(ekycWithFilter + page, val, config)
             // console.log("searchResult",searchResult)
             if(searchResult.data.data.length === 0){
                 NotificationManager.warning("No id Match", "Warning", 5000)
@@ -71,7 +85,7 @@ class EkycListSearch extends Component {
                 nid:search
             }
             try {
-                let searchResult = await axios.post(ekycWithFilter + page, val)
+                let searchResult = await axios.post(ekycWithFilter + page, val, config)
                 console.log("searchResult",searchResult)
                 if(searchResult.data.data.length === 0){
                     NotificationManager.warning("No Nid Match", "Warning", 5000)
@@ -90,7 +104,7 @@ class EkycListSearch extends Component {
                 name:search
             }
             try {
-                let searchResult = await axios.post(ekycWithFilter + page, val)
+                let searchResult = await axios.post(ekycWithFilter + page, val, config)
             // console.log("searchResult",searchResult)
             if(searchResult.data.data.length === 0){
                 NotificationManager.warning("No Name Match", "Warning", 5000)
@@ -107,11 +121,18 @@ class EkycListSearch extends Component {
     showMore = async (id) => {
 
         let { page } = this.state
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         try {
             let idObj = {
                 id: id
             }
-            let singleEkyc = await axios.post(ekycWithFilter + page, idObj)
+            let singleEkyc = await axios.post(ekycWithFilter + page, idObj, config)
             console.log("Show More", singleEkyc.data.data)
             let dataObj = {
                 data: singleEkyc.data.data
@@ -128,12 +149,20 @@ class EkycListSearch extends Component {
 
 
     fullProfile = async (id)=>{
+
+        const config = {
+            headers: {
+                
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
         
         try {
             let idObj = {
                 applicantId: id
             }
-            let fullEkyc = await axios.post(ekycFullProfile, idObj)
+            let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
             //console.log("full Ekyc", fullEkyc.data.data)
             let dataObj = {
                 data: fullEkyc.data.data

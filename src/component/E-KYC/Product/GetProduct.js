@@ -11,13 +11,13 @@ class GetProduct extends Component {
     }
 
     async componentDidMount() {
-        let token = {
+        let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
         try {
-            let getProductRes = await axios.post(getProduct, null, token)
+            let getProductRes = await axios.post(getProduct, null, config)
             console.log('getProductRes', getProductRes.data.data)
             this.setState({
                 productData: getProductRes.data.data
@@ -30,7 +30,7 @@ class GetProduct extends Component {
     onUpdate = async (id) => {
         let { productData } = this.state
 
-        let token = {
+        let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
@@ -43,7 +43,7 @@ class GetProduct extends Component {
 
 
         try {
-            let updateRes = await axios.post(getProduct, idObj, token)
+            let updateRes = await axios.post(getProduct, idObj, config)
             console.log('updateRes', updateRes.data.data)
             let updateData = {
                 data: updateRes.data.data
@@ -57,7 +57,7 @@ class GetProduct extends Component {
 
 
     onDelete = async (id) => {
-        let token = {
+        let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
@@ -80,12 +80,12 @@ class GetProduct extends Component {
                 })
                 console.log('updateRes', deleteRes)
                 NotificationManager.warning("Product Deleted", "Warning", 5000);
-                let getProductRes = await axios.post(getProduct, null, token)
+                let getProductRes = await axios.post(getProduct, null, config)
                 this.setState({
                     productData: getProductRes.data.data
                 })
             } else {
-                let getProductRes = await axios.post(getProduct, null, token)
+                let getProductRes = await axios.post(getProduct, null, config)
                 this.setState({
                     productData: getProductRes.data.data
                 })
