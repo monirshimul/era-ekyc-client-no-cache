@@ -5,7 +5,7 @@ import axios from 'axios';
 import Pagination from '../../Reusable/Pagination';
 import { withRouter } from 'react-router-dom';
 import { image } from '../Profile/damiImage'
-import NidThree from '../Simplified/images/nid-f4.svg';
+import NidThree from '../Simplified/images/man.svg';
 import { NotificationManager } from "react-notifications";
 
 export class UserList extends Component {

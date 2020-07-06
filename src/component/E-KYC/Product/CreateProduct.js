@@ -3,6 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { createProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
+const Joi = require('@hapi/joi');
 
 class CreateProduct extends Component {
 
@@ -15,6 +16,7 @@ class CreateProduct extends Component {
         description: ""
 
     }
+    
 
 
     onChange = e => {
@@ -24,37 +26,7 @@ class CreateProduct extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { productName, description, productCode, productCategory, status } = this.state;
-
-        if (productName === '') {
-            let productNameMessage = "Please provide Product Name";
-            NotificationManager.error(productNameMessage, "Error", 5000);
-            return;
-        }
-
-        if (productCode === '') {
-            let productCodeMessage = 'Please provide Product Code';
-            NotificationManager.error(productCodeMessage, "Error", 5000);
-            return;
-        }
-
-        if (productCategory === '') {
-            let productCategoryMessage = 'Please provide Product Category';
-            NotificationManager.error(productCategoryMessage, "Error", 5000);
-            return;
-        }
-
-        if (status === '') {
-            let productStatusMessage = 'Please select Product status';
-            NotificationManager.error(productStatusMessage, "Error", 5000);
-            return;
-        }
-
-        if (description === '') {
-            let productDescriptionMessage = 'Please provide Product Description';
-            NotificationManager.error(productDescriptionMessage, "Error", 5000);
-            return;
-        }
+        const { productName, description, productCode, productCategory, status } = this.state;     
 
         let config = {
             headers: {
@@ -70,7 +42,18 @@ class CreateProduct extends Component {
             description: description
         }
 
+        let joiData = {
+            productName: productName,
+            productCode: productCode,
+            productCategory: productCategory,
+            status: status,
+            description: description
+        }
+
         try {
+
+            const validationValue = await schema.validateAsync(joiData);
+            console.log("validationValue", validationValue)
 
             let productCreateRes = await axios.post(createProduct, obj, config);
             console.log("productCreateRes", productCreateRes)
@@ -192,5 +175,14 @@ class CreateProduct extends Component {
         )
     }
 }
+
+const schema = Joi.object({
+    productName: Joi.string().min(5).max(30).required(),
+    productCode: Joi.string().min(3).required(),
+    productCategory: Joi.string().required(),
+    status: Joi.string().required(),
+    description: Joi.string().max(100).required()
+
+})
 
 export default withRouter(CreateProduct)

@@ -6,8 +6,8 @@ import '../CSS/table.css';
 import { getRoleWithFilter, createUserWithRole, checkUserId, checkUserMobile, checkUserEmail } from '../Url/ApiList';
 import { convertNumber } from '../../Utils/StrToNum';
 import { NotificationManager } from "react-notifications";
-
 import axios from 'axios';
+
 
 class CreateUser extends Component {
     state = {
@@ -445,5 +445,6 @@ class CreateUser extends Component {
         )
     }
 }
+
 
 export default withRouter(CreateUser);

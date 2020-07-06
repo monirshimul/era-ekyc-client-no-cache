@@ -117,7 +117,8 @@ export class SimFingerPrint extends Component {
       //console.log("Token",obj)
 
       let fingerRes = await axios.post(fingerValidate, obj, config)
-      console.log("fingerRes", fingerRes.data.data.verificationToken)
+      //console.log("fingerRes", fingerRes.data.data.verificationToken)
+      console.log("fingerRes", fingerRes.data)
 
       this.props.handleState('verifyToken', fingerRes.data.data.verificationToken);
 
@@ -154,6 +155,7 @@ export class SimFingerPrint extends Component {
 
   render() {
     let { values, handleChange } = this.props;
+    console.log("Date of birth", values.dob)
     return (
       <div className="container">
         <div className="row d-flex justify-content-center">
