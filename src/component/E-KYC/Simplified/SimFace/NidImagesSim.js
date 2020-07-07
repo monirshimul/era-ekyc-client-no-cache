@@ -7,8 +7,61 @@ import Loading from '../utils/CustomLoding/Loading.js';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
+import Capture from '../Capture/Capture';
 
 export class NidImagesSim extends Component {
+
+  state = {
+    cameraOnFront : false,
+    cameraOnBack : false,
+    
+  }
+
+  captureOnFront = ()=>{
+    this.setState({
+      cameraOnFront: true
+    })
+  }
+
+  captureOffFront = ()=>{
+    this.setState({
+      cameraOnFront: false
+    })
+  }
+
+  captureOnBack = ()=>{
+    this.setState({
+      cameraOnBack: true
+    })
+  }
+
+  captureOffBack = ()=>{
+    this.setState({
+      cameraOnBack: false
+    })
+  }
+
+  onImageConfirm = (base64Image) => {
+    //console.log("In image confirm");
+    //console.log("Image",base64Image);
+    if(this.state.cameraOnFront){
+      this.props.handleState("NidFront", base64Image);
+      this.captureOffFront();
+    }
+    if(this.state.cameraOnBack){
+      this.props.handleState("NidBack", base64Image);
+      this.captureOffBack();
+    }
+    
+    
+}
+
+// onImageConfirmBack = (base64Image) => {
+//   //console.log("In image confirm");
+//   //console.log("Image",base64Image);
+//   this.props.handleState("NidBack", base64Image);
+//   this.captureOff();
+// }
 
     fileSelectedHandler = (event) => {
         if (event.target.files[0]) {
@@ -140,10 +193,10 @@ export class NidImagesSim extends Component {
     render() {
         let {values} = this.props;
         return (
-            <div className="">
+            <div className="container">
         <div className="row d-flex justify-content-center">
-          <div className="col-sm-12 d-flex justify-content-around">
-            <div className="card col-sm-6" style={{ paddingTop: "25px", marginRight: "30px" }}>
+          
+            <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
               <div className="card-header up">
                 <h3>NID Front</h3>
               </div>
@@ -164,10 +217,11 @@ export class NidImagesSim extends Component {
                 />
               </div>
               <div
-                className="card-footer d-flex justify-content-around"
+                className="card-footer"
                 style={{ background: "#fff" }}
               >
-                <div className="input-group mb-3 ">
+                
+                <div className="input-group">
                   <div className="custom-file">
                     <input type="file"
                       onChange={this.fileSelectedHandler}
@@ -177,10 +231,22 @@ export class NidImagesSim extends Component {
                   </div>
 
                 </div>
+
+                {/* <p className="text-center mt-3"style={{color:"green"}}>Or</p> */}
+
+                <div className="im mt-3" style={{color:"green"}} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOnFront}>
+                <i class="fas fa-camera"></i> Capture Image
+                </div>
+                
+                
+                
               </div>
+              
+              
+              
             </div>
 
-            <div className="card col-sm-6" style={{ paddingTop: "25px" }}>
+            <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
               <div className="card-header up">
                 <h3>NID Back</h3>
               </div>
@@ -200,10 +266,11 @@ export class NidImagesSim extends Component {
                 />
               </div>
               <div
-                className="card-footer d-flex justify-content-around"
+                className="card-footer"
                 style={{ background: "#fff" }}
               >
-                <div className="input-group mb-3 ">
+                
+                <div className="input-group">
                   <div className="custom-file">
                     <input type="file"
                       onChange={this.fileSelectedHandlerTwo}
@@ -212,11 +279,32 @@ export class NidImagesSim extends Component {
                     <label className="custom-file-label" htmlFor="input-file-two">Choose Image</label>
                   </div>
                 </div>
+                {/* <p className="text-center mt-3"style={{color:"green"}}>Or</p> */}
+
+                <div className="im mt-3" style={{color:"green"}} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOnBack}>
+                <i class="fas fa-camera"></i> Capture Image
+                </div>
 
 
               </div>
             </div>
-          </div>
+          
+        </div>
+
+        <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog mw-100 w-75" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header divBg">
+                                <h5 class="modal-title" id="cameraModalLabel">Capture Your Image</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={this.state.cameraOnFront ? this.captureOffFront : this.captureOffBack }>
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {this.state.cameraOnFront || this.state.cameraOnBack ? <Capture onConfirm={this.onImageConfirm}/> : ""}
+                            </div>
+                        </div>
+                    </div>
         </div>
 
         {

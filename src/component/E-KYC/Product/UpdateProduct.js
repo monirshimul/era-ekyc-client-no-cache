@@ -3,6 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { createProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
+const Joi = require('@hapi/joi');
 
 class UpdateProduct extends Component {
 
@@ -47,36 +48,7 @@ class UpdateProduct extends Component {
         e.preventDefault();
         const { productName, description, productCode, productCategory, status, id } = this.state;
 
-        if (productName === '') {
-            let productNameMessage = "Please provide Product Name";
-            NotificationManager.error(productNameMessage, "Error", 5000);
-            return;
-        }
-
-        if (productCode === '') {
-            let productCodeMessage = 'Please provide Product Code';
-            NotificationManager.error(productCodeMessage, "Error", 5000);
-            return;
-        }
-
-        if (productCategory === '') {
-            let productCategoryMessage = 'Please provide Product Category';
-            NotificationManager.error(productCategoryMessage, "Error", 5000);
-            return;
-        }
-
-        if (status === '') {
-            let productStatusMessage = 'Please select Product status';
-            NotificationManager.error(productStatusMessage, "Error", 5000);
-            return;
-        }
-
-        if (description === '') {
-            let productDescriptionMessage = 'Please provide Product Description';
-            NotificationManager.error(productDescriptionMessage, "Error", 5000);
-            return;
-        }
-
+        
         let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -92,9 +64,20 @@ class UpdateProduct extends Component {
             description: description
         }
 
-        console.log("update data", obj)
+        let joiData = {
+            productName: productName,
+            productCode: productCode,
+            productCategory: productCategory,
+            status: status,
+            description: description
+        }
+
+        //console.log("update data", obj)
 
         try {
+
+            const validationValue = await schema.validateAsync(joiData);
+            console.log("validationValue", validationValue)
 
             let productUpdateRes = await axios.put(createProduct, obj, config);
             console.log("productCreateRes", productUpdateRes)
@@ -215,5 +198,14 @@ class UpdateProduct extends Component {
         )
     }
 }
+
+const schema = Joi.object({
+    productName: Joi.string().min(5).max(30).required(),
+    productCode: Joi.string().min(3).required(),
+    productCategory: Joi.string().required(),
+    status: Joi.string().required(),
+    description: Joi.string().max(100).required()
+
+})
 
 export default withRouter(UpdateProduct)

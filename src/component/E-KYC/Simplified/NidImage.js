@@ -178,6 +178,7 @@ export class NidImage extends Component {
                   </div>
 
                 </div>
+                
               </div>
             </div>
 
