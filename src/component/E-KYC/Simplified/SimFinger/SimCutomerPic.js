@@ -1,7 +1,40 @@
 import React, { Component } from 'react';
 import Sign from '../images/man.svg';
+import Capture from '../Capture/Capture';
+
+
 
 export class SimCutomerPic extends Component {
+
+    
+    state = {
+        cameraOn: false
+    }
+
+    captureOn = () => {
+        this.setState({
+            cameraOn: true
+        })
+    }
+
+    captureOff = () => {
+        this.setState({
+            cameraOn: false
+        })
+    }
+
+    onImageConfirm = (base64Image) => {
+        //console.log("In image confirm");
+        //console.log("Image",base64Image);
+
+
+        this.props.handleState("faceImage", base64Image);
+        this.captureOff();
+
+
+
+    }
+
     fileSelectedHandler = event => {
         if (event.target.files[0]) {
             let file = event.target.files[0];
@@ -57,7 +90,7 @@ export class SimCutomerPic extends Component {
 
                 </div>
                 <div
-                    className="card-footer d-flex justify-content-around"
+                    className="card-footer"
                     style={{ background: "#fff" }}
                 >
 
@@ -71,9 +104,30 @@ export class SimCutomerPic extends Component {
                         </div>
 
                     </div>
+                    <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOn}>
+                            <i class="fas fa-camera"></i> Capture Image
+                        </div>
 
 
                 </div>
+
+                <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog mw-100 w-75" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header divBg">
+                                    <h5 class="modal-title" id="cameraModalLabel">Capture Your Image</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={this.captureOff}>
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {this.state.cameraOn ? <Capture onConfirm={this.onImageConfirm} /> : ""}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 <div
                     className="card-footer d-flex justify-content-between"
                     style={{ background: "#fff" }}

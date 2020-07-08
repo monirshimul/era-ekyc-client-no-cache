@@ -301,19 +301,19 @@ class CreateUser extends Component {
             return (
                 <tr key={id}>
 
-                    <td>{roleName}</td>
-                    <td>
+                    <td className="text-center" style={{fontWeight:"600"}}>{roleName}</td>
+                    <td className="text-center" style={{color:"green"}}>
                         {rolePrivileges.map((val, i) => (
-                            rolePrivileges[i][1] + " ,"
+                            rolePrivileges[i][1] + " / "
                         ))
                         }
                     </td>
 
 
                     <td>
-                        <div >
+                        <div className="text-center">
                             <input type="checkbox" id="myCheckbox" name="role_checkbox" checked={role.isChecked} value={(role.id)} onChange={this.onAddingItem} />
-                            <label > &nbsp;{role.roleName}</label>
+                            {/* <label > &nbsp;{role.roleName}</label> */}
 
                         </div>
                     </td>
@@ -329,7 +329,7 @@ class CreateUser extends Component {
 
     render() {
         return (
-            <div className="card col-sm-7 " style={{ paddingTop: "25px" }}>
+            <div className="card col-sm-10 " style={{ paddingTop: "25px" }}>
 
                 <div className="card-header divBg">
 
@@ -406,12 +406,12 @@ class CreateUser extends Component {
 
                         <div className='form-group'>
                             <label htmlFor="">Role Selection:</label>
-                            <table id='data' style={{ fontSize: '11pt' }}>
-                                <thead>
+                            <table id='data' className="" style={{ fontSize: '14px' }}>
+                                <thead className="divBg" style={{fontWeight:"400", fontSize:"14px"}}>
                                     <tr>
 
-                                        <th>Role Name</th>
-                                        <th>Privileges</th>
+                                        <th className="text-center" style={{width:"150px"}}>Role Name</th>
+                                        <th className="text-center">Privileges</th>
                                         <th>Checkbox</th>
                                     </tr>
                                 </thead>
@@ -423,7 +423,7 @@ class CreateUser extends Component {
 
                         {/* Roles Added show */}
                         {/* <div style={{ marginTop: "20px" }}>Selected: {this.state.roles.join(', ')}</div> */}
-                        <br></br> <br></br>
+                        
                         {/* Submit Button */}
                         <div className="d-flex justify-content-center" >
 

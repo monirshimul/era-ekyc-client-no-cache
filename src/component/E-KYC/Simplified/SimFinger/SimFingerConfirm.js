@@ -114,6 +114,8 @@ export class SimFingerConfirm extends Component {
                 }
             };
 
+            console.log("Token", config)
+
             try {
                 this.props.handleState('confirmFlag', true);
                 let res = await axios.post(confirmApi, confirmObj, config);
