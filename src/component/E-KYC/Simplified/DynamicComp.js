@@ -10,6 +10,10 @@ import './utils/Common.css'
 import adult from './images/face-scan.svg'
 import child from './images/fingerprint-three.svg'
 import bio from './images/verified.svg'
+import userDelete from './images/userDel.svg'
+import userAdd from './images/userAdd.svg'
+import userFinish from './images/userFinish.svg'
+import complete from './images/complete.svg'
 import axios from 'axios';
 import Loading from './utils/CustomLoding/Loading';
 
@@ -18,6 +22,8 @@ export class DynamicComp extends Component {
         jointArray: [],
         comp: '',
         showHide: false,
+        bioShow: false,
+        finishAdd: false,
         accountId: '',
         processComplete: false,
         loadingFlag: false,
@@ -28,7 +34,10 @@ export class DynamicComp extends Component {
         e.preventDefault();
         this.setState({
             accountId: JSON.parse(localStorage.getItem('accountId')),
-            processComplete: true
+            processComplete: true,
+            showHide:!this.state.showHide,
+            finishAdd: !this.state.finishAdd
+            
         })
     }
 
@@ -87,6 +96,24 @@ export class DynamicComp extends Component {
             jointArray: copyArray
 
         })
+        if (index === 0) {
+            this.setState({
+                bioShow: !this.state.bioShow,
+                
+                
+            })
+
+
+        }
+
+        if(this.state.bioShow === false){
+            this.setState({
+                bioShow: !this.state.bioShow,
+                showHide: true,
+                finishAdd: true
+                
+            })
+        }
     }
 
     addComp = (val) => {
@@ -110,25 +137,163 @@ export class DynamicComp extends Component {
         //console.log("ShowHide", this.state.showHide)
     }
 
+    bioShow = () => {
+        this.setState({
+            bioShow: !this.state.bioShow,
+            showHide: true,
+            finishAdd: true
+            
+            
+        })
+    }
+
 
 
     render() {
         //console.log("stable", this.state.applicantId);
-        let { showHide } = this.state
+        let { showHide, bioShow, finishAdd } = this.state
+        console.log(this.state.jointArray.length)
         return (
-            <div className="col text-center" >
+            <div className="container" >
+
+
 
 
                 {
                     this.state.jointArray.map((arr, index) => {
                         return (
-                            <div className="my-3">
-                                <h2 className="text-muted"><i className="fas fa-user" style={{ color: "#e3174c" }}></i> Applicant <small >{index + 1}</small></h2>
+                            <div className="">
+                                <h2 style={{ fontSize: "17px" }} className="text-muted im text-center"><i className="fas fa-user" style={{ color: "#e3174c" }}></i> Applicant <span style={{ fontSize: "17px" }}>{index + 1}</span></h2>
                                 {arr.comp}
                                 <hr />
                                 {/* <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => window.confirm("Are you sure? All your data will be lost.") && this.deleteComp(index)}>Delete</button> */}
-                                <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => this.deleteComp(index)}>Delete</button>
-                                <br />
+                                {/* <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => this.deleteComp(index)}>Delete</button>
+                                 */}
+
+                                <div>
+                                    <hr />
+                                    <div className="row d-flex justify-content-center" >
+                                        {
+                                            finishAdd ? (
+                                                <div className="imTwoWhite text-center col-sm-3">
+                                            <img
+                                                src={userDelete}
+                                                style={{
+                                                    margin: "0 auto",
+                                                    width: "250px",
+                                                    height: "150px",
+                                                    border: "none",
+                                                }}
+
+                                                className="img-fluid img-thumbnail"
+                                                id="FrontNidPic"
+                                                alt=""
+                                            />
+                                            <hr />
+
+                                            <h4 className="im" style={{ color: "green" }} onClick={(e) => this.deleteComp(index)}><i class="fas fa-vote-yea"></i>  Delete Applicant <span style={{ fontSize: "17px" }}>{index + 1}</span></h4>
+
+                                        </div>
+                                            ):""
+                                        }
+                                        
+                                        {
+                                            !showHide && index + 1 === this.state.jointArray.length ? (
+                                                <div className="imTwoWhite text-center col-sm-3">
+                                                    <img
+                                                        src={userAdd}
+                                                        style={{
+                                                            margin: "0 auto",
+                                                            width: "250px",
+                                                            height: "150px",
+                                                            border: "none",
+                                                        }}
+
+                                                        className="img-fluid img-thumbnail"
+                                                        id="FrontNidPic"
+                                                        alt=""
+                                                    />
+                                                    <hr />
+
+                                                    <h4 className="im" style={{ color: "green" }} onClick={this.showHide}><i class="fas fa-vote-yea"></i>  Add New Applicant</h4>
+
+                                                </div>
+                                            ) : ""
+                                        }
+
+
+                                        {
+                                            this.state.jointArray.length > 1 && this.state.processComplete === false && index + 1 === this.state.jointArray.length ?
+
+
+                                                <div className="imTwoWhite text-center col-sm-3">
+                                                    <img
+                                                        src={userFinish}
+                                                        style={{
+                                                            margin: "0 auto",
+                                                            width: "250px",
+                                                            height: "150px",
+                                                            border: "none",
+                                                        }}
+
+                                                        className="img-fluid img-thumbnail"
+                                                        id="FrontNidPic"
+                                                        alt=""
+                                                    />
+                                                    <hr />
+
+                                                    <h4 className="im" style={{ color: "green" }} onClick={this.onProcess}><i class="fas fa-vote-yea"></i>  Finish Adding</h4>
+
+                                                </div>
+
+
+                                                :
+                                                ""
+                                        }
+
+
+                                        {
+
+                                            this.state.jointArray.length > 1 && this.state.processComplete === true && index + 1 === this.state.jointArray.length ?
+
+                                                
+                                                    <div className="imTwoWhite text-center col-sm-3">
+                                                    <img
+                                                        src={complete}
+                                                        style={{
+                                                            margin: "0 auto",
+                                                            width: "250px",
+                                                            height: "150px",
+                                                            border: "none",
+                                                        }}
+
+                                                        className="img-fluid img-thumbnail"
+                                                        id="FrontNidPic"
+                                                        alt=""
+                                                    />
+                                                    <hr />
+
+                                                    <h4 className="im" disabled={this.state.loadingFlag} style={{ color: "green" }} onClick={this.complete}><i class="fas fa-vote-yea"></i>  Complete</h4>
+                                                    {/* <button className="b" disabled={this.state.loadingFlag} style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button> */}
+
+                                                </div>
+                                                    
+                                                
+                                                :
+                                                ""
+
+                                        }
+
+
+
+
+
+
+                                    </div>
+
+
+                                </div>
+
                                 <hr />
                             </div>
 
@@ -143,32 +308,13 @@ export class DynamicComp extends Component {
                 {this.state.loadingFlag ? <Loading /> : ''}
                 <br />
 
-                {
-
-                    this.state.jointArray.length > 1 && this.state.processComplete === false ?
-                        <div>
-                            <button className="neoBg" style={{ border: "none", background: "gray", color: 'white' }} onClick={this.onProcess} >Finish Adding</button>
-                        </div>
-                        :
-                        ""
-
-                }
-
-                {
-
-                    this.state.jointArray.length > 1 && this.state.processComplete === true ?
-
-                        <div>
-                            <button className="b" disabled={this.state.loadingFlag} style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button>
-                        </div>
-                        :
-                        ""
-
-                }
 
 
 
-                {!showHide ? (
+
+
+
+                {!bioShow ? (
                     <div>
                         <hr />
                         <div className="row d-flex justify-content-center" >
@@ -188,7 +334,7 @@ export class DynamicComp extends Component {
                                 />
                                 <hr />
 
-                                <h4 className="im" style={{ color: "green" }} onClick={this.showHide}><i class="fas fa-vote-yea"></i>  Select Biometric Options</h4>
+                                <h4 className="im" style={{ color: "green" }} onClick={this.bioShow}><i class="fas fa-vote-yea"></i>  Select Biometric Options</h4>
 
                             </div>
                         </div>
@@ -205,7 +351,7 @@ export class DynamicComp extends Component {
 
                 {
 
-                    showHide ? (
+                    showHide && finishAdd  ? (
                         <div>
                             <hr />
                             <div className="row d-flex justify-content-center ">
