@@ -12,6 +12,7 @@ import axios from 'axios';
 class CreateUser extends Component {
     state = {
         userId: '',
+        channelName:'',
         name: '',
         password: '',
         mobile: '',
@@ -101,7 +102,7 @@ class CreateUser extends Component {
     // OnSubmit for Submit button
     onSubmit = async (e) => {
         e.preventDefault();
-        const { userId, name, password, mobile, email, roles, pinAuthStatus } = this.state;
+        const { userId,channelName, name, password, mobile, email, roles, pinAuthStatus } = this.state;
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
@@ -140,6 +141,11 @@ class CreateUser extends Component {
             }
         }
 
+        if(channelName === ''){
+            let channelMessage = "Please Provide your ChannelName";
+            NotificationManager.warning(channelMessage, "Warning", 5000);
+            return;
+        }
 
         if (name === "") {
             let nameMessage = "Please Provide your Name";
@@ -344,6 +350,24 @@ class CreateUser extends Component {
                             <label htmlFor="">User Id</label>
                             <input type="text" value={this.state.userId} onChange={this.onChange} className="form-control" name="userId" id="inputUserId" aria-describedby="emailHelp" placeholder="UserId" />
                         </div>
+
+
+                           {/* Channel Name */}
+                    <div className='form-group'>
+                        <label htmlFor="">Channel Name</label>
+                        <select
+                            className='custom-select'
+                            value={this.state.channelName}
+                            onChange={this.onChange}
+                            name="channelName"
+                        >
+                            <option value='' disabled>--Select--</option>
+                            <option value='ABS'>Agent Banking</option>
+                            <option value='CBS'>Conventional Core Banking</option>
+                            <option value='ICBS'>Islamic Core Banking</option>
+                            <option value='OMNI'>Omni Channel </option>
+                        </select>
+                    </div>
 
 
                         {/* User Name */}
