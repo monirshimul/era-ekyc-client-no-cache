@@ -128,8 +128,8 @@ export class SimFingerPrint extends Component {
       this.props.handleState('applicantNidNo', dataResp.nationalId);
       this.props.handleState('motherNameBangla', dataResp.mother);
       this.props.handleState('fatherNameBangla',dataResp.father );
-      this.props.handleState('profession',dataResp.occupation );
-      this.props.handleState('spouseName',dataResp.spouse);
+      this.props.handleState('profession',dataResp.occupation ? dataResp.occupation : '' );
+      this.props.handleState('spouseName',dataResp.spouse ? dataResp.spouse : "");
 
        // Present Address
        let preAddress = dataResp.presentAddress;
