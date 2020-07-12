@@ -122,12 +122,12 @@ export class SimFingerPrint extends Component {
       let dataResp = fingerRes.data.data.fingerVerificationResult.details.details;
       
       // Setting Data to State === start
-      this.props.handleState('applicantNameBangla', dataResp.name);
-      this.props.handleState('applicantName', dataResp.nameEn);
-      this.props.handleState('applicantDob',dataResp.dateOfBirth );
-      this.props.handleState('applicantNidNo', dataResp.nationalId);
-      this.props.handleState('motherNameBangla', dataResp.mother);
-      this.props.handleState('fatherNameBangla',dataResp.father );
+      this.props.handleState('applicantNameBangla', dataResp.name ? dataResp.name : '');
+      this.props.handleState('applicantName', dataResp.nameEn ? dataResp.nameEn);
+      this.props.handleState('applicantDob',dataResp.dateOfBirth ? dataResp.dateOfBirth : "");
+      this.props.handleState('applicantNidNo', dataResp.nationalId ? dataResp.nationalId : '');
+      this.props.handleState('motherNameBangla', dataResp.mother ? dataResp.mother : '');
+      this.props.handleState('fatherNameBangla',dataResp.father ? dataResp.father : '' );
       this.props.handleState('profession',dataResp.occupation ? dataResp.occupation : '' );
       this.props.handleState('spouseName',dataResp.spouse ? dataResp.spouse : "");
 
