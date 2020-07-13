@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import { fingerValidate } from '../../Url/ApiList';
 import Loading from "../utils/CustomLoding/Loading.js";
-import Finger from "../images/tap.svg";
-import FingerOk from ".././images/fingerprintOk.svg";
+import Finger from "../images/fingerprintEC.svg";
+import FingerOk from ".././images/successPrint.svg";
 import { NotificationManager } from "react-notifications";
 
 export class SimFingerPrint extends Component {
@@ -119,20 +119,26 @@ export class SimFingerPrint extends Component {
       let fingerRes = await axios.post(fingerValidate, obj, config)
       //console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.verificationToken)
       // console.log("fingerRes", fingerRes.data)
-      let dataResp = fingerRes.data.data.fingerVerificationResult.details.details;
+      
       
       // Setting Data to State === start
-      this.props.handleState('applicantNameBangla', dataResp.name ? dataResp.name : '');
-      this.props.handleState('applicantName', dataResp.nameEn ? dataResp.nameEn);
-      this.props.handleState('applicantDob',dataResp.dateOfBirth ? dataResp.dateOfBirth : "");
-      this.props.handleState('applicantNidNo', dataResp.nationalId ? dataResp.nationalId : '');
-      this.props.handleState('motherNameBangla', dataResp.mother ? dataResp.mother : '');
-      this.props.handleState('fatherNameBangla',dataResp.father ? dataResp.father : '' );
+
+      if(fingerRes.data.data.fingerVerificationResult.details.details ){
+        let dataResp = fingerRes.data.data.fingerVerificationResult.details.details;
+        // For VPN Only
+
+      this.props.handleState('applicantNameBangla', dataResp.name ? dataResp.name : "");
+      this.props.handleState('applicantName', dataResp.nameEn ? dataResp.nameEn : "");
+      this.props.handleState('applicantDob',dataResp.dateOfBirth ? dataResp.dateOfBirth : "" );
+      this.props.handleState('applicantNidNo', dataResp.nationalId ? dataResp.nationalId : "");
+      this.props.handleState('motherNameBangla', dataResp.mother ? dataResp.mother : "");
+      this.props.handleState('fatherNameBangla',dataResp.father ? dataResp.father : "");
       this.props.handleState('profession',dataResp.occupation ? dataResp.occupation : '' );
       this.props.handleState('spouseName',dataResp.spouse ? dataResp.spouse : "");
 
        // Present Address
        let preAddress = dataResp.presentAddress;
+       //console.log("present Address", preAddress)
       this.props.handleState('preAdditionalMouzaOrMoholla',preAddress.additionalMouzaOrMoholla ? preAddress.additionalMouzaOrMoholla : '');
       this.props.handleState('preAdditionalVillageOrRoad',preAddress.additionalVillageOrRoad ? preAddress.additionalVillageOrRoad : '');
       this.props.handleState('preCityCorporationOrMunicipality',preAddress.cityCorporationOrMunicipality ? preAddress.cityCorporationOrMunicipality : '');
@@ -149,6 +155,7 @@ export class SimFingerPrint extends Component {
 
       // Permanent Address
       let perAddress = dataResp.permanentAddress;
+      //console.log("permanent Address", perAddress.additionalVillageOrRoad)
       this.props.handleState('perAdditionalMouzaOrMoholla',perAddress.additionalMouzaOrMoholla ? perAddress.additionalMouzaOrMoholla : '');
       this.props.handleState('perAdditionalVillageOrRoad',perAddress.additionalVillageOrRoad ? perAddress.additionalVillageOrRoad : '');
       this.props.handleState('perCityCorporationOrMunicipality', perAddress.cityCorporationOrMunicipality ? perAddress.cityCorporationOrMunicipality : "" );
@@ -164,14 +171,40 @@ export class SimFingerPrint extends Component {
       this.props.handleState('perWardForUnionPorishod',perAddress.wardForUnionPorishod ? perAddress.wardForUnionPorishod : '');
      
      
-      // Verification Token
-      this.props.handleState('verifyToken', fingerRes.data.data.verificationToken);
-      console.log("verifyToken",this.props.values.verifyToken)
-      // Setting Data to State === end
+      
+      // // Setting Data to State === end
 
       
 
+      
+      }
+
+      // // Verification Token
+      this.props.handleState('verifyToken', fingerRes.data.data.verificationToken);
+      //console.log("verifyToken",this.props.values.verifyToken)
       this.props.nextStep();
+
+
+
+      
+
+
+
+
+
+      // With out vpn
+
+      
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -206,7 +239,7 @@ export class SimFingerPrint extends Component {
 
   render() {
     let { values, handleChange } = this.props;
-    console.log("Date of birth", values.dob)
+    //console.log("Date of birth", values.dob)
     return (
       <div className="container">
         <div className="row d-flex justify-content-center">
