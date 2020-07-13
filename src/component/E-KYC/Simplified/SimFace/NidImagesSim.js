@@ -145,7 +145,7 @@ export class NidImagesSim extends Component {
           formData.append("backPart", values.NidBackOcr);
           formData.append("api_pass", "updateimage");
           let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
-          //console.log(nidData.data);
+          console.log("NIDdATA",nidData.data);
           // this.setState({
           //  allData:nidData.data,
           //   loading: false

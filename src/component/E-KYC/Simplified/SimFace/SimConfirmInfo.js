@@ -41,7 +41,6 @@ export class SimConfirmInfo extends Component {
             motherNameBangla: values.motherNameBangla,
             fatherName: values.fatherName,
             fatherNameBangla: values.fatherNameBangla,
-            spouseName: values.spouseName,
             gender: values.gender,
             profession: values.profession,
             mobile: values.mobileNumber,
@@ -50,6 +49,9 @@ export class SimConfirmInfo extends Component {
             permanentAddressBangla: values.permanentAddressBangla,
             verificationType: "FACE"
         }
+
+        if(values.spouseName !== '' ) applicantInfo.spouseName = values.spouseName;
+
 
         let applicantFileInfo = {
             nidFront: values.NidFront,

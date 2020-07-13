@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import '../../E-KYC/Simplified/utils/Common.css';
 import { withRouter } from 'react-router-dom';
-import { getupdateUser, getRoleWithFilter,userUpdate } from '../Url/ApiList';
+import { getupdateUser, getRoleWithFilter, userUpdate } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 
 class UpdateUser extends Component {
 
     state = {
-        id:"",
+        id: "",
         userId: '',
+        channelName: '',
         name: '',
         password: '',
         mobile: '',
@@ -31,7 +32,7 @@ class UpdateUser extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     async componentDidMount() {
-       //console.log(this.props.location.state);
+        //console.log(this.props.location.state);
         let getId = this.props.location.state;
         let arr = [];
         //Update user api
@@ -39,19 +40,20 @@ class UpdateUser extends Component {
         const actRole = { status: "A" };
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
         };
-        
+
         try {
             let updata = await axios.post(getupdateUser + 1, obj, config);
             const prefillData = updata.data.data;
-          console.log("prefilled", prefillData);
+            console.log("prefilled", prefillData);
             this.setState({
-                id:prefillData[0].id,
+                id: prefillData[0].id,
                 userId: prefillData[0].userId,
+                channelName: prefillData[0].channelCode,
                 name: prefillData[0].name,
                 mobile: prefillData[0].mobile,
                 email: prefillData[0].email,
@@ -60,23 +62,23 @@ class UpdateUser extends Component {
                 getRoleName: prefillData[0].roles
             })
 
-         //   console.log("getrole", this.state.getRoleName)
+            //   console.log("getrole", this.state.getRoleName)
             //Array for getRoleName from user
             for (let i = 0; i < this.state.getRoleName.length; i++) {
 
-                arr.push(this.state.getRoleName[i].id);           
+                arr.push(this.state.getRoleName[i].id);
             }
-            this.setState({checking: arr});
+            this.setState({ checking: arr });
 
         } catch (error) {
-            if(error.response){
+            if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
-            }else if(error.request){
-                console.log("Error Connecting...",error.request)
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
-            }else if(error){
+            } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
@@ -92,9 +94,9 @@ class UpdateUser extends Component {
             //Filter id and roleName from listRoles API
             const filteredKeys = ['id', 'roleName', "rolePrivileges", "isAdded"];
             //map filterRoles for Filter data [id, roleName] keys
-            
+
             let myArray = this.state.checking;
-           //Without sort isAdded true/false is not working
+            //Without sort isAdded true/false is not working
             let marray = myArray.sort();
 
             //console.log("before loop",this.state.checking);
@@ -111,7 +113,7 @@ class UpdateUser extends Component {
 
             //console.log("filterRoles", filterRoles);
 
-             //map filterRoles for Filter data [id, roleName] keys
+            //map filterRoles for Filter data [id, roleName] keys
             filterRoles.map((val, i) => {
                 const filtered = filteredKeys.reduce((obj, key) => ({ ...obj, [key]: filterRoles[i][key] }), {});
                 filterData.push(filtered);
@@ -120,14 +122,14 @@ class UpdateUser extends Component {
             //console.log("role_list", this.state.role_list);
 
         } catch (error) {
-            if(error.response){
+            if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
-            }else if(error.request){
-                console.log("Error Connecting...",error.request)
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
-            }else if(error){
+            } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
@@ -144,21 +146,21 @@ class UpdateUser extends Component {
         let idValue = id;
 
         if (isChecked === false) {
-          //  console.log("false");
+            //  console.log("false");
             try {
                 let r = this.state.checking.filter(repo => repo !== idValue);
 
-             //   console.log("false inside", r);
+                //   console.log("false inside", r);
                 this.setState({ checking: r });
             } catch (error) {
-                if(error.response){
+                if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
-                }else if(error.request){
-                    console.log("Error Connecting...",error.request)
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
-                }else if(error){
+                } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
                 }
 
@@ -166,7 +168,7 @@ class UpdateUser extends Component {
         } else {
 
             this.state.checking.push(id);
-           // console.log("true inside", this.state.checking);
+            // console.log("true inside", this.state.checking);
         }
 
 
@@ -193,8 +195,8 @@ class UpdateUser extends Component {
             return (
                 <tr key={id}>
 
-                    <td className="text-center" style={{fontWeight:"600"}}>{roleName}</td>
-                    <td className="text-center" style={{color:"green"}}>
+                    <td className="text-center" style={{ fontWeight: "600" }}>{roleName}</td>
+                    <td className="text-center" style={{ color: "green" }}>
                         {rolePrivileges.map((val, i) => (
                             rolePrivileges[i][1] + " / "
                         ))
@@ -222,61 +224,68 @@ class UpdateUser extends Component {
 
 
     //Handle Submit for Submit button
-    handleSubmit =async(e)  => {
+    handleSubmit = async (e) => {
         e.preventDefault();
-        const { id,userId, name, mobile, email, pinAuthStatus, checking,roles } = this.state;
+        const { id, userId, channelName, name, mobile, email, pinAuthStatus, checking, roles } = this.state;
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
             NotificationManager.warning(userIdMessage, "Warning", 5000);
             return;
         }
-    
-    
+
+        if (channelName === "") {
+            let channelNameMessage = "Please Provide Channel Name";
+            NotificationManager.warning(channelNameMessage, "Warning", 5000);
+            return;
+        }
+
+
         if (name === "") {
             let nameMessage = "Please Provide your Name";
             NotificationManager.warning(nameMessage, "Warning", 5000);
             return;
         }
-    
-    
+
+
         if (mobile === "") {
             let mobileMessage = "Please Provide your Mobile Number";
             NotificationManager.warning(mobileMessage, "Warning", 5000);
             return;
         }
-    
-        if(mobile.length<11){
+
+        if (mobile.length < 11) {
             let mobileLengthMessage = "Mobile Number must be 11 digits long";
             NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
             return;
         }
-    
-    
+
+
         if (email === "") {
             let emailMessage = "Please Provide Email Address";
             NotificationManager.warning(emailMessage, "Warning", 5000);
             return;
         }
-    
-    
+
+
         if (pinAuthStatus === "") {
             let pinAuthStatusMessage = "Please fill up two factor verification";
             NotificationManager.warning(pinAuthStatusMessage, "Warning", 5000);
             return;
         }
 
-        if(checking.length === 0){
-            if(roles.length === 0){
+        if (checking.length === 0) {
+            if (roles.length === 0) {
                 let rolesMessage = "Please Select Role";
                 NotificationManager.warning(rolesMessage, "Warning", 5000);
                 return;
             }
         }
-      const dualVerification = JSON.parse(pinAuthStatus);
+        const dualVerification = JSON.parse(pinAuthStatus);
         const obj = {
             id,
             userId,
+            channelCode: channelName,
             name,
             mobile,
             email,
@@ -286,28 +295,28 @@ class UpdateUser extends Component {
 
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
         };
         console.log("obj", obj);
         //alert("User Update Successful and wait for the approval");
-        try{
-        let update = await axios.put(userUpdate, obj, config);
-         console.log(update.data);
-         let statusCode = update.data.statusCode;
-         let message ="Update Completed"
-         //alert(statusCode + " " + message);
-         NotificationManager.success(statusCode + " " + message, "Success", 5000);
-         this.props.history.push('/dashboard');
-        }catch(err){
-         console.log(err.response);
-         let error = err.response.data;
-         let statusCode = error.statusCode;
-         let message = error.message;
-         //alert(statusCode + ' ' + message);
-         NotificationManager.error(statusCode + ' ' + message, "Error", 5000);
+        try {
+            let update = await axios.put(userUpdate, obj, config);
+            console.log(update.data);
+            let statusCode = update.data.statusCode;
+            let message = "Update Completed"
+            //alert(statusCode + " " + message);
+            NotificationManager.success(statusCode + " " + message, "Success", 5000);
+            this.props.history.push('/dashboard');
+        } catch (err) {
+            console.log(err.response);
+            let error = err.response.data;
+            let statusCode = error.statusCode;
+            let message = error.message;
+            //alert(statusCode + ' ' + message);
+            NotificationManager.error(statusCode + ' ' + message, "Error", 5000);
         }
     }
 
@@ -315,7 +324,7 @@ class UpdateUser extends Component {
     render() {
         //console.log("role-list", this.state.role_list);
         // console.log("getRoles", this.state.getRoleName);
-       // console.log("checking from state", this.state.checking);
+        // console.log("checking from state", this.state.checking);
         return (
             <div className="card col-sm-10 " style={{ paddingTop: "25px" }}>
 
@@ -333,6 +342,24 @@ class UpdateUser extends Component {
                         <div className="form-group">
                             <label htmlFor="">User Id</label>
                             <input type="text" value={this.state.userId} onChange={this.onChange} className="form-control" name="userId" id="inputUserId" aria-describedby="emailHelp" placeholder="UserId" />
+                        </div>
+
+                        {/* Channel Name */}
+                        <div className='form-group'>
+                            <label htmlFor="">Channel Name</label>
+                            <select
+                                className='custom-select'
+                                value={this.state.channelName}
+                                onChange={this.onChange}
+                                name="channelName"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='ABS'>Agent Banking</option>
+                                <option value='CBS'>Conventional Core Banking</option>
+                                <option value='ICBS'>Islamic Core Banking</option>
+                                <option value='OMNI'>Omni Channel </option>
+                                <option value='EKYC'>EKYC </option>
+                            </select>
                         </div>
 
 
@@ -388,10 +415,10 @@ class UpdateUser extends Component {
                         <div className='form-group'>
                             <label htmlFor="">Role Selection:</label>
                             <table id='data' className="" style={{ fontSize: '14px' }}>
-                                <thead className="divBg" style={{fontWeight:"400", fontSize:"14px"}}>
+                                <thead className="divBg" style={{ fontWeight: "400", fontSize: "14px" }}>
                                     <tr>
 
-                                        <th className="text-center" style={{width:"150px"}}>Role Name</th>
+                                        <th className="text-center" style={{ width: "150px" }}>Role Name</th>
                                         <th className="text-center">Privileges</th>
                                         <th>Checkbox</th>
                                     </tr>

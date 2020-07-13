@@ -33,7 +33,7 @@ export class UserApproval extends Component {
             let AppUserList = await axios.post(getUserWithStatus + 1, ApproveObj, config);
             //Get User Data
             let appUserData = AppUserList.data.data;
-            // console.log("AppUserData", appUserData);
+             console.log("AppUserData", appUserData);
             let numberPages = AppUserList.data.totalPages;
             let pendingStatus = new Array(appUserData.length).fill(false);
 
@@ -419,6 +419,11 @@ export class UserApproval extends Component {
                                         <div>
                                             <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{user.status}</span></small>
                                         </div>
+
+                                        <div>
+                                            <small className="text-muted"><i className="fas fa-pen-nib"></i> Channel Name : <span>{user.channelCode}</span></small>
+                                        </div>
+
                                         <div>
                                             <small className="text-muted"><i className="fas fa-pen-nib"></i> Name : <span>{user.name}</span></small>
                                         </div>
@@ -458,6 +463,10 @@ export class UserApproval extends Component {
 
                                                                 <div>
                                                                     <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{val.status}</span></small>
+                                                                </div>
+
+                                                                <div>
+                                                                    <small className="text-muted"><i className="fab fa-mizuni"></i> Channel Name : <span>{val.channelCode}</span></small>
                                                                 </div>
 
                                                                 <div>

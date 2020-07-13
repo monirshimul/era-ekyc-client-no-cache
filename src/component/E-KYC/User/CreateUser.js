@@ -249,6 +249,7 @@ class CreateUser extends Component {
             password,
             mobile,
             email,
+            channelCode: channelName,
             roles: myrole,
             pinAuthStatus: JSON.parse(pinAuthStatus)
 
@@ -366,6 +367,7 @@ class CreateUser extends Component {
                             <option value='CBS'>Conventional Core Banking</option>
                             <option value='ICBS'>Islamic Core Banking</option>
                             <option value='OMNI'>Omni Channel </option>
+                            <option value='EKYC'>EKYC </option>
                         </select>
                     </div>
 
