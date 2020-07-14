@@ -5,7 +5,7 @@ import NidThree from '../Simplified/images/nid-f4.svg';
 import { NotificationManager } from "react-notifications";
 import { getProfile, imageUpdate, dataUpdate } from '../Url/ApiList'
 import { image } from './damiImage';
-import Acordin from '../Acordion/Acordion';
+import Acordion from '../Acordion/Acordion';
 const Joi = require('@hapi/joi');
 
 export class GetProfile extends Component {
@@ -342,10 +342,11 @@ export class GetProfile extends Component {
                 }
                     {/* Acordion Demo */}
 
-                    <Acordin
+                    <Acordion
+                        size={"col-sm-6"}
                         heading = {"Click For Details"}
                         acBody = {
-                            <div className="imTwoWhite">
+                            <div className="imTwo">
                                 <h3>Welcome</h3>
                             </div>
                         }
