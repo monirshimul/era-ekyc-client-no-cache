@@ -16,7 +16,10 @@ export class SimFaceMain extends Component {
         //Account
         accountType: '',
         product: '',
+        productType:'',
         productName: '',
+        branchOrAgentPointCode: "",
+		transactionOrMaturityAmount:'',
         channelName:'',
         //Step1
         NidFront: "",
@@ -147,12 +150,14 @@ componentDidMount() {
     //window.location.reload(false);
 
     try {
-        const account = localStorage.getItem("accountInfo");
+        const account = sessionStorage.getItem("accountInfo");
         const acc = JSON.parse(account);
         this.setState({
 
             accountType: acc.accountType,
             product: acc.productCategory,
+            productType:acc.productCategory,
+            transactionOrMaturityAmount:acc.amount,
             productName:acc.productName,
             channelName: acc.channelName
         })
@@ -270,8 +275,8 @@ deteteRow = (index) => {
 
     render() {
         const { step } = this.state;
-        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla, signature, signatureType, jointArray, accountType, product, channelName,productName,typeVerification,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn } = this.state;
-        const values = {applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla, signature, signatureType, jointArray, accountType, product, channelName,productName,typeVerification,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn }
+        const {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber,  signature, signatureType, jointArray, typeVerification,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn } = this.state;
+        const values = {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount,channelName,productName,applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber,  signature, signatureType, jointArray,typeVerification,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn }
 
 
         switch (step) {

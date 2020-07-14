@@ -20,7 +20,7 @@ export class RegRiskGrading extends Component {
             highOfficial:values.highOfficial,
             closeHighOfficial:values.closeHighOfficial,
             isClientIp:values.isClientIp,
-            productType:values.productType,
+            productTypes:values.productTypesss,
             occupation:values.occupation,
             businessName:values.businessName,
             professionName:values.professionName,
@@ -216,9 +216,9 @@ export class RegRiskGrading extends Component {
                         <label htmlFor="">Type of Product</label>
                         <select
                             className='custom-select'
-                            value={values.productType}
-                            onChange={handleChange('productType')}
-                            name="productType"
+                            value={values.productTypess}
+                            onChange={handleChange('productTypess')}
+                            name="productTypess"
                         >
                             <option value='' disabled>--Select Status--</option>
                             <option value='4.1'>Savings account</option>

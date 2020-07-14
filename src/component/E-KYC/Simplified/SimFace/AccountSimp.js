@@ -17,7 +17,7 @@ export class AccountSimp extends Component {
     }
 
     componentDidMount() {
-        localStorage.clear();
+        sessionStorage.removeItem('accountInfo');
     }
 
 
@@ -138,10 +138,11 @@ export class AccountSimp extends Component {
                 accountType,
                 productCategory,
                 productName,
-                channelName
+                channelName,
+                amount:parseInt(amount)
             }
 
-            localStorage.setItem("accountInfo", JSON.stringify(myObj));
+            sessionStorage.setItem("accountInfo", JSON.stringify(myObj));
            
             let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
             console.log("feature is true or not ", featureTest.includes('5.1'))

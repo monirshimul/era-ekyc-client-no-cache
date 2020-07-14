@@ -17,8 +17,9 @@ class Account extends Component {
 
     }
 
+  
     componentDidMount() {
-        localStorage.clear();
+        sessionStorage.removeItem('accountInfo');
     }
 
 
@@ -139,10 +140,11 @@ class Account extends Component {
                 accountType,
                 productCategory,
                 productName,
-                channelName
+                channelName,
+                amount:parseInt(amount)
             }
 
-            localStorage.setItem("accountInfo", JSON.stringify(myObj));
+            sessionStorage.setItem("accountInfo", JSON.stringify(myObj));
 
             let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
 

@@ -16,8 +16,11 @@ export class SimFingerMain extends Component {
         //Account
         accountType: '',
         product: '',
-        productName:'',
-        channelName: '',
+        productType:'',
+        productName: '',
+        branchOrAgentPointCode: "",
+		transactionOrMaturityAmount:'',
+        channelName:'',
         //Step1
         NidFront: "",
         NidFrontOcr:'',
@@ -161,12 +164,14 @@ export class SimFingerMain extends Component {
         //window.location.reload(false);
 
         try {
-            const account = localStorage.getItem("accountInfo");
+            const account = sessionStorage.getItem("accountInfo");
             const acc = JSON.parse(account);
             this.setState({
 
                 accountType: acc.accountType,
                 product: acc.productCategory,
+                productType:acc.productCategory,
+                transactionOrMaturityAmount:acc.amount,
                 productName:acc.productName,
                 channelName: acc.channelName
             })
@@ -293,11 +298,11 @@ export class SimFingerMain extends Component {
 
         const { step } = this.state;
         
-        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag, nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-           signature, signatureType, jointArray, accountType, product, channelName,productName,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn } = this.state;
+        const {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag, nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+           signature, signatureType, jointArray, confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn } = this.state;
        
-            const values = { applicantEkycId,NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag,nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress, permanentAddressBangla, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-            signature, signatureType, jointArray, accountType, product, channelName,productName,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn}
+            const values = {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName, applicantEkycId,NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag,nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+            signature, signatureType, jointArray,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn}
 
 
         switch (step) {

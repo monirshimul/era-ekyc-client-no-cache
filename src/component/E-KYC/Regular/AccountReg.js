@@ -18,8 +18,9 @@ export class AccountReg extends Component {
     }
 
     componentDidMount() {
-        localStorage.clear();
+        sessionStorage.removeItem('accountInfo');
     }
+
 
 
     handleCategory = async (e) => {
@@ -126,14 +127,15 @@ export class AccountReg extends Component {
             let typeEkyc = dec.data.data.ekycType;
             let statusCode = dec.data.statusCode;
             let successMessage = dec.data.message;
-            let myObj={
+            let myObj = {
                 accountType,
                 productCategory,
                 productName,
-                channelName
+                channelName,
+                amount:parseInt(amount)
             }
 
-            localStorage.setItem("accountInfo", JSON.stringify(myObj));
+            sessionStorage.setItem("accountInfo", JSON.stringify(myObj));
 
             let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
 

@@ -16,7 +16,10 @@ export class RegFaceMain extends Component {
         //Account
         accountType: '',
         product: '',
+        productType:'',
         productName: '',
+        branchOrAgentPointCode: "",
+		transactionOrMaturityAmount:'',
         channelName:'',
         //Step1
         NidFront: "",
@@ -69,7 +72,7 @@ export class RegFaceMain extends Component {
         highOfficial: "",
         closeHighOfficial: "",
         isClientIp: "",
-        productType: "",
+        productTypes: "",
         occupation: "",
         businessName: "",
         professionName: "",
@@ -105,12 +108,14 @@ componentDidMount() {
     //window.location.reload(false);
 
     try {
-        const account = localStorage.getItem("accountInfo");
+        const account = sessionStorage.getItem("accountInfo");
         const acc = JSON.parse(account);
         this.setState({
 
             accountType: acc.accountType,
             product: acc.productCategory,
+            productType:acc.productCategory,
+            transactionOrMaturityAmount:acc.amount,
             productName:acc.productName,
             channelName: acc.channelName
         })
@@ -226,8 +231,8 @@ deteteRow = (index) => {
 
     render() {
         const { step } = this.state;
-        const {applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,monthlyIncome,sourceOfFund,nationality,tin,signature, signatureType, jointArray, accountType, product, channelName,productName,typeVerification,confirmFlag,onBoardingValue,geoRiskClient,foreignOrigin,highOfficial,closeHighOfficial,isClientIp,productType,occupation,businessName,professionName,yearlyTransaction,hasSourceOfFunds } = this.state;
-        const values = {applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,monthlyIncome,sourceOfFund,nationality,tin,signature, signatureType, jointArray, accountType, product, channelName,productName,typeVerification,confirmFlag,onBoardingValue,geoRiskClient,foreignOrigin,highOfficial,closeHighOfficial,isClientIp,productType,occupation,businessName,professionName,yearlyTransaction,hasSourceOfFunds }
+        const {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,monthlyIncome,sourceOfFund,nationality,tin,signature, signatureType, jointArray, typeVerification,confirmFlag,onBoardingValue,geoRiskClient,foreignOrigin,highOfficial,closeHighOfficial,isClientIp,productTypes,occupation,businessName,professionName,yearlyTransaction,hasSourceOfFunds } = this.state;
+        const values = {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount,channelName,productName,applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,monthlyIncome,sourceOfFund,nationality,tin,signature, signatureType, jointArray, typeVerification,confirmFlag,onBoardingValue,geoRiskClient,foreignOrigin,highOfficial,closeHighOfficial,isClientIp,productTypes,occupation,businessName,professionName,yearlyTransaction,hasSourceOfFunds }
 
         switch (step) {
             case 1:
