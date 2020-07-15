@@ -101,8 +101,8 @@
 }
 
 #forgetPass {
-  display: block;
-  text-align: right;
+  /* display: block; */
+  float: right;
   text-decoration: none;
   color: #999;
   font-size: 12px;
@@ -112,6 +112,31 @@
 #forgetPass:hover {
   color: #10c9bd;
 }
+
+#channelLabel{
+  color: #999;
+  font-size: 12px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+#channelLabel:hover {
+  color: #10c9bd;
+}
+
+#channelLogin{
+  float: left;
+  
+  text-decoration: none;
+  margin-left: 10px;
+  
+}
+
+
+
+
+
+
 
 .field {
   height: 50px;

@@ -15,23 +15,28 @@ const Joi = require('@hapi/joi');
 
 class Login extends Component {
 
-
-    
-
-
     state = {
         userId: '',
-        password: ''
+        password: '',
+        channelLogin: false
     }
 
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
+    handleChannelLogin = e =>{
+        const { channelLogin } = e.target
+        this.setState({
+          channelLogin: !this.state.channelLogin
+        })
+    }
+
     onSubmit = async (e) => {
-        const { userId, password } = this.state
+        const { userId, password,channelLogin } = this.state
         e.preventDefault();
         const obj = {
             userId,
-            password
+            password,
+            channelLogin
         }
         //console.log("loginObj", obj);
 
@@ -40,8 +45,8 @@ class Login extends Component {
 
         try {
 
-            const validationValue = await schema.validateAsync(obj);
-            console.log("validationValue", validationValue)
+            // const validationValue = await schema.validateAsync(obj);
+            // console.log("validationValue", validationValue)
             let userLogin = await axios.post(loginAPI, obj);
            // console.log("loginapi ", userLogin.data);
 
@@ -70,32 +75,24 @@ class Login extends Component {
 
 
         } catch (err) {
-            // console.log(err.response);
             let error = err.response;
-            console.log("Validation Error===>",err)
-            NotificationManager.error(err.toString(), "Error", 5000);
             console.log(err.response);
+            if(err.response){
             let statusCode = err.response.data.statusCode;
-            if (statusCode === 400) {
-                let errorMessage = "Invalid Credentials";
-                //alert(statusCode + ' ' + errorMessage);
-                NotificationManager.error(statusCode + ' ' + errorMessage, "Error", 5000);
-                this.setState({
-                    userId: '',
-                    password: ''
-                });
-            } else if (statusCode === 401) {
+            if (statusCode === 401) {
                 let errorMessage = "Invalid Credentials";
                 //alert(statusCode + ' ' + errorMessage);
                 NotificationManager.warning(statusCode + ' ' + errorMessage, "Error", 5000);
                 this.setState({
                     userId: '',
-                    password: ''
+                    password: '',
+                    channelLogin: false
                 });
+            }  
             } else {
                 let errorMessage = "Server Error";
                 //alert(statusCode + ' ' + errorMessage);
-                NotificationManager.error(statusCode + ' ' + errorMessage, "Error", 5000);
+                NotificationManager.error( errorMessage, "Error", 5000);
                 this.setState({
                     userId: '',
                     password: ''
@@ -115,6 +112,7 @@ class Login extends Component {
     }
 
     render() {
+        // console.log("channelLogin", this.state.channelLogin);
         return (
             <div>
                 <img className="wave" src={bg} alt="" />
@@ -157,6 +155,11 @@ class Login extends Component {
                                 <label>Password</label>
                             </div>
 
+                            <div id="channelLogin" className='d-flex align-items-center'>
+                            <input type="checkbox"  onChange={e => this.handleChannelLogin(e)} defaultChecked={this.state.channelLogin}/> &nbsp;
+                            <label id="channelLabel">Channel Login</label>
+                            </div>
+
                             <div className="mt-2">
                             <Link to="/verify-id" id="forgetPass" >Forgot Password?</Link>
                             </div>
@@ -173,11 +176,11 @@ class Login extends Component {
 }
 
 
-const schema = Joi.object({
-    userId: Joi.string().min(6).max(30).required(),
-    password: Joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')),
+// const schema = Joi.object({
+//     userId: Joi.string().min(6).max(30).required(),
+//     password: Joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')),
 
-})
+// })
 //Redux work Above===================================
 
 // const mapStateToProps = (state) => {

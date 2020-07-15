@@ -51,6 +51,71 @@ export class JointFingerConfirm extends Component {
             verificationType: "FINGER"
         }
 
+        if (values.spouseName !== '') applicantInfo.spouseName = values.spouseName;
+
+        let applicantPresentInfo = {
+            addressType: "PRESENT",
+            district: values.preDistrict,
+            upozila: values.preUpozila,
+            unionOrWard: values.preUnionOrWard,
+            districtEng: values.preDistrictEn,
+            upozilaEng: values.preUpozilaEn,
+            unionOrWardEng: values.preUnionOrWardEn
+        }
+
+        if (values.preAdditionalMouzaOrMoholla !== '') applicantPresentInfo.additionalMouzaOrMoholla = values.preAdditionalMouzaOrMoholla;
+        if (values.preAdditionalVillageOrRoad !== '') applicantPresentInfo.additionalVillageOrRoad = values.preAdditionalVillageOrRoad;
+        if (values.preCityCorporationOrMunicipality !== '') applicantPresentInfo.cityCorporationOrMunicipality = values.preCityCorporationOrMunicipality;
+        if (values.preDistrictCode !== '') applicantPresentInfo.districtCode = values.preDistrictCode;
+        if (values.preUpozilaCode !== '') applicantPresentInfo.upozilaCode = values.preUpozilaCode;
+        if (values.preUnionOrWardCode !== '') applicantPresentInfo.unionCode = values.preUnionOrWardCode;
+        if (values.preDivision !== '') applicantPresentInfo.division = values.preDivision;
+        if (values.preHomeOrHoldingNo !== '') applicantPresentInfo.homeOrHoldingNo = values.preHomeOrHoldingNo;
+        if (values.prePostOffice !== '') applicantPresentInfo.postOffice = values.prePostOffice;
+        if (values.preRegion !== '') applicantPresentInfo.region = values.preRegion;
+        if (values.prePostalCode !== '') applicantPresentInfo.postalCode = values.prePostalCode;
+        if (values.preRmo !== '') applicantPresentInfo.rmo = values.preRmo;
+        if (values.preWardForUnionPorishod !== '') applicantPresentInfo.wardForUnionPorishod = values.preWardForUnionPorishod;
+        if (values.preAdditionalMouzaOrMohollaEn !== '') applicantPresentInfo.additionalMouzaOrMohollaEng = values.preAdditionalMouzaOrMohollaEn;
+        if (values.preAdditionalVillageOrRoadEn !== '') applicantPresentInfo.additionalVillageOrRoadEng = values.preAdditionalVillageOrRoadEn;
+        if (values.preCityCorporationOrMunicipalityEn !== '') applicantPresentInfo.cityCorporationOrMunicipalityEng = values.preCityCorporationOrMunicipalityEn;
+        if (values.preDivisionEn !== '') applicantPresentInfo.divisionEng = values.preDivisionEn;
+        if (values.preHomeOrHoldingNoEn !== '') applicantPresentInfo.homeOrHoldingNoEng = values.preHomeOrHoldingNoEn;
+        if (values.prePostOfficeEn !== '') applicantPresentInfo.postOfficeEng = values.prePostOfficeEn;
+        if (values.preRegionEn !== '') applicantPresentInfo.regionEng = values.preRegionEn;
+
+
+        let applicantPermanentInfo = {
+            addressType: "PERMANENT",
+            district: values.perDistrict,
+            upozila: values.perUpozila,
+            unionOrWard: values.perUnionOrWard,
+            districtEng: values.perDistrictEn,
+            upozilaEng: values.perUpozilaEn,
+            unionOrWardEng: values.perUnionOrWardEn
+        }
+
+        if (values.perAdditionalMouzaOrMoholla !== '') applicantPermanentInfo.additionalMouzaOrMoholla = values.perAdditionalMouzaOrMoholla;
+        if (values.perAdditionalVillageOrRoad !== '') applicantPermanentInfo.additionalVillageOrRoad = values.perAdditionalVillageOrRoad;
+        if (values.perCityCorporationOrMunicipality !== '') applicantPermanentInfo.cityCorporationOrMunicipality = values.perCityCorporationOrMunicipality;
+        if (values.perDistrictCode !== '') applicantPermanentInfo.districtCode = values.perDistrictCode;
+        if (values.perUpozilaCode !== '') applicantPermanentInfo.upozilaCode = values.perUpozilaCode;
+        if (values.perUnionOrWardCode !== '') applicantPermanentInfo.unionCode = values.perUnionOrWardCode;
+        if (values.perDivision !== '') applicantPermanentInfo.division = values.perDivision;
+        if (values.perHomeOrHoldingNo !== '') applicantPermanentInfo.homeOrHoldingNo = values.perHomeOrHoldingNo;
+        if (values.perPostOffice !== '') applicantPermanentInfo.postOffice = values.perPostOffice;
+        if (values.perRegion !== '') applicantPermanentInfo.region = values.perRegion;
+        if (values.perPostalCode !== '') applicantPermanentInfo.postalCode = values.perPostalCode;
+        if (values.perRmo !== '') applicantPermanentInfo.rmo = values.perRmo;
+        if (values.perWardForUnionPorishod !== '') applicantPermanentInfo.wardForUnionPorishod = values.perWardForUnionPorishod;
+        if (values.perAdditionalMouzaOrMohollaEn !== '') applicantPermanentInfo.additionalMouzaOrMohollaEng = values.perAdditionalMouzaOrMohollaEn;
+        if (values.perAdditionalVillageOrRoadEn !== '') applicantPermanentInfo.additionalVillageOrRoadEng = values.perAdditionalVillageOrRoadEn;
+        if (values.perCityCorporationOrMunicipalityEn !== '') applicantPermanentInfo.cityCorporationOrMunicipalityEng = values.perCityCorporationOrMunicipalityEn;
+        if (values.perDivisionEn !== '') applicantPermanentInfo.divisionEng = values.perDivisionEn;
+        if (values.perHomeOrHoldingNoEn !== '') applicantPermanentInfo.homeOrHoldingNoEng = values.perHomeOrHoldingNoEn;
+        if (values.perPostOfficeEn !== '') applicantPermanentInfo.postOfficeEng = values.perPostOfficeEn;
+        if (values.perRegionEn !== '') applicantPermanentInfo.regionEng = values.perRegionEn;
+
         let applicantFileInfo ={
             nidFront:values.NidFront,
             nidBack:values.NidFront,
@@ -105,6 +170,8 @@ export class JointFingerConfirm extends Component {
             account:accountInfo ,
             applicant:applicantInfo ,
             applicantFile: applicantFileInfo,
+            applicantPresentAddress: applicantPresentInfo,
+            applicantPermanentAddress: applicantPermanentInfo,
             nominees:nomineesInfo,
             fingerprint: fingerObj
         }
