@@ -208,7 +208,7 @@ class EkycListSearch extends Component {
                 applicantId: id
             }
             let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
-            //console.log("full Ekyc", fullEkyc.data.data)
+            console.log("full Ekyc", fullEkyc.data.data)
             let dataObj = {
                 data: fullEkyc.data.data
             }

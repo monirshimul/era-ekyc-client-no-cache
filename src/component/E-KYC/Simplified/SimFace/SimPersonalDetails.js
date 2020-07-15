@@ -139,6 +139,10 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor=""><span style={{color:"red"}}>*</span>Applicant's Nid No</label>
                                     <input style={{ borderRadius: "50px" }} type="text" value={values.applicantNidNo} name='applicantNidNo' onChange={handleChange('applicantNidNo')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Nid No" />
                                 </div>
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{color:"red"}}>*</span>Applicant's Mobile No.</label>
+                                    <input style={{ borderRadius: "50px" }} type="text" value={values.mobileNumber} name='mobileNumber' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" />
+                                </div>
 
                                 {/* Gender */}
                                 <div className='form-group '>

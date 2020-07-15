@@ -6,6 +6,7 @@ import man from '../Simplified/images/man.svg';
 import { Loading } from '../Simplified/utils/CustomLoding/Loading'
 import { NotificationManager } from "react-notifications";
 import { profileDownload } from '../Url/ApiList'
+import Acordion from '../Acordion/Acordion'
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 
@@ -17,9 +18,9 @@ class FullEkyc extends Component {
         loading: false
     }
 
-    // componentDidMount() {
-    //     console.log("All data", this.state.ekyc)
-    // }
+    componentDidMount() {
+        console.log("All data", this.state.ekyc)
+    }
 
     backEkyc = () => {
         this.props.history.push('/dashboard/e-kyc-list-&-search')
@@ -78,6 +79,7 @@ class FullEkyc extends Component {
 
     render() {
         let { ekyc, flag, loading } = this.state
+        console.log("single value",ekyc.presentAddress.additionalMouzaOrMoholla)
         return (
             <div className="container">
 
@@ -160,14 +162,16 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Source Of Fund : </span>{ekyc.sourceOfFund === null ? "" : ekyc.sourceOfFund}</small><br />
 
 
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Present Address : </span>{ekyc.presentAddress}</small><br />
+                                            {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Present Address : </span>{ekyc.presentAddress}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Permanent Address : </span>{ekyc.permanentAddress}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Permanent Address Bangla : </span>{ekyc.permanentAddressBangla}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Permanent Address Bangla : </span>{ekyc.permanentAddressBangla}</small><br /> */}
                                         </div>
 
                                     </div>
 
+
                                     <div className="col-sm-12">
+                                        <hr/>
                                         <div className="text-muted">
                                             <h5>Nominee Info</h5>
                                             <hr />
@@ -194,6 +198,85 @@ class FullEkyc extends Component {
                                         </div>
 
                                     </div>
+
+                                   
+
+                                    
+                                        <div className="col-sm-6">
+                                            <hr/>
+                                            <Acordion
+                                                size={"col"}
+                                                heading={"Permanent Address Details"}
+                                                acBody={
+                                                    <div className="imTwoWhite">
+                                                        <small className="text-muted" style={{fontSize:"14px"}}>
+
+                                                            <span style={{color:"green", fontSize:"14px"}}>Mouza Or Moholla :</span> {ekyc.permanentAddress.additionalMouzaOrMoholla + "(" + ekyc.permanentAddress.additionalMouzaOrMohollaEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Village Or Road :</span> {ekyc.permanentAddress.additionalVillageOrRoad + "(" + ekyc.permanentAddress.additionalVillageOrRoadEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>City Corp. :</span> {ekyc.permanentAddress.cityCorporationOrMunicipality + "(" + ekyc.permanentAddress.cityCorporationOrMunicipalityEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>District :</span> {ekyc.permanentAddress.district + "(" + ekyc.permanentAddress.districtEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>District Code :</span> {ekyc.permanentAddress.districtCode}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Address Type :</span> {ekyc.permanentAddress.addressType}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>ID :</span> {ekyc.permanentAddress.id}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Division :</span> {ekyc.permanentAddress.division + "(" + ekyc.permanentAddress.divisionEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Home Or Holding No. :</span> {ekyc.permanentAddress.homeOrHoldingNo + "(" + ekyc.permanentAddress.homeOrHoldingNoEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Post Office :</span> {ekyc.permanentAddress.postOffice + "(" + ekyc.permanentAddress.postOfficeEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Postal Code :</span> {ekyc.permanentAddress.postalCode}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Region :</span> {ekyc.permanentAddress.region + "(" + ekyc.permanentAddress.regionEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>RMO :</span> {ekyc.permanentAddress.rmo}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Union Or Ward :</span> {ekyc.permanentAddress.unionOrWard + "(" + ekyc.permanentAddress.unionOrWardEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Union Or Ward Code :</span> {ekyc.permanentAddress.unionCode}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Upozila :</span> {ekyc.permanentAddress.upozila + "(" + ekyc.permanentAddress.upozilaEng + ")"}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Upozila Code :</span> {ekyc.permanentAddress.upozilaCode}<br />
+                                                            <span style={{color:"green", fontSize:"14px"}}>Ward For Union Porishod :</span> {ekyc.permanentAddress.wardForUnionPorishod}<br />
+                                                        </small>
+
+                                                    </div>
+                                                }
+                                            />
+                                            <hr/>
+                                        </div>
+
+                                        <div className="col-sm-6">
+                                        <hr/>
+                                            <Acordion
+                                                size={"col"}
+                                                heading={"Permanent Address Details"}
+                                                acBody={
+                                                    <div className="imTwoWhite">
+                                                        <small className="text-muted" style={{fontSize:"14px"}}>
+
+                                            <span style={{color:"green", fontSize:"14px"}}>Mouza Or Moholla :</span> {ekyc.presentAddress.additionalMouzaOrMoholla + "(" + ekyc.presentAddress.additionalMouzaOrMohollaEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Village Or Road :</span> {ekyc.presentAddress.additionalVillageOrRoad + "(" + ekyc.presentAddress.additionalVillageOrRoadEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>City Corp. :</span> {ekyc.presentAddress.cityCorporationOrMunicipality + "(" + ekyc.presentAddress.cityCorporationOrMunicipalityEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>District :</span> {ekyc.presentAddress.district + "(" + ekyc.presentAddress.districtEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>District Code :</span> {ekyc.presentAddress.districtCode}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Address Type :</span> {ekyc.presentAddress.addressType}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>ID :</span> {ekyc.presentAddress.id}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Division :</span> {ekyc.presentAddress.division + "(" + ekyc.presentAddress.divisionEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Home Or Holding No. :</span> {ekyc.presentAddress.homeOrHoldingNo + "(" + ekyc.presentAddress.homeOrHoldingNoEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Post Office :</span> {ekyc.presentAddress.postOffice + "(" + ekyc.presentAddress.postOfficeEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Postal Code :</span> {ekyc.presentAddress.postalCode}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Region :</span> {ekyc.presentAddress.region + "(" + ekyc.presentAddress.regionEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>RMO :</span> {ekyc.presentAddress.rmo}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Union Or Ward :</span> {ekyc.presentAddress.unionOrWard + "(" + ekyc.presentAddress.unionOrWardEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Union Or Ward Code :</span> {ekyc.presentAddress.unionCode}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Upozila :</span> {ekyc.presentAddress.upozila + "(" + ekyc.presentAddress.upozilaEng + ")"}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Upozila Code :</span> {ekyc.presentAddress.upozilaCode}<br />
+                                            <span style={{color:"green", fontSize:"14px"}}>Ward For Union Porishod :</span> {ekyc.presentAddress.wardForUnionPorishod}<br />
+                                                        </small>
+
+                                                    </div>
+                                                }
+                                            />
+                                            <hr/>
+                                        </div>
+                                   
+
+                                    
+
+                                    
+                                    
 
 
 
@@ -312,23 +395,25 @@ class FullEkyc extends Component {
 
                                 </div>
 
+                                
+
 
 
 
                             </div>
                         </div>
                         <hr />
-                        
-                            <div className="row d-flex justify-content-center">
-                                {
-                                    loading ? (<Loading/>):""
-                                    
-                                }
-                                
-                                
-                            </div>
-                            
-                        
+
+                        <div className="row d-flex justify-content-center">
+                            {
+                                loading ? (<Loading />) : ""
+
+                            }
+
+
+                        </div>
+
+
                         <div className="row d-flex justify-content-center">
                             <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} onClick={this.backEkyc}>Back</button>
                             <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} >Print</button>

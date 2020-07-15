@@ -59,9 +59,7 @@ class ShowMore extends Component {
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{data.updateBy === null ? "" : data.updateBy}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{data.updateDate}</small><br />
 
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Present Address : </span>{data.presentAddress}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Permanent Address : </span>{data.permanentAddress}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Permanent Address Bangla : </span>{data.permanentAddressBangla}</small><br />
+                                               
                                                 </div>
                                                
                                             </div>

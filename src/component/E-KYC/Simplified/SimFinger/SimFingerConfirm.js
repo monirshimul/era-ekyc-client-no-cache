@@ -31,7 +31,7 @@ export class SimFingerConfirm extends Component {
             type: values.accountType,
             productType: values.product,
             productCategoryCode:values.product,
-            branchOrAgentPointCode:"",
+            branchOrAgentPointCode:"101",
             transactionOrMaturityAmount:values.transactionOrMaturityAmount,
             productCode: values.productName,
             channelCode: values.channelName
@@ -163,7 +163,7 @@ export class SimFingerConfirm extends Component {
             this.props.handleState('confirmFlag', false);
             if (error.response) {
                 let message = error.response.data.message
-                //console.log("Error",error.response)
+                console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
                 console.log("Error Connecting...", error.request)
@@ -201,7 +201,9 @@ export class SimFingerConfirm extends Component {
                                 <small className="text-muted">
                                     Account Type : {values.accountType},<br />
                                     Product and Services : {values.product},<br /> 
-                                    channel Name : {values.channelName}
+                                    channel Name : {values.channelName},<br /> 
+                                    Product Name : {values.productName},<br /> 
+                                    Transaction Amount : {values.transactionOrMaturityAmount},<br /> 
                                     </small>
                                 {/* <p className="text-muted">Product and Services : {accountData.product}</p>
                             <p className="text-muted">channel Name : {accountData.channelName}</p> */}
@@ -460,7 +462,7 @@ export class SimFingerConfirm extends Component {
                                     val.isShow === true ? (
                                         <div className="imTwo text-center col-sm-3">
                                             <div className="im">
-                                                <small>Adult Nominee</small>
+                                                <small>Adult Nominee {i + 1}</small>
                                             </div>
 
                                             <img src={val.photograph ? values.flag + val.photograph : adult}
@@ -480,7 +482,7 @@ export class SimFingerConfirm extends Component {
                                             <React.Fragment>
                                                 <div className="imTwo text-center col-sm-3">
                                                     <div className="im">
-                                                        <small>Minor Nominee</small>
+                                                        <small>Minor Nominee {i + 1}</small>
                                                     </div>
 
                                                     <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
@@ -498,7 +500,7 @@ export class SimFingerConfirm extends Component {
                                                 </div>
                                                 <div className="imTwo text-center col-sm-3">
                                                     <div className="im">
-                                                        <small>Nominee's Guardian</small>
+                                                        <small>Nominee's Guardian {i + 1}</small>
                                                     </div>
 
                                                     <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
