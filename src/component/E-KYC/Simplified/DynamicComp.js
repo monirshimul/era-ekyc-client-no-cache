@@ -33,7 +33,7 @@ export class DynamicComp extends Component {
     onProcess = e => {
         e.preventDefault();
         this.setState({
-            accountId: JSON.parse(localStorage.getItem('accountId')),
+            accountId: JSON.parse(sessionStorage.getItem('accountId')),
             processComplete: true,
             showHide:!this.state.showHide,
             finishAdd: !this.state.finishAdd
@@ -43,9 +43,6 @@ export class DynamicComp extends Component {
 
     complete = async (e) => {
         e.preventDefault();
-        // this.setState({
-        //     accountId: JSON.parse(localStorage.getItem('accountId'))
-        // })
 
         const config = {
             headers: {
@@ -98,8 +95,7 @@ export class DynamicComp extends Component {
         })
         if (index === 0) {
             this.setState({
-                bioShow: !this.state.bioShow,
-                
+                bioShow: !this.state.bioShow, 
                 
             })
 

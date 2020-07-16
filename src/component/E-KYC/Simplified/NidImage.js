@@ -99,20 +99,20 @@ export class NidImage extends Component {
       //   loading: false
       // })
     
-    this.props.handleState('allData', nidData.data);
+    // this.props.handleState('allData', nidData.data);
     this.props.handleState('loadingSpin', false);
-    this.props.handleState("applicantName", nidData.data["Name English"]);
-    this.props.handleState("applicantNameBangla", nidData.data["Name Bangla"]);
-    this.props.handleState("applicantNidNo", nidData.data["id"]);
-    this.props.handleState("applicantDob", nidData.data["DOB"]);
+    // this.props.handleState("applicantName", nidData.data["Name English"]);
+    // this.props.handleState("applicantNameBangla", nidData.data["Name Bangla"]);
+    // this.props.handleState("applicantNidNo", nidData.data["id"]);
+    // this.props.handleState("applicantDob", nidData.data["DOB"]);
 
     this.props.handleState("nid", nidData.data["id"]);
     this.props.handleState("dob", nidData.data["DOB"]);
     
-    this.props.handleState("fatherNameBangla", nidData.data["Father"]);
-    this.props.handleState("motherNameBangla", nidData.data["Mother"]);
-    this.props.handleState("spouseName", nidData.data["Husband"]);
-    this.props.handleState("permanentAddressBangla", nidData.data["Address"]);
+    // this.props.handleState("fatherNameBangla", nidData.data["Father"]);
+    // this.props.handleState("motherNameBangla", nidData.data["Mother"]);
+    // this.props.handleState("spouseName", nidData.data["Husband"]);
+    // this.props.handleState("permanentAddressBangla", nidData.data["Address"]);
    
       //console.log("OCR STate",this.state.allData);
   

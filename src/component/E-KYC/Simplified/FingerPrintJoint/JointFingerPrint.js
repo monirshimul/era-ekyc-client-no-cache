@@ -109,7 +109,7 @@ export class FingerPrintJoint extends Component {
       lIndex,
       lThumb,
     };
-    this.props.nextStep();
+    
 
     try {
       
@@ -117,10 +117,64 @@ export class FingerPrintJoint extends Component {
       //console.log("Token",obj)
   
       let fingerRes = await axios.post(fingerValidate, obj, config)
-      console.log("fingerRes",fingerRes.data.data.verificationToken)
+      //console.log("fingerRes",fingerRes.data.data.verificationToken)
+       // Setting Data to State === start
+
+       if(fingerRes.data.data.fingerVerificationResult.details.details ){
+        let dataResp = fingerRes.data.data.fingerVerificationResult.details.details;
+        // For VPN Only
+
+      this.props.handleState('applicantNameBangla', dataResp.name ? dataResp.name : "");
+      this.props.handleState('applicantName', dataResp.nameEn ? dataResp.nameEn : "");
+      this.props.handleState('applicantDob',dataResp.dateOfBirth ? dataResp.dateOfBirth : "" );
+      this.props.handleState('applicantNidNo', dataResp.nationalId ? dataResp.nationalId : "");
+      this.props.handleState('motherNameBangla', dataResp.mother ? dataResp.mother : "");
+      this.props.handleState('fatherNameBangla',dataResp.father ? dataResp.father : "");
+      this.props.handleState('profession',dataResp.occupation ? dataResp.occupation : '' );
+      this.props.handleState('spouseName',dataResp.spouse ? dataResp.spouse : "");
+
+       // Present Address
+       let preAddress = dataResp.presentAddress;
+       //console.log("present Address", preAddress)
+      this.props.handleState('preAdditionalMouzaOrMoholla',preAddress.additionalMouzaOrMoholla ? preAddress.additionalMouzaOrMoholla : '');
+      this.props.handleState('preAdditionalVillageOrRoad',preAddress.additionalVillageOrRoad ? preAddress.additionalVillageOrRoad : '');
+      this.props.handleState('preCityCorporationOrMunicipality',preAddress.cityCorporationOrMunicipality ? preAddress.cityCorporationOrMunicipality : '');
+      this.props.handleState('preDistrict',preAddress.district ? preAddress.district : '');
+      this.props.handleState('preDivision',preAddress.division ? preAddress.division : '');
+      this.props.handleState('preHomeOrHoldingNo',preAddress.homeOrHoldingNo ? preAddress.homeOrHoldingNo :'');
+      this.props.handleState('prePostOffice',preAddress.postOffice ? preAddress.postOffice : '');
+      this.props.handleState('prePostalCode',preAddress.postalCode ? preAddress.postalCode : '');
+      this.props.handleState('preRegion',preAddress.region ? preAddress.region :'');
+      this.props.handleState('preRmo',preAddress.rmo ? preAddress.rmo :'');
+      this.props.handleState('preUnionOrWard',preAddress.unionOrWard ? preAddress.unionOrWard : '');
+      this.props.handleState('preUpozila',preAddress.upozila ? preAddress.upozila : '');
+      this.props.handleState('preWardForUnionPorishod',preAddress.wardForUnionPorishod ? preAddress.wardForUnionPorishod : '');
+
+      // Permanent Address
+      let perAddress = dataResp.permanentAddress;
+      //console.log("permanent Address", perAddress.additionalVillageOrRoad)
+      this.props.handleState('perAdditionalMouzaOrMoholla',perAddress.additionalMouzaOrMoholla ? perAddress.additionalMouzaOrMoholla : '');
+      this.props.handleState('perAdditionalVillageOrRoad',perAddress.additionalVillageOrRoad ? perAddress.additionalVillageOrRoad : '');
+      this.props.handleState('perCityCorporationOrMunicipality', perAddress.cityCorporationOrMunicipality ? perAddress.cityCorporationOrMunicipality : "" );
+      this.props.handleState('perDistrict',perAddress.district ? perAddress.district : '');
+      this.props.handleState('perDivision',perAddress.division ? perAddress.division : '');
+      this.props.handleState('perHomeOrHoldingNo',perAddress.homeOrHoldingNo ? perAddress.homeOrHoldingNo : '');
+      this.props.handleState('perPostOffice',perAddress.postOffice ? perAddress.postOffice : '');
+      this.props.handleState('perPostalCode',perAddress.postalCode ? perAddress.postalCode : '');
+      this.props.handleState('perRegion',perAddress.region ? perAddress.region : '');
+      this.props.handleState('perRmo',perAddress.rmo ? perAddress.rmo : '');
+      this.props.handleState('perUnionOrWard',perAddress.unionOrWard ? perAddress.unionOrWard : '');
+      this.props.handleState('perUpozila',perAddress.upozila ? perAddress.upozila : '');
+      this.props.handleState('perWardForUnionPorishod',perAddress.wardForUnionPorishod ? perAddress.wardForUnionPorishod : '');
+     
+     
+      
+      // // Setting Data to State === end
+      
+      }
     
          this.props.handleState('verifyToken',fingerRes.data.data.verificationToken);
-
+         this.props.nextStep();
       
     
     

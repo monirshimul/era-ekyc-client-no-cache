@@ -196,7 +196,8 @@ export class Confirm extends Component {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 let resAccountId = responseFirst.data.data.accountId;
                 this.props.handleState('applicantEkycId', resAccountId);
-                localStorage.setItem("accountId", JSON.stringify(resAccountId));
+                // localStorage.setItem("accountId", JSON.stringify(resAccountId));
+                sessionStorage.setItem("accountId", JSON.stringify(resAccountId));
                 this.props.nextStep();
 
             } catch (error) {
