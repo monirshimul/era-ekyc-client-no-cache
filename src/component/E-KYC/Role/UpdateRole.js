@@ -182,7 +182,7 @@ export class UpdateRole extends Component {
 
 
         return (
-            <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
+            <div className="card col-sm-10" style={{ paddingTop: "25px" }}>
 
                 <div className="card-header divBg">
                     <h3 className="text-center pt-3">

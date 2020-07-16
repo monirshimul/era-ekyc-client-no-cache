@@ -6,9 +6,55 @@ import NidThree from './images/nid-f4.svg';
 import Loading from './utils/CustomLoding/Loading.js';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
+import Capture from './Capture/Capture'
 import axios from 'axios';
 
 export class NidImage extends Component {
+
+  state = {
+    cameraOnFront : false,
+    cameraOnBack : false,
+    
+  }
+
+  captureOnFront = ()=>{
+    this.setState({
+      cameraOnFront: true
+    })
+  }
+
+  captureOffFront = ()=>{
+    this.setState({
+      cameraOnFront: false
+    })
+  }
+
+  captureOnBack = ()=>{
+    this.setState({
+      cameraOnBack: true
+    })
+  }
+
+  captureOffBack = ()=>{
+    this.setState({
+      cameraOnBack: false
+    })
+  }
+
+  onImageConfirm = (base64Image) => {
+    //console.log("In image confirm");
+    //console.log("Image",base64Image);
+    if(this.state.cameraOnFront){
+      this.props.handleState("NidFront", base64Image);
+      this.captureOffFront();
+    }
+    if(this.state.cameraOnBack){
+      this.props.handleState("NidBack", base64Image);
+      this.captureOffBack();
+    }
+    
+    
+}
    //Nid front Image upload
   //Nid front Image upload
   fileSelectedHandler = (event) => {
@@ -205,7 +251,7 @@ export class NidImage extends Component {
                 />
               </div>
               <div
-                className="card-footer d-flex justify-content-around"
+                className="card-footer"
                 style={{ background: "#fff" }}
               >
                 <div className="input-group mb-3 ">
@@ -217,6 +263,26 @@ export class NidImage extends Component {
                     <label className="custom-file-label" htmlFor="input-file-two">Choose Image</label>
                   </div>
                 </div>
+                <div className="im mt-3" style={{color:"green"}} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOnBack}>
+                <i class="fas fa-camera"></i> Capture Image
+                </div>
+
+
+                <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog mw-100 w-75" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header divBg">
+                                <h5 class="modal-title" id="cameraModalLabel">Capture Your Image</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={this.state.cameraOnFront ? this.captureOffFront : this.captureOffBack }>
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {this.state.cameraOnFront || this.state.cameraOnBack ? <Capture onConfirm={this.onImageConfirm}/> : ""}
+                            </div>
+                        </div>
+                    </div>
+        </div>
 
 
               </div>

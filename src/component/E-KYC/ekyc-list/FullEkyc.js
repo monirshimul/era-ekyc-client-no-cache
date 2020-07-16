@@ -209,7 +209,7 @@ class FullEkyc extends Component {
                                                 heading={"Permanent Address Details"}
                                                 acBody={
                                                     <div className="imTwoWhite">
-                                                        <small className="text-muted" style={{fontSize:"14px"}}>
+                                                        <small className="" style={{fontSize:"14px"}}>
 
                                                             <span style={{color:"green", fontSize:"14px"}}>Mouza Or Moholla :</span> {ekyc.permanentAddress.additionalMouzaOrMoholla + "(" + ekyc.permanentAddress.additionalMouzaOrMohollaEng + ")"}<br />
                                                             <span style={{color:"green", fontSize:"14px"}}>Village Or Road :</span> {ekyc.permanentAddress.additionalVillageOrRoad + "(" + ekyc.permanentAddress.additionalVillageOrRoadEng + ")"}<br />
@@ -244,7 +244,7 @@ class FullEkyc extends Component {
                                                 heading={"Permanent Address Details"}
                                                 acBody={
                                                     <div className="imTwoWhite">
-                                                        <small className="text-muted" style={{fontSize:"14px"}}>
+                                                        <small className="" style={{fontSize:"14px"}}>
 
                                             <span style={{color:"green", fontSize:"14px"}}>Mouza Or Moholla :</span> {ekyc.presentAddress.additionalMouzaOrMoholla + "(" + ekyc.presentAddress.additionalMouzaOrMohollaEng + ")"}<br />
                                             <span style={{color:"green", fontSize:"14px"}}>Village Or Road :</span> {ekyc.presentAddress.additionalVillageOrRoad + "(" + ekyc.presentAddress.additionalVillageOrRoadEng + ")"}<br />

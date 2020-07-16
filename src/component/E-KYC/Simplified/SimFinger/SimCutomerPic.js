@@ -6,7 +6,7 @@ import Capture from '../Capture/Capture';
 
 export class SimCutomerPic extends Component {
 
-    
+
     state = {
         cameraOn: false
     }
@@ -64,54 +64,54 @@ export class SimCutomerPic extends Component {
         this.props.prevStep();
     }
     render() {
-        let {values} = this.props;
+        let { values } = this.props;
         return (
             <div className="col-sm-12 d-flex justify-content-center" >
-            <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
-                <div className="card-header up">
-                    <h3>Provide Photograph</h3>
-                </div>
-                <div className="card-body d-flex justify-content-center">
+                <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
+                    <div className="card-header up">
+                        <h3>Provide Photograph</h3>
+                    </div>
+                    <div className="card-body d-flex justify-content-center">
 
-                    <img
+                        <img
 
-                        src={values.faceImage ? (values.flag + values.faceImage) : Sign}
-                        style={{
+                            src={values.faceImage ? (values.flag + values.faceImage) : Sign}
+                            style={{
 
-                            width: "300px",
-                            height: "200px",
-                        }}
-                        className=" img-fluid img-thumbnail im"
-                        id='SignaturePic'
-                        alt=""
-                    />
+                                width: "300px",
+                                height: "200px",
+                            }}
+                            className=" img-fluid img-thumbnail im"
+                            id='SignaturePic'
+                            alt=""
+                        />
 
 
-
-                </div>
-                <div
-                    className="card-footer"
-                    style={{ background: "#fff" }}
-                >
-
-                    <div class="input-group mb-3 ">
-                        <div class="custom-file">
-                            <input type="file"
-                                onChange={this.fileSelectedHandler}
-
-                                class="form-control-file" id="input-file" />
-                            <label class="custom-file-label" htmlFor="input-file">Choose Image</label>
-                        </div>
 
                     </div>
-                    <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOn}>
+                    <div
+                        className="card-footer"
+                        style={{ background: "#fff" }}
+                    >
+
+                        <div class="input-group mb-3 ">
+                            <div class="custom-file">
+                                <input type="file"
+                                    onChange={this.fileSelectedHandler}
+
+                                    class="form-control-file" id="input-file" />
+                                <label class="custom-file-label" htmlFor="input-file">Choose Image</label>
+                            </div>
+
+                        </div>
+                        <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOn}>
                             <i class="fas fa-camera"></i> Capture Image
                         </div>
 
 
-                </div>
+                    </div>
 
-                <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog mw-100 w-75" role="document">
                             <div class="modal-content">
                                 <div class="modal-header divBg">
@@ -128,21 +128,21 @@ export class SimCutomerPic extends Component {
                     </div>
 
 
-                <div
-                    className="card-footer d-flex justify-content-between"
-                    style={{ background: "#fff" }}
-                >
+                    <div
+                        className="card-footer d-flex justify-content-between"
+                        style={{ background: "#fff" }}
+                    >
 
-                    <span className="b mr-5" onClick={this.back}>Back</span>
-                    <span className="b" onClick={this.continue}>Next</span>
-
-
+                        <span className="b mr-5" onClick={this.back}>Back</span>
+                        <span className="b" onClick={this.continue}>Next</span>
 
 
+
+
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
         )
     }
 }

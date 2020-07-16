@@ -342,7 +342,7 @@ export class GetProfile extends Component {
                 }
                     {/* Acordion Demo */}
 
-                    <Acordion
+                    {/* <Acordion
                         size={"col-sm-6"}
                         heading = {"Click For Details"}
                         acBody = {
@@ -350,7 +350,7 @@ export class GetProfile extends Component {
                                 <h3>Welcome</h3>
                             </div>
                         }
-                    />
+                    /> */}
                 
 
 
