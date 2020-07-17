@@ -98,7 +98,7 @@ class Welcome extends Component {
 
 
                 </div>
-                <hr />
+                
 
             </div>
         )

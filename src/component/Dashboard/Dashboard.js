@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-ro
 //import MultiStepFace from '../E-KYC/Simplified/MainFace'
 import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';
+import footerWave from './image/footerWave6.svg'
 
 import { logoutUser } from '../E-KYC/Url/ApiList';
 
@@ -34,9 +35,9 @@ import SimFingerMain from '../E-KYC/Simplified/SimFinger/SimFingerMain';
 // ===============Simplified end==============
 
 //==================Regular Start======================
-import RegFaceOrFinger from '../E-KYC/Regular/RegFaceOrFinger'; 
-import  RegFaceMain  from '../E-KYC/Regular/RegFace/RegFaceMain';
-import  RegFingerPrintMain  from '../E-KYC/Regular/RegFingerPrint/RegFingerPrintMain';
+import RegFaceOrFinger from '../E-KYC/Regular/RegFaceOrFinger';
+import RegFaceMain from '../E-KYC/Regular/RegFace/RegFaceMain';
+import RegFingerPrintMain from '../E-KYC/Regular/RegFingerPrint/RegFingerPrintMain';
 // Face Verification
 // import NidImagesReg from '../E-KYC/Regular/FaceFormsRegular/NidImagesReg';
 // import CaptureFaceReg from '../E-KYC/Regular/FaceFormsRegular/CaptureFaceReg';
@@ -93,7 +94,7 @@ class Dashboard extends Component {
     // }
 
     // componentWillUnmount(){
-       
+
 
     //     console.log("Unmount Called")
     // }
@@ -101,7 +102,7 @@ class Dashboard extends Component {
 
 
     //======================== Logout Function In the Navbar ==================================
-    logOut = async (e)=>{
+    logOut = async (e) => {
 
         e.preventDefault();
 
@@ -112,7 +113,7 @@ class Dashboard extends Component {
         };
 
         try {
-           // console.log("config", config);
+            // console.log("config", config);
             let res = await axios.post(logoutUser, null, config);
             console.log(res.data);
             sessionStorage.clear();
@@ -120,14 +121,14 @@ class Dashboard extends Component {
             this.setState({
                 isLogOut: !this.state.isLogOut
             })
-            
 
-           
-            
-        }catch (err) {
-             console.log(err.response);
+
+
+
+        } catch (err) {
+            console.log(err.response);
         }
-        
+
 
     }
 
@@ -171,12 +172,12 @@ class Dashboard extends Component {
         //================= Redirect to login page,,,for componentUnmount =====================
         if (this.state.isLogOut) {
             return <Redirect to="/" push={true} />
-        } 
+        }
 
         return (
             <Router>
-                <div>                 
-                    <Nav logOut = {this.logOut}/>
+                <div style={{ minHeight: "100%" }}>
+                    <Nav logOut={this.logOut} />
                     <div className="d-flex" style={{ margin: "0", padding: "0", overflowX: "hidden" }}>
                         <input type="checkbox" id="check" />
                         <label htmlFor="check">
@@ -330,7 +331,7 @@ class Dashboard extends Component {
                                     {/* <Route path={`${path}/finger-print`} component={FingerPrint} />
                                     <Route path={`${path}/customer-photo`} component={CustomerPic} /> */}
 
-                                    
+
                                     {/* Regular */}
 
                                     {/* face forms */}
@@ -369,6 +370,8 @@ class Dashboard extends Component {
 
                             </div>
 
+
+
                         </div>
 
 
@@ -378,7 +381,42 @@ class Dashboard extends Component {
 
 
 
+
                     </div>
+
+                    <div>
+
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                            <path fill=" #099e96" fill-opacity="0.5" d="M0,256L80,240C160,224,320,192,480,197.3C640,203,800,245,960,218.7C1120,192,1280,96,1360,48L1440,0L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+                        </svg> */}
+                        <img
+
+                            src={footerWave}
+                            style={{
+
+                                width: "100vw",
+                                position: "absolute",
+                                zIndex: "-2",
+                                outline: "none",
+                                bottom: "0",
+                                margin: "0",
+                                padding: "0",
+                                border: "none"
+                            }}
+                            className=" img-fluid img-thumbnail"
+                            id='SignaturePic'
+                            alt=""
+                        />
+                        <div className="d-flex justify-content-center">
+                            <small className="" style={{ position: "absolute", bottom: "15px", color: "#333", fontSize: "14px" }}>© 2020 All rights reserved to ERA-InfoTech Ltd.</small>
+                        </div>
+
+                    </div>
+
+
+
+
+
 
 
 
