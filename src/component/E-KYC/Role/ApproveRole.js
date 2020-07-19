@@ -27,7 +27,6 @@ class ApproveRole extends Component {
 
             try {
                 const Obj = { status: "P" };
-                //let url = 'http://127.0.0.1:3001/role/get/';
                 let res = await axios.post(getRoleWithStatus, Obj, config);
                 this.setState({
                     pendingList: res.data.data
@@ -76,8 +75,8 @@ class ApproveRole extends Component {
             console.log("this.state.pendingList", this.state.pendingList)
             const Obj = { status: "P" };
             try {
-                //let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(getRoleWithStatus, Obj, config);
+                // let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post( getRoleWithStatus, Obj, config);
                 //console.log("res", res)
                 this.setState({
                     pendingList: res.data.data

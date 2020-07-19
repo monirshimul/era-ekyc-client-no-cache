@@ -157,8 +157,8 @@ export class NidImagesSim extends Component {
         // this.props.handleState("applicantNameBangla", nidData.data["Name Bangla"]);
         // this.props.handleState("applicantNidNo", nidData.data["id"]);
         // this.props.handleState("applicantDob", nidData.data["DOB"]);
-    
-        this.props.handleState("nid", nidData.data["id"]);
+       
+        this.props.handleState("nid", nidData.data["id"]);    
         this.props.handleState("dob", nidData.data["DOB"]);
         
         // this.props.handleState("fatherNameBangla", nidData.data["Father"]);

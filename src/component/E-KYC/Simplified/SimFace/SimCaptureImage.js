@@ -265,6 +265,7 @@ export class SimCaptureImage extends Component {
                 <span className="b" onClick={this.continue}>Next</span>
               ):""
             }
+             {/* <span className="b" onClick={this.continue}>Next</span> */}
             
 
 

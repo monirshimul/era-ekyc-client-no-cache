@@ -273,7 +273,6 @@ export class SimFingerConfirm extends Component {
                                 <span style={{color:"green", fontSize:"14px"}}>Spouse Name :</span> {values.spouseName}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Gender :</span> {values.gender}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Profession :</span> {values.profession}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Operator Type :</span> {values.operatorType}<br />
 
 
 

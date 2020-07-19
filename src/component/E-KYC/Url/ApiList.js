@@ -1,5 +1,10 @@
 import { hostIp } from './IpAdd';
 
+// RPA
+export const nidValidationRPA = hostIp +`ai/nid-rpa`; 
+
+
+
 //User Management
 export const getRoleWithFilter = hostIp + `role/get/`;
 export const createUserWithRole = hostIp + `user`;

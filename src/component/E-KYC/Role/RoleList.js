@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { NotificationManager } from "react-notifications";
-import {getRoleWithStatus, roleApproval} from "../Url/ApiList";
+import {getRoleWithStatus,roleApproval} from '../Url/ApiList';
 
 class RoleList extends Component {
     state = {
@@ -263,7 +263,7 @@ class RoleList extends Component {
         };
         try {
             //console.log("id", id)
-            //let url = 'http://127.0.0.1:3001/role/get/';
+           // let url = 'http://127.0.0.1:3001/role/get/';
             let obj = {
                 id: id
 

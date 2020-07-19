@@ -15,7 +15,7 @@ export class SimFingerPrint extends Component {
     this.props.handleState('loadingPrint', true);
     const config = {
       headers: {
-        "x-auth-token": sessionStorage.getItem("x-auth-token"),
+        "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
       },
     };
 
@@ -93,6 +93,14 @@ export class SimFingerPrint extends Component {
   continue = async (e) => {
     e.preventDefault();
     const { nid, dob, rThumb, rIndex, lThumb, lIndex } = this.props.values;
+    
+
+    if(nid.length === 13){
+      let dateSplit = dob.split("-")[0];
+      let nid13digit = dateSplit+nid;
+      this.props.handleState('nid', nid13digit);
+  }
+
 
 
     const config = {

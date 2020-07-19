@@ -4,7 +4,7 @@ import axios from 'axios';
 import { allRoutes } from '../../flattenObjectTwo'
 import { NotificationManager } from "react-notifications";
 import { getFlatRouteArray } from '../../flattenObjectTwo';
-import {createRole}from '../Url/ApiList';
+import {createRole} from '../Url/ApiList';
 
 const Joi = require('@hapi/joi');
 

@@ -25,12 +25,14 @@ export class SimConfirmInfo extends Component {
 
 
         e.preventDefault();
+        let branchOrAgentPointCode = sessionStorage.getItem("currentBranchOrAgentPointCode")|| "2";
+
         let accountInfo = {
             title: values.applicantName,
             type: values.accountType,
             productType: values.product,
             productCategoryCode: values.product,
-            branchOrAgentPointCode: "",
+            branchOrAgentPointCode: branchOrAgentPointCode,
             transactionOrMaturityAmount: values.transactionOrMaturityAmount,
             productCode: values.productName,
             channelCode: values.channelName
@@ -268,7 +270,7 @@ export class SimConfirmInfo extends Component {
                                 <span style={{color:"green", fontSize:"14px"}}>Spouse Name :</span> {values.spouseName}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Gender :</span> {values.gender}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Profession :</span> {values.profession}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Operator Type :</span> {values.operatorType}<br />
+                               
 
 
 
