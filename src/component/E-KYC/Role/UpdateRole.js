@@ -4,6 +4,7 @@ import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 import { getFlatRouteArray } from '../../flattenObjectTwo';
 import { allRoutes } from '../../flattenObjectTwo';
+import {updateRole} from "../Url/ApiList";
 const Joi = require('@hapi/joi');
 
 
@@ -144,8 +145,8 @@ export class UpdateRole extends Component {
             const validationValue = await schema.validateAsync(joiData);
             console.log("validationValue", validationValue)
 
-            let url = 'http://127.0.0.1:3001/role';
-            let res = await axios.put(url, data, config)
+            //let url = 'http://127.0.0.1:3001/role';
+            let res = await axios.put(updateRole, data, config)
             //console.log("response", res.data)
 
             //localStorage.setItem("Role Data", JSON.stringify(data))

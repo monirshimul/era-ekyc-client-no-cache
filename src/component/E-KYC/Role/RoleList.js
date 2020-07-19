@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { NotificationManager } from "react-notifications";
+import {getRoleWithStatus, roleApproval} from "../Url/ApiList";
 
 class RoleList extends Component {
     state = {
@@ -26,8 +27,8 @@ class RoleList extends Component {
             }
         };
         try {
-            let url = 'http://127.0.0.1:3001/role/get/';
-            let res = await axios.post(url, Obj, config);
+            //let url = 'http://127.0.0.1:3001/role/get/';
+            let res = await axios.post(getRoleWithStatus, Obj, config);
             this.setState({
                 pendingList: res.data.data
             })
@@ -59,8 +60,8 @@ class RoleList extends Component {
                 }
             };
             try {
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, Obj, config);
+                //let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(getRoleWithStatus, Obj, config);
                 this.setState({
                     pendingList: res.data.data
                 })
@@ -111,8 +112,8 @@ class RoleList extends Component {
 
 
 
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj, config);
+                //let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(getRoleWithStatus, obj, config);
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
@@ -138,8 +139,8 @@ class RoleList extends Component {
                 let obj = {
                     status: searchValue
                 }
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj, config);
+                //let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(getRoleWithStatus, obj, config);
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
@@ -165,8 +166,8 @@ class RoleList extends Component {
                 let obj = {
                     roleName: searchValue
                 }
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, obj, config);
+                //let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(getRoleWithStatus, obj, config);
                 this.setState({
                     pendingList: res.data.data,
                     checkBoxValue: "",
@@ -262,12 +263,12 @@ class RoleList extends Component {
         };
         try {
             //console.log("id", id)
-            let url = 'http://127.0.0.1:3001/role/get/';
+            //let url = 'http://127.0.0.1:3001/role/get/';
             let obj = {
                 id: id
 
             }
-            let res = await axios.post(url, obj, config)
+            let res = await axios.post(getRoleWithStatus, obj, config)
             console.log("200line", res.data)
             let data = res.data.data
             //console.log(data)
@@ -310,12 +311,12 @@ class RoleList extends Component {
         };
         try {
             //console.log("id", id)
-            let url = 'http://127.0.0.1:3001/role/status';
+            //let url = 'http://127.0.0.1:3001/role/status';
             let data = {
                 id: id,
                 status: "D"
             }
-            let res = await axios.put(url, data, config)
+            let res = await axios.put(roleApproval, data, config)
             this.setState({
                 archeived: !this.state.archeived
             })
@@ -347,11 +348,11 @@ class RoleList extends Component {
         };
         try {
 
-            let url = 'http://127.0.0.1:3001/role/get/';
+            //let url = 'http://127.0.0.1:3001/role/get/';
             let obj = {
                 id: id
             }
-            let res = await axios.post(url, obj, config)
+            let res = await axios.post(getRoleWithStatus, obj, config)
             let data = res.data.data
             this.setState({
                 modalData: data

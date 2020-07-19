@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { NotificationManager } from "react-notifications";
+import {getRoleWithStatus, roleApproval} from "../Url/ApiList";
 
 
 
@@ -26,8 +27,8 @@ class ApproveRole extends Component {
 
             try {
                 const Obj = { status: "P" };
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, Obj, config);
+                //let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(getRoleWithStatus, Obj, config);
                 this.setState({
                     pendingList: res.data.data
                 })
@@ -75,8 +76,8 @@ class ApproveRole extends Component {
             console.log("this.state.pendingList", this.state.pendingList)
             const Obj = { status: "P" };
             try {
-                let url = 'http://127.0.0.1:3001/role/get/';
-                let res = await axios.post(url, Obj, config);
+                //let url = 'http://127.0.0.1:3001/role/get/';
+                let res = await axios.post(getRoleWithStatus, Obj, config);
                 //console.log("res", res)
                 this.setState({
                     pendingList: res.data.data
@@ -117,12 +118,12 @@ class ApproveRole extends Component {
 
         try {
             //console.log("id", id)
-            let url = 'http://127.0.0.1:3001/role/status';
+            //let url = 'http://127.0.0.1:3001/role/status';
             let data = {
                 id: id,
                 status: "A"
             }
-            let res = await axios.put(url, data, config)
+            let res = await axios.put(roleApproval, data, config)
             this.setState({
                 approvedReject: !this.state.approvedReject
             })
@@ -154,12 +155,12 @@ class ApproveRole extends Component {
         };
         try {
             //console.log("id", id)
-            let url = 'http://127.0.0.1:3001/role/status';
+            //let url = 'http://127.0.0.1:3001/role/status';
             let data = {
                 id: id,
                 status: "R"
             }
-            let res = await axios.put(url, data, config)
+            let res = await axios.put(roleApproval, data, config)
             this.setState({
                 approvedReject: !this.state.approvedReject
             })
@@ -192,11 +193,11 @@ class ApproveRole extends Component {
         };
         try {
 
-            let url = 'http://127.0.0.1:3001/role/get/';
+            //let url = 'http://127.0.0.1:3001/role/get/';
             let obj = {
                 id: id
             }
-            let res = await axios.post(url, obj, config)
+            let res = await axios.post(getRoleWithStatus, obj, config)
             let data = res.data.data
             this.setState({
                 modalData: data

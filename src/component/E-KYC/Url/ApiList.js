@@ -70,3 +70,9 @@ export const getEkycType = hostIp + `tp/ekyc-type`;
 
 export const profileDownload = hostIp + `report/ekyc/simplified/pdf`;
 
+//Role Management
+export const createRole = hostIp +`role/`;
+export const getRoleWithStatus = hostIp + `role/get/`;
+export const roleApproval = hostIp + `role/status`;
+export const updateRole = hostIp + `role`;
+

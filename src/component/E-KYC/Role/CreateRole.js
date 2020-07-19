@@ -4,6 +4,7 @@ import axios from 'axios';
 import { allRoutes } from '../../flattenObjectTwo'
 import { NotificationManager } from "react-notifications";
 import { getFlatRouteArray } from '../../flattenObjectTwo';
+import {createRole}from '../Url/ApiList';
 
 const Joi = require('@hapi/joi');
 
@@ -84,8 +85,8 @@ class CreateRole extends Component {
             console.log("validationValue", validationValue)
 
             //console.log("Create Role Data", data)
-            let url = 'http://127.0.0.1:3001/role/';
-            let res = await axios.post(url, data, config)
+            //let url = 'http://127.0.0.1:3001/role/';
+            let res = await axios.post(createRole, data, config)
             console.log("response", res.data)
 
             // localStorage.setItem("Role Data", JSON.stringify(data))
