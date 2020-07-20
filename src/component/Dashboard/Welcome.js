@@ -1,17 +1,88 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import axios from 'axios'
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 import Watch from './Watch/Watch';
 import { connect } from 'react-redux';
+import { NotificationManager } from "react-notifications";
+import { getProfile } from '../E-KYC/Url/ApiList';
+import { image } from '../E-KYC/Profile/damiImage';
 
 
 
 class Welcome extends Component {
 
-    // state = {
-    //     profile: JSON.parse(sessionStorage.getItem("profile"))
-    // }
+    state = {
+        showLinks: false,
+        userProfileImage: '',
+        flag: 'data:image/jpeg;base64,',
+        quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")) === null ? [] : JSON.parse(sessionStorage.getItem("quickLinks")),
+        linkShower:false
+    }
+
+
+    async componentDidMount() {
+
+        this.setState({
+            linkShower: !this.state.linkShower
+        })
+
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+
+        };
+
+        try {
+            let res = await axios.get(getProfile, config);
+            let profileData = res.data.data;
+            //console.log("profileData", profileData)
+            this.setState({
+
+                userProfileImage: profileData.userImage === null ? image.data : profileData.userImage.data
+            })
+
+
+
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        //console.log("In the welcome")
+        if (prevState.linkShower !== this.state.linkShower) {
+            this.setState({
+            quickLinks:JSON.parse(sessionStorage.getItem("quickLinks"))
+            })
+        }
+    }
+
+
+    onLinkShow = () => {
+        this.setState({
+            showLinks: !this.state.showLinks
+        })
+    }
+
+
+
     render() {
-        //let { profile } = this.state
+        let path = this.props.match.path;
+        let url = this.props.match.url;
+        let { userProfileImage, flag, quickLinks, showLinks } = this.state
+        //console.log("quickLinks", quickLinks)
         return (
             <div className="container">
 
@@ -24,7 +95,7 @@ class Welcome extends Component {
 
                 <div className="row divBg justify-content-center" style={{ padding: "10px 0px" }}>
 
-                    <img src={profileImage}
+                    <img src={userProfileImage ? flag + userProfileImage : profileImage}
                         alt="profile_img"
 
                         style={{
@@ -45,60 +116,147 @@ class Welcome extends Component {
 
 
 
-                <div className="jumbotron im" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)" }} >
 
-                    <h4 className="text-center text-muted">
+
+                <div className="jumbotron im" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)", padding: "50px" }} >
+
+                    <h4 className="text-center text-muted ">
                         <i class="fas fa-link"></i> Quick Links
                 </h4>
-                    <div className="row d-flex justify-content-center">
-                        <div className="col-sm-2 sbtnx mr-2 mt-2">
-                            <span className="">Role Create</span>
-                        </div>
-                        <div className="col-sm-2 sbtn mr-2 mt-2">
-                            <span className="">Approve Role</span>
-                        </div>
-                        <div className="col-sm-2 sbtnx mr-2 mt-2">
-                            <span className="">Role List</span>
-                        </div>
-                        <div className="col-sm-2 sbtn mr-2 mt-2">
-                            <span className="">User Create</span>
-                        </div>
-                        <div className="col-sm-2 sbtnx mr-2 mt-2">
-                            <span className="">Approve User</span>
-                        </div>
-                        <div className="col-sm-2 sbtn mr-2 mt-2">
-                            <span className="">User List</span>
-                        </div>
-                        <div className="col-sm-2 sbtnx mr-2 mt-2">
-                            <span className="">Role Create</span>
-                        </div>
-                        <div className="col-sm-2 sbtn mr-2 mt-2">
-                            <span className="">Approve Role</span>
-                        </div>
-                        <div className="col-sm-2 sbtnx mr-2 mt-2">
-                            <span className="">Role List</span>
-                        </div>
-                        <div className="col-sm-2 sbtn mr-2 mt-2">
-                            <span className="">User Create</span>
-                        </div>
-                        <div className="col-sm-2 sbtnx mr-2 mt-2">
-                            <span className="">Approve User</span>
-                        </div>
-                        <div className="col-sm-2 sbtn mr-2 mt-2">
-                            <span className="">User List</span>
-                        </div>
+                    <div className="row d-flex justify-content-between">
+
+                        {
+                            quickLinks.map((vals, ind) => (
+                                <div className="col-sm-2">
+                                    {
+                                        vals !== undefined ? (
+                                            <div className="" >
+                                                {
+                                                    vals.nested.map((nest, ind) => (
+                                                        <div>
+                                                            {
+                                                                nest !== undefined && nest.items.isShowing === true ? (
+                                                                    <div className="">
+
+                                                                        {
+                                                                            nest.nested ? (
+                                                                                <div>
+                                                                                    {/* <div className="neoBg d-flex justify-content-between mt-2">
+                                                                                        <Link>
+                                                                                            {nest.items.featureName}
+                                                                                        </Link>
+                                                                                        <i className="fas fa-angle-down"></i>
+                                                                                    </div> */}
+                                                                                    {
+
+                                                                                        <div>
+                                                                                            {
+                                                                                                nest.nested.map((deepNest, ind) => (
+                                                                                                    deepNest !== undefined && deepNest.items.isShowing === true ? (
+                                                                                                        <div>
+                                                                                                            {
+                                                                                                                deepNest.items.key === "4.2.1" || deepNest.items.key === "4.2.2" ? (
+                                                                                                                    <div>
+                                                                                                                        {
+                                                                                                                            ind % 2 === 0 ? (
+                                                                                                                                <div className="sbtn d-flex justify-content-center mt-2" >
+
+                                                                                                                                    <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                                                    to={`${url}${deepNest.items.path}`}
+                                                                                                                                    >
+                                                                                                                                        {deepNest.items.featureName}
+                                                                                                                                    </Link>
+                                                                                                                                </div>
+                                                                                                                            ) : (
+                                                                                                                                    <div className="sbtnx d-flex justify-content-center mt-2" >
+
+                                                                                                                                        <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                                                        to={`${url}${deepNest.items.path}`}
+                                                                                                                                        >
+                                                                                                                                            {deepNest.items.featureName}
+                                                                                                                                        </Link>
+                                                                                                                                    </div>
+                                                                                                                                )
+                                                                                                                        }
+                                                                                                                    </div>
+                                                                                                                ) : ""
+                                                                                                            }
+
+                                                                                                        </div>
+
+                                                                                                    ) : ""
+                                                                                                ))
+                                                                                            }
+                                                                                        </div>
+
+
+
+
+
+                                                                                    }
+                                                                                </div>
+
+                                                                            ) :
+                                                                                (
+                                                                                    <div>
+                                                                                        {
+                                                                                            ind % 2 === 0 ? (
+                                                                                                <div className="sbtn d-flex justify-content-center mt-2" >
+
+                                                                                                    <Link 
+                                                                                                    style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                    to={`${url}${nest.items.path}`}
+                                                                                                    >
+                                                                                                        {nest.items.featureName}
+                                                                                                    </Link>
+                                                                                                </div>
+                                                                                            ) : (
+                                                                                                    <div className="sbtnx d-flex justify-content-center mt-2" >
+
+                                                                                                        <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                        to={`${url}${nest.items.path}`}
+                                                                                                        >
+                                                                                                            {nest.items.featureName}
+                                                                                                        </Link>
+                                                                                                    </div>
+                                                                                                )
+                                                                                        }
+                                                                                    </div>
+
+                                                                                )
+                                                                        }
+                                                                    </div>
+                                                                ) : ""
+                                                            }
+                                                        </div>
+                                                    ))
+                                                }
+
+                                            </div>
+                                        ) : ""
+                                    }
+                                </div>
+
+                            ))
+                        }
+
+
+
+
+
+
+
+
+
 
                     </div>
 
 
 
-                    {/* <h1 className=" text-muted">Welcome</h1>
-                    <h4 style={{ color: "green" }}>" {profile.name} "</h4>
-                    <h3 className="text-muted">Thank You for Your Login</h3> */}
 
 
                 </div>
-                
+
 
             </div>
         )
@@ -113,4 +271,4 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-    mapStateToProps, null)(Welcome)
+    mapStateToProps, null)(withRouter(Welcome))

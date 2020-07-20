@@ -4,7 +4,20 @@ import { updateTPAPI, getTPAPI } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 
+const Joi = require('@hapi/joi');
+
 export class UpdateTP extends Component {
+
+    schema = Joi.object({
+        ekycType: Joi.string().required(),
+        productCategory: Joi.string().required(),
+        minLimit: Joi.number().integer().required(),
+        maxLimit: Joi.number().integer().required(),
+        channelName: Joi.string().required(),
+        status: Joi.string().required()
+    
+    })
+
     state = {
         id: '',
         ekycType: '',
@@ -76,42 +89,7 @@ export class UpdateTP extends Component {
         e.preventDefault();
         let { id,ekycType, productCategoryCode, maxLimit, minLimit, channelName, status } = this.state;
 
-        if(ekycType === ''){
-            let ekycTypeMessage = 'Please Provide Ekyc Type';
-            NotificationManager.warning(ekycTypeMessage, "Warning", 5000);
-            return;
-        }
-
-         if(productCategoryCode === ''){
-            let productCategoryCodeMessage = 'Please Provide Product Category ';
-            NotificationManager.warning(productCategoryCodeMessage, "Warning", 5000);
-            return;
-        }
-
-        if(minLimit === ''){
-            let minLimitMessage = 'Please Provide Low Limit';
-            NotificationManager.warning(minLimitMessage, "Warning", 5000);
-            return;
-        }
-
-        if(maxLimit === ''){
-            let maxLimitMessage = 'Please Provide High Limit ';
-            NotificationManager.warning(maxLimitMessage, "Warning", 5000);
-            return;
-        }
-
-        if(channelName === ''){
-            let channelNameMessage = 'Please Provide Channel Name ';
-            NotificationManager.warning(channelNameMessage, "Warning", 5000);
-            return;
-        }
-
-        if(status === ''){
-            let statusMessage = 'Please Provide Status ';
-            NotificationManager.warning(statusMessage, "Warning", 5000);
-            return;
-        }
-
+        
         const obj = {
             id,
             ekycType,
@@ -121,6 +99,16 @@ export class UpdateTP extends Component {
             channelCode: channelName,
             status
         }
+
+        const joiObj = {
+            ekycType: ekycType,
+            productCategory: productCategoryCode,
+            minLimit: minLimit,
+            maxLimit: maxLimit,
+            channelName: channelName,
+            status: status
+        }
+
         const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -128,6 +116,8 @@ export class UpdateTP extends Component {
         };
 
         try {
+            const validationValue = await this.schema.validateAsync(joiObj);
+            console.log("validationValue", validationValue)
             let tpData = await axios.put(updateTPAPI, obj, config);
             //console.log("tpData", tpData.data);
             let tpDataStatus = tpData.data.statusCode;

@@ -6,8 +6,13 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-ro
 import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';
 import footerWave from './image/footerWave6.svg'
+import data from './image/protect.svg'
 
 import { logoutUser } from '../E-KYC/Url/ApiList';
+import { NotificationManager } from "react-notifications";
+import { getProfile } from '../E-KYC/Url/ApiList';
+import { image } from '../E-KYC/Profile/damiImage';
+
 
 import "./sidebar.css";
 import { pruneRouteArray, getFlatRouteArray } from '../flattenObjectTwo';
@@ -66,7 +71,10 @@ import axios from 'axios';
 class Dashboard extends Component {
 
     state = {
-        isLogOut: false
+        isLogOut: false,
+        userProfileImage: '',
+        flag: 'data:image/jpeg;base64,',
+        quickLinks: ''
     }
 
     feature = JSON.parse(sessionStorage.getItem("featureList"));
@@ -74,9 +82,10 @@ class Dashboard extends Component {
     allMenu = getFlatRouteArray(this.firstMenu);
 
 
+
     //const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem("profile")));
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log("componentDidMount Called==============")
 
         this.feature = JSON.parse(sessionStorage.getItem("featureList"))
@@ -85,6 +94,43 @@ class Dashboard extends Component {
         this.firstMenu = pruneRouteArray(this.feature);
 
         this.allMenu = getFlatRouteArray(this.firstMenu);
+        // this.setState({
+        //     quickLinks:this.allMenu
+        // })
+        // console.log(this.firstMenu)
+        sessionStorage.setItem("quickLinks", JSON.stringify(this.firstMenu))
+
+
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+
+        };
+
+        try {
+            let res = await axios.get(getProfile, config);
+            let profileData = res.data.data;
+            //console.log("profileData", profileData)
+            this.setState({
+
+                userProfileImage: profileData.userImage === null ? image.data : profileData.userImage.data
+            })
+
+
+
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
 
         // console.log("mount Called")
 
@@ -168,6 +214,7 @@ class Dashboard extends Component {
     render() {
         let path = this.props.match.path;
         let url = this.props.match.url;
+        let { userProfileImage, flag } = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
         if (this.state.isLogOut) {
@@ -187,7 +234,7 @@ class Dashboard extends Component {
                         <div id="sidebar">
                             <div id="profile_info">
                                 <div id="profile_img">
-                                    <img src={profileImage}
+                                    <img src={userProfileImage ? flag + userProfileImage : profileImage}
                                         alt="profile_img"
 
                                         style={{
@@ -282,6 +329,26 @@ class Dashboard extends Component {
 
 
                         <div className="container my-5">
+                            <img
+
+                                src={data}
+                                style={{
+
+                                    width: "30vw",
+                                    position: "absolute",
+                                    zIndex: "-2",
+                                    outline: "none",
+                                    right: "0",
+                                    top:"10%",
+                                    margin: "0",
+                                    padding: "0",
+                                    border: "none",
+                                    opacity:"0.3"
+                                }}
+                                className=" img-fluid img-thumbnail"
+                                id='SignaturePic'
+                                alt=""
+                            />
                             <div className="row d-flex justify-content-center" >
 
 
@@ -398,7 +465,7 @@ class Dashboard extends Component {
 
                                 width: "100vw",
                                 position: "absolute",
-                                zIndex: "-2",
+                                zIndex: "-3",
                                 outline: "none",
                                 bottom: "0",
                                 margin: "0",
