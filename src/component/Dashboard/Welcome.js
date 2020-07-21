@@ -97,7 +97,7 @@ class Welcome extends Component {
     }
 
     
-
+    
 
 
     render() {
@@ -105,7 +105,7 @@ class Welcome extends Component {
         let url = this.props.match.url;
         let { userProfileImage, flag, quickLinks, showLinks, branchOrAgentPointCode,branchCode } = this.state
         //console.log("branchOrAgentPointCode", branchCode)
-        sessionStorage.setItem("branchCode", JSON.stringify (this.state.branchCode))
+        sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify (this.state.branchCode))
         return (
             <div className="container">
 

@@ -284,7 +284,8 @@ class CreateUser extends Component {
                 mobile: '',
                 email: '',
                 pinAuthStatus: '',
-                roles: []
+                roles: [],
+                channelName:'',
             });
 
         }
@@ -298,7 +299,8 @@ class CreateUser extends Component {
             password: '',
             mobile: '',
             email: '',
-            pinAuthStatus: ''
+            pinAuthStatus: '',
+            roles:[]
         })
     }
 

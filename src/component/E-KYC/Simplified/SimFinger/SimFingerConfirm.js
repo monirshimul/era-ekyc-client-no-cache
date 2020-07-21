@@ -26,8 +26,7 @@ export class SimFingerConfirm extends Component {
         let { values } = this.props;
         e.preventDefault();
 
-        let branchOrAgentPointCode = sessionStorage.getItem("currentBranchOrAgentPointCode")|| "2";
-
+        let branchOrAgentPointCode = JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"))|| "2";
         let accountInfo = {
             title: values.applicantName,
             type: values.accountType,

@@ -12,6 +12,8 @@ export class SimRPA extends Component {
     handleClick = async (e) => {
         let { nid, dob } = this.props.values;
         e.preventDefault();
+
+
         this.props.handleState('isEnableFace', true);
         this.props.handleState('loading', true);
 
@@ -21,16 +23,18 @@ export class SimRPA extends Component {
             }
         };
 
-        //console.log("config", config);
+        let dob13= dob.split("-")[0];
 
         const obj = {
-            nid,
+            nid: nid.length === 13 ? dob13+nid : nid,
             dob
         }
 
+        console.log("obj", obj);
+
         try {
             let rpaData = await axios.post(nidValidationRPA, obj, config);
-            //console.log(rpaData.data);
+            console.log(rpaData.data);
             let responseData = rpaData.data.data;
             if (rpaData.data.data) {
                 let dataResp = rpaData.data.data;

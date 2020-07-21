@@ -18,10 +18,10 @@ export class FaceRPAJoint extends Component {
             }
         };
 
-        //console.log("config", config);
-
+        
+        let dob13= dob.split("-")[0];
         const obj = {
-            nid,
+            nid: nid.length === 13 ? dob13+nid : nid,
             dob
         }
 

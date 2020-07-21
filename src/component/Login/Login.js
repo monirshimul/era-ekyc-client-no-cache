@@ -80,6 +80,7 @@ class Login extends Component {
 
 
         } catch (err) {
+            console.log(err.response);
             if(err.response){
             let statusCode = err.response.data.statusCode;
             if (statusCode === 401) {
