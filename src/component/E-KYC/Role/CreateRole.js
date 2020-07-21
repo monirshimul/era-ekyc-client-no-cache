@@ -138,11 +138,11 @@ class CreateRole extends Component {
 
         return (
             <div className="card col-sm-10" style={{ paddingTop: "25px" }}>
-                {
+                {/* {
 
                     rolePrivileges.map(v => console.log("Create Role", v))
 
-                }
+                } */}
 
                 <div className="card-header divBg">
                     <h3 className="text-center pt-3">

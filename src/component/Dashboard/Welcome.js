@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios'
+
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 import Watch from './Watch/Watch';
 import { connect } from 'react-redux';
@@ -17,15 +18,20 @@ class Welcome extends Component {
         userProfileImage: '',
         flag: 'data:image/jpeg;base64,',
         quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")) === null ? [] : JSON.parse(sessionStorage.getItem("quickLinks")),
-        linkShower:false
+        linkShower: false,
+        branchOrAgentPointCodeArr: JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")) === null ? [] : JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")),
+        branchCode:''
     }
 
 
     async componentDidMount() {
+        
 
         this.setState({
             linkShower: !this.state.linkShower
         })
+
+        
 
         const config = {
             headers: {
@@ -37,7 +43,7 @@ class Welcome extends Component {
         try {
             let res = await axios.get(getProfile, config);
             let profileData = res.data.data;
-            //console.log("profileData", profileData)
+            console.log("profileData Welcome page", profileData)
             this.setState({
 
                 userProfileImage: profileData.userImage === null ? image.data : profileData.userImage.data
@@ -64,8 +70,10 @@ class Welcome extends Component {
         //console.log("In the welcome")
         if (prevState.linkShower !== this.state.linkShower) {
             this.setState({
-            quickLinks:JSON.parse(sessionStorage.getItem("quickLinks"))
+                quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")),
+                
             })
+            
         }
     }
 
@@ -76,13 +84,28 @@ class Welcome extends Component {
         })
     }
 
+    onChange = e => {
+        //e.preventDefault();
+        
+        this.setState({ 
+            [e.target.name]: e.target.value,
+        });
+        
+        
+
+        
+    }
+
+    
+
 
 
     render() {
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag, quickLinks, showLinks } = this.state
-        console.log("quickLinks", quickLinks)
+        let { userProfileImage, flag, quickLinks, showLinks, branchOrAgentPointCode,branchCode } = this.state
+        //console.log("branchOrAgentPointCode", branchCode)
+        sessionStorage.setItem("branchCode", JSON.stringify (this.state.branchCode))
         return (
             <div className="container">
 
@@ -107,8 +130,39 @@ class Welcome extends Component {
                     />
 
                 </div>
-                <div className="row justify-content-center" style={{ color: "green" }}>
-                    <small className="text-center"><i class="fas fa-dungeon"></i> Welcome</small>
+                <div className="row d-flex justify-content-center align-items-center" style={{ color: "green" }}>
+                    <div className="text-center">
+                        <h5>Choose Your Branch Code  :</h5>
+                    </div>
+                    {/* <i class="fas fa-dungeon"></i> */}
+                    <div className='form-group neoBg'>
+                            <label htmlFor=""></label>
+                            <select
+                                style={{fontSize:"14px"}}
+                                className='custom-select sbtn'
+                                value={branchCode}
+                                onChange={this.onChange}
+                                name="branchCode"
+                            >
+                                <option value='' disabled>--Select Branch Code--</option>
+                                {
+                                    branchOrAgentPointCode === undefined ? (
+                                        this.setState({
+                                            branchOrAgentPointCode: JSON.parse(sessionStorage.getItem("branchOrAgentPointCode"))
+                                        })
+                                    ):(
+                                        branchOrAgentPointCode.map((val, ind)=>(
+                                            <option value={val}>{val}</option>
+                                            ))
+                                    )
+                                   
+                                }
+                                
+
+
+                            </select>
+                        </div>
+                    
 
                 </div>
                 <hr />
@@ -141,7 +195,7 @@ class Welcome extends Component {
                                                                         {
                                                                             nest !== undefined && nest !== null && nest.items.isShowing === true ? (
                                                                                 <div className="">
-            
+
                                                                                     {
                                                                                         nest.nested ? (
                                                                                             <div>
@@ -152,7 +206,7 @@ class Welcome extends Component {
                                                                                                     <i className="fas fa-angle-down"></i>
                                                                                                 </div> */}
                                                                                                 {
-            
+
                                                                                                     <div>
                                                                                                         {
                                                                                                             nest.nested.map((deepNest, ind) => (
@@ -164,18 +218,18 @@ class Welcome extends Component {
                                                                                                                                     {
                                                                                                                                         ind % 2 === 0 ? (
                                                                                                                                             <div className="sbtn d-flex justify-content-center mt-2" >
-            
+
                                                                                                                                                 <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
-                                                                                                                                                to={`${url}${deepNest.items.path}`}
+                                                                                                                                                    to={`${url}${deepNest.items.path}`}
                                                                                                                                                 >
                                                                                                                                                     {deepNest.items.featureName}
                                                                                                                                                 </Link>
                                                                                                                                             </div>
                                                                                                                                         ) : (
                                                                                                                                                 <div className="sbtnx d-flex justify-content-center mt-2" >
-            
+
                                                                                                                                                     <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
-                                                                                                                                                    to={`${url}${deepNest.items.path}`}
+                                                                                                                                                        to={`${url}${deepNest.items.path}`}
                                                                                                                                                     >
                                                                                                                                                         {deepNest.items.featureName}
                                                                                                                                                     </Link>
@@ -185,40 +239,40 @@ class Welcome extends Component {
                                                                                                                                 </div>
                                                                                                                             ) : ""
                                                                                                                         }
-            
+
                                                                                                                     </div>
-            
+
                                                                                                                 ) : ""
                                                                                                             ))
                                                                                                         }
                                                                                                     </div>
-            
-            
-            
-            
-            
+
+
+
+
+
                                                                                                 }
                                                                                             </div>
-            
+
                                                                                         ) :
                                                                                             (
                                                                                                 <div>
                                                                                                     {
                                                                                                         ind % 2 === 0 ? (
                                                                                                             <div className="sbtn d-flex justify-content-center mt-2" >
-            
-                                                                                                                <Link 
-                                                                                                                style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
-                                                                                                                to={`${url}${nest.items.path}`}
+
+                                                                                                                <Link
+                                                                                                                    style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                                    to={`${url}${nest.items.path}`}
                                                                                                                 >
                                                                                                                     {nest.items.featureName}
                                                                                                                 </Link>
                                                                                                             </div>
                                                                                                         ) : (
                                                                                                                 <div className="sbtnx d-flex justify-content-center mt-2" >
-            
+
                                                                                                                     <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
-                                                                                                                    to={`${url}${nest.items.path}`}
+                                                                                                                        to={`${url}${nest.items.path}`}
                                                                                                                     >
                                                                                                                         {nest.items.featureName}
                                                                                                                     </Link>
@@ -226,7 +280,7 @@ class Welcome extends Component {
                                                                                                             )
                                                                                                     }
                                                                                                 </div>
-            
+
                                                                                             )
                                                                                     }
                                                                                 </div>
@@ -237,8 +291,8 @@ class Welcome extends Component {
                                                             }
 
                                                         </div>
-                                                    ):""
-                                                    
+                                                    ) : ""
+
                                                 }
 
                                             </div>

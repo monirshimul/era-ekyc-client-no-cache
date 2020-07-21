@@ -44,7 +44,7 @@ class CreateUser extends Component {
 
             //listRoles data get from API
             let filterRoles = listRoles.data.data;
-            console.log("filterroles ", filterRoles);
+            //console.log("filterroles ", filterRoles);
             //Create an array filter data for filter id and roleName key from each object get from API
             let filterData = Object.assign([], this.state.role_list);
             //Filter id and roleName from listRoles API
@@ -256,7 +256,7 @@ class CreateUser extends Component {
         }
 
 
-        console.log("CreateObj", obj);
+        //console.log("CreateObj", obj);
         try {
             let createUser = await axios.post(createUserWithRole, obj, config);
             // console.log(createUser.data);

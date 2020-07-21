@@ -28,6 +28,8 @@ class Login extends Component {
         this.setState({
           channelLogin: !this.state.channelLogin
         })
+        console.log("Channel Status in func", this.state.channelLogin)
+
     }
 
     onSubmit = async (e) => {
@@ -87,6 +89,7 @@ class Login extends Component {
                     userId: '',
                     password: '',
                     channelLogin: false
+                    
                 });
             }  
             } else if (err.request) {
@@ -95,6 +98,7 @@ class Login extends Component {
                     userId: '',
                     password: '',
                     channelLogin: false
+                    
                 });
             }else if (err) {
                 NotificationManager.error(err.toString(), "Error", 5000);
@@ -102,6 +106,7 @@ class Login extends Component {
                     userId: '',
                     password: '',
                     channelLogin: false
+                   
                 });
             }
         }
@@ -114,7 +119,7 @@ class Login extends Component {
     }
 
     render() {
-        // console.log("channelLogin", this.state.channelLogin);
+        console.log("channelLogin Render", this.state.channelLogin);
         return (
             <div>
                 <img className="wave" src={bg} alt="" />
@@ -158,7 +163,7 @@ class Login extends Component {
                             </div>
 
                             <div id="channelLogin" className='d-flex align-items-center'>
-                            <input type="checkbox"  onChange={e => this.handleChannelLogin(e)} defaultChecked={this.state.channelLogin}/> &nbsp;
+                            <input type="checkbox" checked={this.state.channelLogin}  onChange={e => this.handleChannelLogin(e)} defaultChecked={this.state.channelLogin}/> &nbsp;
                             <label id="channelLabel">Channel Login</label>
                             </div>
 

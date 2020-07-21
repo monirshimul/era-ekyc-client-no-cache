@@ -37,7 +37,7 @@ export class GetProfile extends Component {
         try {
             let res = await axios.get(getProfile, config);
             let profileData = res.data.data;
-            console.log("profileData", profileData)
+            //console.log("profileData", profileData)
             this.setState({
                 name: profileData.name,
                 email: profileData.email,

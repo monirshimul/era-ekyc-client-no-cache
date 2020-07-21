@@ -33,7 +33,7 @@ export class UserApproval extends Component {
             let AppUserList = await axios.post(getUserWithStatus + 1, ApproveObj, config);
             //Get User Data
             let appUserData = AppUserList.data.data;
-             console.log("AppUserData", appUserData);
+            //console.log("AppUserData", appUserData);
             let numberPages = AppUserList.data.totalPages;
             let pendingStatus = new Array(appUserData.length).fill(false);
 
@@ -69,7 +69,7 @@ export class UserApproval extends Component {
             try {
                 // API call for Pending User List
                 let AppUserList = await axios.post(getUserWithStatus + 1, didApproveObj, config);
-                console.log("didupdate", AppUserList);
+                //console.log("didupdate", AppUserList);
                 //Get User Data
                 let appUserData = AppUserList.data.data;
 
@@ -170,7 +170,7 @@ export class UserApproval extends Component {
             // this.state.showPendingStatus[index].status = "Approve";
             // showload[index] = false;
             // this.setState({ showPendingStatus: showload });
-            console.log(approveUser.data);
+            //console.log(approveUser.data);
             let statusCode = approveUser.data.statusCode;
 
 
