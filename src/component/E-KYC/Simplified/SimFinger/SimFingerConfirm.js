@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { absDateFormat} from '../../../Utils/dateConversion';
 import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
@@ -25,13 +26,14 @@ export class SimFingerConfirm extends Component {
         let { values } = this.props;
         e.preventDefault();
 
+        let branchOrAgentPointCode = sessionStorage.getItem("currentBranchOrAgentPointCode")|| "2";
 
         let accountInfo = {
             title: values.applicantName,
             type: values.accountType,
             productType: values.product,
             productCategoryCode:values.product,
-            branchOrAgentPointCode:"101",
+            branchOrAgentPointCode:branchOrAgentPointCode,
             transactionOrMaturityAmount:values.transactionOrMaturityAmount,
             productCode: values.productName,
             channelCode: values.channelName
@@ -41,7 +43,7 @@ export class SimFingerConfirm extends Component {
             nid: values.applicantNidNo,
             name: values.applicantName,
             nameBangla: values.applicantNameBangla,
-            dob: values.applicantDob,
+            dob: absDateFormat(values.applicantDob),
             dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
@@ -195,8 +197,15 @@ export class SimFingerConfirm extends Component {
             this.props.handleState('confirmFlag', true);
             let res = await axios.post(confirmApi, confirmObj, config);
             this.props.handleState('confirmFlag', false);
-            console.log(res.data);
+            //console.log(res.data);
             let resData = res.data;
+            if(resData.data.channelResponse.accountNo){
+                let accountNumber = resData.data.channelResponse.accountNo;
+                this.props.handleState('accountNo', accountNumber);
+            }else{
+                let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
+                this.props.handleState('accountNo', message);
+            }
             let statusCode = resData.statusCode;
             let successMessage = "Account Opening " + resData.message;
             NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);

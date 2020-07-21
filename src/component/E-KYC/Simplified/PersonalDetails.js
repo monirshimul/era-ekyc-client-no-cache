@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NotificationManager } from "react-notifications";
-
+import {zoneCodeConversion} from '../Url/ApiList';
+import axios from 'axios';
 
 const Joi = require('@hapi/joi');
 
@@ -34,7 +35,7 @@ export class PersonalDetails extends Component {
     
     })
 
-    continue = e => {
+    continue = async(e) => {
         const { values } = this.props;
         e.preventDefault();
         // const obj={
@@ -83,6 +84,87 @@ export class PersonalDetails extends Component {
         } catch (error) {
             NotificationManager.error(error.toString(), "Error", 5000);
             console.log("error====>", error.response)
+        }
+
+        if(values.channelName === 'ABS'){
+            let presentObj = {
+                districtName: values.preDistrictEn,
+                upazilaName:values.preUpozilaEn,
+                unionName: values.preUnionOrWardEn
+            }   
+  
+
+            let permanentObj = {
+                districtName: values.perDistrictEn,
+                upazilaName:values.perUpozilaEn,
+                unionName: values.perUnionOrWardEn
+            }  
+
+            //console.log('present', presentObj);
+
+            const config = {
+                headers: {
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+                }
+            };
+            try{
+
+            let presentZoneCode= await axios.post(zoneCodeConversion, presentObj, config);
+            let permanentZoneCode= await axios.post(zoneCodeConversion, permanentObj, config);
+
+            if(presentZoneCode.data.data === null || permanentZoneCode.data.data === null){
+                let message = "Integration Server Error";
+                NotificationManager.warning(message , "Warning", 5000);
+                return;
+            }
+            
+            let presentZoneResp = presentZoneCode.data.data.details.ABS_ZONE_CODE;
+            let permanentZoneResp = permanentZoneCode.data.data.details.ABS_ZONE_CODE;
+
+            this.props.handleState('preDistrictCode', presentZoneResp.DISTRICT_CODE);
+            this.props.handleState('preUpozilaCode',presentZoneResp.UPAZILA_CODE);
+            this.props.handleState('preUnionOrWardCode',presentZoneResp.UNION_CODE);
+            
+            this.props.handleState('perDistrictCode', permanentZoneResp.DISTRICT_CODE);
+            this.props.handleState('perUpozilaCode',permanentZoneResp.UPAZILA_CODE);
+            this.props.handleState('perUnionOrWardCode',permanentZoneResp.UNION_CODE);
+
+            if(values.perDistrictCode === "" || values.perUpozilaCode === "" || values.perUnionOrWardCode ===""){
+                let perMessage = "Please check Permanent Address districtName,upozilaName and unionName";
+                NotificationManager.warning(perMessage , "Warning", 5000);
+                return;
+            }
+            if(values.preDistrictCode === "" || values.preUpozilaCode === "" || values.preUnionOrWardCode ===""){
+                let preMessage =  "Please check Present Address districtName,upozilaName and unionName";
+                NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);
+                return;
+            }
+           
+            if(values.perDistrictEn === "" || values.perUpozilaEn === "" || values.perUnionOrWardEn ===""){
+                let perMessage = permanentZoneResp.RESPONSE_MSG;
+                NotificationManager.warning("Permanent Address - "+perMessage , "Warning", 5000);
+                return;
+            }
+            if(values.preDistrictEn === "" || values.preUpozilaEn === "" || values.preUnionOrWardEn ===""){
+                let preMessage = presentZoneResp.RESPONSE_MSG;
+                NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);
+                return;
+            }
+
+            this.props.nextStep();
+
+
+
+            
+            
+
+            }catch(err){
+                NotificationManager.error("Please check zoneCode", "Error", 5000);
+            }
+            
+       
+        }else{
+            this.props.nextStep();
         }
         
     };

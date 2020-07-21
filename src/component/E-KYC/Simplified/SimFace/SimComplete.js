@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 export class SimComplete extends Component {
     render() {
+        console.log("allvalue", this.props.values);
+        console.log("accountNo", this.props.values.accountNo);
         return (
             <div className="container">
             <div className="jumbotron my-5 im" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)" }}>

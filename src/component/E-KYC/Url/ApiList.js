@@ -3,7 +3,8 @@ import { hostIp } from './IpAdd';
 // RPA
 export const nidValidationRPA = hostIp +`ai/nid-rpa`; 
 
-
+// zonecode-conversion
+export const zoneCodeConversion = hostIp+`integration/zonecode-conversion`;
 
 //User Management
 export const getRoleWithFilter = hostIp + `role/get/`;

@@ -49,7 +49,7 @@ class UpdateUser extends Component {
         try {
             let updata = await axios.post(getupdateUser + 1, obj, config);
             const prefillData = updata.data.data;
-            console.log("prefilled", prefillData);
+            //console.log("prefilled", prefillData);
             this.setState({
                 id: prefillData[0].id,
                 userId: prefillData[0].userId,
@@ -300,11 +300,11 @@ class UpdateUser extends Component {
 
             }
         };
-        console.log("obj", obj);
+        //console.log("obj", obj);
         //alert("User Update Successful and wait for the approval");
         try {
             let update = await axios.put(userUpdate, obj, config);
-            console.log(update.data);
+            //console.log(update.data);
             let statusCode = update.data.statusCode;
             let message = "Update Completed"
             //alert(statusCode + " " + message);

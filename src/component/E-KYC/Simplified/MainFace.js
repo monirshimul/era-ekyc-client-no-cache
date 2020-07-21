@@ -7,6 +7,7 @@ import Signature from './Signature';
 import Nominee from './Nominee';
 import Confirm from './Confirm';
 import Success from './Success';
+import FaceRPAJoint from './FaceRPAJoint';
 
 export class MainFace extends Component {
 
@@ -29,6 +30,12 @@ export class MainFace extends Component {
         NidBackType: '',
         loadingSpin: false,
         allData:'',
+        // RPA
+        nid:'',
+        dob: '',
+        ecImage:'',
+        loading:false,
+        isEnableFace: false,
         //Step2
         faceImage: "",
         showCamera: false,
@@ -284,8 +291,8 @@ export class MainFace extends Component {
     render() {
 
         const { step } = this.state;
-        const {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn } = this.state;
-        const values = {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn }
+        const {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag,nid, dob, ecImage,isEnableFace, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray, confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn } = this.state;
+        const values = {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, nid, dob, ecImage,isEnableFace,faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, presentAddress, permanentAddress,permanentAddressBangla,operatorType, signature, signatureType, jointArray,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn }
 
 
         switch (step) {
@@ -299,9 +306,9 @@ export class MainFace extends Component {
                     />
                 )
 
-            case 2:
+                case 2:
                 return (
-                    <CaptureImage
+                    <FaceRPAJoint
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
@@ -313,15 +320,28 @@ export class MainFace extends Component {
 
             case 3:
                 return (
-                    <PersonalDetails
+                    <CaptureImage
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        handleDate={this.handleDate}
                         values={values}
                     />
                 )
 
             case 4:
+                return (
+                    <PersonalDetails
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+            case 5:
                 return (
                     <Nominee
                         nextStep={this.nextStep}
@@ -336,7 +356,7 @@ export class MainFace extends Component {
                     />
                 )
 
-            case 5:
+            case 6:
                 return (
                     <Signature
                         nextStep={this.nextStep}
@@ -347,7 +367,7 @@ export class MainFace extends Component {
                     />
                 )
 
-            case 6:
+            case 7:
                 return (
                     <Confirm
                         nextStep={this.nextStep}
@@ -357,7 +377,7 @@ export class MainFace extends Component {
                     />
                 )
 
-            case 7:
+            case 8:
                 return <Success 
                 values={values}
                 />

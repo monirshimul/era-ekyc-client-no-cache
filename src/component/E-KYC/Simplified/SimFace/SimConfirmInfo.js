@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { absDateFormat} from '../../../Utils/dateConversion';
 import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
@@ -42,7 +43,7 @@ export class SimConfirmInfo extends Component {
             nid: values.applicantNidNo,
             name: values.applicantName,
             nameBangla: values.applicantNameBangla,
-            dob: values.applicantDob,
+            dob: absDateFormat(values.applicantDob),
             dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
@@ -64,6 +65,7 @@ export class SimConfirmInfo extends Component {
             districtEng: values.preDistrictEn,
             upozilaEng: values.preUpozilaEn,
             unionOrWardEng: values.preUnionOrWardEn
+            
         }
 
         if (values.preAdditionalMouzaOrMoholla !== '') applicantPresentInfo.additionalMouzaOrMoholla = values.preAdditionalMouzaOrMoholla;
@@ -173,7 +175,8 @@ export class SimConfirmInfo extends Component {
             nominees: nomineesInfo
         }
 
-        console.log("confirmobj", confirmObj);
+       // console.log("confirmobj", confirmObj);
+       
 
         const config = {
             headers: {
@@ -187,8 +190,15 @@ export class SimConfirmInfo extends Component {
             this.props.handleState('confirmFlag', true);
             let res = await axios.post(confirmApi, confirmObj, config);
             this.props.handleState('confirmFlag', false);
-            console.log(res.data);
+            console.log("confirm response",res.data);
             let resData = res.data;
+            if(resData.data.channelResponse.accountNo){
+                let accountNumber = resData.data.channelResponse.accountNo;
+                this.props.handleState('accountNo', accountNumber);
+            }else{
+                let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
+                this.props.handleState('accountNo', message);
+            }
             let statusCode = resData.statusCode;
             let successMessage = "Account Opening " + resData.message;
             NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
@@ -199,7 +209,7 @@ export class SimConfirmInfo extends Component {
             this.props.handleState('confirmFlag', false);
             if (error.response) {
                 let message = error.response.data.message
-                //console.log("Error",error.response)
+                console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
                 console.log("Error Connecting...", error.request)

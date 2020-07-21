@@ -27,13 +27,14 @@ export class Confirm extends Component {
         console.log(values.applicantEkycId);
         if (values.applicantEkycId === '') {
 
+            let branchOrAgentPointCode = sessionStorage.getItem("currentBranchOrAgentPointCode")|| "2";
 
             let accountInfo = {
                 title: values.applicantName,
                 type: values.accountType,
                 productType: values.product,
                 productCategoryCode:values.product,
-                branchOrAgentPointCode:"101",
+                branchOrAgentPointCode:branchOrAgentPointCode,
                 transactionOrMaturityAmount:values.transactionOrMaturityAmount,
                 productCode: values.productName,
                 channelCode: values.channelName

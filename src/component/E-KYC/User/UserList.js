@@ -18,7 +18,11 @@ export class UserList extends Component {
         text_input: "",
         goButton: false,
         searchHeading: "",
-        search: '',
+        searchValue: '',
+        checkBoxOne: false,
+        checkBoxValue: "",
+        checkBoxTwo: false,
+        checkBoxThree: false,
         searchFlag: false,
         profileImage: {},
         profileName: "",
@@ -37,8 +41,8 @@ export class UserList extends Component {
 
         try {
             // API called name getAllUser here no status need... page used for pagination
-            let appUser = await axios.post(getAllUser + pages,null, config);
-            console.log("getAllUser", appUser.data.data);
+            let appUser = await axios.post(getAllUser + pages, null, config);
+            // console.log("getAllUser", appUser.data.data);
             let divide1 = appUser.data.data;
             let numberOfPages = divide1.totalPages;
             let numberOfUsers = divide1.totalUsers;
@@ -112,39 +116,168 @@ export class UserList extends Component {
     //     }
     // }
 
-    //Search bar handler
-    handleSearch = (e) => this.setState({ search: e.target.value });
 
+
+    textHandleChange = e => {
+        e.preventDefault()
+        this.setState({ [e.target.name]: e.target.value });
+    }
     // Submit Search button
-    submitSearch = async (e) => {
+    onSearchSubmit = async (e) => {
         e.preventDefault();
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
         };
-        const obj = { userId: this.state.search };
+        let { searchValue } = this.state
+        // console.log("checkboxvalue", this.state.checkBoxValue);
+        //console.log("searchValue", searchValue);
+        if (this.state.checkBoxValue === "id") {
 
-        try {
-            let searchAttemp = await axios.post(searchUser + 1, obj, config);
-            // console.log('searchAttempt', searchAttemp.data.data);
-            let searchFilter = searchAttemp.data.data;
-            this.setState({ allAppUser: searchFilter, searchFlag: true, search: '' });
-        } catch (error) {
-            if (error.response) {
-                let message = error.response.data.message
-                //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
-            } else if (error.request) {
-                console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+
+
+            try {
+                let obj = {
+                    userId: searchValue
+                }
+
+                let res = await axios.post(searchUser + 1, obj, config);
+                this.setState({
+                    allAppUser: res.data.data,
+                    checkBoxValue: "",
+                    searchValue: "",
+                    checkBoxOne: false
+                })
+
+            } catch (error) {
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
         }
+        if (this.state.checkBoxValue === "status") {
+            try {
+                let obj = {
+                    status: searchValue
+                }
 
+                let res = await axios.post(searchUser + 1, obj, config);
+                this.setState({
+                    allAppUser: res.data.data,
+                    checkBoxValue: "",
+                    searchValue: "",
+                    checkBoxTwo: false
+                })
+
+            } catch (error) {
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
+            }
+        }
+        if (this.state.checkBoxValue === "roleName") {
+            try {
+                let obj = {
+                    name: searchValue
+                }
+
+                let res = await axios.post(searchUser + 1, obj, config);
+                this.setState({
+                    allAppUser: res.data.data,
+                    checkBoxValue: "",
+                    searchValue: "",
+                    checkBoxThree: false
+                })
+
+            } catch (error) {
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
+            }
+        }
+    }
+
+    onCheckOneChange = (e) => {
+        let value = e.target.value
+        // console.log("Check Value", value)
+        //this.state.checkBoxOneValue = value
+        if (this.state.checkBoxOne === false) {
+            this.setState({
+                checkBoxOne: !this.state.checkBoxOne,
+                checkBoxValue: value
+
+            })
+        } else {
+            this.setState({
+                checkBoxOne: !this.state.checkBoxOne,
+                checkBoxValue: ""
+
+            })
+        }
+
+
+    }
+    onCheckTwoChange = (e) => {
+        let value = e.target.value
+        //console.log("Check Value", value)
+        //this.state.checkBoxOneValue = value
+        if (this.state.checkBoxTwo === false) {
+            this.setState({
+                checkBoxTwo: !this.state.checkBoxTwo,
+                checkBoxValue: value
+
+            })
+        } else {
+            this.setState({
+                checkBoxTwo: !this.state.checkBoxTwo,
+                checkBoxValue: ""
+
+            })
+        }
+
+
+    }
+    onCheckThreeChange = (e) => {
+        let value = e.target.value
+        //console.log("Check Value", value)
+        //this.state.checkBoxOneValue = value
+        if (this.state.checkBoxThree === false) {
+            this.setState({
+                checkBoxThree: !this.state.checkBoxThree,
+                checkBoxValue: value
+
+            })
+        } else {
+            this.setState({
+                checkBoxThree: !this.state.checkBoxThree,
+                checkBoxValue: ""
+
+            })
+        }
 
 
     }
@@ -219,7 +352,7 @@ export class UserList extends Component {
     pageChanges = async (newPage) => {
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -259,7 +392,7 @@ export class UserList extends Component {
         const detailsObj = { id };
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -268,7 +401,7 @@ export class UserList extends Component {
         try {
             let detailsUser = await axios.post(getUserWithStatus + 1, detailsObj, config);
             let pendingDetails = detailsUser.data.data;
-            console.log("pendingDetails", pendingDetails)
+            //console.log("pendingDetails", pendingDetails)
             //console.log("pendingDetails", pendingDetails.map(v=>v.roles.map(c=>c.grantedIPList === null)))
             this.setState({ details: pendingDetails });
         } catch (error) {
@@ -298,7 +431,7 @@ export class UserList extends Component {
         const deleteObj = { id, status: "D" };
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -336,7 +469,7 @@ export class UserList extends Component {
     onBack = async (e) => {
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -365,7 +498,7 @@ export class UserList extends Component {
 
 
     render() {
-        let { profileImage, flag, profileName } = this.state
+        let { profileImage, flag, profileName, checkBoxOne, checkBoxTwo, checkBoxThree, checkBoxValue, searchValue } = this.state
         return (
             <div className="container">
                 {/* Search bar  */}
@@ -389,52 +522,84 @@ export class UserList extends Component {
                     <br />
                 </div> */}
 
-                {/* <div className="row">
-                    <div className="imTwoWhite col-sm-12" style={{ padding: "25px" }}>
+                <div className="d-flex justify-content-center">
+                    <div className="card col" style={{ padding: "25px" }}>
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-search"></i> Search E-KYC
+                                <i class="fas fa-search"></i> Search User
                         </h5>
                         </div>
                         <div className="card-body d-flex justify-content-center">
                             <form className="col-sm-8">
                                 <div className="form-group " >
                                     <label htmlFor=""></label>
-                                    <input style={{ borderRadius: "50px" }} onChange={this.searchHandle} name="search" value={search} type="text" className="form-control" placeholder="Search by E-kyc Id / Nid / Name" />
+                                    <input style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by UserId / Status/ UserName " />
                                     <small className="text-muted pl-2">
                                         <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
                             </small>
                                 </div>
                                 <div className="form-group d-flex justify-content-center">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="id" />
-                                            Search By e-kyc id
-                                        </label>
-                                    </div>&nbsp;&nbsp;&nbsp;
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="nid" />
-                                            Search By Nid
-                                        </label>
-                                    </div>&nbsp;&nbsp;&nbsp;
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="name" />
-                                            Search By Name
-                                        </label>
-                                    </div>
+                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
 
+                                        <input
+                                            type="checkbox"
+                                            name=""
+                                            checked={checkBoxOne}
+                                            onChange={(e) => this.onCheckOneChange(e)}
+                                            className="custom-control-input"
+                                            style={{ marginRight: "5px" }}
+                                            value="id"
+                                            style={{ cursor: "pointer" }}
+                                            id="one"
+                                            disabled={checkBoxValue !== "" ? true : false}
+                                        />
+                                        <label className="custom-control-label" htmlFor="one">Search By User ID</label>
+
+                                    </div>
+                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
+
+                                        <input
+                                            type="checkbox"
+                                            name=""
+                                            checked={checkBoxTwo}
+                                            onChange={(e) => this.onCheckTwoChange(e)}
+                                            className="custom-control-input"
+                                            style={{ marginRight: "5px" }}
+                                            value="status"
+                                            style={{ cursor: "pointer" }}
+                                            id="two"
+                                            disabled={checkBoxValue !== "" ? true : false}
+                                        />
+                                        <label className="custom-control-label" htmlFor="two">Search By Status</label>
+
+                                    </div>
+                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
+
+                                        <input
+                                            type="checkbox"
+                                            name=""
+                                            checked={checkBoxThree}
+                                            onChange={(e) => this.onCheckThreeChange(e)}
+                                            className="custom-control-input"
+                                            style={{ marginRight: "5px" }}
+                                            value="roleName"
+                                            style={{ cursor: "pointer" }}
+                                            id="three"
+                                            disabled={checkBoxValue !== "" ? true : false}
+                                        />
+                                        <label className="custom-control-label" htmlFor="three">Search By User Name</label>
+
+                                    </div>
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                    <button className="b" onClick={this.doSearch} style={{ outline: "none" }} ><i class="fas fa-search"></i> Search</button>
+                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i class="fas fa-search"></i> Search</button>
                                 </div>
                             </form>
                         </div>
 
                     </div>
 
-                </div> */}
+                </div>
 
 
 
@@ -453,6 +618,7 @@ export class UserList extends Component {
                                 <i class="fas fa-list-ul"></i> User List
                         </h5>
                         </div>
+
                         <div className="card-body">
                             <div className="row d-flex justify-content-center">
                                 {

@@ -51,7 +51,10 @@ class Login extends Component {
            // console.log("loginapi ", userLogin.data);
 
             let loginSuccess = userLogin.data.data;
-            //console.log("login", loginSuccess)
+            console.log("login", loginSuccess.branchOrAgentPointCode);
+            let branchCode = loginSuccess.branchOrAgentPointCode;
+            sessionStorage.setItem('branchOrAgentPointCode', JSON.stringify(branchCode));
+            
 
             if (loginSuccess.loginToken) {
                 let loginToken = loginSuccess.loginToken;
@@ -75,13 +78,10 @@ class Login extends Component {
 
 
         } catch (err) {
-            let error = err.response;
-            console.log(err.response);
             if(err.response){
             let statusCode = err.response.data.statusCode;
             if (statusCode === 401) {
                 let errorMessage = "Invalid Credentials";
-                //alert(statusCode + ' ' + errorMessage);
                 NotificationManager.warning(statusCode + ' ' + errorMessage, "Error", 5000);
                 this.setState({
                     userId: '',
@@ -89,20 +89,22 @@ class Login extends Component {
                     channelLogin: false
                 });
             }  
-            } else {
-                let errorMessage = "Server Error";
-                //alert(statusCode + ' ' + errorMessage);
-                NotificationManager.error( errorMessage, "Error", 5000);
+            } else if (err.request) {
+                NotificationManager.error("Error Connecting...", "Error", 5000);
                 this.setState({
                     userId: '',
-                    password: ''
+                    password: '',
+                    channelLogin: false
+                });
+            }else if (err) {
+                NotificationManager.error(err.toString(), "Error", 5000);
+                this.setState({
+                    userId: '',
+                    password: '',
+                    channelLogin: false
                 });
             }
         }
-
-
-
-
 
         //============================= 
         //Redux work
