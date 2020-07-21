@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import Loading from "../utils/CustomLoding/Loading.js";
-import { nidValidationRPA } from '../../Url/ApiList';
-import Finger from "../images/fingerprintEC.svg";
-import FingerOk from ".././images/successPrint.svg";
-import Sign from '../images/man.svg';
+import Loading from "./utils/CustomLoding/Loading";
+import { nidValidationRPA } from '../Url/ApiList';
+import Sign from './images/man.svg';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 
-export class SimRPA extends Component {
-
+export class FaceRPAJoint extends Component {
     handleClick = async (e) => {
         let { nid, dob } = this.props.values;
         e.preventDefault();
@@ -82,8 +79,6 @@ export class SimRPA extends Component {
             this.props.handleState('isEnableFace', false);
             this.props.handleState('loading', false);
         } catch (error) {
-            // console.log(error.response);
-
             if (error.response) {
                 let message = error.response.data.message
                 NotificationManager.error(message, "Error", 5000);
@@ -105,7 +100,7 @@ export class SimRPA extends Component {
     continue = (e) => {
         e.preventDefault();
         const { nid, dob, ecImage } = this.props.values;
-
+      
         this.props.nextStep();
 
     }
@@ -114,108 +109,104 @@ export class SimRPA extends Component {
         e.preventDefault();
         this.props.prevStep();
     };
-
-
-
-
     render() {
         let { values, handleChange } = this.props;
         return (
             <div className="container">
-                <div className="row d-flex justify-content-center">
-                    <div className="col-sm-6 imTwoWhite p-5">
-                        <div className="divBg pt-3">
-                            <h4>NID Verification</h4>
+            <div className="row d-flex justify-content-center">
+                <div className="col-sm-6 imTwoWhite p-5">
+                    <div className="divBg pt-3">
+                        <h4>NID Verification</h4>
+                    </div>
+
+                    <form onSubmit={this.continue}>
+                        {/* <label htmlFor="nidNo">Nid No:</label><br />
+          <input type="text" id="nidNo" name="nidNo" value={this.state.nidNo} /><br /> */}
+                        <div className="form-group">
+                            <label htmlFor="">Nid No:</label>
+                            <input
+                                style={{ borderRadius: "50px" }}
+                                type="text"
+                                value={values.nid}
+                                name="nid"
+                                onChange={handleChange('nid')}
+                                className="form-control"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                                placeholder="Enter NID NO"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="">Date of Birth:</label>
+                            <input
+                                style={{ borderRadius: "50px" }}
+                                type="date"
+                                value={values.dob}
+                                name="dob"
+                                onChange={handleChange('dob')}
+                                className="form-control"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                                placeholder="Enter Applicant's Name"
+                            />
+                        </div>
+                        {/* <label htmlFor="dob">Date of Birth:</label><br />
+          <input type="date" id="dob" name="dob" onChange={this.onChange} value={this.state.dob} /><br /><br /> */}
+
+                        <div className="row d-flex justify-content-center">
+                            <div className="col animated zoomIn mt-2">
+                                {values.loading ? (
+                                    <div className="text-center">
+                                        <Loading />
+                                        <small className="text-muted">
+                                            <span style={{ color: "red", fontSize: "20px" }}>
+                                                *
+                            </span>
+                            Notice Taskbar For Fingerprint Application Icon
+                          </small>
+                                    </div>
+                                ) : (
+                                        <div className="imTwoWhite text-center">
+                                            <img
+                                                src={values.ecImage ? values.flag + values.ecImage : Sign}
+                                                style={{
+                                                    margin: "0 auto",
+                                                    width: "300px",
+                                                    height: "200px",
+                                                    border: "none",
+                                                }}
+                                                className="img-fluid img-thumbnail"
+                                                id="FrontNidPic"
+                                                alt=""
+                                            />
+                                        </div>
+                                    )}
+                            </div>
                         </div>
 
-                        <form onSubmit={this.continue}>
-                            {/* <label htmlFor="nidNo">Nid No:</label><br />
-              <input type="text" id="nidNo" name="nidNo" value={this.state.nidNo} /><br /> */}
-                            <div className="form-group">
-                                <label htmlFor="">Nid No:</label>
-                                <input
-                                    style={{ borderRadius: "50px" }}
-                                    type="text"
-                                    value={values.nid}
-                                    name="nid"
-                                    onChange={handleChange('nid')}
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Enter NID NO"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="">Date of Birth:</label>
-                                <input
-                                    style={{ borderRadius: "50px" }}
-                                    type="date"
-                                    value={values.dob}
-                                    name="dob"
-                                    onChange={handleChange('dob')}
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Enter Applicant's Name"
-                                />
-                            </div>
-                            {/* <label htmlFor="dob">Date of Birth:</label><br />
-              <input type="date" id="dob" name="dob" onChange={this.onChange} value={this.state.dob} /><br /><br /> */}
+                        <div
+                            // disabled={this.state.isEnable}
+                            className="imTwoWhite text-center mt-2"
+                            style={{ color: "green", cursor: "pointer", fontSize: "17px" }}
+                            onClick={this.handleClick}
+                        >
+                            <i className="fas fa-fingerprint" /> NID Verification
+                  </div>
 
-                            <div className="row d-flex justify-content-center">
-                                <div className="col animated zoomIn mt-2">
-                                    {values.loading ? (
-                                        <div className="text-center">
-                                            <Loading />
-                                            <small className="text-muted">
-                                                <span style={{ color: "red", fontSize: "20px" }}>
-                                                    *
-                                </span>
-                                Notice Taskbar For RPA
-                              </small>
-                                        </div>
-                                    ) : (
-                                            <div className="imTwoWhite text-center">
-                                                <img
-                                                    src={values.ecImage ? values.flag + values.ecImage : Sign}
-                                                    style={{
-                                                        margin: "0 auto",
-                                                        width: "300px",
-                                                        height: "200px",
-                                                        border: "none",
-                                                    }}
-                                                    className="img-fluid img-thumbnail"
-                                                    id="FrontNidPic"
-                                                    alt=""
-                                                />
-                                            </div>
-                                        )}
-                                </div>
-                            </div>
-
-                            <div
-                                // disabled={this.state.isEnable}
-                                className="imTwoWhite text-center mt-2"
-                                style={{ color: "green", cursor: "pointer", fontSize: "17px" }}
-                                onClick={this.handleClick}
-                            >
-                                <i className="fa fa-id-card" /> NID Verification
-                      </div>
-
-                            <div className="row d-flex justify-content-center mt-3">
-                                <span className="b mr-5" onClick={this.back}>
-                                    Back
-                        </span>
-                                <button type="button" style={{ outline: "none" }} className="b" onClick={this.continue}>
-                                    Next
-                        </button>
-                            </div>
-                        </form>
-                    </div>
+                        <div className="row d-flex justify-content-center mt-3">
+                            <span className="b mr-5" onClick={this.back}>
+                                Back
+                    </span>
+                            <button type="button" style={{outline:"none"}} className="b" onClick={this.continue}>
+                                Next
+                    </button>
+                        </div>
+                    </form>
                 </div>
             </div>
+        </div>
         )
     }
 }
 
-export default SimRPA;
+export default FaceRPAJoint;

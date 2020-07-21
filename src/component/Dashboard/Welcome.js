@@ -82,7 +82,7 @@ class Welcome extends Component {
         let path = this.props.match.path;
         let url = this.props.match.url;
         let { userProfileImage, flag, quickLinks, showLinks } = this.state
-        //console.log("quickLinks", quickLinks)
+        console.log("quickLinks", quickLinks)
         return (
             <div className="container">
 
@@ -132,104 +132,113 @@ class Welcome extends Component {
                                         vals !== undefined ? (
                                             <div className="" >
                                                 {
-                                                    vals.nested.map((nest, ind) => (
+                                                    vals.nested !== null ? (
                                                         <div>
+
                                                             {
-                                                                nest !== undefined && nest.items.isShowing === true ? (
-                                                                    <div className="">
-
+                                                                vals.nested.map((nest, ind) => (
+                                                                    <div>
                                                                         {
-                                                                            nest.nested ? (
-                                                                                <div>
-                                                                                    {/* <div className="neoBg d-flex justify-content-between mt-2">
-                                                                                        <Link>
-                                                                                            {nest.items.featureName}
-                                                                                        </Link>
-                                                                                        <i className="fas fa-angle-down"></i>
-                                                                                    </div> */}
+                                                                            nest !== undefined && nest !== null && nest.items.isShowing === true ? (
+                                                                                <div className="">
+            
                                                                                     {
-
-                                                                                        <div>
-                                                                                            {
-                                                                                                nest.nested.map((deepNest, ind) => (
-                                                                                                    deepNest !== undefined && deepNest.items.isShowing === true ? (
-                                                                                                        <div>
-                                                                                                            {
-                                                                                                                deepNest.items.key === "4.2.1" || deepNest.items.key === "4.2.2" ? (
-                                                                                                                    <div>
-                                                                                                                        {
-                                                                                                                            ind % 2 === 0 ? (
-                                                                                                                                <div className="sbtn d-flex justify-content-center mt-2" >
-
-                                                                                                                                    <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
-                                                                                                                                    to={`${url}${deepNest.items.path}`}
-                                                                                                                                    >
-                                                                                                                                        {deepNest.items.featureName}
-                                                                                                                                    </Link>
-                                                                                                                                </div>
-                                                                                                                            ) : (
-                                                                                                                                    <div className="sbtnx d-flex justify-content-center mt-2" >
-
-                                                                                                                                        <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
-                                                                                                                                        to={`${url}${deepNest.items.path}`}
-                                                                                                                                        >
-                                                                                                                                            {deepNest.items.featureName}
-                                                                                                                                        </Link>
-                                                                                                                                    </div>
-                                                                                                                                )
-                                                                                                                        }
-                                                                                                                    </div>
-                                                                                                                ) : ""
-                                                                                                            }
-
-                                                                                                        </div>
-
-                                                                                                    ) : ""
-                                                                                                ))
-                                                                                            }
-                                                                                        </div>
-
-
-
-
-
-                                                                                    }
-                                                                                </div>
-
-                                                                            ) :
-                                                                                (
-                                                                                    <div>
-                                                                                        {
-                                                                                            ind % 2 === 0 ? (
-                                                                                                <div className="sbtn d-flex justify-content-center mt-2" >
-
-                                                                                                    <Link 
-                                                                                                    style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
-                                                                                                    to={`${url}${nest.items.path}`}
-                                                                                                    >
+                                                                                        nest.nested ? (
+                                                                                            <div>
+                                                                                                {/* <div className="neoBg d-flex justify-content-between mt-2">
+                                                                                                    <Link>
                                                                                                         {nest.items.featureName}
                                                                                                     </Link>
-                                                                                                </div>
-                                                                                            ) : (
-                                                                                                    <div className="sbtnx d-flex justify-content-center mt-2" >
-
-                                                                                                        <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
-                                                                                                        to={`${url}${nest.items.path}`}
-                                                                                                        >
-                                                                                                            {nest.items.featureName}
-                                                                                                        </Link>
+                                                                                                    <i className="fas fa-angle-down"></i>
+                                                                                                </div> */}
+                                                                                                {
+            
+                                                                                                    <div>
+                                                                                                        {
+                                                                                                            nest.nested.map((deepNest, ind) => (
+                                                                                                                deepNest !== undefined && deepNest.items.isShowing === true ? (
+                                                                                                                    <div>
+                                                                                                                        {
+                                                                                                                            deepNest.items.key === "4.2.1" || deepNest.items.key === "4.2.2" ? (
+                                                                                                                                <div>
+                                                                                                                                    {
+                                                                                                                                        ind % 2 === 0 ? (
+                                                                                                                                            <div className="sbtn d-flex justify-content-center mt-2" >
+            
+                                                                                                                                                <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                                                                to={`${url}${deepNest.items.path}`}
+                                                                                                                                                >
+                                                                                                                                                    {deepNest.items.featureName}
+                                                                                                                                                </Link>
+                                                                                                                                            </div>
+                                                                                                                                        ) : (
+                                                                                                                                                <div className="sbtnx d-flex justify-content-center mt-2" >
+            
+                                                                                                                                                    <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                                                                    to={`${url}${deepNest.items.path}`}
+                                                                                                                                                    >
+                                                                                                                                                        {deepNest.items.featureName}
+                                                                                                                                                    </Link>
+                                                                                                                                                </div>
+                                                                                                                                            )
+                                                                                                                                    }
+                                                                                                                                </div>
+                                                                                                                            ) : ""
+                                                                                                                        }
+            
+                                                                                                                    </div>
+            
+                                                                                                                ) : ""
+                                                                                                            ))
+                                                                                                        }
                                                                                                     </div>
-                                                                                                )
-                                                                                        }
-                                                                                    </div>
-
-                                                                                )
+            
+            
+            
+            
+            
+                                                                                                }
+                                                                                            </div>
+            
+                                                                                        ) :
+                                                                                            (
+                                                                                                <div>
+                                                                                                    {
+                                                                                                        ind % 2 === 0 ? (
+                                                                                                            <div className="sbtn d-flex justify-content-center mt-2" >
+            
+                                                                                                                <Link 
+                                                                                                                style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                                to={`${url}${nest.items.path}`}
+                                                                                                                >
+                                                                                                                    {nest.items.featureName}
+                                                                                                                </Link>
+                                                                                                            </div>
+                                                                                                        ) : (
+                                                                                                                <div className="sbtnx d-flex justify-content-center mt-2" >
+            
+                                                                                                                    <Link style={{ color: "white", fontSize: "12px", textDecoration: "none" }}
+                                                                                                                    to={`${url}${nest.items.path}`}
+                                                                                                                    >
+                                                                                                                        {nest.items.featureName}
+                                                                                                                    </Link>
+                                                                                                                </div>
+                                                                                                            )
+                                                                                                    }
+                                                                                                </div>
+            
+                                                                                            )
+                                                                                    }
+                                                                                </div>
+                                                                            ) : ""
                                                                         }
                                                                     </div>
-                                                                ) : ""
+                                                                ))
                                                             }
+
                                                         </div>
-                                                    ))
+                                                    ):""
+                                                    
                                                 }
 
                                             </div>
