@@ -105,6 +105,7 @@ class CreateUser extends Component {
         e.preventDefault();
         const { userId,channelName, name, password, mobile, email, roles, pinAuthStatus } = this.state;
         let regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
+        let mobileCheck= /^(?:\+88|88)?(01[3-9]\d{8})$/;
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
@@ -185,6 +186,12 @@ class CreateUser extends Component {
             return;
         } else if (mobile.length <= 10) {
             let mobileLengthMessage = "Mobile Number must be 11 digits long";
+            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            return;
+        }
+
+        if( mobileCheck.test(mobile) === false){
+            let mobileLengthMessage = "Invalid Mobile Number";
             NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
             return;
         }

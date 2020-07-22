@@ -227,6 +227,7 @@ class UpdateUser extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         const { id, userId, channelName, name, mobile, email, pinAuthStatus, checking, roles } = this.state;
+        let mobileCheck= /^(?:\+88|88)?(01[3-9]\d{8})$/;
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
@@ -254,12 +255,22 @@ class UpdateUser extends Component {
             return;
         }
 
-        if (mobile.length < 11) {
+        if (mobile.length > 11) {
+            let mobileLengthMessage = "Mobile Number must be 11 digits long";
+            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            return;
+        } else if (mobile.length <= 10) {
             let mobileLengthMessage = "Mobile Number must be 11 digits long";
             NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
             return;
         }
 
+
+        if( mobileCheck.test(mobile) === false){
+            let mobileLengthMessage = "Invalid Mobile Number";
+            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            return;
+        }
 
         if (email === "") {
             let emailMessage = "Please Provide Email Address";
