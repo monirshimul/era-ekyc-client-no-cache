@@ -117,7 +117,7 @@ class Welcome extends Component {
 
                 <div className="row d-flex justify-content-around align-items-center">
 
-                    <div className="col-sm-5 im d-flex justify-content-center" style={{padding:"14px"}}>
+                    <div className="col-sm-1 neoBg d-flex justify-content-center" style={{padding:"13px"}}>
 
                         <img src={userProfileImage ? flag + userProfileImage : profileImage}
                             alt="profile_img"
@@ -132,7 +132,7 @@ class Welcome extends Component {
                         />
 
                     </div>
-                    <div className="col-sm-6 d-flex justify-content-center align-items-center im" style={{paddingTop:"20px", color:"green"}}>
+                    <div className="col-sm-10 d-flex justify-content-center align-items-center im" style={{paddingTop:"20px", color:"green"}}>
                         <div className="text-center">
                             <h5>Choose Your Branch Code  :&nbsp;&nbsp;&nbsp;</h5>
                         </div>
