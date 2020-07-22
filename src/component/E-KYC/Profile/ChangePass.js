@@ -21,6 +21,7 @@ class ChangePass extends Component {
 
         const {oldPassword, newPassword, confirmPassword} = this.state;
 
+        let regex= new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
 
 
         if(oldPassword === ''){
@@ -29,15 +30,52 @@ class ChangePass extends Component {
             return;
         }
 
+        if(oldPassword.length < 8){
+            let passlenMessage = " Old Password length minimum 8 characters";
+            NotificationManager.warning(passlenMessage, "Warning", 5000);
+            return;
+        }
+
+        if(regex.exec(oldPassword) === null){
+            let passRegMessage = "Old Password must have capital letter, special character and digits";
+            NotificationManager.warning(passRegMessage, "Warning", 5000);
+            return;
+        }
+
+
         if(newPassword === ''){
             let msg2="Please Provide New Password";
             NotificationManager.warning(msg2, "Warning", 5000);
             return;
         }
 
+        if(newPassword.length < 8){
+            let passlenMessage = "New Password length minimum 8 characters";
+            NotificationManager.warning(passlenMessage, "Warning", 5000);
+            return;
+        }
+
+        if(regex.exec(newPassword) === null){
+            let passRegMessage = "New Password must have capital letter, special character and digits";
+            NotificationManager.warning(passRegMessage, "Warning", 5000);
+            return;
+        }
+
         if(confirmPassword === ''){
             let msg3 ="Please Provide Confirm Password";
             NotificationManager.warning(msg3, "Warning", 5000);
+            return;
+        }
+
+        if(confirmPassword.length < 8){
+            let passlenMessage = "Confirm Password length minimum 8 characters";
+            NotificationManager.warning(passlenMessage, "Warning", 5000);
+            return;
+        }
+
+        if(regex.exec(confirmPassword) === null){
+            let passRegMessage = "Confirm Password must have capital letter, special character and digits";
+            NotificationManager.warning(passRegMessage, "Warning", 5000);
             return;
         }
 

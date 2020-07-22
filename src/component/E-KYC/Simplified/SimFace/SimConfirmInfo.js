@@ -192,13 +192,14 @@ export class SimConfirmInfo extends Component {
             this.props.handleState('confirmFlag', false);
             console.log("confirm response",res.data);
             let resData = res.data;
-            if(resData.data.channelResponse.accountNo){
-                let accountNumber = resData.data.channelResponse.accountNo;
-                this.props.handleState('accountNo', accountNumber);
-            }else{
-                let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
-                this.props.handleState('accountNo', message);
-            }
+            this.props.handleState('accountNo', res.data.data);
+            // if(resData.data.channelResponse.accountNo){
+            //     let accountNumber = resData.data.channelResponse.accountNo;
+            //     this.props.handleState('accountNo', accountNumber);
+            // }else{
+            //     let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
+            //     this.props.handleState('accountMessage', message);
+            // }
             let statusCode = resData.statusCode;
             let successMessage = "Account Opening " + resData.message;
             NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);

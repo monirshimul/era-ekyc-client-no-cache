@@ -86,6 +86,7 @@ class CreateUser extends Component {
 
     onAddingItem = (item) => {
         const isChecked = item.target.checked;
+        console.log("isCHECKED", isChecked);
         const value = item.target.value;
 
         this.setState(prevState => ({ role_list: prevState.role_list.map(roll => roll.roleName === value ? { ...roll, isAdded: isChecked } : roll) }));
@@ -103,6 +104,7 @@ class CreateUser extends Component {
     onSubmit = async (e) => {
         e.preventDefault();
         const { userId,channelName, name, password, mobile, email, roles, pinAuthStatus } = this.state;
+        let regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
@@ -156,6 +158,18 @@ class CreateUser extends Component {
         if (password === "") {
             let passMessage = "Please Provide your Password";
             NotificationManager.warning(passMessage, "Warning", 5000);
+            return;
+        }
+
+        if(password.length < 8){
+            let passlenMessage = "Password length minimum 8 characters";
+            NotificationManager.warning(passlenMessage, "Warning", 5000);
+            return;
+        }
+
+        if(regex.exec(password) === null){
+            let passRegMessage = "Password must have capital letter, special character and digits";
+            NotificationManager.warning(passRegMessage, "Warning", 5000);
             return;
         }
 
