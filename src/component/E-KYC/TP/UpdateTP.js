@@ -31,7 +31,7 @@ export class UpdateTP extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     async componentDidMount() {
-        console.log(this.props.location.state);
+       // console.log(this.props.location.state);
         let getId = this.props.location.state;
 
         const getObj = { id: getId }
@@ -62,7 +62,7 @@ export class UpdateTP extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -117,7 +117,7 @@ export class UpdateTP extends Component {
 
         try {
             const validationValue = await this.schema.validateAsync(joiObj);
-            console.log("validationValue", validationValue)
+            //console.log("validationValue", validationValue)
             let tpData = await axios.put(updateTPAPI, obj, config);
             //console.log("tpData", tpData.data);
             let tpDataStatus = tpData.data.statusCode;
@@ -130,7 +130,7 @@ export class UpdateTP extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+              //  console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

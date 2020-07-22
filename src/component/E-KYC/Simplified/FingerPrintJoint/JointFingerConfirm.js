@@ -24,7 +24,7 @@ export class JointFingerConfirm extends Component {
         const { values } = this.props;
         e.preventDefault();
         //Process form//
-        console.log(values.applicantEkycId);
+        //console.log(values.applicantEkycId);
         if (values.applicantEkycId === '') {
 
 
@@ -170,7 +170,7 @@ export class JointFingerConfirm extends Component {
                 rIndex: values.rIndex
             }
 
-            console.log("Finger Obj===========>", fingerObj)
+           // console.log("Finger Obj===========>", fingerObj)
 
             let confirmObj = {
                 account: accountInfo,
@@ -181,7 +181,7 @@ export class JointFingerConfirm extends Component {
                 nominees: nomineesInfo,
                 fingerprint: fingerObj
             }
-            console.log("Confirm obj", confirmObj);
+            //console.log("Confirm obj", confirmObj);
 
             const config = {
                 headers: {
@@ -195,7 +195,7 @@ export class JointFingerConfirm extends Component {
 
                 this.props.handleState('confirmFlag', true);
                 let responseFirst = await axios.post(simplifiedJointAPI, confirmObj, config);
-                console.log("responseforFIRST", responseFirst.data);
+                //console.log("responseforFIRST", responseFirst.data);
                 this.props.handleState('confirmFlag', false);
                 let data = responseFirst.data;
                 let statusCode = data.statusCode;
@@ -203,7 +203,6 @@ export class JointFingerConfirm extends Component {
 
                 let resAccountId = responseFirst.data.data.accountId;
                 this.props.handleState('applicantEkycId', resAccountId);
-                //  localStorage.setItem("accountId", JSON.stringify(resAccountId));
                 sessionStorage.setItem("accountId", JSON.stringify(resAccountId));
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
                 this.props.nextStep();
@@ -213,10 +212,10 @@ export class JointFingerConfirm extends Component {
                 this.props.handleState('confirmFlag', false);
                 if (error.response) {
                     let message = error.response.data.message
-                    console.log("Error", error.response)
+                   // console.log("Error", error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                    //console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -367,7 +366,7 @@ export class JointFingerConfirm extends Component {
                 fingerprint: fingerObj
             }
 
-            console.log('SecondApi', confirmObjSecond);
+            //console.log('SecondApi', confirmObjSecond);
 
             const config = {
                 headers: {
@@ -381,7 +380,7 @@ export class JointFingerConfirm extends Component {
                 this.props.handleState('confirmFlag', true);
                 let resJointAdded = await axios.post(simplifiedJointAddAPI, confirmObjSecond, config);
                 this.props.handleState('confirmFlag', false);
-                console.log(resJointAdded.data);
+               // console.log(resJointAdded.data);
 
                 let respStatus = resJointAdded.data.statusCode;
                 let respMessage = resJointAdded.data.message;
@@ -392,10 +391,10 @@ export class JointFingerConfirm extends Component {
                 this.props.handleState('confirmFlag', false);
                 if (error.response) {
                     let message = error.response.data.message
-                    console.log("Error", error.response)
+                   // console.log("Error", error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                  //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);

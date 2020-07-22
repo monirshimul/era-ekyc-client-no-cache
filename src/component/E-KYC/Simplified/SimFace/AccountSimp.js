@@ -47,7 +47,7 @@ export class AccountSimp extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -129,7 +129,7 @@ export class AccountSimp extends Component {
 
         try {
             let dec = await axios.post(getEkycType, obj, config);
-            console.log("decisionData", dec.data);
+            //console.log("decisionData", dec.data);
             this.setState({ SimReg: dec.data.data.ekycType })
             let typeEkyc = dec.data.data.ekycType;
             let statusCode = dec.data.statusCode;
@@ -145,7 +145,7 @@ export class AccountSimp extends Component {
             sessionStorage.setItem("accountInfo", JSON.stringify(myObj));
            
             let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
-            console.log("feature is true or not ", featureTest.includes('5.1'))
+           // console.log("feature is true or not ", featureTest.includes('5.1'))
 
             if (accountType === 'S' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
                 NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
@@ -168,11 +168,11 @@ export class AccountSimp extends Component {
                      NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
             }
             else if (error.request) {
-                console.log(error.request);
+               // console.log(error.request);
                 NotificationManager.error("Error Connecting", "Error", 5000);
             }
             else {
-                console.log("Error", error.message);
+               // console.log("Error", error.message);
                 NotificationManager.error(error.message, "Error", 5000);
             }
         }

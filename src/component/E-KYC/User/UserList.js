@@ -66,7 +66,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -158,7 +158,7 @@ export class UserList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                  //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -185,7 +185,7 @@ export class UserList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                  //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -212,7 +212,7 @@ export class UserList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                  //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -319,11 +319,11 @@ export class UserList extends Component {
         const { pages, totalPages } = this.state;
         let nextPage = this.state.pages + 1;
         this.setState({ pages: nextPage })
-        console.log(nextPage);
+        //console.log(nextPage);
         if (nextPage > 0 && nextPage <= totalPages) {
             this.pageChanges(nextPage);
         } else {
-            console.log('Page out of bound');
+            //console.log('Page out of bound');
             let pageOutBoundMessage = 'Page out of bound';
             NotificationManager.warning(pageOutBoundMessage, "Warning", 5000);
 
@@ -336,11 +336,11 @@ export class UserList extends Component {
 
         let nextPage = this.state.pages - 1;
         this.setState({ pages: nextPage })
-        console.log(nextPage);
+       // console.log(nextPage);
         if (nextPage > 0 && nextPage <= totalPages) {
             this.pageChanges(nextPage);
         } else {
-            console.log('Page out of bound');
+            //console.log('Page out of bound');
             //alert('Page out of bound');
             let pageOutBoundMessage = 'Page out of bound';
             NotificationManager.warning(pageOutBoundMessage, "Warning", 5000);
@@ -359,7 +359,7 @@ export class UserList extends Component {
         };
         try {
             let paginationUser = await axios.post(getAllUser + newPage, config);
-            console.log("pagination pages", paginationUser.data.data.users);
+           // console.log("pagination pages", paginationUser.data.data.users);
             let paginUser = paginationUser.data.data;
             let numPages = paginUser.totalPages;
             let numUsers = paginUser.totalUsers;
@@ -372,7 +372,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -410,7 +410,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -442,7 +442,7 @@ export class UserList extends Component {
             this.setState({
                 deleteToggle: !this.state.deleteToggle
             })
-            console.log(delUser.data);
+            //console.log(delUser.data);
             let statusCode = delUser.data.statusCode;
             let delMessage = "Delete " + delUser.data.message;
             //alert(statusCode + ' ' + message);
@@ -455,7 +455,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+                //console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -484,7 +484,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

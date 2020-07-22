@@ -80,7 +80,7 @@ export class NidImage extends Component {
         this.props.handleState("NidFrontType", file.type);
       };
       reader.onerror = () => {
-        console.log("there are some problems");
+        //console.log("there are some problems");
         alert("File can not be read");
       };
     }
@@ -91,7 +91,7 @@ export class NidImage extends Component {
     if (event.target.files[0]) {
       let file = event.target.files[0];
       this.props.handleState("NidBackOcr", event.target.files[0]);
-      console.log(file.type);
+      //console.log(file.type);
       var reader = new FileReader();
       reader.readAsBinaryString(file);
 
@@ -103,7 +103,7 @@ export class NidImage extends Component {
         this.props.handleState("NidBackType", file.type);
       };
       reader.onerror = () => {
-        console.log("there are some problems");
+        //console.log("there are some problems");
         alert("File can not be read");
       };
     }

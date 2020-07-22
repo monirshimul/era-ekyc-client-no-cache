@@ -40,8 +40,8 @@ export class SimCaptureImage extends Component {
       }
 
       let resValidation = await axios.post(faceValidate, imgData, token);
-      console.log("resValidation", resValidation.data.data.faceVerificationResult)
-      console.log("ver-token", resValidation.data.data.verificationToken)
+      //console.log("resValidation", resValidation.data.data.faceVerificationResult)
+      //console.log("ver-token", resValidation.data.data.verificationToken)
       if (resValidation.data.data.faceVerificationResult.status) {
 
       }
@@ -71,7 +71,7 @@ export class SimCaptureImage extends Component {
         //console.log("Error",error.response)
         NotificationManager.error(message, "Error", 5000);
     } else if (error.request) {
-        console.log("Error Connecting...", error.request)
+        //console.log("Error Connecting...", error.request)
         NotificationManager.error("Error Connecting...", "Error", 5000);
     } else if (error) {
         NotificationManager.error(error.toString(), "Error", 5000);

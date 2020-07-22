@@ -91,7 +91,7 @@ class ChangePass extends Component {
             newPassword
         }
 
-        console.log(obj);
+        //console.log(obj);
 
         //Header set
         const config =  {

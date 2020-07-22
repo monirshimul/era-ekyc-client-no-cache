@@ -71,7 +71,7 @@ export class SimSignature extends Component {
                 this.props.handleState('signatureType', file.type)
             };
             reader.onerror = () => {
-                console.log('there are some problems');
+                //console.log('there are some problems');
                 alert('File can not be read');
             };
         }

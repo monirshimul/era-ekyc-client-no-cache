@@ -7,7 +7,7 @@ class ShowMore extends Component {
     }
 
     componentDidMount() {
-        console.log("All data", this.state.ekyc)
+       // console.log("All data", this.state.ekyc)
     }
 
     backEkyc = () => {

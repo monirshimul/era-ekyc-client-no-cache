@@ -95,7 +95,7 @@ export class SimPersonalDetails extends Component {
                 unionName: values.perUnionOrWardEn
             }  
 
-            //console.log('present', presentObj);
+            
 
             const config = {
                 headers: {

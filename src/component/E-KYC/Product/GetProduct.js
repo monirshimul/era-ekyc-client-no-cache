@@ -18,7 +18,7 @@ class GetProduct extends Component {
         };
         try {
             let getProductRes = await axios.post(getProduct, null, config)
-            console.log('getProductRes', getProductRes.data.data)
+            //console.log('getProductRes', getProductRes.data.data)
             this.setState({
                 productData: getProductRes.data.data
             })
@@ -28,7 +28,7 @@ class GetProduct extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -53,11 +53,11 @@ class GetProduct extends Component {
 
         try {
             let updateRes = await axios.post(getProduct, idObj, config)
-            console.log('updateRes', updateRes.data.data)
+           // console.log('updateRes', updateRes.data.data)
             let updateData = {
                 data: updateRes.data.data
             }
-            console.log(updateData)
+           // console.log(updateData)
             this.props.history.push('/dashboard/product-update', updateData);
         } catch (error) {
             if (error.response) {
@@ -65,7 +65,7 @@ class GetProduct extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+              //  console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -96,7 +96,7 @@ class GetProduct extends Component {
                         id: id
                     }
                 })
-                console.log('updateRes', deleteRes)
+               // console.log('updateRes', deleteRes)
                 NotificationManager.warning("Product Deleted", "Warning", 5000);
                 let getProductRes = await axios.post(getProduct, null, config)
                 this.setState({
@@ -118,7 +118,7 @@ class GetProduct extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

@@ -53,12 +53,12 @@ class CreateProduct extends Component {
         try {
 
             const validationValue = await schema.validateAsync(joiData);
-            console.log("validationValue", validationValue)
+            //console.log("validationValue", validationValue)
 
             let productCreateRes = await axios.post(createProduct, obj, config);
-            console.log("productCreateRes", productCreateRes)
+           // console.log("productCreateRes", productCreateRes)
             NotificationManager.success("Product Successfully Created", "Success", 5000);
-            localStorage.setItem("productInfo", JSON.stringify(obj));
+            //localStorage.setItem("productInfo", JSON.stringify(obj));
             //this.props.history.replace('/dashboard/product-list');
             this.setState({
                 productName: "",
@@ -74,7 +74,7 @@ class CreateProduct extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

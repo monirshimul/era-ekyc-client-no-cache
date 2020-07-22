@@ -83,7 +83,7 @@ export class PersonalDetails extends Component {
             this.props.nextStep();
         } catch (error) {
             NotificationManager.error(error.toString(), "Error", 5000);
-            console.log("error====>", error.response)
+            //console.log("error====>", error.response)
         }
 
         if(values.channelName === 'ABS'){
@@ -129,25 +129,15 @@ export class PersonalDetails extends Component {
             this.props.handleState('perUpozilaCode',permanentZoneResp.UPAZILA_CODE);
             this.props.handleState('perUnionOrWardCode',permanentZoneResp.UNION_CODE);
 
-            if(values.perDistrictCode === "" || values.perUpozilaCode === "" || values.perUnionOrWardCode ===""){
-                let perMessage = "Please check Permanent Address districtName,upozilaName and unionName";
-                NotificationManager.warning(perMessage , "Warning", 5000);
-                return;
-            }
-            if(values.preDistrictCode === "" || values.preUpozilaCode === "" || values.preUnionOrWardCode ===""){
+            if(permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE ===""){
                 let preMessage =  "Please check Present Address districtName,upozilaName and unionName";
-                NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);
+                NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);     
                 return;
             }
-           
-            if(values.perDistrictEn === "" || values.perUpozilaEn === "" || values.perUnionOrWardEn ===""){
-                let perMessage = permanentZoneResp.RESPONSE_MSG;
-                NotificationManager.warning("Permanent Address - "+perMessage , "Warning", 5000);
-                return;
-            }
-            if(values.preDistrictEn === "" || values.preUpozilaEn === "" || values.preUnionOrWardEn ===""){
-                let preMessage = presentZoneResp.RESPONSE_MSG;
-                NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);
+
+            if(presentZoneResp.DISTRICT_CODE === "" || presentZoneResp.UPAZILA_CODE === "" || presentZoneResp.UNION_CODE ===""){
+                let preMessage =  "Please check Present Address districtName,upozilaName and unionName";
+                NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);     
                 return;
             }
 

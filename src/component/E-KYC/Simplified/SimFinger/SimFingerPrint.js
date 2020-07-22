@@ -68,7 +68,7 @@ export class SimFingerPrint extends Component {
       .catch((err) => {
         if (err.response) {
           if (err.response.status === 400 || err.response.status === 401) {
-            console.log(err.response.data);
+           // console.log(err.response.data);
             alert(err.response.data.message);
             this.props.handleState('isEnableFinger', false);
           } else if (err.response.status === 404) {
@@ -79,7 +79,7 @@ export class SimFingerPrint extends Component {
             this.props.handleState('isEnableFinger', false);
           }
         } else if (err.request) {
-          console.log(err.request);
+          //console.log(err.request);
           alert("Error Connectiong");
           this.props.handleState('isEnableFinger', false);
         } else {
@@ -230,7 +230,7 @@ export class SimFingerPrint extends Component {
         //console.log("Error",error.response)
         NotificationManager.error(message, "Error", 5000);
       } else if (error.request) {
-        console.log("Error Connecting...", error.request)
+        //console.log("Error Connecting...", error.request)
         NotificationManager.error("Error Connecting...", "Error", 5000);
       } else if (error) {
         NotificationManager.error(error.toString(), "Error", 5000);

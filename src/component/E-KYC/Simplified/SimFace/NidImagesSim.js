@@ -86,7 +86,7 @@ export class NidImagesSim extends Component {
             this.props.handleState("NidFrontType", file.type);
           };
           reader.onerror = () => {
-            console.log("there are some problems");
+           // console.log("there are some problems");
             alert("File can not be read");
           };
         }
@@ -97,7 +97,7 @@ export class NidImagesSim extends Component {
         if (event.target.files[0]) {
           let file = event.target.files[0];
           this.props.handleState("NidBackOcr", event.target.files[0]);
-          console.log(file.type);
+         // console.log(file.type);
           var reader = new FileReader();
           reader.readAsBinaryString(file);
     
@@ -145,7 +145,7 @@ export class NidImagesSim extends Component {
           formData.append("backPart", values.NidBackOcr);
           formData.append("api_pass", "updateimage");
           let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
-          console.log("NIDdATA",nidData.data);
+         // console.log("NIDdATA",nidData.data);
           // this.setState({
           //  allData:nidData.data,
           //   loading: false

@@ -60,7 +60,7 @@ export class DynamicComp extends Component {
         try {
             this.setState({ loadingFlag: true });
             let completeApi = await axios.post(simplifiedJointConfirmAPI, obj, config);
-            console.log(completeApi.data);
+            //console.log(completeApi.data);
             this.setState({ loadingFlag: false });
             let statusCode = completeApi.data.statusCode;
             let successMessage = completeApi.data.message;
@@ -75,7 +75,7 @@ export class DynamicComp extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+                //console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -148,7 +148,7 @@ export class DynamicComp extends Component {
     render() {
         //console.log("stable", this.state.applicantId);
         let { showHide, bioShow, finishAdd } = this.state
-        console.log(this.state.jointArray.length)
+        //console.log(this.state.jointArray.length)
         return (
             <div className="container" >
 

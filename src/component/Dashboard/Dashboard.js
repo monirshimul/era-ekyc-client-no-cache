@@ -88,7 +88,7 @@ class Dashboard extends Component {
     //const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem("profile")));
 
     async componentDidMount() {
-        console.log("componentDidMount Called==============")
+       // console.log("componentDidMount Called==============")
 
         this.feature = JSON.parse(sessionStorage.getItem("featureList"))
 
@@ -127,7 +127,7 @@ class Dashboard extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -199,7 +199,7 @@ class Dashboard extends Component {
         try {
             // console.log("config", config);
             let res = await axios.post(logoutUser, null, config);
-            console.log(res.data);
+            //console.log(res.data);
             sessionStorage.clear();
             localStorage.clear();
             this.setState({

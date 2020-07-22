@@ -77,12 +77,12 @@ class UpdateProduct extends Component {
         try {
 
             const validationValue = await schema.validateAsync(joiData);
-            console.log("validationValue", validationValue)
+           // console.log("validationValue", validationValue)
 
             let productUpdateRes = await axios.put(createProduct, obj, config);
-            console.log("productCreateRes", productUpdateRes)
+            //console.log("productCreateRes", productUpdateRes)
             NotificationManager.success("Product Successfully Updated", "Success", 5000);
-            localStorage.setItem("productInfo", JSON.stringify(obj));
+           // localStorage.setItem("productInfo", JSON.stringify(obj));
             this.props.history.replace('/dashboard/product-list');
 
         } catch (error) {
@@ -91,7 +91,7 @@ class UpdateProduct extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

@@ -34,7 +34,7 @@ export class SimRPA extends Component {
 
         try {
             let rpaData = await axios.post(nidValidationRPA, obj, config);
-            console.log(rpaData.data);
+            //console.log(rpaData.data);
             let responseData = rpaData.data.data;
             if (rpaData.data.data) {
                 let dataResp = rpaData.data.data;
@@ -94,7 +94,7 @@ export class SimRPA extends Component {
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);

@@ -24,7 +24,7 @@ export class Confirm extends Component {
         const { values } = this.props;
         e.preventDefault();
         //Process form//
-        console.log(values.applicantEkycId);
+        //console.log(values.applicantEkycId);
         if (values.applicantEkycId === '') {
 
             let branchOrAgentPointCode = sessionStorage.getItem("currentBranchOrAgentPointCode")|| "2";
@@ -175,7 +175,7 @@ export class Confirm extends Component {
                 applicantPermanentAddress: applicantPermanentInfo,
                 nominees: nomineesInfo
             }
-            console.log("Confirm obj", confirmObj);
+            //console.log("Confirm obj", confirmObj);
 
             const config = {
                 headers: {
@@ -184,13 +184,13 @@ export class Confirm extends Component {
 
                 }
             };
-            console.log(config)
+            
 
             try {
                 this.props.handleState('confirmFlag', true);
                 let responseFirst = await axios.post(simplifiedJointAPI, confirmObj, config);
                 this.props.handleState('confirmFlag', false);
-                console.log("responseforFIRST", responseFirst.data);
+                //console.log("responseforFIRST", responseFirst.data);
                 let data = responseFirst.data;
                 let statusCode = data.statusCode;
                 let successMessage = data.message;
@@ -206,10 +206,10 @@ export class Confirm extends Component {
                 this.props.handleState('confirmFlag', false);
                 if (error.response) {
                     let message = error.response.data.message
-                    console.log("Error",error.response)
+                   // console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                   // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -358,7 +358,7 @@ export class Confirm extends Component {
                 nominees: nomineesInfo
             }
 
-            console.log('SecondApi', confirmObjSecond);
+            //console.log('SecondApi', confirmObjSecond);
 
             const config = {
                 headers: {
@@ -372,7 +372,7 @@ export class Confirm extends Component {
                 this.props.handleState('confirmFlag', true);
                 let resJointAdded = await axios.post(simplifiedJointAddAPI, confirmObjSecond, config);
                 this.props.handleState('confirmFlag', false);
-                console.log(resJointAdded.data);
+               // console.log(resJointAdded.data);
 
                 let respStatus = resJointAdded.data.statusCode;
                 let respMessage = resJointAdded.data.message;
@@ -383,10 +383,10 @@ export class Confirm extends Component {
                 this.props.handleState('confirmFlag', false);
                 if (error.response) {
                     let message = error.response.data.message
-                    console.log("Error",error.response)
+                   // console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                   // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);

@@ -82,12 +82,12 @@ class CreateRole extends Component {
             };
 
             const validationValue = await schema.validateAsync(data);
-            console.log("validationValue", validationValue)
+          //  console.log("validationValue", validationValue)
 
             //console.log("Create Role Data", data)
             //let url = 'http://127.0.0.1:3001/role/';
             let res = await axios.post(createRole, data, config)
-            console.log("response", res.data)
+            //console.log("response", res.data)
 
             // localStorage.setItem("Role Data", JSON.stringify(data))
             NotificationManager.success("Role Created", "Success", 5000);
@@ -100,7 +100,7 @@ class CreateRole extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

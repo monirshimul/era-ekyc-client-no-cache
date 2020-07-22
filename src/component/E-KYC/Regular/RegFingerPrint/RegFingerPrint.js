@@ -68,7 +68,7 @@ export class RegFingerPrint extends Component {
           .catch((err) => {
             if (err.response) {
               if (err.response.status === 400 || err.response.status === 401) {
-                console.log(err.response.data);
+               // console.log(err.response.data);
                 alert(err.response.data.message);
                  this.props.handleState('isEnableFinger', false);
               } else if (err.response.status === 404) {

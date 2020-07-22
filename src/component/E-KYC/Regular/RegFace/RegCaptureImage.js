@@ -37,8 +37,8 @@ export class RegCaptureImage extends Component {
           }
     
           let resValidation = await axios.post(faceValidate, imgData, token);
-          console.log("resValidation", resValidation.data.data.faceVerificationResult)
-          console.log("ver-token", resValidation.data.data.verificationToken)
+         // console.log("resValidation", resValidation.data.data.faceVerificationResult)
+          //console.log("ver-token", resValidation.data.data.verificationToken)
           if (resValidation.data.data.faceVerificationResult.status) {
     
           }
@@ -65,7 +65,7 @@ export class RegCaptureImage extends Component {
         } catch (error) {
           let { message } = error.response.data
           let { statusCode } = error.response.data
-          console.log("error.response", error.response.data)
+          //console.log("error.response", error.response.data)
           NotificationManager.error(statusCode + ',' + message, "Error", 5000);
     
         }

@@ -28,7 +28,7 @@ export class RegRiskGrading extends Component {
             hasSourceOfFunds:values.hasSourceOfFunds
         }
 
-        console.log("riskGradingRegular", obj);
+       // console.log("riskGradingRegular", obj);
 
         try {
 

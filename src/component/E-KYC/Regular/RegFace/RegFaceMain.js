@@ -173,7 +173,7 @@ handleInputChange = (index, event) => {
                 copyArray[index].photograph = base64Image;
             };
             reader.onerror = () => {
-                console.log('there are some problems');
+              //  console.log('there are some problems');
                 alert('File can not be read');
             };
         }
@@ -192,7 +192,7 @@ handleInputChange = (index, event) => {
                 copyArray[index].minorNomineePhoto = base64Image;
             };
             reader.onerror = () => {
-                console.log('there are some problems');
+             //   console.log('there are some problems');
                 alert('File can not be read');
             };
         }
@@ -211,7 +211,7 @@ handleInputChange = (index, event) => {
                 copyArray[index].minorPhotoGuardian = base64Image;
             };
             reader.onerror = () => {
-                console.log('there are some problems');
+              //  console.log('there are some problems');
                 alert('File can not be read');
             };
         }

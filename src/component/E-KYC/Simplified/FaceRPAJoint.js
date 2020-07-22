@@ -85,7 +85,7 @@ export class FaceRPAJoint extends Component {
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+                //console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);

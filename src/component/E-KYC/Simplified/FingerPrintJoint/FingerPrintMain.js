@@ -180,7 +180,7 @@ export class FingerPrintMain extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -219,7 +219,7 @@ export class FingerPrintMain extends Component {
 
 
     handleInputChange = (index, event) => {
-        console.log(event.target);
+        //console.log(event.target);
         let copyArray = Object.assign([], this.state.jointArray);
         copyArray[index][event.target.name] = event.target.value;
         if (event.target.name === "photograph") {
@@ -236,7 +236,7 @@ export class FingerPrintMain extends Component {
                     copyArray[index].photograph = base64Image;
                 };
                 reader.onerror = () => {
-                    console.log('there are some problems');
+                   // console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
@@ -255,7 +255,7 @@ export class FingerPrintMain extends Component {
                     copyArray[index].minorNomineePhoto = base64Image;
                 };
                 reader.onerror = () => {
-                    console.log('there are some problems');
+                  //  console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
@@ -274,7 +274,7 @@ export class FingerPrintMain extends Component {
                     copyArray[index].minorPhotoGuardian = base64Image;
                 };
                 reader.onerror = () => {
-                    console.log('there are some problems');
+                  //  console.log('there are some problems');
                     alert('File can not be read');
                 };
             }

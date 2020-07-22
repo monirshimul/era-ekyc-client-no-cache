@@ -26,7 +26,7 @@ class EkycListUser extends Component {
 
         try {
             let ekycList = await axios.post(ekycForUser + page,null, config)
-            console.log("ekycList", ekycList.data.data.ekyc)
+            //console.log("ekycList", ekycList.data.data.ekyc)
             this.setState({
                 ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc
             })
@@ -36,7 +36,7 @@ class EkycListUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -88,7 +88,7 @@ class EkycListUser extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                  //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -104,7 +104,7 @@ class EkycListUser extends Component {
             }
             try {
                 let searchResult = await axios.post(ekycForUser + page, val, config)
-                console.log("searchResult",searchResult)
+                //console.log("searchResult",searchResult)
                 if(searchResult.data.data.length === 0){
                     NotificationManager.warning("No Nid Match", "Warning", 5000)
                 }
@@ -117,7 +117,7 @@ class EkycListUser extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                  //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -145,7 +145,7 @@ class EkycListUser extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                   // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -169,7 +169,7 @@ class EkycListUser extends Component {
                 id: id
             }
             let singleEkyc = await axios.post(ekycWithFilter + page, idObj, config)
-            console.log("Show More", singleEkyc.data.data)
+           // console.log("Show More", singleEkyc.data.data)
             let dataObj = {
                 data: singleEkyc.data.data
             }
@@ -181,7 +181,7 @@ class EkycListUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+              //  console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -220,7 +220,7 @@ class EkycListUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

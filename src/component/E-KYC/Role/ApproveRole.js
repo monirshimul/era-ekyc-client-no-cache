@@ -38,7 +38,7 @@ class ApproveRole extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                   // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -71,8 +71,8 @@ class ApproveRole extends Component {
         };
 
         if (prevState.approvedReject !== this.state.approvedReject) {
-            console.log("prevState", prevState)
-            console.log("this.state.pendingList", this.state.pendingList)
+            // console.log("prevState", prevState)
+            // console.log("this.state.pendingList", this.state.pendingList)
             const Obj = { status: "P" };
             try {
                 // let url = 'http://127.0.0.1:3001/role/get/';
@@ -88,7 +88,7 @@ class ApproveRole extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                    // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -134,7 +134,7 @@ class ApproveRole extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+              //  console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -171,7 +171,7 @@ class ApproveRole extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -209,7 +209,7 @@ class ApproveRole extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

@@ -69,7 +69,7 @@ class CreateUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             }else if(error.request){
-                console.log("Error Connecting...",error.request)
+                //console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             }else if(error){
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -86,7 +86,7 @@ class CreateUser extends Component {
 
     onAddingItem = (item) => {
         const isChecked = item.target.checked;
-        console.log("isCHECKED", isChecked);
+        //console.log("isCHECKED", isChecked);
         const value = item.target.value;
 
         this.setState(prevState => ({ role_list: prevState.role_list.map(roll => roll.roleName === value ? { ...roll, isAdded: isChecked } : roll) }));
@@ -137,7 +137,7 @@ class CreateUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             }else if(error.request){
-                console.log("Error Connecting...",error.request)
+               // console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             }else if(error){
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -213,7 +213,7 @@ class CreateUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             }else if(error.request){
-                console.log("Error Connecting...",error.request)
+               // console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             }else if(error){
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -244,7 +244,7 @@ class CreateUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             }else if(error.request){
-                console.log("Error Connecting...",error.request)
+               // console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             }else if(error){
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -293,7 +293,7 @@ class CreateUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             }else if(error.request){
-                console.log("Error Connecting...",error.request)
+               // console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             }else if(error){
                 NotificationManager.error(error.toString(), "Error", 5000);

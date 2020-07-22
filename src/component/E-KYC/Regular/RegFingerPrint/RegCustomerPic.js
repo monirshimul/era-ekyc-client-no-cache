@@ -14,7 +14,7 @@ export class RegCustomerPic extends Component {
                 this.props.handleState('faceImage', base64Image);
             };
             reader.onerror = () => {
-                console.log('there are some problems');
+               // console.log('there are some problems');
                 alert('File can not be read');
             };
         }

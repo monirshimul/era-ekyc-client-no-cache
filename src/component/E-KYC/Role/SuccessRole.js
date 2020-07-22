@@ -9,7 +9,7 @@ export class SuccessRole extends Component {
         if (!this.props.history.location.state) {
             this.props.history.push("/dashboard")
         } else {
-            console.log(this.props)
+           // console.log(this.props)
             const { roleName, rolePrivileges } = this.props.history.location.state
 
             return (

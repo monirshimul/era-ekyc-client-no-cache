@@ -28,7 +28,7 @@ class Login extends Component {
         this.setState({
           channelLogin: !this.state.channelLogin
         })
-        console.log("Channel Status in func", this.state.channelLogin)
+       // console.log("Channel Status in func", this.state.channelLogin)
 
     }
 
@@ -53,7 +53,7 @@ class Login extends Component {
            // console.log("loginapi ", userLogin.data);
 
             let loginSuccess = userLogin.data.data;
-            console.log("login", loginSuccess.branchOrAgentPointCode);
+            //console.log("login", loginSuccess.branchOrAgentPointCode);
             let branchCode = loginSuccess.branchOrAgentPointCode;
             sessionStorage.setItem('branchOrAgentPointCode', JSON.stringify(branchCode));
             
@@ -80,7 +80,7 @@ class Login extends Component {
 
 
         } catch (err) {
-            console.log(err.response);
+           // console.log(err.response);
             if(err.response){
             let statusCode = err.response.data.statusCode;
             if (statusCode === 401) {
@@ -120,7 +120,7 @@ class Login extends Component {
     }
 
     render() {
-        console.log("channelLogin Render", this.state.channelLogin);
+       // console.log("channelLogin Render", this.state.channelLogin);
         return (
             <div>
                 <img className="wave" src={bg} alt="" />

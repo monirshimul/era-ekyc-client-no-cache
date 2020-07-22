@@ -35,7 +35,7 @@ class EkycListSearch extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+              //  console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -88,7 +88,7 @@ class EkycListSearch extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                  //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -104,7 +104,7 @@ class EkycListSearch extends Component {
             }
             try {
                 let searchResult = await axios.post(ekycWithFilter + page, val, config)
-                console.log("searchResult",searchResult)
+               // console.log("searchResult",searchResult)
                 if(searchResult.data.data.length === 0){
                     NotificationManager.warning("No Nid Match", "Warning", 5000)
                 }
@@ -145,7 +145,7 @@ class EkycListSearch extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                    console.log("Error Connecting...", error.request)
+                   // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -181,7 +181,7 @@ class EkycListSearch extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+                //console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -208,7 +208,7 @@ class EkycListSearch extends Component {
                 applicantId: id
             }
             let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
-            console.log("full Ekyc", fullEkyc.data.data)
+            //console.log("full Ekyc", fullEkyc.data.data)
             let dataObj = {
                 data: fullEkyc.data.data
             }
@@ -220,7 +220,7 @@ class EkycListSearch extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+                //console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

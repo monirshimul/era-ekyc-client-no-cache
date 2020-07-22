@@ -143,7 +143,7 @@ export class UpdateRole extends Component {
             };
             //console.log("Data", data)
             const validationValue = await schema.validateAsync(joiData);
-            console.log("validationValue", validationValue)
+            //console.log("validationValue", validationValue)
 
             //let url = 'http://127.0.0.1:3001/role';
             let res = await axios.put(updateRole, data, config)
@@ -160,7 +160,7 @@ export class UpdateRole extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+               // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export class SimComplete extends Component {
     render() {
         // console.log("allvalue", this.props.values);
-        console.log("channelAccStatus", this.props.values.channelAccStatus);
+       // console.log("channelAccStatus", this.props.values.channelAccStatus);
         
         return (
             <div className="container">

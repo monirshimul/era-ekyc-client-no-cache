@@ -176,7 +176,7 @@ export class MainFace extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                console.log("Error Connecting...", error.request)
+                //console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -232,7 +232,7 @@ export class MainFace extends Component {
                     copyArray[index].photograph = base64Image;
                 };
                 reader.onerror = () => {
-                    console.log('there are some problems');
+                   // console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
@@ -251,7 +251,7 @@ export class MainFace extends Component {
                     copyArray[index].minorNomineePhoto = base64Image;
                 };
                 reader.onerror = () => {
-                    console.log('there are some problems');
+                   // console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
