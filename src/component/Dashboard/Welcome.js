@@ -20,7 +20,7 @@ class Welcome extends Component {
         quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")) === null ? [] : JSON.parse(sessionStorage.getItem("quickLinks")),
         linkShower: false,
         branchOrAgentPointCodeArr: JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")) === null ? [] : JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")),
-        branchCode: JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"))
+        branchCode: JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null ? "" : JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) 
     }
 
 
@@ -115,7 +115,7 @@ class Welcome extends Component {
                     <hr />
                 </div>
 
-                <div className="row d-flex justify-content-around align-items-center">
+                <div className="row  d-flex justify-content-around align-items-center">
 
                     <div className="col-sm-1 neoBg d-flex justify-content-center" style={{padding:"13px"}}>
 
@@ -132,12 +132,12 @@ class Welcome extends Component {
                         />
 
                     </div>
-                    <div className="col-sm-10 d-flex justify-content-center align-items-center im" style={{paddingTop:"20px", color:"green"}}>
+                    <div className="col-sm-10 d-flex justify-content-center align-items-center im" style={{paddingTop:"13px", color:"green"}}>
                         <div className="text-center">
-                            <h5>Choose Your Branch Code  :&nbsp;&nbsp;&nbsp;</h5>
+                            <h5>Choose Your Branch Or Agent Point  :&nbsp;&nbsp;&nbsp;</h5>
                         </div>
                         {/* <i class="fas fa-dungeon"></i> */}
-                        <div className='form-group neoBg'>
+                        <div className='form-group '>
                             <label htmlFor=""></label>
                             <select
                                 style={{ fontSize: "14px" }}
@@ -179,11 +179,12 @@ class Welcome extends Component {
 
 
 
-                <div className="jumbotron im" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)", padding: "50px" }} >
+                <div className=" im" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)", padding: "40px" }} >
 
                     <h4 className="text-center text-muted ">
                         <i class="fas fa-link"></i> Quick Links
                 </h4>
+                <hr/>
                     <div className="row d-flex justify-content-between">
 
                         {

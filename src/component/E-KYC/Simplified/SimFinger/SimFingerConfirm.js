@@ -3,6 +3,7 @@ import { absDateFormat} from '../../../Utils/dateConversion';
 import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
+import getJsonObjectToArray from '../utils/jsonObjToArray'
 import down from '../images/downArrow.svg';
 import Avater from '../images/profile.svg';
 import front from '../images/nid-f.svg';
@@ -197,8 +198,11 @@ export class SimFingerConfirm extends Component {
             let res = await axios.post(confirmApi, confirmObj, config);
             this.props.handleState('confirmFlag', false);
             //console.log(res.data);
-            let resData = res.data;
-            this.props.handleState('accountNo', res.data.data);
+            let resData = res.data.data;
+            let resToArr = getJsonObjectToArray(resData)
+            //console.log("Result Array",resToArr)
+            this.props.handleState('channelAccStatus', resToArr);
+            
             
             // if(resData.data.channelResponse.accountNo){
             //     let accountNumber = resData.data.channelResponse.accountNo;
@@ -237,6 +241,7 @@ export class SimFingerConfirm extends Component {
 
     render() {
         const { values } = this.props;
+        
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import { convertIso } from '../utils/DateFormat';
+import getJsonObjectToArray from '../utils/jsonObjToArray'
 import down from '../images/downArrow.svg';
 import Avater from '../images/profile.svg';
 import front from '../images/nid-f.svg';
@@ -190,9 +191,11 @@ export class SimConfirmInfo extends Component {
             this.props.handleState('confirmFlag', true);
             let res = await axios.post(confirmApi, confirmObj, config);
             this.props.handleState('confirmFlag', false);
-            console.log("confirm response",res.data);
-            let resData = res.data;
-            this.props.handleState('accountNo', res.data.data);
+            //console.log(res.data);
+            let resData = res.data.data;
+            let resToArr = getJsonObjectToArray(resData)
+            //console.log("Result Array",resToArr)
+            this.props.handleState('channelAccStatus', resToArr);
             // if(resData.data.channelResponse.accountNo){
             //     let accountNumber = resData.data.channelResponse.accountNo;
             //     this.props.handleState('accountNo', accountNumber);
