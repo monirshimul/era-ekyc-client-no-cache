@@ -129,7 +129,8 @@ export class GetProfile extends Component {
             }
             console.log("Mime Type", imgData.mimeType)
             let resImage = await axios.put(imageUpdate, imgData, config);
-            //console.log("Image Response", resImage)
+            console.log("Image Response", resImage)
+            localStorage.setItem('profileImage', JSON.stringify(this.state.profileImage))
 
 
             let profileData = {

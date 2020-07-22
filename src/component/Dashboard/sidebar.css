@@ -86,15 +86,15 @@ label #showMenu {
   border-bottom: 1px dashed #bdb8d7;
 }
 
-#profile_img {
+/* #profile_img {
   width: 50px;
   margin: 0 auto 5px;
-}
+} */
 
-#profile_img img {
+/* #profile_img img {
   width: 100%;
   display: block;
-}
+} */
 
 #name {
   font-size: 14px;

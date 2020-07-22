@@ -17,6 +17,7 @@ import { image } from '../E-KYC/Profile/damiImage';
 import "./sidebar.css";
 import { pruneRouteArray, getFlatRouteArray } from '../flattenObjectTwo';
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
+//import profileImage from "../Page-Loader/era.png"
 // E-kyc List
 import ShowMore from '../E-KYC/ekyc-list/ShowMore';
 import fullEkyc from '../E-KYC/ekyc-list/FullEkyc';
@@ -72,9 +73,10 @@ class Dashboard extends Component {
 
     state = {
         isLogOut: false,
-        userProfileImage: '',
+        userProfileImage: JSON.parse(localStorage.getItem("profileImage")) === null  ? "" : JSON.parse(localStorage.getItem("profileImage")),
         flag: 'data:image/jpeg;base64,',
-        quickLinks: ''
+        quickLinks: '',
+        imgFlag:false
     }
 
     feature = JSON.parse(sessionStorage.getItem("featureList"));
@@ -135,6 +137,42 @@ class Dashboard extends Component {
         // console.log("mount Called")
 
     }
+    // async componentDidUpdate(prevProps, prevState) {
+    //     console.log("profileData")
+    //     if (prevState.userProfileImage !== this.state.userProfileImage) {
+    //         const config = {
+    //             headers: {
+    //                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+    //             }
+
+    //         };
+
+    //         try {
+    //             let res = await axios.get(getProfile, config);
+    //             let profileData = res.data.data;
+    //             //console.log("profileData", profileData)
+    //             this.setState({
+
+    //                 userProfileImage: profileData.userImage === null ? image.data : profileData.userImage.data
+    //             })
+
+
+
+    //         } catch (error) {
+    //             if (error.response) {
+    //                 let message = error.response.data.message
+    //                 //console.log("Error",error.response)
+    //                 NotificationManager.error(message, "Error", 5000);
+    //             } else if (error.request) {
+    //                 console.log("Error Connecting...", error.request)
+    //                 NotificationManager.error("Error Connecting...", "Error", 5000);
+    //             } else if (error) {
+    //                 NotificationManager.error(error.toString(), "Error", 5000);
+    //             }
+    //         }
+
+    //     }
+    // }
     // componentWillMount(){
     //     console.log("In the will mount")
     // }
@@ -214,7 +252,7 @@ class Dashboard extends Component {
     render() {
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag } = this.state;
+        let { userProfileImage, flag, imgFlag } = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
         if (this.state.isLogOut) {
@@ -235,6 +273,7 @@ class Dashboard extends Component {
                             <div id="profile_info">
                                 <div id="profile_img">
                                     <img src={userProfileImage ? flag + userProfileImage : profileImage}
+                                    
                                         alt="profile_img"
 
                                         style={{
@@ -339,11 +378,11 @@ class Dashboard extends Component {
                                     zIndex: "-2",
                                     outline: "none",
                                     right: "0",
-                                    top:"10%",
+                                    top: "10%",
                                     margin: "0",
                                     padding: "0",
                                     border: "none",
-                                    opacity:"0.3"
+                                    opacity: "0.3"
                                 }}
                                 className=" img-fluid img-thumbnail"
                                 id='SignaturePic'
@@ -353,7 +392,7 @@ class Dashboard extends Component {
 
 
                                 <Switch>
-                                    <Route exact path={path} component={Welcome} />
+                                    <Route exact path={path} component={()=><Welcome/>} />
 
                                     {this.allMenu.map((route, index) => (
 

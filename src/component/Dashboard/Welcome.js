@@ -26,6 +26,8 @@ class Welcome extends Component {
 
     async componentDidMount() {
 
+        console.log("Props", this.props.txt)
+
 
         this.setState({
             linkShower: !this.state.linkShower
@@ -43,11 +45,13 @@ class Welcome extends Component {
         try {
             let res = await axios.get(getProfile, config);
             let profileData = res.data.data;
-            console.log("profileData Welcome page", profileData)
+            //console.log("profileData Welcome page", profileData)
             this.setState({
 
                 userProfileImage: profileData.userImage === null ? image.data : profileData.userImage.data
             })
+
+            localStorage.setItem('profileImage', JSON.stringify(profileData.userImage.data))
 
 
 
@@ -117,7 +121,7 @@ class Welcome extends Component {
 
                 <div className="row  d-flex justify-content-around align-items-center">
 
-                    <div className="col-sm-1 neoBg d-flex justify-content-center" style={{padding:"13px"}}>
+                    <div className="col-sm-1 d-flex justify-content-center" style={{padding:"13px"}}>
 
                         <img src={userProfileImage ? flag + userProfileImage : profileImage}
                             alt="profile_img"
