@@ -20,18 +20,18 @@ class Welcome extends Component {
         quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")) === null ? [] : JSON.parse(sessionStorage.getItem("quickLinks")),
         linkShower: false,
         branchOrAgentPointCodeArr: JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")) === null ? [] : JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")),
-        branchCode:''
+        branchCode: JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"))
     }
 
 
     async componentDidMount() {
-        
+
 
         this.setState({
             linkShower: !this.state.linkShower
         })
 
-        
+
 
         const config = {
             headers: {
@@ -71,9 +71,9 @@ class Welcome extends Component {
         if (prevState.linkShower !== this.state.linkShower) {
             this.setState({
                 quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")),
-                
+
             })
-            
+
         }
     }
 
@@ -86,26 +86,26 @@ class Welcome extends Component {
 
     onChange = e => {
         //e.preventDefault();
-        
-        this.setState({ 
+
+        this.setState({
             [e.target.name]: e.target.value,
         });
-        
-        
 
-        
+
+
+
     }
 
-    
-    
+
+
 
 
     render() {
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag, quickLinks, showLinks, branchOrAgentPointCode,branchCode } = this.state
+        let { userProfileImage, flag, quickLinks, showLinks, branchOrAgentPointCode, branchCode } = this.state
         //console.log("branchOrAgentPointCode", branchCode)
-        sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify (this.state.branchCode))
+        sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode))
         return (
             <div className="container">
 
@@ -115,30 +115,32 @@ class Welcome extends Component {
                     <hr />
                 </div>
 
+                <div className="row d-flex justify-content-around align-items-center">
 
-                <div className="row divBg justify-content-center" style={{ padding: "10px 0px" }}>
+                    <div className="col-sm-5 im d-flex justify-content-center" style={{padding:"14px"}}>
 
-                    <img src={userProfileImage ? flag + userProfileImage : profileImage}
-                        alt="profile_img"
+                        <img src={userProfileImage ? flag + userProfileImage : profileImage}
+                            alt="profile_img"
+                            className=""
 
-                        style={{
-                            width: "80px",
-                            height: "80px",
-                            borderRadius: "50%",
-                            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)"
-                        }}
-                    />
+                            style={{
+                                width: "75px",
+                                height: "75px",
+                                borderRadius: "50%",
+                                boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)"
+                            }}
+                        />
 
-                </div>
-                <div className="row d-flex justify-content-center align-items-center" style={{ color: "green" }}>
-                    <div className="text-center">
-                        <h5>Choose Your Branch Code  :</h5>
                     </div>
-                    {/* <i class="fas fa-dungeon"></i> */}
-                    <div className='form-group neoBg'>
+                    <div className="col-sm-6 d-flex justify-content-center align-items-center im" style={{paddingTop:"20px", color:"green"}}>
+                        <div className="text-center">
+                            <h5>Choose Your Branch Code  :&nbsp;&nbsp;&nbsp;</h5>
+                        </div>
+                        {/* <i class="fas fa-dungeon"></i> */}
+                        <div className='form-group neoBg'>
                             <label htmlFor=""></label>
                             <select
-                                style={{fontSize:"14px"}}
+                                style={{ fontSize: "14px" }}
                                 className='custom-select sbtn'
                                 value={branchCode}
                                 onChange={this.onChange}
@@ -150,21 +152,26 @@ class Welcome extends Component {
                                         this.setState({
                                             branchOrAgentPointCode: JSON.parse(sessionStorage.getItem("branchOrAgentPointCode"))
                                         })
-                                    ):(
-                                        branchOrAgentPointCode.map((val, ind)=>(
-                                            <option value={val}>{val}</option>
+                                    ) : (
+                                            branchOrAgentPointCode.map((val, ind) => (
+                                                <option value={val}>{val}</option>
                                             ))
-                                    )
-                                   
+                                        )
+
                                 }
-                                
+
 
 
                             </select>
                         </div>
-                    
+
+
+                    </div>
 
                 </div>
+
+
+
                 <hr />
 
 
