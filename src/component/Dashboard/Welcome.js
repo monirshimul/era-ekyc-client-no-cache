@@ -150,7 +150,7 @@ class Welcome extends Component {
                                 onChange={this.onChange}
                                 name="branchCode"
                             >
-                                <option value='' disabled>--Select Branch Code--</option>
+                                {/* <option value='' disabled>--Select Branch Code--</option> */}
                                 {
                                     branchOrAgentPointCode === undefined ? (
                                         this.setState({

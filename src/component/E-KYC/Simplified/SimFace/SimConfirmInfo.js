@@ -27,7 +27,7 @@ export class SimConfirmInfo extends Component {
 
 
         e.preventDefault();
-        let branchOrAgentPointCode = JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"))|| "2";
+        let branchOrAgentPointCode = JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"));
 
         let accountInfo = {
             title: values.applicantName,

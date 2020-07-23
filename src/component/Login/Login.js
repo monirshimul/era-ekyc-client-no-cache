@@ -21,6 +21,19 @@ class Login extends Component {
         channelLogin: false
     }
 
+    componentDidMount(){
+        let screenWidth = window.screen.width;
+        let screenHeight = window.screen.height;
+
+        if(screenWidth <= 1366 && screenHeight <= 768){
+            NotificationManager.warning("Please make sure Browser zoom 75 - 80 % for optimum User Experience", "Click to Remove",50000000);
+        }
+
+        
+    }
+
+  
+
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     handleChannelLogin = e =>{

@@ -27,7 +27,7 @@ export class Confirm extends Component {
         //console.log(values.applicantEkycId);
         if (values.applicantEkycId === '') {
 
-            let branchOrAgentPointCode = JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"))|| "2";
+            let branchOrAgentPointCode = JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"));
 
             let accountInfo = {
                 title: values.applicantName,

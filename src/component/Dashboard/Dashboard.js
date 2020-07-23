@@ -507,6 +507,7 @@ class Dashboard extends Component {
                                 zIndex: "-3",
                                 outline: "none",
                                 bottom: "0",
+                                right:"0",
                                 margin: "0",
                                 padding: "0",
                                 border: "none"
