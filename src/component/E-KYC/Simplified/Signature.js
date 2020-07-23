@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Sign from './images/sign.svg';
-import Capture from './Capture/Capture'
+import Capture from './Capture/Capture';
+import { NotificationManager } from "react-notifications";
 
 export class Signature extends Component {
 
@@ -33,13 +34,13 @@ export class Signature extends Component {
     }
 
     continue = e => {
-      //  const { values } = this.props;
+        const { values } = this.props;
         e.preventDefault();
-        // let obj = {
-        //     signature: values.signature,
-        //     signatureType: values.signatureType
-        // }
-        // localStorage.setItem("Signature", JSON.stringify(obj));
+        if (values.signature === "") {
+            let signatureMessage = "Please Provide Signature";
+            NotificationManager.warning(signatureMessage, "Warning", 5000);
+            return;
+          }
         this.props.nextStep();
     };
 

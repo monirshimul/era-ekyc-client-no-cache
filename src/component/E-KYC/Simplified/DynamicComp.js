@@ -65,7 +65,8 @@ export class DynamicComp extends Component {
             let statusCode = completeApi.data.statusCode;
             let successMessage = completeApi.data.message;
             NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-            localStorage.clear();
+            //localStorage.clear();
+            sessionStorage.removeItem("accountId");
             this.props.history.push('/dashboard');
         } catch (error) {
             //console.log(err.response.data);

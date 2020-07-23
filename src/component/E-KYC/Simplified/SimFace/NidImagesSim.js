@@ -178,7 +178,18 @@ export class NidImagesSim extends Component {
       continue = async (e) => {
         e.preventDefault();
         let {values} = this.props;
-     
+
+      if (values.NidFront === "") {
+            let NidFrontMessage = "Please Provide Nid Front Image";
+            NotificationManager.warning(NidFrontMessage, "Warning", 5000);
+            return;
+          }
+      
+          if (values.NidBack === "") {
+            let NidBackMessage = "Please Provide Nid Back Image";
+            NotificationManager.warning(NidBackMessage, "Warning", 5000);
+            return;
+          }
        
         // if(allData.Response_Code){
       

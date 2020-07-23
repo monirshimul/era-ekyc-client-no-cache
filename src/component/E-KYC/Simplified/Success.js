@@ -5,7 +5,7 @@ export class Success extends Component {
 
 
     render() {
-
+            // console.log("allValues", this.props.values);
 
         return (
 

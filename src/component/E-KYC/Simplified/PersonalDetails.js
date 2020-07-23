@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NotificationManager } from "react-notifications";
 import {zoneCodeConversion} from '../Url/ApiList';
+import Loading from './utils/CustomLoding/Loading';
 import axios from 'axios';
 
 const Joi = require('@hapi/joi');
@@ -38,18 +39,7 @@ export class PersonalDetails extends Component {
     continue = async(e) => {
         const { values } = this.props;
         e.preventDefault();
-        // const obj={
-        //     applicantName: values.applicantName,
-        //     motherName: values.motherName,
-        //     fatherName: values.fatherName,
-        //     spouseName: values.spouseName,
-        //     gender: values.gender,
-        //     profession: values.profession,
-        //     mobileNumber: values.mobileNumber,
-        //     presentAddress: values.presentAddress,
-        //     permanentAddress: values.permanentAddress,
-        // };
-        // localStorage.setItem("PersonalDetailsJoin", JSON.stringify(obj));
+        
 
         let data = {
             applicantName: values.applicantName,
@@ -79,83 +69,94 @@ export class PersonalDetails extends Component {
 
         try {
             const validationValue = await this.schema.validateAsync(data);
-            console.log("validationValue", validationValue)
-            this.props.nextStep();
+            //console.log("validationValue", validationValue)
+
+            if(values.channelName === 'ABS'){
+                let presentObj = {
+                    districtName: values.preDistrictEn,
+                    upazilaName:values.preUpozilaEn,
+                    unionName: values.preUnionOrWardEn
+                }   
+      
+    
+                let permanentObj = {
+                    districtName: values.perDistrictEn,
+                    upazilaName:values.perUpozilaEn,
+                    unionName: values.perUnionOrWardEn
+                }  
+    
+                
+    
+                const config = {
+                    headers: {
+                        'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+                    }
+                };
+                try{
+                this.props.handleState('confirmFlag', true);
+                let presentZoneCode= await axios.post(zoneCodeConversion, presentObj, config);
+                let permanentZoneCode= await axios.post(zoneCodeConversion, permanentObj, config);
+                this.props.handleState('confirmFlag', false);  
+    
+                if(presentZoneCode.data.data === null || permanentZoneCode.data.data === null){
+                    let message = "Integration Server Error";
+                    NotificationManager.warning(message , "Warning", 5000);
+                    return;
+                }
+    
+              
+                
+                let presentZoneResp = presentZoneCode.data.data.details.ABS_ZONE_CODE;
+                let permanentZoneResp = permanentZoneCode.data.data.details.ABS_ZONE_CODE;
+    
+    
+                if(permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE ===""){
+                    let preMessage =  "Please check Present Address districtName,upozilaName and unionName";
+                    NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);     
+                    return;
+                }
+    
+                if(presentZoneResp.DISTRICT_CODE === "" || presentZoneResp.UPAZILA_CODE === "" || presentZoneResp.UNION_CODE ===""){
+                    let preMessage =  "Please check Present Address districtName,upozilaName and unionName";
+                    NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);     
+                    return;
+                }
+    
+               
+    
+                this.props.handleState('preDistrictCode', presentZoneResp.DISTRICT_CODE);
+                this.props.handleState('preUpozilaCode',presentZoneResp.UPAZILA_CODE);
+                this.props.handleState('preUnionOrWardCode',presentZoneResp.UNION_CODE);
+                
+                this.props.handleState('perDistrictCode', permanentZoneResp.DISTRICT_CODE);
+                this.props.handleState('perUpozilaCode',permanentZoneResp.UPAZILA_CODE);
+                this.props.handleState('perUnionOrWardCode',permanentZoneResp.UNION_CODE);
+                
+        
+    
+                this.props.nextStep();
+    
+    
+    
+                
+                
+    
+                }catch(err){
+                    this.props.handleState('confirmFlag', false);
+                    NotificationManager.error("Please check zoneCode", "Error", 5000);
+                }
+                
+           
+            }else{
+                this.props.nextStep();
+            }
+            
         } catch (error) {
             NotificationManager.error(error.toString(), "Error", 5000);
             //console.log("error====>", error.response)
         }
 
-        if(values.channelName === 'ABS'){
-            let presentObj = {
-                districtName: values.preDistrictEn,
-                upazilaName:values.preUpozilaEn,
-                unionName: values.preUnionOrWardEn
-            }   
-  
-
-            let permanentObj = {
-                districtName: values.perDistrictEn,
-                upazilaName:values.perUpozilaEn,
-                unionName: values.perUnionOrWardEn
-            }  
-
-            //console.log('present', presentObj);
-
-            const config = {
-                headers: {
-                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-                }
-            };
-            try{
-
-            let presentZoneCode= await axios.post(zoneCodeConversion, presentObj, config);
-            let permanentZoneCode= await axios.post(zoneCodeConversion, permanentObj, config);
-
-            if(presentZoneCode.data.data === null || permanentZoneCode.data.data === null){
-                let message = "Integration Server Error";
-                NotificationManager.warning(message , "Warning", 5000);
-                return;
-            }
-            
-            let presentZoneResp = presentZoneCode.data.data.details.ABS_ZONE_CODE;
-            let permanentZoneResp = permanentZoneCode.data.data.details.ABS_ZONE_CODE;
-
-            this.props.handleState('preDistrictCode', presentZoneResp.DISTRICT_CODE);
-            this.props.handleState('preUpozilaCode',presentZoneResp.UPAZILA_CODE);
-            this.props.handleState('preUnionOrWardCode',presentZoneResp.UNION_CODE);
-            
-            this.props.handleState('perDistrictCode', permanentZoneResp.DISTRICT_CODE);
-            this.props.handleState('perUpozilaCode',permanentZoneResp.UPAZILA_CODE);
-            this.props.handleState('perUnionOrWardCode',permanentZoneResp.UNION_CODE);
-
-            if(permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE ===""){
-                let preMessage =  "Please check Present Address districtName,upozilaName and unionName";
-                NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);     
-                return;
-            }
-
-            if(presentZoneResp.DISTRICT_CODE === "" || presentZoneResp.UPAZILA_CODE === "" || presentZoneResp.UNION_CODE ===""){
-                let preMessage =  "Please check Present Address districtName,upozilaName and unionName";
-                NotificationManager.warning("Present Address - "+preMessage, "Warning", 5000);     
-                return;
-            }
-
-            this.props.nextStep();
-
-
-
-            
-            
-
-            }catch(err){
-                NotificationManager.error("Please check zoneCode", "Error", 5000);
-            }
-            
        
-        }else{
-            this.props.nextStep();
-        }
         
     };
 
@@ -635,6 +636,17 @@ export class PersonalDetails extends Component {
 
 
                     </form>
+
+                    {
+                        values.confirmFlag ? (
+                            <div className="row d-flex justify-content-center align-items-center mt-3">
+                                <Loading />
+                            </div>
+                        ) : ''
+                    }
+                    <br />
+
+
                     <hr />
                     <div className="row d-flex justify-content-center">
                         <div className="b mb-3" onClick={this.back} >Back</div>&nbsp; &nbsp;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sign from '../images/man.svg';
-import Capture from '../Capture/Capture'
+import Capture from '../Capture/Capture';
+import { NotificationManager } from "react-notifications";
 
 
 
@@ -55,7 +56,15 @@ export class JointPicture extends Component {
     };
 
     continue = e => {
+        const {values} = this.props;
         e.preventDefault();
+
+        if (values.faceImage === "") {
+            let picMessage = "Please Provide Photograph";
+            NotificationManager.warning(picMessage, "Warning", 5000);
+            return;
+          }
+
 
         this.props.nextStep();
     };

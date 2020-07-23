@@ -27,13 +27,14 @@ export class JointFingerConfirm extends Component {
         //console.log(values.applicantEkycId);
         if (values.applicantEkycId === '') {
 
-
+            let branchOrAgentPointCode = JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"))|| "2";
+           
             let accountInfo = {
                 title: values.applicantName,
                 type: values.accountType,
                 productType: values.product,
                 productCategoryCode: values.product,
-                branchOrAgentPointCode: "101",
+                branchOrAgentPointCode: branchOrAgentPointCode,
                 transactionOrMaturityAmount: values.transactionOrMaturityAmount,
                 productCode: values.productName,
                 channelCode: values.channelName
@@ -380,7 +381,7 @@ export class JointFingerConfirm extends Component {
                 this.props.handleState('confirmFlag', true);
                 let resJointAdded = await axios.post(simplifiedJointAddAPI, confirmObjSecond, config);
                 this.props.handleState('confirmFlag', false);
-               // console.log(resJointAdded.data);
+                console.log(resJointAdded.data);
 
                 let respStatus = resJointAdded.data.statusCode;
                 let respMessage = resJointAdded.data.message;

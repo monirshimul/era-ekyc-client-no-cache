@@ -162,7 +162,7 @@ export class FaceRPAJoint extends Component {
                                             <span style={{ color: "red", fontSize: "20px" }}>
                                                 *
                             </span>
-                            Notice Taskbar For Fingerprint Application Icon
+                            Notice Taskbar For RPA
                           </small>
                                     </div>
                                 ) : (
@@ -190,7 +190,7 @@ export class FaceRPAJoint extends Component {
                             style={{ color: "green", cursor: "pointer", fontSize: "17px" }}
                             onClick={this.handleClick}
                         >
-                            <i className="fas fa-fingerprint" /> NID Verification
+                            <i className="fa fa-id-card" /> NID Verification
                   </div>
 
                         <div className="row d-flex justify-content-center mt-3">

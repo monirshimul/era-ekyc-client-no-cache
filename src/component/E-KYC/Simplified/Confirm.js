@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { formatDate } from './utils/DateFormat';
+import { absDateFormat } from '../../Utils/dateConversion';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
 import { simplifiedJointAPI, simplifiedJointAddAPI } from '../Url/ApiList';
@@ -27,7 +27,7 @@ export class Confirm extends Component {
         //console.log(values.applicantEkycId);
         if (values.applicantEkycId === '') {
 
-            let branchOrAgentPointCode = sessionStorage.getItem("currentBranchOrAgentPointCode")|| "2";
+            let branchOrAgentPointCode = JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"))|| "2";
 
             let accountInfo = {
                 title: values.applicantName,
@@ -46,7 +46,7 @@ export class Confirm extends Component {
                 nid: values.applicantNidNo,
                 name: values.applicantName,
                 nameBangla: values.applicantNameBangla,
-                dob: values.applicantDob,
+                dob: absDateFormat(values.applicantDob),
                 dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
                 motherName: values.motherName,
                 motherNameBangla: values.motherNameBangla,
@@ -175,7 +175,7 @@ export class Confirm extends Component {
                 applicantPermanentAddress: applicantPermanentInfo,
                 nominees: nomineesInfo
             }
-            //console.log("Confirm obj", confirmObj);
+            // console.log("Confirm obj", confirmObj);
 
             const config = {
                 headers: {
@@ -190,7 +190,7 @@ export class Confirm extends Component {
                 this.props.handleState('confirmFlag', true);
                 let responseFirst = await axios.post(simplifiedJointAPI, confirmObj, config);
                 this.props.handleState('confirmFlag', false);
-                //console.log("responseforFIRST", responseFirst.data);
+                console.log("responseforFIRSTFace", responseFirst.data);
                 let data = responseFirst.data;
                 let statusCode = data.statusCode;
                 let successMessage = data.message;
@@ -358,7 +358,7 @@ export class Confirm extends Component {
                 nominees: nomineesInfo
             }
 
-            //console.log('SecondApi', confirmObjSecond);
+            // console.log('SecondApi', confirmObjSecond);
 
             const config = {
                 headers: {
@@ -405,7 +405,7 @@ export class Confirm extends Component {
     }
     render() {
         const { values } = this.props;
-        // console.log(values);
+        //  console.log("ALL",values);
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>

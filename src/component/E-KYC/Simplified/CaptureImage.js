@@ -266,6 +266,7 @@ export class CaptureImage extends Component {
               ):""
             }
             
+            {/* <span className="b" onClick={this.continue}>Next</span> */}
 
 
 
