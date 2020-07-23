@@ -72,8 +72,8 @@ export class SimPersonalDetails extends Component {
 
         try {
 
-            // const validationValue = await this.schema.validateAsync(data);
-            // console.log("validationValue", validationValue)
+            const validationValue = await this.schema.validateAsync(data);
+            console.log("validationValue", validationValue)
           
         } catch (error) {
             //console.log(error.response);

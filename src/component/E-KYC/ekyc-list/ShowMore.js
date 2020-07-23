@@ -14,6 +14,10 @@ class ShowMore extends Component {
         this.props.history.push('/dashboard/e-kyc-list-&-search')
     }
 
+    printData=()=>{
+        window.print();
+    }
+
     render() {
         let { ekyc } = this.state
         return (
@@ -95,7 +99,7 @@ class ShowMore extends Component {
                         <hr />
                         <div className="row d-flex justify-content-center">
                             <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} onClick={this.backEkyc}>Back</button>
-                            <button className="neoBtnSmall" style={{ color: "#308f8f" }}>Print</button>
+                            <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={this.printData}>Print</button>
                         </div>
                     </div>
                 </div>

@@ -78,8 +78,8 @@ export class PersonalDetails extends Component {
         }
 
         try {
-            // const validationValue = await this.schema.validateAsync(data);
-            // console.log("validationValue", validationValue)
+            const validationValue = await this.schema.validateAsync(data);
+            console.log("validationValue", validationValue)
             this.props.nextStep();
         } catch (error) {
             NotificationManager.error(error.toString(), "Error", 5000);

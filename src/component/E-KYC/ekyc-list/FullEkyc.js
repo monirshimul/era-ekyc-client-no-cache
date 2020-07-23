@@ -77,6 +77,10 @@ class FullEkyc extends Component {
 
     }
 
+    printData=()=>{
+        window.print();
+    }
+
     render() {
         let { ekyc, flag, loading } = this.state
         //console.log("single value",ekyc.presentAddress.additionalMouzaOrMoholla)
@@ -416,7 +420,7 @@ class FullEkyc extends Component {
 
                         <div className="row d-flex justify-content-center">
                             <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} onClick={this.backEkyc}>Back</button>
-                            <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} >Print</button>
+                            <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} onClick={this.printData}>Print</button>
                             <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={() => this.onDownload(ekyc.id)}>Download</button>
                         </div>
                     </div>
