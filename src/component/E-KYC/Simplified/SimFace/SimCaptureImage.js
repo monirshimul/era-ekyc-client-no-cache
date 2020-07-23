@@ -36,7 +36,7 @@ export class SimCaptureImage extends Component {
       //console.log("nidF",nidf.NidFront)   
       let imgData = {
         photo: values.faceImage,
-        nidFront: values.NidFront
+        nidFront: values.ecImage
       }
 
       let resValidation = await axios.post(faceValidate, imgData, token);

@@ -1,7 +1,7 @@
 import React, { Component, Suspense, lazy } from 'react';
 
 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 import { Provider } from 'react-redux';
