@@ -16,6 +16,11 @@ import Target from './Dashboard/NestedComponentDemo/Target';
 import Vission from './Dashboard/NestedComponentDemo/Vission';
 import Achievement from './Dashboard/NestedComponentDemo/Achievement';
 
+
+import UnderDev from './UnderDev/UnderDev';
+
+
+
 //User Management
 import CreateUser from './E-KYC/User/CreateUser';
 import UserList from './E-KYC/User/UserList';
@@ -292,9 +297,9 @@ export const allRoutes = [
             'isShowing': true,
             "featureName": "Setting",
             "className": "fas fa-tools",
-            "path": "/portfolio",
+            "path": "",
             "exact": true,
-            "component": <Portfolio />
+            "component": ""
         },
         nested: [
             {
@@ -304,7 +309,7 @@ export const allRoutes = [
                     "featureName": "App Setting",
                     "path": "/app-setting",
                     "exact": true,
-                    "component": <Target />
+                    "component": <UnderDev />
                 }
 
             },
@@ -313,9 +318,9 @@ export const allRoutes = [
                     "key": "4.2",
                     'isShowing': true,
                     "featureName": "TP Setting",
-                    "path": "/tp-setting",
+                    "path": "",
                     "exact": true,
-                    "component": <Target />
+                    "component": ""
                 },
                 nested: [
                     {
@@ -381,9 +386,9 @@ export const allRoutes = [
             'isShowing': true,
             "featureName": "E-KYC",
             "className": "fas fa-book-reader",
-            "path": "/blogs",
+            "path": "",
             "exact": true,
-            "component": <Blogs />
+            "component": ""
         },
         nested: [
             {
@@ -403,9 +408,9 @@ export const allRoutes = [
                     "key": "5.1",
                     'isShowing': true,
                     "featureName": "Simplified",
-                    "path": "/e-kyc-simplified",
+                    "path": "",
                     "exact": true,
-                    "component": <Target />
+                    "component": ""
                 },
                 nested: [
                     {
@@ -450,9 +455,9 @@ export const allRoutes = [
                     "key": "5.2",
                     'isShowing': true,
                     "featureName": "Regular",
-                    "path": "/e-kyc-regular",
+                    "path": "",
                     "exact": true,
-                    "component": <Target />
+                    "component": ""
                 },
                 nested: [
                     {
@@ -515,9 +520,9 @@ export const allRoutes = [
             'isShowing': true,
             "featureName": "Report",
             "className": "fas fa-address-book",
-            "path": "/contact",
+            "path": "",
             "exact": true,
-            "component": <Contact />
+            "component": ""
         },
         nested: [
             {
@@ -527,7 +532,7 @@ export const allRoutes = [
                     "featureName": "Statistics",
                     "path": "/statistics",
                     "exact": true,
-                    "component": <Target/>
+                    "component": <UnderDev/>
                 }
 
             },
@@ -538,7 +543,7 @@ export const allRoutes = [
                     "featureName": "Access Log",
                     "path": "/reposrt-access-log",
                     "exact": true,
-                    "component": <Vission />
+                    "component": <UnderDev />
                 }
             },
             {
@@ -548,7 +553,7 @@ export const allRoutes = [
                     "featureName": "Activity Log",
                     "path": "/reposrt-activity-log",
                     "exact": true,
-                    "component": <Vission />
+                    "component": <UnderDev />
                 }
             }
 
@@ -561,9 +566,9 @@ export const allRoutes = [
             'isShowing': true,
             "featureName": "Product",
             "className": "fas fa-microchip",
-            "path": "/blogs",
+            "path": "",
             "exact": true,
-            "component": <Blogs />
+            "component": ""
         },
         nested: [
             {
