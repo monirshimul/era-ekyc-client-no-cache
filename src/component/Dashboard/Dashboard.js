@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Nav from './Nav';
 import Welcome from './Welcome';
-import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 //import MultiStepFace from '../E-KYC/Simplified/MainFace'
 import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';

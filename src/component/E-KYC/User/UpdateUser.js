@@ -34,9 +34,11 @@ class UpdateUser extends Component {
     async componentDidMount() {
         //console.log(this.props.location.state);
         let getId = this.props.location.state;
+        //console.log("getId",this.props.location);
         let arr = [];
         //Update user api
         const obj = { userId: this.props.location.state };
+        //console.log("obj", obj);
         const actRole = { status: "A" };
         const config = {
             headers: {

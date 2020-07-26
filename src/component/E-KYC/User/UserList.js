@@ -358,7 +358,7 @@ export class UserList extends Component {
             }
         };
         try {
-            let paginationUser = await axios.post(getAllUser + newPage, config);
+            let paginationUser = await axios.post(getAllUser + newPage,"",config);
            // console.log("pagination pages", paginationUser.data.data.users);
             let paginUser = paginationUser.data.data;
             let numPages = paginUser.totalPages;
@@ -427,7 +427,7 @@ export class UserList extends Component {
 
     // Delete User
     onDelete = async (id) => {
-        console.log("Delete", id);
+       // console.log("Delete", id);
         const deleteObj = { id, status: "D" };
         const config = {
             headers: {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { nidOcr } from '../Url/ApiList';
 import "./utils/Common.css";
 import NidOne from './images/nid-f2.svg';
 import NidTwo from './images/nid-f3.svg';
@@ -119,7 +120,7 @@ export class NidImage extends Component {
       // this.setState({
       //   loading: !this.state.loading
       // })
-  this.props.handleState('loadingSpin', !(values.loadingSpin));
+  // this.props.handleState('loadingSpin', !(values.loadingSpin));
       // if (NidFront === "") {
       //   let NidFrontMessage = "Please Provide Nid Front Image";
       //   NotificationManager.warning(NidFrontMessage, "Warning", 5000);
@@ -133,27 +134,72 @@ export class NidImage extends Component {
       // }
   
   
-      const formData = new FormData();
+      // const formData = new FormData();
   
-      formData.append("userimage", values.NidFrontOcr);
-      formData.append("backPart", values.NidBackOcr);
-      formData.append("api_pass", "updateimage");
-      let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
+      // formData.append("userimage", values.NidFrontOcr);
+      // formData.append("backPart", values.NidBackOcr);
+      // formData.append("api_pass", "updateimage");
+      // let nidData = await axios.post(`http://203.76.150.250/ERAPAYOCR/OCRFromSmartCardImage.do`, formData);
       //console.log(nidData.data);
       // this.setState({
       //  allData:nidData.data,
       //   loading: false
       // })
+
+// ==============================Nahid bhai OCR Start=====================================
+
+const config = {
+  headers: {
+    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+  }
+};
+
+let Obj = {
+  nidFront: values.NidFront,
+  nidBack: values.NidBack
+}
+
+try {
+  this.props.handleState('loadingSpin', !(values.loadingSpin));
+  let ocrData = await axios.post(nidOcr, Obj, config);
+  this.props.handleState('loadingSpin', false);
+  // console.log("ocrResponse1", ocrData.data);
+  // console.log("ocrResponse", ocrData.data.data);
+  let data = ocrData.data.data;
+  this.props.handleState("nid", data.nidFront.nid);
+  this.props.handleState("dob", data.formatted.dob);
+} catch (error) {
+  if (error.response) {
+    let message = error.response.data.message
+    NotificationManager.error(message, "Error", 5000);
+    this.props.handleState('loadingSpin', false);
+  } else if (error.request) {
+    // console.log("Error Connecting...", error.request)
+    NotificationManager.error("Error Connecting...", "Error", 5000);
+    this.props.handleState('loadingSpin', false);
+  } else if (error) {
+    NotificationManager.error(error.toString(), "Error", 5000);
+    this.props.handleState('loadingSpin', false);
+  }
+}
+
+
+
+// ==============================Nahid bhai OCR End=====================================
+
+
+
+
     
     // this.props.handleState('allData', nidData.data);
-    this.props.handleState('loadingSpin', false);
+    //this.props.handleState('loadingSpin', false);
     // this.props.handleState("applicantName", nidData.data["Name English"]);
     // this.props.handleState("applicantNameBangla", nidData.data["Name Bangla"]);
     // this.props.handleState("applicantNidNo", nidData.data["id"]);
     // this.props.handleState("applicantDob", nidData.data["DOB"]);
 
-    this.props.handleState("nid", nidData.data["id"]);
-    this.props.handleState("dob", nidData.data["DOB"]);
+    //this.props.handleState("nid", nidData.data["id"]);
+    //this.props.handleState("dob", nidData.data["DOB"]);
     
     // this.props.handleState("fatherNameBangla", nidData.data["Father"]);
     // this.props.handleState("motherNameBangla", nidData.data["Mother"]);

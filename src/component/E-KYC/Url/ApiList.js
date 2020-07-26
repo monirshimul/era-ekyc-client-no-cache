@@ -1,5 +1,8 @@
 import { hostIp } from './IpAdd';
 
+// OCR
+export const nidOcr = hostIp + `ai/nid-ocr`;
+
 // RPA
 export const nidValidationRPA = hostIp +`ai/nid-rpa`; 
 

@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { NotificationManager } from "react-notifications";
+import {getAge} from '../../../Utils/ageCheck';
 import Face from "../images/face.svg";
 import Family from '../images/family.svg';
 import Familyes from '../images/candidates.svg';
@@ -6,17 +8,17 @@ import adult from '../images/age-limit-one.svg';
 import child from '../images/age-limit-two.svg';
 
 export class SimNominee extends Component {
- state ={
-     showHide: false
- }
+    state = {
+        showHide: false
+    }
 
 
-  //Nominee part function
-  showHideChange = () => {
-    this.setState({
-        showHide: !(this.state.showHide)
-    })
-}
+    //Nominee part function
+    showHideChange = () => {
+        this.setState({
+            showHide: !(this.state.showHide)
+        })
+    }
 
     // showHideChange = (e) => {
     //     const{values} = this.props;
@@ -29,7 +31,131 @@ export class SimNominee extends Component {
     continue = e => {
         const { values } = this.props;
         e.preventDefault();
-        // localStorage.setItem("NomineeArray", JSON.stringify(values.jointArray));
+        //    ====================== Validation Start =============================
+
+        let checkPercentage = 0;
+        for (let i = 0; i < values.jointArray.length; i++) {
+            if (values.jointArray[i].isShow === true) {
+                if (values.jointArray[i].nominee === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Nominee field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].dob === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Date of Birth field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (getAge(values.jointArray[i].dob) < 18) {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Age is less than 18 please add as a Minor Nominee `, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].relation === '') {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Relation field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].photograph === '') {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Photo is not provided`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].percentage === '') {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].percentage !== '') {
+                    checkPercentage = checkPercentage + parseInt(values.jointArray[i].percentage);
+                }
+            } else {
+
+                if (values.jointArray[i].minorNominee === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Name field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].minorDob === '') {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Date of Birth field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (getAge(values.jointArray[i].minorDob) >= 18) {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Age is 18 or more please add as a Adult Nominee`, "Warning", 5000);
+                    return;
+                }
+
+
+                if (values.jointArray[i].minorRelationWAccH === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Relation With Account Holder field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].minorNomineePhoto === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Photo is not provided`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].minorPercentage === '') {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].minorPercentage !== '') {
+                    checkPercentage = checkPercentage + parseInt(values.jointArray[i].minorPercentage);
+                }
+
+                if (values.jointArray[i].minorGuardianNid.length < 10 ) {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
+                    return;
+                }else if(values.jointArray[i].minorGuardianNid.length > 10 && values.jointArray[i].minorGuardianNid.length <=12){
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
+                    return;
+                }else if(values.jointArray[i].minorGuardianNid.length > 13 && values.jointArray[i].minorGuardianNid.length <= 16 ){
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
+                    return;
+                }else if(values.jointArray[i].minorGuardianNid.length > 17){
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].minorGuardianName === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian Name field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].guardianRelationWMinor === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Relation With Minor Nominee field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].minorGuardianAddress === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Guardian Address field is empty`, "Warning", 5000);
+                    return;
+                }
+
+                if (values.jointArray[i].minorPhotoGuardian === "") {
+                    NotificationManager.warning(`Nominee ${i + 1} -- Guardian Photo is not provided`, "Warning", 5000);
+                    return;
+                }
+
+
+            }
+
+
+
+        }
+
+
+        if (checkPercentage > 100) {
+            NotificationManager.warning("Total Percentage is greater than 100", "Warning", 5000);
+            return;
+        } else if (checkPercentage < 100) {
+            NotificationManager.warning("Total Percentage is less than 100", "Warning", 5000);
+            return;
+        }
+        //    ====================== Validation End =============================
         this.props.nextStep();
     };
 
@@ -68,7 +194,7 @@ export class SimNominee extends Component {
     handleSubmit = e => {
         e.preventDefault()
 
-       // console.log(this.props.values.fields);
+        // console.log(this.props.values.fields);
 
     }
 
@@ -426,7 +552,7 @@ export class SimNominee extends Component {
                             <hr />
                             <div className="row d-flex justify-content-center ">
                                 <div className="col-sm-8 d-flex justify-content-around">
-                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() =>{ addNomineeOne(); this.showHideChange()}}>
+                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() => { addNomineeOne(); this.showHideChange() }}>
 
                                         <img
                                             src={adult}
@@ -448,7 +574,7 @@ export class SimNominee extends Component {
                                         <h4 className="im" style={{ color: "green" }}>Adult</h4>
 
                                     </button>
-                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() =>{ addNomineeTwo(); this.showHideChange();}}>
+                                    <button className="imTwoWhite animated zoomIn" style={{ border: "none", borderRadius: "10px" }} onClick={() => { addNomineeTwo(); this.showHideChange(); }}>
 
                                         <img
                                             src={child}

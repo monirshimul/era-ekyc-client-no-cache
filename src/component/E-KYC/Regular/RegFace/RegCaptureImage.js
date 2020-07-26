@@ -251,11 +251,13 @@ export class RegCaptureImage extends Component {
                 >
       
                   <span className="b mr-5" onClick={this.back}>Back</span>
-                  {
+                  {/* {
                     values.verifyToken ? (
                       <span className="b" onClick={this.continue}>Next</span>
                     ):""
-                  }
+                  } */}
+
+                  <span className="b" onClick={this.continue}>Next</span>
                   
       
       

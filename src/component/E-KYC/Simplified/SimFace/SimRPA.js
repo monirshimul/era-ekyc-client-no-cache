@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {getAge} from '../../../Utils/ageCheck';
 import Loading from "../utils/CustomLoding/Loading.js";
 import { nidValidationRPA } from '../../Url/ApiList';
 import Finger from "../images/fingerprintEC.svg";
