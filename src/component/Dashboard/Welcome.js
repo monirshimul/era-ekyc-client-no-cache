@@ -17,7 +17,7 @@ class Welcome extends Component {
         showLinks: false,
         userProfileImage: '',
         flag: 'data:image/jpeg;base64,',
-        quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")) === null ? [] : JSON.parse(sessionStorage.getItem("quickLinks")),
+        // quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")) === null ? [] : JSON.parse(sessionStorage.getItem("quickLinks")),
         linkShower: false,
         branchOrAgentPointCodeArr: JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")) === null ? [] : JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")),
         branchCode: JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null ? "" : JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) 
@@ -26,12 +26,12 @@ class Welcome extends Component {
 
     async componentDidMount() {
 
-        console.log("Props", this.props.txt)
+        //console.log("Props", this.props.txt)
 
 
-        this.setState({
-            linkShower: !this.state.linkShower
-        })
+        // this.setState({
+        //     linkShower: !this.state.linkShower
+        // })
 
 
 
@@ -51,17 +51,22 @@ class Welcome extends Component {
                 userProfileImage: profileData.userImage === null ? image.data : profileData.userImage.data
             })
 
-            localStorage.setItem('profileImage', JSON.stringify(profileData.userImage.data))
 
+            if(profileData.userImage !== null){
+                localStorage.setItem('profileImage', JSON.stringify(profileData.userImage.data))
+
+            }
+            
 
 
         } catch (error) {
+            console.log("Error", error)
             if (error.response) {
                 let message = error.response.data.message
-                //console.log("Error",error.response)
+                console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+               console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -70,23 +75,23 @@ class Welcome extends Component {
 
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        //console.log("In the welcome")
-        if (prevState.linkShower !== this.state.linkShower) {
-            this.setState({
-                quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")),
+    // componentDidUpdate(prevProps, prevState) {
+    //     //console.log("In the welcome")
+    //     if (prevState.linkShower !== this.state.linkShower) {
+    //         this.setState({
+    //             quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")),
 
-            })
+    //         })
 
-        }
-    }
+    //     }
+    // }
 
 
-    onLinkShow = () => {
-        this.setState({
-            showLinks: !this.state.showLinks
-        })
-    }
+    // onLinkShow = () => {
+    //     this.setState({
+    //         showLinks: !this.state.showLinks
+    //     })
+    // }
 
     onChange = e => {
         //e.preventDefault();
@@ -183,7 +188,7 @@ class Welcome extends Component {
 
 
 
-                <div className=" im" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)", padding: "40px" }} >
+                {/* <div className=" im" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)", padding: "40px" }} >
 
                     <h4 className="text-center text-muted ">
                         <i class="fas fa-link"></i> Quick Links
@@ -211,12 +216,7 @@ class Welcome extends Component {
                                                                                     {
                                                                                         nest.nested ? (
                                                                                             <div>
-                                                                                                {/* <div className="neoBg d-flex justify-content-between mt-2">
-                                                                                                    <Link>
-                                                                                                        {nest.items.featureName}
-                                                                                                    </Link>
-                                                                                                    <i className="fas fa-angle-down"></i>
-                                                                                                </div> */}
+                                                                                                
                                                                                                 {
 
                                                                                                     <div>
@@ -330,7 +330,7 @@ class Welcome extends Component {
 
 
 
-                </div>
+                </div> */}
 
 
             </div>

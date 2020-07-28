@@ -481,7 +481,7 @@ export class UserApproval extends Component {
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList.map(ip => ip))}</span></small>
+                                                                    <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList === null ? "" : v.grantedIPList.map(ip => ip))}</span></small>
                                                                 </div>
 
                                                                 <div>

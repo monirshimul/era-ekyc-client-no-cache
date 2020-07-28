@@ -100,7 +100,7 @@ class Dashboard extends Component {
         //     quickLinks:this.allMenu
         // })
         // console.log(this.firstMenu)
-        sessionStorage.setItem("quickLinks", JSON.stringify(this.firstMenu))
+        //sessionStorage.setItem("quickLinks", JSON.stringify(this.firstMenu))
 
 
         const config = {
@@ -122,12 +122,13 @@ class Dashboard extends Component {
 
 
         } catch (error) {
+            console.log("Error", error)
             if (error.response) {
                 let message = error.response.data.message
-                //console.log("Error",error.response)
+                console.log("Error",error)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+               console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

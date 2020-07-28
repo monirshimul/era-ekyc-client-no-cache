@@ -53,6 +53,10 @@ class Login extends Component {
             password,
             channelLogin
         }
+        const joiObj = {
+            userId,
+            password
+        }
         //console.log("loginObj", obj);
 
         //this.schema.validate(obj)
@@ -60,7 +64,7 @@ class Login extends Component {
 
         try {
 
-            // const validationValue = await schema.validateAsync(obj);
+            const validationValue = await schema.validateAsync(joiObj);
             // console.log("validationValue", validationValue)
             let userLogin = await axios.post(loginAPI, obj);
            // console.log("loginapi ", userLogin.data);
@@ -94,35 +98,35 @@ class Login extends Component {
 
         } catch (err) {
            // console.log(err.response);
-            if(err.response){
-            let statusCode = err.response.data.statusCode;
-            if (statusCode === 401) {
-                let errorMessage = "Invalid Credentials";
-                NotificationManager.warning(statusCode + ' ' + errorMessage, "Error", 5000);
-                this.setState({
-                    userId: '',
-                    password: '',
-                    channelLogin: false
-                    
-                });
-            }  
+
+           if(err.response){
+            let errorMessage = err.response.data.reason;
+            NotificationManager.warning( errorMessage, "Error", 5000);
+            this.setState({
+            userId: '',
+            password: '',
+            channelLogin: false
+            
+            });
+            
             } else if (err.request) {
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-                this.setState({
-                    userId: '',
-                    password: '',
-                    channelLogin: false
-                    
-                });
+            NotificationManager.error("Error Connecting...", "Error", 5000);
+            this.setState({
+            userId: '',
+            password: '',
+            channelLogin: false
+            
+            });
             }else if (err) {
-                NotificationManager.error(err.toString(), "Error", 5000);
-                this.setState({
-                    userId: '',
-                    password: '',
-                    channelLogin: false
-                   
-                });
+            NotificationManager.error(err.toString(), "Error", 5000);
+            this.setState({
+            userId: '',
+            password: '',
+            channelLogin: false
+            
+            });
             }
+            
         }
 
         //============================= 
@@ -197,11 +201,11 @@ class Login extends Component {
 }
 
 
-// const schema = Joi.object({
-//     userId: Joi.string().min(6).max(30).required(),
-//     password: Joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')),
+const schema = Joi.object({
+    userId: Joi.string().min(6).max(30).required(),
+    password: Joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')),
 
-// })
+})
 //Redux work Above===================================
 
 // const mapStateToProps = (state) => {

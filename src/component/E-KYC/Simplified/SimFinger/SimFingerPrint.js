@@ -91,6 +91,7 @@ export class SimFingerPrint extends Component {
   };
 
   continue = async (e) => {
+    console.log("In the Next")
     e.preventDefault();
     const { nid, dob, rThumb, rIndex, lThumb, lIndex } = this.props.values;
     
@@ -126,7 +127,7 @@ export class SimFingerPrint extends Component {
 
       let fingerRes = await axios.post(fingerValidate, obj, config)
       //console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.verificationToken)
-      // console.log("fingerRes", fingerRes.data)
+      console.log("fingerRes", fingerRes.data)
       
       
       // Setting Data to State === start
@@ -189,7 +190,7 @@ export class SimFingerPrint extends Component {
 
       // // Verification Token
       this.props.handleState('verifyToken', fingerRes.data.data.verificationToken);
-      //console.log("verifyToken",this.props.values.verifyToken)
+      console.log("verifyToken",this.props.values.verifyToken)
       this.props.nextStep();
 
 
