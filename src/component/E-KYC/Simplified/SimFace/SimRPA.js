@@ -35,7 +35,7 @@ export class SimRPA extends Component {
 
         try {
             let rpaData = await axios.post(nidValidationRPA, obj, config);
-            //console.log(rpaData.data);
+            console.log(rpaData.data);
             let responseData = rpaData.data.data;
             if (rpaData.data.data) {
                 let dataResp = rpaData.data.data;
@@ -172,12 +172,12 @@ export class SimRPA extends Component {
                                     {values.loading ? (
                                         <div className="text-center">
                                             <Loading />
-                                            <small className="text-muted">
+                                            {/* <small className="text-muted">
                                                 <span style={{ color: "red", fontSize: "20px" }}>
                                                     *
                                 </span>
                                 Notice Taskbar For RPA
-                              </small>
+                              </small> */}
                                         </div>
                                     ) : (
                                             <div className="imTwoWhite text-center">

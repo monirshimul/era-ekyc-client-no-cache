@@ -127,7 +127,8 @@ export class Confirm extends Component {
                 nidFront: values.NidFront,
                 nidBack: values.NidBack,
                 photo: values.faceImage,
-                signature: values.signature
+                signature: values.signature,
+                nidFrontImage: values.ecImage
             }
 
             let nomineesInfo = [];

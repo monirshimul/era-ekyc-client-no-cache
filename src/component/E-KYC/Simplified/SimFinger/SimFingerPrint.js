@@ -38,24 +38,28 @@ export class SimFingerPrint extends Component {
         if (data[0].fingerId === 1) {
           this.props.handleState('rThumb', rightThumb);
         } else {
-          alert("data not found!!");
+          //alert("data not found!!");
+          NotificationManager.error("data not found!!", "Error", 5000);
         }
         if (data[1].fingerId === 2) {
           this.props.handleState('rIndex', rightIndex);
         } else {
-          alert("data not found!!");
+          //alert("data not found!!");
+          NotificationManager.error("data not found!!", "Error", 5000);
         }
         if (data[2].fingerId === 6) {
 
           this.props.handleState('lThumb', leftThumb);
         } else {
-          alert("data not found!!");
+          //alert("data not found!!");
+          NotificationManager.error("data not found!!", "Error", 5000);
         }
         if (data[3].fingerId === 7) {
 
           this.props.handleState('lIndex', leftIndex);
         } else {
-          alert("data not found!!");
+          //alert("data not found!!");
+          NotificationManager.error("data not found!!", "Error", 5000);
         }
 
         // this.setState({
@@ -66,25 +70,31 @@ export class SimFingerPrint extends Component {
         this.props.handleState('loadingPrint', false);
       })
       .catch((err) => {
+        this.props.handleState('loadingPrint', false);
         if (err.response) {
           if (err.response.status === 400 || err.response.status === 401) {
            // console.log(err.response.data);
-            alert(err.response.data.message);
+            //alert(err.response.data.message);
+            NotificationManager.error(err.response.data.message, "Error", 5000);
             this.props.handleState('isEnableFinger', false);
           } else if (err.response.status === 404) {
-            alert("Not Found");
+            //alert("Not Found");
+            NotificationManager.error("Not Fount", "Error", 5000);
             this.props.handleState('isEnableFinger', false);
           } else if (err.response.status === 500) {
-            alert(err.response.data.message);
+            //alert(err.response.data.message);
+            NotificationManager.error(err.response.data.message, "Error", 5000);
             this.props.handleState('isEnableFinger', false);
           }
         } else if (err.request) {
           //console.log(err.request);
-          alert("Error Connectiong");
+          //alert("Error Connectiong");
+          NotificationManager.error("Error Connecting", "Error", 5000);
           this.props.handleState('isEnableFinger', false);
         } else {
           console.log("Error", err.message);
-          alert(err.message);
+          //alert(err.message);
+          NotificationManager.error(err.message, "Error", 5000);
           this.props.handleState('isEnableFinger', false);
         }
       });
@@ -124,10 +134,14 @@ export class SimFingerPrint extends Component {
 
 
       //console.log("Token",obj)
+      let { values } = this.props;
+      this.props.handleState('loadingSpin', !(values.loadingSpin));
+
 
       let fingerRes = await axios.post(fingerValidate, obj, config)
-      //console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.verificationToken)
+      //console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.fingerVerificationResult.status)
       console.log("fingerRes", fingerRes.data)
+      this.props.handleState('loadingSpin', false);
       
       
       // Setting Data to State === start
@@ -190,8 +204,12 @@ export class SimFingerPrint extends Component {
 
       // // Verification Token
       this.props.handleState('verifyToken', fingerRes.data.data.verificationToken);
-      console.log("verifyToken",this.props.values.verifyToken)
-      this.props.nextStep();
+      //console.log("verifyToken",this.props.values.verifyToken)
+      let goNext = fingerRes.data.data.fingerVerificationResult.status
+      if(goNext === true){
+        this.props.nextStep();
+      }
+      
 
 
 
@@ -226,6 +244,8 @@ export class SimFingerPrint extends Component {
       // }
 
     } catch (error) {
+      console.log("In the error", error)
+      this.props.handleState('loadingSpin', false);
       if (error.response) {
         let message = error.response.data.message
         //console.log("Error",error.response)
@@ -331,13 +351,21 @@ export class SimFingerPrint extends Component {
                 <i className="fas fa-fingerprint" /> Provide Finger Print
                   </div>
 
+                  {
+                        values.loadingSpin ? (
+                            <div className="row d-flex justify-content-center align-items-center mt-3">
+                                <Loading />
+                            </div>
+                        ) : ''
+                    }
+
               <div className="row d-flex justify-content-center mt-3">
                 <span className="b mr-5" onClick={this.back}>
                   Back
                     </span>
                 <span className="b" onClick={this.continue}>
                   Next
-                    </span>
+                </span>
               </div>
             </form>
           </div>

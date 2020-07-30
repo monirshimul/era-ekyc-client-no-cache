@@ -158,12 +158,12 @@ export class FaceRPAJoint extends Component {
                                 {values.loading ? (
                                     <div className="text-center">
                                         <Loading />
-                                        <small className="text-muted">
+                                        {/* <small className="text-muted">
                                             <span style={{ color: "red", fontSize: "20px" }}>
                                                 *
                             </span>
                             Notice Taskbar For RPA
-                          </small>
+                          </small> */}
                                     </div>
                                 ) : (
                                         <div className="imTwoWhite text-center">
