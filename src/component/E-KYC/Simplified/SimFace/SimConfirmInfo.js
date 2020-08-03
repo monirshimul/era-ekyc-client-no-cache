@@ -204,9 +204,9 @@ export class SimConfirmInfo extends Component {
             //     let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
             //     this.props.handleState('accountMessage', message);
             // }
-            let statusCode = resData.statusCode;
-            let successMessage = "Account Opening " + resData.message;
-            NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+            //let statusCode = resData.statusCode;
+            //let successMessage = "Account Opening " + resData.message;
+            //NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
             this.props.nextStep();
 
         } catch (error) {

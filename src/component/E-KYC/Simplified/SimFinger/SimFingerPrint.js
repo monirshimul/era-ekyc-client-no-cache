@@ -148,6 +148,7 @@ export class SimFingerPrint extends Component {
 
       if(fingerRes.data.data.fingerVerificationResult.details.details ){
         let dataResp = fingerRes.data.data.fingerVerificationResult.details.details;
+
         // For VPN Only
 
       this.props.handleState('applicantNameBangla', dataResp.name ? dataResp.name : "");
@@ -161,7 +162,7 @@ export class SimFingerPrint extends Component {
 
        // Present Address
        let preAddress = dataResp.presentAddress;
-       //console.log("present Address", preAddress)
+       console.log("present Address", preAddress)
       this.props.handleState('preAdditionalMouzaOrMoholla',preAddress.additionalMouzaOrMoholla ? preAddress.additionalMouzaOrMoholla : '');
       this.props.handleState('preAdditionalVillageOrRoad',preAddress.additionalVillageOrRoad ? preAddress.additionalVillageOrRoad : '');
       this.props.handleState('preCityCorporationOrMunicipality',preAddress.cityCorporationOrMunicipality ? preAddress.cityCorporationOrMunicipality : '');

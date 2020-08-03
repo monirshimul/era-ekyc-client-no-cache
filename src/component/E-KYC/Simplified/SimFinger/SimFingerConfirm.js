@@ -18,9 +18,9 @@ import Acordion from '../../Acordion/Acordion'
 
 export class SimFingerConfirm extends Component {
 
-    componentDidMount() {
-        console.log("All Data", this.props.values)
-    }
+    // componentDidMount() {
+    //     console.log("All Data", this.props.values)
+    // }
 
     continue = async (e) => {
 
@@ -211,9 +211,9 @@ export class SimFingerConfirm extends Component {
             //     let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
             //     this.props.handleState('accountMessage', message);
             // }
-            let statusCode = resData.statusCode;
-            let successMessage = "Account Opening " + resData.message;
-            NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+            // let statusCode = resData.statusCode;
+            // let successMessage = "Account Opening " + resData.message;
+            // NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
             this.props.nextStep();
 
         } catch (error) {
