@@ -245,7 +245,7 @@ class FullEkyc extends Component {
                                         <hr/>
                                             <Acordion
                                                 size={"col"}
-                                                heading={"Permanent Address Details"}
+                                                heading={"Present Address Details"}
                                                 acBody={
                                                     <div className="imTwoWhite">
                                                         <small className="" style={{fontSize:"14px"}}>
