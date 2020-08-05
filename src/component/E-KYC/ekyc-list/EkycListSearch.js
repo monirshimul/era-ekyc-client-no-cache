@@ -176,6 +176,7 @@ class EkycListSearch extends Component {
 
             this.props.history.push('/dashboard/showMore', dataObj)
         } catch (error) {
+            console.log("Error",error)
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
@@ -208,13 +209,14 @@ class EkycListSearch extends Component {
                 applicantId: id
             }
             let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
-            //console.log("full Ekyc", fullEkyc.data.data)
+            console.log("full Ekyc", fullEkyc.data.data)
             let dataObj = {
                 data: fullEkyc.data.data
             }
 
             this.props.history.push('/dashboard/fullEkyc', dataObj)
         } catch (error) {
+            console.log("Error",error)
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)

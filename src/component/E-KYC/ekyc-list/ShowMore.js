@@ -73,16 +73,16 @@ class ShowMore extends Component {
                                                     <hr />
                                                 </div>
                                                 <div className="pl-3" style={{fontSize:"18px"}}>
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{data.account.title}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{data.account.productType}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{data.account.productCode}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{data.account.status}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{data.account.type}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.account.id}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.account.createdBy}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{data.account.createDate}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{data.account.channelCode}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{data.account.channelResponse}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{data.account === null ? "" : data.account.title}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{data.account === null ? "" : data.account.productType}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{data.account === null ? "" : data.account.productCode}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{data.account === null ? "" : data.account.status}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{data.account === null ? "" : data.account.type}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.account === null ? "" : data.account.id}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.account === null ? "" : data.account.createdBy}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{data.account === null ? "" : data.account.createDate}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{data.account === null ? "" : data.account.channelCode ? data.account.channelCode : ""}</small><br />
+                                                {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{data.account.channelResponse}</small><br /> */}
                                                 </div>
                                                 
                                                 

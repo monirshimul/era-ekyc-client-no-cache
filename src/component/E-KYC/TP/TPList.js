@@ -31,7 +31,7 @@ export class TPList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -61,7 +61,7 @@ export class TPList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
+                    //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -93,7 +93,7 @@ export class TPList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -126,7 +126,7 @@ export class TPList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -168,8 +168,8 @@ export class TPList extends Component {
 
                         {/* Details Button  */}
 
-                        <td style={{ textAlign: 'center' }}>
-                            <span
+                        <td>
+                            <div
                                 type='button'
                                 className="sbtn"
                                 onClick={() => this.onDetails(id)}
@@ -178,12 +178,12 @@ export class TPList extends Component {
 
                             >
                                 Details
-        </span>
+        </div>
                             <div className='modal' id='myModal'>
-                                <div className='modal-dialog'>
-                                    <div className='modal-content'>
-                                        <div className='modal-header'>
-                                            <h4 className='modal-title'>Transaction Profile Details</h4>
+                                <div className='modal-dialog '>
+                                    <div className='modal-content divBg'>
+                                        <div className='modal-header divBg'>
+                                            <p className='modal-title'>Transaction Profile Details</p>
                                             <button
                                                 type='button'
                                                 className='close'
@@ -193,16 +193,17 @@ export class TPList extends Component {
                 </button>
                                         </div>
 
-                                        {this.state.details.map((tpDetails, index) => (
-                                            <div key={tpDetails.id}>
-                                                <p>Ekyc Type:{tpDetails.ekycType}</p>
-                                                <p> ProductCategoryCode:{tpDetails.productCategoryCode}</p>
-                                                <p> Channel Code:{tpDetails.channelCode}</p>
-                                                <p>Low Limit:{tpDetails.minLimit}</p>
-                                                <p>High Limit:{tpDetails.maxLimit}</p>
-                                                <p>Status:{tpDetails.status}</p>
-                                                <p>Created By:{tpDetails.createdBy}</p>
-                                                <p>Created Date:{tpDetails.createDate}</p>
+                                        {
+                                        this.state.details.map((tpDetails, index) => (
+                                            <div className="imTwoWhite" style={{textAlign:"left", paddingLeft:"20px"}} key={tpDetails.id}>
+                                                <p style={{color:"green"}}>Ekyc Type: <span style={{color:"#e3174c"}}>{tpDetails.ekycType}</span></p>
+                                                <p style={{color:"green"}}> ProductCategoryCode: <span style={{color:"#e3174c"}}>{tpDetails.productCategoryCode}</span></p>
+                                                <p style={{color:"green"}}> Channel Code: <span style={{color:"#e3174c"}}>{tpDetails.channelCode}</span></p>
+                                                <p style={{color:"green"}}>Low Limit: <span style={{color:"#e3174c"}}>{tpDetails.minLimit}</span></p>
+                                                <p style={{color:"green"}}>High Limit: <span style={{color:"#e3174c"}}>{tpDetails.maxLimit}</span></p>
+                                                <p style={{color:"green"}}>Status: <span style={{color:"#e3174c"}}>{tpDetails.status}</span></p>
+                                                <p style={{color:"green"}}>Created By: <span style={{color:"#e3174c"}}>{tpDetails.createdBy}</span></p>
+                                                <p style={{color:"green"}}>Created Date: <span style={{color:"#e3174c"}}>{tpDetails.createDate}</span></p>
 
 
                                             </div>
@@ -220,8 +221,8 @@ export class TPList extends Component {
                         {/* Action Button  */}
                         <td>
                             <div className="d-flex">
-                                <span className="sbtn" onClick={() => this.onUpdate(id)}>Update</span>&nbsp;
-                        <span className="sbtnx" onClick={() => this.onDelete(id)}>Delete</span>&nbsp;
+                                <div className="sbtn" onClick={() => this.onUpdate(id)}>Update</div>&nbsp;
+                        <div className="sbtnx" onClick={() => this.onDelete(id)}>Delete</div>&nbsp;
                     </div>
                         </td>
                     </tr>
