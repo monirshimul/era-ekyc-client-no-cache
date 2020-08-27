@@ -51,7 +51,7 @@ label #cancel {
   color: #effffb;
 
   border: 1px solid #099e96;
-  padding-top: 7px;
+  
   margin-left: 200px;
   margin-top: 15px;
   font-size: 20px;
@@ -128,9 +128,9 @@ label #showMenu {
   text-decoration: none;
 }
 
-#sidebar ul li a .fas {
+/* #sidebar ul li a .fas {
   width: 25px;
-}
+} */
 
 #sidebar ul li:hover {
   /* background-color: #09bfb3; */
@@ -163,10 +163,10 @@ label #showMenu {
   background-color: #f1f3f4;
 }
 
-.fa-angle-right {
+/* .fa-angle-right {
   float: right;
   align-self: center;
-}
+} */
 
 #sub-menu-two {
   display: none;

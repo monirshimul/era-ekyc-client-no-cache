@@ -7,6 +7,21 @@ import { withRouter } from 'react-router-dom';
 import { image } from '../Profile/damiImage'
 import NidThree from '../Simplified/images/man.svg';
 import { NotificationManager } from "react-notifications";
+import ReactTooltip from 'react-tooltip';
+import {
+    FaUser, FaHome, FaIndent,
+    FaAddressCard, FaTools, FaBookReader,
+    FaAddressBook, FaMicrochip, FaGetPocket,
+    FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
+    FaBatteryThreeQuarters, FaMizuni, FaPenNib,
+    FaDigitalTachograph, FaArchive, FaBinoculars,
+    FaSearch, FaListUl, FaUsersCog, FaFileSignature,
+    FaAlignLeft, FaClipboardList, FaCheckSquare,
+    FaPlusCircle, FaUserCheck, FaSortNumericUp,
+    FaCheckCircle, FaWindowClose, FaArrowAltCircleRight,
+    FaElementor, FaUserShield, FaUserTag, FaUserEdit,
+    FaCalendarCheck, FaCalendarAlt, FaMicroblog, FaPenAlt, FaCalendarDay
+} from "react-icons/fa";
 
 export class UserList extends Component {
     state = {
@@ -526,14 +541,17 @@ export class UserList extends Component {
                     <div className="card col" style={{ padding: "25px" }}>
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-search"></i> Search User
+                                <i><FaSearch/></i> Search User
                         </h5>
                         </div>
                         <div className="card-body d-flex justify-content-center">
                             <form className="col-sm-8">
+                            <ReactTooltip id="searchUser" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                                <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select a search option before searching...</span>
+                            </ReactTooltip>
                                 <div className="form-group " >
                                     <label htmlFor=""></label>
-                                    <input style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by UserId / Status/ UserName " />
+                                    <input data-tip data-for="searchUser" style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by UserId / Status/ UserName " />
                                     <small className="text-muted pl-2">
                                         <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
                             </small>
@@ -592,7 +610,7 @@ export class UserList extends Component {
                                     </div>
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i class="fas fa-search"></i> Search</button>
+                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i><FaSearch/></i> Search</button>
                                 </div>
                             </form>
                         </div>
@@ -615,7 +633,7 @@ export class UserList extends Component {
                     <div className="card col-sm-12 mt-3">
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-list-ul"></i> User List
+                                <i class="fas fa-list-ul"><FaListUl/></i> User List
                         </h5>
                         </div>
 
@@ -626,7 +644,7 @@ export class UserList extends Component {
 
                                         <div key={index} className="col-sm-3 mr-2 divBgCard" style={{ color: "#333", padding: "15px" }}>
                                             <div className="text-center im">
-                                                <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> User ID : <span style={{ color: "green" }}>{user.userId}</span></small>
+                                                <small className="text-muted"><i className="fas fa-sort-numeric-up"><FaSortNumericUp/></i> User ID : <span style={{ color: "green" }}>{user.userId}</span></small>
                                             </div>
                                             <hr />
                                             <div className="d-flex justify-content-center">
@@ -668,19 +686,19 @@ export class UserList extends Component {
 
 
                                             <div>
-                                                <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{user.status}</span></small>
+                                                <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters/></i> Status : <span>{user.status}</span></small>
                                             </div>
 
                                             <div>
-                                                <small className="text-muted"><i className="fas fa-pen-nib"></i> Channel Name : <span>{user.channelCode}</span></small>
+                                                <small className="text-muted"><i className="fas fa-pen-nib"><FaPenAlt/></i> Channel Name : <span>{user.channelCode}</span></small>
                                             </div>
 
                                             <div>
-                                                <small className="text-muted"><i className="fas fa-pen-nib"></i> Name : <span>{user.name}</span></small>
+                                                <small className="text-muted"><i className="fas fa-pen-nib"><FaPenNib/></i> Name : <span>{user.name}</span></small>
                                             </div>
 
                                             <div>
-                                                <small className="text-muted"><i className="fab fa-mizuni"></i> Mobile : <span>{user.mobile}</span></small>
+                                                <small className="text-muted"><i className="fab fa-mizuni"><FaMizuni/></i> Mobile : <span>{user.mobile}</span></small>
                                             </div>
                                             {/* <div>
                                                 <small className="text-muted"><i className="fas fa-digital-tachograph"></i> Role Name : <span>{user.roles.map((v, i) => v.roleName + ',')}</span></small>
@@ -688,9 +706,12 @@ export class UserList extends Component {
                                             <hr />
 
                                             <div className="d-flex justify-content-center mt-2">
-                                                <span className="sbtn mr-2" onClick={() => this.onUpdate(user.userId)} ><i class="far fa-edit"></i> Update</span>
-                                                <span className="sbtnx mr-2" onClick={() => this.onDelete(user.id)} ><i class="fas fa-archive"></i> Archive</span>
-                                                <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onDetails(user.id)}  ><i class="fas fa-binoculars"></i> Details</span>
+                                            <ReactTooltip id="arc" place="top" type="warning" effect="float">
+                                                <span style={{ fontSize: "15px" }}> Warning..! User will be deleted permanently.</span>
+                                            </ReactTooltip>
+                                                <span className="sbtn mr-2" onClick={() => this.onUpdate(user.userId)} ><i class="far fa-edit"><FaEdit/></i> Update</span>
+                                                <span data-tip data-for= "arc" className="sbtnx mr-2" onClick={() => this.onDelete(user.id)} ><i class="fas fa-archive"><FaArchive/></i> Archive</span>
+                                                <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onDetails(user.id)}  ><i class="fas fa-binoculars"><FaBinoculars/></i> Details</span>
                                             </div>
 
 
@@ -709,57 +730,57 @@ export class UserList extends Component {
                                                             {this.state.details.map(val => (
                                                                 <div className="">
                                                                     <div className="">
-                                                                        <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> ID : <span>{val.userId}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-sort-numeric-up"><FaSortNumericUp/></i> ID : <span>{val.userId}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{val.status}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters/></i> Status : <span>{val.status}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fab fa-mizuni"></i> Channel Name : <span>{val.channelCode}</span></small>
+                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaMizuni/></i> Channel Name : <span>{val.channelCode}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fab fa-mizuni"></i> Role Name : <span>{val.roles.map((v, i) => v.roleName + ',')}</span></small>
+                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaPenNib/></i> Role Name : <span>{val.roles.map((v, i) => v.roleName + ',')}</span></small>
                                                                     </div>
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fab fa-mizuni"></i> Email : <span>{val.email}</span></small>
+                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaMicroblog/></i> Email : <span>{val.email}</span></small>
                                                                     </div>
                                                                     <hr />
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{val.roles.map((v, i) => v.description)}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-pen-nib"><FaPenAlt/></i> Description : <span>{val.roles.map((v, i) => v.description)}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList === null ? "" : v.grantedIPList.map(ip => ip))}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-digital-tachograph"><FaDigitalTachograph/></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList === null ? "" : v.grantedIPList.map(ip => ip))}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fab fa-elementor"></i> Features : <span>{val.roles.map(v => v.rolePrivileges.map(r => r[1] + ", "))}</span></small>
+                                                                        <small className="text-muted"><i className="fab fa-elementor"><FaElementor/></i> Features : <span>{val.roles.map(v => v.rolePrivileges.map(r => r[1] + ", "))}</span></small>
                                                                     </div>
                                                                     <hr />
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-user-shield"></i> Created By : <span>{val.createdBy}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-user-shield"><FaUserShield/></i> Created By : <span>{val.createdBy}</span></small>
                                                                     </div>
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-user-tag"></i> Approved By : <span>{val.approvedBy}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-user-tag"><FaUserTag/></i> Approved By : <span>{val.approvedBy}</span></small>
                                                                     </div>
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-user-edit"></i> Updated By : <span>{val.updatedBy}</span></small>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <small className="text-muted"><i className="fas fa-calendar-check"></i> Created Date : <span>{val.createDate}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-user-edit"><FaUserEdit/></i> Updated By : <span>{val.updatedBy}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="far fa-calendar-alt"></i> Approved Date : <span>{val.approveDate}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-calendar-check"><FaCalendarCheck/></i> Created Date : <span>{val.createDate}</span></small>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <small className="text-muted"><i className="far fa-calendar-alt"><FaCalendarAlt/></i> Approved Date : <span>{val.approveDate}</span></small>
                                                                     </div>
 
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="far fa-calendar-check"></i> Updated Date : <span>{val.updateDate}</span></small>
+                                                                        <small className="text-muted"><i className="far fa-calendar-check"><FaCalendarDay/></i> Updated Date : <span>{val.updateDate}</span></small>
                                                                     </div>
 
                                                                 </div>

@@ -7,6 +7,9 @@ import axios from 'axios';
 import {withRouter, Redirect} from 'react-router-dom';
 import { logoutUser } from '../E-KYC/Url/ApiList';
 import Login from '../Login/Login';
+import { FaUser,FaHome,FaIndent,
+     FaAddressCard, FaTools, FaBookReader,
+      FaAddressBook, FaMicrochip, FaGetPocket, FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt } from "react-icons/fa";
 
 
 
@@ -34,14 +37,14 @@ const Nav = (props) => {
 
                     <ul className="navbar-nav m-auto mt-2 mt-lg-0 d-flex justify-content-between" style={{ width: '800px' }}>
                         <li className="nav-item ">
-                            <Link to="/dashboard" className="nav-link text-white"><i className="fa fa-home"></i> Home</Link>
+                            <Link to="/dashboard" className="nav-link text-white"><i style={{fontSize:"17px"}}><FaHome/></i>  Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-white" to="#"><i className="fa fa-user"></i> About</Link>
+                            <Link className="nav-link text-white" to="#"><i style={{fontSize:"17px"}}><FaGetPocket/></i> About</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="fa fa-clone"></i> Services</Link>
+                                <i style={{fontSize:"17px"}}><FaClone/></i> Services</Link>
                             <div id="sub-menu-1">
                                 <ul>
                                     <li><a href="#">Goal</a></li>
@@ -53,7 +56,7 @@ const Nav = (props) => {
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="fa fa-users"></i> Clients</Link>
+                                <i style={{fontSize:"17px"}}><FaUsers/></i> Clients</Link>
                             <div id="sub-menu-1">
                                 <ul>
                                     <li><a href="#">Goal</a></li>
@@ -66,7 +69,7 @@ const Nav = (props) => {
 
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="fa fa-phone"></i> Contact</Link>
+                                <i style={{fontSize:"17px"}}><FaPhone/></i> Contact</Link>
                             <div id="sub-menu-1">
                                 <ul>
                                     <li><a href="#">Goal</a></li>
@@ -78,7 +81,7 @@ const Nav = (props) => {
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className="fa fa-edit"></i> Business</Link>
+                                <i style={{fontSize:"17px"}}><FaEdit/></i> Business</Link>
                             <div id="sub-menu-1">
                                 <ul>
                                     <li><a href="#">Goal</a></li>
@@ -97,7 +100,7 @@ const Nav = (props) => {
                 {/* <h4>Hello</h4> */}
                         <li className="mr-5 b" style={{listStyle:"none"}}>
                             <Link className=" text-white" style={{textDecoration:"none"}}  onClick={props.logOut}>
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                            <i style={{fontSize:"17px"}}><FaSignOutAlt/></i> Logout
                             </Link>
                         </li>
                 

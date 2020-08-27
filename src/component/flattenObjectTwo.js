@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { FaUser,FaHome,FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip } from "react-icons/fa";
+
 import Portfolio from './Dashboard/NestedComponentDemo/Portfolio';
 import Blogs from './Dashboard/NestedComponentDemo/Blogs';
 import Contact from './Dashboard/NestedComponentDemo/Contact';
@@ -84,7 +86,7 @@ export const allRoutes = [
             "key": "1",
             'isShowing': true,
             "featureName": "Role",
-            "className": "fas fa-home",
+            "className": <FaIndent/>,
             "path": "",
             "exact": true,
             "component": ""
@@ -163,7 +165,7 @@ export const allRoutes = [
             "key": "2",
             'isShowing': true,
             "featureName": "User",
-            "className": "fas fa-user",
+            "className": <FaUser/>,
             "path": "",
             "exact": true,
             "component": ""
@@ -241,7 +243,7 @@ export const allRoutes = [
             "key": "3",
             'isShowing': true,
             "featureName": "Profile",
-            "className": "fas fa-address-card",
+            "className": <FaAddressCard/>,
             "path": "",
             "exact": true,
             "component": ""
@@ -296,7 +298,7 @@ export const allRoutes = [
             "key": "4",
             'isShowing': true,
             "featureName": "Setting",
-            "className": "fas fa-tools",
+            "className": <FaTools/>,
             "path": "",
             "exact": true,
             "component": ""
@@ -385,7 +387,7 @@ export const allRoutes = [
             "key": "5",
             'isShowing': true,
             "featureName": "E-KYC",
-            "className": "fas fa-book-reader",
+            "className": <FaBookReader/>,
             "path": "",
             "exact": true,
             "component": ""
@@ -519,7 +521,7 @@ export const allRoutes = [
             "key": "6",
             'isShowing': true,
             "featureName": "Report",
-            "className": "fas fa-address-book",
+            "className": <FaAddressBook/>,
             "path": "",
             "exact": true,
             "component": ""
@@ -565,7 +567,7 @@ export const allRoutes = [
             "key": "7",
             'isShowing': true,
             "featureName": "Product",
-            "className": "fas fa-microchip",
+            "className": <FaMicrochip/>,
             "path": "",
             "exact": true,
             "component": ""

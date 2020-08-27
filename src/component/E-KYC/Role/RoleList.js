@@ -2,7 +2,22 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { NotificationManager } from "react-notifications";
-import {getRoleWithStatus,roleApproval} from '../Url/ApiList';
+import { getRoleWithStatus, roleApproval } from '../Url/ApiList';
+import ReactTooltip from 'react-tooltip';
+import {
+    FaUser, FaHome, FaIndent,
+    FaAddressCard, FaTools, FaBookReader,
+    FaAddressBook, FaMicrochip, FaGetPocket,
+    FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
+    FaBatteryThreeQuarters, FaMizuni, FaPenNib,
+    FaDigitalTachograph, FaArchive, FaBinoculars,
+    FaSearch, FaListUl, FaUsersCog, FaFileSignature,
+    FaAlignLeft, FaClipboardList, FaCheckSquare,
+    FaPlusCircle, FaUserCheck, FaSortNumericUp,
+    FaCheckCircle, FaWindowClose, FaArrowAltCircleRight,
+    FaElementor, FaUserShield, FaUserTag, FaUserEdit,
+    FaCalendarCheck, FaCalendarAlt
+} from "react-icons/fa";
 
 class RoleList extends Component {
     state = {
@@ -38,7 +53,7 @@ class RoleList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -71,7 +86,7 @@ class RoleList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                   // console.log("Error Connecting...", error.request)
+                    // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -127,7 +142,7 @@ class RoleList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
+                    //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -154,7 +169,7 @@ class RoleList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                   // console.log("Error Connecting...", error.request)
+                    // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -181,7 +196,7 @@ class RoleList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                   // console.log("Error Connecting...", error.request)
+                    // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -263,13 +278,13 @@ class RoleList extends Component {
         };
         try {
             //console.log("id", id)
-           // let url = 'http://127.0.0.1:3001/role/get/';
+            // let url = 'http://127.0.0.1:3001/role/get/';
             let obj = {
                 id: id
 
             }
             let res = await axios.post(getRoleWithStatus, obj, config)
-           // console.log("200line", res.data)
+            // console.log("200line", res.data)
             let data = res.data.data
             //console.log(data)
 
@@ -291,7 +306,7 @@ class RoleList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -328,7 +343,7 @@ class RoleList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -365,7 +380,7 @@ class RoleList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -399,14 +414,19 @@ class RoleList extends Component {
                     <div className="card col" style={{ padding: "25px" }}>
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-search"></i> Search Role
+                                <i ><FaSearch /></i> Search Role
                         </h5>
                         </div>
                         <div className="card-body d-flex justify-content-center">
+
+                            <ReactTooltip id="searchRole" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                                <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select a search option before searching...</span>
+                            </ReactTooltip>
+
                             <form className="col-sm-8">
                                 <div className="form-group " >
                                     <label htmlFor=""></label>
-                                    <input style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by Id / Role Name / Status" />
+                                    <input data-tip data-for='searchRole' style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by Id / Role Name / Status" />
                                     <small className="text-muted pl-2">
                                         <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
                             </small>
@@ -465,7 +485,7 @@ class RoleList extends Component {
                                     </div>
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i class="fas fa-search"></i> Search</button>
+                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i ><FaSearch /></i> Search</button>
                                 </div>
                             </form>
                         </div>
@@ -516,7 +536,7 @@ class RoleList extends Component {
                 <div className="card mt-3">
                     <div className="im">
                         <h5 className="text-muted text-center pt-2">
-                            <i class="fas fa-list-ul"></i> Role List
+                            <i><FaListUl /></i> Role List
                         </h5>
                     </div>
                     <div className="card-body">
@@ -525,30 +545,33 @@ class RoleList extends Component {
                                 pendingList.map((value, index) => (
                                     <div key={index} className="col-sm-3 mr-2 divBgCard" style={{ color: "#333", padding: "15px" }}>
                                         <div className="text-center im">
-                                            <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> ID : <span>{value.id}</span></small>
+                                            <small className="text-muted"><i ><FaSortNumericUp /></i> ID : <span>{value.id}</span></small>
                                         </div>
                                         <hr />
 
 
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{value.status}</span></small>
+                                            <small className="text-muted"><i ><FaBatteryThreeQuarters /></i> Status : <span>{value.status}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i className="fab fa-mizuni"></i> Role Name : <span>{value.roleName}</span></small>
+                                            <small className="text-muted"><i ><FaMizuni /></i> Role Name : <span>{value.roleName}</span></small>
                                         </div>
 
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
+                                            <small className="text-muted"><i ><FaPenNib /></i> Description : <span>{value.description}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", ") : ""}</span></small>
+                                            <small className="text-muted"><i ><FaDigitalTachograph /></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", ") : ""}</span></small>
                                         </div>
                                         <hr />
 
                                         <div className="d-flex justify-content-center mt-2">
-                                            <span className="sbtn mr-2" onClick={() => this.onUpdate(value.id)}><i class="far fa-edit"></i> Update</span>
-                                            <span className="sbtnx mr-2" onClick={() => this.onArchive(value.id)}><i class="fas fa-archive"></i> Archive</span>
-                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i class="fas fa-binoculars"></i> Details</span>
+                                            <ReactTooltip id="arc" place="top" type="warning" effect="float">
+                                                <span style={{ fontSize: "15px" }}> Warning..! Role will be deleted permanently.</span>
+                                            </ReactTooltip>
+                                            <span className="sbtn mr-2" onClick={() => this.onUpdate(value.id)}><i ><FaEdit /></i> Update</span>
+                                            <span data-tip data-for= "arc" className="sbtnx mr-2" onClick={() => this.onArchive(value.id)}><i ><FaArchive /></i> Archive</span>
+                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i ><FaBinoculars /></i> Details</span>
                                         </div>
 
 
@@ -558,7 +581,7 @@ class RoleList extends Component {
                                             <div className="modal-dialog modal-dialog-centered" role="document">
                                                 <div className="modal-content imTwo">
                                                     <div className="modal-header divBg">
-                                                        <h5 className="modal-title" id="exampleModalCenterTitle"><i class="far fa-arrow-alt-circle-right"></i> Role Details</h5>
+                                                        <h5 className="modal-title" id="exampleModalCenterTitle"><i><FaArrowAltCircleRight /></i> Role Details</h5>
                                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -567,51 +590,52 @@ class RoleList extends Component {
                                                         {modalData.map(val => (
                                                             <div className="">
                                                                 <div className="">
-                                                                    <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> ID : <span>{val.id}</span></small>
+                                                                    <small className="text-muted"><i ><FaSortNumericUp /></i> ID : <span>{val.id}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{val.status}</span></small>
+                                                                    <small className="text-muted"><i ><FaBatteryThreeQuarters /></i> Status : <span>{val.status}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fab fa-mizuni"></i> Role Name : <span>{val.roleName}</span></small>
+                                                                    <small className="text-muted"><i ><FaMizuni /></i> Role Name : <span>{val.roleName}</span></small>
                                                                 </div>
                                                                 <hr />
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{val.description}</span></small>
+                                                                    <small className="text-muted"><i ><FaPenNib /></i> Description : <span>{val.description}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.grantedIPList === null ? "" : val.grantedIPList.map(v => v + ", ")}</span></small>
+                                                                    <small className="text-muted"><i ><FaDigitalTachograph /></i> IP List : <span>{val.grantedIPList === null ? "" : val.grantedIPList.map(v => v + ", ")}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fab fa-elementor"></i> Features : <span>{val.rolePrivileges.map(v => v[1] + ", ")}</span></small>
+                                                                    <small className="text-muted"><i ><FaElementor /></i> Features : <span>{val.rolePrivileges.map(v => v[1] + ", ")}</span></small>
                                                                 </div>
                                                                 <hr />
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-user-shield"></i> Created By : <span>{val.createdBy}</span></small>
+                                                                    <small className="text-muted"><i ><FaUserShield /></i> Created By : <span>{val.createdBy}</span></small>
                                                                 </div>
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-user-tag"></i> Approved By : <span>{val.approvedBy}</span></small>
+                                                                    <small className="text-muted"><i ><FaUserTag /></i> Approved By : <span>{val.approvedBy}</span></small>
                                                                 </div>
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-user-edit"></i> Updated By : <span>{val.updatedBy}</span></small>
+                                                                    <small className="text-muted"><i ><FaUserEdit /></i> Updated By : <span>{val.updatedBy}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-calendar-check"></i> Created Date : <span>{val.createDate}</span></small>
+                                                                    <small className="text-muted"><i ><FaCalendarCheck /></i> Created Date : <span>{val.createDate}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="far fa-calendar-alt"></i> Approved Date : <span>{val.approveDate}</span></small>
+                                                                    <small className="text-muted"><i ><FaCalendarAlt /></i> Approved Date : <span>{val.approveDate}</span></small>
                                                                 </div>
 
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="far fa-calendar-check"></i> Updated Date : <span>{val.updateDate}</span></small>
+                                                                    <small className="text-muted"><i ><FaCalendarCheck /></i> Updated Date : <span>{val.updateDate}</span></small>
                                                                 </div>
+
 
                                                             </div>
 

@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 //import { connect } from 'react-redux';
+
 import { NotificationManager } from "react-notifications";
 import './Login.css'
 import bg from './image/wave2.png'
 import { withRouter, Link,Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { loginAPI } from '../E-KYC/Url/ApiList';
+import { FaUser, FaLock, FaKey, FaSignInAlt } from "react-icons/fa";
+
+
 const Joi = require('@hapi/joi');
+
 //import Dashboard from '../Dashboard/Dashboard';
 //=====Redux work above
 //import { loginRequest, loginSuccess } from '../../actions/loginAction';
@@ -171,12 +176,17 @@ class Login extends Component {
 
                             <div className="field mb-3">
                             <input name="userId" value={this.state.userId} onChange={this.onChange} type="text" id="inputUser" placeholder="User ID" autoComplete="off" />
-                                <span className="fas fa-user"></span>
+                                <span>
+                                    <FaUser/>
+                                </span>
+                                
                                 <label>User ID</label>
                             </div>
                             <div className="field">
                             <input name="password" value={this.state.password} onChange={this.onChange} type="password" id="inputPass" placeholder="Password" />
-                                <span className="fas fa-lock"></span>
+                                <span>
+                                    <FaLock/>
+                                </span>
                                 <label>Password</label>
                             </div>
 

@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import Nav from './Nav';
 import Welcome from './Welcome';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { FaAngleRight, FaBackspace, FaArrowRight } from "react-icons/fa";
 //import MultiStepFace from '../E-KYC/Simplified/MainFace'
 import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';
 import footerWave from './image/footerWave6.svg'
 import data from './image/protect.svg'
+import ReactTooltip from 'react-tooltip';
 
 import { logoutUser } from '../E-KYC/Url/ApiList';
 import { NotificationManager } from "react-notifications";
@@ -265,10 +267,16 @@ class Dashboard extends Component {
                 <div style={{ minHeight: "100%" }}>
                     <Nav logOut={this.logOut} />
                     <div className="d-flex" style={{ margin: "0", padding: "0", overflowX: "hidden" }}>
+                        <ReactTooltip id="show" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}> Expand Sidebar</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="hide" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}> Hide Sidebar</span>
+                        </ReactTooltip>
                         <input type="checkbox" id="check" />
                         <label htmlFor="check">
-                            <i className="fas fa-backspace" id="cancel"></i>
-                            <i className="fas fa-arrow-right" id="showMenu"></i>
+                            <i id="cancel" data-tip data-for="hide"><FaBackspace /></i>
+                            <i id="showMenu" data-tip data-for="show"><FaArrowRight/></i>
                         </label>
                         <div id="sidebar">
                             <div id="profile_info">
@@ -300,7 +308,7 @@ class Dashboard extends Component {
                                                 <div>
                                                     <li>
                                                         {/* First Menu */}
-                                                        <Link id="linkOne" to={`${url}${route.items.path}`}><i className={route.items.className}></i><span id="menuOne">{route.items.featureName} {route.nested ? <i className="fas fa-angle-right" style={{ marginTop: "3px" }}></i> : ""}</span> </Link>
+                                                        <Link id="linkOne" to={`${url}${route.items.path}`}><span className="mr-2" style={{}}>{route.items.className}</span> <span id="menuOne">{route.items.featureName} {route.nested ? <i style={{float:"right"}}><FaAngleRight/></i> : ""}</span> </Link>
 
                                                         <div id="sub-menu-one">
                                                             <ul>
@@ -311,7 +319,7 @@ class Dashboard extends Component {
                                                                                 nest !== undefined && nest.items.isShowing === true ? (
                                                                                     <li id="side-menu">
                                                                                         {/* First Nested Menu */}
-                                                                                        <Link to={`${url}${nest.items.path}`}>{nest.items.featureName} {nest.nested ? <i className="fas fa-angle-right" style={{ marginTop: "3px" }}></i> : ""}</Link>
+                                                                                        <Link to={`${url}${nest.items.path}`}>{nest.items.featureName} {nest.nested ? <i style={{ float:"right" }}><FaAngleRight/></i> : ""}</Link>
 
                                                                                         <div id="sub-menu-two">
                                                                                             <ul>
@@ -323,7 +331,7 @@ class Dashboard extends Component {
                                                                                                                     deepNest !== undefined && deepNest.items.isShowing === true ? (
                                                                                                                         <li>
                                                                                                                             {/* Second Nested menu */}
-                                                                                                                            <Link to={`${url}${deepNest.items.path}`}>{deepNest.items.featureName} {deepNest.nested ? <i className="fas fa-angle-right" style={{ marginTop: "3px" }}></i> : ""}</Link>
+                                                                                                                            <Link to={`${url}${deepNest.items.path}`}>{deepNest.items.featureName} {deepNest.nested ? <i style={{float:"right"}}><FaAngleRight/></i> : ""}</Link>
                                                                                                                         </li>
 
                                                                                                                     ) : ""

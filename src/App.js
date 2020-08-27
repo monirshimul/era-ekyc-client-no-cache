@@ -8,6 +8,8 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 
+
+
 import PageLoader from './component/Page-Loader/PageLoader'
 //import Login from './component/Login/Login';
 const Login = lazy(()=> import('./component/Login/Login'));

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { getFlatRouteArray } from '../../flattenObjectTwo';
 import { allRoutes } from '../../flattenObjectTwo';
 import {updateRole} from '../Url/ApiList';
+import ReactTooltip from 'react-tooltip';
 const Joi = require('@hapi/joi');
 
 
@@ -193,27 +194,43 @@ export class UpdateRole extends Component {
                 <div className="card-body">
                     <form >
 
+                        <ReactTooltip id="createRole" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> A Role Name should be like "Super Admin", it's a mandatory input-field</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="roleStatus" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Change your Role Status, it's a mandatory input-field</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="des" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Description can be anything, it's a mandatory input-field</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="ip" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid IP Address or keep it blank</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="feature" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please Select desire feature from the list</span>
+                        </ReactTooltip>
+
 
                         <div className="form-group">
                             <label htmlFor="">Role Name</label>
-                            <input name="roleName" type="text" value={roleName} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Name" />
+                            <input data-tip data-for='createRole' name="roleName" type="text" value={roleName} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Name" />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="">Role Status</label>
-                            <input name="status" type="text" value={status} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Status P/A/R" />
+                            <input data-tip data-for='roleStatus' name="status" type="text" value={status} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Status P/A/R" />
                         </div>
 
 
                         <div className="form-group">
                             <label htmlFor="">Description</label>
-                            <textarea name="description" value={description} onChange={this.textHandleChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Role Description"></textarea>
+                            <textarea data-tip data-for='des' name="description" value={description} onChange={this.textHandleChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Role Description"></textarea>
 
                         </div>
 
                         <div className="form-group">
                             <label for="exampleTextarea">IP List</label>
-                            <textarea name="ipList" value={ipList} onChange={this.textHandleChange} class="form-control" id="exampleTextareaTwo" rows="3" placeholder="Enter Granted IP list"></textarea>
+                            <textarea data-tip data-for='ip' name="ipList" value={ipList} onChange={this.textHandleChange} class="form-control" id="exampleTextareaTwo" rows="3" placeholder="Enter Granted IP list"></textarea>
 
                         </div>
 
@@ -235,7 +252,7 @@ export class UpdateRole extends Component {
                                                 <div>
                                                     {
                                                         features.key % 1 === 0 ? (
-                                                            <div className="">
+                                                            <div data-tip data-for='feature' className="">
                                                                 <hr />
                                                                 <h1 className="text-center im" >{features.featureName}</h1>
                                                                 <hr />
@@ -281,7 +298,12 @@ export class UpdateRole extends Component {
 
 
                         <div className="d-flex justify-content-center" >
-                            <button onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} ><i class="fas fa-edit"></i> Update</button>
+                        <ReactTooltip id="sub" place="top" type="warning" effect="float">
+                            <span style={{ fontSize:"15px"}}> Before submit, check all the mandatory fields again</span>
+                        </ReactTooltip>
+                        <button onClick={() => this.props.history.push('/dashboard/role-list') } className="b mr-2" style={{ border: "none" }} ><i class="fas fa-edit"></i> Back</button>
+                            <button data-tip data-for="sub" onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} ><i class="fas fa-edit"></i> Update</button>
+                            
                         </div>
 
                     </form>

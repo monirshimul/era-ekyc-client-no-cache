@@ -2,6 +2,18 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { NotificationManager } from "react-notifications";
 import {getRoleWithStatus, roleApproval} from "../Url/ApiList";
+import { FaUser,FaHome,FaIndent,
+    FaAddressCard, FaTools, FaBookReader,
+     FaAddressBook, FaMicrochip, FaGetPocket,
+      FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
+       FaBatteryThreeQuarters, FaMizuni, FaPenNib,
+        FaDigitalTachograph, FaArchive, FaBinoculars,
+         FaSearch, FaListUl, FaUsersCog, FaFileSignature,
+          FaAlignLeft, FaClipboardList, FaCheckSquare,
+           FaPlusCircle, FaUserCheck, FaSortNumericUp,
+            FaCheckCircle, FaWindowClose, FaArrowAltCircleRight,
+             FaElementor, FaUserShield, FaUserTag, FaUserEdit,
+              FaCalendarCheck, FaCalendarAlt } from "react-icons/fa";
 
 
 
@@ -278,7 +290,7 @@ class ApproveRole extends Component {
                 <div className="card mt-3">
                     <div className="im">
                         <h5 className="text-muted text-center pt-2">
-                            <i class="fas fa-user-check"></i> Approve Role
+                            <i ><FaUserCheck/></i> Approve Role
                         </h5>
                     </div>
                     <div className="card-body">
@@ -287,30 +299,30 @@ class ApproveRole extends Component {
                                 pendingList.map((value, index) => (
                                     <div key={index} className="col-sm-3 mr-2 divBgCard" style={{ color: "#333", padding: "15px" }}>
                                         <div className="text-center im">
-                                            <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> ID : <span>{value.id}</span></small>
+                                            <small className="text-muted"><i ><FaSortNumericUp/></i> ID : <span>{value.id}</span></small>
                                         </div>
                                         <hr />
 
 
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{value.status}</span></small>
+                                            <small className="text-muted"><i ><FaBatteryThreeQuarters/></i> Status : <span>{value.status}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i className="fab fa-mizuni"></i> Role Name : <span>{value.roleName}</span></small>
+                                            <small className="text-muted"><i ><FaMizuni/></i> Role Name : <span>{value.roleName}</span></small>
                                         </div>
 
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{value.description}</span></small>
+                                            <small className="text-muted"><i ><FaPenNib/></i> Description : <span>{value.description}</span></small>
                                         </div>
                                         <div>
-                                            <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", ") : ""}</span></small>
+                                            <small className="text-muted"><i ><FaDigitalTachograph/></i> IP List : <span>{value.grantedIPList !== null ? value.grantedIPList.map(v => v + ", ") : ""}</span></small>
                                         </div>
                                         <hr />
 
                                         <div className="d-flex justify-content-center mt-2">
-                                            <span className="sbtn mr-2" onClick={() => this.onApprove(value.id)}><i class="far fa-check-circle"></i> Approve</span>
-                                            <span className="sbtnx mr-2" onClick={() => this.onReject(value.id)}><i class="far fa-window-close"></i> Reject</span>
-                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i class="fas fa-binoculars"></i> Details</span>
+                                            <span className="sbtn mr-2" onClick={() => this.onApprove(value.id)}><i ><FaCheckCircle/></i> Approve</span>
+                                            <span className="sbtnx mr-2" onClick={() => this.onReject(value.id)}><i ><FaWindowClose/></i> Reject</span>
+                                            <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i ><FaBinoculars/></i> Details</span>
                                         </div>
 
 
@@ -320,7 +332,7 @@ class ApproveRole extends Component {
                                             <div className="modal-dialog modal-dialog-centered" role="document">
                                                 <div className="modal-content imTwo">
                                                     <div className="modal-header divBg">
-                                                        <h5 className="modal-title" id="exampleModalCenterTitle"><i class="far fa-arrow-alt-circle-right"></i> Role Details</h5>
+                                                        <h5 className="modal-title" id="exampleModalCenterTitle"><i ><FaArrowAltCircleRight/></i> Role Details</h5>
                                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -329,50 +341,50 @@ class ApproveRole extends Component {
                                                         {modalData.map(val => (
                                                             <div className="">
                                                                 <div className="">
-                                                                    <small className="text-muted"><i className="fas fa-sort-numeric-up"></i> ID : <span>{val.id}</span></small>
+                                                                    <small className="text-muted"><i ><FaSortNumericUp/></i> ID : <span>{val.id}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-battery-three-quarters"></i> Status : <span>{val.status}</span></small>
+                                                                    <small className="text-muted"><i ><FaBatteryThreeQuarters/></i> Status : <span>{val.status}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fab fa-mizuni"></i> Role Name : <span>{val.roleName}</span></small>
+                                                                    <small className="text-muted"><i ><FaMizuni/></i> Role Name : <span>{val.roleName}</span></small>
                                                                 </div>
                                                                 <hr />
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-pen-nib"></i> Description : <span>{val.description}</span></small>
+                                                                    <small className="text-muted"><i ><FaPenNib/></i> Description : <span>{val.description}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-digital-tachograph"></i> IP List : <span>{val.grantedIPList === null ? "" : val.grantedIPList.map(v => v + ", ")}</span></small>
+                                                                    <small className="text-muted"><i ><FaDigitalTachograph/></i> IP List : <span>{val.grantedIPList === null ? "" : val.grantedIPList.map(v => v + ", ")}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fab fa-elementor"></i> Features : <span>{val.rolePrivileges.map(v => v[1] + ", ")}</span></small>
+                                                                    <small className="text-muted"><i ><FaElementor/></i> Features : <span>{val.rolePrivileges.map(v => v[1] + ", ")}</span></small>
                                                                 </div>
                                                                 <hr />
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-user-shield"></i> Created By : <span>{val.createdBy}</span></small>
+                                                                    <small className="text-muted"><i ><FaUserShield/></i> Created By : <span>{val.createdBy}</span></small>
                                                                 </div>
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-user-tag"></i> Approved By : <span>{val.approvedBy}</span></small>
+                                                                    <small className="text-muted"><i ><FaUserTag/></i> Approved By : <span>{val.approvedBy}</span></small>
                                                                 </div>
                                                                 <div>
-                                                                    <small className="text-muted"><i className="fas fa-user-edit"></i> Updated By : <span>{val.updatedBy}</span></small>
-                                                                </div>
-
-                                                                <div>
-                                                                    <small className="text-muted"><i className="fas fa-calendar-check"></i> Created Date : <span>{val.createDate}</span></small>
+                                                                    <small className="text-muted"><i ><FaUserEdit/></i> Updated By : <span>{val.updatedBy}</span></small>
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="far fa-calendar-alt"></i> Approved Date : <span>{val.approveDate}</span></small>
+                                                                    <small className="text-muted"><i ><FaCalendarCheck/></i> Created Date : <span>{val.createDate}</span></small>
+                                                                </div>
+
+                                                                <div>
+                                                                    <small className="text-muted"><i ><FaCalendarAlt/></i> Approved Date : <span>{val.approveDate}</span></small>
                                                                 </div>
 
 
                                                                 <div>
-                                                                    <small className="text-muted"><i className="far fa-calendar-check"></i> Updated Date : <span>{val.updateDate}</span></small>
+                                                                    <small className="text-muted"><i ><FaCalendarCheck/></i> Updated Date : <span>{val.updateDate}</span></small>
                                                                 </div>
 
                                                             </div>

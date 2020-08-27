@@ -5,6 +5,15 @@ import { allRoutes } from '../../flattenObjectTwo'
 import { NotificationManager } from "react-notifications";
 import { getFlatRouteArray } from '../../flattenObjectTwo';
 import {createRole} from '../Url/ApiList';
+import ReactTooltip from 'react-tooltip';
+import { FaUser,FaHome,FaIndent,
+    FaAddressCard, FaTools, FaBookReader,
+     FaAddressBook, FaMicrochip, FaGetPocket,
+      FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
+       FaBatteryThreeQuarters, FaMizuni, FaPenNib,
+        FaDigitalTachograph, FaArchive, FaBinoculars,
+         FaSearch, FaListUl, FaUsersCog, FaFileSignature,
+          FaAlignLeft, FaClipboardList, FaCheckSquare, FaPlusCircle } from "react-icons/fa";
 
 const Joi = require('@hapi/joi');
 
@@ -146,25 +155,41 @@ class CreateRole extends Component {
 
                 <div className="card-header divBg">
                     <h3 className="text-center pt-3">
-                        <i class="fas fa-users-cog"></i> Create Role
+                        <i ><FaUsersCog/></i> Create Role
                     </h3>
                 </div>
                 <div className="card-body">
                     <form >
 
+                        <ReactTooltip id="createRole" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> A Role Name should be like "Super Admin", it's a mandatory input-field</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="des" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Description can be anything, it's a mandatory input-field</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="ip" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid IP Address or keep it blank</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="feature" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please Select desire feature from the list</span>
+                        </ReactTooltip>
+
+
                         <div className="form-group">
-                            <label htmlFor="" className="text-muted"><i class="fas fa-file-signature"></i> Role Name</label>
-                            <input name="roleName" type="text" value={roleName} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Name" />
+                            <label htmlFor="" className="text-muted"><i ><FaFileSignature/></i> Role Name</label>
+                            <input data-tip data-for='createRole' name="roleName" type="text" value={roleName} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Name" />
                         </div>
+
+                        
                         <div className="form-group">
-                            <label htmlFor="" className="text-muted"><i class="fas fa-align-left"></i> Description</label>
-                            <textarea name="description" value={description} onChange={this.textHandleChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Role Description"></textarea>
+                            <label htmlFor="" className="text-muted"><i ><FaAlignLeft/></i> Description</label>
+                            <textarea data-tip data-for='des' name="description" value={description} onChange={this.textHandleChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Role Description"></textarea>
 
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="exampleTextarea" className="text-muted"><i class="fas fa-clipboard-list"></i> IP List</label>
-                            <textarea name="ipList" value={ipList} onChange={this.textHandleChange} class="form-control" id="exampleTextareaTwo" rows="3" placeholder="Enter Granted IP list"></textarea>
+                            <label htmlFor="exampleTextarea" className="text-muted"><i ><FaClipboardList/></i> IP List</label>
+                            <textarea name="ipList" data-tip data-for='ip' value={ipList} onChange={this.textHandleChange} class="form-control" id="exampleTextareaTwo" rows="3" placeholder="Enter Granted IP list"></textarea>
 
                         </div>
 
@@ -175,7 +200,7 @@ class CreateRole extends Component {
 
 
 
-                            <p className="text-muted"><i class="fas fa-check-square"></i> Choose Feature From Feature's List</p>
+                            <p className="text-muted"><i ><FaCheckSquare/></i> Choose Feature From Feature's List</p>
                             {
                                 this.allMenu.map((features, index) => (
                                     <div>
@@ -185,7 +210,7 @@ class CreateRole extends Component {
                                                 <div>
                                                     {
                                                         features.key % 1 === 0 ? (
-                                                            <div className="">
+                                                            <div data-tip data-for='feature' className="">
                                                                 <hr />
                                                                 <h1 className="text-center im" >{features.featureName}</h1>
                                                                 <hr />
@@ -200,6 +225,7 @@ class CreateRole extends Component {
                                                                 <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} key={index} >
 
                                                                     <input
+                                                                        
                                                                         type="checkbox"
                                                                         name={features.key}
                                                                         checked={this.state.checkedItems.get(features.key)}
@@ -210,7 +236,7 @@ class CreateRole extends Component {
                                                                         style={{ cursor: "pointer" }}
 
                                                                     />
-                                                                    <label className="custom-control-label" for={index + 1}>{features.featureName}</label>
+                                                                    <label  className="custom-control-label" for={index + 1}>{features.featureName}</label>
 
                                                                 </div>
                                                             )
@@ -229,7 +255,10 @@ class CreateRole extends Component {
 
 
                         <div className="d-flex justify-content-center" >
-                            <button onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} ><i class="fas fa-plus-circle"></i> Create</button>
+                        <ReactTooltip id="create" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please re-check the mandatory area before create role...</span>
+                        </ReactTooltip>
+                            <button data-tip data-for="create" onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} ><i ><FaPlusCircle/></i> Create</button>
                         </div>
 
                     </form>

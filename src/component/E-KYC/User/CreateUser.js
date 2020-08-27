@@ -7,6 +7,7 @@ import { getRoleWithFilter, createUserWithRole, checkUserId, checkUserMobile, ch
 import { convertNumber } from '../../Utils/StrToNum';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
+import ReactTooltip from 'react-tooltip';
 
 
 class CreateUser extends Component {
@@ -369,15 +370,40 @@ class CreateUser extends Component {
                 <div className="card-body">
                     <form onSubmit={this.onSubmit}>
 
+                        <ReactTooltip id="userId" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span>  UserId should be same as channel UserId for channel login, it's a mandatory input-field (minimum 6 characters)</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="channel" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please choose a channel name, it's a mandatory field</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="userName" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide User Name, it's a mandatory input-field</span>
+                        </ReactTooltip>
+                        <ReactTooltip id="pass" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Password should contain English uppercase letters (A-Z), English lowercase letters (a-z), Base 10 digits (0-9), any special characters </span>
+                        </ReactTooltip>
+                        <ReactTooltip id="userEmail" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid email address, it's a mandatory input-field </span>
+                        </ReactTooltip>
+                        <ReactTooltip id="userMobile" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid mobile number, it's a mandatory input-field </span>
+                        </ReactTooltip>
+                        <ReactTooltip id="twoStep" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please select any option, it's a mandatory input-field </span>
+                        </ReactTooltip>
+                        <ReactTooltip id="role" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please select any role or select multiple, it's mandatory</span>
+                        </ReactTooltip>
+
                         {/* User ID */}
                         <div className="form-group">
                             <label htmlFor="">User Id</label>
-                            <input type="text" value={this.state.userId} onChange={this.onChange} className="form-control" name="userId" id="inputUserId" aria-describedby="emailHelp" placeholder="UserId" />
+                            <input data-tip data-for="userId" type="text" value={this.state.userId} onChange={this.onChange} className="form-control" name="userId" id="inputUserId" aria-describedby="emailHelp" placeholder="UserId" />
                         </div>
 
 
                            {/* Channel Name */}
-                    <div className='form-group'>
+                    <div data-tip data-for="channel" className='form-group'>
                         <label htmlFor="">Channel Name</label>
                         <select
                             className='custom-select'
@@ -398,32 +424,32 @@ class CreateUser extends Component {
                         {/* User Name */}
                         <div className="form-group">
                             <label htmlFor="">Name</label>
-                            <input type="text" value={this.state.name} onChange={this.onChange} className="form-control" name="name" id="inputUserName" aria-describedby="emailHelp" placeholder="Name" />
+                            <input data-tip data-for="userName" type="text" value={this.state.name} onChange={this.onChange} className="form-control" name="name" id="inputUserName" aria-describedby="emailHelp" placeholder="Name" />
                         </div>
 
 
                         {/* Password */}
                         <div className="form-group">
                             <label htmlFor="">Password</label>
-                            <input type="password" value={this.state.password} onChange={this.onChange} className="form-control" name="password" id="inputPassword" aria-describedby="emailHelp" placeholder="Password" />
+                            <input data-tip data-for="pass" type="password" value={this.state.password} onChange={this.onChange} className="form-control" name="password" id="inputPassword" aria-describedby="emailHelp" placeholder="Password" />
                         </div>
 
 
                         {/* Email */}
                         <div className="form-group">
                             <label htmlFor="">Email</label>
-                            <input type="email" value={this.state.email} onChange={this.onChange} className="form-control" name="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Email" />
+                            <input data-tip data-for="userEmail" type="email" value={this.state.email} onChange={this.onChange} className="form-control" name="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Email" />
                         </div>
 
 
                         {/* Mobile */}
                         <div className="form-group">
                             <label htmlFor="">Mobile</label>
-                            <input type="text" value={this.state.mobile} onChange={this.onChange} className="form-control" name="mobile" id="inputMobileNumber" aria-describedby="emailHelp" placeholder="Mobile Number" />
+                            <input data-tip data-for="userMobile" type="text" value={this.state.mobile} onChange={this.onChange} className="form-control" name="mobile" id="inputMobileNumber" aria-describedby="emailHelp" placeholder="Mobile Number" />
                         </div>
 
                         {/* Two factor Verification */}
-                        <div className='form-group'>
+                        <div data-tip data-for="twoStep" className='form-group'>
                             <label htmlFor="">Two Steps Verification</label>
                             <select
                                 className='custom-select'
@@ -453,7 +479,7 @@ class CreateUser extends Component {
 
                         {/* Table for Selected Role */}
 
-                        <div className='form-group'>
+                        <div data-tip data-for="role" className='form-group'>
                             <label htmlFor="">Role Selection:</label>
                             <table id='data' className="" style={{ fontSize: '14px' }}>
                                 <thead className="divBg" style={{fontWeight:"400", fontSize:"14px"}}>
@@ -475,8 +501,11 @@ class CreateUser extends Component {
                         
                         {/* Submit Button */}
                         <div className="d-flex justify-content-center" >
+                        <ReactTooltip id="sub" place="top" type="warning" effect="float">
+                            <span style={{ fontSize:"15px"}}> Before submit, check all the mandatory fields again</span>
+                        </ReactTooltip>
 
-                            <button className="b" type="submit" style={{ border: "none" }} >Submit</button>
+                            <button data-tip data-for="sub"  className="b" type="submit" style={{ border: "none" }} >Submit</button>
 
                         </div>
 
