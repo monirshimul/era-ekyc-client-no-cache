@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
+import {RoleAndUserStatus} from '../../Utils/fullFormConversion';
 import { NotificationManager } from "react-notifications";
 import {getRoleWithStatus, roleApproval} from "../Url/ApiList";
 import { FaUser,FaHome,FaIndent,
@@ -305,7 +306,7 @@ class ApproveRole extends Component {
 
 
                                         <div>
-                                            <small className="text-muted"><i ><FaBatteryThreeQuarters/></i> Status : <span>{value.status}</span></small>
+                                            <small className="text-muted"><i ><FaBatteryThreeQuarters/></i> Status : <span>{RoleAndUserStatus(value.status)}</span></small>
                                         </div>
                                         <div>
                                             <small className="text-muted"><i ><FaMizuni/></i> Role Name : <span>{value.roleName}</span></small>
@@ -321,7 +322,7 @@ class ApproveRole extends Component {
 
                                         <div className="d-flex justify-content-center mt-2">
                                             <span className="sbtn mr-2" onClick={() => this.onApprove(value.id)}><i ><FaCheckCircle/></i> Approve</span>
-                                            <span className="sbtnx mr-2" onClick={() => this.onReject(value.id)}><i ><FaWindowClose/></i> Reject</span>
+                                            <span className="sbtnx mr-2" onClick={() =>window.confirm("Are you sure you want to reject the Role ?") && this.onReject(value.id)}><i ><FaWindowClose/></i> Reject</span>
                                             <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i ><FaBinoculars/></i> Details</span>
                                         </div>
 
@@ -345,7 +346,7 @@ class ApproveRole extends Component {
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i ><FaBatteryThreeQuarters/></i> Status : <span>{val.status}</span></small>
+                                                                    <small className="text-muted"><i ><FaBatteryThreeQuarters/></i> Status : <span>{RoleAndUserStatus(val.status)}</span></small>
                                                                 </div>
 
                                                                 <div>

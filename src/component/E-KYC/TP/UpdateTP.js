@@ -139,6 +139,12 @@ export class UpdateTP extends Component {
     }
 
 
+    onBack = e =>{
+        e.preventDefault();
+        this.props.history.push('/dashboard/list-tp');
+    }
+
+
 
     render() {
         return (
@@ -212,6 +218,7 @@ export class UpdateTP extends Component {
                     <div className='form-group'>
                         <label htmlFor="">Channel Name</label>
                         <select
+                            
                             className='custom-select'
                             value={this.state.channelName}
                             onChange={this.onChange}
@@ -222,6 +229,7 @@ export class UpdateTP extends Component {
                             <option value='CBS'>Conventional Core Banking</option>
                             <option value='ICBS'>Islamic Core Banking</option>
                             <option value='OMNI'>Omni Channel </option>
+                            <option value='EKYC'> EKYC </option>
                         </select>
                     </div>
 
@@ -241,10 +249,13 @@ export class UpdateTP extends Component {
                         </select>
                     </div>
 
-                    <div className="d-flex justify-content-center" >
-
-                        <button className="b" type="submit" style={{ border: "none" }} >Submit</button>
-
+                    <div className="row d-flex justify-content-center mt-4" >
+                    <div>
+                    <button className="b mr-5"  onClick={this.onBack} type="submit" style={{ border: "none" }} >Back</button>
+                    </div>
+                    <div>    
+                    <button className="b" onClick={this.onSubmit} type="submit" style={{ border: "none" }} >Update</button>
+                    </div>
                     </div>
 
                 </form>

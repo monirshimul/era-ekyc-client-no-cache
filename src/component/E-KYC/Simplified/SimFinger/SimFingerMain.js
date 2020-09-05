@@ -5,7 +5,7 @@ import SimFingerPrint from '../SimFinger/SimFingerPrint';
 import SimPersonalDetails from '../SimFace/SimPersonalDetails';
 import SimNominee from '../SimFace/SimNominee';
 import SimCutomerPic from './SimCutomerPic';
-import SimSignature from '../SimFace/SimSignature';
+import SimFingerSignature from './SimFingerSignature';
 import SimFingerConfirm from '../SimFinger/SimFingerConfirm';
 import SimComplete from '../SimFace/SimComplete';
 import {NotificationManager} from 'react-notifications'
@@ -221,6 +221,8 @@ export class SimFingerMain extends Component {
         this.setState({ jointArray: copyArray });
     }
 
+  
+
 
     handleInputChange = (index, event) => {
        // console.log(event.target);
@@ -289,12 +291,12 @@ export class SimFingerMain extends Component {
     }
 
 
-    deteteRow = (index) => {
-        const copyArray = Object.assign([], this.state.jointArray);
-        copyArray.splice(index, 1);
-        this.setState({ jointArray: copyArray })
+    // deteteRow = (index) => {
+    //     const copyArray = Object.assign([], this.state.jointArray);
+    //     copyArray.splice(index, 1);
+    //     this.setState({ jointArray: copyArray })
 
-    }
+    // }
 
     render() {
 
@@ -348,6 +350,7 @@ export class SimFingerMain extends Component {
                         prevStep={this.prevStep}
                         handleState={this.handleState}
                         onChange={this.handleInputChange}
+                        handleDateChange = {this.handleNomineeDateChange}
                         showHideChange={this.showHideChange}
                         addNomineeOne={this.addNomineeOne}
                         addNomineeTwo={this.addNomineeTwo}
@@ -363,14 +366,13 @@ export class SimFingerMain extends Component {
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}
-                        handleDate={this.handleDate}
                         values={values}
                     />
                 )
 
             case 6:
                 return (
-                    <SimSignature
+                    <SimFingerSignature
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}

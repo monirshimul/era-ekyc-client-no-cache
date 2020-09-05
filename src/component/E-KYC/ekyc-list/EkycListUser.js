@@ -2,15 +2,22 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import { ekycWithFilter, ekycFullProfile, ekycForUser } from '../Url/ApiList';
+import Pagination from '../../Reusable/Pagination';
 import { NotificationManager } from "react-notifications";
 
 class EkycListUser extends Component {
 
     state = {
         page: 1,
+        totalPages: '',
+        totalEkyc: '',
+        text_input: "",
+        goButton: false,
+        searchFlag: false,
         ekycData: [],
-        search:"",
-        radioValue:""
+        search: "",
+        radioValue: "",
+        show:false
     }
 
     async componentDidMount() {
@@ -18,17 +25,20 @@ class EkycListUser extends Component {
 
         const config = {
             headers: {
-              'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }     
-          };
-          
-        
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+
 
         try {
-            let ekycList = await axios.post(ekycForUser + page,null, config)
-            //console.log("ekycList", ekycList.data.data.ekyc)
+            let ekycList = await axios.post(ekycForUser + page, null, config)
+            console.log("ekycList", ekycList.data.data);
+            console.log("ekycList", ekycList.data.data.ekyc)
             this.setState({
-                ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc
+                ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc,
+                totalPages: ekycList.data.data.totalPages,
+                totalEkyc: ekycList.data.data.totalEkyc
             })
         } catch (error) {
             if (error.response) {
@@ -36,7 +46,7 @@ class EkycListUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -46,78 +56,82 @@ class EkycListUser extends Component {
 
     }
 
-    searchValueChange = (e)=>{
-        
+    searchValueChange = (e) => {
+
         this.setState({
-            radioValue:e.target.value
+            radioValue: e.target.value
         })
     }
 
-    searchHandle = (e)=>{
+    searchHandle = (e) => {
         e.preventDefault();
         this.setState({ [e.target.name]: e.target.value });
-    
+
     }
 
-    doSearch = async (e)=>{
+    doSearch = async (e) => {
         e.preventDefault();
-        let {radioValue, search, page} = this.state
+        let { radioValue, search, page } = this.state
         const config = {
             headers: {
-              'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
-      
-          };
-        if(radioValue === "id"){
+
+        };
+        if (radioValue === "id") {
             //console.log(radioValue)
             let val = {
-                id:search
+                id: search
             }
             try {
                 let searchResult = await axios.post(ekycForUser + page, val, config)
-            // console.log("searchResult",searchResult)
-            if(searchResult.data.data.length === 0){
-                NotificationManager.warning("No id Match", "Warning", 5000)
-            }
+                // console.log("searchResult",searchResult)
+                if (searchResult.data.data.length === 0) {
+                    NotificationManager.warning("No id Match", "Warning", 5000)
+                }
                 this.setState({
-                    ekycData:searchResult.data.data
+                    ekycData: searchResult.data.data,
+                    show: true
                 })
             } catch (error) {
+                this.setState({show:false});
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
+                    //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
                 }
             }
-            
+
         }
 
 
-        if(radioValue === "nid"){
+        if (radioValue === "nid") {
             let val = {
-                nid:search
+                nid: search
             }
             try {
                 let searchResult = await axios.post(ekycForUser + page, val, config)
                 //console.log("searchResult",searchResult)
-                if(searchResult.data.data.length === 0){
+                if (searchResult.data.data.length === 0) {
                     NotificationManager.warning("No Nid Match", "Warning", 5000)
                 }
                 this.setState({
-                    ekycData:searchResult.data.data
+                    ekycData: searchResult.data.data,
+                    show:true
                 })
             } catch (error) {
+                this.setState({show:false});
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
+                    //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -126,32 +140,76 @@ class EkycListUser extends Component {
         }
 
 
-        if(radioValue === "name"){
+        if (radioValue === "mobile") {
             let val = {
-                name:search
+                mobile: search
             }
             try {
                 let searchResult = await axios.post(ekycForUser + page, val, config)
-            // console.log("searchResult",searchResult)
-            if(searchResult.data.data.length === 0){
-                NotificationManager.warning("No Name Match", "Warning", 5000)
-            }
+                // console.log("searchResult",searchResult)
+                if (searchResult.data.data.length === 0) {
+                    NotificationManager.warning("Mobile Number does not Match", "Warning", 5000)
+                }
                 this.setState({
-                    ekycData:searchResult.data.data
+                    ekycData: searchResult.data.data,
+                    show:true
                 })
             } catch (error) {
+                this.setState({show:false});
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                   // console.log("Error Connecting...", error.request)
+                    // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
                 }
             }
         }
+    }
+
+
+    doBack =async (e)=>{
+        e.preventDefault();
+        const { page } = this.state
+
+        
+
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+
+
+        try {
+            let ekycList = await axios.post(ekycForUser + page, null, config)
+            console.log("ekycList", ekycList.data.data);
+            console.log("ekycList", ekycList.data.data.ekyc)
+            this.setState({
+                ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc,
+                totalPages: ekycList.data.data.totalPages,
+                totalEkyc: ekycList.data.data.totalEkyc,
+                show:false,
+                search:""
+            })
+        } catch (error) {
+            this.setState({show:true});
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                // console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+    
     }
 
     showMore = async (id) => {
@@ -159,7 +217,7 @@ class EkycListUser extends Component {
         let { page } = this.state
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
@@ -169,7 +227,7 @@ class EkycListUser extends Component {
                 id: id
             }
             let singleEkyc = await axios.post(ekycWithFilter + page, idObj, config)
-           // console.log("Show More", singleEkyc.data.data)
+            // console.log("Show More", singleEkyc.data.data)
             let dataObj = {
                 data: singleEkyc.data.data
             }
@@ -181,7 +239,110 @@ class EkycListUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-              //  console.log("Error Connecting...", error.request)
+                //  console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+
+
+    }
+
+
+    ///////////////////////////////////////////////////Pagination start/////////////////////////
+
+
+    handlePage = (e) => {
+        if (e.target.value !== "") {
+            this.setState({
+                text_input: e.target.value,
+                goButton: true,
+            })
+        } else {
+            this.setState({
+                text_input: e.target.value,
+                goButton: false
+            })
+        }
+    }
+
+    handleGoInput = (e) => {
+        e.preventDefault();
+        const { totalPages, text_input } = this.state;
+        let pageReq = "";
+        if (text_input !== "" && text_input > 0 && text_input <= totalPages) {
+            pageReq = text_input;
+            this.setState({ page: pageReq });
+            this.pageChanges(pageReq);
+        } else {
+            console.log('Invalid Page No.');
+            //alert('Invalid Page No.');
+            let invalidMessage = 'Invalid Page No.';
+            NotificationManager.warning(invalidMessage, "Warning", 5000);
+            this.setState({ text_input: "", goButton: false });
+        }
+
+    }
+
+    increment = () => {
+        const { page, totalPages } = this.state;
+        let nextPage = this.state.page + 1;
+        this.setState({ page: nextPage })
+        //console.log(nextPage);
+        if (nextPage > 0 && nextPage <= totalPages) {
+            this.pageChanges(nextPage);
+        } else {
+            //console.log('Page out of bound');
+            let pageOutBoundMessage = 'Page out of bound';
+            NotificationManager.warning(pageOutBoundMessage, "Warning", 5000);
+
+        }
+    }
+
+    //=================================Decrement function=======================================
+    decrement = () => {
+        const { page, totalPages } = this.state;
+
+        let nextPage = this.state.page - 1;
+        this.setState({ page: nextPage })
+        // console.log(nextPage);
+        if (nextPage > 0 && nextPage <= totalPages) {
+            this.pageChanges(nextPage);
+        } else {
+            //console.log('Page out of bound');
+            //alert('Page out of bound');
+            let pageOutBoundMessage = 'Page out of bound';
+            NotificationManager.warning(pageOutBoundMessage, "Warning", 5000);
+
+        }
+    }
+
+
+    pageChanges = async (newPage) => {
+        const config = {
+            headers: {
+
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+            }
+        };
+        try {
+            let paginationUser = await axios.post(ekycForUser + newPage, "", config);
+            // console.log("pagination pages", paginationUser.data.data.users);
+            let paginEkyc = paginationUser.data.data;
+            let numPages = paginEkyc.totalPages;
+            let numEkyc = paginEkyc.totalEkyc;
+            let approveNew = paginEkyc.ekyc;
+            this.setState({ totalPages: numPages, totalEkyc: numEkyc, ekycData: approveNew });
+
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -193,16 +354,25 @@ class EkycListUser extends Component {
 
 
 
-    fullProfile = async (id)=>{
+
+
+
+
+
+
+    ///////////////////////////////////////////////////Pagination End/////////////////////////
+
+
+    fullProfile = async (id) => {
 
         const config = {
             headers: {
-                
+
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             }
         };
-        
+
         try {
             let idObj = {
                 applicantId: id
@@ -220,7 +390,7 @@ class EkycListUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -248,7 +418,7 @@ class EkycListUser extends Component {
                             <form className="col-sm-8">
                                 <div className="form-group " >
                                     <label htmlFor=""></label>
-                                    <input style={{ borderRadius: "50px" }} onChange={this.searchHandle} name="search" value={search} type="text" className="form-control" placeholder="Search by E-kyc Id / Nid / Name" />
+                                    <input style={{ borderRadius: "50px" }} onChange={this.searchHandle} name="search" value={search} type="text" className="form-control" placeholder="Search by E-kyc Id / Nid / Mobile Number" />
                                     <small className="text-muted pl-2">
                                         <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
                             </small>
@@ -268,15 +438,19 @@ class EkycListUser extends Component {
                                     </div>&nbsp;&nbsp;&nbsp;
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="name" />
-                                            Search By Name
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="mobile" />
+                                            Search By Mobile Number
                                         </label>
                                     </div>
-                                    
+
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                    <button className="b" onClick={this.doSearch} style={{outline:"none"}} ><i class="fas fa-search"></i> Search</button>
-                                </div>
+                                { this.state.show === true ?
+                                    <button className="b" onClick={this.doBack} style={{ outline: "none" }} ><i class="fas fa-search"></i> Back</button>
+                                    :
+                                    <button className="b" onClick={this.doSearch} style={{ outline: "none" }} ><i class="fas fa-search"></i> Search</button>
+                                }
+                                    </div>
                             </form>
                         </div>
 
@@ -336,6 +510,30 @@ class EkycListUser extends Component {
                     </div>
 
                 </div>
+
+
+                {/* pagination added*/}
+                {this.state.totalPages > 1 && this.state.searchFlag === false ?
+                    (<Pagination
+                        //   historyPerPage={this.state.historyPerPage}
+                        //   totalHistory={this.state.totalHistory}
+                        // increment, decrement, page, total_pages, onInputChange, handleGo, text_input, goButton
+                        increment={this.increment}
+                        decrement={this.decrement}
+                        page={this.state.page}
+                        total_pages={this.state.totalPages}
+                        onInputChange={this.handlePage}
+                        text_input={this.state.text_input}
+                        goButton={this.state.goButton}
+                        handleGo={this.handleGoInput}
+                    />) :
+                    <div>
+                        <br /><br /><br />
+                        <p style={{ textAlign: 'center' }}> <strong> page No: {this.state.page + "/" + this.state.totalPages}</strong> </p>
+                    </div>
+                }
+
+
             </div>
         )
     }

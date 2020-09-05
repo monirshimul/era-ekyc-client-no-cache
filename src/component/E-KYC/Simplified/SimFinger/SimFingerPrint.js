@@ -5,8 +5,16 @@ import Loading from "../utils/CustomLoding/Loading.js";
 import Finger from "../images/fingerprintEC.svg";
 import FingerOk from ".././images/successPrint.svg";
 import { NotificationManager } from "react-notifications";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import {showDate} from '../../../Utils/dateConversion';
 
 export class SimFingerPrint extends Component {
+
+
+
+
+
   handleClick = (e) => {
     e.preventDefault();
 
@@ -105,13 +113,15 @@ export class SimFingerPrint extends Component {
     e.preventDefault();
     const { nid, dob, rThumb, rIndex, lThumb, lIndex } = this.props.values;
     
-
+    
     if(nid.length === 13){
-      let dateSplit = dob.split("-")[0];
+      let dateSp = showDate(dob);
+      let dateSplit = dateSp.split("-")[0];
       let nid13digit = dateSplit+nid;
       this.props.handleState('nid', nid13digit);
   }
 
+  
 
 
     const config = {
@@ -122,13 +132,15 @@ export class SimFingerPrint extends Component {
 
     let obj = {
       nid,
-      dob,
+      dob:showDate(dob),
       rIndex,
       rThumb,
       lIndex,
       lThumb,
     };
-    
+
+   
+    console.log("Obj", obj);
 
     try {
 
@@ -142,6 +154,14 @@ export class SimFingerPrint extends Component {
       //console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.fingerVerificationResult.status)
       console.log("fingerRes", fingerRes.data)
       this.props.handleState('loadingSpin', false);
+
+     
+
+      if(fingerRes.data.data.fingerVerificationResult.details.statusCode === 404){
+        let message = fingerRes.data.data.fingerVerificationResult.details.message;
+        NotificationManager.error(message, "Error", 5000);
+        return;
+      }
       
       
       // Setting Data to State === start
@@ -154,7 +174,8 @@ export class SimFingerPrint extends Component {
       this.props.handleState('applicantNameBangla', dataResp.name ? dataResp.name : "");
       this.props.handleState('applicantName', dataResp.nameEn ? dataResp.nameEn : "");
       this.props.handleState('applicantDob',dataResp.dateOfBirth ? dataResp.dateOfBirth : "" );
-      this.props.handleState('applicantNidNo', dataResp.nationalId ? dataResp.nationalId : "");
+      //this.props.handleState('applicantNidNo', dataResp.nationalId ? dataResp.nationalId : "");
+      this.props.handleState('applicantNidNo', this.props.values.nid ? this.props.values.nid : "");
       this.props.handleState('motherNameBangla', dataResp.mother ? dataResp.mother : "");
       this.props.handleState('fatherNameBangla',dataResp.father ? dataResp.father : "");
       this.props.handleState('profession',dataResp.occupation ? dataResp.occupation : '' );
@@ -269,7 +290,7 @@ export class SimFingerPrint extends Component {
 
   render() {
     let { values, handleChange } = this.props;
-    //console.log("Date of birth", values.dob)
+    // console.log("Date of birth", JSON.stringify(values.dob))
     return (
       <div className="container">
         <div className="row d-flex justify-content-center">
@@ -295,20 +316,29 @@ export class SimFingerPrint extends Component {
                   placeholder="Enter NID NO"
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="">Date of Birth:</label>
-                <input
-                  style={{ borderRadius: "50px" }}
-                  type="date"
-                  value={values.dob}
-                  name="dob"
-                  onChange={handleChange('dob')}
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter Applicant's Name"
-                />
+
+              <div className='form-group d-flex justify-content-between'>
+              <div className=''>
+                <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
               </div>
+              <div className=''>
+               
+              <DatePicker
+              placeholderText='DD/MM/YYYY'
+              selected={values.dob}
+              dateFormat='dd/MM/yyyy'
+              onChange={d => {
+                this.props.handleState("dob", d);
+              }}
+              isClearable
+              showYearDropdown
+              showMonthDropdown
+              scrollableMonthYearDropdown
+              
+            />
+              </div>
+            </div>
+             
               {/* <label htmlFor="dob">Date of Birth:</label><br />
           <input type="date" id="dob" name="dob" onChange={this.onChange} value={this.state.dob} /><br /><br /> */}
 

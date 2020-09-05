@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { absDateFormat} from '../../../Utils/dateConversion';
+import {ProductCodeGetName,ProductCategoryType,AccountType,GenderForm} from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
@@ -18,7 +19,17 @@ import child from '../images/child2.svg';
 import guardian from '../images/guardian.svg';
 import Acordion from '../../Acordion/Acordion'
 
+
 export class SimConfirmInfo extends Component {
+
+    state={
+        ProductCodetoName:""
+    }
+
+    async componentDidMount(){
+        let data = await ProductCodeGetName(this.props.values.productName);
+        this.setState({ProductCodetoName: data});
+    }
 
 
     continue = async (e) => {
@@ -60,67 +71,67 @@ export class SimConfirmInfo extends Component {
 
         let applicantPresentInfo = {
             addressType: "PRESENT",
-            district: values.preDistrict,
-            upozila: values.preUpozila,
-            unionOrWard: values.preUnionOrWard,
-            districtEng: values.preDistrictEn,
-            upozilaEng: values.preUpozilaEn,
-            unionOrWardEng: values.preUnionOrWardEn
+            district: values.preDistrict.toString(),
+            upozila: values.preUpozila.toString(),
+            unionOrWard: values.preUnionOrWard.toString(),
+            districtEng: values.preDistrictEn.toString(),
+            upozilaEng: values.preUpozilaEn.toString(),
+            unionOrWardEng: values.preUnionOrWardEn.toString()
             
         }
 
-        if (values.preAdditionalMouzaOrMoholla !== '') applicantPresentInfo.additionalMouzaOrMoholla = values.preAdditionalMouzaOrMoholla;
-        if (values.preAdditionalVillageOrRoad !== '') applicantPresentInfo.additionalVillageOrRoad = values.preAdditionalVillageOrRoad;
-        if (values.preCityCorporationOrMunicipality !== '') applicantPresentInfo.cityCorporationOrMunicipality = values.preCityCorporationOrMunicipality;
-        if (values.preDistrictCode !== '') applicantPresentInfo.districtCode = values.preDistrictCode;
-        if (values.preUpozilaCode !== '') applicantPresentInfo.upozilaCode = values.preUpozilaCode;
-        if (values.preUnionOrWardCode !== '') applicantPresentInfo.unionCode = values.preUnionOrWardCode;
-        if (values.preDivision !== '') applicantPresentInfo.division = values.preDivision;
-        if (values.preHomeOrHoldingNo !== '') applicantPresentInfo.homeOrHoldingNo = values.preHomeOrHoldingNo;
-        if (values.prePostOffice !== '') applicantPresentInfo.postOffice = values.prePostOffice;
-        if (values.preRegion !== '') applicantPresentInfo.region = values.preRegion;
-        if (values.prePostalCode !== '') applicantPresentInfo.postalCode = values.prePostalCode;
-        if (values.preRmo !== '') applicantPresentInfo.rmo = values.preRmo;
-        if (values.preWardForUnionPorishod !== '') applicantPresentInfo.wardForUnionPorishod = values.preWardForUnionPorishod;
-        if (values.preAdditionalMouzaOrMohollaEn !== '') applicantPresentInfo.additionalMouzaOrMohollaEng = values.preAdditionalMouzaOrMohollaEn;
-        if (values.preAdditionalVillageOrRoadEn !== '') applicantPresentInfo.additionalVillageOrRoadEng = values.preAdditionalVillageOrRoadEn;
-        if (values.preCityCorporationOrMunicipalityEn !== '') applicantPresentInfo.cityCorporationOrMunicipalityEng = values.preCityCorporationOrMunicipalityEn;
-        if (values.preDivisionEn !== '') applicantPresentInfo.divisionEng = values.preDivisionEn;
-        if (values.preHomeOrHoldingNoEn !== '') applicantPresentInfo.homeOrHoldingNoEng = values.preHomeOrHoldingNoEn;
-        if (values.prePostOfficeEn !== '') applicantPresentInfo.postOfficeEng = values.prePostOfficeEn;
-        if (values.preRegionEn !== '') applicantPresentInfo.regionEng = values.preRegionEn;
+        if (values.preAdditionalMouzaOrMoholla !== '') applicantPresentInfo.additionalMouzaOrMoholla = values.preAdditionalMouzaOrMoholla.toString();
+        if (values.preAdditionalVillageOrRoad !== '') applicantPresentInfo.additionalVillageOrRoad = values.preAdditionalVillageOrRoad.toString();
+        if (values.preCityCorporationOrMunicipality !== '') applicantPresentInfo.cityCorporationOrMunicipality = values.preCityCorporationOrMunicipality.toString();
+        if (values.preDistrictCode !== '') applicantPresentInfo.districtCode = values.preDistrictCode.toString();
+        if (values.preUpozilaCode !== '') applicantPresentInfo.upozilaCode = values.preUpozilaCode.toString();
+        if (values.preUnionOrWardCode !== '') applicantPresentInfo.unionCode = values.preUnionOrWardCode.toString();
+        if (values.preDivision !== '') applicantPresentInfo.division = values.preDivision.toString();
+        if (values.preHomeOrHoldingNo !== '') applicantPresentInfo.homeOrHoldingNo = values.preHomeOrHoldingNo.toString();
+        if (values.prePostOffice !== '') applicantPresentInfo.postOffice = values.prePostOffice.toString();
+        if (values.preRegion !== '') applicantPresentInfo.region = values.preRegion.toString();
+        if (values.prePostalCode !== '') applicantPresentInfo.postalCode = values.prePostalCode.toString();
+        if (values.preRmo !== '') applicantPresentInfo.rmo = values.preRmo.toString();
+        if (values.preWardForUnionPorishod !== '') applicantPresentInfo.wardForUnionPorishod = values.preWardForUnionPorishod.toString();
+        if (values.preAdditionalMouzaOrMohollaEn !== '') applicantPresentInfo.additionalMouzaOrMohollaEng = values.preAdditionalMouzaOrMohollaEn.toString();
+        if (values.preAdditionalVillageOrRoadEn !== '') applicantPresentInfo.additionalVillageOrRoadEng = values.preAdditionalVillageOrRoadEn.toString();
+        if (values.preCityCorporationOrMunicipalityEn !== '') applicantPresentInfo.cityCorporationOrMunicipalityEng = values.preCityCorporationOrMunicipalityEn.toString();
+        if (values.preDivisionEn !== '') applicantPresentInfo.divisionEng = values.preDivisionEn.toString();
+        if (values.preHomeOrHoldingNoEn !== '') applicantPresentInfo.homeOrHoldingNoEng = values.preHomeOrHoldingNoEn.toString();
+        if (values.prePostOfficeEn !== '') applicantPresentInfo.postOfficeEng = values.prePostOfficeEn.toString();
+        if (values.preRegionEn !== '') applicantPresentInfo.regionEng = values.preRegionEn.toString();
 
         let applicantPermanentInfo = {
             addressType: "PERMANENT",
-            district: values.perDistrict,
-            upozila: values.perUpozila,
-            unionOrWard: values.perUnionOrWard,
-            districtEng: values.perDistrictEn,
-            upozilaEng: values.perUpozilaEn,
-            unionOrWardEng: values.perUnionOrWardEn
+            district: values.perDistrict.toString(),
+            upozila: values.perUpozila.toString(),
+            unionOrWard: values.perUnionOrWard.toString(),
+            districtEng: values.perDistrictEn.toString(),
+            upozilaEng: values.perUpozilaEn.toString(),
+            unionOrWardEng: values.perUnionOrWardEn.toString()
         }
 
 
-        if (values.perAdditionalMouzaOrMoholla !== '') applicantPermanentInfo.additionalMouzaOrMoholla = values.perAdditionalMouzaOrMoholla;
-        if (values.perAdditionalVillageOrRoad !== '') applicantPermanentInfo.additionalVillageOrRoad = values.perAdditionalVillageOrRoad;
-        if (values.perCityCorporationOrMunicipality !== '') applicantPermanentInfo.cityCorporationOrMunicipality = values.perCityCorporationOrMunicipality;
-        if (values.perDistrictCode !== '') applicantPermanentInfo.districtCode = values.perDistrictCode;
-        if (values.perUpozilaCode !== '') applicantPermanentInfo.upozilaCode = values.perUpozilaCode;
-        if (values.perUnionOrWardCode !== '') applicantPermanentInfo.unionCode = values.perUnionOrWardCode;
-        if (values.perDivision !== '') applicantPermanentInfo.division = values.perDivision;
-        if (values.perHomeOrHoldingNo !== '') applicantPermanentInfo.homeOrHoldingNo = values.perHomeOrHoldingNo;
-        if (values.perPostOffice !== '') applicantPermanentInfo.postOffice = values.perPostOffice;
-        if (values.perRegion !== '') applicantPermanentInfo.region = values.perRegion;
-        if (values.perPostalCode !== '') applicantPermanentInfo.postalCode = values.perPostalCode;
-        if (values.perRmo !== '') applicantPermanentInfo.rmo = values.perRmo;
-        if (values.perWardForUnionPorishod !== '') applicantPermanentInfo.wardForUnionPorishod = values.perWardForUnionPorishod;
-        if (values.perAdditionalMouzaOrMohollaEn !== '') applicantPermanentInfo.additionalMouzaOrMohollaEng = values.perAdditionalMouzaOrMohollaEn;
-        if (values.perAdditionalVillageOrRoadEn !== '') applicantPermanentInfo.additionalVillageOrRoadEng = values.perAdditionalVillageOrRoadEn;
-        if (values.perCityCorporationOrMunicipalityEn !== '') applicantPermanentInfo.cityCorporationOrMunicipalityEng = values.perCityCorporationOrMunicipalityEn;
-        if (values.perDivisionEn !== '') applicantPermanentInfo.divisionEng = values.perDivisionEn;
-        if (values.perHomeOrHoldingNoEn !== '') applicantPermanentInfo.homeOrHoldingNoEng = values.perHomeOrHoldingNoEn;
-        if (values.perPostOfficeEn !== '') applicantPermanentInfo.postOfficeEng = values.perPostOfficeEn;
-        if (values.perRegionEn !== '') applicantPermanentInfo.regionEng = values.perRegionEn;
+        if (values.perAdditionalMouzaOrMoholla !== '') applicantPermanentInfo.additionalMouzaOrMoholla = values.perAdditionalMouzaOrMoholla.toString();
+        if (values.perAdditionalVillageOrRoad !== '') applicantPermanentInfo.additionalVillageOrRoad = values.perAdditionalVillageOrRoad.toString();
+        if (values.perCityCorporationOrMunicipality !== '') applicantPermanentInfo.cityCorporationOrMunicipality = values.perCityCorporationOrMunicipality.toString();
+        if (values.perDistrictCode !== '') applicantPermanentInfo.districtCode = values.perDistrictCode.toString();
+        if (values.perUpozilaCode !== '') applicantPermanentInfo.upozilaCode = values.perUpozilaCode.toString();
+        if (values.perUnionOrWardCode !== '') applicantPermanentInfo.unionCode = values.perUnionOrWardCode.toString();
+        if (values.perDivision !== '') applicantPermanentInfo.division = values.perDivision.toString();
+        if (values.perHomeOrHoldingNo !== '') applicantPermanentInfo.homeOrHoldingNo = values.perHomeOrHoldingNo.toString();
+        if (values.perPostOffice !== '') applicantPermanentInfo.postOffice = values.perPostOffice.toString();
+        if (values.perRegion !== '') applicantPermanentInfo.region = values.perRegion.toString();
+        if (values.perPostalCode !== '') applicantPermanentInfo.postalCode = values.perPostalCode.toString();
+        if (values.perRmo !== '') applicantPermanentInfo.rmo = values.perRmo.toString();
+        if (values.perWardForUnionPorishod !== '') applicantPermanentInfo.wardForUnionPorishod = values.perWardForUnionPorishod.toString();
+        if (values.perAdditionalMouzaOrMohollaEn !== '') applicantPermanentInfo.additionalMouzaOrMohollaEng = values.perAdditionalMouzaOrMohollaEn.toString();
+        if (values.perAdditionalVillageOrRoadEn !== '') applicantPermanentInfo.additionalVillageOrRoadEng = values.perAdditionalVillageOrRoadEn.toString();
+        if (values.perCityCorporationOrMunicipalityEn !== '') applicantPermanentInfo.cityCorporationOrMunicipalityEng = values.perCityCorporationOrMunicipalityEn.toString();
+        if (values.perDivisionEn !== '') applicantPermanentInfo.divisionEng = values.perDivisionEn.toString();
+        if (values.perHomeOrHoldingNoEn !== '') applicantPermanentInfo.homeOrHoldingNoEng = values.perHomeOrHoldingNoEn.toString();
+        if (values.perPostOfficeEn !== '') applicantPermanentInfo.postOfficeEng = values.perPostOfficeEn.toString();
+        if (values.perRegionEn !== '') applicantPermanentInfo.regionEng = values.perRegionEn.toString();
 
 
         let applicantFileInfo = {
@@ -177,7 +188,7 @@ export class SimConfirmInfo extends Component {
             nominees: nomineesInfo
         }
 
-       // console.log("confirmobj", confirmObj);
+        console.log("confirmobj", confirmObj);
        
 
         const config = {
@@ -210,14 +221,14 @@ export class SimConfirmInfo extends Component {
             this.props.nextStep();
 
         } catch (error) {
-
+            console.log("Error",error.response)
             this.props.handleState('confirmFlag', false);
             if (error.response) {
                 let message = error.response.data.message
-                //console.log("Error",error.response)
+                console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-                //console.log("Error Connecting...", error.request)
+                console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -255,10 +266,10 @@ export class SimConfirmInfo extends Component {
                             <hr />
                             <div className="">
                                 <small className="" style={{fontSize:"14px"}}>
-                                <span style={{color:"green", fontSize:"14px"}}>Account Type :</span> {values.accountType},<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Product and Services :</span> {values.product},<br /> 
+                                <span style={{color:"green", fontSize:"14px"}}>Account Type :</span> {AccountType(values.accountType)},<br />
+                                <span style={{color:"green", fontSize:"14px"}}>Product and Services :</span> {ProductCategoryType(values.product)},<br /> 
                                 <span style={{color:"green", fontSize:"14px"}}>channel Name :</span> {values.channelName},<br /> 
-                                <span style={{color:"green", fontSize:"14px"}}>Product Name :</span> {values.productName},<br /> 
+                                <span style={{color:"green", fontSize:"14px"}}>Product Name :</span> {`${values.productName} (${this.state.ProductCodetoName})`},<br /> 
                                 <span style={{color:"green", fontSize:"14px"}}>Transaction Amount :</span> {values.transactionOrMaturityAmount},<br /> 
                                     </small>
                                 {/* <p className="text-muted">Product and Services : {accountData.product}</p>
@@ -283,7 +294,7 @@ export class SimConfirmInfo extends Component {
                                 <span style={{color:"green", fontSize:"14px"}}>Father's Name :</span> {values.fatherName}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Father's Name Bangla :</span> {values.fatherNameBangla}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Spouse Name :</span> {values.spouseName}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Gender :</span> {values.gender}<br />
+                                <span style={{color:"green", fontSize:"14px"}}>Gender :</span> {GenderForm(values.gender)}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Profession :</span> {values.profession}<br />
                                
 

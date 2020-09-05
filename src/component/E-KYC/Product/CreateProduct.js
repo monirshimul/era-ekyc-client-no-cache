@@ -155,7 +155,7 @@ class CreateProduct extends Component {
 
                         <div className="form-group">
                             <label htmlFor="" className="text-muted"><i class="fas fa-align-left"></i> Description</label>
-                            <textarea name="description" value={description} onChange={this.onChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Role Description"></textarea>
+                            <textarea name="description" value={description} onChange={this.onChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Product Description"></textarea>
 
                         </div>
 

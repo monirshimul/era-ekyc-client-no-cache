@@ -7,7 +7,7 @@ import axios from 'axios';
 export class AccountReg extends Component {
     state = {
         SimReg: '',
-        channelName: '',
+        channelName: JSON.parse(sessionStorage.getItem('ChannelCode'))? JSON.parse(sessionStorage.getItem('ChannelCode')):'',
         productCategory: "",
         productName: "",
         productNameData: [],
@@ -40,7 +40,7 @@ export class AccountReg extends Component {
 
         try {
             let getCode = await axios.post(getProduct, obj, config);
-            let getCodeData = getCode.data.data;
+            let getCodeData = getCode.data.data.filter(product=> product.status === 'A');
             this.setState({ productNameData: getCodeData });
             //console.log("state", this.state.productNameData);
         } catch (error) {
@@ -83,6 +83,13 @@ export class AccountReg extends Component {
         e.preventDefault();
         const { productCategory, productName, amount, tenor, accountType, channelName, SimReg } = this.state;
 
+         // Branch and agent point code check
+         if( JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null){
+            let messageForAgentPointCode = "Please Select Branch or Agent Point From Home";
+            NotificationManager.warning(messageForAgentPointCode, "Click to Remove", 500000);
+            return;
+        }
+        
         if (channelName === '') {
             let channelNameMessage = 'Please Select Channel Name';
             NotificationManager.warning(channelNameMessage, "Warning", 5000);
@@ -201,6 +208,7 @@ export class AccountReg extends Component {
                         <div className='form-group'>
                             <label htmlFor="">Channel Name</label>
                             <select
+                                disabled
                                 className='custom-select'
                                 value={this.state.channelName}
                                 onChange={this.onChange}
@@ -211,6 +219,7 @@ export class AccountReg extends Component {
                                 <option value='CBS'>Conventional Core Banking</option>
                                 <option value='ICBS'>Islamic Core Banking</option>
                                 <option value='OMNI'>Omni Channel </option>
+                                <option value='EKYC'>EKYC </option>
                             </select>
                         </div>
 

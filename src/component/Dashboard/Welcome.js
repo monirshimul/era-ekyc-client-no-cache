@@ -20,7 +20,9 @@ class Welcome extends Component {
         // quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")) === null ? [] : JSON.parse(sessionStorage.getItem("quickLinks")),
         linkShower: false,
         branchOrAgentPointCodeArr: JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")) === null ? [] : JSON.parse(sessionStorage.getItem("branchOrAgentPointCode")),
-        branchCode: JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null ? "" : JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) 
+        branchOrAgentPointNameArr: JSON.parse(sessionStorage.getItem("branchOrAgentPointName")) === null ? [] : JSON.parse(sessionStorage.getItem("branchOrAgentPointName")),
+        branchCode: JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null ? "" : JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")), 
+        branchName: JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointName")) === null ? "" : JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointName"))
     }
 
 
@@ -33,7 +35,7 @@ class Welcome extends Component {
         //     linkShower: !this.state.linkShower
         // })
 
-
+      
 
         const config = {
             headers: {
@@ -95,26 +97,48 @@ class Welcome extends Component {
 
     onChange = e => {
         //e.preventDefault();
-
         this.setState({
             [e.target.name]: e.target.value,
+        }, ()=>{
+            sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode));
+            //  console.log("code",this.state.branchCode);
         });
-
-
 
 
     }
 
 
+    selectOptions = () =>{
+        let options =[];
+    //     this.state.branchOrAgentPointCodeArr !== undefined ?
+
+    //     this.state.branchOrAgentPointCodeArr.map((val, ind) => (
+    //         <option value={val}>{this.state.branchOrAgentPointNameArr[ind] + ` (${val})`}</option>
+    //     ))
+    // :
+    // ""
+
+        if(this.state.branchOrAgentPointCodeArr !== undefined ){
+            this.state.branchOrAgentPointCodeArr.forEach((val, index)=>{
+               
+                options.push(
+                    <option value={val} >{this.state.branchOrAgentPointNameArr[index] + ` (${val})`}</option>
+                )
+            })
+            
+        }
+        return options;
+    }
+
 
 
 
     render() {
-        let path = this.props.match.path;
-        let url = this.props.match.url;
-        let { userProfileImage, flag, quickLinks, showLinks, branchOrAgentPointCode, branchCode } = this.state
+        // let path = this.props.match.path;
+        // let url = this.props.match.url;
+        let { userProfileImage, flag, quickLinks, showLinks, branchOrAgentPointCodeArr, branchCode,branchName } = this.state
         //console.log("branchOrAgentPointCode", branchCode)
-        sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode))
+        // sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode))
         return (
             <div className="container">
 
@@ -155,17 +179,10 @@ class Welcome extends Component {
                                 onChange={this.onChange}
                                 name="branchCode"
                             >
-                                <option value='' disabled>--Select Branch Code--</option>
+                                 <option value='' disabled >--Select Branch Code--</option>
                                 {
-                                    branchOrAgentPointCode === undefined ? (
-                                        this.setState({
-                                            branchOrAgentPointCode: JSON.parse(sessionStorage.getItem("branchOrAgentPointCode"))
-                                        })
-                                    ) : (
-                                            branchOrAgentPointCode.map((val, ind) => (
-                                                <option value={val}>{val}</option>
-                                            ))
-                                        )
+                                   
+                                   this.selectOptions()  
 
                                 }
 
@@ -339,11 +356,10 @@ class Welcome extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        name: state.login.loginResponse.name
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         name: state.login.loginResponse.name
+//     }
+// }
 
-export default connect(
-    mapStateToProps, null)(withRouter(Welcome))
+export default withRouter(Welcome)

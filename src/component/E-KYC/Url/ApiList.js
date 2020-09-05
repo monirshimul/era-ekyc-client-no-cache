@@ -85,3 +85,10 @@ export const getRoleWithStatus = hostIp + `role/get/`;
 export const roleApproval = hostIp + `role/status`;
 export const updateRole = hostIp + `role`;
 
+
+// Personal dETAILS ADDRESS, Profession
+export const profession = hostIp + `address/get/profession`;
+export const division = hostIp + `address/get/division`;
+export const district = hostIp + `address/get/district`;
+export const union = hostIp +  `address/get/union`;
+export const upozila = hostIp + `address/get/upazila`; 

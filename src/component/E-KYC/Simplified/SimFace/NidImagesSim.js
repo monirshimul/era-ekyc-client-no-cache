@@ -7,6 +7,7 @@ import NidThree from '../images/nid-f4.svg';
 import Loading from '../utils/CustomLoding/Loading.js';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
+import {datePickerPrefiilConv} from '../../../Utils/dateConversion';
 import axios from 'axios';
 import Capture from '../Capture/Capture';
 
@@ -169,11 +170,17 @@ export class NidImagesSim extends Component {
         this.props.handleState('loadingSpin', !(values.loadingSpin));
         let ocrData = await axios.post(nidOcr, Obj, config);
         this.props.handleState('loadingSpin', false);
-        // console.log("ocrResponse1", ocrData.data);
-        // console.log("ocrResponse", ocrData.data.data);
+         console.log("ocrResponse1", ocrData.data);
+         console.log("ocrResponse", ocrData.data.data);
         let data = ocrData.data.data;
+        let dateofBirth = data.formatted.dob;
         this.props.handleState("nid", data.nidFront.nid);
-        this.props.handleState("dob", data.formatted.dob);
+        // this.props.handleState("dob", data.formatted.dob.includes("undefined") ? "" : datePickerPrefiilConv(data.formatted.dob)) ;
+        if(dateofBirth.includes("undefined")){
+          this.props.handleState("dob", "");
+        }else{
+          this.props.handleState("dob",datePickerPrefiilConv(dateofBirth));
+        }
       } catch (error) {
         if (error.response) {
           let message = error.response.data.message

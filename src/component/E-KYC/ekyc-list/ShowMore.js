@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
+import{AccountVerificationStatus,ProductCategoryType,AccountType,EkycProfileStatus, GenderForm,ProductCodeGetName} from '../../Utils/fullFormConversion';
 class ShowMore extends Component {
 
     state = {
-        ekyc: this.props.location.state.data
+        ekyc: this.props.location.state.data,
+        ProductCodetoName:""
     }
 
-    componentDidMount() {
-       // console.log("All data", this.state.ekyc)
+    async componentDidMount() {
+    //    console.log("All data", this.state.ekyc[0].account.productCode)
+       let data =await ProductCodeGetName(this.state.ekyc[0].account.productCode);
+       this.setState({ProductCodetoName:data});
     }
 
     backEkyc = () => {
@@ -43,9 +46,9 @@ class ShowMore extends Component {
                                                 <div className="pl-3" style={{fontSize:"18px"}}>
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name : </span>{data.name}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name Bangla : </span>{data.nameBangla}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Gender : </span>{data.gender}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Gender : </span>{GenderForm(data.gender)}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.id}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Status : </span>{data.verificationStatus}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Status : </span>{AccountVerificationStatus(data.verificationStatus)}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Type : </span>{data.verificationType}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Date : </span>{data.verificationDate}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>NID No : </span>{data.nid}</small><br />
@@ -74,10 +77,10 @@ class ShowMore extends Component {
                                                 </div>
                                                 <div className="pl-3" style={{fontSize:"18px"}}>
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{data.account === null ? "" : data.account.title}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{data.account === null ? "" : data.account.productType}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{data.account === null ? "" : data.account.productCode}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{data.account === null ? "" : data.account.status}</small><br />
-                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{data.account === null ? "" : data.account.type}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{data.account === null ? "" : ProductCategoryType(data.account.productType)}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{data.account === null ? "" : `${data.account.productCode} (${(this.state.ProductCodetoName)})`}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{data.account === null ? "" : EkycProfileStatus(data.account.status)}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{data.account === null ? "" : AccountType(data.account.type)}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.account === null ? "" : data.account.id}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.account === null ? "" : data.account.createdBy}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{data.account === null ? "" : data.account.createDate}</small><br />

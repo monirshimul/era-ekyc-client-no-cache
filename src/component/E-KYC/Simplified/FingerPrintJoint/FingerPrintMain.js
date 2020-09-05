@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import NidImage from '../NidImage';
+import NidImage from '../FaceJoint/NidImage';
 //import CaptureImage from '../CaptureImage';
-import PersonalDetails from '../PersonalDetails';
+import PersonalDetails from '../FaceJoint/PersonalDetails';
 import JointFingerPrint from './JointFingerPrint';
 import JointPicture from './JointPicture';
-import Signature from '../Signature';
-import Nominee from '../Nominee';
+import JointFingerSignature from './JointFingerSignature';
+import Nominee from '../FaceJoint/Nominee';
 import JointFingerConfirm from './JointFingerConfirm';
-import Success from '../Success';
+import Success from '../FaceJoint/Success';
 import { NotificationManager } from 'react-notifications'
 
 export class FingerPrintMain extends Component {
@@ -286,12 +286,12 @@ export class FingerPrintMain extends Component {
     }
 
 
-    deteteRow = (index) => {
-        const copyArray = Object.assign([], this.state.jointArray);
-        copyArray.splice(index, 1);
-        this.setState({ jointArray: copyArray })
+    // deteteRow = (index) => {
+    //     const copyArray = Object.assign([], this.state.jointArray);
+    //     copyArray.splice(index, 1);
+    //     this.setState({ jointArray: copyArray })
 
-    }
+    // }
 
     render() {
 
@@ -333,6 +333,7 @@ export class FingerPrintMain extends Component {
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
+                        handleState={this.handleState}
                         values={values}
                     />
                 )
@@ -366,7 +367,7 @@ export class FingerPrintMain extends Component {
 
             case 6:
                 return (
-                    <Signature
+                    <JointFingerSignature
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}

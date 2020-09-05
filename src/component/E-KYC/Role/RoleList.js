@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
+import {RoleAndUserStatus} from '../../Utils/fullFormConversion';
 import { withRouter } from 'react-router-dom'
 import { NotificationManager } from "react-notifications";
 import { getRoleWithStatus, roleApproval } from '../Url/ApiList';
@@ -551,7 +552,7 @@ class RoleList extends Component {
 
 
                                         <div>
-                                            <small className="text-muted"><i ><FaBatteryThreeQuarters /></i> Status : <span>{value.status}</span></small>
+                                            <small className="text-muted"><i ><FaBatteryThreeQuarters /></i> Status : <span>{`${value.status} (${RoleAndUserStatus(value.status)})`}</span></small>
                                         </div>
                                         <div>
                                             <small className="text-muted"><i ><FaMizuni /></i> Role Name : <span>{value.roleName}</span></small>
@@ -570,7 +571,7 @@ class RoleList extends Component {
                                                 <span style={{ fontSize: "15px" }}> Warning..! Role will be deleted permanently.</span>
                                             </ReactTooltip>
                                             <span className="sbtn mr-2" onClick={() => this.onUpdate(value.id)}><i ><FaEdit /></i> Update</span>
-                                            <span data-tip data-for= "arc" className="sbtnx mr-2" onClick={() => this.onArchive(value.id)}><i ><FaArchive /></i> Archive</span>
+                                            <span data-tip data-for= "arc" className="sbtnx mr-2" onClick={() =>window.confirm("Are you sure you want to archive the Role?") && this.onArchive(value.id)}><i ><FaArchive /></i> Archive</span>
                                             <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i ><FaBinoculars /></i> Details</span>
                                         </div>
 
@@ -594,7 +595,7 @@ class RoleList extends Component {
                                                                 </div>
 
                                                                 <div>
-                                                                    <small className="text-muted"><i ><FaBatteryThreeQuarters /></i> Status : <span>{val.status}</span></small>
+                                                                    <small className="text-muted"><i ><FaBatteryThreeQuarters /></i> Status : <span>{RoleAndUserStatus(val.status)}</span></small>
                                                                 </div>
 
                                                                 <div>

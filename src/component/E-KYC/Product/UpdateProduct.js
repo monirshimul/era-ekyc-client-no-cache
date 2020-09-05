@@ -108,6 +108,12 @@ class UpdateProduct extends Component {
     }
 
 
+    onBack = e =>{
+        e.preventDefault();
+        this.props.history.replace('/dashboard/product-list');
+    }
+
+
     render() {
         let { productName, description, productCode, productCategory, status } = this.state
         return (
@@ -179,11 +185,15 @@ class UpdateProduct extends Component {
                         </div>
 
 
-                        <div className="d-flex justify-content-center" >
+                        <div className="row d-flex justify-content-center mt-4" >
+
+                            <div>
+                            <button className="b mr-5"  onClick={this.onBack} type="submit" style={{ border: "none" }} >Back</button>
+                            </div>
                             
-                                
-                                    <button className="b" type="submit" style={{ border: "none" }} >Update</button>
-                                
+                                <div>
+                                    <button className="b" onClick={this.onSubmit}  type="submit" style={{ border: "none" }} >Update</button>
+                                    </div>
                             
                             
 

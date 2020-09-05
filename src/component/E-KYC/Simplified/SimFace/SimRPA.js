@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import {getAge} from '../../../Utils/ageCheck';
+import { getAge } from '../../../Utils/ageCheck';
 import Loading from "../utils/CustomLoding/Loading.js";
 import { nidValidationRPA } from '../../Url/ApiList';
 import Finger from "../images/fingerprintEC.svg";
 import FingerOk from ".././images/successPrint.svg";
 import Sign from '../images/man.svg';
 import { NotificationManager } from "react-notifications";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import { showDate } from '../../../Utils/dateConversion';
 
 export class SimRPA extends Component {
 
@@ -24,11 +27,11 @@ export class SimRPA extends Component {
             }
         };
 
-        let dob13= dob.split("-")[0];
+        let dob13 = showDate(dob).split("-")[0];
 
         const obj = {
-            nid: nid.length === 13 ? dob13+nid : nid,
-            dob
+            nid: nid.length === 13 ? dob13 + nid : nid,
+            dob: showDate(dob)
         }
 
         console.log("obj", obj);
@@ -42,7 +45,7 @@ export class SimRPA extends Component {
                 this.props.handleState('applicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
                 this.props.handleState('applicantName', dataResp.nameEng ? dataResp.nameEng : "");
                 this.props.handleState('applicantDob', dataResp.dob ? dataResp.dob : "");
-                this.props.handleState('applicantNidNo', dataResp.nid ? dataResp.nid : "");
+                this.props.handleState('applicantNidNo', this.props.values.nid ? this.props.values.nid : "");
                 this.props.handleState('motherNameBangla', dataResp.motherName ? dataResp.motherName : "");
                 this.props.handleState('fatherNameBangla', dataResp.fatherName ? dataResp.fatherName : "");
                 this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
@@ -95,7 +98,7 @@ export class SimRPA extends Component {
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
@@ -150,20 +153,31 @@ export class SimRPA extends Component {
                                     placeholder="Enter NID NO"
                                 />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="">Date of Birth:</label>
-                                <input
-                                    style={{ borderRadius: "50px" }}
-                                    type="date"
-                                    value={values.dob}
-                                    name="dob"
-                                    onChange={handleChange('dob')}
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Enter Applicant's Name"
-                                />
+
+
+
+                            <div className='form-group d-flex justify-content-between'>
+                                <div className=''>
+                                    <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
+                                </div>
+                                <div className=''>
+
+                                    <DatePicker
+                                        placeholderText='DD/MM/YYYY'
+                                        selected={values.dob}
+                                        dateFormat='dd/MM/yyyy'
+                                        onChange={d => {
+                                            this.props.handleState("dob", d);
+                                        }}
+                                        isClearable
+                                        showYearDropdown
+                                        showMonthDropdown
+                                        scrollableMonthYearDropdown
+
+                                    />
+                                </div>
                             </div>
+
                             {/* <label htmlFor="dob">Date of Birth:</label><br />
               <input type="date" id="dob" name="dob" onChange={this.onChange} value={this.state.dob} /><br /><br /> */}
 
@@ -213,8 +227,13 @@ export class SimRPA extends Component {
                         </span>
                                 <button type="button" style={{ outline: "none" }} className="b" onClick={this.continue}>
                                     Next
-                        </button>
+        </button>
+
                             </div>
+
+
+
+
                         </form>
                     </div>
                 </div>

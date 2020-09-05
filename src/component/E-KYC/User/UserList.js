@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../E-KYC/Simplified/utils/Common.css';
 import { getAllUser, getUserWithStatus, searchUser, userDeleteAPI, getProfile } from '../Url/ApiList';
+import {RoleAndUserStatus} from '../../Utils/fullFormConversion';
 import axios from 'axios';
 import Pagination from '../../Reusable/Pagination';
 import { withRouter } from 'react-router-dom';
@@ -686,7 +687,7 @@ export class UserList extends Component {
 
 
                                             <div>
-                                                <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters/></i> Status : <span>{user.status}</span></small>
+                                                <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters/></i> Status : <span>{`${user.status} (${RoleAndUserStatus(user.status)})`}</span></small>
                                             </div>
 
                                             <div>
@@ -710,7 +711,7 @@ export class UserList extends Component {
                                                 <span style={{ fontSize: "15px" }}> Warning..! User will be deleted permanently.</span>
                                             </ReactTooltip>
                                                 <span className="sbtn mr-2" onClick={() => this.onUpdate(user.userId)} ><i class="far fa-edit"><FaEdit/></i> Update</span>
-                                                <span data-tip data-for= "arc" className="sbtnx mr-2" onClick={() => this.onDelete(user.id)} ><i class="fas fa-archive"><FaArchive/></i> Archive</span>
+                                                <span data-tip data-for= "arc" className="sbtnx mr-2" onClick={() =>window.confirm("Are you sure you want to archive the User?") && this.onDelete(user.id)} ><i class="fas fa-archive"><FaArchive/></i> Archive</span>
                                                 <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onDetails(user.id)}  ><i class="fas fa-binoculars"><FaBinoculars/></i> Details</span>
                                             </div>
 
@@ -734,7 +735,7 @@ export class UserList extends Component {
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters/></i> Status : <span>{val.status}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters/></i> Status : <span>{RoleAndUserStatus(val.status)}</span></small>
                                                                     </div>
 
                                                                     <div>

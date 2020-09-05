@@ -28,7 +28,7 @@ const VerifyLoginCode = lazy(() => import('./component/Login/code/VerifyLoginCod
 class App extends Component {
 
   handleTabClose = (ev) => {
-    localStorage.removeItem('accountId');
+    sessionStorage.removeItem('accountId');
     ev.preventDefault();
     ev.returnValue = '';
 

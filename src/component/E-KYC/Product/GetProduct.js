@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import {ResourceStatus,ProductCategoryType} from '../../Utils/fullFormConversion';
 import { getProduct, createProduct, deleteProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 
@@ -18,7 +19,7 @@ class GetProduct extends Component {
         };
         try {
             let getProductRes = await axios.post(getProduct, null, config)
-            //console.log('getProductRes', getProductRes.data.data)
+            // console.log('getProductRes', getProductRes.data.data);
             this.setState({
                 productData: getProductRes.data.data
             })
@@ -99,11 +100,13 @@ class GetProduct extends Component {
                // console.log('updateRes', deleteRes)
                 NotificationManager.warning("Product Deleted", "Warning", 5000);
                 let getProductRes = await axios.post(getProduct, null, config)
+                console.log(getProductRes.data.data);
                 this.setState({
                     productData: getProductRes.data.data
                 })
             } else {
                 let getProductRes = await axios.post(getProduct, null, config)
+                console.log(getProductRes.data.data);
                 this.setState({
                     productData: getProductRes.data.data
                 })
@@ -148,9 +151,10 @@ class GetProduct extends Component {
                                         <hr />
                                         <div className="neoBg" style={{ fontSize: "16px" }}>
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>ID : </span>{data.id}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Status : </span>{data.status}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Status : </span>{ResourceStatus(data.status)}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Product Name : </span>{data.name}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Code : </span>{data.code}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Category Code : </span>{data.categoryCode}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Category Code : </span>{ProductCategoryType(data.categoryCode)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Description : </span>{data.description}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Created By : </span>{data.createdBy}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Created Date : </span>{data.createDate}</small><br />

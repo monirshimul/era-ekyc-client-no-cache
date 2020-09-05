@@ -1,17 +1,45 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
-import {getAge} from '../../../Utils/ageCheck';
+import { getAge } from '../../../Utils/ageCheck';
 import Face from "../images/face.svg";
 import Family from '../images/family.svg';
 import Familyes from '../images/candidates.svg';
 import adult from '../images/age-limit-one.svg';
 import child from '../images/age-limit-two.svg';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { showDate, convert } from '../../../Utils/dateConversion';
+
+
 
 export class SimNominee extends Component {
     state = {
         showHide: false
     }
 
+
+    handleAdultNomineeDateChange = (index, event, d) => {
+        event.preventDefault();
+        console.log("index", index);
+        // console.log("event", event.target.value);
+        console.log("d", d);
+        let copyArray = Object.assign([], this.props.values.jointArray);
+        copyArray[index].dob = d;
+        console.log("copyArray", copyArray);
+        this.props.handleState("jointArray", copyArray);
+
+    }
+
+    handleMinorNomineeDateChange = (index, event, d) => {
+        event.preventDefault();
+        console.log("index", index);
+        // console.log("event", event.target.value);
+        console.log("d", d);
+        let copyArray = Object.assign([], this.props.values.jointArray);
+        copyArray[index].minorDob = d;
+        console.log("copyArray", copyArray);
+        this.props.handleState("jointArray", copyArray);
+    }
 
     //Nominee part function
     showHideChange = () => {
@@ -27,11 +55,26 @@ export class SimNominee extends Component {
     //     //console.log("ShowHide", this.state.showHide)
     // }
 
+    deteteRow = (e, index) => {
+        e.preventDefault();
+        let copyArray = Object.assign([], this.props.values.jointArray);
+        console.log("copyArrat", copyArray)
+        console.log("index", index)
+        copyArray.splice(index, 1);
+        this.props.handleState("jointArray", copyArray);
+
+    }
+
 
     continue = e => {
         const { values } = this.props;
         e.preventDefault();
         //    ====================== Validation Start =============================
+
+
+
+
+
 
         let checkPercentage = 0;
         for (let i = 0; i < values.jointArray.length; i++) {
@@ -46,9 +89,12 @@ export class SimNominee extends Component {
                     return;
                 }
 
-                if (getAge(values.jointArray[i].dob) < 18) {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Age is less than 18 please add as a Minor Nominee `, "Warning", 5000);
-                    return;
+                if (this.props.values.jointArray[i].dob !== "") {
+                    let checkAge = convert(this.props.values.jointArray[i].dob);
+                    if (getAge(checkAge) < 18) {
+                        NotificationManager.warning(`Nominee ${i + 1} -- Age is less than 18 please add as a Minor Nominee `, "Warning", 5000);
+                        return;
+                    }
                 }
 
                 if (values.jointArray[i].relation === '') {
@@ -69,6 +115,10 @@ export class SimNominee extends Component {
                 if (values.jointArray[i].percentage !== '') {
                     checkPercentage = checkPercentage + parseInt(values.jointArray[i].percentage);
                 }
+
+
+
+
             } else {
 
                 if (values.jointArray[i].minorNominee === "") {
@@ -81,11 +131,13 @@ export class SimNominee extends Component {
                     return;
                 }
 
-                if (getAge(values.jointArray[i].minorDob) >= 18) {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Age is 18 or more please add as a Adult Nominee`, "Warning", 5000);
-                    return;
+                if (this.props.values.jointArray[i].minorDob !== "") {
+                    let checkAge = convert(this.props.values.jointArray[i].minorDob);
+                    if (getAge(checkAge) >= 18) {
+                        NotificationManager.warning(`Nominee ${i + 1} -- Age is 18 or more please add as a Adult Nominee`, "Warning", 5000);
+                        return;
+                    }
                 }
-
 
                 if (values.jointArray[i].minorRelationWAccH === "") {
                     NotificationManager.warning(`Nominee ${i + 1} -- Relation With Account Holder field is empty`, "Warning", 5000);
@@ -106,16 +158,16 @@ export class SimNominee extends Component {
                     checkPercentage = checkPercentage + parseInt(values.jointArray[i].minorPercentage);
                 }
 
-                if (values.jointArray[i].minorGuardianNid.length < 10 ) {
+                if (values.jointArray[i].minorGuardianNid.length < 10) {
                     NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
                     return;
-                }else if(values.jointArray[i].minorGuardianNid.length > 10 && values.jointArray[i].minorGuardianNid.length <=12){
+                } else if (values.jointArray[i].minorGuardianNid.length > 10 && values.jointArray[i].minorGuardianNid.length <= 12) {
                     NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
                     return;
-                }else if(values.jointArray[i].minorGuardianNid.length > 13 && values.jointArray[i].minorGuardianNid.length <= 16 ){
+                } else if (values.jointArray[i].minorGuardianNid.length > 13 && values.jointArray[i].minorGuardianNid.length <= 16) {
                     NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
                     return;
-                }else if(values.jointArray[i].minorGuardianNid.length > 17){
+                } else if (values.jointArray[i].minorGuardianNid.length > 17) {
                     NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
                     return;
                 }
@@ -141,6 +193,8 @@ export class SimNominee extends Component {
                 }
 
 
+
+
             }
 
 
@@ -156,6 +210,25 @@ export class SimNominee extends Component {
             return;
         }
         //    ====================== Validation End =============================
+
+
+        for (let j = 0; j < values.jointArray.length; j++) {
+            if (values.jointArray[j].isShow === true) {
+                if (values.jointArray[j].dob !== "") {
+                    let copyArray = Object.assign([], this.props.values.jointArray);
+                    copyArray[j].dob = showDate(copyArray[j].dob);
+                    this.props.handleState('jointArray', copyArray);
+
+                }
+            } else {
+                if (values.jointArray[j].minorDob !== '') {
+                    let copyArray = Object.assign([], this.props.values.jointArray);
+                    copyArray[j].minorDob = showDate(copyArray[j].minorDob);
+                    this.props.handleState('jointArray', copyArray);
+                }
+            }
+        }
+
         this.props.nextStep();
     };
 
@@ -200,7 +273,7 @@ export class SimNominee extends Component {
 
 
     render() {
-        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange } = this.props;
+        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange, handleDateChange } = this.props;
         //console.log(values.jointArray.isShow);
         //console.log("showHide",this.state.showHide);
         return (
@@ -234,19 +307,28 @@ export class SimNominee extends Component {
                                                         </div>
 
                                                         {/* Nominee Date of Birth */}
-                                                        <div className="form-group">
-                                                            <label htmlFor="dob">Date of Birth</label>
-                                                            {/* Using Html input but dateformat = mm-dd-yyyy */}
-                                                            <input
-                                                                type="date"
-                                                                className="form-control"
-                                                                id="dob"
-                                                                name="dob"
-                                                                onChange={event => onChange(index, event)}
-                                                                value={arr.dob}
-                                                            />
-                                                        </div>
+                                                        <div className='form-group d-flex justify-content-between'>
+                                                            <div className=''>
+                                                                <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
+                                                            </div>
+                                                            <div className=''>
 
+                                                                <DatePicker
+                                                                    placeholderText='DD/MM/YYYY'
+                                                                    selected={arr.dob}
+                                                                    dateFormat='dd/MM/yyyy'
+                                                                    onChange={(d, event) => {
+                                                                        this.handleAdultNomineeDateChange(index, event, d)
+
+                                                                    }}
+                                                                    isClearable
+                                                                    showYearDropdown
+                                                                    showMonthDropdown
+                                                                    scrollableMonthYearDropdown
+
+                                                                />
+                                                            </div>
+                                                        </div>
                                                         {/* Relation With Account holder */}
                                                         <div className="form-group">
                                                             <label htmlFor="relation">Relation</label>
@@ -309,16 +391,27 @@ export class SimNominee extends Component {
 
 
                                                         {/* Minor Nominee Date of Birth  */}
-                                                        <div className="form-group">
-                                                            <label htmlFor="nominee">Minor Nominee Date of Birth</label>
-                                                            <input
-                                                                type="date"
-                                                                className="form-control"
-                                                                id="minorDob"
-                                                                name="minorDob"
-                                                                onChange={event => onChange(index, event)}
-                                                                value={arr.minorDob}
-                                                            />
+                                                        <div className='form-group d-flex justify-content-between'>
+                                                            <div className=''>
+                                                                <label htmlFor='dob'>Minor Nominee Date of Birth (dd/mm/YYYY) : </label>
+                                                            </div>
+                                                            <div className=''>
+
+                                                                <DatePicker
+                                                                    placeholderText='DD/MM/YYYY'
+                                                                    selected={arr.minorDob}
+                                                                    dateFormat='dd/MM/yyyy'
+                                                                    onChange={(d, event) => {
+                                                                        this.handleMinorNomineeDateChange(index, event, d)
+
+                                                                    }}
+                                                                    isClearable
+                                                                    showYearDropdown
+                                                                    showMonthDropdown
+                                                                    scrollableMonthYearDropdown
+
+                                                                />
+                                                            </div>
                                                         </div>
 
 
@@ -499,7 +592,7 @@ export class SimNominee extends Component {
                                                 }
                                                 <hr />
                                                 <div className="d-flex justify-content-center">
-                                                    <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => deteteRow(e, index)}>Cancel</button>
+                                                    <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => this.deteteRow(e, index)}>Cancel</button>
                                                 </div>
 
 

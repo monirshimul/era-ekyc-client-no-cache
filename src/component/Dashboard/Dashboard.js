@@ -4,7 +4,7 @@ import Welcome from './Welcome';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { FaAngleRight, FaBackspace, FaArrowRight } from "react-icons/fa";
 //import MultiStepFace from '../E-KYC/Simplified/MainFace'
-import JointMultiStep from '../E-KYC/Simplified/DynamicComp';
+import JointMultiStep from '../E-KYC/Simplified/FaceJoint/DynamicComp';
 import Success from '../E-KYC/Role/SuccessRole';
 import footerWave from './image/footerWave6.svg'
 import data from './image/protect.svg'
@@ -427,6 +427,8 @@ class Dashboard extends Component {
                                     {/* MultiSteps */}
                                     {/* <Route path={`${path}/face-account`} component={MultiStepFace} /> */}
                                     <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />
+                                    
+
                                     {/* Success Role */}
                                     <Route path={`${path}/success`} component={Success} />
 

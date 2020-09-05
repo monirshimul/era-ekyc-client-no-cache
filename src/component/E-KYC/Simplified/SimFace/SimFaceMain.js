@@ -209,6 +209,7 @@ addNomineeTwo = ()=> {
 }
 
 
+
 handleInputChange = (index, event) => {
     console.log(event.target);
     let copyArray = Object.assign([], this.state.jointArray);
@@ -275,8 +276,10 @@ handleInputChange = (index, event) => {
 
 }
 
-deteteRow = (index) => {
+deteteRow = (e,index) => {
+    e.preventDefault();
     const copyArray = Object.assign([], this.state.jointArray);
+    console.log("index",index)
     copyArray.splice(index, 1);
     this.setState({ jointArray: copyArray })
 

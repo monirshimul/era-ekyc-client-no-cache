@@ -141,6 +141,8 @@ class UpdateUser extends Component {
 
     }
 
+  
+
     ///checkbox
 
     onAddingItem = (id) => (item) => {
@@ -323,7 +325,8 @@ class UpdateUser extends Component {
             let message = "Update Completed"
             //alert(statusCode + " " + message);
             NotificationManager.success(statusCode + " " + message, "Success", 5000);
-            this.props.history.push('/dashboard');
+            // this.props.history.push('/dashboard');
+            this.props.history.push('/dashboard/user-list');
         } catch (err) {
             //console.log(err.response);
             let error = err.response.data;
@@ -332,6 +335,12 @@ class UpdateUser extends Component {
             //alert(statusCode + ' ' + message);
             NotificationManager.error(statusCode + ' ' + message, "Error", 5000);
         }
+    }
+
+      // Back Button 
+      onBack = e =>{
+        e.preventDefault();
+        this.props.history.push('/dashboard/user-list');
     }
 
 

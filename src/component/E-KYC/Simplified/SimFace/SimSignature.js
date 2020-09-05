@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sign from '../images/sign.svg';
 import Capture from '../Capture/Capture';
 import { NotificationManager } from "react-notifications";
+import {datePickerPrefiilConv} from '../../../Utils/dateConversion';
 
 export class SimSignature extends Component {
 
@@ -46,7 +47,25 @@ export class SimSignature extends Component {
     };
 
     back = e => {
+        let {values} = this.props;
         e.preventDefault();
+
+        for (let i = 0; i < values.jointArray.length; i++) {
+            if (values.jointArray[i].isShow === true) {
+                if (values.jointArray[i].dob !== "") {
+                    let copyArray = Object.assign([], this.props.values.jointArray);
+                    copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
+                    this.props.handleState('jointArray', copyArray);
+                }
+                }else{
+                    if (values.jointArray[i].minorDob !== '') {
+                        let copyArray = Object.assign([], this.props.values.jointArray);
+                        copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
+                        this.props.handleState('jointArray', copyArray);
+                    }
+                }
+
+            }
         this.props.prevStep();
     }
 

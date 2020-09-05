@@ -188,7 +188,12 @@ export class GetProfile extends Component {
         }
     }
 
-    
+    onBack = e =>{
+        e.preventDefault();
+        this.setState({
+            showUpdate: !this.state.showUpdate
+        })
+    }
 
 
 
@@ -335,7 +340,8 @@ export class GetProfile extends Component {
                                         </form>
                                     </div>
                                     <div className="card-footer im" style={{ background: "none" }}>
-                                        <button className="b" onClick={(e) => this.onSubmit(e)} ><i class="fas fa-paper-plane"></i> Submit</button>
+                                        <button className="b mr-5" onClick={(e) => this.onBack(e)}> Back</button>
+                                        <button className="b" onClick={(e) => this.onSubmit(e)} > Submit</button>
                                     </div>
                                 </div>
                             </div>

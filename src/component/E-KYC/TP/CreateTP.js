@@ -191,6 +191,7 @@ export class CreateTP extends Component {
                                 <option value='CBS'>Conventional Core Banking</option>
                                 <option value='ICBS'>Islamic Core Banking</option>
                                 <option value='OMNI'>Omni Channel </option>
+                                <option value='EKYC'>EKYC </option>
                             </select>
                         </div>
 

@@ -406,6 +406,7 @@ class CreateUser extends Component {
                     <div data-tip data-for="channel" className='form-group'>
                         <label htmlFor="">Channel Name</label>
                         <select
+            
                             className='custom-select'
                             value={this.state.channelName}
                             onChange={this.onChange}
@@ -445,7 +446,7 @@ class CreateUser extends Component {
                         {/* Mobile */}
                         <div className="form-group">
                             <label htmlFor="">Mobile</label>
-                            <input data-tip data-for="userMobile" type="text" value={this.state.mobile} onChange={this.onChange} className="form-control" name="mobile" id="inputMobileNumber" aria-describedby="emailHelp" placeholder="Mobile Number" />
+                            <input data-tip data-for="userMobile" maxLength="11" type="text" value={this.state.mobile} onChange={this.onChange} className="form-control" name="mobile" id="inputMobileNumber" aria-describedby="emailHelp" placeholder="Mobile Number" />
                         </div>
 
                         {/* Two factor Verification */}

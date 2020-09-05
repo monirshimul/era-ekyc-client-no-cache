@@ -172,6 +172,12 @@ export class UpdateRole extends Component {
 
     }
 
+    // Back Button
+    onBack = e =>{
+        e.preventDefault();
+        this.props.history.push("/dashboard/role-list")
+    }
+
     textHandleChange = e => {
         e.preventDefault()
         this.setState({ [e.target.name]: e.target.value });

@@ -72,12 +72,16 @@ class Login extends Component {
             const validationValue = await schema.validateAsync(joiObj);
             // console.log("validationValue", validationValue)
             let userLogin = await axios.post(loginAPI, obj);
-           // console.log("loginapi ", userLogin.data);
+             console.log("loginapi ", userLogin.data);
 
             let loginSuccess = userLogin.data.data;
             //console.log("login", loginSuccess.branchOrAgentPointCode);
             let branchCode = loginSuccess.branchOrAgentPointCode;
+            let branchName = loginSuccess.branchOrAgentPointName;
+            let codeChannel = loginSuccess.channelCode;
             sessionStorage.setItem('branchOrAgentPointCode', JSON.stringify(branchCode));
+            sessionStorage.setItem('branchOrAgentPointName', JSON.stringify(branchName));
+            sessionStorage.setItem('ChannelCode', JSON.stringify(codeChannel));
             
 
             if (loginSuccess.loginToken) {
