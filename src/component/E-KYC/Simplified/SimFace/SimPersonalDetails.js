@@ -108,14 +108,13 @@ export class SimPersonalDetails extends Component {
 
     handleProfessionSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            // const val = e.target.value.split('-');
          //   console.log("val", typeof val[1]);
-        //    console.log("val", val[1]);
+           console.log(e.target.value);
+           //console.log("val", val[1]);
 
-            this.setState({
-                professionCode: val[1].trim()
-            })
-            this.props.handleState('profession', val[0].trim());
+           
+            this.props.handleState('profession', e.target.value);
         } catch (err) {
             console.log(err);
         }
@@ -615,7 +614,7 @@ export class SimPersonalDetails extends Component {
     render() {
         const { values, handleChange } = this.props;
         // console.log("All ec Values", values);
-        // console.log(values.perDivisionEn);
+        // console.log("profession",values.profession);
         return (
             <div className="container">
 
