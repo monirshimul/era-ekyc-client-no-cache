@@ -16,8 +16,19 @@ export class NidImage extends Component {
   state = {
     cameraOnFront : false,
     cameraOnBack : false,
+    nidType: "N"
     
   }
+
+
+  handleRadioChange = e =>{
+   
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+
+
+
 
   captureOnFront = ()=>{
     this.setState({
@@ -157,7 +168,8 @@ const config = {
 
 let Obj = {
   nidFront: values.NidFront,
-  nidBack: values.NidBack
+  nidBack: values.NidBack,
+  nidType: this.state.nidType
 }
 
 try {
@@ -353,6 +365,29 @@ try {
             </div>
           </div>
         </div>
+
+
+
+        <div className="row d-flex justify-content-center my-5">
+  
+
+        <div className= "mr-5 ">
+        <input type="radio"  name="nidType" value="N" onChange={this.handleRadioChange} defaultChecked /> <span style={{color: "green", fontSize:"18px"}}>Smart NID Card</span>
+        </div>
+
+
+        <div >
+        <input type="radio"  name="nidType" value="O" onChange={this.handleRadioChange} /> <span style={{color: "green", fontSize:"18px"}}>Analog NID Card</span>
+         
+        </div>
+  
+  
+  </div>
+
+
+
+
+
 
         {
           values.loadingSpin ? (

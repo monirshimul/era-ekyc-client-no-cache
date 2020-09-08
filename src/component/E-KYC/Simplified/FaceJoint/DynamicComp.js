@@ -64,7 +64,7 @@ export class DynamicComp extends Component {
             this.setState({ loadingFlag: false });
             let statusCode = completeApi.data.statusCode;
             let successMessage = completeApi.data.message;
-            NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+            NotificationManager.success("Joint Account Create Successfull", "Success", 5000);
             //localStorage.clear();
             sessionStorage.removeItem("accountId");
             this.props.history.push('/dashboard');

@@ -111,7 +111,7 @@ export class Signature extends Component {
             <div className="col-sm-12 d-flex justify-content-center" >
                 <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
                     <div className="card-header up">
-                        <h3>Provide Signature</h3>
+                        <h3>Provide Customer Signature</h3>
                     </div>
                     <div className="card-body d-flex justify-content-center">
 

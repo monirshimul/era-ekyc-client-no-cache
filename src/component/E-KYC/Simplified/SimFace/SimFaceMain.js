@@ -221,9 +221,9 @@ handleInputChange = (index, event) => {
             var reader = new FileReader();
             reader.readAsBinaryString(file);
             //reader.readAsDataURL(file);
-            reader.onload = (e) => {
+            reader.onload = () => {
 
-                let base64Image = btoa(e.target.result);
+                let base64Image = btoa(reader.result);
                 copyArray[index].photograph = base64Image;
                 
             };
