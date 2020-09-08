@@ -122,7 +122,7 @@ export class UpdateTP extends Component {
             //console.log("tpData", tpData.data);
             let tpDataStatus = tpData.data.statusCode;
             let tpDataMessage = tpData.data.message;
-            NotificationManager.success(tpDataStatus + " " + "Update Successfull", "Success", 5000);
+            NotificationManager.success("TP Update Successfull", "Success", 5000);
             this.props.history.push('/dashboard/list-tp');
         } catch (error) {
             if (error.response) {

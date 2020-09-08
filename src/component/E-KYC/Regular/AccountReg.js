@@ -156,7 +156,7 @@ export class AccountReg extends Component {
             let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
 
             if (accountType === 'S' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                NotificationManager.success(successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/regular-typeverification');
             } else if (accountType === 'J' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
                 //this.props.history.replace('/dashboard/dynamic-comp');

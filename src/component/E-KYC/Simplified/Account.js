@@ -157,13 +157,13 @@ class Account extends Component {
             let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
 
             if (accountType === 'S' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                NotificationManager.success(successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/type-verification');
             } else if (accountType === 'J' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                NotificationManager.success(successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/dynamic-comp');
             } else if (accountType === 'S' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                NotificationManager.success(successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/regular-typeverification');
             } else if (accountType === 'J' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
 

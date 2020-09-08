@@ -86,7 +86,7 @@ export class CreateTP extends Component {
            // console.log("tpData", tpData.data);
             let tpDataStatus = tpData.data.statusCode;
             let tpDataMessage = tpData.data.message;
-            NotificationManager.success(tpDataStatus + " " + tpDataMessage, "Success", 5000);
+            NotificationManager.success(tpDataMessage, "Success", 5000);
             this.setState({
                 ekycType: '',
                 productCategoryCode: '',

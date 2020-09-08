@@ -274,7 +274,7 @@ export class SimNominee extends Component {
 
     render() {
         const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange, handleDateChange } = this.props;
-        //console.log(values.jointArray.isShow);
+        console.log(values.jointArray);
         //console.log("showHide",this.state.showHide);
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
@@ -291,7 +291,11 @@ export class SimNominee extends Component {
                                                 <h2 className="imTwo text-muted"> Nominee : <small >{index + 1}</small></h2>
                                                 {arr.isShow === true ?
 
+
                                                     <div >
+
+
+
 
                                                         {/* Nominee Name */}
                                                         <div className="form-group">
@@ -342,6 +346,14 @@ export class SimNominee extends Component {
                                                             />
                                                         </div>
 
+
+                                                       
+
+
+
+
+
+
                                                         {/* Nominee Photograph */}
                                                         <div className="form-group">
                                                             <label htmlFor="photograph">Photo</label>
@@ -354,6 +366,8 @@ export class SimNominee extends Component {
                                                             //defaultValue={arr.photograph}
                                                             />
                                                         </div>
+
+
 
                                                         {/* Percentage for Major Nominee */}
                                                         <div className="form-group">
@@ -373,6 +387,10 @@ export class SimNominee extends Component {
 
 
                                                     </div>
+
+
+
+
 
                                                     :
                                                     <div>
@@ -606,9 +624,29 @@ export class SimNominee extends Component {
                             </form>
                         </div>
 
+                    
                     </div>
+                    
 
                 </div>
+
+
+
+               
+
+               
+
+
+
+
+
+              
+
+
+
+
+
+
 
                 <hr />
                 {!(this.state.showHide) ? (
@@ -637,6 +675,13 @@ export class SimNominee extends Component {
                         </div>
                     </div>
                 ) : ""}
+
+
+
+
+
+
+
 
 
                 {

@@ -114,7 +114,7 @@ class ChangePass extends Component {
             let statusCode = passChange.data.statusCode;
             let message = "Password Change Completed";
             // alert(statusCode+ " "+ message);
-            NotificationManager.success(statusCode+" "+ message, "Success", 5000);
+            NotificationManager.success(message, "Success", 5000);
             //Session Storage clear
             sessionStorage.clear();
             localStorage.clear();

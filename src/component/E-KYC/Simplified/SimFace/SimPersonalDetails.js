@@ -663,7 +663,7 @@ export class SimPersonalDetails extends Component {
                                 {/* Applicant's Nid No */}
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Nid No</label>
-                                    <input style={{ borderRadius: "50px" }} type="text" value={values.applicantNidNo} name='applicantNidNo' onChange={handleChange('applicantNidNo')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Nid No" />
+                                    <input style={{ borderRadius: "50px" }} type="text" value={values.applicantNidNo}  name='applicantNidNo' onChange={handleChange('applicantNidNo')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Nid No"  readOnly/>
                                 </div>
                                 {/* Mobile Phone Number */}
                                 <div className="form-group">

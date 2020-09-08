@@ -220,13 +220,14 @@ handleInputChange = (index, event) => {
             //console.log(file.type);
             var reader = new FileReader();
             reader.readAsBinaryString(file);
+            //reader.readAsDataURL(file);
+            reader.onload = (e) => {
 
-            reader.onload = () => {
-
-                let base64Image = btoa(reader.result);
-
+                let base64Image = btoa(e.target.result);
                 copyArray[index].photograph = base64Image;
+                
             };
+           
             reader.onerror = () => {
                 console.log('there are some problems');
                 alert('File can not be read');
@@ -264,6 +265,7 @@ handleInputChange = (index, event) => {
                 let base64Image = btoa(reader.result);
 
                 copyArray[index].minorPhotoGuardian = base64Image;
+                
             };
             reader.onerror = () => {
                 console.log('there are some problems');

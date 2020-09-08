@@ -156,10 +156,10 @@ export class AccountSimp extends Component {
            // console.log("feature is true or not ", featureTest.includes('5.1'))
 
             if (accountType === 'S' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                NotificationManager.success( successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/type-verification');
             } else if (accountType === 'J' && typeEkyc === 'S' && featureTest.includes('5.1') === true) {
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                NotificationManager.success(successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/dynamic-comp');
             }else{
                 NotificationManager.warning('Regular Ekyc is not applicable For You', "Warning", 5000);

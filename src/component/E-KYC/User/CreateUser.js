@@ -284,9 +284,9 @@ class CreateUser extends Component {
             // console.log(createUser.data);
             let statCode = createUser.data.statusCode;
             // let suc_message = createUser.data.message;
-            let suc_message = "User Created Successful";
+            let suc_message = "User Created Successfull";
             // alert(statCode + "  " + suc_message);
-            NotificationManager.success(statCode + "  " + suc_message, "Success", 5000);
+            NotificationManager.success(suc_message, "Success", 5000);
             this.props.history.push('/dashboard');
         } catch (error) {
             if(error.response){
