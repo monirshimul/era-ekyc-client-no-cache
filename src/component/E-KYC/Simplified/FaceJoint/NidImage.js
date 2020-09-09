@@ -8,7 +8,8 @@ import Loading from '../utils/CustomLoding/Loading.js';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import Capture from '../Capture/Capture';
-import {datePickerPrefiilConv} from '../../../Utils/dateConversion';
+import {datePickerPrefiilConv,DateFul} from '../../../Utils/dateConversion';
+import {largeTime} from '../../../Utils/notificationTime';
 import axios from 'axios';
 
 export class NidImage extends Component {
@@ -179,14 +180,20 @@ try {
   // console.log("ocrResponse1", ocrData.data);
   // console.log("ocrResponse", ocrData.data.data);
   let data = ocrData.data.data;
-  let dateofBirth = data.formatted.dob;
+  
   this.props.handleState("nid", data.nidFront.nid);
-  // this.props.handleState("dob", data.formatted.dob);
-  if(dateofBirth.includes("undefined")){
-    this.props.handleState("dob", "");
-  }else{
+  let dateofBirth = data.formatted.dob;
+  if(DateFul(dateofBirth) === true){
     this.props.handleState("dob",datePickerPrefiilConv(dateofBirth));
-  }
+    }else{
+      this.props.handleState("dob", "");
+    }
+  // this.props.handleState("dob", data.formatted.dob);
+  // if(dateofBirth.includes("undefined")){
+  //   this.props.handleState("dob", "");
+  // }else{
+  //   this.props.handleState("dob",datePickerPrefiilConv(dateofBirth));
+  // }
 } catch (error) {
   if (error.response) {
     let message = error.response.data.message
@@ -229,7 +236,7 @@ try {
   
       NotificationManager.success("OCR Completed", "Success",5000);
     }else{
-      NotificationManager.warning("Please Provide NID Images", "Warning",5000);
+      NotificationManager.warning("Please Provide NID Images", "Click to Remove", largeTime);
     } 
     
   }
@@ -377,7 +384,7 @@ try {
 
 
         <div >
-        <input type="radio"  name="nidType" value="O" onChange={this.handleRadioChange} /> <span style={{color: "green", fontSize:"18px"}}>Analog NID Card</span>
+        <input type="radio"  name="nidType" value="O" onChange={this.handleRadioChange} /> <span style={{color: "green", fontSize:"18px"}}>NID Card</span>
          
         </div>
   

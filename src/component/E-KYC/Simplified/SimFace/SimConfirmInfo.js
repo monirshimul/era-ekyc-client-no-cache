@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { absDateFormat} from '../../../Utils/dateConversion';
+import { absDateFormat,dayMonthYearFormat} from '../../../Utils/dateConversion';
 import {ProductCodeGetName,ProductCategoryType,AccountType,GenderForm} from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
@@ -288,7 +288,7 @@ export class SimConfirmInfo extends Component {
                                 <small className="" style={{fontSize:"14px"}}>
                                 <span style={{color:"green", fontSize:"14px"}}>Applicant's Name :</span> {values.applicantName}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Applicant's DOB :</span> {values.applicantDob}<br />
+                                <span style={{color:"green", fontSize:"14px"}}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Mother's Name :</span> {values.motherName}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Mother's Name Bangla :</span> {values.motherNameBangla}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Father's Name :</span> {values.fatherName}<br />

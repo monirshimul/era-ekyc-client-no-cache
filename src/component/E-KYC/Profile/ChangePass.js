@@ -4,6 +4,7 @@ import '../../E-KYC/Simplified/utils/Common.css';
 import axios from 'axios';
 import {changePassword} from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
+import {shortTime,mediumTime,largeTime} from '../../Utils/notificationTime';
 
 
 class ChangePass extends Component {
@@ -26,62 +27,62 @@ class ChangePass extends Component {
 
         if(oldPassword === ''){
             let msg1= "Please Provide Old Password";
-            NotificationManager.warning(msg1, "Warning", 5000);
+            NotificationManager.warning(msg1, "Click to Remove", largeTime);
             return;
         }
 
         if(oldPassword.length < 8){
             let passlenMessage = " Old Password length minimum 8 characters";
-            NotificationManager.warning(passlenMessage, "Warning", 5000);
+            NotificationManager.warning(passlenMessage, "Click to Remove", largeTime);
             return;
         }
 
         if(regex.exec(oldPassword) === null){
             let passRegMessage = "Old Password must have capital letter, special character and digits";
-            NotificationManager.warning(passRegMessage, "Warning", 5000);
+            NotificationManager.warning(passRegMessage, "Click to Remove", largeTime);
             return;
         }
 
 
         if(newPassword === ''){
             let msg2="Please Provide New Password";
-            NotificationManager.warning(msg2, "Warning", 5000);
+            NotificationManager.warning(msg2, "Click to Remove", largeTime);
             return;
         }
 
         if(newPassword.length < 8){
             let passlenMessage = "New Password length minimum 8 characters";
-            NotificationManager.warning(passlenMessage, "Warning", 5000);
+            NotificationManager.warning(passlenMessage, "Click to Remove", largeTime);
             return;
         }
 
         if(regex.exec(newPassword) === null){
             let passRegMessage = "New Password must have capital letter, special character and digits";
-            NotificationManager.warning(passRegMessage, "Warning", 5000);
+            NotificationManager.warning(passRegMessage, "Click to Remove", largeTime);
             return;
         }
 
         if(confirmPassword === ''){
             let msg3 ="Please Provide Confirm Password";
-            NotificationManager.warning(msg3, "Warning", 5000);
+            NotificationManager.warning(msg3, "Click to Remove", largeTime);
             return;
         }
 
         if(confirmPassword.length < 8){
             let passlenMessage = "Confirm Password length minimum 8 characters";
-            NotificationManager.warning(passlenMessage, "Warning", 5000);
+            NotificationManager.warning(passlenMessage, "Click to Remove", largeTime);
             return;
         }
 
         if(regex.exec(confirmPassword) === null){
             let passRegMessage = "Confirm Password must have capital letter, special character and digits";
-            NotificationManager.warning(passRegMessage, "Warning", 5000);
+            NotificationManager.warning(passRegMessage, "Click to Remove", largeTime);
             return;
         }
 
         if(confirmPassword !== newPassword ){
             let msg4="Confirm Password and New Password are not same";
-            NotificationManager.warning(msg4, "Warning", 5000);
+            NotificationManager.warning(msg4, "Click to Remove", largeTime);
             return;
         }
 

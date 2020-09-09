@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ekycWithFilter, ekycFullProfile } from '../Url/ApiList';
 import Pagination from '../../Reusable/Pagination';
 import { NotificationManager } from "react-notifications";
+import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
 
 class EkycListSearch extends Component {
 
@@ -87,7 +88,7 @@ class EkycListSearch extends Component {
                 let searchResult = await axios.post(ekycWithFilter + page, val, config)
                 // console.log("searchResult",searchResult)
                 if (searchResult.data.data.length === 0) {
-                    NotificationManager.warning("No id Match", "Warning", 5000)
+                    NotificationManager.warning("No id Match", "Warning", mediumTime)
                 }
                 this.setState({
                     ekycData: searchResult.data.data,
@@ -118,7 +119,7 @@ class EkycListSearch extends Component {
                 let searchResult = await axios.post(ekycWithFilter + page, val, config)
                 // console.log("searchResult",searchResult)
                 if (searchResult.data.data.length === 0) {
-                    NotificationManager.warning("No Nid Match", "Warning", 5000)
+                    NotificationManager.warning("No Nid Match", "Warning", mediumTime)
                 }
                 this.setState({
                     ekycData: searchResult.data.data,
@@ -176,7 +177,7 @@ class EkycListSearch extends Component {
                 let searchResult = await axios.post(ekycWithFilter + page, val, config)
                  console.log("searchResult",searchResult)
                 if (searchResult.data.data.length === 0) {
-                    NotificationManager.warning("Mobile Number does not Match", "Warning", 5000)
+                    NotificationManager.warning("Mobile Number does not Match", "Warning", mediumTime)
                 }
                 this.setState({
                     ekycData: searchResult.data.data,

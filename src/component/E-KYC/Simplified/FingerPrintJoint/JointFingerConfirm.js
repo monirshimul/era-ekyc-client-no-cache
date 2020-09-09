@@ -15,6 +15,7 @@ import adult from '../images/adultNominee.svg';
 import child from '../images/child2.svg';
 import guardian from '../images/guardian.svg';
 import Acordion from '../../Acordion/Acordion';
+import {absDateFormat,dayMonthYearFormat } from '../../../Utils/dateConversion';
 
 
 export class JointFingerConfirm extends Component {
@@ -53,7 +54,7 @@ export class JointFingerConfirm extends Component {
                 nid: values.applicantNidNo,
                 name: values.applicantName,
                 nameBangla: values.applicantNameBangla,
-                dob: values.applicantDob,
+                dob: absDateFormat(values.applicantDob),
                 dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
                 motherName: values.motherName,
                 motherNameBangla: values.motherNameBangla,
@@ -239,8 +240,8 @@ export class JointFingerConfirm extends Component {
                 nid: values.applicantNidNo,
                 name: values.applicantName,
                 nameBangla: values.applicantNameBangla,
-                dob: values.applicantDob,
-                dobDate: new Date(values.applicantDob).toISOString(),
+                dob: absDateFormat(values.applicantDob),
+                dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
                 motherName: values.motherName,
                 motherNameBangla: values.motherNameBangla,
                 fatherName: values.fatherName,
@@ -460,7 +461,7 @@ export class JointFingerConfirm extends Component {
                                 <small className="" style={{ fontSize: "14px" }}>
                                     <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name :</span> {values.applicantName}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
-                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's DOB :</span> {values.applicantDob}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Mother's Name :</span> {values.motherName}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Mother's Name Bangla :</span> {values.motherNameBangla}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Father's Name :</span> {values.fatherName}<br />

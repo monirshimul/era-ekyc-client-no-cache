@@ -9,6 +9,7 @@ import child from '../images/age-limit-two.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { showDate, convert } from '../../../Utils/dateConversion';
+import {largeTime} from '../../../Utils/notificationTime';
 
 
 export class Nominee extends Component {
@@ -75,32 +76,32 @@ export class Nominee extends Component {
         for (let i = 0; i < values.jointArray.length; i++) {
             if (values.jointArray[i].isShow === true) {
                 if (values.jointArray[i].nominee === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Nominee field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Nominee field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].dob === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Date of Birth field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Date of Birth field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (getAge(values.jointArray[i].dob) < 18) {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Age is less than 18 please add as a Minor Nominee `, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Age is less than 18 please add as a Minor Nominee `, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].relation === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Relation field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Relation field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].photograph === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Photo is not provided`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Photo is not provided`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].percentage === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
@@ -110,33 +111,33 @@ export class Nominee extends Component {
             } else {
 
                 if (values.jointArray[i].minorNominee === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Name field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Name field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].minorDob === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Date of Birth field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Date of Birth field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (getAge(values.jointArray[i].minorDob) >= 18) {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Age is 18 or more please add as a Adult Nominee`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Age is 18 or more please add as a Adult Nominee`, "Click to Remove", largeTime);
                     return;
                 }
 
 
                 if (values.jointArray[i].minorRelationWAccH === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Relation With Account Holder field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Relation With Account Holder field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].minorNomineePhoto === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Photo is not provided`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Photo is not provided`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].minorPercentage === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
@@ -145,36 +146,36 @@ export class Nominee extends Component {
                 }
 
                 if (values.jointArray[i].minorGuardianNid.length < 10 ) {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
                     return;
                 }else if(values.jointArray[i].minorGuardianNid.length > 10 && values.jointArray[i].minorGuardianNid.length <=12){
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
                     return;
                 }else if(values.jointArray[i].minorGuardianNid.length > 13 && values.jointArray[i].minorGuardianNid.length <= 16 ){
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
                     return;
                 }else if(values.jointArray[i].minorGuardianNid.length > 17){
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].minorGuardianName === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian Name field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian Name field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].guardianRelationWMinor === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Relation With Minor Nominee field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Relation With Minor Nominee field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].minorGuardianAddress === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Guardian Address field is empty`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Guardian Address field is empty`, "Click to Remove", largeTime);
                     return;
                 }
 
                 if (values.jointArray[i].minorPhotoGuardian === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Guardian Photo is not provided`, "Warning", 5000);
+                    NotificationManager.warning(`Nominee ${i + 1} -- Guardian Photo is not provided`, "Click to Remove", largeTime);
                     return;
                 }
 
@@ -187,10 +188,10 @@ export class Nominee extends Component {
 
 
         if (checkPercentage > 100) {
-            NotificationManager.warning("Total Percentage is greater than 100", "Warning", 5000);
+            NotificationManager.warning("Total Percentage is greater than 100", "Click to Remove", largeTime);
             return;
         } else if (checkPercentage < 100) {
-            NotificationManager.warning("Total Percentage is less than 100", "Warning", 5000);
+            NotificationManager.warning("Total Percentage is less than 100", "Click to Remove", largeTime);
             return;
         }
         //    ====================== Validation End =============================

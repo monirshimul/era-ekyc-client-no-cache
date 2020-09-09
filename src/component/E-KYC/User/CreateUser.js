@@ -7,6 +7,7 @@ import { getRoleWithFilter, createUserWithRole, checkUserId, checkUserMobile, ch
 import { convertNumber } from '../../Utils/StrToNum';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
+import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
 import ReactTooltip from 'react-tooltip';
 
 
@@ -110,7 +111,7 @@ class CreateUser extends Component {
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
-            NotificationManager.warning(userIdMessage, "Warning", 5000);
+            NotificationManager.warning(userIdMessage, "Click to Remove", largeTime);
             return;
         }
         const config = {
@@ -127,7 +128,7 @@ class CreateUser extends Component {
             let checkId = checkUserIdApi.data.data;
             if (checkId === true) {
                 let checkIdMessage = "UserId is already taken";
-                NotificationManager.warning(checkIdMessage, "Warning", 5000);
+                NotificationManager.warning(checkIdMessage, "Click to Remove", largeTime);
                 return;
             }
 
@@ -147,53 +148,53 @@ class CreateUser extends Component {
 
         if(channelName === ''){
             let channelMessage = "Please Provide your ChannelName";
-            NotificationManager.warning(channelMessage, "Warning", 5000);
+            NotificationManager.warning(channelMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (name === "") {
             let nameMessage = "Please Provide your Name";
-            NotificationManager.warning(nameMessage, "Warning", 5000);
+            NotificationManager.warning(nameMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (password === "") {
             let passMessage = "Please Provide your Password";
-            NotificationManager.warning(passMessage, "Warning", 5000);
+            NotificationManager.warning(passMessage,"Click to Remove", largeTime);
             return;
         }
 
         if(password.length < 8){
             let passlenMessage = "Password length minimum 8 characters";
-            NotificationManager.warning(passlenMessage, "Warning", 5000);
+            NotificationManager.warning(passlenMessage, "Click to Remove", largeTime);
             return;
         }
 
         if(regex.exec(password) === null){
             let passRegMessage = "Password must have capital letter, special character and digits";
-            NotificationManager.warning(passRegMessage, "Warning", 5000);
+            NotificationManager.warning(passRegMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (mobile === "") {
             let mobileMessage = "Please Provide your Mobile Number";
-            NotificationManager.warning(mobileMessage, "Warning", 5000);
+            NotificationManager.warning(mobileMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (mobile.length > 11) {
             let mobileLengthMessage = "Mobile Number must be 11 digits long";
-            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            NotificationManager.warning(mobileLengthMessage, "Click to Remove", largeTime);
             return;
         } else if (mobile.length <= 10) {
             let mobileLengthMessage = "Mobile Number must be 11 digits long";
-            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            NotificationManager.warning(mobileLengthMessage, "Click to Remove", largeTime);
             return;
         }
 
         if( mobileCheck.test(mobile) === false){
             let mobileLengthMessage = "Invalid Mobile Number";
-            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            NotificationManager.warning(mobileLengthMessage, "Click to Remove", largeTime);
             return;
         }
 
@@ -203,7 +204,7 @@ class CreateUser extends Component {
             let checkMobile = checkMobileApi.data.data;
             if (checkMobile === true) {
                 let checkMobileMessage = "Mobile Number is already given by User, Please Provide another";
-                NotificationManager.warning(checkMobileMessage, "Warning", 5000);
+                NotificationManager.warning(checkMobileMessage, "Click to Remove", largeTime);
                 return;
             }
 
@@ -223,7 +224,7 @@ class CreateUser extends Component {
 
         if (email === "") {
             let emailMessage = "Please Provide Email Address";
-            NotificationManager.warning(emailMessage, "Warning", 5000);
+            NotificationManager.warning(emailMessage, "Click to Remove", largeTime);
             return;
         }
 
@@ -234,7 +235,7 @@ class CreateUser extends Component {
             // console.log("email",checkEmail)
             if (checkEmail === true) {
                 let checkemailMessage = "email is already given by User";
-                NotificationManager.warning(checkemailMessage, "Warning", 5000);
+                NotificationManager.warning(checkemailMessage, "Click to Remove", largeTime);
                 return;
             }
 
@@ -254,12 +255,12 @@ class CreateUser extends Component {
 
         if (pinAuthStatus === "") {
             let pinAuthStatusMessage = "please fill up two factor verification";
-            NotificationManager.warning(pinAuthStatusMessage, "Warning", 5000);
+            NotificationManager.warning(pinAuthStatusMessage, "Click to Remove", largeTime);
             return;
         }
         if (roles.length === 0) {
             let roleMessage = "Please select Role Selection";
-            NotificationManager.warning(roleMessage, "Warning", 5000);
+            NotificationManager.warning(roleMessage, "Click to Remove", largeTime);
             return;
         }
         const myrole = convertNumber(roles);

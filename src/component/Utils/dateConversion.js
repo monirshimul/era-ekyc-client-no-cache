@@ -47,6 +47,26 @@ export function datePickerPrefiilConv(data){
   }
 
 
+  export function dayMonthYearFormat(data){
+    let date = data.split("-");
+    let year = date[0];
+    let monthNumber = date[1];
+    let day = date[2];
+    let month = monthNames[monthNumber-1];
+    return day+"-"+month+"-"+year;
+}
+
+export function DateFul(data){
+  let date = data.split("-");
+  if(date[0].length===4 && date[1].length===2 && date[2].length===2){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+
+
 //   for age check 
 export function convert(str) {
     var date = new Date(str),

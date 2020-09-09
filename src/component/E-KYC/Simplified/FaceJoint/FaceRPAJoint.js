@@ -7,6 +7,7 @@ import {showDate} from '../../../Utils/dateConversion';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import {largeTime} from '../../../Utils/notificationTime';
 
 export class FaceRPAJoint extends Component {
     handleClick = async (e) => {
@@ -103,6 +104,16 @@ export class FaceRPAJoint extends Component {
     continue = (e) => {
         e.preventDefault();
         const { nid, dob, ecImage } = this.props.values;
+
+        if(nid === ''){
+            NotificationManager.warning('Please Provide Nid Number', "Click to Remove", largeTime);
+            return;
+        }
+
+        if(dob === ''){
+            NotificationManager.warning('Please Provide Date of Birth', "Click to Remove", largeTime);
+            return;
+        }
       
         this.props.nextStep();
 

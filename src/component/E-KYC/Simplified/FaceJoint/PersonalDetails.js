@@ -5,6 +5,7 @@ import Loading from '../utils/CustomLoding/Loading';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import {largeTime} from '../../../Utils/notificationTime';
 
 const Joi = require('@hapi/joi');
 
@@ -52,26 +53,22 @@ export class PersonalDetails extends Component {
         motherNameBangla: Joi.string().required(),
         fatherName: Joi.string().required(),
         fatherNameBangla: Joi.string().required(),
-        preDivision: Joi.string().required(),
-        preDivisionEn: Joi.string().required(),
-        perDivision: Joi.string().required(),
-        perDivisionEn: Joi.string().required(),
-        preDivision: Joi.string().required(),
-        preDivisionEn: Joi.string().required(),
-        perDivision: Joi.string().required(),
-        perDivisionEn: Joi.string().required(),
-        perDistrict: Joi.string().required(),
-        perDistrictEn: Joi.string().required(),
-        preDistrict: Joi.string().required(),
-        preDistrictEn: Joi.string().required(),
-        perUnionOrWard: Joi.string().required(),
-        perUnionOrWardEn: Joi.string().required(),
-        preUnionOrWard: Joi.string().required(),
-        preUnionOrWardEn: Joi.string().required(),
-        perUpozila: Joi.string().required(),
-        perUpozilaEn: Joi.string().required(),
-        preUpozila: Joi.string().required(),
-        preUpozilaEn: Joi.string().required()
+        permanentAddressDivision: Joi.string().required(),
+        permanentAddressDivisionEn: Joi.string().required(),
+        presentAddressDivision: Joi.string().required(),
+        presentAddressDivisionEn: Joi.string().required(),
+        permanentAddressDistrict: Joi.string().required(),
+        permanentAddressDistrictEn: Joi.string().required(),
+        presentAddressDistrict: Joi.string().required(),
+        presentAddressDistrictEn: Joi.string().required(),
+        permanentAddressUpozila: Joi.string().required(),
+        permanentAddressUpozilaEn: Joi.string().required(),
+        presentAddressUpozila: Joi.string().required(),
+        presentAddressUpozilaEn: Joi.string().required(),
+        permanentAddressUnionOrWard: Joi.string().required(),
+        permanentAddressUnionOrWardEn: Joi.string().required(),
+        presentAddressUnionOrWard: Joi.string().required(),
+        presentAddressUnionOrWardEn: Joi.string().required()
 
     })
 
@@ -483,22 +480,22 @@ export class PersonalDetails extends Component {
             motherNameBangla: values.motherNameBangla,
             fatherName: values.fatherName,
             fatherNameBangla: values.fatherNameBangla,
-            preDivision: values.preDivision,
-            preDivisionEn: values.preDivisionEn,
-            perDivision: values.perDivision,
-            perDivisionEn: values.perDivisionEn,
-            perDistrict: values.perDistrict,
-            perDistrictEn: values.perDistrictEn,
-            preDistrict: values.preDistrict,
-            preDistrictEn: values.preDistrictEn,
-            perUnionOrWard: values.perUnionOrWard,
-            perUnionOrWardEn: values.perUnionOrWardEn,
-            preUnionOrWard: values.preUnionOrWard,
-            preUnionOrWardEn: values.preUnionOrWardEn,
-            perUpozila: values.perUpozila,
-            perUpozilaEn: values.perUpozilaEn,
-            preUpozila: values.preUpozila,
-            preUpozilaEn: values.preUpozilaEn
+            permanentAddressDivision: values.perDivision,
+            permanentAddressDivisionEn: values.perDivisionEn,
+            presentAddressDivision: values.preDivision,
+            presentAddressDivisionEn: values.preDivisionEn,
+            permanentAddressDistrict: values.perDistrict,
+            permanentAddressDistrictEn: values.perDistrictEn,
+            presentAddressDistrict: values.preDistrict,
+            presentAddressDistrictEn: values.preDistrictEn,
+            permanentAddressUpozila: values.perUpozila,
+            permanentAddressUpozilaEn: values.perUpozilaEn,
+            presentAddressUpozila: values.preUpozila,
+            presentAddressUpozilaEn: values.preUpozilaEn,
+            permanentAddressUnionOrWard: values.perUnionOrWard,
+            permanentAddressUnionOrWardEn: values.perUnionOrWardEn,
+            presentAddressUnionOrWard: values.preUnionOrWard,
+            presentAddressUnionOrWardEn: values.preUnionOrWardEn
         }
 
         try {
@@ -534,7 +531,7 @@ export class PersonalDetails extends Component {
 
                     if (presentZoneCode.data.data === null || permanentZoneCode.data.data === null) {
                         let message = "Integration Server Error";
-                        NotificationManager.warning(message, "Warning", 5000);
+                        NotificationManager.warning(message, "Click to Remove", largeTime);
                         return;
                     }
 
@@ -546,13 +543,13 @@ export class PersonalDetails extends Component {
 
                     if (permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE === "") {
                         let preMessage = "Please check Present Address districtName,upozilaName and unionName";
-                        NotificationManager.warning("Present Address - " + preMessage, "Warning", 5000);
+                        NotificationManager.warning("Present Address - " + preMessage, "Click to Remove", largeTime);
                         return;
                     }
 
                     if (presentZoneResp.DISTRICT_CODE === "" || presentZoneResp.UPAZILA_CODE === "" || presentZoneResp.UNION_CODE === "") {
                         let preMessage = "Please check Present Address districtName,upozilaName and unionName";
-                        NotificationManager.warning("Present Address - " + preMessage, "Warning", 5000);
+                        NotificationManager.warning("Present Address - " + preMessage, "Click to Remove", largeTime);
                         return;
                     }
 
@@ -577,7 +574,7 @@ export class PersonalDetails extends Component {
 
                 } catch (err) {
                     this.props.handleState('confirmFlag', false);
-                    NotificationManager.error("Please check zoneCode", "Error", 5000);
+                    NotificationManager.error("Please check zoneCode", "Click to Remove", largeTime);
                 }
 
 
@@ -586,7 +583,7 @@ export class PersonalDetails extends Component {
             }
 
         } catch (error) {
-            NotificationManager.error(error.toString(), "Error", 5000);
+            NotificationManager.error(error.toString(), "Click to Remove", largeTime);
             //console.log("error====>", error.response)
         }
 
@@ -683,7 +680,7 @@ export class PersonalDetails extends Component {
                                         options={this.state.autoProfession}
                                         getOptionLabel={(option) => option.name }
 
-                                        renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handleProfessionChange} onSelect={this.handleProfessionSelect} />}
+                                        renderInput={(params) => <TextField {...params} label={values.profession} variant="outlined" onChange={this.handleProfessionChange} onSelect={this.handleProfessionSelect} />}
                                     />
 
                                 </div>
@@ -860,7 +857,7 @@ export class PersonalDetails extends Component {
                                      options={this.state.autoPerDivision}
                                      getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                     renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handlePerDivisionChange} onSelect={this.handlePerDivisionSelect} />}
+                                     renderInput={(params) => <TextField {...params} variant="outlined" label={values.perDivisionEn} onChange={this.handlePerDivisionChange} onSelect={this.handlePerDivisionSelect} />}
                                  />
                              </div>
 
@@ -874,7 +871,7 @@ export class PersonalDetails extends Component {
                                      options={this.state.autoPerDistrict}
                                      getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                     renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handlePerDistrictChange} onSelect={this.handlePerDistrictSelect} />}
+                                     renderInput={(params) => <TextField {...params} variant="outlined" label={values.perDistrictEn} onChange={this.handlePerDistrictChange} onSelect={this.handlePerDistrictSelect} />}
                                  />
 
                              </div>
@@ -889,7 +886,7 @@ export class PersonalDetails extends Component {
                                      options={this.state.autoPerUpozila}
                                      getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                     renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handlePerUpozilaChange} onSelect={this.handlePerUpozilaSelect} />}
+                                     renderInput={(params) => <TextField {...params} variant="outlined" label={values.perUpozilaEn} onChange={this.handlePerUpozilaChange} onSelect={this.handlePerUpozilaSelect} />}
                                  />
 
                              </div>
@@ -906,7 +903,7 @@ export class PersonalDetails extends Component {
                                  options={this.state.autoPerUnion}
                                  getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                 renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handlePerUnionChange} onSelect={this.handlePerUnionSelect} />}
+                                 renderInput={(params) => <TextField {...params} variant="outlined" label={values.perUnionOrWardEn} onChange={this.handlePerUnionChange} onSelect={this.handlePerUnionSelect} />}
                              />
 
                              </div>
@@ -1086,7 +1083,7 @@ export class PersonalDetails extends Component {
                                         options={this.state.autoPreDivision}
                                         getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                        renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handlePreDivisionChange} onSelect={this.handlePreDivisionSelect} />}
+                                        renderInput={(params) => <TextField {...params} variant="outlined" label={values.preDivisionEn} onChange={this.handlePreDivisionChange} onSelect={this.handlePreDivisionSelect} />}
                                     />
                                 </div>
 
@@ -1094,11 +1091,11 @@ export class PersonalDetails extends Component {
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>District</label>
                                     <Autocomplete
-                                        id="autocomplete-perDistrict"
+                                        id="autocomplete-preDistrict"
                                         options={this.state.autoPreDistrict}
                                         getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                        renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handlePreDistrictChange} onSelect={this.handlePreDistrictSelect} />}
+                                        renderInput={(params) => <TextField {...params} variant="outlined" label={values.preDistrictEn} onChange={this.handlePreDistrictChange} onSelect={this.handlePreDistrictSelect} />}
                                     />
 
                                 </div>
@@ -1113,7 +1110,7 @@ export class PersonalDetails extends Component {
                                         options={this.state.autoPreUpozila}
                                         getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                        renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handlePreUpozilaChange} onSelect={this.handlePreUpozilaSelect} />}
+                                        renderInput={(params) => <TextField {...params} variant="outlined" label={values.preUpozilaEn} onChange={this.handlePreUpozilaChange} onSelect={this.handlePreUpozilaSelect} />}
                                     />
 
                                 </div>
@@ -1131,7 +1128,7 @@ export class PersonalDetails extends Component {
                                     options={this.state.autoPreUnion}
                                     getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                    renderInput={(params) => <TextField {...params} variant="outlined" onChange={this.handlePreUnionChange} onSelect={this.handlePreUnionSelect} />}
+                                    renderInput={(params) => <TextField {...params} variant="outlined" label={values.preUnionOrWardEn} onChange={this.handlePreUnionChange} onSelect={this.handlePreUnionSelect} />}
                                 />
 
                                 </div>

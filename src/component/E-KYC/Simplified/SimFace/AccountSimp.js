@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import { getProduct, getEkycType } from '../../Url/ApiList';
 import axios from 'axios';
+import { largeTime } from '../../../Utils/notificationTime';
 export class AccountSimp extends Component {
     state = {
         SimReg: '',
@@ -85,37 +86,37 @@ export class AccountSimp extends Component {
          // Branch and agent point code check
          if( JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null){
             let messageForAgentPointCode = "Please Select Branch or Agent Point From Home";
-            NotificationManager.warning(messageForAgentPointCode, "Click to Remove", 500000);
+            NotificationManager.warning(messageForAgentPointCode, "Click to Remove",largeTime);
             return;
         }
 
         if (channelName === '') {
             let channelNameMessage = 'Please Select Channel Name';
-            NotificationManager.warning(channelNameMessage, "Warning", 5000);
+            NotificationManager.warning(channelNameMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (productCategory === '') {
             let productMessage = "Please select Product Category";
-            NotificationManager.warning(productMessage, "Warning", 5000);
+            NotificationManager.warning(productMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (productName === '') {
             let productNameMessage = "Please select Product Name";
-            NotificationManager.warning(productNameMessage, "Warning", 5000);
+            NotificationManager.warning(productNameMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (accountType === '') {
             let accountTypeMessage = 'Please Select Account Type';
-            NotificationManager.warning(accountTypeMessage, "Warning", 5000);
+            NotificationManager.warning(accountTypeMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (amount === '') {
             let amountMessage = 'Please fill up the transaction limit';
-            NotificationManager.warning(amountMessage, "Warning", 5000);
+            NotificationManager.warning(amountMessage, "Click to Remove", largeTime);
             return;
         }
 

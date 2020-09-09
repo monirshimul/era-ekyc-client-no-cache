@@ -7,8 +7,9 @@ import NidThree from '../images/nid-f4.svg';
 import Loading from '../utils/CustomLoding/Loading.js';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
-import {datePickerPrefiilConv} from '../../../Utils/dateConversion';
+import { datePickerPrefiilConv, DateFul } from '../../../Utils/dateConversion';
 import axios from 'axios';
+import { largeTime } from '../../../Utils/notificationTime';
 import Capture from '../Capture/Capture';
 
 export class NidImagesSim extends Component {
@@ -20,9 +21,9 @@ export class NidImagesSim extends Component {
 
   }
 
-  handleRadioChange = e =>{
-   
-    this.setState({[e.target.name]: e.target.value});
+  handleRadioChange = e => {
+
+    this.setState({ [e.target.name]: e.target.value });
   }
 
 
@@ -181,17 +182,21 @@ export class NidImagesSim extends Component {
         this.props.handleState('loadingSpin', !(values.loadingSpin));
         let ocrData = await axios.post(nidOcr, Obj, config);
         this.props.handleState('loadingSpin', false);
-         console.log("ocrResponse1", ocrData.data);
-         console.log("ocrResponse", ocrData.data.data);
+        //console.log("ocrResponse1", ocrData.data);
+        console.log("ocrResponse", ocrData.data.data);
         let data = ocrData.data.data;
-        let dateofBirth = data.formatted.dob;
         this.props.handleState("nid", data.nidFront.nid);
-        // this.props.handleState("dob", data.formatted.dob.includes("undefined") ? "" : datePickerPrefiilConv(data.formatted.dob)) ;
-        if(dateofBirth.includes("undefined")){
+        let dateofBirth = data.formatted.dob;
+        if (DateFul(dateofBirth) === true) {
+          this.props.handleState("dob", datePickerPrefiilConv(dateofBirth));
+        } else {
           this.props.handleState("dob", "");
-        }else{
-          this.props.handleState("dob",datePickerPrefiilConv(dateofBirth));
         }
+
+
+
+
+
       } catch (error) {
         if (error.response) {
           let message = error.response.data.message
@@ -230,7 +235,7 @@ export class NidImagesSim extends Component {
 
       NotificationManager.success("OCR Completed", "Success", 5000);
     } else {
-      NotificationManager.warning("Please Provide NID Images", "Warning", 5000);
+      NotificationManager.warning("Please Provide NID Images", "Click to Remove", largeTime);
     }
 
   }
@@ -241,13 +246,13 @@ export class NidImagesSim extends Component {
 
     if (values.NidFront === "") {
       let NidFrontMessage = "Please Provide Nid Front Image";
-      NotificationManager.warning(NidFrontMessage, "Warning", 5000);
+      NotificationManager.warning(NidFrontMessage, "Click to Remove", largeTime);
       return;
     }
 
     if (values.NidBack === "") {
       let NidBackMessage = "Please Provide Nid Back Image";
-      NotificationManager.warning(NidBackMessage, "Warning", 5000);
+      NotificationManager.warning(NidBackMessage, "Click to Remove", largeTime);
       return;
     }
 
@@ -383,19 +388,19 @@ export class NidImagesSim extends Component {
 
 
         <div className="row d-flex justify-content-center my-5">
-  
-
-              <div className= "mr-5 ">
-              <input type="radio"  name="nidType" value="N" onChange={this.handleRadioChange} defaultChecked /> <span style={{color: "green", fontSize:"18px"}}>Smart NID Card</span>
-              </div>
 
 
-              <div >
-              <input type="radio"  name="nidType" value="O" onChange={this.handleRadioChange} /> <span style={{color: "green", fontSize:"18px"}}>Analog NID Card</span>
-               
-              </div>
-        
-        
+          <div className="mr-5 ">
+            <input type="radio" name="nidType" value="N" onChange={this.handleRadioChange} defaultChecked /> <span style={{ color: "green", fontSize: "18px" }}>Smart NID Card</span>
+          </div>
+
+
+          <div >
+            <input type="radio" name="nidType" value="O" onChange={this.handleRadioChange} /> <span style={{ color: "green", fontSize: "18px" }}>NID Card</span>
+
+          </div>
+
+
         </div>
 
 

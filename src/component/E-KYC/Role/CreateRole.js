@@ -5,6 +5,7 @@ import { allRoutes } from '../../flattenObjectTwo'
 import { NotificationManager } from "react-notifications";
 import { getFlatRouteArray } from '../../flattenObjectTwo';
 import {createRole} from '../Url/ApiList';
+import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
 import ReactTooltip from 'react-tooltip';
 import { FaUser,FaHome,FaIndent,
     FaAddressCard, FaTools, FaBookReader,
@@ -112,7 +113,7 @@ class CreateRole extends Component {
                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
             }
 
 

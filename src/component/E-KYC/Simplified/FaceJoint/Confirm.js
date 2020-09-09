@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { absDateFormat } from '../../../Utils/dateConversion';
+import { absDateFormat,dayMonthYearFormat } from '../../../Utils/dateConversion';
 import {ProductCodeGetName,ProductCategoryType,AccountType,JointOperatorType,GenderForm} from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
@@ -238,7 +238,7 @@ export class Confirm extends Component {
                 nid: values.applicantNidNo,
                 name: values.applicantName,
                 nameBangla: values.applicantNameBangla,
-                dob: values.applicantDob,
+                dob: absDateFormat(values.applicantDob),
                 dobDate: new Date(values.applicantDob).toISOString(),
                 motherName: values.motherName,
                 motherNameBangla: values.motherNameBangla,
@@ -459,7 +459,7 @@ export class Confirm extends Component {
                                 <small className="" style={{fontSize:"14px"}}>
                                 <span style={{color:"green", fontSize:"14px"}}>Applicant's Name :</span> {values.applicantName}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Applicant's DOB :</span> {values.applicantDob}<br />
+                                <span style={{color:"green", fontSize:"14px"}}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Mother's Name :</span> {values.motherName}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Mother's Name Bangla :</span> {values.motherNameBangla}<br />
                                 <span style={{color:"green", fontSize:"14px"}}>Father's Name :</span> {values.fatherName}<br />

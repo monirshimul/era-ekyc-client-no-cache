@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { createTPAPI } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
+import {shortTime, mediumTime,largeTime} from '../../Utils/notificationTime';
 import axios from 'axios';
 
 const Joi = require('@hapi/joi');
@@ -11,8 +12,8 @@ export class CreateTP extends Component {
     schema = Joi.object({
         ekycType: Joi.string().required(),
         productCategory: Joi.string().required(),
-        minLimit: Joi.number().integer().required(),
-        maxLimit: Joi.number().integer().required(),
+        lowLimit: Joi.number().integer().required(),
+        highLimit: Joi.number().integer().required(),
         channelName: Joi.string().required(),
         status: Joi.string().required()
     
@@ -68,8 +69,8 @@ export class CreateTP extends Component {
         const joiObj = {
             ekycType: ekycType,
             productCategory: productCategoryCode,
-            minLimit: minLimit,
-            maxLimit: maxLimit,
+            lowLimit: minLimit,
+            highLimit: maxLimit,
             channelName: channelName,
             status: status
         }
@@ -104,7 +105,7 @@ export class CreateTP extends Component {
                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
             }
         }
     }

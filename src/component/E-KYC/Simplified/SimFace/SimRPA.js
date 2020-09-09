@@ -10,6 +10,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { showDate } from '../../../Utils/dateConversion';
+import {largeTime} from '../../../Utils/notificationTime';
 
 export class SimRPA extends Component {
 
@@ -113,6 +114,18 @@ export class SimRPA extends Component {
     continue = (e) => {
         e.preventDefault();
         const { nid, dob, ecImage } = this.props.values;
+
+        if(nid === ''){
+            NotificationManager.warning('Please Provide Nid Number', "Click to Remove", largeTime);
+            return;
+        }
+
+        if(dob === ''){
+            NotificationManager.warning('Please Provide Date of Birth', "Click to Remove", largeTime);
+            return;
+        }
+
+
 
         this.props.nextStep();
 

@@ -6,6 +6,7 @@ import { NotificationManager } from "react-notifications";
 import { getProfile, imageUpdate, dataUpdate } from '../Url/ApiList'
 import { image } from './damiImage';
 import Acordion from '../Acordion/Acordion';
+import { largeTime } from '../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
 export class GetProfile extends Component {
@@ -136,8 +137,8 @@ export class GetProfile extends Component {
             let profileData = {
 
                 name: this.state.name,
-                mobile: this.state.mobile,
                 email: this.state.email,
+                mobile: this.state.mobile,
                 pinAuthStatus: this.state.pinAuthStatus === "true" ? true : false
 
             }
@@ -183,7 +184,7 @@ export class GetProfile extends Component {
               //  console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
             }
         }
     }
@@ -368,8 +369,8 @@ export class GetProfile extends Component {
 
 const schema = Joi.object({
     name: Joi.string().required(),
-    mobile: Joi.number().min(11).required(),
     email: Joi.string().required(),
+    mobile: Joi.number().min(11).required(),
     pinAuthStatus: Joi.boolean().required()
 })
 

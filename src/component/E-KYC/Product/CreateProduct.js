@@ -3,6 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { createProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
+import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
 class CreateProduct extends Component {
@@ -77,7 +78,7 @@ class CreateProduct extends Component {
                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
             }
         }
 
@@ -177,10 +178,12 @@ class CreateProduct extends Component {
 }
 
 const schema = Joi.object({
-    productName: Joi.string().min(5).max(30).required(),
-    productCode: Joi.string().min(3).required(),
+    
+    
     productCategory: Joi.string().required(),
     status: Joi.string().required(),
+    productName: Joi.string().min(5).max(30).required(),
+    productCode: Joi.string().min(3).required(),
     description: Joi.string().max(100).required()
 
 })

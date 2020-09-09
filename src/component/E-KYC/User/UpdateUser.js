@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { getupdateUser, getRoleWithFilter, userUpdate } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
+import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
 import ReactTooltip from 'react-tooltip';
 
 class UpdateUser extends Component {
@@ -236,64 +237,64 @@ class UpdateUser extends Component {
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
-            NotificationManager.warning(userIdMessage, "Warning", 5000);
+            NotificationManager.warning(userIdMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (channelName === "") {
             let channelNameMessage = "Please Provide Channel Name";
-            NotificationManager.warning(channelNameMessage, "Warning", 5000);
+            NotificationManager.warning(channelNameMessage, "Click to Remove", largeTime);
             return;
         }
 
 
         if (name === "") {
             let nameMessage = "Please Provide your Name";
-            NotificationManager.warning(nameMessage, "Warning", 5000);
+            NotificationManager.warning(nameMessage, "Click to Remove", largeTime);
             return;
         }
 
 
         if (mobile === "") {
             let mobileMessage = "Please Provide your Mobile Number";
-            NotificationManager.warning(mobileMessage, "Warning", 5000);
+            NotificationManager.warning(mobileMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (mobile.length > 11) {
             let mobileLengthMessage = "Mobile Number must be 11 digits long";
-            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            NotificationManager.warning(mobileLengthMessage, "Click to Remove", largeTime);
             return;
         } else if (mobile.length <= 10) {
             let mobileLengthMessage = "Mobile Number must be 11 digits long";
-            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            NotificationManager.warning(mobileLengthMessage, "Click to Remove", largeTime);
             return;
         }
 
 
         if( mobileCheck.test(mobile) === false){
             let mobileLengthMessage = "Invalid Mobile Number";
-            NotificationManager.warning(mobileLengthMessage, "Warning", 5000);
+            NotificationManager.warning(mobileLengthMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (email === "") {
             let emailMessage = "Please Provide Email Address";
-            NotificationManager.warning(emailMessage, "Warning", 5000);
+            NotificationManager.warning(emailMessage, "Click to Remove", largeTime);
             return;
         }
 
 
         if (pinAuthStatus === "") {
             let pinAuthStatusMessage = "Please fill up two factor verification";
-            NotificationManager.warning(pinAuthStatusMessage, "Warning", 5000);
+            NotificationManager.warning(pinAuthStatusMessage, "Click to Remove", largeTime);
             return;
         }
 
         if (checking.length === 0) {
             if (roles.length === 0) {
                 let rolesMessage = "Please Select Role";
-                NotificationManager.warning(rolesMessage, "Warning", 5000);
+                NotificationManager.warning(rolesMessage, "Click to Remove", largeTime);
                 return;
             }
         }
@@ -322,9 +323,9 @@ class UpdateUser extends Component {
             let update = await axios.put(userUpdate, obj, config);
             //console.log(update.data);
             let statusCode = update.data.statusCode;
-            let message = "Update Completed"
+            let message = "Update Successfull";
             //alert(statusCode + " " + message);
-            NotificationManager.success(statusCode + " " + message, "Success", 5000);
+            NotificationManager.success(message, "Success", 5000);
             // this.props.history.push('/dashboard');
             this.props.history.push('/dashboard/user-list');
         } catch (err) {
@@ -438,7 +439,7 @@ class UpdateUser extends Component {
 
                         <div className="form-group">
                             <label htmlFor="">Mobile</label>
-                            <input data-tip data-for="userMobile" type="text" value={this.state.mobile} onChange={this.onChange} className="form-control" name="mobile" id="inputMobileNumber" aria-describedby="emailHelp" placeholder="Mobile Number" />
+                            <input data-tip data-for="userMobile" type="text" maxLength="11" value={this.state.mobile} onChange={this.onChange} className="form-control" name="mobile" id="inputMobileNumber" aria-describedby="emailHelp" placeholder="Mobile Number" />
                         </div>
 
 
