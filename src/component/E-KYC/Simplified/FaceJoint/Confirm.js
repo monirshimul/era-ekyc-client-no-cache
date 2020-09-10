@@ -206,7 +206,7 @@ export class Confirm extends Component {
                 let data = responseFirst.data;
                 let statusCode = data.statusCode;
                 let successMessage = data.message;
-                NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+                NotificationManager.success(successMessage, "Success", 5000);
                 let resAccountId = responseFirst.data.data.accountId;
                 this.props.handleState('applicantEkycId', resAccountId);
                 // localStorage.setItem("accountId", JSON.stringify(resAccountId));
@@ -391,7 +391,7 @@ export class Confirm extends Component {
 
                 let respStatus = resJointAdded.data.statusCode;
                 let respMessage = resJointAdded.data.message;
-                NotificationManager.success(respStatus + " " + respMessage, "Success", 5000);
+                NotificationManager.success(respMessage, "Success", 5000);
                 this.props.nextStep();
             } catch (error) {
                 console.log(error);
@@ -656,7 +656,8 @@ export class Confirm extends Component {
                                         <small className="" style={{fontSize:"14px"}}>
                                         <span style={{color:"green", fontSize:"14px"}}>Nominee :</span> {val.nominee},<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Relation :</span> {val.relation},<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>percentage :</span> {val.percentage}&#37;
+                                        <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.percentage}&#37;<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Date of Birth :</span> {dayMonthYearFormat(val.dob)}
                                         </small >
 
                                     </div>
@@ -669,11 +670,11 @@ export class Confirm extends Component {
                                             <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                         </div>
 
-                                        <small className="text-muted">
+                                        <small className="text-muted" style={{fontSize:"14px"}}>
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee :</span> {val.minorNominee}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Date of Birth :</span> {val.minorDob}<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Relation With Account Holder:</span> {val.minorRelationWAccH}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.minorPercentage}<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.minorPercentage}&#37;<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian NID No :</span> {val.minorGuardianNid}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian Name :</span> {val.minorGuardianName}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Guardian Relation with Minor Nominee :</span> {val.guardianRelationWMinor}<br />

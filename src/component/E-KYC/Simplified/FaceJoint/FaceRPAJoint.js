@@ -85,16 +85,16 @@ export class FaceRPAJoint extends Component {
         } catch (error) {
             if (error.response) {
                 let message = error.response.data.message
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error(message, "Click to Remove", largeTime);
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
             } else if (error.request) {
                 //console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
             }
@@ -218,10 +218,13 @@ export class FaceRPAJoint extends Component {
                             <span className="b mr-5" onClick={this.back}>
                                 Back
                     </span>
+                    {values.ecImage ?
                             <button type="button" style={{outline:"none"}} className="b" onClick={this.continue}>
                                 Next
                     </button>
-                        </div>
+                    : ""
+                } 
+                    </div>
                     </form>
                 </div>
             </div>

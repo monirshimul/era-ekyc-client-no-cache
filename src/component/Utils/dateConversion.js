@@ -50,9 +50,9 @@ export function datePickerPrefiilConv(data){
   export function dayMonthYearFormat(data){
     let date = data.split("-");
     let year = date[0];
-    let monthNumber = date[1];
+    let month = date[1];
     let day = date[2];
-    let month = monthNames[monthNumber-1];
+    
     return day+"-"+month+"-"+year;
 }
 

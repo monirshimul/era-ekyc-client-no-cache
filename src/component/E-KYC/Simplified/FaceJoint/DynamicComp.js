@@ -170,7 +170,7 @@ export class DynamicComp extends Component {
                                 <div>
                                     <hr />
                                     <div className="row d-flex justify-content-center" >
-                                        {
+                                        {/*
                                             finishAdd ? (
                                                 <div className="imTwoWhite text-center col-sm-3">
                                             <img
@@ -192,7 +192,7 @@ export class DynamicComp extends Component {
 
                                         </div>
                                             ):""
-                                        }
+                                       */ }
                                         
                                         {
                                             !showHide && index + 1 === this.state.jointArray.length ? (

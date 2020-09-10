@@ -21,24 +21,24 @@ export class SimNominee extends Component {
 
     handleAdultNomineeDateChange = (index, event, d) => {
         event.preventDefault();
-        console.log("index", index);
+      //  console.log("index", index);
         // console.log("event", event.target.value);
-        console.log("d", d);
+       // console.log("d", d);
         let copyArray = Object.assign([], this.props.values.jointArray);
         copyArray[index].dob = d;
-        console.log("copyArray", copyArray);
+     //   console.log("copyArray", copyArray);
         this.props.handleState("jointArray", copyArray);
 
     }
 
     handleMinorNomineeDateChange = (index, event, d) => {
         event.preventDefault();
-        console.log("index", index);
+      //  console.log("index", index);
         // console.log("event", event.target.value);
-        console.log("d", d);
+      //  console.log("d", d);
         let copyArray = Object.assign([], this.props.values.jointArray);
         copyArray[index].minorDob = d;
-        console.log("copyArray", copyArray);
+     //   console.log("copyArray", copyArray);
         this.props.handleState("jointArray", copyArray);
     }
 
@@ -275,7 +275,7 @@ export class SimNominee extends Component {
 
     render() {
         const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange, handleDateChange } = this.props;
-        console.log(values.jointArray);
+       // console.log(values.jointArray);
         //console.log("showHide",this.state.showHide);
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>

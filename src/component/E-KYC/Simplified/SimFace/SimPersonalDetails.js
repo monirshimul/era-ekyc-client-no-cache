@@ -96,7 +96,7 @@ export class SimPersonalDetails extends Component {
         }
         try {
             let professionapi = await axios.post(profession, payload, config);
-             console.log(professionapi.data.data);
+           //  console.log(professionapi.data.data);
             let autocompleteData = [];
             professionapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.displayName, id: d.id })
@@ -111,7 +111,7 @@ export class SimPersonalDetails extends Component {
         try {
             // const val = e.target.value.split('-');
          //   console.log("val", typeof val[1]);
-           console.log(e.target.value);
+          // console.log(e.target.value);
            //console.log("val", val[1]);
 
            
