@@ -8,6 +8,7 @@ import { NotificationManager } from "react-notifications";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {showDate} from '../../../Utils/dateConversion';
+import {largeTime} from '../../../Utils/notificationTime';
 
 export class FingerPrintJoint extends Component {
   handleClick = (e) => {
