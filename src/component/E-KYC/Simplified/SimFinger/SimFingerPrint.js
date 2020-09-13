@@ -8,6 +8,7 @@ import { NotificationManager } from "react-notifications";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {showDate} from '../../../Utils/dateConversion';
+import {largeTime} from '../../../Utils/notificationTime';
 
 export class SimFingerPrint extends Component {
 
@@ -112,6 +113,21 @@ export class SimFingerPrint extends Component {
     console.log("In the Next")
     e.preventDefault();
     const { nid, dob, rThumb, rIndex, lThumb, lIndex } = this.props.values;
+
+    if(nid === ""){
+      NotificationManager.warning("Please Provide NID Number", "Click to Remove", largeTime);
+      return;
+    }
+
+    if(dob === ''){
+      NotificationManager.warning("Please Provide Date Of Birth", "Click to Remove", largeTime);
+      return;
+    }
+
+    if(rThumb === "" && rIndex === '' && lThumb === "" && lIndex === ""){
+      NotificationManager.warning("Please Provide Finger Print", "Click to Remove", largeTime);
+      return;
+    }
     
     
     if(nid.length === 13){
