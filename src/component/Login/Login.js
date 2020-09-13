@@ -217,7 +217,10 @@ class Login extends Component {
 
 const schema = Joi.object({
     userId: Joi.string().min(6).max(30).required(),
-    password: Joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})')),
+    password: Joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})'))
+    .messages({
+        "string.pattern.base": `Password must have minimum 8 characters with one Capital letter,one number and one special Chararcter`,
+    }),
 
 })
 //Redux work Above===================================
