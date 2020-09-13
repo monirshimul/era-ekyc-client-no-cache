@@ -62,10 +62,7 @@ export class FingerPrintJoint extends Component {
           NotificationManager.error("data not found!!", "Error", 5000);
         }
 
-        // this.setState({
-        //   isEnable: false,
-        //   loading: !this.state.loading,
-        // });
+       
         this.props.handleState('isEnableFinger', false);
         this.props.handleState('loadingPrint', false);
       })
