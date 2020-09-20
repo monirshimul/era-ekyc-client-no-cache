@@ -1,266 +1,261 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 import {getAge} from '../../../Utils/ageCheck'
-import Face from "../images/face.svg";
-import Family from '../images/family.svg';
-import Familyes from '../images/candidates.svg';
-import adult from '../images/age-limit-one.svg';
-import child from '../images/age-limit-two.svg';
+import Face from "../../Simplified/images/face.svg";
+import Family from '../../Simplified/images/family.svg';
+import Familyes from '../../Simplified/images/candidates.svg';
+import adult from '../../Simplified/images/age-limit-one.svg';
+import child from '../../Simplified/images/age-limit-two.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { showDate, convert } from '../../../Utils/dateConversion';
 import {largeTime} from '../../../Utils/notificationTime';
 
-
-export class Nominee extends Component {
- state ={
-     showHide: false
- }
-
-
-  //Nominee part function
-  showHideChange = () => {
-    this.setState({
-        showHide: !(this.state.showHide)
-    })
-}
-
-    // showHideChange = (e) => {
-    //     const{values} = this.props;
-    //     e.preventDefault();
-    //     this.props.handleState("showHide", values.showHide);
-    //     //console.log("ShowHide", this.state.showHide)
-    // }
-
-      handleAdultNomineeDateChange = (index, event, d) => {
-        event.preventDefault();
-        console.log("index", index);
-        // console.log("event", event.target.value);
-        console.log("d", d);
-        let copyArray = Object.assign([], this.props.values.jointArray);
-        copyArray[index].dob = d;
-        console.log("copyArray", copyArray);
-        this.props.handleState("jointArray", copyArray);
-
+export class RegJointNominee extends Component {
+    state ={
+        showHide: false
     }
-
-    handleMinorNomineeDateChange = (index, event, d) => {
-        event.preventDefault();
-        console.log("index", index);
-        // console.log("event", event.target.value);
-        console.log("d", d);
-        let copyArray = Object.assign([], this.props.values.jointArray);
-        copyArray[index].minorDob = d;
-        console.log("copyArray", copyArray);
-        this.props.handleState("jointArray", copyArray);
-    }
-
-    deteteRow = (e,index) => {
-        e.preventDefault();
-        let copyArray = Object.assign([], this.props.values.jointArray);
-        console.log("copyArrat",copyArray)
-        console.log("index",index)
-        copyArray.splice(index, 1);
-       this.props.handleState("jointArray", copyArray);
-    
-    }
-
-
-    continue = e => {
-        const { values } = this.props;
-        e.preventDefault();
-        
-        //    ====================== Validation Start =============================
-
-        let checkPercentage = 0;
-        for (let i = 0; i < values.jointArray.length; i++) {
-            if (values.jointArray[i].isShow === true) {
-                if (values.jointArray[i].nominee === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Nominee field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].dob === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Date of Birth field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (getAge(values.jointArray[i].dob) < 18) {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Age is less than 18 please add as a Minor Nominee `, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].relation === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Relation field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].photograph === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Photo is not provided`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].percentage === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].percentage !== '') {
-                    checkPercentage = checkPercentage + parseInt(values.jointArray[i].percentage);
-                }
-            } else {
-
-                if (values.jointArray[i].minorNominee === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Name field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].minorDob === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Date of Birth field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (getAge(values.jointArray[i].minorDob) >= 18) {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Age is 18 or more please add as a Adult Nominee`, "Click to Remove", largeTime);
-                    return;
-                }
-
-
-                if (values.jointArray[i].minorRelationWAccH === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Relation With Account Holder field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].minorNomineePhoto === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Photo is not provided`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].minorPercentage === '') {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].minorPercentage !== '') {
-                    checkPercentage = checkPercentage + parseInt(values.jointArray[i].minorPercentage);
-                }
-
-                if (values.jointArray[i].minorGuardianNid.length < 10 ) {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
-                    return;
-                }else if(values.jointArray[i].minorGuardianNid.length > 10 && values.jointArray[i].minorGuardianNid.length <=12){
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
-                    return;
-                }else if(values.jointArray[i].minorGuardianNid.length > 13 && values.jointArray[i].minorGuardianNid.length <= 16 ){
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
-                    return;
-                }else if(values.jointArray[i].minorGuardianNid.length > 17){
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].minorGuardianName === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian Name field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].guardianRelationWMinor === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Relation With Minor Nominee field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].minorGuardianAddress === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Guardian Address field is empty`, "Click to Remove", largeTime);
-                    return;
-                }
-
-                if (values.jointArray[i].minorPhotoGuardian === "") {
-                    NotificationManager.warning(`Nominee ${i + 1} -- Guardian Photo is not provided`, "Click to Remove", largeTime);
-                    return;
-                }
-
-
-            }
-
-
-
-        }
-
-
-        if (checkPercentage > 100) {
-            NotificationManager.warning("Total Percentage is greater than 100", "Click to Remove", largeTime);
-            return;
-        } else if (checkPercentage < 100) {
-            NotificationManager.warning("Total Percentage is less than 100", "Click to Remove", largeTime);
-            return;
-        }
-        //    ====================== Validation End =============================
-
-
-        for (let j = 0; j < values.jointArray.length; j++) {
-            if (values.jointArray[j].isShow === true) {
-                if (values.jointArray[j].dob !== "") {
-                    let copyArray = Object.assign([], this.props.values.jointArray);
-                    copyArray[j].dob = showDate(copyArray[j].dob);
-                    this.props.handleState('jointArray', copyArray);
-
-                }
-            } else {
-                if (values.jointArray[j].minorDob !== '') {
-                    let copyArray = Object.assign([], this.props.values.jointArray);
-                    copyArray[j].minorDob = showDate(copyArray[j].minorDob);
-                    this.props.handleState('jointArray', copyArray);
-                }
-            }
-        }
-        
-        this.props.nextStep();
-    };
-
-    back = e => {
-        e.preventDefault();
-        this.props.prevStep();
-    }
-
-    // addNominee = (val) =>{
-    //     let copyArray = Object.assign([], this.props.values.jointArray);
-    //     copyArray.push(val);
-    //     // this.setState({ jointArray: copyArray});
-    //     this.props.handleState({jointArray: copyArray });
-    // }
-
-    // fileSelectedHandler = (event) => {
-    //     if (event.target.files[0]) {
-    //         let file = event.target.files[0];
-    //         // console.log(file);
-    //         //  console.log(idx);
-    //         var reader = new FileReader();
-    //         reader.readAsBinaryString(file);
-
-    //         reader.onload = () => {
-    //             let base64Image = btoa(reader.result);
-    //             this.props.handleState(this.props.values.fields['photograph'], base64Image);
-    //         };
-    //         reader.onerror = () => {
-    //             console.log('there are some problems');
-    //             alert('File can not be read');
-    //         };
-    //     }
-    // };
-
-
-    handleSubmit = e => {
-        e.preventDefault()
-
-       // console.log(this.props.values.fields);
-
-    }
-
-
+   
+   
+     //Nominee part function
+     showHideChange = () => {
+       this.setState({
+           showHide: !(this.state.showHide)
+       })
+   }
+   
+       // showHideChange = (e) => {
+       //     const{values} = this.props;
+       //     e.preventDefault();
+       //     this.props.handleState("showHide", values.showHide);
+       //     //console.log("ShowHide", this.state.showHide)
+       // }
+   
+         handleAdultNomineeDateChange = (index, event, d) => {
+           event.preventDefault();
+           console.log("index", index);
+           // console.log("event", event.target.value);
+           console.log("d", d);
+           let copyArray = Object.assign([], this.props.values.jointArray);
+           copyArray[index].dob = d;
+           console.log("copyArray", copyArray);
+           this.props.handleState("jointArray", copyArray);
+   
+       }
+   
+       handleMinorNomineeDateChange = (index, event, d) => {
+           event.preventDefault();
+           console.log("index", index);
+           // console.log("event", event.target.value);
+           console.log("d", d);
+           let copyArray = Object.assign([], this.props.values.jointArray);
+           copyArray[index].minorDob = d;
+           console.log("copyArray", copyArray);
+           this.props.handleState("jointArray", copyArray);
+       }
+   
+       deteteRow = (e,index) => {
+           e.preventDefault();
+           let copyArray = Object.assign([], this.props.values.jointArray);
+           console.log("copyArrat",copyArray)
+           console.log("index",index)
+           copyArray.splice(index, 1);
+          this.props.handleState("jointArray", copyArray);
+       
+       }
+   
+   
+       continue = e => {
+           const { values } = this.props;
+           e.preventDefault();
+           
+           //    ====================== Validation Start =============================
+   
+           let checkPercentage = 0;
+           for (let i = 0; i < values.jointArray.length; i++) {
+               if (values.jointArray[i].isShow === true) {
+                   if (values.jointArray[i].nominee === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Nominee field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].dob === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Date of Birth field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (getAge(values.jointArray[i].dob) < 18) {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Age is less than 18 please add as a Minor Nominee `, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].relation === '') {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Relation field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].photograph === '') {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Photo is not provided`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].percentage === '') {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].percentage !== '') {
+                       checkPercentage = checkPercentage + parseInt(values.jointArray[i].percentage);
+                   }
+               } else {
+   
+                   if (values.jointArray[i].minorNominee === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Name field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].minorDob === '') {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Date of Birth field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (getAge(values.jointArray[i].minorDob) >= 18) {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Age is 18 or more please add as a Adult Nominee`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+   
+                   if (values.jointArray[i].minorRelationWAccH === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Relation With Account Holder field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].minorNomineePhoto === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Photo is not provided`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].minorPercentage === '') {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Percentage field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].minorPercentage !== '') {
+                       checkPercentage = checkPercentage + parseInt(values.jointArray[i].minorPercentage);
+                   }
+   
+                   if (values.jointArray[i].minorGuardianNid.length < 10 ) {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
+                       return;
+                   }else if(values.jointArray[i].minorGuardianNid.length > 10 && values.jointArray[i].minorGuardianNid.length <=12){
+                       NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
+                       return;
+                   }else if(values.jointArray[i].minorGuardianNid.length > 13 && values.jointArray[i].minorGuardianNid.length <= 16 ){
+                       NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
+                       return;
+                   }else if(values.jointArray[i].minorGuardianNid.length > 17){
+                       NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian NID number must be 10, 13 and 17 digits`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].minorGuardianName === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Minor Nominee Guardian Name field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].guardianRelationWMinor === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Relation With Minor Nominee field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].minorGuardianAddress === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Guardian Address field is empty`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+                   if (values.jointArray[i].minorPhotoGuardian === "") {
+                       NotificationManager.warning(`Nominee ${i + 1} -- Guardian Photo is not provided`, "Click to Remove", largeTime);
+                       return;
+                   }
+   
+   
+               }
+   
+   
+   
+           }
+   
+   
+           if (checkPercentage > 100) {
+               NotificationManager.warning("Total Percentage is greater than 100", "Click to Remove", largeTime);
+               return;
+           } else if (checkPercentage < 100) {
+               NotificationManager.warning("Total Percentage is less than 100", "Click to Remove", largeTime);
+               return;
+           }
+           //    ====================== Validation End =============================
+   
+   
+           for (let j = 0; j < values.jointArray.length; j++) {
+               if (values.jointArray[j].isShow === true) {
+                   if (values.jointArray[j].dob !== "") {
+                       let copyArray = Object.assign([], this.props.values.jointArray);
+                       copyArray[j].dob = showDate(copyArray[j].dob);
+                       this.props.handleState('jointArray', copyArray);
+   
+                   }
+               } else {
+                   if (values.jointArray[j].minorDob !== '') {
+                       let copyArray = Object.assign([], this.props.values.jointArray);
+                       copyArray[j].minorDob = showDate(copyArray[j].minorDob);
+                       this.props.handleState('jointArray', copyArray);
+                   }
+               }
+           }
+           
+           this.props.nextStep();
+       };
+   
+       back = e => {
+           e.preventDefault();
+           this.props.prevStep();
+       }
+   
+       // addNominee = (val) =>{
+       //     let copyArray = Object.assign([], this.props.values.jointArray);
+       //     copyArray.push(val);
+       //     // this.setState({ jointArray: copyArray});
+       //     this.props.handleState({jointArray: copyArray });
+       // }
+   
+       // fileSelectedHandler = (event) => {
+       //     if (event.target.files[0]) {
+       //         let file = event.target.files[0];
+       //         // console.log(file);
+       //         //  console.log(idx);
+       //         var reader = new FileReader();
+       //         reader.readAsBinaryString(file);
+   
+       //         reader.onload = () => {
+       //             let base64Image = btoa(reader.result);
+       //             this.props.handleState(this.props.values.fields['photograph'], base64Image);
+       //         };
+       //         reader.onerror = () => {
+       //             console.log('there are some problems');
+       //             alert('File can not be read');
+       //         };
+       //     }
+       // };
+   
+   
+       handleSubmit = e => {
+           e.preventDefault()
+   
+          // console.log(this.props.values.fields);
+   
+       }
     render() {
         const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange } = this.props;
-        //console.log(values.jointArray);
-        //console.log("showHide",this.state.showHide);
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
                 <div className="row d-flex justify-content-center">
@@ -697,4 +692,4 @@ export class Nominee extends Component {
     }
 }
 
-export default Nominee;
+export default RegJointNominee;

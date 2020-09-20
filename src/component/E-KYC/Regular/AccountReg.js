@@ -159,7 +159,7 @@ export class AccountReg extends Component {
                 NotificationManager.success(successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/regular-typeverification');
             } else if (accountType === 'J' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
-                //this.props.history.replace('/dashboard/dynamic-comp');
+                this.props.history.replace('/dashboard/reg-dynamiccomp');
             }else{
                 NotificationManager.warning('Simplified Ekyc is not applicable For You', "Warning", 5000);
             }

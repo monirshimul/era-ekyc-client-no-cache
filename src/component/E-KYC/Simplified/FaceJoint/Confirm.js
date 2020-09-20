@@ -4,7 +4,6 @@ import {ProductCodeGetName,ProductCategoryType,AccountType,JointOperatorType,Gen
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
 import { simplifiedJointAPI, simplifiedJointAddAPI } from '../../Url/ApiList';
-
 import down from '../images/downArrow.svg';
 import Avater from '../images/profile.svg';
 import front from '../images/nid-f.svg';

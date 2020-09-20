@@ -9,6 +9,8 @@ import Success from '../E-KYC/Role/SuccessRole';
 import footerWave from './image/footerWave6.svg'
 import data from './image/protect.svg'
 import ReactTooltip from 'react-tooltip';
+// Reg Joint Dynamic Component
+import RegDynamicComp from '../E-KYC/Regular/RegJointFace/RegDynamicComp';
 
 import { logoutUser } from '../E-KYC/Url/ApiList';
 import { NotificationManager } from "react-notifications";
@@ -427,6 +429,7 @@ class Dashboard extends Component {
                                     {/* MultiSteps */}
                                     {/* <Route path={`${path}/face-account`} component={MultiStepFace} /> */}
                                     <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />
+                                    <Route path={`${path}/reg-dynamiccomp`} component={RegDynamicComp} />
                                     
 
                                     {/* Success Role */}

@@ -167,7 +167,8 @@ class Account extends Component {
                 NotificationManager.success(successMessage, "Success", 5000);
                 this.props.history.replace('/dashboard/regular-typeverification');
             } else if (accountType === 'J' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
-
+                NotificationManager.success(successMessage, "Success", 5000);
+                this.props.history.replace('/dashboard/reg-dynamiccomp');
             } else {
                 NotificationManager.warning("Please Check Your TP and Product List", "Warning", 5000);
             }
