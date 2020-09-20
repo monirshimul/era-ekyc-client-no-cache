@@ -7,8 +7,10 @@ import RegJointPersonalDetails from './RegJointPersonalDetails';
 import RegJointNominee from './RegJointNominee';
 import RegJointSignature from './RegJointSignature';
 import RegJointRiskGrading from './RegJointRiskGrading';
+
+
 export class RegJoinFaceMain extends Component {
-    
+
     state = {
         step: 1,
         //Account
