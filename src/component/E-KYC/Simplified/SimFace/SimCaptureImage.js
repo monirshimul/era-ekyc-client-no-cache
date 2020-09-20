@@ -6,8 +6,6 @@ import { faceValidate } from '../../Url/ApiList';
 import Face from "../images/face.svg";
 import Done from "../images/done.svg";
 import Camera from "../Liveness/Camera";
-//import { formatDate } from "./utils/DateFormat";
-//import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../utils/Common.css";
 

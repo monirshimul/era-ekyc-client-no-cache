@@ -1,23 +1,74 @@
 import React, { Component } from 'react';
-import Sign from '../../Simplified/images/sign.svg'
+import Sign from '../../Simplified/images/sign.svg';
+import Capture from '../../Simplified/Capture/Capture';
+import { NotificationManager } from "react-notifications";
+import {datePickerPrefiilConv} from '../../../Utils/dateConversion';
 
 export class RegSignature extends Component {
 
+    state = {
+        cameraOn: false
+    }
+
+    captureOn = () => {
+        this.setState({
+            cameraOn: true
+        })
+    }
+
+    captureOff = () => {
+        this.setState({
+            cameraOn: false
+        })
+    }
+
+
+    onImageConfirm = (base64Image) => {
+        //console.log("In image confirm");
+        //console.log("Image",base64Image);
+
+
+        this.props.handleState("signature", base64Image);
+        this.captureOff();
+
+
+
+    }
+
     continue = e => {
-        //  const { values } = this.props;
-          e.preventDefault();
-          // let obj = {
-          //     signature: values.signature,
-          //     signatureType: values.signatureType
-          // }
-          // localStorage.setItem("Signature", JSON.stringify(obj));
-          this.props.nextStep();
-      };
-  
-      back = e => {
-          e.preventDefault();
-          this.props.prevStep();
-      }
+        const { values } = this.props;
+       e.preventDefault();
+       if (values.signature === "") {
+           let signatureMessage = "Please Provide Signature";
+           NotificationManager.warning(signatureMessage, "Warning", 5000);
+           return;
+         }
+       this.props.nextStep();
+   };
+
+   back = e => {
+       let {values} = this.props;
+       e.preventDefault();
+
+       for (let i = 0; i < values.jointArray.length; i++) {
+           if (values.jointArray[i].isShow === true) {
+               if (values.jointArray[i].dob !== "") {
+                   let copyArray = Object.assign([], this.props.values.jointArray);
+                   copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
+                   this.props.handleState('jointArray', copyArray);
+               }
+               }else{
+                   if (values.jointArray[i].minorDob !== '') {
+                       let copyArray = Object.assign([], this.props.values.jointArray);
+                       copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
+                       this.props.handleState('jointArray', copyArray);
+                   }
+               }
+
+           }
+       this.props.prevStep();
+   }
+
   
       fileSelectedHandler = event => {
           if (event.target.files[0]) {
@@ -41,7 +92,7 @@ export class RegSignature extends Component {
                   this.props.handleState('signatureType', file.type)
               };
               reader.onerror = () => {
-                  console.log('there are some problems');
+                  //console.log('there are some problems');
                   alert('File can not be read');
               };
           }
@@ -55,7 +106,7 @@ export class RegSignature extends Component {
             <div className="col-sm-12 d-flex justify-content-center" >
             <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
                 <div className="card-header up">
-                    <h3>Provide Signature</h3>
+                    <h3>Provide Customer Signature</h3>
                 </div>
                 <div className="card-body d-flex justify-content-center">
 
@@ -76,7 +127,7 @@ export class RegSignature extends Component {
 
                 </div>
                 <div
-                    className="card-footer d-flex justify-content-around"
+                    className="card-footer"
                     style={{ background: "#fff" }}
                 >
 
@@ -91,8 +142,31 @@ export class RegSignature extends Component {
 
                     </div>
 
+                    <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOn}>
+                        <i class="fas fa-camera"></i> Capture Image
+                    </div>
+
 
                 </div>
+
+                <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog mw-100 w-75" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header divBg">
+                                <h5 class="modal-title" id="cameraModalLabel">Capture Your Image</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={this.captureOff}>
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {this.state.cameraOn ? <Capture onConfirm={this.onImageConfirm} /> : ""}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div
                     className="card-footer d-flex justify-content-between"
                     style={{ background: "#fff" }}

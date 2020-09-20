@@ -3,6 +3,7 @@ import Sign from '../images/man.svg';
 import Capture from '../Capture/Capture';
 import { NotificationManager } from "react-notifications";
 import { datePickerPrefiilConv} from '../../../Utils/dateConversion';
+import {largeTime} from '../../../Utils/notificationTime';
 
 
 export class SimCutomerPic extends Component {
@@ -25,15 +26,8 @@ export class SimCutomerPic extends Component {
     }
 
     onImageConfirm = (base64Image) => {
-        //console.log("In image confirm");
-        //console.log("Image",base64Image);
-
-
         this.props.handleState("faceImage", base64Image);
         this.captureOff();
-
-
-
     }
 
     fileSelectedHandler = event => {
@@ -60,7 +54,7 @@ export class SimCutomerPic extends Component {
 
         if (values.faceImage === "") {
             let picMessage = "Please Provide Photograph";
-            NotificationManager.warning(picMessage, "Warning", 5000);
+            NotificationManager.warning(picMessage, "Click to Remove", largeTime);
             return;
           }
 
@@ -95,6 +89,7 @@ export class SimCutomerPic extends Component {
         let { values } = this.props;
         
         return (
+            
             <div className="col-sm-12 d-flex justify-content-center" >
                 <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
                     <div className="card-header up">

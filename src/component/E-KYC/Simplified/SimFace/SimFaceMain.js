@@ -348,7 +348,6 @@ deteteRow = (e,index) => {
                         showHideChange={this.showHideChange}
                         addNomineeOne={this.addNomineeOne}
                         addNomineeTwo={this.addNomineeTwo}
-                        deteteRow={this.deteteRow}
                         values={values}
                     />
                 )

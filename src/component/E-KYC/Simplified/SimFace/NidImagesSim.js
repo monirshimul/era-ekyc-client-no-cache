@@ -56,7 +56,8 @@ export class NidImagesSim extends Component {
 
   onImageConfirm = (base64Image) => {
     //console.log("In image confirm");
-    //console.log("Image",base64Image);
+    // console.log("Image",base64Image);
+    
     if (this.state.cameraOnFront) {
       this.props.handleState("NidFront", base64Image);
       this.captureOffFront();
@@ -65,7 +66,7 @@ export class NidImagesSim extends Component {
       this.props.handleState("NidBack", base64Image);
       this.captureOffBack();
     }
-
+  
 
   }
 
@@ -80,7 +81,6 @@ export class NidImagesSim extends Component {
     if (event.target.files[0]) {
       let file = event.target.files[0];
       this.props.handleState("NidFrontOcr", event.target.files[0]);
-      //console.log(file.type);
       var reader = new FileReader();
       reader.readAsBinaryString(file);
 
@@ -269,7 +269,6 @@ export class NidImagesSim extends Component {
   render() {
     let { values } = this.props;
     // console.log("nidSelect", this.state.nidType);
-
     return (
       <div className="container">
         <div className="row d-flex justify-content-center">

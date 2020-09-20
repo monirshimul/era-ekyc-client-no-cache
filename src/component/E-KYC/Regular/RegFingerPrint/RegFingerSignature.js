@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import Sign from '../../Simplified/images/man.svg';
+import Sign from '../../Simplified/images/sign.svg';
 import Capture from '../../Simplified/Capture/Capture';
 import { NotificationManager } from "react-notifications";
-import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
-import { largeTime } from '../../../Utils/notificationTime';
 
-export class RegCustomerPic extends Component {
+export class RegFingerSignature extends Component {
 
     state = {
         cameraOn: false
@@ -24,8 +22,34 @@ export class RegCustomerPic extends Component {
     }
 
     onImageConfirm = (base64Image) => {
-        this.props.handleState("faceImage", base64Image);
+        //console.log("In image confirm");
+        //console.log("Image",base64Image);
+
+
+        this.props.handleState("signature", base64Image);
         this.captureOff();
+
+
+
+    }
+
+    continue = e => {
+        const { values } = this.props;
+       e.preventDefault();
+       if (values.signature === "") {
+           let signatureMessage = "Please Provide Signature";
+           NotificationManager.warning(signatureMessage, "Warning", 5000);
+           return;
+         }
+       this.props.nextStep();
+   };
+
+    back = e => {
+        let {values} = this.props;
+        e.preventDefault();
+
+      
+        this.props.prevStep();
     }
 
     fileSelectedHandler = event => {
@@ -36,71 +60,40 @@ export class RegCustomerPic extends Component {
             reader.readAsBinaryString(file);
 
             reader.onload = () => {
+                // console.log(typeof reader.result);
+                // console.log(btoa(reader.result));
                 let base64Image = btoa(reader.result);
-                this.props.handleState('faceImage', base64Image);
+                // this.setState({
+                //   profilePic: base64Image,
+                //   profilePicType: file.type
+
+                //   //nidImage: URL.createObjectURL(event.target.files[0])
+                // });
+                this.props.handleState('signature', base64Image);
+
+                this.props.handleState('signatureType', file.type)
             };
             reader.onerror = () => {
-                // console.log('there are some problems');
+                //console.log('there are some problems');
                 alert('File can not be read');
             };
         }
     };
 
-    continue = e => {
-        const { values } = this.props;
-        e.preventDefault();
-
-        if (values.faceImage === "") {
-            let picMessage = "Please Provide Photograph";
-            NotificationManager.warning(picMessage, "Click to Remove", largeTime);
-            return;
-        }
-
-        this.props.nextStep();
-    };
-
-
-    back = e => {
-        let { values } = this.props;
-        e.preventDefault();
-
-        for (let i = 0; i < values.jointArray.length; i++) {
-            if (values.jointArray[i].isShow === true) {
-                if (values.jointArray[i].dob !== "") {
-                    let copyArray = Object.assign([], this.props.values.jointArray);
-                    copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
-                    this.props.handleState('jointArray', copyArray);
-                }
-            } else {
-                if (values.jointArray[i].minorDob !== '') {
-                    let copyArray = Object.assign([], this.props.values.jointArray);
-                    copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
-                    this.props.handleState('jointArray', copyArray);
-                }
-            }
-
-        }
-
-
-        this.props.prevStep();
-
-    }
-
 
     render() {
-        let { values } = this.props;
+        const { values } = this.props;
         return (
-
             <div className="col-sm-12 d-flex justify-content-center" >
                 <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
                     <div className="card-header up">
-                        <h3>Provide Customer Photograph</h3>
+                        <h3>Provide Customer Signature</h3>
                     </div>
                     <div className="card-body d-flex justify-content-center">
 
                         <img
 
-                            src={values.faceImage ? (values.flag + values.faceImage) : Sign}
+                            src={values.signature ? (values.flag + values.signature) : Sign}
                             style={{
 
                                 width: "300px",
@@ -114,9 +107,8 @@ export class RegCustomerPic extends Component {
 
 
                     </div>
-
                     <div
-                        className="card-footer d-flex justify-content-around"
+                        className="card-footer"
                         style={{ background: "#fff" }}
                     >
 
@@ -126,9 +118,13 @@ export class RegCustomerPic extends Component {
                                     onChange={this.fileSelectedHandler}
 
                                     class="form-control-file" id="input-file" />
-                                <label class="custom-file-label" htmlFor="input-file">Choose Image</label>
+                                <label class="custom-file-label" for="input-file">Choose Image</label>
                             </div>
 
+                        </div>
+
+                        <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOn}>
+                            <i class="fas fa-camera"></i> Capture Image
                         </div>
 
 
@@ -152,7 +148,6 @@ export class RegCustomerPic extends Component {
 
 
 
-
                     <div
                         className="card-footer d-flex justify-content-between"
                         style={{ background: "#fff" }}
@@ -168,8 +163,10 @@ export class RegCustomerPic extends Component {
                 </div>
 
             </div>
+
+
         )
     }
 }
 
-export default RegCustomerPic;
+export default RegFingerSignature;

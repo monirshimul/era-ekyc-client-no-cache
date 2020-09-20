@@ -33,15 +33,13 @@ export class RegCaptureImage extends Component {
           //console.log("nidF",nidf.NidFront)   
           let imgData = {
             photo: values.faceImage,
-            nidFront: values.NidFront
+            nidFront: values.ecImage
           }
     
           let resValidation = await axios.post(faceValidate, imgData, token);
          // console.log("resValidation", resValidation.data.data.faceVerificationResult)
           //console.log("ver-token", resValidation.data.data.verificationToken)
-          if (resValidation.data.data.faceVerificationResult.status) {
-    
-          }
+     
     
           if (resValidation.data.data.faceVerificationResult.status === true) {
     
@@ -54,19 +52,23 @@ export class RegCaptureImage extends Component {
             NotificationManager.success("Face Validated", "Success", 5000);
           }
           if (resValidation.data.data.faceVerificationResult.status === false) {
-            // this.setState({
-            //   loading: false
-            // })
+   
             this.props.handleState("loading",false);
             NotificationManager.error("Face does not match", "Error", 5000);
           }
     
     
         } catch (error) {
-          let { message } = error.response.data
-          let { statusCode } = error.response.data
-          //console.log("error.response", error.response.data)
-          NotificationManager.error(statusCode + ',' + message, "Error", 5000);
+          if (error.response) {
+            let message = error.response.data.message
+            console.log("Error",error.response)
+            NotificationManager.error(message, "Error", 5000);
+        } else if (error.request) {
+            //console.log("Error Connecting...", error.request)
+            NotificationManager.error("Error Connecting...", "Error", 5000);
+        } else if (error) {
+            NotificationManager.error(error.toString(), "Error", 5000);
+        }
     
         }
     
@@ -251,13 +253,13 @@ export class RegCaptureImage extends Component {
                 >
       
                   <span className="b mr-5" onClick={this.back}>Back</span>
-                  {/* {
+                   {
                     values.verifyToken ? (
                       <span className="b" onClick={this.continue}>Next</span>
                     ):""
-                  } */}
+                  } 
 
-                  <span className="b" onClick={this.continue}>Next</span>
+                 {/*  <span className="b" onClick={this.continue}>Next</span>*/}
                   
       
       

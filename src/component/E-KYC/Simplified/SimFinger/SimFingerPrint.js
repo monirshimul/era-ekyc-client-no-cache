@@ -110,7 +110,7 @@ export class SimFingerPrint extends Component {
   };
 
   continue = async (e) => {
-    console.log("In the Next")
+    //console.log("In the Next")
     e.preventDefault();
     const { nid, dob, rThumb, rIndex, lThumb, lIndex } = this.props.values;
 
