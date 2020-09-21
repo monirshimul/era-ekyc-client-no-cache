@@ -301,12 +301,12 @@ export class RegFingerPrintMain extends Component {
     }
 
 
-    deteteRow = (index) => {
-        const copyArray = Object.assign([], this.state.jointArray);
-        copyArray.splice(index, 1);
-        this.setState({ jointArray: copyArray })
+    // deteteRow = (index) => {
+    //     const copyArray = Object.assign([], this.state.jointArray);
+    //     copyArray.splice(index, 1);
+    //     this.setState({ jointArray: copyArray })
 
-    }
+    // }
     render() {
         const { step } = this.state;
 

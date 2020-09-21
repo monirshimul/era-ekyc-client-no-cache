@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
  import RegJointFaceMain from './RegJointFaceMain';
+ import RegJointFingerMain from '../RegJointFinger/RegJointFingerMain';
 //  import FingerPrintMain from '../FingerPrintJoint/FingerPrintMain';
 // import { simplifiedJointConfirmAPI } from '../../Url/ApiList';
 import { withRouter } from 'react-router-dom';
@@ -373,7 +374,7 @@ export class RegDynamicComp extends Component {
                                     <h4 className="im" style={{ color: "green" }}>Face</h4>
 
                                 </button>
-                                <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp("FINGER")}>
+                                <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<RegJointFingerMain/>)}>
 
                                     <img
                                         src={child}

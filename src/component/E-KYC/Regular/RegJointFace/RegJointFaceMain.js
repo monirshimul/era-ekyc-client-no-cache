@@ -7,6 +7,8 @@ import RegJointPersonalDetails from './RegJointPersonalDetails';
 import RegJointNominee from './RegJointNominee';
 import RegJointSignature from './RegJointSignature';
 import RegJointRiskGrading from './RegJointRiskGrading';
+import RegJointConfirm from './RegJointConfirm';
+import RegJointComplete from './RegJointComplete';
 
 
 export class RegJoinFaceMain extends Component {
@@ -384,6 +386,27 @@ export class RegJoinFaceMain extends Component {
                                             values={values}
                                         />
                                     )
+
+
+                                    case 8:
+                                        return (
+                                            <RegJointConfirm
+                                                nextStep={this.nextStep}
+                                                prevStep={this.prevStep}
+                                                handleChange={this.handleChange}
+                                                handleOccupationChange={this.handleOccupationChange}
+                                                handleState={this.handleState}
+                                                values={values}
+                                            />
+                                        )
+
+                                        case 9:
+                                            return (
+                                                <RegJointComplete
+                                                handleState={this.handleState}
+                                                values={values}
+                                                />
+                                            )
 
            
 
