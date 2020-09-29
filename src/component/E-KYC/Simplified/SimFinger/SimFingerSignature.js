@@ -134,6 +134,7 @@ export class SimFingerSignature extends Component {
                             <div class="custom-file">
                                 <input type="file"
                                     onChange={this.fileSelectedHandler}
+                                    onClick={(event)=>event.target.value = null}
 
                                     class="form-control-file" id="input-file" />
                                 <label class="custom-file-label" for="input-file">Choose Image</label>

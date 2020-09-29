@@ -20,7 +20,7 @@ export class RegJointRiskGrading extends Component {
             highOfficial:values.highOfficial,
             closeHighOfficial:values.closeHighOfficial,
             isClientIp:values.isClientIp,
-            productTypes:values.productTypesss,
+            productTypes:values.productTypes,
             occupation:values.occupation,
             businessName:values.businessName,
             professionName:values.professionName,
@@ -32,7 +32,9 @@ export class RegJointRiskGrading extends Component {
 
         try {
 
-            console.log("Risk Data", obj)
+            let RiskGraArray = Object.values(obj)
+
+            console.log("Risk Data", RiskGraArray)
 
             //alert("Risk Grading Measured", obj)
 
@@ -51,7 +53,6 @@ export class RegJointRiskGrading extends Component {
         this.props.prevStep();
         
     }
-
     render() {
         let {values,handleChange,handleOccupationChange} = this.props;
         return (
@@ -92,9 +93,9 @@ export class RegJointRiskGrading extends Component {
                             name="geoRiskClient"
                         >
                             <option value='' disabled>--Select Client--</option>
-                            <option value='2.1'>Resident Bangladeshi</option>
-                            <option value='2.2'>Non-resident Bangladeshi</option>
-                            <option value='2.3'>Foreign Citizen</option>
+                            <option value='2.1.1'>Resident Bangladeshi</option>
+                            <option value='2.1.2'>Non-resident Bangladeshi</option>
+                            <option value='2.1.3'>Foreign Citizen</option>
 
 
 
@@ -104,7 +105,7 @@ export class RegJointRiskGrading extends Component {
                     {/* For Foreigners */}
 
                     {
-                        values.geoRiskClient === "2.3" ? (
+                        values.geoRiskClient === "2.1.3" ? (
                             <div>
                                 <div className='form-group'>
                                     <label htmlFor="">
@@ -121,8 +122,8 @@ export class RegJointRiskGrading extends Component {
                                         name="foreignOrigin"
                                     >
                                         <option value='' disabled>--Select Category--</option>
-                                        <option value='2.3.1'>Yes</option>
-                                        <option value='2.3.2'>No</option>
+                                        <option value='2.2.1'>Yes</option>
+                                        <option value='2.2.2'>No</option>
 
                                     </select>
                                 </div>
@@ -154,8 +155,8 @@ export class RegJointRiskGrading extends Component {
                             name="highOfficial"
                         >
                             <option value='' disabled>--Select Category--</option>
-                            <option value='3.1.1'>Yes</option>
-                            <option value='3.1.2'>No</option>
+                            <option value='3.1.2'>Yes</option>
+                            <option value='3.1.1'>No</option>
 
                         </select>
                     </div>
@@ -176,8 +177,8 @@ export class RegJointRiskGrading extends Component {
                             name="closeHighOfficial"
                         >
                             <option value='' disabled>--Select Category--</option>
-                            <option value='3.2.1'>Yes</option>
-                            <option value='3.2.2'>No</option>
+                            <option value='3.2.2'>Yes</option>
+                            <option value='3.2.1'>No</option>
 
                         </select>
                     </div>
@@ -197,8 +198,8 @@ export class RegJointRiskGrading extends Component {
                             name="isClientIp"
                         >
                             <option value='' disabled>--Select Category--</option>
-                            <option value='3.3.1'>Yes - based on assessed risk</option>
-                            <option value='3.3.2'>No</option>
+                            <option value='3.3.2'>Yes - based on assessed risk</option>
+                            <option value='3.3.1'>No</option>
 
                         </select>
                     </div>
@@ -217,19 +218,19 @@ export class RegJointRiskGrading extends Component {
                         <label htmlFor="">Type of Product</label>
                         <select
                             className='custom-select'
-                            value={values.productTypess}
-                            onChange={handleChange('productTypess')}
-                            name="productTypess"
+                            value={values.productTypes}
+                            onChange={handleChange('productTypes')}
+                            name="productTypes"
                         >
                             <option value='' disabled>--Select Status--</option>
-                            <option value='4.1'>Savings account</option>
-                            <option value='4.2'>Current account</option>
-                            <option value='4.3'>FDR</option>
-                            <option value='4.4'>Deposit Scheme upto12 lac</option>
-                            <option value='4.5'>Deposit Scheme above 12 lac</option>
-                            <option value='4.6'>Forex account</option>
-                            <option value='4.7'>S.N.D.</option>
-                            <option value='4.8'>R.F.C.D.</option>
+                            <option value='4.1.1'>Savings account</option>
+                            <option value='4.1.2'>Current account</option>
+                            <option value='4.1.3'>FDR</option>
+                            <option value='4.1.4'>Deposit Scheme upto12 lac</option>
+                            <option value='4.1.5'>Deposit Scheme above 12 lac</option>
+                            <option value='4.1.6'>Forex account</option>
+                            <option value='4.1.7'>S.N.D.</option>
+                            <option value='4.1.8'>R.F.C.D.</option>
 
                         </select>
                     </div>
@@ -245,13 +246,13 @@ export class RegJointRiskGrading extends Component {
                     <div className="form-group d-flex justify-content-center">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" onChange={handleOccupationChange} name="optionsRadios" id="optionsRadios1" value="5.1" />
+                                <input type="radio" class="form-check-input" onChange={handleOccupationChange} name="optionsRadios" id="optionsRadios1" value="5.a" />
                                         Business
                                     </label>
                         </div>&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" onChange={handleOccupationChange} name="optionsRadios" id="optionsRadios1" value="5.2" />
+                                <input type="radio" class="form-check-input" onChange={handleOccupationChange} name="optionsRadios" id="optionsRadios1" value="5.b" />
                                         Profession
                                     </label>
                         </div>&nbsp;&nbsp;&nbsp;
@@ -260,7 +261,7 @@ export class RegJointRiskGrading extends Component {
                     </div>
 
                     {
-                        values.occupation === "5.1" ? (
+                        values.occupation === "5.a" ? (
                             <div>
 
                                 <div className='form-group'>
@@ -272,33 +273,34 @@ export class RegJointRiskGrading extends Component {
                                         name="businessName"
                                     >
                                         <option value='' disabled>--Select Business--</option>
-                                        <option value='5.1.1'>Jeweller/Gold/Valuable Metals Business</option>
-                                        <option value='5.1.2'>Money Changer/Courier Service/MobileBanking Agent</option>
-                                        <option value='5.1.3'>Real Estate Developer/Agent</option>
-                                        <option value='5.1.4'>Promoter/Contractor: ConstructionProjects</option>
-                                        <option value='5.1.5'>Art and Antiquities Dealer</option>
-                                        <option value='5.1.6'>Restaurant/Bar/NightClub/Parlour/Hotel</option>
-                                        <option value='5.1.7'>Export/Import</option>
-                                        <option value='5.1.8'>Manpower export</option>
-                                        <option value='5.1.9'>Firearms</option>
-                                        <option value='5.1.10'>RMG/Garments Accessories/BuyingHouse</option>
-                                        <option value='5.1.11'>Share/Stocks Investor</option>
-                                        <option value='5.1.12'>Software/Information and Technology Business</option>
-                                        <option value='5.1.13'>Travel Agent</option>
-                                        <option value='5.1.14'>Merchant with over 10 million takas invested in business</option>
-                                        <option value='5.1.15'>Freight/Shipping/Cargo Agent</option>
-                                        <option value='5.1.16'>Automobiles business (New or Reconditioned)</option>
-                                        <option value='5.1.17'>Leather/Leather goods Business</option>
-                                        <option value='5.1.18'>Construction Materials Trader</option>
-                                        <option value='5.1.19'>Business Agent</option>
-                                        <option value='5.1.20'>Thread/"Jhut" Merchant</option>
-                                        <option value='5.1.21'>Transport Operator</option>
-                                        <option value='5.1.22'>Tobacco and Cigarettes Business</option>
-                                        <option value='5.1.23'>Amusement Park/Entertainment Provider</option>
-                                        <option value='5.1.24'>Motor Parts Trader/Workshop</option>
-                                        <option value='5.1.25'>Small Business (Investment below BDT 5 million)</option>
-                                        <option value='5.1.26'>Computer/Mobile Phone Dealer</option>
-                                        <option value='5.1.27'>Manufacturer (except, weapons)</option>
+                                        <option value='5.a.1'>Jeweller/Gold/Valuable Metals Business</option>
+                                        <option value='5.a.2'>Money Changer/Courier Service/MobileBanking Agent</option>
+                                        <option value='5.a.3'>Real Estate Developer/Agent</option>
+                                        <option value='5.a.4'>Promoter/Contractor: ConstructionProjects</option>
+                                        <option value='5.a.5'>Art and Antiquities Dealer</option>
+                                        <option value='5.a.6'>Restaurant/Bar/NightClub/Parlour/Hotel</option>
+                                        <option value='5.a.7'>Export/Import</option>
+                                        <option value='5.a.8'>Manpower export</option>
+                                        <option value='5.a.9'>Firearms</option>
+                                        <option value='5.a.10'>RMG/Garments Accessories/BuyingHouse</option>
+                                        <option value='5.a.11'>Share/Stocks Investor</option>
+                                        <option value='5.a.12'>Software/Information and Technology Business</option>
+                                        <option value='5.a.13'>Travel Agent</option>
+                                        <option value='5.a.14'>Merchant with over 10 million takas invested in business</option>
+                                        <option value='5.a.15'>Freight/Shipping/Cargo Agent</option>
+                                        <option value='5.a.16'>Automobiles business (New or Reconditioned)</option>
+                                        <option value='5.a.17'>Leather/Leather goods Business</option>
+                                        <option value='5.a.18'>Construction Materials Trader</option>
+                                        <option value='5.a.19'>Business Agent</option>
+                                        <option value='5.a.20'>Thread/"Jhut" Merchant</option>
+                                        <option value='5.a.21'>Transport Operator</option>
+                                        <option value='5.a.22'>Tobacco and Cigarettes Business</option>
+                                        <option value='5.a.23'>Amusement Park/Entertainment Provider</option>
+                                        <option value='5.a.24'>Motor Parts Trader/Workshop</option>
+                                        <option value='5.a.25'>Small Business (Investment below BDT 5 million)</option>
+                                        <option value='5.a.26'>Computer/Mobile Phone Dealer</option>
+                                        <option value='5.a.27'>Manufacturer (except, weapons)</option>
+                                        <option value='5.a.28'>Others</option>
 
                                     </select>
                                 </div>
@@ -312,7 +314,7 @@ export class RegJointRiskGrading extends Component {
                     }
 
                     {
-                        values.occupation === "5.2" ?
+                        values.occupation === "5.b" ?
                             (
                                 <div>
 
@@ -325,22 +327,25 @@ export class RegJointRiskGrading extends Component {
                                             name="professionName"
                                         >
                                             <option value='' disabled>--Select Profession--</option>
-                                            <option value='5.2.1'>Pilot/Flight Attendant</option>
-                                            <option value='5.2.2'>Trustee</option>
-                                            <option value='5.2.3'>Professional (Journalist, Lawyer, Doctor, Engineer, Chartered Accountant, etc.)</option>
-                                            <option value='5.2.4'>Director (Private/Public Limited Company)</option>
-                                            <option value='5.2.5'>High Official of Multinational Company (MNC)</option>
-                                            <option value='5.2.6'>Homemaker</option>
-                                            <option value='5.2.7'>Information Technology (IT) sector employee</option>
-                                            <option value='5.2.8'>Athlete/Media Celebrity/Producer/Director</option>
-                                            <option value='5.2.9'>Freelance Software Developer</option>
-                                            <option value='5.2.10'>Landlord/Homeowner</option>
-                                            <option value='5.2.11'>Private Service: Managerial</option>
-                                            <option value='5.2.12'>Teacher (Public/Private/Autonomous Educational Institution)</option>
-                                            <option value='5.2.13'>Private Sector Employee</option>
-                                            <option value='5.2.14'>Self-employed Professional</option>
-                                            <option value='5.2.15'>Student</option>
-                                            <option value='5.2.16'>Farmer/Fisherman/Labourer</option>
+                                            <option value='5.b.1'>Pilot/Flight Attendant</option>
+                                            <option value='5.b.2'>Trustee</option>
+                                            <option value='5.b.3'>Professional (Journalist, Lawyer, Doctor, Engineer, Chartered Accountant, etc.)</option>
+                                            <option value='5.b.4'>Director (Private/Public Limited Company)</option>
+                                            <option value='5.b.5'>High Official of Multinational Company (MNC)</option>
+                                            <option value='5.b.6'>Homemaker</option>
+                                            <option value='5.b.7'>Information Technology (IT) sector employee</option>
+                                            <option value='5.b.8'>Athlete/Media Celebrity/Producer/Director</option>
+                                            <option value='5.b.9'>Freelance Software Developer</option>
+                                            <option value='5.b.10'>Government Service</option>
+                                            <option value='5.b.11'>Landlord/Homeowner</option>
+                                            <option value='5.b.12'>Private Service: Managerial</option>
+                                            <option value='5.b.13'>Teacher (Public/Private/Autonomous Educational Institution)</option>
+                                            <option value='5.b.14'>Private Sector Employee</option>
+                                            <option value='5.b.15'>Self-employed Professional</option>
+                                            <option value='5.b.16'>Student</option>
+                                            <option value='5.b.17'>Retiree</option>
+                                            <option value='5.b.18'>Farmer/Fisherman/Labourer</option>
+                                            <option value='5.b.19'>Others</option>
 
 
                                         </select>
@@ -380,10 +385,10 @@ export class RegJointRiskGrading extends Component {
                             name="yearlyTransaction"
                         >
                             <option value='' disabled>--Select Status--</option>
-                            <option value='6.1'>Less than BDT 1 million</option>
-                            <option value='6.2'>From BDT 1 million to 5 million</option>
-                            <option value='6.3'>From BDT 5 million to 50 million</option>
-                            <option value='6.4'>More than BDT 50 million</option>
+                            <option value='6.1.1'>Less than BDT 1 million</option>
+                            <option value='6.1.2'>From BDT 1 million to 5 million</option>
+                            <option value='6.1.3'>From BDT 5 million to 50 million</option>
+                            <option value='6.1.4'>More than BDT 50 million</option>
 
 
                         </select>
@@ -411,8 +416,8 @@ export class RegJointRiskGrading extends Component {
                             name="hasSourceOfFunds"
                         >
                             <option value='' disabled>--Select Status--</option>
-                            <option value='7.1'>Yes</option>
-                            <option value='7.2'>No</option>
+                            <option value='7.1.1'>Yes</option>
+                            <option value='7.1.2'>No</option>
 
 
 

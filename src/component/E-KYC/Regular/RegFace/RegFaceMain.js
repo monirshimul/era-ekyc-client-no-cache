@@ -205,7 +205,7 @@ export class RegFaceMain extends Component {
 
     // RiskGrading handling Occupation
     handleOccupationChange = e => {
-        e.preventDefault();
+        
         this.setState({ occupation: e.target.value });
     }
 

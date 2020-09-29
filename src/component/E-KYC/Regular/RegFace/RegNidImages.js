@@ -291,6 +291,7 @@ export class RegNidImages extends Component {
             <div className="custom-file">
               <input type="file"
                 onChange={this.fileSelectedHandler}
+                onClick={(event)=>event.target.value = null}
 
                 className="form-control-file" id="input-file" />
               <label className="custom-file-label" htmlFor="input-file">Choose Image</label>
@@ -340,6 +341,7 @@ export class RegNidImages extends Component {
             <div className="custom-file">
               <input type="file"
                 onChange={this.fileSelectedHandlerTwo}
+                onClick={(event)=>event.target.value = null}
 
                 className="form-control-file" id="input-file-two" />
               <label className="custom-file-label" htmlFor="input-file-two">Choose Image</label>
