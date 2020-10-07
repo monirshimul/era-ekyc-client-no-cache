@@ -98,16 +98,25 @@ export class RegSignature extends Component {
           }
       };
 
-      
+      Escape = ()=>{
+        this.props.nextStep();
+      }
+
 
     render() {
         const { values } = this.props;
         return (
             <div className="col-sm-12 d-flex justify-content-center" >
+               
             <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
+            
                 <div className="card-header up">
                     <h3>Provide Customer Signature</h3>
+
                 </div>
+                <div className="im col-sm-2" onClick={this.Escape}>
+              Escape
+              </div>
                 <div className="card-body d-flex justify-content-center">
 
                     <img

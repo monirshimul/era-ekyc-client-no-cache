@@ -256,10 +256,17 @@ export class RegNidImages extends Component {
     // }
 
   }
+
+  Escape = ()=>{
+    this.props.nextStep();
+  }
   render() {
     let { values } = this.props;
     return (
       <div className="container">
+        <div className="im col-sm-2" onClick={this.Escape}>
+              Escape
+              </div>
       <div className="row d-flex justify-content-center">
 
       <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
@@ -422,6 +429,8 @@ export class RegNidImages extends Component {
               </div>
 
         </div>
+
+        
 
       </div>
     )

@@ -610,11 +610,18 @@ export class RegPersonalDetails extends Component {
         e.preventDefault();
         this.props.prevStep();
     }
+    Escape = ()=>{
+        this.props.nextStep();
+      }
+
 
     render() {
         const { values, handleChange } = this.props;
         return (
             <div className="container">
+                <div className="im col-sm-2" onClick={this.Escape}>
+              Escape
+              </div>
 
             <div className="col-sm-12">
 
