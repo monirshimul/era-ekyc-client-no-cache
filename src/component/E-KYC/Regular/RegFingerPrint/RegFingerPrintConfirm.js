@@ -3,8 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { absDateFormat,dayMonthYearFormat} from '../../../Utils/dateConversion';
 import {ProductCodeGetName,ProductCategoryType,AccountType,GenderForm} from '../../../Utils/fullFormConversion';
 import axios from 'axios';
-// import { confirmApi } from '../../Url/ApiList';
+import { regularSingleApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
+import getJsonObjectToArray from '../../Simplified/utils/jsonObjToArray';
 import Family from '../../Simplified/images/family.svg'
 import Avater from '../../Simplified/images/user-two.svg'
 import front from '../../Simplified/images/id-front-three.svg'
@@ -177,13 +178,49 @@ export class RegFingerPrintConfirm extends Component {
 
         }
 
+        let tinInfo={
+            fileName: values.tinCertificateFileName,
+            fileType: values.tinFileType,
+            data: values.tinCertificate 
+        }
+
+        let passportInfo={
+            fileName: values.passportFileName,
+            fileType: values.passFileType,
+            data: values.passport
+        }
+
+        let birthCertificateInfo = {
+            fileName: values.birthCertificateFileName,
+            fileType: values.birthCerFileType,
+            data: values.birthCertificate
+        }
+
+        let regularInfo={
+            monthlyIncome: parseInt(values.monthlyIncome),
+            sourceOfFund: values.sourceOfFund,
+            nationality: values.nationality,
+            riskInfo: values.riskGradingArray 
+        }
+
+        if(Object.values(tinInfo)[0] !== '' ||Object.values(tinInfo)[1]!== "" || Object.values(tinInfo)[2] !== '') regularInfo.tin = tinInfo;
+        if(Object.values(passportInfo)[0] !== '' ||Object.values(passportInfo)[1]!== "" || Object.values(passportInfo)[2] !== '') regularInfo.passport = passportInfo;
+        if(Object.values(birthCertificateInfo)[0] !== '' ||Object.values(birthCertificateInfo)[1]!== "" || Object.values(birthCertificateInfo)[2] !== '') regularInfo.birthCertificate = birthCertificateInfo;
+
+
+        let fingerObj = {
+            rIndex: values.rIndex
+        }
+
         let confirmObj = {
             account: accountInfo,
             applicant: applicantInfo,
             applicantFile: applicantFileInfo,
             applicantPresentAddress: applicantPresentInfo,
             applicantPermanentAddress: applicantPermanentInfo,
-            nominees: nomineesInfo
+            nominees: nomineesInfo,
+            regularAdditionalData:regularInfo,
+            fingerprint: fingerObj
         }
 
         console.log("confirmobj", confirmObj);
@@ -197,43 +234,43 @@ export class RegFingerPrintConfirm extends Component {
             }
         };
 
-        // try {
-        //     this.props.handleState('confirmFlag', true);
-        //     let res = await axios.post(confirmApi, confirmObj, config);
-        //     this.props.handleState('confirmFlag', false);
-        //     //console.log(res.data);
-        //     let resData = res.data.data;
-        //     let resToArr = getJsonObjectToArray(resData)
-        //     //console.log("Result Array",resToArr)
-        //     this.props.handleState('channelAccStatus', resToArr);
-        //     // if(resData.data.channelResponse.accountNo){
-        //     //     let accountNumber = resData.data.channelResponse.accountNo;
-        //     //     this.props.handleState('accountNo', accountNumber);
-        //     // }else{
-        //     //     let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
-        //     //     this.props.handleState('accountMessage', message);
-        //     // }
-        //     //let statusCode = resData.statusCode;
-        //     //let successMessage = "Account Opening " + resData.message;
-        //     //NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-        //     this.props.nextStep();
+        try {
+            this.props.handleState('confirmFlag', true);
+            let res = await axios.post(regularSingleApi, confirmObj, config);
+            this.props.handleState('confirmFlag', false);
+            //console.log(res.data);
+            let resData = res.data.data;
+            let resToArr = getJsonObjectToArray(resData)
+            //console.log("Result Array",resToArr)
+            this.props.handleState('channelAccStatus', resToArr);
+            // if(resData.data.channelResponse.accountNo){
+            //     let accountNumber = resData.data.channelResponse.accountNo;
+            //     this.props.handleState('accountNo', accountNumber);
+            // }else{
+            //     let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
+            //     this.props.handleState('accountMessage', message);
+            // }
+            //let statusCode = resData.statusCode;
+            //let successMessage = "Account Opening " + resData.message;
+            //NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
+            this.props.nextStep();
 
-        // } catch (error) {
-        //     console.log("Error",error.response)
-        //     this.props.handleState('confirmFlag', false);
-        //     if (error.response) {
-        //         let message = error.response.data.message
-        //         console.log("Error",error.response)
-        //         NotificationManager.error(message, "Error", 5000);
-        //     } else if (error.request) {
-        //         console.log("Error Connecting...", error.request)
-        //         NotificationManager.error("Error Connecting...", "Error", 5000);
-        //     } else if (error) {
-        //         NotificationManager.error(error.toString(), "Error", 5000);
-        //     }
-        // }
+        } catch (error) {
+            console.log("Error",error.response)
+            this.props.handleState('confirmFlag', false);
+            if (error.response) {
+                let message = error.response.data.message
+                console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
 
-        this.props.nextStep();
+        
 
     }
 

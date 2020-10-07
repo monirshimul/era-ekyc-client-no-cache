@@ -33,7 +33,7 @@ export class RegRiskGrading extends Component {
         try {
 
             let RiskGraArray = Object.values(obj)
-
+            this.props.handleState('riskGradingArray', RiskGraArray);
             console.log("Risk Data", RiskGraArray)
 
             //alert("Risk Grading Measured", obj)

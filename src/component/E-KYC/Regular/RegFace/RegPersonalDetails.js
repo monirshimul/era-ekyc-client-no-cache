@@ -50,7 +50,6 @@ export class RegPersonalDetails extends Component {
         MonthlyIncome: Joi.string().required(),
         SourceOfFund: Joi.string().required(),
         Nationality:Joi.string().required(),
-        Tin:Joi.string().required(),
         profession: Joi.string().required(),
         motherName: Joi.string().required(),
         motherNameBangla: Joi.string().required(),
@@ -479,7 +478,6 @@ export class RegPersonalDetails extends Component {
             MonthlyIncome: values.monthlyIncome,
             SourceOfFund: values.sourceOfFund,
             Nationality: values.nationality,
-            Tin:values.tin,
             profession: values.profession,
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
@@ -726,13 +724,7 @@ export class RegPersonalDetails extends Component {
                              <input style={{ borderRadius: "50px" }} type="text" value={values.nationality} name="nationality" onChange={handleChange('nationality')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Provide Nationality" />
 
                          </div>
-
-                                   {/* Tin No */}
-                                   <div className="form-group ">
-                             <label htmlFor=""><span style={{ color: "red" }}>*</span>Tin No</label>
-                             <input style={{ borderRadius: "50px" }} type="text" value={values.tin} name="tin" onChange={handleChange('tin')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Provide Tin No" />
-
-                         </div>                  
+                  
                  
 
                         </div>

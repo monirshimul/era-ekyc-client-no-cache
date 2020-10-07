@@ -6,7 +6,7 @@ import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import { convertIso } from '../utils/DateFormat';
-import getJsonObjectToArray from '../utils/jsonObjToArray'
+import getJsonObjectToArray from '../utils/jsonObjToArray';
 import down from '../images/downArrow.svg';
 import Avater from '../images/profile.svg';
 import front from '../images/nid-f.svg';

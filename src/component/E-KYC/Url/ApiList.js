@@ -60,6 +60,9 @@ export const simplifiedJointAPI = hostIp + `ekyc/simplified/joint`;
 export const simplifiedJointAddAPI = hostIp + `ekyc/simplified/joint/add`;
 export const simplifiedJointConfirmAPI = hostIp + `ekyc/simplified/joint/confirm`;
 
+// API for Regular Single Account
+export const regularSingleApi = hostIp + `ekyc/regular`;
+
 // product Api 
 export const createProduct = hostIp +`product`;
 export const deleteProduct = hostIp +`product`;

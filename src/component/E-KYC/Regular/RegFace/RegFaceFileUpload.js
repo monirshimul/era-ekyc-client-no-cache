@@ -16,6 +16,7 @@ export class RegFaceFileUpload extends Component {
     // }
 
     fileSelectedHandlerPass = event => {
+       
         if (event.target.files[0]) {
             let file = event.target.files[0];
             //console.log(file.type);
@@ -33,8 +34,9 @@ export class RegFaceFileUpload extends Component {
                 //   //nidImage: URL.createObjectURL(event.target.files[0])
                 // });
                 this.props.handleState('passport', base64Image);
-
-                this.props.handleState('passFileType', file.type)
+                this.props.handleState('passportFileName', file.name);
+                this.props.handleState('passFileType', file.type);
+                
             };
             reader.onerror = () => {
                 //console.log('there are some problems');
@@ -61,7 +63,7 @@ export class RegFaceFileUpload extends Component {
                 //   //nidImage: URL.createObjectURL(event.target.files[0])
                 // });
                 this.props.handleState('birthCertificate', base64Image);
-
+                this.props.handleState('birthCertificateFileName', file.name);
                 this.props.handleState('birthCerFileType', file.type)
             };
             reader.onerror = () => {
@@ -89,8 +91,8 @@ export class RegFaceFileUpload extends Component {
                 //   //nidImage: URL.createObjectURL(event.target.files[0])
                 // });
                 this.props.handleState('tinCertificate', base64Image);
-
-                this.props.handleState('tinFileType', file.type)
+                this.props.handleState('tinCertificateFileName', file.name);
+                this.props.handleState('tinFileType', file.type);
             };
             reader.onerror = () => {
                 //console.log('there are some problems');
