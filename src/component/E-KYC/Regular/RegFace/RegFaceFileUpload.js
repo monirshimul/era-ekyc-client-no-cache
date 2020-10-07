@@ -129,9 +129,9 @@ export class RegFaceFileUpload extends Component {
     render() {
         // let {passOk, birthOk, tinOk} = this.state
         let {values} = this.props
-        console.log("pass",values.passport)
-        console.log("birth",values.birthCertificate)
-        console.log("tin",values.tinCertificate)
+        // console.log("pass",values.passport)
+        // console.log("birth",values.birthCertificate)
+        // console.log("tin",values.tinCertificate)
         
         return (
             <div className="container">
@@ -142,7 +142,32 @@ export class RegFaceFileUpload extends Component {
                         <div className="card-header up">
                             <h3>Passport</h3>
                         </div>
-                        <div className="card-body d-flex justify-content-center">
+                        {
+                            values.passport ? (
+                               
+
+                                
+                                <div className="card-body d-flex justify-content-center animated zoomIn">
+                                    
+
+                                <img
+                                    src={ok2}
+                                    style={{
+                                        margin: "auto",
+                                        cursor: "pointer",
+                                        width: "200px",
+                                        height: "200px",
+                                        borderRadius:"50%"
+                                    }}
+                                    defaultValue=""
+                                    className="img-fluid img-thumbnail im"
+                                    id="FrontNidPic"
+                                    alt=""
+                                />
+                            </div>
+                            
+                            ):(
+                            <div className="card-body d-flex justify-content-center">
 
                             <img
                                 src={values.passport ? (values.flag + values.passport) : passImage}
@@ -152,12 +177,15 @@ export class RegFaceFileUpload extends Component {
                                     width: "300px",
                                     height: "200px",
                                 }}
-                                defaultValue={values.passport}
+                                defaultValue=""
                                 className="img-fluid img-thumbnail im"
                                 id="FrontNidPic"
                                 alt=""
                             />
                         </div>
+                            )
+                        }
+                        
                         <div
                             className="card-footer"
                             style={{ background: "#fff" }}
@@ -196,7 +224,27 @@ export class RegFaceFileUpload extends Component {
                             <div className="card-header up">
                                 <h3>Birth Certificate</h3>
                             </div>
-                            <div className="card-body d-flex justify-content-center">
+                            {
+                            values.birthCertificate ? (
+                                <div className="card-body d-flex justify-content-center animated zoomIn">
+
+                                <img
+                                    src={ok1}
+                                    style={{
+                                        margin: "auto",
+                                        cursor: "pointer",
+                                        width: "200px",
+                                        height: "200px",
+                                        borderRadius:"50%"
+                                    }}
+                                    defaultValue=""
+                                    className="img-fluid img-thumbnail im"
+                                    id="FrontNidPic"
+                                    alt=""
+                                />
+                            </div>
+                            ):(
+                                <div className="card-body d-flex justify-content-center">
                                 <img
                                     src={values.birthCertificate ? (values.flag + values.birthCertificate) : birthImage}
                                     style={{
@@ -205,12 +253,15 @@ export class RegFaceFileUpload extends Component {
                                         width: "300px",
                                         height: "200px",
                                     }}
-                                    defaultValue={values.birthCertificate}
+                                    defaultValue=""
                                     className="img-fluid img-thumbnail im"
                                     id="nidBack"
                                     alt=""
                                 />
                             </div>
+                            )
+                        }
+                            
                             <div
                                 className="card-footer"
                                 style={{ background: "#fff" }}
@@ -244,7 +295,27 @@ export class RegFaceFileUpload extends Component {
                             <div className="card-header up">
                                 <h3>Tin</h3>
                             </div>
-                            <div className="card-body d-flex justify-content-center">
+                            {
+                            values.tinCertificate ? (
+                                <div className="card-body d-flex justify-content-center animated zoomIn">
+
+                                <img
+                                    src={ok}
+                                    style={{
+                                        margin: "auto",
+                                        cursor: "pointer",
+                                        width: "200px",
+                                        height: "200px",
+                                        borderRadius:"50%"
+                                    }}
+                                    defaultValue=""
+                                    className="img-fluid img-thumbnail im"
+                                    id="FrontNidPic"
+                                    alt=""
+                                />
+                            </div>
+                            ):(
+                                <div className="card-body d-flex justify-content-center">
 
                                 <img
                                     src={values.tinCertificate ? (values.flag + values.tinCertificate) : tinImage}
@@ -254,12 +325,15 @@ export class RegFaceFileUpload extends Component {
                                         width: "300px",
                                         height: "200px",
                                     }}
-                                    defaultValue={values.tinCertificate}
+                                    defaultValue=""
                                     className="img-fluid img-thumbnail im"
                                     id="FrontNidPic"
                                     alt=""
                                 />
                             </div>
+                            )
+                        }
+                            
                             <div
                                 className="card-footer"
                                 style={{ background: "#fff" }}
@@ -298,71 +372,7 @@ export class RegFaceFileUpload extends Component {
 
 
                 </div>
-                <div className="row">
-                {
-                            values.passport ? (
-                                <div className="card-body col-sm-4 d-flex justify-content-center animated zoomIn">
-
-                                <img
-                                    src={ok2}
-                                    style={{
-                                        margin: "auto",
-                                        cursor: "pointer",
-                                        width: "150px",
-                                        height: "150px",
-                                        borderRadius:"50%"
-                                    }}
-                                    defaultValue=""
-                                    className="img-fluid img-thumbnail im"
-                                    id="FrontNidPic"
-                                    alt=""
-                                />
-                            </div>
-                            ):""
-                        }
-                        {
-                            values.birthCertificate ? (
-                                <div className="card-body col-sm-4 d-flex justify-content-center animated zoomIn">
-
-                                <img
-                                    src={ok1}
-                                    style={{
-                                        margin: "auto",
-                                        cursor: "pointer",
-                                        width: "150px",
-                                        height: "150px",
-                                        borderRadius:"50%"
-                                    }}
-                                    defaultValue=""
-                                    className="img-fluid img-thumbnail im"
-                                    id="FrontNidPic"
-                                    alt=""
-                                />
-                            </div>
-                            ):""
-                        }
-                        {
-                            values.tinCertificate ? (
-                                <div className="card-body col-sm-4 d-flex justify-content-center animated zoomIn">
-
-                                <img
-                                    src={ok}
-                                    style={{
-                                        margin: "auto",
-                                        cursor: "pointer",
-                                        width: "150px",
-                                        height: "150px",
-                                        borderRadius:"50%"
-                                    }}
-                                    defaultValue=""
-                                    className="img-fluid img-thumbnail im"
-                                    id="FrontNidPic"
-                                    alt=""
-                                />
-                            </div>
-                            ):""
-                        }
-                </div>
+                
                 <div
                     className="mt-5 d-flex justify-content-center"
                     
