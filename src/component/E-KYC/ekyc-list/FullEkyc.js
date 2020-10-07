@@ -119,6 +119,7 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{ekyc.account === null ? "" : ekyc.account.createdBy}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{ekyc.account === null ? "" : ekyc.account.createDate}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{ekyc.account === null ? "" : ekyc.account.channelCode}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{ekyc.account === null ? "" : ekyc.account.channelAccountId}</small><br />
                                             {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{ekyc.account.channelResponse}</small><br /> */}
                                         </div>
                                         <hr />
@@ -188,15 +189,30 @@ class FullEkyc extends Component {
                                             {
                                                 ekyc.nominees.map((data, ind) => (
                                                     <div className="col-sm-6">
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Nominee : </span>{ind + 1}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name : </span>{data.name}</small><br />
-
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{data.dob}</small><br />
+                                                        
+                                                        <small className="imPlain" style={{ color: "green" }}><span  style={{ color: "#c47a0b" }}>{data.isMinor ? "Minor" : "Adult"} Nominee : </span>{ind + 1}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.id}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Gurdian : </span>{data.gurdian}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Minor : </span>{data.isMinor}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name : </span>{data.name}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Percentage : </span>{data.percentage}</small><br />
-                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Relation : </span>{data.relation}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Nominee Relation : </span>{data.relation}</small><br />
+                                                        <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{data.dob}</small><br />
+                                                        
+                                                        {
+                                                            data.isMinor ? (
+                                                                <div>
+                                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Guardian ID : </span>{data.guardian.id}</small><br/>
+                                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Guardian Name : </span>{data.guardian.name}</small><br/>
+                                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Guardian Relation : </span>{data.guardian.relation}</small><br/>
+                                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Guardian Address : </span>{data.guardian.address}</small><br/>
+                                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Guardian NID : </span>{data.guardian.nid}</small><br/>
+                                                                
+                                                                </div>
+                                                            ):""
+                                                        }
+                                                        
+                                                        
+                                                        {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Minor : </span>{data.isMinor}</small><br /> */}
+                                                        
                                                         <hr />
 
                                                     </div>

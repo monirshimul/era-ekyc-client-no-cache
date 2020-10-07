@@ -85,6 +85,7 @@ class ShowMore extends Component {
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.account === null ? "" : data.account.createdBy}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{data.account === null ? "" : data.account.createDate}</small><br />
                                                 <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{data.account === null ? "" : data.account.channelCode ? data.account.channelCode : ""}</small><br />
+                                                <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{data.account === null ? "" : data.account.channelAccountId ? data.account.channelAccountId : ""}</small><br />
                                                 {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{data.account.channelResponse}</small><br /> */}
                                                 </div>
                                                 
