@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 
 export class RegRiskGrading extends Component {
+
+
+
     continue = async (e) => {
         e.preventDefault();
      
@@ -13,17 +16,17 @@ export class RegRiskGrading extends Component {
             }
         };
 
+        
+
         let obj = {
             onBoardingValue:values.onBoardingValue,
             geoRiskClient:values.geoRiskClient,
-            foreignOrigin:values.foreignOrigin,
+            foreignOrigin:values.geoRiskClient === "2.1.3" ? values.foreignOrigin : "",
             highOfficial:values.highOfficial,
             closeHighOfficial:values.closeHighOfficial,
             isClientIp:values.isClientIp,
             productTypes:values.productTypes,
-            occupation:values.occupation,
-            businessName:values.businessName,
-            professionName:values.professionName,
+            occupation: values.occupation === "5.a" ? values.businessName : values.professionName,
             yearlyTransaction:values.yearlyTransaction,
             hasSourceOfFunds:values.hasSourceOfFunds
         }
@@ -33,8 +36,12 @@ export class RegRiskGrading extends Component {
         try {
 
             let RiskGraArray = Object.values(obj)
-            this.props.handleState('riskGradingArray', RiskGraArray);
-            console.log("Risk Data", RiskGraArray)
+            let filterArray = RiskGraArray.filter(v=>v != "")
+            //console.log(filterArray)
+            
+            this.props.handleState('riskGradingArray', filterArray);
+            console.log(filterArray)
+            
 
             //alert("Risk Grading Measured", obj)
 
