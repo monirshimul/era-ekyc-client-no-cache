@@ -39,6 +39,7 @@ const Nav = (props) => {
                         <li className="nav-item ">
                             <Link to="/dashboard" className="nav-link text-white"><i style={{fontSize:"17px"}}><FaHome/></i>  Home</Link>
                         </li>
+                        {/* 
                         <li className="nav-item">
                             <Link className="nav-link text-white" to="#"><i style={{fontSize:"17px"}}><FaGetPocket/></i> About</Link>
                         </li>
@@ -91,7 +92,7 @@ const Nav = (props) => {
                                 </ul>
                             </div>
                         </li>
-
+                            */}
                         
 
                     </ul>

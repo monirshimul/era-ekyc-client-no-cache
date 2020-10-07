@@ -4,7 +4,7 @@ import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 import { getFlatRouteArray } from '../../flattenObjectTwo';
 import { allRoutes } from '../../flattenObjectTwo';
-import {updateRole} from '../Url/ApiList';
+import { updateRole } from '../Url/ApiList';
 import ReactTooltip from 'react-tooltip';
 const Joi = require('@hapi/joi');
 
@@ -161,7 +161,7 @@ export class UpdateRole extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -173,7 +173,7 @@ export class UpdateRole extends Component {
     }
 
     // Back Button
-    onBack = e =>{
+    onBack = e => {
         e.preventDefault();
         this.props.history.push("/dashboard/role-list")
     }
@@ -201,19 +201,19 @@ export class UpdateRole extends Component {
                     <form >
 
                         <ReactTooltip id="createRole" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> A Role Name should be like "Super Admin", it's a mandatory input-field</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> A Role Name should be like "Super Admin", it's a mandatory input-field</span>
                         </ReactTooltip>
                         <ReactTooltip id="roleStatus" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Change your Role Status, it's a mandatory input-field</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Change your Role Status, it's a mandatory input-field</span>
                         </ReactTooltip>
                         <ReactTooltip id="des" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Description can be anything, it's a mandatory input-field</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Description can be anything, it's a mandatory input-field</span>
                         </ReactTooltip>
                         <ReactTooltip id="ip" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid IP Address or keep it blank</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Provide valid IP Address or keep it blank</span>
                         </ReactTooltip>
                         <ReactTooltip id="feature" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please Select desire feature from the list</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please Select desire feature from the list</span>
                         </ReactTooltip>
 
 
@@ -221,12 +221,28 @@ export class UpdateRole extends Component {
                             <label htmlFor="">Role Name</label>
                             <input data-tip data-for='createRole' name="roleName" type="text" value={roleName} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Name" />
                         </div>
-
+                        {/* 
                         <div className="form-group">
                             <label htmlFor="">Role Status</label>
                             <input data-tip data-for='roleStatus' name="status" type="text" value={status} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Status P/A/R" />
                         </div>
+                */}
+                        <div className='form-group'>
+                            <label htmlFor="">Role Status</label>
+                            <select
+                                className='custom-select'
+                                value={status}
+                                onChange={this.textHandleChange}
+                                name="status"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='A'>Approved</option>
+                                <option value='P'>Pending</option>
+                                <option value='D'>Archived</option>
 
+
+                            </select>
+                        </div>
 
                         <div className="form-group">
                             <label htmlFor="">Description</label>
@@ -304,12 +320,12 @@ export class UpdateRole extends Component {
 
 
                         <div className="d-flex justify-content-center" >
-                        <ReactTooltip id="sub" place="top" type="warning" effect="float">
-                            <span style={{ fontSize:"15px"}}> Before submit, check all the mandatory fields again</span>
-                        </ReactTooltip>
-                        <button onClick={() => this.props.history.push('/dashboard/role-list') } className="b mr-2" style={{ border: "none" }} ><i class="fas fa-edit"></i> Back</button>
+                            <ReactTooltip id="sub" place="top" type="warning" effect="float">
+                                <span style={{ fontSize: "15px" }}> Before submit, check all the mandatory fields again</span>
+                            </ReactTooltip>
+                            <button onClick={() => this.props.history.push('/dashboard/role-list')} className="b mr-2" style={{ border: "none" }} ><i class="fas fa-edit"></i> Back</button>
                             <button data-tip data-for="sub" onClick={(e) => this.onFormSubmit(e)} className="b" style={{ border: "none" }} ><i class="fas fa-edit"></i> Update</button>
-                            
+
                         </div>
 
                     </form>
