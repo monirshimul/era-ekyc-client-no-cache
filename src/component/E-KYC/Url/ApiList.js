@@ -81,6 +81,8 @@ export const getEkycType = hostIp + `tp/ekyc-type`;
 // Download
 
 export const profileDownload = hostIp + `report/ekyc/simplified/pdf`;
+export const opFileDownload = hostIp + `ekyc/regular/get/additional-files`;
+
 
 //Role Management
 export const createRole = hostIp +`role/`;
