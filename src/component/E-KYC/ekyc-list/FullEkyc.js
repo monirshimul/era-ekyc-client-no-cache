@@ -8,7 +8,10 @@ import { NotificationManager } from "react-notifications";
 import { profileDownload, opFileDownload } from '../Url/ApiList';
 import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycProfileStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
 import Acordion from '../Acordion/Acordion';
+import { saveAs } from 'file-saver';
 import ReactTooltip from 'react-tooltip';
+import { b64toBlob } from '../../Utils/FileUtils';
+
 import {
     FaUser, FaHome, FaIndent,
     FaAddressCard, FaTools, FaBookReader,
@@ -24,7 +27,6 @@ import {
     FaCalendarCheck, FaCalendarAlt, FaFileDownload, FaDownload, FaArrowCircleDown, FaArrowAltCircleUp
 } from "react-icons/fa";
 import axios from 'axios';
-import { saveAs } from 'file-saver';
 import { Button } from 'reactstrap';
 
 class FullEkyc extends Component {
@@ -114,19 +116,19 @@ class FullEkyc extends Component {
 
         try {
 
-                this.setState({
-                    loading: !this.state.loading
-                })
-            
-                let additionalFileRes = await axios.post(opFileDownload, idObj, config)
-                this.setState({
-                    additionalFile: additionalFileRes.data.data.additionalFiles,
-                    arrowUp: !this.state.arrowUp,
-                    loading: !this.state.loading
-                })
-                //console.log("All File", this.state.additionalFile, this.state.arrowUp)
-            
-            
+            this.setState({
+                loading: !this.state.loading
+            })
+
+            let additionalFileRes = await axios.post(opFileDownload, idObj, config)
+            this.setState({
+                additionalFile: additionalFileRes.data.data.additionalFiles,
+                arrowUp: !this.state.arrowUp,
+                loading: !this.state.loading
+            })
+            console.log("All File", this.state.additionalFile, this.state.arrowUp)
+
+
 
         } catch (error) {
             console.log(error.response)
@@ -160,6 +162,16 @@ class FullEkyc extends Component {
 
     printData = () => {
         window.print();
+    }
+
+    onBtnClick = (e) => {
+        console.log("e.target", this.state.additionalFile[e.target.id].data)
+        let fileData = this.state.additionalFile[e.target.id].data
+        let fileType = this.state.additionalFile[e.target.id].fileType
+        let fileName = this.state.additionalFile[e.target.id].fileName
+
+        const blobFile = b64toBlob(fileData, fileType);
+        saveAs(blobFile, fileName);
     }
 
     render() {
@@ -300,57 +312,63 @@ class FullEkyc extends Component {
                                         </div>
 
                                     </div>
-                                    <div className="col-sm-12">
-                                        <div className="row d-flex justify-content-between">
-                                            <div className="col-sm-6">
-                                                <hr />
-                                                <div className="text-muted">
-                                                    <h5 className="">Risk Grading</h5>
-                                                    <hr />
-                                                </div>
-                                                <div className="" style={{ fontSize: "17px" }}>
 
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Overall Score : </span>{ekyc.riskGrading === null ? "" : ekyc.riskGrading.score}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Risk Type : </span>{ekyc.riskGrading === null ? "" : this.measureRisk(ekyc.riskGrading.score)}</small><br />
-                                                </div>
+                                    {
+                                        ekyc.riskGrading ? (
+                                            <div className="col-sm-12">
+                                                <div className="row d-flex justify-content-between">
+                                                    <div className="col-sm-6">
+                                                        <hr />
+                                                        <div className="text-muted">
+                                                            <h5 className="">Risk Grading</h5>
+                                                            <hr />
+                                                        </div>
+                                                        <div className="" style={{ fontSize: "17px" }}>
 
-                                            </div>
-                                            <div className="col-sm-6 ">
-                                                <hr />
-
-                                                <div className="d-flex justify-content-center">
-                                                    <div className="text-muted">
-                                                        <button className="imTwoWhite text-center mr-2" style={{ border: "none", outline: "none" }} onClick={() => this.showAdditionalFile(ekyc.id)}><span style={{ color: "green" }}>Additional File <i>{arrowUp ? <FaArrowAltCircleUp /> : <FaArrowCircleDown />}</i></span></button>
+                                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Overall Score : </span>{ekyc.riskGrading === null ? "" : ekyc.riskGrading.score}</small><br />
+                                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Risk Type : </span>{ekyc.riskGrading === null ? "" : this.measureRisk(ekyc.riskGrading.score)}</small><br />
+                                                        </div>
 
                                                     </div>
-                                                    {
-                                                        arrowUp ? (
-                                                            <div>
-                                                                {
-                                                                    additionalFile.map(file => (
-                                                                        <div key={file.id} className="imTwoWhite animated fadeInDown" style={{ cursor: "pointer" }}>
-                                                                            <p className="" style={{ color: "green" }}>{file.type}-Download <FaFileDownload /></p>
-
-                                                                        </div>
-
-                                                                    ))
-                                                                }
+                                                    <div className="col-sm-6 ">
+                                                        <hr />
 
 
+                                                        <div className="im text-muted">
+                                                            <button className=" text-center" style={{ border: "none", outline: "none" }} onClick={() => this.showAdditionalFile(ekyc.id)}><span style={{ color: "green" }}>Additional File <i>{arrowUp ? <FaArrowAltCircleUp /> : <FaArrowCircleDown />}</i></span></button>
+
+                                                        </div>
+                                                        {
+                                                            arrowUp ? (
+                                                                <div>
+                                                                    {
+                                                                        additionalFile.map((file, i) => (
+                                                                            <div key={file.id} className="imTwoWhite animated zoomIn" style={{ cursor: "pointer" }}>
+                                                                                <p className="" onClick={(e) => this.onBtnClick(e)} style={{ color: "green" }} id={i}>{file.type}-Download <FaFileDownload /></p>
+
+                                                                            </div>
+
+                                                                        ))
+                                                                    }
 
 
-                                                            </div>
-                                                        ) : ""
-                                                    }
+
+
+                                                                </div>
+                                                            ) : ""
+                                                        }
+
+
+
+
+
+                                                    </div>
 
                                                 </div>
-
-
-
                                             </div>
+                                        ) : ""
+                                    }
 
-                                        </div>
-                                    </div>
 
 
 
@@ -362,7 +380,7 @@ class FullEkyc extends Component {
                                             size={"col"}
                                             heading={"Permanent Address Details"}
                                             acBody={
-                                                <div className="imTwoWhite">
+                                                <div className="imTwoWhite animated zoomIn">
                                                     <small className="" style={{ fontSize: "14px" }}>
 
                                                         <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {ekyc.permanentAddress.additionalMouzaOrMoholla + "(" + ekyc.permanentAddress.additionalMouzaOrMohollaEng + ")"}<br />
@@ -397,7 +415,7 @@ class FullEkyc extends Component {
                                             size={"col"}
                                             heading={"Present Address Details"}
                                             acBody={
-                                                <div className="imTwoWhite">
+                                                <div className="imTwoWhite animated zoomIn">
                                                     <small className="" style={{ fontSize: "14px" }}>
 
                                                         <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {ekyc.presentAddress.additionalMouzaOrMoholla + "(" + ekyc.presentAddress.additionalMouzaOrMohollaEng + ")"}<br />
