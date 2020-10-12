@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../E-KYC/Simplified/utils/Common.css';
 import { getAllUser, getUserWithStatus, searchUser, userDeleteAPI, getProfile } from '../Url/ApiList';
-import {RoleAndUserStatus} from '../../Utils/fullFormConversion';
+import { RoleAndUserStatus } from '../../Utils/fullFormConversion';
 import axios from 'axios';
 import Pagination from '../../Reusable/Pagination';
 import { withRouter } from 'react-router-dom';
@@ -35,10 +35,8 @@ export class UserList extends Component {
         goButton: false,
         searchHeading: "",
         searchValue: '',
-        checkBoxOne: false,
-        checkBoxValue: "",
-        checkBoxTwo: false,
-        checkBoxThree: false,
+        radioValue: "",
+
         searchFlag: false,
         profileImage: {},
         profileName: "",
@@ -82,7 +80,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -138,9 +136,18 @@ export class UserList extends Component {
         e.preventDefault()
         this.setState({ [e.target.name]: e.target.value });
     }
+
+    searchValueChange = (e) => {
+
+        this.setState({
+            radioValue: e.target.value
+        })
+    }
+
     // Submit Search button
     onSearchSubmit = async (e) => {
         e.preventDefault();
+        let { radioValue } = this.state
         const config = {
             headers: {
 
@@ -151,7 +158,7 @@ export class UserList extends Component {
         let { searchValue } = this.state
         // console.log("checkboxvalue", this.state.checkBoxValue);
         //console.log("searchValue", searchValue);
-        if (this.state.checkBoxValue === "id") {
+        if (radioValue === "id") {
 
 
 
@@ -163,9 +170,9 @@ export class UserList extends Component {
                 let res = await axios.post(searchUser + 1, obj, config);
                 this.setState({
                     allAppUser: res.data.data,
-                    checkBoxValue: "",
+
                     searchValue: "",
-                    checkBoxOne: false
+
                 })
 
             } catch (error) {
@@ -174,14 +181,14 @@ export class UserList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
+                    //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
                 }
             }
         }
-        if (this.state.checkBoxValue === "status") {
+        if (radioValue === "status") {
             try {
                 let obj = {
                     status: searchValue
@@ -190,9 +197,9 @@ export class UserList extends Component {
                 let res = await axios.post(searchUser + 1, obj, config);
                 this.setState({
                     allAppUser: res.data.data,
-                    checkBoxValue: "",
+
                     searchValue: "",
-                    checkBoxTwo: false
+
                 })
 
             } catch (error) {
@@ -201,25 +208,25 @@ export class UserList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
+                    //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
                 }
             }
         }
-        if (this.state.checkBoxValue === "roleName") {
+        if (radioValue === "mobile") {
             try {
                 let obj = {
-                    name: searchValue
+                    mobile: searchValue
                 }
 
                 let res = await axios.post(searchUser + 1, obj, config);
                 this.setState({
                     allAppUser: res.data.data,
-                    checkBoxValue: "",
+
                     searchValue: "",
-                    checkBoxThree: false
+
                 })
 
             } catch (error) {
@@ -228,7 +235,7 @@ export class UserList extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
+                    //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -237,66 +244,7 @@ export class UserList extends Component {
         }
     }
 
-    onCheckOneChange = (e) => {
-        let value = e.target.value
-        // console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxOne === false) {
-            this.setState({
-                checkBoxOne: !this.state.checkBoxOne,
-                checkBoxValue: value
 
-            })
-        } else {
-            this.setState({
-                checkBoxOne: !this.state.checkBoxOne,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
-    onCheckTwoChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxTwo === false) {
-            this.setState({
-                checkBoxTwo: !this.state.checkBoxTwo,
-                checkBoxValue: value
-
-            })
-        } else {
-            this.setState({
-                checkBoxTwo: !this.state.checkBoxTwo,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
-    onCheckThreeChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxThree === false) {
-            this.setState({
-                checkBoxThree: !this.state.checkBoxThree,
-                checkBoxValue: value
-
-            })
-        } else {
-            this.setState({
-                checkBoxThree: !this.state.checkBoxThree,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
 
     // ===========================Pagination=====================================================
     handlePage = (e) => {
@@ -352,7 +300,7 @@ export class UserList extends Component {
 
         let nextPage = this.state.pages - 1;
         this.setState({ pages: nextPage })
-       // console.log(nextPage);
+        // console.log(nextPage);
         if (nextPage > 0 && nextPage <= totalPages) {
             this.pageChanges(nextPage);
         } else {
@@ -374,8 +322,8 @@ export class UserList extends Component {
             }
         };
         try {
-            let paginationUser = await axios.post(getAllUser + newPage,"",config);
-           // console.log("pagination pages", paginationUser.data.data.users);
+            let paginationUser = await axios.post(getAllUser + newPage, "", config);
+            // console.log("pagination pages", paginationUser.data.data.users);
             let paginUser = paginationUser.data.data;
             let numPages = paginUser.totalPages;
             let numUsers = paginUser.totalUsers;
@@ -388,7 +336,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -426,7 +374,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -443,7 +391,7 @@ export class UserList extends Component {
 
     // Delete User
     onDelete = async (id) => {
-       // console.log("Delete", id);
+        // console.log("Delete", id);
         const deleteObj = { id, status: "D" };
         const config = {
             headers: {
@@ -500,7 +448,7 @@ export class UserList extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -542,76 +490,44 @@ export class UserList extends Component {
                     <div className="card col" style={{ padding: "25px" }}>
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i><FaSearch/></i> Search User
+                                <i><FaSearch /></i> Search User
                         </h5>
                         </div>
                         <div className="card-body d-flex justify-content-center">
                             <form className="col-sm-8">
-                            <ReactTooltip id="searchUser" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                                <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select a search option before searching...</span>
-                            </ReactTooltip>
+                                <ReactTooltip id="searchUser" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                                    <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select a search option before searching...</span>
+                                </ReactTooltip>
                                 <div className="form-group " >
                                     <label htmlFor=""></label>
-                                    <input data-tip data-for="searchUser" style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by UserId / Status/ UserName " />
+                                    <input data-tip data-for="searchUser" style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by UserId / Status/ Mobile " />
                                     <small className="text-muted pl-2">
                                         <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
                             </small>
                                 </div>
                                 <div className="form-group d-flex justify-content-center">
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxOne}
-                                            onChange={(e) => this.onCheckOneChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="id"
-                                            style={{ cursor: "pointer" }}
-                                            id="one"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="one">Search By User ID</label>
-
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="id" />
+                                            Search By User Id
+                                        </label>
+                                    </div>&nbsp;&nbsp;&nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="status" />
+                                            Search By Status
+                                        </label>
+                                    </div>&nbsp;&nbsp;&nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="mobile" />
+                                            Search By Mobile
+                                        </label>
                                     </div>
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
 
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxTwo}
-                                            onChange={(e) => this.onCheckTwoChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="status"
-                                            style={{ cursor: "pointer" }}
-                                            id="two"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="two">Search By Status</label>
-
-                                    </div>
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxThree}
-                                            onChange={(e) => this.onCheckThreeChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="roleName"
-                                            style={{ cursor: "pointer" }}
-                                            id="three"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="three">Search By User Name</label>
-
-                                    </div>
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i><FaSearch/></i> Search</button>
+                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i><FaSearch /></i> Search</button>
                                 </div>
                             </form>
                         </div>
@@ -634,7 +550,7 @@ export class UserList extends Component {
                     <div className="card col-sm-12 mt-3">
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-list-ul"><FaListUl/></i> User List
+                                <i class="fas fa-list-ul"><FaListUl /></i> User List
                         </h5>
                         </div>
 
@@ -645,7 +561,7 @@ export class UserList extends Component {
 
                                         <div key={index} className="col-sm-3 mr-2 divBgCard" style={{ color: "#333", padding: "15px" }}>
                                             <div className="text-center im">
-                                                <small className="text-muted"><i className="fas fa-sort-numeric-up"><FaSortNumericUp/></i> User ID : <span style={{ color: "green" }}>{user.userId}</span></small>
+                                                <small className="text-muted"><i className="fas fa-sort-numeric-up"><FaSortNumericUp /></i> User ID : <span style={{ color: "green" }}>{user.userId}</span></small>
                                             </div>
                                             <hr />
                                             <div className="d-flex justify-content-center">
@@ -687,19 +603,19 @@ export class UserList extends Component {
 
 
                                             <div>
-                                                <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters/></i> Status : <span>{`${user.status} (${RoleAndUserStatus(user.status)})`}</span></small>
+                                                <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters /></i> Status : <span>{`${user.status} (${RoleAndUserStatus(user.status)})`}</span></small>
                                             </div>
 
                                             <div>
-                                                <small className="text-muted"><i className="fas fa-pen-nib"><FaPenAlt/></i> Channel Name : <span>{user.channelCode}</span></small>
+                                                <small className="text-muted"><i className="fas fa-pen-nib"><FaPenAlt /></i> Channel Name : <span>{user.channelCode}</span></small>
                                             </div>
 
                                             <div>
-                                                <small className="text-muted"><i className="fas fa-pen-nib"><FaPenNib/></i> Name : <span>{user.name}</span></small>
+                                                <small className="text-muted"><i className="fas fa-pen-nib"><FaPenNib /></i> Name : <span>{user.name}</span></small>
                                             </div>
 
                                             <div>
-                                                <small className="text-muted"><i className="fab fa-mizuni"><FaMizuni/></i> Mobile : <span>{user.mobile}</span></small>
+                                                <small className="text-muted"><i className="fab fa-mizuni"><FaMizuni /></i> Mobile : <span>{user.mobile}</span></small>
                                             </div>
                                             {/* <div>
                                                 <small className="text-muted"><i className="fas fa-digital-tachograph"></i> Role Name : <span>{user.roles.map((v, i) => v.roleName + ',')}</span></small>
@@ -707,12 +623,12 @@ export class UserList extends Component {
                                             <hr />
 
                                             <div className="d-flex justify-content-center mt-2">
-                                            <ReactTooltip id="arc" place="top" type="warning" effect="float">
-                                                <span style={{ fontSize: "15px" }}> Warning..! User will be deleted permanently.</span>
-                                            </ReactTooltip>
-                                                <span className="sbtn mr-2" onClick={() => this.onUpdate(user.userId)} ><i class="far fa-edit"><FaEdit/></i> Update</span>
-                                                <span data-tip data-for= "arc" className="sbtnx mr-2" onClick={() =>window.confirm("Are you sure you want to archive the User?") && this.onDelete(user.id)} ><i class="fas fa-archive"><FaArchive/></i> Archive</span>
-                                                <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onDetails(user.id)}  ><i class="fas fa-binoculars"><FaBinoculars/></i> Details</span>
+                                                <ReactTooltip id="arc" place="top" type="warning" effect="float">
+                                                    <span style={{ fontSize: "15px" }}> Warning..! User will be deleted permanently.</span>
+                                                </ReactTooltip>
+                                                <span className="sbtn mr-2" onClick={() => this.onUpdate(user.userId)} ><i class="far fa-edit"><FaEdit /></i> Update</span>
+                                                <span data-tip data-for="arc" className="sbtnx mr-2" onClick={() => window.confirm("Are you sure you want to archive the User?") && this.onDelete(user.id)} ><i class="fas fa-archive"><FaArchive /></i> Archive</span>
+                                                <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onDetails(user.id)}  ><i class="fas fa-binoculars"><FaBinoculars /></i> Details</span>
                                             </div>
 
 
@@ -731,57 +647,57 @@ export class UserList extends Component {
                                                             {this.state.details.map(val => (
                                                                 <div className="">
                                                                     <div className="">
-                                                                        <small className="text-muted"><i className="fas fa-sort-numeric-up"><FaSortNumericUp/></i> ID : <span>{val.userId}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-sort-numeric-up"><FaSortNumericUp /></i> ID : <span>{val.userId}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters/></i> Status : <span>{RoleAndUserStatus(val.status)}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-battery-three-quarters"><FaBatteryThreeQuarters /></i> Status : <span>{RoleAndUserStatus(val.status)}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaMizuni/></i> Channel Name : <span>{val.channelCode}</span></small>
+                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaMizuni /></i> Channel Name : <span>{val.channelCode}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaPenNib/></i> Role Name : <span>{val.roles.map((v, i) => v.roleName + ',')}</span></small>
+                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaPenNib /></i> Role Name : <span>{val.roles.map((v, i) => v.roleName + ',')}</span></small>
                                                                     </div>
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaMicroblog/></i> Email : <span>{val.email}</span></small>
+                                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaMicroblog /></i> Email : <span>{val.email}</span></small>
                                                                     </div>
                                                                     <hr />
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-pen-nib"><FaPenAlt/></i> Description : <span>{val.roles.map((v, i) => v.description)}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-pen-nib"><FaPenAlt /></i> Description : <span>{val.roles.map((v, i) => v.description)}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-digital-tachograph"><FaDigitalTachograph/></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList === null ? "" : v.grantedIPList.map(ip => ip))}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-digital-tachograph"><FaDigitalTachograph /></i> IP List : <span>{val.roles.map((v, i) => v.grantedIPList === null ? "" : v.grantedIPList.map(ip => ip))}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fab fa-elementor"><FaElementor/></i> Features : <span>{val.roles.map(v => v.rolePrivileges.map(r => r[1] + ", "))}</span></small>
+                                                                        <small className="text-muted"><i className="fab fa-elementor"><FaElementor /></i> Features : <span>{val.roles.map(v => v.rolePrivileges.map(r => r[1] + ", "))}</span></small>
                                                                     </div>
                                                                     <hr />
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-user-shield"><FaUserShield/></i> Created By : <span>{val.createdBy}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-user-shield"><FaUserShield /></i> Created By : <span>{val.createdBy}</span></small>
                                                                     </div>
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-user-tag"><FaUserTag/></i> Approved By : <span>{val.approvedBy}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-user-tag"><FaUserTag /></i> Approved By : <span>{val.approvedBy}</span></small>
                                                                     </div>
                                                                     <div>
-                                                                        <small className="text-muted"><i className="fas fa-user-edit"><FaUserEdit/></i> Updated By : <span>{val.updatedBy}</span></small>
-                                                                    </div>
-
-                                                                    <div>
-                                                                        <small className="text-muted"><i className="fas fa-calendar-check"><FaCalendarCheck/></i> Created Date : <span>{val.createDate}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-user-edit"><FaUserEdit /></i> Updated By : <span>{val.updatedBy}</span></small>
                                                                     </div>
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="far fa-calendar-alt"><FaCalendarAlt/></i> Approved Date : <span>{val.approveDate}</span></small>
+                                                                        <small className="text-muted"><i className="fas fa-calendar-check"><FaCalendarCheck /></i> Created Date : <span>{val.createDate}</span></small>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <small className="text-muted"><i className="far fa-calendar-alt"><FaCalendarAlt /></i> Approved Date : <span>{val.approveDate}</span></small>
                                                                     </div>
 
 
                                                                     <div>
-                                                                        <small className="text-muted"><i className="far fa-calendar-check"><FaCalendarDay/></i> Updated Date : <span>{val.updateDate}</span></small>
+                                                                        <small className="text-muted"><i className="far fa-calendar-check"><FaCalendarDay /></i> Updated Date : <span>{val.updateDate}</span></small>
                                                                     </div>
 
                                                                 </div>
