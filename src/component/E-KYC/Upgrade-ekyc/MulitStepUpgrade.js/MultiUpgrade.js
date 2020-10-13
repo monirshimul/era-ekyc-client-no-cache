@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import PersonalandFile from '../MulitStepUpgrade.js/PersonalandFile';
+import PersonalDetails from './PersonalDetails';
 import RiskGrading from './RiskGrading';
+import FileUpload from './FileUpload';
+import GridView from './GridView';
+import Complete from './Complete';
 
 export class MultiUpgrade extends Component {
   state = {
@@ -21,7 +24,24 @@ export class MultiUpgrade extends Component {
     tinFileType: "",
 
     // Step2 === RiskGrading
+    onBoardingValue: "",
+    geoRiskClient: '',
+    foreignOrigin: '',
+    highOfficial: "",
+    closeHighOfficial: "",
+    isClientIp: "",
+    productTypes: "",
+    occupation: "",
+    businessName: "",
+    professionName: "",
+    yearlyTransaction: "",
+    hasSourceOfFunds: "",
     riskGradingArray: [],
+
+    // loading 
+    confirmFlag: false,
+    flag: 'data:image/jpeg;base64,',
+    channelAccStatus: []
 
   }
 
@@ -59,13 +79,13 @@ export class MultiUpgrade extends Component {
 
   render() {
     const { step } = this.state;
-    const { monthlyIncome, sourceOfFund, nationality, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType, riskGradingArray } = this.state;
-    const values = { monthlyIncome, sourceOfFund, nationality, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType, riskGradingArray };
+    const { applicantId, monthlyIncome, sourceOfFund, nationality, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, riskGradingArray, confirmFlag, flag, channelAccStatus } = this.state;
+    const values = { applicantId, monthlyIncome, sourceOfFund, nationality, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, riskGradingArray, confirmFlag, flag, channelAccStatus };
     // console.log("appid", this.props.location.state);
     switch (step) {
       case 1:
         return (
-          <PersonalandFile
+          <PersonalDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             handleState={this.handleState}
@@ -75,11 +95,40 @@ export class MultiUpgrade extends Component {
 
       case 2:
         return (
+          <FileUpload
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            handleState={this.handleState}
+            values={values}
+          />
+        )
+
+      case 3:
+        return (
           <RiskGrading
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleOccupationChange={this.handleOccupationChange}
+            handleState={this.handleState}
+            values={values}
+          />
+        )
+
+      case 4:
+        return (
+          <GridView
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleState={this.handleState}
+            values={values}
+          />
+        )
+
+      case 5:
+        return (
+          <Complete
             handleState={this.handleState}
             values={values}
           />

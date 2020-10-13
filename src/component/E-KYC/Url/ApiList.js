@@ -98,5 +98,8 @@ export const district = hostIp + `address/get/district`;
 export const union = hostIp + `address/get/union`;
 export const upozila = hostIp + `address/get/upazila`;
 
-// Sim to regular conversion
+// Simplified ekyc search conversion
 export const simConvReg = hostIp + `ekyc/simplified/get`;
+
+// simReg conversion api
+export const simRegApi = hostIp + `ekyc/regular/simplified-to-regular`;
