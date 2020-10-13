@@ -67,6 +67,8 @@ import RegFingerPrintMain from '../E-KYC/Regular/RegFingerPrint/RegFingerPrintMa
 
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import UpgradeDetails from '../E-KYC/Upgrade-ekyc/UpgradeDetails';
+import MultiUpgrade from '../E-KYC/Upgrade-ekyc/MulitStepUpgrade.js/MultiUpgrade';
 
 
 
@@ -77,10 +79,10 @@ class Dashboard extends Component {
 
     state = {
         isLogOut: false,
-        userProfileImage: JSON.parse(localStorage.getItem("profileImage")) === null  ? "" : JSON.parse(localStorage.getItem("profileImage")),
+        userProfileImage: JSON.parse(localStorage.getItem("profileImage")) === null ? "" : JSON.parse(localStorage.getItem("profileImage")),
         flag: 'data:image/jpeg;base64,',
         quickLinks: '',
-        imgFlag:false
+        imgFlag: false
     }
 
     feature = JSON.parse(sessionStorage.getItem("featureList"));
@@ -92,7 +94,7 @@ class Dashboard extends Component {
     //const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem("profile")));
 
     async componentDidMount() {
-       // console.log("componentDidMount Called==============")
+        // console.log("componentDidMount Called==============")
 
         this.feature = JSON.parse(sessionStorage.getItem("featureList"))
 
@@ -129,10 +131,10 @@ class Dashboard extends Component {
             console.log("Error", error)
             if (error.response) {
                 let message = error.response.data.message
-                console.log("Error",error)
+                console.log("Error", error)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               console.log("Error Connecting...", error.request)
+                console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -270,21 +272,21 @@ class Dashboard extends Component {
                     <Nav logOut={this.logOut} />
                     <div className="d-flex" style={{ margin: "0", padding: "0", overflowX: "hidden" }}>
                         <ReactTooltip id="show" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}> Expand Sidebar</span>
+                            <span style={{ fontSize: "15px" }}> Expand Sidebar</span>
                         </ReactTooltip>
                         <ReactTooltip id="hide" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}> Hide Sidebar</span>
+                            <span style={{ fontSize: "15px" }}> Hide Sidebar</span>
                         </ReactTooltip>
                         <input type="checkbox" id="check" />
                         <label htmlFor="check">
                             <i id="cancel" data-tip data-for="hide"><FaBackspace /></i>
-                            <i id="showMenu" data-tip data-for="show"><FaArrowRight/></i>
+                            <i id="showMenu" data-tip data-for="show"><FaArrowRight /></i>
                         </label>
                         <div id="sidebar">
                             <div id="profile_info">
                                 <div id="profile_img">
                                     <img src={userProfileImage ? flag + userProfileImage : profileImage}
-                                    
+
                                         alt="profile_img"
 
                                         style={{
@@ -310,7 +312,7 @@ class Dashboard extends Component {
                                                 <div>
                                                     <li>
                                                         {/* First Menu */}
-                                                        <Link id="linkOne" to={`${url}${route.items.path}`}><span className="mr-2" style={{}}>{route.items.className}</span> <span id="menuOne">{route.items.featureName} {route.nested ? <i style={{float:"right"}}><FaAngleRight/></i> : ""}</span> </Link>
+                                                        <Link id="linkOne" to={`${url}${route.items.path}`}><span className="mr-2" style={{}}>{route.items.className}</span> <span id="menuOne">{route.items.featureName} {route.nested ? <i style={{ float: "right" }}><FaAngleRight /></i> : ""}</span> </Link>
 
                                                         <div id="sub-menu-one">
                                                             <ul>
@@ -321,7 +323,7 @@ class Dashboard extends Component {
                                                                                 nest !== undefined && nest.items.isShowing === true ? (
                                                                                     <li id="side-menu">
                                                                                         {/* First Nested Menu */}
-                                                                                        <Link to={`${url}${nest.items.path}`}>{nest.items.featureName} {nest.nested ? <i style={{ float:"right" }}><FaAngleRight/></i> : ""}</Link>
+                                                                                        <Link to={`${url}${nest.items.path}`}>{nest.items.featureName} {nest.nested ? <i style={{ float: "right" }}><FaAngleRight /></i> : ""}</Link>
 
                                                                                         <div id="sub-menu-two">
                                                                                             <ul>
@@ -333,7 +335,7 @@ class Dashboard extends Component {
                                                                                                                     deepNest !== undefined && deepNest.items.isShowing === true ? (
                                                                                                                         <li>
                                                                                                                             {/* Second Nested menu */}
-                                                                                                                            <Link to={`${url}${deepNest.items.path}`}>{deepNest.items.featureName} {deepNest.nested ? <i style={{float:"right"}}><FaAngleRight/></i> : ""}</Link>
+                                                                                                                            <Link to={`${url}${deepNest.items.path}`}>{deepNest.items.featureName} {deepNest.nested ? <i style={{ float: "right" }}><FaAngleRight /></i> : ""}</Link>
                                                                                                                         </li>
 
                                                                                                                     ) : ""
@@ -403,7 +405,7 @@ class Dashboard extends Component {
 
 
                                 <Switch>
-                                    <Route exact path={path} component={()=><Welcome/>} />
+                                    <Route exact path={path} component={() => <Welcome />} />
 
                                     {this.allMenu.map((route, index) => (
 
@@ -430,7 +432,7 @@ class Dashboard extends Component {
                                     {/* <Route path={`${path}/face-account`} component={MultiStepFace} /> */}
                                     <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />
                                     <Route path={`${path}/reg-dynamiccomp`} component={RegDynamicComp} />
-                                    
+
 
                                     {/* Success Role */}
                                     <Route path={`${path}/success`} component={Success} />
@@ -482,6 +484,11 @@ class Dashboard extends Component {
                                     <Route path={`${path}/regular-face`} component={RegFaceMain} />
                                     <Route path={`${path}/regular-fingerprint`} component={RegFingerPrintMain} />
 
+                                    {/* convert sim to Regular */}
+                                    <Route path={`${path}/upgrade-details`} component={UpgradeDetails} />
+                                    <Route path={`${path}/multiform-Regular-conversion`} component={MultiUpgrade} />
+
+
 
                                 </Switch>
 
@@ -521,7 +528,7 @@ class Dashboard extends Component {
                                 zIndex: "-3",
                                 outline: "none",
                                 bottom: "0",
-                                right:"0",
+                                right: "0",
                                 margin: "0",
                                 padding: "0",
                                 border: "none"

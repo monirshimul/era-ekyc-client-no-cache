@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FaUser,FaHome,FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip } from "react-icons/fa";
+import { FaUser, FaHome, FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip } from "react-icons/fa";
 
 import Portfolio from './Dashboard/NestedComponentDemo/Portfolio';
 import Blogs from './Dashboard/NestedComponentDemo/Blogs';
@@ -29,9 +29,9 @@ import UserList from './E-KYC/User/UserList';
 import UserApproval from './E-KYC/User/UserApproval';
 import UpdateUser from './E-KYC/User/UpdateUser';
 // Product
- import CreateProduct from './E-KYC/Product/CreateProduct';
- import GetProduct from './E-KYC/Product/GetProduct';
- import UpdateProduct from './E-KYC/Product/UpdateProduct';
+import CreateProduct from './E-KYC/Product/CreateProduct';
+import GetProduct from './E-KYC/Product/GetProduct';
+import UpdateProduct from './E-KYC/Product/UpdateProduct';
 
 //Profile Management
 import ChangePassword from './E-KYC/Profile/ChangePass';
@@ -43,16 +43,18 @@ import EkycListUser from './E-KYC/ekyc-list/EkycListUser'
 
 // Transaction Profile
 import CreateTP from './E-KYC/TP/CreateTP';
-import  TPList  from './E-KYC/TP/TPList';
+import TPList from './E-KYC/TP/TPList';
 import UpdateTP from './E-KYC/TP/UpdateTP';
 
 // RiskGrading
 //import RiskGrading from './E-KYC/Regular/RiskGrading';
 
-
+// convert sim to reg Upgrade
+import SimUpgradeReg from './E-KYC/Upgrade-ekyc/SimUpgradeReg';
 
 // //EKYC Simplified
 // import FaceOrFinger from './E-KYC/Simplified/FaceOrFinger'
+
 
 const cloneDeep = require('lodash.clonedeep');
 
@@ -86,7 +88,7 @@ export const allRoutes = [
             "key": "1",
             'isShowing': true,
             "featureName": "Role",
-            "className": <FaIndent/>,
+            "className": <FaIndent />,
             "path": "",
             "exact": true,
             "component": ""
@@ -165,7 +167,7 @@ export const allRoutes = [
             "key": "2",
             'isShowing': true,
             "featureName": "User",
-            "className": <FaUser/>,
+            "className": <FaUser />,
             "path": "",
             "exact": true,
             "component": ""
@@ -243,7 +245,7 @@ export const allRoutes = [
             "key": "3",
             'isShowing': true,
             "featureName": "Profile",
-            "className": <FaAddressCard/>,
+            "className": <FaAddressCard />,
             "path": "",
             "exact": true,
             "component": ""
@@ -298,7 +300,7 @@ export const allRoutes = [
             "key": "4",
             'isShowing': true,
             "featureName": "Setting",
-            "className": <FaTools/>,
+            "className": <FaTools />,
             "path": "",
             "exact": true,
             "component": ""
@@ -354,12 +356,12 @@ export const allRoutes = [
                             "featureName": "Update TP",
                             "path": "/update-tp",
                             "exact": true,
-                            "component": <UpdateTP/>
+                            "component": <UpdateTP />
                         }
 
                     },
-                    
-                    
+
+
                     {
                         items: {
                             "key": "4.2.4",
@@ -371,7 +373,7 @@ export const allRoutes = [
                         }
 
                     }
-                    
+
 
                 ]
 
@@ -387,7 +389,7 @@ export const allRoutes = [
             "key": "5",
             'isShowing': true,
             "featureName": "E-KYC",
-            "className": <FaBookReader/>,
+            "className": <FaBookReader />,
             "path": "",
             "exact": true,
             "component": ""
@@ -403,9 +405,9 @@ export const allRoutes = [
                     "component": <Account />
                 }
             },
-            
+
             {
-               
+
                 items: {
                     "key": "5.1",
                     'isShowing': true,
@@ -444,7 +446,7 @@ export const allRoutes = [
                             "featureName": "Upgrade",
                             "path": "/simplified-upgrade",
                             "exact": true,
-                            "component": <Target />
+                            "component": <SimUpgradeReg />
                         }
 
                     },
@@ -521,7 +523,7 @@ export const allRoutes = [
             "key": "6",
             'isShowing': true,
             "featureName": "Report",
-            "className": <FaAddressBook/>,
+            "className": <FaAddressBook />,
             "path": "",
             "exact": true,
             "component": ""
@@ -534,7 +536,7 @@ export const allRoutes = [
                     "featureName": "Statistics",
                     "path": "/statistics",
                     "exact": true,
-                    "component": <UnderDev/>
+                    "component": <UnderDev />
                 }
 
             },
@@ -567,7 +569,7 @@ export const allRoutes = [
             "key": "7",
             'isShowing': true,
             "featureName": "Product",
-            "className": <FaMicrochip/>,
+            "className": <FaMicrochip />,
             "path": "",
             "exact": true,
             "component": ""
@@ -612,7 +614,7 @@ export const allRoutes = [
                     "exact": true,
                     "component": <Target />
                 }
-               
+
 
             }
         ]
@@ -656,7 +658,7 @@ export function getFlatRouteArray(routes) {
 export function pruneRouteArray(featureArray) {
 
     let pruneRoutes = cloneDeep(allRoutes);
-    
+
     function recursivePrune(objArr) {
         //console.log("Obj Array", objArr)
         for (let i = 0; i < objArr.length; i++) {
