@@ -124,6 +124,15 @@ export class FileUpload extends Component {
     return (
       <div className="container">
 
+      
+
+          <div className="card-header divBg">
+
+            <h3 className="text-center pt-3">Optional File Upload</h3>
+
+          </div>
+        
+
         <div className="row d-flex justify-content-center">
 
           <div className="card col-sm-4" style={{ paddingTop: "25px" }}>

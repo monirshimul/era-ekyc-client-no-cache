@@ -55,8 +55,8 @@ export class PersonalandFile extends Component {
       <div className="container">
         <div className="row  d-flex justify-content-center">
           <div className='col-sm-7 card'>
-            <div className="card-header imTwoWhite">
-              <h1>Personal Information</h1>
+            <div className="card-header  divBg">
+              <h1 className="text-center pt-3">Personal Information</h1>
             </div>
             <form className="mt-5">
               {/* Monthly Income */}

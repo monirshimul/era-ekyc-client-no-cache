@@ -138,7 +138,10 @@ export class GridView extends Component {
 
           <hr />
 
-
+          <div className="im">
+          <p style={{ color: "green" }}>Optional File Upload</p>
+        </div>
+        
           <hr />
 
 
@@ -209,18 +212,23 @@ export class GridView extends Component {
 
 
 
-            {
-              values.confirmFlag ? (
-                <div className="row d-flex justify-content-center align-items-center mt-3">
-                  <Loading />
-                </div>
-              ) : ''
-            }
-            <br />
-
+            
 
           </div>
+          
+          {
+            values.confirmFlag ? (
+              <div className="row d-flex justify-content-center align-items-center mt-3">
+                <Loading />
+              </div>
+            ) : ''
+          }
+          <br />
+
+          
           <hr />
+
+
           <div className="d-flex justify-content-center"
             style={{ marginBottom: "20px" }}
           >
