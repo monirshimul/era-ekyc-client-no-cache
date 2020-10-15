@@ -109,21 +109,23 @@ export class SimUpgradeReg extends Component {
 
   // Full details show
 
-  fullDetails = () => {
-    this.props.history.push('/dashboard/upgrade-details', this.state.cardData);
+  fullDetails = (e) => {
+    
+    this.props.history.push('/dashboard/upgrade-details', this.state.cardData[e.target.id]);
   }
 
   // UPGRADE BUTTON functionality
 
-  upgrade = () => {
-    this.props.history.push('/dashboard/multiform-Regular-conversion', this.state.cardData[0].id);
+  upgrade = (e) => {
+    console.log("cardId", e.target.id)
+    this.props.history.push('/dashboard/multiform-Regular-conversion', this.state.cardData[e.target.id]);
   }
 
 
 
   render() {
     let { cardData, search } = this.state;
-    console.log("cardData", cardData);
+  
     return (
       <div className="container">
 
@@ -201,8 +203,8 @@ export class SimUpgradeReg extends Component {
 
                     <hr />
                     <div className="row d-flex justify-content-around">
-                      <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={this.upgrade} >Upgrade</button>
-                      <button className="neoBtnSmall" style={{ color: "#d3830a" }} onClick={this.fullDetails}>Details</button>
+                      <button className="neoBtnSmall" style={{ color: "#308f8f" }} id={index} onClick={(e)=>this.upgrade(e)} >Upgrade</button>
+                      <button className="neoBtnSmall" style={{ color: "#d3830a" }} id={index} onClick={(e)=>this.fullDetails(e)}>Details</button>
 
                     </div>
 

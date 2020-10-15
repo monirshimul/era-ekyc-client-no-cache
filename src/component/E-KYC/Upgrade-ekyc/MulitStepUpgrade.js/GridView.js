@@ -4,6 +4,10 @@ import Loading from '../../Simplified/utils/CustomLoding/Loading';
 import passImage from '../../Simplified/images/passport.svg';
 import tinImage from '../../Simplified/images/diploma.svg';
 import birthImage from '../../Simplified/images/tin.svg';
+import ok from '../../Simplified/images/ok.svg';
+import ok1 from '../../Simplified/images/ok1.svg';
+import ok2 from '../../Simplified/images/ok2.svg';
+import cross from '../../Simplified/images/cross.svg';
 import { simRegApi } from '../../Url/ApiList';
 import getJsonObjectToArray from '../../Simplified/utils/jsonObjToArray';
 import axios from 'axios';
@@ -152,7 +156,7 @@ export class GridView extends Component {
                 <small>Passport</small>
               </div>
 
-              <img src={values.passport ? values.flag + values.passport : passImage}
+              <img src={values.passport ? ok2 : cross}
                 style={{
                   margin: "0 auto",
                   width: "250px",
@@ -171,7 +175,7 @@ export class GridView extends Component {
                 <small>Tin Certificate</small>
               </div>
 
-              <img src={values.tinCertificate ? values.flag + values.tinCertificate : tinImage}
+              <img src={values.tinCertificate ? ok :cross}
                 style={{
                   margin: "0 auto",
                   width: "250px",
@@ -191,7 +195,7 @@ export class GridView extends Component {
                 <small>Birth Certificate</small>
               </div>
 
-              <img src={values.birthCertificate ? values.flag + values.birthCertificate : birthImage}
+              <img src={values.birthCertificate ? ok1 : cross}
                 style={{
                   margin: "0 auto",
                   width: "250px",

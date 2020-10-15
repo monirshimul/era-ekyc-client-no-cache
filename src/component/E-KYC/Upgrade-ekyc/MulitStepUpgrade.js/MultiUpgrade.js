@@ -9,7 +9,7 @@ export class MultiUpgrade extends Component {
   state = {
     step: 1,
     // Step 1 == Personal Details + Additional File
-    applicantId: this.props.location.state,
+    applicantId: this.props.location.state.id,
     monthlyIncome: '',
     sourceOfFund: '',
     nationality: '',
@@ -81,7 +81,7 @@ export class MultiUpgrade extends Component {
     const { step } = this.state;
     const { applicantId, monthlyIncome, sourceOfFund, nationality, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, riskGradingArray, confirmFlag, flag, channelAccStatus } = this.state;
     const values = { applicantId, monthlyIncome, sourceOfFund, nationality, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, riskGradingArray, confirmFlag, flag, channelAccStatus };
-    // console.log("appid", this.props.location.state);
+   
     switch (step) {
       case 1:
         return (

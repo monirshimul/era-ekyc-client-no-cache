@@ -221,12 +221,29 @@ export class UpdateRole extends Component {
                             <label htmlFor="">Role Name</label>
                             <input data-tip data-for='createRole' name="roleName" type="text" value={roleName} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Name" />
                         </div>
-
+                        {/* 
                         <div className="form-group">
                             <label htmlFor="">Role Status</label>
                             <input data-tip data-for='roleStatus' name="status" type="text" value={status} onChange={this.textHandleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Role Status P/A/R" />
                         </div>
+                            */}
 
+                            <div className='form-group'>
+                            <label htmlFor="">Role Status</label>
+                            <select
+                                className='custom-select'
+                                value={status}
+                                onChange={this.textHandleChange}
+                                name="status"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='A'>Approved</option>
+                                <option value='P'>Pending</option>
+                                <option value='D'>Archived</option>
+
+
+                            </select>
+                        </div>
 
                         <div className="form-group">
                             <label htmlFor="">Description</label>
