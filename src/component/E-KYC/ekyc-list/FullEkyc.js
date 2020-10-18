@@ -5,7 +5,7 @@ import face from '../Simplified/images/face.svg';
 import man from '../Simplified/images/man.svg';
 import { Loading } from '../Simplified/utils/CustomLoding/Loading'
 import { NotificationManager } from "react-notifications";
-import { profileDownload, opFileDownload } from '../Url/ApiList';
+import { profileDownload, opFileDownload, regPdfDownload } from '../Url/ApiList';
 import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycProfileStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
 import Acordion from '../Acordion/Acordion';
 import { saveAs } from 'file-saver';
@@ -36,6 +36,7 @@ class FullEkyc extends Component {
         ProductCodetoName: '',
         flag: 'data:image/jpeg;base64,',
         loading: false,
+        opFileDownloadLoading: false,
         additionalFile: [],
         arrowUp: false
     }
@@ -51,7 +52,6 @@ class FullEkyc extends Component {
     }
 
     onDownload = async (id) => {
-
         let config = {
             responseType: 'arraybuffer',
             headers: {
@@ -64,38 +64,77 @@ class FullEkyc extends Component {
             applicantId: id
         }
 
-        try {
+        if (this.state.ekyc.riskGrading) {
+            try {
 
-            this.setState({
-                loading: !this.state.loading
-            })
+                this.setState({
+                    loading: !this.state.loading
+                })
 
-            let downloalData = await axios.post(profileDownload, idObj, config)
+                let downloalData = await axios.post(regPdfDownload, idObj, config)
 
-            //console.log("downloalData", downloalData.data)
+                //console.log("downloalData", downloalData.data)
 
-            const blob = new Blob([downloalData.data], { type: 'application/pdf', encoding: 'UTF-8' })
+                const blob = new Blob([downloalData.data], { type: 'application/pdf', encoding: 'UTF-8' })
 
-            saveAs(blob, `${this.state.ekyc.nid}.pdf`);
-            this.setState({
-                loading: !this.state.loading
-            })
+                saveAs(blob, `${this.state.ekyc.nid}.pdf`);
+                this.setState({
+                    loading: !this.state.loading
+                })
 
-        } catch (error) {
-            if (error.response) {
-                let message = error.response.data.message
-                //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
-            } else if (error.request) {
-                //  console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+            } catch (error) {
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    //  console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
+                this.setState({
+                    loading: !this.state.loading
+                })
             }
-            this.setState({
-                loading: !this.state.loading
-            })
+        } else {
+            try {
+
+                this.setState({
+                    loading: !this.state.loading
+                })
+
+                let downloalData = await axios.post(profileDownload, idObj, config)
+
+                //console.log("downloalData", downloalData.data)
+
+                const blob = new Blob([downloalData.data], { type: 'application/pdf', encoding: 'UTF-8' })
+
+                saveAs(blob, `${this.state.ekyc.nid}.pdf`);
+                this.setState({
+                    loading: !this.state.loading
+                })
+
+            } catch (error) {
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    //  console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
+                this.setState({
+                    loading: !this.state.loading
+                })
+            }
         }
+
+
+
+
 
 
 
@@ -117,16 +156,20 @@ class FullEkyc extends Component {
         try {
 
             this.setState({
-                loading: !this.state.loading
+                opFileDownloadLoading: !this.state.opFileDownloadLoading
             })
+
 
             let additionalFileRes = await axios.post(opFileDownload, idObj, config)
             this.setState({
                 additionalFile: additionalFileRes.data.data.additionalFiles,
                 arrowUp: !this.state.arrowUp,
-                loading: !this.state.loading
+                opFileDownloadLoading: !this.state.opFileDownloadLoading
             })
             console.log("All File", this.state.additionalFile, this.state.arrowUp)
+
+
+
 
 
 
@@ -143,7 +186,7 @@ class FullEkyc extends Component {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
             this.setState({
-                loading: !this.state.loading
+                opFileDownloadLoading: !this.state.opFileDownloadLoading
             })
 
         }
@@ -175,7 +218,7 @@ class FullEkyc extends Component {
     }
 
     render() {
-        let { ekyc, flag, loading, additionalFile, arrowUp } = this.state
+        let { ekyc, flag, loading, additionalFile, arrowUp, opFileDownloadLoading } = this.state
         //console.log("single value",ekyc.presentAddress.additionalMouzaOrMoholla)
         //console.log("Arrow", arrowUp)
         return (
@@ -339,24 +382,37 @@ class FullEkyc extends Component {
 
                                                         </div>
                                                         {
-                                                            arrowUp ? (
-                                                                <div>
-                                                                    {
-                                                                        additionalFile.map((file, i) => (
-                                                                            <div key={file.id} className="imTwoWhite animated zoomIn" style={{ cursor: "pointer" }}>
-                                                                                <p className="" onClick={(e) => this.onBtnClick(e)} style={{ color: "green" }} id={i}>{file.type}-Download <FaFileDownload /></p>
+                                                            opFileDownloadLoading ?
+                                                                (
+                                                                    <div className="row d-flex justify-content-center mt-3">
+                                                                        <Loading />
+                                                                    </div>
+                                                                )
+                                                                : (
+                                                                    <div>
+                                                                        {
+                                                                            arrowUp ? (
+                                                                                <div>
+                                                                                    {
+                                                                                        additionalFile.map((file, i) => (
+                                                                                            <div key={file.id} className="imTwoWhite animated zoomIn" style={{ cursor: "pointer" }}>
+                                                                                                <p className="" onClick={(e) => this.onBtnClick(e)} style={{ color: "green", textTransform: "uppercase" }} id={i}>{file.type}-Download <FaFileDownload /></p>
 
-                                                                            </div>
+                                                                                            </div>
 
-                                                                        ))
-                                                                    }
-
-
+                                                                                        ))
+                                                                                    }
 
 
-                                                                </div>
-                                                            ) : ""
+
+
+                                                                                </div>
+                                                                            ) : ""
+                                                                        }
+                                                                    </div>
+                                                                )
                                                         }
+
 
 
 

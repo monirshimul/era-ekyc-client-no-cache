@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications"
+import { shortTime, mediumTime, largeTime } from '../../../Utils/notificationTime';
+const Joi = require('@hapi/joi');
 
 export class RiskGrading extends Component {
   continue = async (e) => {
@@ -28,10 +30,23 @@ export class RiskGrading extends Component {
       hasSourceOfFunds: values.hasSourceOfFunds
     }
 
+    let joiObj = {
+      onBoardingValue: values.onBoardingValue,
+      geoRiskClient: values.geoRiskClient,
+      highOfficial: values.highOfficial,
+      closeHighOfficial: values.closeHighOfficial,
+      isClientIp: values.isClientIp,
+      productTypes: values.productTypes,
+      occupation: values.occupation === "5.a" ? values.businessName : values.professionName,
+      yearlyTransaction: values.yearlyTransaction,
+      hasSourceOfFunds: values.hasSourceOfFunds
+    }
+
     // console.log("riskGradingRegular", obj);
 
     try {
 
+      const validationValue = await schema.validateAsync(joiObj);
       let RiskGraArray = Object.values(obj)
       let filterArray = RiskGraArray.filter(v => v != "")
       //console.log(filterArray)
@@ -49,6 +64,7 @@ export class RiskGrading extends Component {
 
     } catch (error) {
       console.log("Error====>", error.response)
+      NotificationManager.error(error.toString(), "Click to Remove", largeTime);
     }
   }
 
@@ -455,5 +471,20 @@ export class RiskGrading extends Component {
     )
   }
 }
+
+const schema = Joi.object({
+
+
+  onBoardingValue: Joi.string().required(),
+  geoRiskClient: Joi.string().required(),
+  highOfficial: Joi.string().required(),
+  closeHighOfficial: Joi.string().required(),
+  isClientIp: Joi.string().required(),
+  productTypes: Joi.string().required(),
+  occupation: Joi.string().required(),
+  yearlyTransaction: Joi.string().required(),
+  hasSourceOfFunds: Joi.string().required()
+
+})
 
 export default RiskGrading;
