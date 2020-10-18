@@ -3,13 +3,13 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { createProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
-import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
+import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
 class CreateProduct extends Component {
 
     state = {
-        
+
         productName: "",
         productCode: '',
         productCategory: '',
@@ -17,7 +17,7 @@ class CreateProduct extends Component {
         description: ""
 
     }
-    
+
 
 
     onChange = e => {
@@ -27,7 +27,7 @@ class CreateProduct extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { productName, description, productCode, productCategory, status } = this.state;     
+        const { productName, description, productCode, productCategory, status } = this.state;
 
         let config = {
             headers: {
@@ -57,7 +57,7 @@ class CreateProduct extends Component {
             //console.log("validationValue", validationValue)
 
             let productCreateRes = await axios.post(createProduct, obj, config);
-           // console.log("productCreateRes", productCreateRes)
+            // console.log("productCreateRes", productCreateRes)
             NotificationManager.success("Product Successfully Created", "Success", 5000);
             //localStorage.setItem("productInfo", JSON.stringify(obj));
             //this.props.history.replace('/dashboard/product-list');
@@ -75,7 +75,7 @@ class CreateProduct extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Click to Remove", largeTime);
@@ -140,13 +140,13 @@ class CreateProduct extends Component {
 
 
                         <div className="form-group">
-                            <label htmlFor="" className="text-muted"><i class="fas fa-file-signature"></i> Product Name</label>
+                            <label htmlFor="" className=""><i class="fas fa-file-signature"></i> Product Name</label>
                             <input name="productName" type="text" value={productName} onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Name" />
                         </div>
 
 
                         <div className="form-group">
-                            <label htmlFor="" className="text-muted"><i class="fas fa-file-signature"></i> Product Code</label>
+                            <label htmlFor="" className=""><i class="fas fa-file-signature"></i> Product Code</label>
                             <input name="productCode" type="text" value={productCode} onChange={this.onChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Code" />
                         </div>
 
@@ -155,7 +155,7 @@ class CreateProduct extends Component {
 
 
                         <div className="form-group">
-                            <label htmlFor="" className="text-muted"><i class="fas fa-align-left"></i> Description</label>
+                            <label htmlFor="" className=""><i class="fas fa-align-left"></i> Description</label>
                             <textarea name="description" value={description} onChange={this.onChange} class="form-control" id="exampleTextareaOne" rows="3" placeholder="Enter Product Description"></textarea>
 
                         </div>
@@ -178,8 +178,8 @@ class CreateProduct extends Component {
 }
 
 const schema = Joi.object({
-    
-    
+
+
     productCategory: Joi.string().required(),
     status: Joi.string().required(),
     productName: Joi.string().min(5).max(30).required(),
