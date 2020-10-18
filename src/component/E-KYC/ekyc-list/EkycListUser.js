@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ekycWithFilter, ekycFullProfile, ekycForUser } from '../Url/ApiList';
 import Pagination from '../../Reusable/Pagination';
 import { NotificationManager } from "react-notifications";
-import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
+import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
 
 class EkycListUser extends Component {
 
@@ -18,7 +18,7 @@ class EkycListUser extends Component {
         ekycData: [],
         search: "",
         radioValue: "",
-        show:false
+        show: false
     }
 
     async componentDidMount() {
@@ -95,7 +95,7 @@ class EkycListUser extends Component {
                     show: true
                 })
             } catch (error) {
-                this.setState({show:false});
+                this.setState({ show: false });
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
@@ -123,10 +123,10 @@ class EkycListUser extends Component {
                 }
                 this.setState({
                     ekycData: searchResult.data.data,
-                    show:true
+                    show: true
                 })
             } catch (error) {
-                this.setState({show:false});
+                this.setState({ show: false });
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
@@ -153,10 +153,10 @@ class EkycListUser extends Component {
                 }
                 this.setState({
                     ekycData: searchResult.data.data,
-                    show:true
+                    show: true
                 })
             } catch (error) {
-                this.setState({show:false});
+                this.setState({ show: false });
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
@@ -172,11 +172,11 @@ class EkycListUser extends Component {
     }
 
 
-    doBack =async (e)=>{
+    doBack = async (e) => {
         e.preventDefault();
         const { page } = this.state
 
-        
+
 
         const config = {
             headers: {
@@ -194,11 +194,11 @@ class EkycListUser extends Component {
                 ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc,
                 totalPages: ekycList.data.data.totalPages,
                 totalEkyc: ekycList.data.data.totalEkyc,
-                show:false,
-                search:""
+                show: false,
+                search: ""
             })
         } catch (error) {
-            this.setState({show:true});
+            this.setState({ show: true });
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
@@ -210,7 +210,7 @@ class EkycListUser extends Component {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
-    
+
     }
 
     showMore = async (id) => {
@@ -446,12 +446,12 @@ class EkycListUser extends Component {
 
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                { this.state.show === true ?
-                                    <button className="b" onClick={this.doBack} style={{ outline: "none" }} ><i class="fas fa-search"></i> Back</button>
-                                    :
-                                    <button className="b" onClick={this.doSearch} style={{ outline: "none" }} ><i class="fas fa-search"></i> Search</button>
-                                }
-                                    </div>
+                                    {this.state.show === true ?
+                                        <button className="b" onClick={this.doBack} style={{ outline: "none" }} ><i class="fas fa-search"></i> Back</button>
+                                        :
+                                        <button className="b" onClick={this.doSearch} style={{ outline: "none" }} ><i class="fas fa-search"></i> Search</button>
+                                    }
+                                </div>
                             </form>
                         </div>
 
@@ -475,7 +475,7 @@ class EkycListUser extends Component {
                     <div className="imTwoWhite col-sm-12">
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-list-ul"></i> E-kyc List User
+                                <i class="fas fa-list-ul"></i> E-KYC List User
                         </h5>
                         </div>
                         <div className="imTwoGray mt-2">

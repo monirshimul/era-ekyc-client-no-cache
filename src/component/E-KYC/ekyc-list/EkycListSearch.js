@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ekycWithFilter, ekycFullProfile } from '../Url/ApiList';
 import Pagination from '../../Reusable/Pagination';
 import { NotificationManager } from "react-notifications";
-import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
+import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
 
 class EkycListSearch extends Component {
 
@@ -92,10 +92,10 @@ class EkycListSearch extends Component {
                 }
                 this.setState({
                     ekycData: searchResult.data.data,
-                    show:true
+                    show: true
                 })
             } catch (error) {
-                this.setState({show:false});
+                this.setState({ show: false });
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
@@ -123,10 +123,10 @@ class EkycListSearch extends Component {
                 }
                 this.setState({
                     ekycData: searchResult.data.data,
-                    show:true
+                    show: true
                 })
             } catch (error) {
-                this.setState({show:false});
+                this.setState({ show: false });
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
@@ -168,14 +168,14 @@ class EkycListSearch extends Component {
         //     }
         // }
 
-        
+
         if (radioValue === "mobile") {
             let val = {
                 mobile: search
             }
             try {
                 let searchResult = await axios.post(ekycWithFilter + page, val, config)
-                 console.log("searchResult",searchResult)
+                console.log("searchResult", searchResult)
                 if (searchResult.data.data.length === 0) {
                     NotificationManager.warning("Mobile Number does not Match", "Warning", mediumTime)
                 }
@@ -184,7 +184,7 @@ class EkycListSearch extends Component {
                     show: true
                 })
             } catch (error) {
-                this.setState({show:false});
+                this.setState({ show: false });
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)
@@ -200,7 +200,7 @@ class EkycListSearch extends Component {
     }
 
 
-    doBack =async (e)=>{
+    doBack = async (e) => {
         e.preventDefault();
         const { page } = this.state
         const config = {
@@ -219,11 +219,11 @@ class EkycListSearch extends Component {
                 ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc,
                 totalPages: ekycList.data.data.totalPages,
                 totalEkyc: ekycList.data.data.totalEkyc,
-                show:false,
-                search:""
+                show: false,
+                search: ""
             })
         } catch (error) {
-            this.setState({show:true});
+            this.setState({ show: true });
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
@@ -480,11 +480,11 @@ class EkycListSearch extends Component {
 
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                { this.state.show === true ?
-                                <button className="b"  onClick={this.doBack} style={{ outline: "none" }} ><i class="fas fa-search"></i> Back</button>
-                                :
-                                <button className="b" onClick={this.doSearch} style={{ outline: "none" }} ><i class="fas fa-search"></i> Search</button>
-                                }
+                                    {this.state.show === true ?
+                                        <button className="b" onClick={this.doBack} style={{ outline: "none" }} ><i class="fas fa-search"></i> Back</button>
+                                        :
+                                        <button className="b" onClick={this.doSearch} style={{ outline: "none" }} ><i class="fas fa-search"></i> Search</button>
+                                    }
                                 </div>
                             </form>
                         </div>
@@ -509,7 +509,7 @@ class EkycListSearch extends Component {
                     <div className="imTwoWhite col-sm-12">
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-list-ul"></i> E-kyc List
+                                <i class="fas fa-list-ul"></i> E-KYC List
                         </h5>
                         </div>
                         <div className="imTwoGray mt-2">

@@ -110,7 +110,7 @@ export class SimUpgradeReg extends Component {
   // Full details show
 
   fullDetails = (e) => {
-    
+
     this.props.history.push('/dashboard/upgrade-details', this.state.cardData[e.target.id]);
   }
 
@@ -125,7 +125,7 @@ export class SimUpgradeReg extends Component {
 
   render() {
     let { cardData, search } = this.state;
-  
+
     return (
       <div className="container">
 
@@ -181,7 +181,7 @@ export class SimUpgradeReg extends Component {
           <div className="imTwoWhite col-sm-12">
             <div className="im">
               <h5 className="text-muted text-center pt-2">
-                <i class="fas fa-list-ul"></i> E-kyc List
+                <i class="fas fa-list-ul"></i> E-KYC List
                         </h5>
             </div>
             <div className="imTwoGray mt-2">
@@ -203,8 +203,8 @@ export class SimUpgradeReg extends Component {
 
                     <hr />
                     <div className="row d-flex justify-content-around">
-                      <button className="neoBtnSmall" style={{ color: "#308f8f" }} id={index} onClick={(e)=>this.upgrade(e)} >Upgrade</button>
-                      <button className="neoBtnSmall" style={{ color: "#d3830a" }} id={index} onClick={(e)=>this.fullDetails(e)}>Details</button>
+                      <button className="neoBtnSmall" style={{ color: "#308f8f" }} id={index} onClick={(e) => this.upgrade(e)} >Upgrade</button>
+                      <button className="neoBtnSmall" style={{ color: "#d3830a" }} id={index} onClick={(e) => this.fullDetails(e)}>Details</button>
 
                     </div>
 
