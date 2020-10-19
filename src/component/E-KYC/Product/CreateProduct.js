@@ -9,7 +9,7 @@ const Joi = require('@hapi/joi');
 class CreateProduct extends Component {
 
     state = {
-
+        channelName: '',
         productName: "",
         productCode: '',
         productCategory: '',
@@ -27,7 +27,7 @@ class CreateProduct extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { productName, description, productCode, productCategory, status } = this.state;
+        const { channelName, productName, description, productCode, productCategory, status } = this.state;
 
         let config = {
             headers: {
@@ -36,6 +36,7 @@ class CreateProduct extends Component {
         };
 
         let obj = {
+            channelCode: channelName,
             name: productName,
             code: productCode,
             categoryCode: productCategory,
@@ -44,6 +45,7 @@ class CreateProduct extends Component {
         }
 
         let joiData = {
+            ChannelName: channelName,
             productName: productName,
             productCode: productCode,
             productCategory: productCategory,
@@ -58,10 +60,12 @@ class CreateProduct extends Component {
 
             let productCreateRes = await axios.post(createProduct, obj, config);
             // console.log("productCreateRes", productCreateRes)
+            this.setState()
             NotificationManager.success("Product Successfully Created", "Success", 5000);
             //localStorage.setItem("productInfo", JSON.stringify(obj));
             //this.props.history.replace('/dashboard/product-list');
             this.setState({
+                channelName: '',
                 productName: "",
                 productCode: '',
                 productCategory: '',
@@ -93,7 +97,8 @@ class CreateProduct extends Component {
 
 
     render() {
-        let { productName, description, productCode, productCategory, status } = this.state
+        let { channelName, productName, description, productCode, productCategory, status } = this.state;
+
         return (
             <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
 
@@ -104,6 +109,26 @@ class CreateProduct extends Component {
                 </div>
                 <div className="card-body">
                     <form onSubmit={this.onSubmit}>
+
+                        {/* Channel Name */}
+                        <div className='form-group'>
+                            <label htmlFor="">Channel Name</label>
+                            <select
+
+                                className='custom-select'
+                                value={channelName}
+                                onChange={this.onChange}
+                                name="channelName"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='ABS'>Agent Banking</option>
+                                <option value='CBS'>Conventional Core Banking</option>
+                                <option value='ICBS'>Islamic Core Banking</option>
+                                <option value='OMNI'>Omni Channel </option>
+                                <option value='EKYC'>EKYC</option>
+                            </select>
+                        </div>
+
 
                         <div className='form-group'>
                             <label htmlFor="">Product Category</label>
@@ -179,7 +204,7 @@ class CreateProduct extends Component {
 
 const schema = Joi.object({
 
-
+    ChannelName: Joi.string().required(),
     productCategory: Joi.string().required(),
     status: Joi.string().required(),
     productName: Joi.string().min(5).max(30).required(),

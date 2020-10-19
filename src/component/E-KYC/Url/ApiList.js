@@ -67,6 +67,7 @@ export const regularSingleApi = hostIp + `ekyc/regular`;
 export const createProduct = hostIp + `product`;
 export const deleteProduct = hostIp + `product`;
 export const getProduct = hostIp + `product/get`;
+export const getProductMultiFilter = hostIp + 'product/get/search';
 
 
 // Transaction Profile

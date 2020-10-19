@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
-import { getProduct, getEkycType } from '../Url/ApiList';
-import{shortTime,mediumTime,largeTime} from '../../Utils/notificationTime';
+import { getProductMultiFilter, getEkycType } from '../Url/ApiList';
+import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
 import axios from 'axios';
 
 class Account extends Component {
     state = {
         SimReg: '',
-        channelName: JSON.parse(sessionStorage.getItem('ChannelCode'))? JSON.parse(sessionStorage.getItem('ChannelCode')):'',
+        channelName: JSON.parse(sessionStorage.getItem('ChannelCode')) ? JSON.parse(sessionStorage.getItem('ChannelCode')) : '',
         productCategory: "",
         productName: "",
         productNameData: [],
@@ -18,9 +18,14 @@ class Account extends Component {
 
     }
 
-  
+
     componentDidMount() {
         sessionStorage.removeItem('accountId');
+    }
+
+    onChange = e => {
+        e.preventDefault();
+        this.setState({ [e.target.name]: e.target.value });
     }
 
 
@@ -35,13 +40,15 @@ class Account extends Component {
         };
 
         const obj = {
-            categoryCode: e.target.value
+            channelCode: this.state.channelName,
+            categoryCode: e.target.value,
+            status: 'A'
         }
 
 
         try {
-            let getCode = await axios.post(getProduct, obj, config);
-            let getCodeData = getCode.data.data.filter(product=> product.status === 'A');
+            let getCode = await axios.post(getProductMultiFilter, obj, config);
+            let getCodeData = getCode.data.data.filter(product => product.status === 'A');
             // console.log("getCodeData", getCodeData);
             this.setState({ productNameData: getCodeData });
             //console.log("state", this.state.productNameData);
@@ -51,7 +58,7 @@ class Account extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -62,10 +69,7 @@ class Account extends Component {
     }
 
 
-    onChange = e => {
-        e.preventDefault();
-        this.setState({ [e.target.name]: e.target.value });
-    }
+
 
     dependentLabel = () => {
         if (this.state.productCategory === 'S0' || this.state.productCategory === 'C0') {
@@ -86,7 +90,7 @@ class Account extends Component {
         const { productCategory, productName, amount, tenor, accountType, channelName, SimReg } = this.state;
         // console.log(JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")))
         // Branch and agent point code check
-        if( JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null){
+        if (JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null) {
             let messageForAgentPointCode = "Please Select Branch or Agent Point From Home";
             NotificationManager.warning(messageForAgentPointCode, "Click to Remove", largeTime);
             return;
@@ -150,7 +154,7 @@ class Account extends Component {
                 productCategory,
                 productName,
                 channelName,
-                amount:parseInt(amount)
+                amount: parseInt(amount)
             }
 
             sessionStorage.setItem("accountInfo", JSON.stringify(myObj));
@@ -183,7 +187,7 @@ class Account extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);

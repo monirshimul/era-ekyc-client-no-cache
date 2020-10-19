@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
-import { getProduct, getEkycType } from '../Url/ApiList';
+import { getProductMultiFilter, getEkycType } from '../Url/ApiList';
 import axios from 'axios';
 
 export class AccountReg extends Component {
     state = {
         SimReg: '',
-        channelName: JSON.parse(sessionStorage.getItem('ChannelCode'))? JSON.parse(sessionStorage.getItem('ChannelCode')):'',
+        channelName: JSON.parse(sessionStorage.getItem('ChannelCode')) ? JSON.parse(sessionStorage.getItem('ChannelCode')) : '',
         productCategory: "",
         productName: "",
         productNameData: [],
@@ -34,13 +34,15 @@ export class AccountReg extends Component {
         };
 
         const obj = {
-            categoryCode: e.target.value
+            channelCode: this.state.channelName,
+            categoryCode: e.target.value,
+            status: 'A'
         }
 
 
         try {
-            let getCode = await axios.post(getProduct, obj, config);
-            let getCodeData = getCode.data.data.filter(product=> product.status === 'A');
+            let getCode = await axios.post(getProductMultiFilter, obj, config);
+            let getCodeData = getCode.data.data.filter(product => product.status === 'A');
             this.setState({ productNameData: getCodeData });
             //console.log("state", this.state.productNameData);
         } catch (error) {
@@ -49,7 +51,7 @@ export class AccountReg extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -83,13 +85,13 @@ export class AccountReg extends Component {
         e.preventDefault();
         const { productCategory, productName, amount, tenor, accountType, channelName, SimReg } = this.state;
 
-         // Branch and agent point code check
-         if( JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null){
+        // Branch and agent point code check
+        if (JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null) {
             let messageForAgentPointCode = "Please Select Branch or Agent Point From Home";
             NotificationManager.warning(messageForAgentPointCode, "Click to Remove", 500000);
             return;
         }
-        
+
         if (channelName === '') {
             let channelNameMessage = 'Please Select Channel Name';
             NotificationManager.warning(channelNameMessage, "Warning", 5000);
@@ -148,7 +150,7 @@ export class AccountReg extends Component {
                 productCategory,
                 productName,
                 channelName,
-                amount:parseInt(amount)
+                amount: parseInt(amount)
             }
 
             sessionStorage.setItem("accountInfo", JSON.stringify(myObj));
@@ -160,23 +162,23 @@ export class AccountReg extends Component {
                 this.props.history.replace('/dashboard/regular-typeverification');
             } else if (accountType === 'J' && typeEkyc === 'R' && featureTest.includes('5.2') === true) {
                 this.props.history.replace('/dashboard/reg-dynamiccomp');
-            }else{
+            } else {
                 NotificationManager.warning('Simplified Ekyc is not applicable For You', "Warning", 5000);
             }
 
-           
+
 
 
 
         } catch (error) {
             if (error.response) {
                 //     console.log(err.response);
-            let ErrorCode = error.response.data.status;
-            let ErrorMessage = error.response.data.message;
-            NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
+                let ErrorCode = error.response.data.status;
+                let ErrorMessage = error.response.data.message;
+                NotificationManager.error(ErrorCode + " " + ErrorMessage, "Error", 5000);
             }
             else if (error.request) {
-               // console.log(error.request);
+                // console.log(error.request);
                 NotificationManager.error("Error Connecting", "Error", 5000);
             }
             else {
@@ -242,25 +244,25 @@ export class AccountReg extends Component {
                             </select>
                         </div>
 
-                         {/* Product Name */}
-                    <div className='form-group'>
-                        <label htmlFor="">Product Name</label>
-                        <select
-                            className='custom-select'
-                            value={this.state.productName}
-                            onChange={this.onChange}
-                            name="productName"
-                        >
-                            <option value='' disabled>--Select--</option>
-                            {
-                                this.state.productNameData.map((val, index) => {
-                                    return (
-                                        <option key={val.id} value={val.code}>{val.code}---{val.name} </option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div>
+                        {/* Product Name */}
+                        <div className='form-group'>
+                            <label htmlFor="">Product Name</label>
+                            <select
+                                className='custom-select'
+                                value={this.state.productName}
+                                onChange={this.onChange}
+                                name="productName"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                {
+                                    this.state.productNameData.map((val, index) => {
+                                        return (
+                                            <option key={val.id} value={val.code}>{val.code}---{val.name} </option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
 
                         {/* Account Type */}
                         <div className='form-group'>

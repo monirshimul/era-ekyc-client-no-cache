@@ -8,7 +8,8 @@ const Joi = require('@hapi/joi');
 class UpdateProduct extends Component {
 
     state = {
-        id:"",
+        id: "",
+        channelName: '',
         productName: "",
         productCode: '',
         productCategory: '',
@@ -17,26 +18,27 @@ class UpdateProduct extends Component {
 
     }
 
-    componentDidMount(){
-       
-        
-        if(this.props.history.location.state === undefined){
+    componentDidMount() {
+
+
+        if (this.props.history.location.state === undefined) {
             return ''
-        }else{
+        } else {
             let data = this.props.history.location.state.data
-            console.log("In the mount",data)
+            console.log("In the mount", data)
             this.setState({
 
-                id: parseInt(data.map(v=>v.id)),
-                productName: data.map(v=>v.name).toString(),
-                productCode: data.map(v=>v.code).toString(),
-                productCategory: data.map(v=>v.categoryCode).toString(),
-                status: data.map(v=>v.status).toString(),
-                description: data.map(v=>v.description).toString()
+                id: parseInt(data.map(v => v.id)),
+                channelName: data.map(v => v.channelCode).toString(),
+                productName: data.map(v => v.name).toString(),
+                productCode: data.map(v => v.code).toString(),
+                productCategory: data.map(v => v.categoryCode).toString(),
+                status: data.map(v => v.status).toString(),
+                description: data.map(v => v.description).toString()
 
             })
         }
-        
+
     }
 
     onChange = e => {
@@ -46,9 +48,9 @@ class UpdateProduct extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { productName, description, productCode, productCategory, status, id } = this.state;
+        const { channelName, productName, description, productCode, productCategory, status, id } = this.state;
 
-        
+
         let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -57,6 +59,7 @@ class UpdateProduct extends Component {
 
         let obj = {
             id: id,
+            channelCode: channelName,
             name: productName,
             code: productCode,
             categoryCode: productCategory,
@@ -65,6 +68,7 @@ class UpdateProduct extends Component {
         }
 
         let joiData = {
+            ChannelName: channelName,
             productName: productName,
             productCode: productCode,
             productCategory: productCategory,
@@ -77,12 +81,12 @@ class UpdateProduct extends Component {
         try {
 
             const validationValue = await schema.validateAsync(joiData);
-           // console.log("validationValue", validationValue)
+            // console.log("validationValue", validationValue)
 
             let productUpdateRes = await axios.put(createProduct, obj, config);
             //console.log("productCreateRes", productUpdateRes)
             NotificationManager.success("Product Successfully Updated", "Success", 5000);
-           // localStorage.setItem("productInfo", JSON.stringify(obj));
+            // localStorage.setItem("productInfo", JSON.stringify(obj));
             this.props.history.replace('/dashboard/product-list');
 
         } catch (error) {
@@ -91,7 +95,7 @@ class UpdateProduct extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -108,14 +112,14 @@ class UpdateProduct extends Component {
     }
 
 
-    onBack = e =>{
+    onBack = e => {
         e.preventDefault();
         this.props.history.replace('/dashboard/product-list');
     }
 
 
     render() {
-        let { productName, description, productCode, productCategory, status } = this.state
+        let { channelName, productName, description, productCode, productCategory, status } = this.state
         return (
             <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
 
@@ -129,6 +133,26 @@ class UpdateProduct extends Component {
                 <div className="card-body">
                     <form onSubmit={this.onSubmit}>
 
+                        {/* Channel Name */}
+                        <div className='form-group'>
+                            <label htmlFor="">Channel Name</label>
+                            <select
+
+                                className='custom-select'
+                                value={channelName}
+                                onChange={this.onChange}
+                                name="channelName"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='ABS'>Agent Banking</option>
+                                <option value='CBS'>Conventional Core Banking</option>
+                                <option value='ICBS'>Islamic Core Banking</option>
+                                <option value='OMNI'>Omni Channel </option>
+                                <option value='EKYC'>EKYC</option>
+                            </select>
+                        </div>
+
+
                         <div className='form-group'>
                             <label htmlFor="">Product Category</label>
                             <select
@@ -138,8 +162,8 @@ class UpdateProduct extends Component {
                                 name="productCategory"
                             >
                                 <option value='' disabled>--Select Category--</option>
-                                <option value='SA'>Savings Account</option>
-                                <option value='CA'>Current Account</option>
+                                <option value='S0'>Savings Account</option>
+                                <option value='C0'>Current Account</option>
                                 <option value='TD'>Term Deposit</option>
                                 <option value='RD'>Recurring Deposit</option>
 
@@ -188,14 +212,14 @@ class UpdateProduct extends Component {
                         <div className="row d-flex justify-content-center mt-4" >
 
                             <div>
-                            <button className="b mr-5"  onClick={this.onBack} type="submit" style={{ border: "none" }} >Back</button>
+                                <button className="b mr-5" onClick={this.onBack} type="submit" style={{ border: "none" }} >Back</button>
                             </div>
-                            
-                                <div>
-                                    <button className="b" onClick={this.onSubmit}  type="submit" style={{ border: "none" }} >Update</button>
-                                    </div>
-                            
-                            
+
+                            <div>
+                                <button className="b" onClick={this.onSubmit} type="submit" style={{ border: "none" }} >Update</button>
+                            </div>
+
+
 
                         </div>
 
@@ -210,6 +234,7 @@ class UpdateProduct extends Component {
 }
 
 const schema = Joi.object({
+    ChannelName: Joi.string().required(),
     productName: Joi.string().min(5).max(30).required(),
     productCode: Joi.string().min(3).required(),
     productCategory: Joi.string().required(),

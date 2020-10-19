@@ -243,16 +243,18 @@ class FullEkyc extends Component {
                                             <hr />
                                         </div>
                                         <div className="" style={{ fontSize: "17px" }}>
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Account ID : </span>{ekyc.account === null ? "" : ekyc.account.id}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{ekyc.account === null ? "" : ekyc.account.title}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{ekyc.account === null ? "" : ekyc.account.channelAccountId}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{ekyc.account === null ? "" : ProductCategoryType(ekyc.account.productType)}</small><br />
+
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc.account === null ? "" : `${ekyc.account.productCode} (${this.state.ProductCodetoName})`}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{ekyc.account === null ? "" : EkycProfileStatus(ekyc.account.status)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{ekyc.account === null ? "" : AccountType(ekyc.account.type)}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{ekyc.account === null ? "" : ekyc.account.id}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{ekyc.account === null ? "" : ekyc.account.createdBy}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{ekyc.account === null ? "" : ekyc.account.createDate}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{ekyc.account === null ? "" : ekyc.account.channelCode}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{ekyc.account === null ? "" : ekyc.account.channelAccountId}</small><br />
+
                                             {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{ekyc.account.channelResponse}</small><br /> */}
                                         </div>
                                         <hr />
@@ -283,12 +285,13 @@ class FullEkyc extends Component {
                                             <hr />
                                         </div>
                                         <div className="" style={{ fontSize: "17px" }}>
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>EKYC ID : </span>{ekyc.id}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name : </span>{ekyc.name}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Name Bangla : </span>{ekyc.nameBangla}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Gender : </span>{GenderForm(ekyc.gender)}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{ekyc.id}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Status : </span>{AccountVerificationStatus(ekyc.verificationStatus)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Type : </span>{ekyc.verificationType}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>On Boarding Type : </span>{ekyc.onboardingType}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Date : </span>{ekyc.verificationDate}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>NID No : </span>{ekyc.nid}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Cell No : </span>{ekyc.mobile}</small><br />
