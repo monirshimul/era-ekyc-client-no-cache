@@ -8,7 +8,7 @@ const Joi = require('@hapi/joi');
 class UpdateProduct extends Component {
 
     state = {
-        id:"",
+        id: "",
         productName: "",
         productCode: '',
         productCategory: '',
@@ -17,26 +17,26 @@ class UpdateProduct extends Component {
 
     }
 
-    componentDidMount(){
-       
-        
-        if(this.props.history.location.state === undefined){
+    componentDidMount() {
+
+
+        if (this.props.history.location.state === undefined) {
             return ''
-        }else{
+        } else {
             let data = this.props.history.location.state.data
-            console.log("In the mount",data)
+            console.log("In the mount", data)
             this.setState({
 
-                id: parseInt(data.map(v=>v.id)),
-                productName: data.map(v=>v.name).toString(),
-                productCode: data.map(v=>v.code).toString(),
-                productCategory: data.map(v=>v.categoryCode).toString(),
-                status: data.map(v=>v.status).toString(),
-                description: data.map(v=>v.description).toString()
+                id: parseInt(data.map(v => v.id)),
+                productName: data.map(v => v.name).toString(),
+                productCode: data.map(v => v.code).toString(),
+                productCategory: data.map(v => v.categoryCode).toString(),
+                status: data.map(v => v.status).toString(),
+                description: data.map(v => v.description).toString()
 
             })
         }
-        
+
     }
 
     onChange = e => {
@@ -48,7 +48,7 @@ class UpdateProduct extends Component {
         e.preventDefault();
         const { productName, description, productCode, productCategory, status, id } = this.state;
 
-        
+
         let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -77,12 +77,12 @@ class UpdateProduct extends Component {
         try {
 
             const validationValue = await schema.validateAsync(joiData);
-           // console.log("validationValue", validationValue)
+            // console.log("validationValue", validationValue)
 
             let productUpdateRes = await axios.put(createProduct, obj, config);
             //console.log("productCreateRes", productUpdateRes)
             NotificationManager.success("Product Successfully Updated", "Success", 5000);
-           // localStorage.setItem("productInfo", JSON.stringify(obj));
+            // localStorage.setItem("productInfo", JSON.stringify(obj));
             this.props.history.replace('/dashboard/product-list');
 
         } catch (error) {
@@ -91,7 +91,7 @@ class UpdateProduct extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -108,7 +108,7 @@ class UpdateProduct extends Component {
     }
 
 
-    onBack = e =>{
+    onBack = e => {
         e.preventDefault();
         this.props.history.replace('/dashboard/product-list');
     }
@@ -138,8 +138,8 @@ class UpdateProduct extends Component {
                                 name="productCategory"
                             >
                                 <option value='' disabled>--Select Category--</option>
-                                <option value='SA'>Savings Account</option>
-                                <option value='CA'>Current Account</option>
+                                <option value='S0'>Savings Account</option>
+                                <option value='C0'>Current Account</option>
                                 <option value='TD'>Term Deposit</option>
                                 <option value='RD'>Recurring Deposit</option>
 
@@ -188,14 +188,14 @@ class UpdateProduct extends Component {
                         <div className="row d-flex justify-content-center mt-4" >
 
                             <div>
-                            <button className="b mr-5"  onClick={this.onBack} type="submit" style={{ border: "none" }} >Back</button>
+                                <button className="b mr-5" onClick={this.onBack} type="submit" style={{ border: "none" }} >Back</button>
                             </div>
-                            
-                                <div>
-                                    <button className="b" onClick={this.onSubmit}  type="submit" style={{ border: "none" }} >Update</button>
-                                    </div>
-                            
-                            
+
+                            <div>
+                                <button className="b" onClick={this.onSubmit} type="submit" style={{ border: "none" }} >Update</button>
+                            </div>
+
+
 
                         </div>
 
