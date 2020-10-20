@@ -6,13 +6,13 @@ import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 import { Provider } from 'react-redux';
 import store from './store';
-
+//import VerifyLoginCode from './component/Login/code/VerifyLoginCode';
 
 
 
 import PageLoader from './component/Page-Loader/PageLoader'
 //import Login from './component/Login/Login';
-const Login = lazy(()=> import('./component/Login/Login'));
+const Login = lazy(() => import('./component/Login/Login'));
 //import Dashboard from './component/Dashboard/Dashboard';
 const Dashboard = lazy(() => import('./component/Dashboard/Dashboard'));
 const ForgetPass = lazy(() => import('./component/E-KYC/User/Password/ForgetPass'));
@@ -22,7 +22,7 @@ const VerifyLoginCode = lazy(() => import('./component/Login/code/VerifyLoginCod
 
 // import VerifyId from './component/E-KYC/User/Password/VerifyId';
 // import VerifyPassCode from './component/E-KYC/User/Password/VerifyPassCode';
-// import VerifyLoginCode from './component/Login/code/VerifyLoginCode';
+
 
 
 class App extends Component {
@@ -49,7 +49,7 @@ class App extends Component {
 
         <Router >
 
-          <Suspense fallback={<PageLoader/>}>
+          <Suspense fallback={<PageLoader />}>
             <div className="App">
 
               <Switch>
@@ -57,9 +57,10 @@ class App extends Component {
                 <Route exact path="/" component={Login} />
                 <Route exact path="/forget-pass" component={ForgetPass} />
                 <Route exact path="/verify-id" component={VerifyId} />
-                <Route exact path="/verify-pass-code" component={VerifyPassCode} />
-                <Route exact path="/verify-login" component={VerifyLoginCode} />
                 <Route path="/dashboard" component={Dashboard} />
+                <Route exact path="/verify-pass-code" component={VerifyPassCode} />
+                <Route path="/verify-login" component={VerifyLoginCode} />
+
 
 
 

@@ -82,64 +82,79 @@ class Dashboard extends Component {
         userProfileImage: JSON.parse(localStorage.getItem("profileImage")) === null ? "" : JSON.parse(localStorage.getItem("profileImage")),
         flag: 'data:image/jpeg;base64,',
         quickLinks: '',
-        imgFlag: false
+        imgFlag: false,
+        isAuthToken: JSON.parse(sessionStorage.getItem('x-auth-token'))
     }
 
-    feature = JSON.parse(sessionStorage.getItem("featureList"));
-    firstMenu = pruneRouteArray(this.feature);
-    allMenu = getFlatRouteArray(this.firstMenu);
+    // feature = JSON.parse(sessionStorage.getItem("featureList"));
+    // firstMenu = pruneRouteArray(this.feature);
+    // allMenu = getFlatRouteArray(this.firstMenu);
 
 
+
+    constructor() {
+        super();
+        if (this.state.isAuthToken !== null) {
+            this.feature = JSON.parse(sessionStorage.getItem("featureList"));
+            this.firstMenu = pruneRouteArray(this.feature);
+            this.allMenu = getFlatRouteArray(this.firstMenu);
+        }
+
+    }
 
     //const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem("profile")));
 
     async componentDidMount() {
         // console.log("componentDidMount Called==============")
 
-        this.feature = JSON.parse(sessionStorage.getItem("featureList"))
+        if (this.state.isAuthToken !== null) {
+            this.feature = JSON.parse(sessionStorage.getItem("featureList"))
 
 
-        this.firstMenu = pruneRouteArray(this.feature);
+            this.firstMenu = pruneRouteArray(this.feature);
 
-        this.allMenu = getFlatRouteArray(this.firstMenu);
-        // this.setState({
-        //     quickLinks:this.allMenu
-        // })
-        // console.log(this.firstMenu)
-        //sessionStorage.setItem("quickLinks", JSON.stringify(this.firstMenu))
-
-
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-
-        };
-
-        try {
-            let res = await axios.get(getProfile, config);
-            let profileData = res.data.data;
-            //console.log("profileData", profileData)
-            this.setState({
-
-                userProfileImage: profileData.userImage === null ? image.data : profileData.userImage.data
-            })
+            this.allMenu = getFlatRouteArray(this.firstMenu);
+            // this.setState({
+            //     quickLinks:this.allMenu
+            // })
+            // console.log(this.firstMenu)
+            //sessionStorage.setItem("quickLinks", JSON.stringify(this.firstMenu))
 
 
+            const config = {
+                headers: {
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+                }
 
-        } catch (error) {
-            console.log("Error", error)
-            if (error.response) {
-                let message = error.response.data.message
+            };
+
+            try {
+                let res = await axios.get(getProfile, config);
+                let profileData = res.data.data;
+                //console.log("profileData", profileData)
+                this.setState({
+
+                    userProfileImage: profileData.userImage === null ? image.data : profileData.userImage.data
+                })
+
+
+
+            } catch (error) {
                 console.log("Error", error)
-                NotificationManager.error(message, "Error", 5000);
-            } else if (error.request) {
-                console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                if (error.response) {
+                    let message = error.response.data.message
+                    console.log("Error", error)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
             }
         }
+
+
 
         // console.log("mount Called")
 
@@ -262,6 +277,11 @@ class Dashboard extends Component {
         let { userProfileImage, flag, imgFlag } = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
+        // console.log("Auth Token", this.state.isAuthToken);
+        if (this.state.isAuthToken === null) {
+            return <Redirect to="/" push={true} />
+        }
+
         if (this.state.isLogOut) {
             return <Redirect to="/" push={true} />
         }
