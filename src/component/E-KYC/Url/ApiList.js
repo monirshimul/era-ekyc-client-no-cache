@@ -105,3 +105,7 @@ export const simConvReg = hostIp + `ekyc/simplified/get`;
 
 // simReg conversion api
 export const simRegApi = hostIp + `ekyc/regular/simplified-to-regular`;
+
+// MOBILE NUMBER VERIFICATION
+export const mobileVerification = hostIp + `conval/mobile/send-otp`;
+export const mobileCodeVerification = hostIp + `conval/mobile/verify`;

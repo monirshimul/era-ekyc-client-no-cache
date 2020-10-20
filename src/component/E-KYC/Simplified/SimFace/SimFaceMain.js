@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import MobileVerification from './MobileVerification';
 import NidImagesSim from './NidImagesSim';
 import SimCaptureImage from './SimCaptureImage';
 import SimPersonalDetails from './SimPersonalDetails';
@@ -14,28 +15,32 @@ import { NotificationManager } from "react-notifications"
 export class SimFaceMain extends Component {
     state = {
         step: 1,
+
         //Account
         accountType: '',
         product: '',
-        productType:'',
+        productType: '',
         productName: '',
         branchOrAgentPointCode: "",
-		transactionOrMaturityAmount:'',
-        channelName:'',
+        transactionOrMaturityAmount: '',
+        channelName: '',
+        // Step 0
+        verificationMobile: '',
+        verificationCodeMobile: '',
         //Step1
         NidFront: "",
-        NidFrontOcr:'',
+        NidFrontOcr: '',
         NidFrontType: '',
         NidBack: '',
-        NidBackOcr:"",
+        NidBackOcr: "",
         NidBackType: '',
         loadingSpin: false,
-        allData:'',
+        allData: '',
         // Step 2
-        nid:'',
+        nid: '',
         dob: '',
-        ecImage:'',
-        loading:false,
+        ecImage: '',
+        loading: false,
         isEnableFace: false,
         //Step3
         faceImage: "",
@@ -43,22 +48,22 @@ export class SimFaceMain extends Component {
         imageFlag: false,
         isEnable: false,
         validate: false,
-        verifyToken:'',
+        verifyToken: '',
         loading: false,
         //step4
-        applicantName:'',
-        applicantNameBangla:'',
-        applicantDob:'',
-        applicantDobDate:"",
-        applicantNidNo:'',
-        motherName:'',
-        motherNameBangla:'',
-        fatherName:'',
-        fatherNameBangla:'',
-        spouseName:'',
-        gender:'',
-        profession:'',
-        mobileNumber:'',
+        applicantName: '',
+        applicantNameBangla: '',
+        applicantDob: '',
+        applicantDobDate: "",
+        applicantNidNo: '',
+        motherName: '',
+        motherNameBangla: '',
+        fatherName: '',
+        fatherNameBangla: '',
+        spouseName: '',
+        gender: '',
+        profession: '',
+        mobileNumber: '',
         // presentAddress:'',
         // permanentAddress:'',
         // permanentAddressBangla:'',
@@ -67,7 +72,7 @@ export class SimFaceMain extends Component {
         preAdditionalVillageOrRoad: "",
         preCityCorporationOrMunicipality: "",
         preDistrict: "",
-        preDistrictCode:'',
+        preDistrictCode: '',
         preDivision: "",
         preHomeOrHoldingNo: "",
         prePostOffice: "",
@@ -77,7 +82,7 @@ export class SimFaceMain extends Component {
         preUnionOrWard: "",
         preUnionOrWardCode: "",
         preUpozila: "",
-        preUpozilaCode:'',
+        preUpozilaCode: '',
         preWardForUnionPorishod: "",
         preAdditionalMouzaOrMohollaEn: "",
         preAdditionalVillageOrRoadEn: "",
@@ -97,7 +102,7 @@ export class SimFaceMain extends Component {
         perAdditionalVillageOrRoad: "",
         perCityCorporationOrMunicipality: "",
         perDistrict: "",
-        perDistrictCode:'',
+        perDistrictCode: '',
         perDivision: "",
         perHomeOrHoldingNo: "",
         perPostOffice: "",
@@ -105,9 +110,9 @@ export class SimFaceMain extends Component {
         perRegion: "",
         perRmo: "",
         perUnionOrWard: "",
-        perUnionOrWardCode:'',
+        perUnionOrWardCode: '',
         perUpozila: "",
-        perUpozilaCode:'',
+        perUpozilaCode: '',
         perWardForUnionPorishod: "",
         perAdditionalMouzaOrMohollaEn: "",
         perAdditionalVillageOrRoadEn: "",
@@ -124,177 +129,187 @@ export class SimFaceMain extends Component {
         perWardForUnionPorishodEn: "",
         //Step 5 
         jointArray: [],
-       // showHide: false,
+        // showHide: false,
         //Step 6
         signature: '',
         signatureType: '',
         //common for all component
         flag: 'data:image/jpeg;base64,',
-        applicantNo:'',
-        typeVerification:'',
+        applicantNo: '',
+        typeVerification: '',
         confirmFlag: false,
-        channelAccStatus:[],
-        accountMessage:''
+        channelAccStatus: [],
+        accountMessage: ''
     }
 
-   //Proceed to next step
-   nextStep = () => {
-    const { step } = this.state;
-    this.setState({
-        step: step + 1
-    });
-}
-
-//Go back to prev step
-prevStep = () => {
-    const { step } = this.state;
-    this.setState({
-        step: step - 1
-    });
-}
-
-componentDidMount() {
-    // Account Info
-
-    //window.location.reload(false);
-
-    try {
-        const account = sessionStorage.getItem("accountInfo");
-        const acc = JSON.parse(account);
+    //Proceed to next step
+    nextStep = () => {
+        const { step } = this.state;
         this.setState({
-
-            accountType: acc.accountType,
-            product: acc.productCategory,
-            productType:acc.productCategory,
-            transactionOrMaturityAmount:acc.amount,
-            productName:acc.productName,
-            channelName: acc.channelName
-        })
-      
-    } catch (error) {
-        if (error.response) {
-            let message = error.response.data.message
-            //console.log("Error",error.response)
-            NotificationManager.error(message, "Error", 5000);
-        } else if (error.request) {
-           // console.log("Error Connecting...", error.request)
-            NotificationManager.error("Error Connecting...", "Error", 5000);
-        } else if (error) {
-            NotificationManager.error(error.toString(), "Error", 5000);
-        }
+            step: step + 1
+        });
     }
 
-}
-
-handleChange = input => e => {
-    this.setState({ [input]: e.target.value });
-}
-
-//handle state change
-handleState = (input, data) => {
-    this.setState({ [input]: data });
-}
-
-
-addNomineeOne = ()=> {
-    let copyArray = Object.assign([], this.state.jointArray);
-    copyArray.push({  nominee: '', dob: '', relation: '', photograph: '', percentage: '', isShow: true  });
-    this.setState({jointArray:copyArray});
-}
-
-addNomineeTwo = ()=> {
-    let copyArray = Object.assign([], this.state.jointArray);
-    copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', isShow: false });
-    this.setState({jointArray:copyArray});
-}
-
-
-
-handleInputChange = (index, event) => {
-    console.log(event.target);
-    let copyArray = Object.assign([], this.state.jointArray);
-    copyArray[index][event.target.name] = event.target.value;
-    if (event.target.name === "photograph") {
-        if (event.target.files[0]) {
-            let file = event.target.files[0];
-            //console.log(file.type);
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
-            //reader.readAsDataURL(file);
-            reader.onload = () => {
-
-                let base64Image = btoa(reader.result);
-                copyArray[index].photograph = base64Image;
-                
-            };
-           
-            reader.onerror = () => {
-                console.log('there are some problems');
-                alert('File can not be read');
-            };
-        }
-    }
-    else if (event.target.name === "minorNomineePhoto") {
-        if (event.target.files[0]) {
-            let file = event.target.files[0];
-            //console.log(file.type);
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
-
-            reader.onload = () => {
-
-                let base64Image = btoa(reader.result);
-
-                copyArray[index].minorNomineePhoto = base64Image;
-            };
-            reader.onerror = () => {
-                console.log('there are some problems');
-                alert('File can not be read');
-            };
-        }
-    }
-    else if (event.target.name === "minorPhotoGuardian") {
-        if (event.target.files[0]) {
-            let file = event.target.files[0];
-            //console.log(file.type);
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
-
-            reader.onload = () => {
-
-                let base64Image = btoa(reader.result);
-
-                copyArray[index].minorPhotoGuardian = base64Image;
-                
-            };
-            reader.onerror = () => {
-                console.log('there are some problems');
-                alert('File can not be read');
-            };
-        }
+    //Go back to prev step
+    prevStep = () => {
+        const { step } = this.state;
+        this.setState({
+            step: step - 1
+        });
     }
 
- this.setState({ jointArray: copyArray });
+    componentDidMount() {
+        // Account Info
 
-}
+        //window.location.reload(false);
 
-deteteRow = (e,index) => {
-    e.preventDefault();
-    const copyArray = Object.assign([], this.state.jointArray);
-    console.log("index",index)
-    copyArray.splice(index, 1);
-    this.setState({ jointArray: copyArray })
+        try {
+            const account = sessionStorage.getItem("accountInfo");
+            const acc = JSON.parse(account);
+            this.setState({
 
-}
+                accountType: acc.accountType,
+                product: acc.productCategory,
+                productType: acc.productCategory,
+                transactionOrMaturityAmount: acc.amount,
+                productName: acc.productName,
+                channelName: acc.channelName
+            })
+
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                // console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+
+    }
+
+    handleChange = input => e => {
+        this.setState({ [input]: e.target.value });
+    }
+
+    //handle state change
+    handleState = (input, data) => {
+        this.setState({ [input]: data });
+    }
+
+
+    addNomineeOne = () => {
+        let copyArray = Object.assign([], this.state.jointArray);
+        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '', isShow: true });
+        this.setState({ jointArray: copyArray });
+    }
+
+    addNomineeTwo = () => {
+        let copyArray = Object.assign([], this.state.jointArray);
+        copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', isShow: false });
+        this.setState({ jointArray: copyArray });
+    }
+
+
+
+    handleInputChange = (index, event) => {
+        console.log(event.target);
+        let copyArray = Object.assign([], this.state.jointArray);
+        copyArray[index][event.target.name] = event.target.value;
+        if (event.target.name === "photograph") {
+            if (event.target.files[0]) {
+                let file = event.target.files[0];
+                //console.log(file.type);
+                var reader = new FileReader();
+                reader.readAsBinaryString(file);
+                //reader.readAsDataURL(file);
+                reader.onload = () => {
+
+                    let base64Image = btoa(reader.result);
+                    copyArray[index].photograph = base64Image;
+
+                };
+
+                reader.onerror = () => {
+                    console.log('there are some problems');
+                    alert('File can not be read');
+                };
+            }
+        }
+        else if (event.target.name === "minorNomineePhoto") {
+            if (event.target.files[0]) {
+                let file = event.target.files[0];
+                //console.log(file.type);
+                var reader = new FileReader();
+                reader.readAsBinaryString(file);
+
+                reader.onload = () => {
+
+                    let base64Image = btoa(reader.result);
+
+                    copyArray[index].minorNomineePhoto = base64Image;
+                };
+                reader.onerror = () => {
+                    console.log('there are some problems');
+                    alert('File can not be read');
+                };
+            }
+        }
+        else if (event.target.name === "minorPhotoGuardian") {
+            if (event.target.files[0]) {
+                let file = event.target.files[0];
+                //console.log(file.type);
+                var reader = new FileReader();
+                reader.readAsBinaryString(file);
+
+                reader.onload = () => {
+
+                    let base64Image = btoa(reader.result);
+
+                    copyArray[index].minorPhotoGuardian = base64Image;
+
+                };
+                reader.onerror = () => {
+                    console.log('there are some problems');
+                    alert('File can not be read');
+                };
+            }
+        }
+
+        this.setState({ jointArray: copyArray });
+
+    }
+
+    deteteRow = (e, index) => {
+        e.preventDefault();
+        const copyArray = Object.assign([], this.state.jointArray);
+        console.log("index", index)
+        copyArray.splice(index, 1);
+        this.setState({ jointArray: copyArray })
+
+    }
 
     render() {
         const { step } = this.state;
-        const {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantNo, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag, nid, dob, ecImage,isEnableFace, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber,  signature, signatureType, jointArray, typeVerification,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn,channelAccStatus,accountMessage } = this.state;
-        const values = {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount,channelName,productName,applicantNo, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, nid, dob, ecImage,isEnableFace, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber,  signature, signatureType, jointArray,typeVerification,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn,channelAccStatus,accountMessage }
+        const { verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantNo, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, ecImage, isEnableFace, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, signature, signatureType, jointArray, typeVerification, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage } = this.state;
+        const values = { verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantNo, NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, ecImage, isEnableFace, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, signature, signatureType, jointArray, typeVerification, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage }
 
 
         switch (step) {
             case 1:
+                return (
+                    <MobileVerification
+                        nextStep={this.nextStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+            case 2:
                 return (
                     <NidImagesSim
                         nextStep={this.nextStep}
@@ -304,18 +319,18 @@ deteteRow = (e,index) => {
                     />
                 )
 
-                case 2:
-                    return (
-                        <SimRPA
-                            nextStep={this.nextStep}
-                            prevStep={this.prevStep}
-                            handleChange={this.handleChange}
-                            handleState={this.handleState}
-                            values={values}
-                        />
-                    )
-
             case 3:
+                return (
+                    <SimRPA
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+            case 4:
                 return (
                     <SimCaptureImage
                         nextStep={this.nextStep}
@@ -327,7 +342,7 @@ deteteRow = (e,index) => {
                     />
                 )
 
-            case 4:
+            case 5:
                 return (
                     <SimPersonalDetails
                         nextStep={this.nextStep}
@@ -338,7 +353,7 @@ deteteRow = (e,index) => {
                     />
                 )
 
-            case 5:
+            case 6:
                 return (
                     <SimNominee
                         nextStep={this.nextStep}
@@ -352,7 +367,7 @@ deteteRow = (e,index) => {
                     />
                 )
 
-            case 6:
+            case 7:
                 return (
                     <SimSignature
                         nextStep={this.nextStep}
@@ -363,7 +378,7 @@ deteteRow = (e,index) => {
                     />
                 )
 
-            case 7:
+            case 8:
                 return (
                     <SimConfirmInfo
                         nextStep={this.nextStep}
@@ -373,20 +388,20 @@ deteteRow = (e,index) => {
                     />
                 )
 
-            case 8:
+            case 9:
                 return (
-                <SimComplete 
-                handleState={this.handleState}
-                values={values}
-                />
-            )
+                    <SimComplete
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
 
         }
-        
-        
+
+
         return (
             <div>
-                
+
             </div>
         )
     }
