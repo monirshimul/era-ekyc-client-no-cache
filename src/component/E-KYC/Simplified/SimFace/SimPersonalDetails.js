@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
-import { zoneCodeConversion, division, district, upozila, union,profession } from '../../Url/ApiList';
+import { zoneCodeConversion, division, district, upozila, union, profession } from '../../Url/ApiList';
 import Loading from '../utils/CustomLoding/Loading';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {largeTime} from '../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 
 
 const Joi = require('@hapi/joi');
@@ -33,9 +33,9 @@ export class SimPersonalDetails extends Component {
         autoPreUnion: [],
         preUnionCode: '',
 
-        autoProfession:[],
-        professionCode:""
-    
+        autoProfession: [],
+        professionCode: ""
+
     }
 
 
@@ -48,11 +48,11 @@ export class SimPersonalDetails extends Component {
         applicantNameBangla: Joi.string().required(),
         applicantDob: Joi.string().required(),
         applicantNidNo: Joi.string().required(),
-        mobileNumber: Joi.string().pattern(new RegExp('^01[3456789][0-9]{8}'))
-            .required()
-            .messages({
-                "string.pattern.base": `Please Provide Valid Mobile Number`,
-            }),
+        // mobileNumber: Joi.string().pattern(new RegExp('^01[3456789][0-9]{8}'))
+        //     .required()
+        //     .messages({
+        //         "string.pattern.base": `Please Provide Valid Mobile Number`,
+        //     }),
         gender: Joi.string().required(),
         profession: Joi.string().required(),
         motherName: Joi.string().required(),
@@ -84,7 +84,7 @@ export class SimPersonalDetails extends Component {
 
     //////////Profession///////////////
 
-    handleProfessionChange = async(e)=>{
+    handleProfessionChange = async (e) => {
         const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -96,7 +96,7 @@ export class SimPersonalDetails extends Component {
         }
         try {
             let professionapi = await axios.post(profession, payload, config);
-           //  console.log(professionapi.data.data);
+            //  console.log(professionapi.data.data);
             let autocompleteData = [];
             professionapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.displayName, id: d.id })
@@ -110,11 +110,11 @@ export class SimPersonalDetails extends Component {
     handleProfessionSelect = e => {
         try {
             // const val = e.target.value.split('-');
-         //   console.log("val", typeof val[1]);
-          // console.log(e.target.value);
-           //console.log("val", val[1]);
+            //   console.log("val", typeof val[1]);
+            // console.log(e.target.value);
+            //console.log("val", val[1]);
 
-           
+
             this.props.handleState('profession', e.target.value);
         } catch (err) {
             console.log(err);
@@ -124,7 +124,7 @@ export class SimPersonalDetails extends Component {
 
 
 
-//////////Profession///////////////
+    //////////Profession///////////////
 
     /////////////Division START
 
@@ -177,8 +177,8 @@ export class SimPersonalDetails extends Component {
     handlePerDivisionSelect = e => {
         try {
             const val = e.target.value.split('-');
-         //   console.log("val", typeof val[1]);
-        //    console.log("val", val[1]);
+            //   console.log("val", typeof val[1]);
+            //    console.log("val", val[1]);
 
             this.setState({
                 perDivisionCode: val[1].trim()
@@ -213,7 +213,7 @@ export class SimPersonalDetails extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-      //  console.log(e.target.value)
+        //  console.log(e.target.value)
 
         let payload = {
             divisionCode: this.state.perDivisionCode.toString(),
@@ -223,7 +223,7 @@ export class SimPersonalDetails extends Component {
 
         try {
             let districtapi = await axios.post(district, payload, config);
-       //     console.log("api response", districtapi.data);
+            //     console.log("api response", districtapi.data);
             let autocompleteData = [];
             districtapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.districtName, id: d.districtCode })
@@ -247,7 +247,7 @@ export class SimPersonalDetails extends Component {
         }
         try {
             let districtapi = await axios.post(district, payload, config);
-          //  console.log(districtapi.data.data);
+            //  console.log(districtapi.data.data);
             let autocompleteData = [];
             districtapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.districtName, id: d.districtCode })
@@ -262,7 +262,7 @@ export class SimPersonalDetails extends Component {
     handlePerDistrictSelect = e => {
         try {
             const val = e.target.value.split('-');
-          //  console.log("val", val);
+            //  console.log("val", val);
             this.setState({
                 perDistrictCode: val[1].trim()
             })
@@ -275,7 +275,7 @@ export class SimPersonalDetails extends Component {
     handlePreDistrictSelect = e => {
         try {
             const val = e.target.value.split('-');
-         //   console.log("val", val);
+            //   console.log("val", val);
             this.setState({
                 preDistrictCode: val[1].trim()
             })
@@ -293,18 +293,18 @@ export class SimPersonalDetails extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-       // console.log(e.target.value)
+        // console.log(e.target.value)
 
         let payload = {
             divisionCode: this.state.perDivisionCode.toString(),
             districtCode: this.state.perDistrictCode.toString(),
             keyword: e.target.value
         }
-       // console.log("pERMANT", payload)
+        // console.log("pERMANT", payload)
 
         try {
             let upozilaapi = await axios.post(upozila, payload, config);
-          //  console.log("api response", upozilaapi.data);
+            //  console.log("api response", upozilaapi.data);
             let autocompleteData = [];
             upozilaapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.upazilaName, id: d.upazilaCode })
@@ -321,7 +321,7 @@ export class SimPersonalDetails extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-       // console.log(e.target.value)
+        // console.log(e.target.value)
 
         let payload = {
             divisionCode: this.state.preDivisionCode.toString(),
@@ -332,7 +332,7 @@ export class SimPersonalDetails extends Component {
 
         try {
             let upozilaapi = await axios.post(upozila, payload, config);
-         //   console.log("api response", upozilaapi.data);
+            //   console.log("api response", upozilaapi.data);
             let autocompleteData = [];
             upozilaapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.upazilaName, id: d.upazilaCode })
@@ -347,7 +347,7 @@ export class SimPersonalDetails extends Component {
     handlePerUpozilaSelect = e => {
         try {
             const val = e.target.value.split('-');
-           // console.log("val", val);
+            // console.log("val", val);
             this.setState({
                 perUpozilaCode: val[1].trim()
             })
@@ -360,7 +360,7 @@ export class SimPersonalDetails extends Component {
     handlePreUpozilaSelect = e => {
         try {
             const val = e.target.value.split('-');
-           // console.log("val", val);
+            // console.log("val", val);
             this.setState({
                 preUpozilaCode: val[1].trim()
             })
@@ -379,19 +379,19 @@ export class SimPersonalDetails extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-       // console.log(e.target.value)
+        // console.log(e.target.value)
 
         let payload = {
             divisionCode: this.state.perDivisionCode.toString(),
             districtCode: this.state.perDistrictCode.toString(),
-            upazilaCode:this.state.perUpozilaCode.toString(),
+            upazilaCode: this.state.perUpozilaCode.toString(),
             keyword: e.target.value
         }
         console.log("pERMANT", payload)
 
         try {
             let unionapi = await axios.post(union, payload, config);
-           // console.log("api response", unionapi.data);
+            // console.log("api response", unionapi.data);
             let autocompleteData = [];
             unionapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.unionName, id: d.unionCode })
@@ -413,14 +413,14 @@ export class SimPersonalDetails extends Component {
         let payload = {
             divisionCode: this.state.preDivisionCode.toString(),
             districtCode: this.state.preDistrictCode.toString(),
-            upazilaCode:this.state.preUpozilaCode.toString(),
+            upazilaCode: this.state.preUpozilaCode.toString(),
             keyword: e.target.value
         }
-      
+
 
         try {
             let unionapi = await axios.post(union, payload, config);
-           // console.log("api response", unionapi.data);
+            // console.log("api response", unionapi.data);
             let autocompleteData = [];
             unionapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.unionName, id: d.unionCode })
@@ -435,7 +435,7 @@ export class SimPersonalDetails extends Component {
     handlePerUnionSelect = e => {
         try {
             const val = e.target.value.split('-');
-           // console.log("val", val);
+            // console.log("val", val);
             this.setState({
                 perUnionCode: val[1].trim()
             })
@@ -479,7 +479,7 @@ export class SimPersonalDetails extends Component {
             applicantNameBangla: values.applicantNameBangla,
             applicantDob: values.applicantDob,
             applicantNidNo: values.applicantNidNo,
-            mobileNumber: values.mobileNumber,
+            // mobileNumber: values.mobileNumber,
             gender: values.gender,
             profession: values.profession,
             motherName: values.motherName,
@@ -533,13 +533,13 @@ export class SimPersonalDetails extends Component {
                 };
                 try {
                     this.props.handleState('confirmFlag', true);
-                    
+
                     let permanentZoneCode = await axios.post(zoneCodeConversion, permanentObj, config);
                     console.log("permanentZoneCode", permanentZoneCode);
-                    
+
                     let presentZoneCode = await axios.post(zoneCodeConversion, presentObj, config);
                     console.log("presentZoneCode", presentZoneCode);
-                    
+
                     this.props.handleState('confirmFlag', false);
 
                     if (presentZoneCode.data.data === null || permanentZoneCode.data.data === null) {
@@ -551,7 +551,7 @@ export class SimPersonalDetails extends Component {
 
                     let permanentZoneResp = permanentZoneCode.data.data.details.ABS_ZONE_CODE;
                     let presentZoneResp = presentZoneCode.data.data.details.ABS_ZONE_CODE;
-                    
+
 
 
                     if (permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE === "") {
@@ -575,7 +575,7 @@ export class SimPersonalDetails extends Component {
                     this.props.handleState('preUpozilaCode', presentZoneResp.UPAZILA_CODE);
                     this.props.handleState('preUnionOrWardCode', presentZoneResp.UNION_CODE);
 
-                    
+
 
 
 
@@ -664,12 +664,12 @@ export class SimPersonalDetails extends Component {
                                 {/* Applicant's Nid No */}
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Nid No</label>
-                                    <input style={{ borderRadius: "50px" }} type="text" value={values.applicantNidNo}  name='applicantNidNo' onChange={handleChange('applicantNidNo')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Nid No"  readOnly/>
+                                    <input style={{ borderRadius: "50px" }} type="text" value={values.applicantNidNo} name='applicantNidNo' onChange={handleChange('applicantNidNo')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Nid No" readOnly />
                                 </div>
                                 {/* Mobile Phone Number */}
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Mobile No.</label>
-                                    <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" />
+                                    <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" readOnly />
                                 </div>
 
                                 {/* Gender */}
@@ -695,8 +695,8 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-profession"
                                         options={this.state.autoProfession}
-                                        getOptionLabel={(option) => option.name }
-                                        renderInput={(params) => <TextField {...params} label={values.profession} variant="outlined"  onChange={this.handleProfessionChange} onSelect={this.handleProfessionSelect} />}
+                                        getOptionLabel={(option) => option.name}
+                                        renderInput={(params) => <TextField {...params} label={values.profession} variant="outlined" onChange={this.handleProfessionChange} onSelect={this.handleProfessionSelect} />}
                                     />
 
                                 </div>
@@ -863,7 +863,7 @@ export class SimPersonalDetails extends Component {
                                         options={this.state.autoPerDivision}
                                         getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                        renderInput={(params) => <TextField {...params} label={values.perDivisionEn} variant="outlined" defaultValue={values.perDivisionEn + " - " + this.state.perDivisionCode}  onChange={this.handlePerDivisionChange} onSelect={this.handlePerDivisionSelect} />}
+                                        renderInput={(params) => <TextField {...params} label={values.perDivisionEn} variant="outlined" defaultValue={values.perDivisionEn + " - " + this.state.perDivisionCode} onChange={this.handlePerDivisionChange} onSelect={this.handlePerDivisionSelect} />}
                                     />
                                 </div>
 
@@ -905,12 +905,12 @@ export class SimPersonalDetails extends Component {
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
                                     <Autocomplete
-                                    id="autocomplete-perUnion"
-                                    options={this.state.autoPerUnion}
-                                    getOptionLabel={(option) => option.name + " - " + option.id}
+                                        id="autocomplete-perUnion"
+                                        options={this.state.autoPerUnion}
+                                        getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                    renderInput={(params) => <TextField {...params} label={values.perUnionOrWardEn} variant="outlined" onChange={this.handlePerUnionChange} onSelect={this.handlePerUnionSelect} />}
-                                />
+                                        renderInput={(params) => <TextField {...params} label={values.perUnionOrWardEn} variant="outlined" onChange={this.handlePerUnionChange} onSelect={this.handlePerUnionSelect} />}
+                                    />
 
                                 </div>
 
@@ -1002,7 +1002,7 @@ export class SimPersonalDetails extends Component {
 
                                 </div>
 
-                                
+
 
                                 {/* Bangla Present Upozilla */}
 
@@ -1095,7 +1095,7 @@ export class SimPersonalDetails extends Component {
                                         options={this.state.autoPreDivision}
                                         getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                        renderInput={(params) => <TextField {...params} label={values.preDivisionEn}  variant="outlined" onChange={this.handlePreDivisionChange} onSelect={this.handlePreDivisionSelect} />}
+                                        renderInput={(params) => <TextField {...params} label={values.preDivisionEn} variant="outlined" onChange={this.handlePreDivisionChange} onSelect={this.handlePreDivisionSelect} />}
                                     />
                                 </div>
 
@@ -1136,12 +1136,12 @@ export class SimPersonalDetails extends Component {
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
                                     <Autocomplete
-                                    id="autocomplete-preUnion"
-                                    options={this.state.autoPreUnion}
-                                    getOptionLabel={(option) => option.name + " - " + option.id}
+                                        id="autocomplete-preUnion"
+                                        options={this.state.autoPreUnion}
+                                        getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                    renderInput={(params) => <TextField {...params} label={values.preUnionOrWardEn} variant="outlined" onChange={this.handlePreUnionChange} onSelect={this.handlePreUnionSelect} />}
-                                />
+                                        renderInput={(params) => <TextField {...params} label={values.preUnionOrWardEn} variant="outlined" onChange={this.handlePreUnionChange} onSelect={this.handlePreUnionSelect} />}
+                                    />
 
                                 </div>
 

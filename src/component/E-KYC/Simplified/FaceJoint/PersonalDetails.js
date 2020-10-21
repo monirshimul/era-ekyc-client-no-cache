@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { NotificationManager } from "react-notifications";
-import { zoneCodeConversion ,division, district, upozila, union,profession} from '../../Url/ApiList';
+import { zoneCodeConversion, division, district, upozila, union, profession } from '../../Url/ApiList';
 import Loading from '../utils/CustomLoding/Loading';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import {largeTime} from '../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 
 const Joi = require('@hapi/joi');
 
@@ -32,8 +32,8 @@ export class PersonalDetails extends Component {
         autoPreUnion: [],
         preUnionCode: '',
 
-        autoProfession:[],
-        professionCode:""
+        autoProfession: [],
+        professionCode: ""
     }
 
     schema = Joi.object({
@@ -77,7 +77,7 @@ export class PersonalDetails extends Component {
 
     //////////Profession///////////////
 
-    handleProfessionChange = async(e)=>{
+    handleProfessionChange = async (e) => {
         const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -89,7 +89,7 @@ export class PersonalDetails extends Component {
         }
         try {
             let professionapi = await axios.post(profession, payload, config);
-             console.log(professionapi.data.data);
+            console.log(professionapi.data.data);
             let autocompleteData = [];
             professionapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.displayName, id: d.id })
@@ -105,11 +105,11 @@ export class PersonalDetails extends Component {
     handleProfessionSelect = e => {
         try {
             // const val = e.target.value.split('-');
-         //   console.log("val", typeof val[1]);
-           console.log(e.target.value);
-           //console.log("val", val[1]);
+            //   console.log("val", typeof val[1]);
+            console.log(e.target.value);
+            //console.log("val", val[1]);
 
-           
+
             this.props.handleState('profession', e.target.value);
         } catch (err) {
             console.log(err);
@@ -119,7 +119,7 @@ export class PersonalDetails extends Component {
 
 
 
-//////////Profession///////////////
+    //////////Profession///////////////
 
 
 
@@ -381,7 +381,7 @@ export class PersonalDetails extends Component {
         let payload = {
             divisionCode: this.state.perDivisionCode.toString(),
             districtCode: this.state.perDistrictCode.toString(),
-            upazilaCode:this.state.perUpozilaCode.toString(),
+            upazilaCode: this.state.perUpozilaCode.toString(),
             keyword: e.target.value
         }
         console.log("pERMANT", payload)
@@ -410,10 +410,10 @@ export class PersonalDetails extends Component {
         let payload = {
             divisionCode: this.state.preDivisionCode.toString(),
             districtCode: this.state.preDistrictCode.toString(),
-            upazilaCode:this.state.preUpozilaCode.toString(),
+            upazilaCode: this.state.preUpozilaCode.toString(),
             keyword: e.target.value
         }
-      
+
 
         try {
             let unionapi = await axios.post(union, payload, config);
@@ -652,7 +652,7 @@ export class PersonalDetails extends Component {
                                 {/* Mobile Phone Number */}
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Mobile No.</label>
-                                    <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" />
+                                    <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" readOnly />
                                 </div>
 
                                 {/* Gender */}
@@ -678,7 +678,7 @@ export class PersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-profession"
                                         options={this.state.autoProfession}
-                                        getOptionLabel={(option) => option.name }
+                                        getOptionLabel={(option) => option.name}
 
                                         renderInput={(params) => <TextField {...params} label={values.profession} variant="outlined" onChange={this.handleProfessionChange} onSelect={this.handleProfessionSelect} />}
                                     />
@@ -766,7 +766,7 @@ export class PersonalDetails extends Component {
 
                                 </div>
 
-                             
+
 
                                 {/* Bangla Permanent Upozilla */}
                                 <div className="form-group">
@@ -776,13 +776,13 @@ export class PersonalDetails extends Component {
                                 </div>
 
 
-                                   {/* Bangla Permanent Union */}
+                                {/* Bangla Permanent Union */}
 
-                                   <div className="form-group">
-                                   <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
-                                   <input style={{ borderRadius: "50px" }} type="text" value={values.perUnionOrWard} name="perUnionOrWard" onChange={handleChange('perUnionOrWard')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
+                                    <input style={{ borderRadius: "50px" }} type="text" value={values.perUnionOrWard} name="perUnionOrWard" onChange={handleChange('perUnionOrWard')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
 
-                               </div>
+                                </div>
 
 
                                 <div className="form-group">
@@ -849,64 +849,64 @@ export class PersonalDetails extends Component {
                                     <p>Permanent Address English</p>
                                 </div>
 
-                                 {/*English permanent Division */}
-                                 <div className="form-group">
-                                 <label htmlFor=""><span style={{ color: "red" }}>*</span>Division</label>
-                                 <Autocomplete
-                                     id="autocomplete-perDivision"
-                                     options={this.state.autoPerDivision}
-                                     getOptionLabel={(option) => option.name + " - " + option.id}
+                                {/*English permanent Division */}
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Division</label>
+                                    <Autocomplete
+                                        id="autocomplete-perDivision"
+                                        options={this.state.autoPerDivision}
+                                        getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                     renderInput={(params) => <TextField {...params} variant="outlined" label={values.perDivisionEn} onChange={this.handlePerDivisionChange} onSelect={this.handlePerDivisionSelect} />}
-                                 />
-                             </div>
-
-
-                             {/*English permanent District */}
-
-                             <div className="form-group">
-                                 <label htmlFor=""><span style={{ color: "red" }}>*</span>District</label>
-                                 <Autocomplete
-                                     id="autocomplete-perDistrict"
-                                     options={this.state.autoPerDistrict}
-                                     getOptionLabel={(option) => option.name + " - " + option.id}
-
-                                     renderInput={(params) => <TextField {...params} variant="outlined" label={values.perDistrictEn} onChange={this.handlePerDistrictChange} onSelect={this.handlePerDistrictSelect} />}
-                                 />
-
-                             </div>
+                                        renderInput={(params) => <TextField {...params} variant="outlined" label={values.perDivisionEn} onChange={this.handlePerDivisionChange} onSelect={this.handlePerDivisionSelect} />}
+                                    />
+                                </div>
 
 
-                             {/*English permanent Upozilla */}
+                                {/*English permanent District */}
 
-                             <div className="form-group">
-                                 <label htmlFor=""><span style={{ color: "red" }}>*</span>Upazila</label>
-                                 <Autocomplete
-                                     id="autocomplete-perDistrict"
-                                     options={this.state.autoPerUpozila}
-                                     getOptionLabel={(option) => option.name + " - " + option.id}
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>District</label>
+                                    <Autocomplete
+                                        id="autocomplete-perDistrict"
+                                        options={this.state.autoPerDistrict}
+                                        getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                     renderInput={(params) => <TextField {...params} variant="outlined" label={values.perUpozilaEn} onChange={this.handlePerUpozilaChange} onSelect={this.handlePerUpozilaSelect} />}
-                                 />
+                                        renderInput={(params) => <TextField {...params} variant="outlined" label={values.perDistrictEn} onChange={this.handlePerDistrictChange} onSelect={this.handlePerDistrictSelect} />}
+                                    />
 
-                             </div>
-
-
+                                </div>
 
 
-                             {/*English permanent Union */}
+                                {/*English permanent Upozilla */}
 
-                             <div className="form-group">
-                                 <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
-                                 <Autocomplete
-                                 id="autocomplete-perUnion"
-                                 options={this.state.autoPerUnion}
-                                 getOptionLabel={(option) => option.name + " - " + option.id}
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Upazila</label>
+                                    <Autocomplete
+                                        id="autocomplete-perDistrict"
+                                        options={this.state.autoPerUpozila}
+                                        getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                 renderInput={(params) => <TextField {...params} variant="outlined" label={values.perUnionOrWardEn} onChange={this.handlePerUnionChange} onSelect={this.handlePerUnionSelect} />}
-                             />
+                                        renderInput={(params) => <TextField {...params} variant="outlined" label={values.perUpozilaEn} onChange={this.handlePerUpozilaChange} onSelect={this.handlePerUpozilaSelect} />}
+                                    />
 
-                             </div>
+                                </div>
+
+
+
+
+                                {/*English permanent Union */}
+
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
+                                    <Autocomplete
+                                        id="autocomplete-perUnion"
+                                        options={this.state.autoPerUnion}
+                                        getOptionLabel={(option) => option.name + " - " + option.id}
+
+                                        renderInput={(params) => <TextField {...params} variant="outlined" label={values.perUnionOrWardEn} onChange={this.handlePerUnionChange} onSelect={this.handlePerUnionSelect} />}
+                                    />
+
+                                </div>
 
 
 
@@ -990,7 +990,7 @@ export class PersonalDetails extends Component {
 
                                 </div>
 
-                               
+
 
                                 {/* Bangla Present Address Upozilla*/}
 
@@ -1001,13 +1001,13 @@ export class PersonalDetails extends Component {
                                 </div>
 
 
-                                 {/* Bangla Present Address Union*/}
+                                {/* Bangla Present Address Union*/}
 
-                                 <div className="form-group">
-                                 <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
-                                 <input style={{ borderRadius: "50px" }} type="text" value={values.preUnionOrWard} name="preUnionOrWard" onChange={handleChange('preUnionOrWard')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
+                                    <input style={{ borderRadius: "50px" }} type="text" value={values.preUnionOrWard} name="preUnionOrWard" onChange={handleChange('preUnionOrWard')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
 
-                             </div>
+                                </div>
 
 
                                 <div className="form-group">
@@ -1124,12 +1124,12 @@ export class PersonalDetails extends Component {
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
                                     <Autocomplete
-                                    id="autocomplete-preUnion"
-                                    options={this.state.autoPreUnion}
-                                    getOptionLabel={(option) => option.name + " - " + option.id}
+                                        id="autocomplete-preUnion"
+                                        options={this.state.autoPreUnion}
+                                        getOptionLabel={(option) => option.name + " - " + option.id}
 
-                                    renderInput={(params) => <TextField {...params} variant="outlined" label={values.preUnionOrWardEn} onChange={this.handlePreUnionChange} onSelect={this.handlePreUnionSelect} />}
-                                />
+                                        renderInput={(params) => <TextField {...params} variant="outlined" label={values.preUnionOrWardEn} onChange={this.handlePreUnionChange} onSelect={this.handlePreUnionSelect} />}
+                                    />
 
                                 </div>
 

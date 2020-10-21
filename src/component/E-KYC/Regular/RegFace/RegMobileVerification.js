@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { mobileVerification, mobileCodeVerification } from '../../Url/ApiList';
-import Loading from '../utils/CustomLoding/Loading';
+import Loading from '../../Simplified/utils/CustomLoding/Loading';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
-import { largeTime } from './../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
-export class MobileVerification extends Component {
-
+export class RegMobileVerification extends Component {
   state = {
     mobileVerifyToken: '',
     verifyStatus: '',
@@ -90,6 +89,7 @@ export class MobileVerification extends Component {
       let apiCodeReq = await axios.post(mobileCodeVerification, otpObj, config);
       console.log("apiRequestforOTP", apiCodeReq.data);
       NotificationManager.success("Successfully Mobile Number verification Completed", "Success", 5000);
+      this.props.handleState('mobileNumber', values.verificationMobile);
       this.setState({ verifyStatus: apiCodeReq.data.status, showButton: true })
     } catch (error) {
       this.setState({ showButton: false });
@@ -215,4 +215,4 @@ export class MobileVerification extends Component {
   }
 }
 
-export default MobileVerification;
+export default RegMobileVerification;

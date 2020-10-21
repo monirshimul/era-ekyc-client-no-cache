@@ -24,10 +24,10 @@ export class SimFaceMain extends Component {
         branchOrAgentPointCode: "",
         transactionOrMaturityAmount: '',
         channelName: '',
-        // Step 0
+        // Step 1
         verificationMobile: '',
         verificationCodeMobile: '',
-        //Step1
+        //Step2
         NidFront: "",
         NidFrontOcr: '',
         NidFrontType: '',
@@ -36,13 +36,13 @@ export class SimFaceMain extends Component {
         NidBackType: '',
         loadingSpin: false,
         allData: '',
-        // Step 2
+        // Step 3
         nid: '',
         dob: '',
         ecImage: '',
         loading: false,
         isEnableFace: false,
-        //Step3
+        //Step4
         faceImage: "",
         showCamera: false,
         imageFlag: false,
@@ -50,7 +50,7 @@ export class SimFaceMain extends Component {
         validate: false,
         verifyToken: '',
         loading: false,
-        //step4
+        //step5
         applicantName: '',
         applicantNameBangla: '',
         applicantDob: '',
@@ -127,10 +127,10 @@ export class SimFaceMain extends Component {
         perUnionOrWardEn: "",
         perUpozilaEn: "",
         perWardForUnionPorishodEn: "",
-        //Step 5 
+        //Step 6 
         jointArray: [],
         // showHide: false,
-        //Step 6
+        //Step 7
         signature: '',
         signatureType: '',
         //common for all component

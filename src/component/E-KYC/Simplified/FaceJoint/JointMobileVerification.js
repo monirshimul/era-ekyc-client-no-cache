@@ -3,11 +3,10 @@ import { mobileVerification, mobileCodeVerification } from '../../Url/ApiList';
 import Loading from '../utils/CustomLoding/Loading';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
-import { largeTime } from './../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
-export class MobileVerification extends Component {
-
+export class JointMobileVerification extends Component {
   state = {
     mobileVerifyToken: '',
     verifyStatus: '',
@@ -215,4 +214,4 @@ export class MobileVerification extends Component {
   }
 }
 
-export default MobileVerification;
+export default JointMobileVerification;

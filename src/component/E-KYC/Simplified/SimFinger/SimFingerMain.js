@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import MobileVerification from '../SimFace/MobileVerification';
 import NidImagesSim from '../SimFace/NidImagesSim';
 import SimFingerPrint from '../SimFinger/SimFingerPrint';
 import SimPersonalDetails from '../SimFace/SimPersonalDetails';
@@ -8,7 +9,7 @@ import SimCutomerPic from './SimCutomerPic';
 import SimFingerSignature from './SimFingerSignature';
 import SimFingerConfirm from '../SimFinger/SimFingerConfirm';
 import SimComplete from '../SimFace/SimComplete';
-import {NotificationManager} from 'react-notifications'
+import { NotificationManager } from 'react-notifications'
 
 export class SimFingerMain extends Component {
     state = {
@@ -16,21 +17,24 @@ export class SimFingerMain extends Component {
         //Account
         accountType: '',
         product: '',
-        productType:'',
+        productType: '',
         productName: '',
         branchOrAgentPointCode: "",
-		transactionOrMaturityAmount:'',
-        channelName:'',
-        //Step1
+        transactionOrMaturityAmount: '',
+        channelName: '',
+        // Step 1
+        verificationMobile: '',
+        verificationCodeMobile: '',
+        //Step2
         NidFront: "",
-        NidFrontOcr:'',
+        NidFrontOcr: '',
         NidFrontType: '',
         NidBack: '',
-        NidBackOcr:"",
+        NidBackOcr: "",
         NidBackType: '',
         loadingSpin: false,
-        allData:'',
-        //Step2
+        allData: '',
+        //Step3
         nid: "",
         dob: "",
         rIndex: "",
@@ -40,7 +44,7 @@ export class SimFingerMain extends Component {
         isEnableFinger: false,
         loadingPrint: false,
         verifyToken: "",
-        //step3
+        //step4
         applicantName: '',
         applicantNameBangla: '',
         applicantDob: '',
@@ -57,7 +61,7 @@ export class SimFingerMain extends Component {
         // presentAddress: '',
         // permanentAddress: '',
         // permanentAddressBangla: '',
-         //presentAddress: '',
+        //presentAddress: '',
         //permanentAddress: '',
         //permanentAddressBangla: '',
         // ==== Present Address ====
@@ -65,7 +69,7 @@ export class SimFingerMain extends Component {
         preAdditionalVillageOrRoad: "",
         preCityCorporationOrMunicipality: "",
         preDistrict: "",
-        preDistrictCode:'',
+        preDistrictCode: '',
         preDivision: "",
         preHomeOrHoldingNo: "",
         prePostOffice: "",
@@ -75,7 +79,7 @@ export class SimFingerMain extends Component {
         preUnionOrWard: "",
         preUnionOrWardCode: "",
         preUpozila: "",
-        preUpozilaCode:'',
+        preUpozilaCode: '',
         preWardForUnionPorishod: "",
         preAdditionalMouzaOrMohollaEn: "",
         preAdditionalVillageOrRoadEn: "",
@@ -95,7 +99,7 @@ export class SimFingerMain extends Component {
         perAdditionalVillageOrRoad: "",
         perCityCorporationOrMunicipality: "",
         perDistrict: "",
-        perDistrictCode:'',
+        perDistrictCode: '',
         perDivision: "",
         perHomeOrHoldingNo: "",
         perPostOffice: "",
@@ -103,9 +107,9 @@ export class SimFingerMain extends Component {
         perRegion: "",
         perRmo: "",
         perUnionOrWard: "",
-        perUnionOrWardCode:'',
+        perUnionOrWardCode: '',
         perUpozila: "",
-        perUpozilaCode:'',
+        perUpozilaCode: '',
         perWardForUnionPorishod: "",
         perAdditionalMouzaOrMohollaEn: "",
         perAdditionalVillageOrRoadEn: "",
@@ -120,26 +124,26 @@ export class SimFingerMain extends Component {
         perUnionOrWardEn: "",
         perUpozilaEn: "",
         perWardForUnionPorishodEn: "",
-       
-        //Step 4 
+
+        //Step 5
         jointArray: [],
         // showHide: false,
-        //Step 5
+        //Step 6
         faceImage: "",
         showCamera: false,
         imageFlag: false,
         isEnable: false,
         validate: false,
         loading: false,
-        //Step 6
+        //Step 7
         signature: '',
         signatureType: '',
         //common for all component
-        
+
         flag: 'data:image/jpeg;base64,',
         confirmFlag: false,
-        channelAccStatus:[],
-        accountMessage:''
+        channelAccStatus: [],
+        accountMessage: ''
     }
 
     //Proceed to next step
@@ -172,9 +176,9 @@ export class SimFingerMain extends Component {
 
                 accountType: acc.accountType,
                 product: acc.productCategory,
-                productType:acc.productCategory,
-                transactionOrMaturityAmount:acc.amount,
-                productName:acc.productName,
+                productType: acc.productCategory,
+                transactionOrMaturityAmount: acc.amount,
+                productName: acc.productName,
                 channelName: acc.channelName
             })
 
@@ -184,7 +188,7 @@ export class SimFingerMain extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -221,11 +225,11 @@ export class SimFingerMain extends Component {
         this.setState({ jointArray: copyArray });
     }
 
-  
+
 
 
     handleInputChange = (index, event) => {
-       // console.log(event.target);
+        // console.log(event.target);
         let copyArray = Object.assign([], this.state.jointArray);
         copyArray[index][event.target.name] = event.target.value;
         if (event.target.name === "photograph") {
@@ -242,7 +246,7 @@ export class SimFingerMain extends Component {
                     copyArray[index].photograph = base64Image;
                 };
                 reader.onerror = () => {
-                   // console.log('there are some problems');
+                    // console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
@@ -261,7 +265,7 @@ export class SimFingerMain extends Component {
                     copyArray[index].minorNomineePhoto = base64Image;
                 };
                 reader.onerror = () => {
-                  //  console.log('there are some problems');
+                    //  console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
@@ -280,7 +284,7 @@ export class SimFingerMain extends Component {
                     copyArray[index].minorPhotoGuardian = base64Image;
                 };
                 reader.onerror = () => {
-                   // console.log('there are some problems');
+                    // console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
@@ -301,16 +305,29 @@ export class SimFingerMain extends Component {
     render() {
 
         const { step } = this.state;
-        
-        const {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag, nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-           signature, signatureType, jointArray, confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn,channelAccStatus,accountMessage } = this.state;
-       
-            const values = {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName, applicantEkycId,NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin, allData, flag,nid,dob,rIndex,rThumb,lIndex,lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-            signature, signatureType, jointArray,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn,channelAccStatus,accountMessage}
+
+        const { verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, rIndex, rThumb, lIndex, lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+            signature, signatureType, jointArray, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage } = this.state;
+
+        const values = {
+            verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, rIndex, rThumb, lIndex, lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+            signature, signatureType, jointArray, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage
+        }
 
 
         switch (step) {
+
             case 1:
+                return (
+                    <MobileVerification
+                        nextStep={this.nextStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+            case 2:
                 return (
                     <NidImagesSim
                         nextStep={this.nextStep}
@@ -320,7 +337,7 @@ export class SimFingerMain extends Component {
                     />
                 )
 
-            case 2:
+            case 3:
                 return (
                     <SimFingerPrint
                         nextStep={this.nextStep}
@@ -332,7 +349,7 @@ export class SimFingerMain extends Component {
                     />
                 )
 
-            case 3:
+            case 4:
                 return (
                     <SimPersonalDetails
                         nextStep={this.nextStep}
@@ -343,14 +360,14 @@ export class SimFingerMain extends Component {
                     />
                 )
 
-            case 4:
+            case 5:
                 return (
                     <SimNominee
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleState={this.handleState}
                         onChange={this.handleInputChange}
-                        handleDateChange = {this.handleNomineeDateChange}
+                        handleDateChange={this.handleNomineeDateChange}
                         showHideChange={this.showHideChange}
                         addNomineeOne={this.addNomineeOne}
                         addNomineeTwo={this.addNomineeTwo}
@@ -359,7 +376,7 @@ export class SimFingerMain extends Component {
                     />
                 )
 
-                case 5:
+            case 6:
                 return (
                     <SimCutomerPic
                         nextStep={this.nextStep}
@@ -370,7 +387,7 @@ export class SimFingerMain extends Component {
                     />
                 )
 
-            case 6:
+            case 7:
                 return (
                     <SimFingerSignature
                         nextStep={this.nextStep}
@@ -381,7 +398,7 @@ export class SimFingerMain extends Component {
                     />
                 )
 
-            case 7:
+            case 8:
                 return (
                     <SimFingerConfirm
                         nextStep={this.nextStep}
@@ -391,12 +408,12 @@ export class SimFingerMain extends Component {
                     />
                 )
 
-            case 8:
+            case 9:
                 return (
-                <SimComplete 
-                handleState={this.handleState}
-                values={values}
-                />
+                    <SimComplete
+                        handleState={this.handleState}
+                        values={values}
+                    />
                 )
         }
 
@@ -404,7 +421,7 @@ export class SimFingerMain extends Component {
 
         return (
             <div>
-                
+
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { NotificationManager } from "react-notifications";
+import RegJointMobileVerification from './RegJointMobileVerification';
 import RegJointNidImages from './RegJointNidImages';
 import RegJointFaceRPA from './RegJointFaceRPA';
 import RegJointCapture from './RegJointCapture';
@@ -11,6 +12,7 @@ import RegJointConfirm from './RegJointConfirm';
 import RegJointComplete from './RegJointComplete';
 
 
+
 export class RegJoinFaceMain extends Component {
 
     state = {
@@ -18,25 +20,28 @@ export class RegJoinFaceMain extends Component {
         //Account
         accountType: '',
         product: '',
-        productType:'',
+        productType: '',
         productName: '',
         branchOrAgentPointCode: "",
-		transactionOrMaturityAmount:'',
-        channelName:'',
+        transactionOrMaturityAmount: '',
+        channelName: '',
+        // Step 1
+        verificationMobile: '',
+        verificationCodeMobile: '',
         //Step1
         NidFront: "",
-        NidFrontOcr:'',
+        NidFrontOcr: '',
         NidFrontType: '',
         NidBack: '',
-        NidBackOcr:"",
+        NidBackOcr: "",
         NidBackType: '',
         loadingSpin: false,
-        allData:'',
+        allData: '',
         // RPA
-        nid:'',
+        nid: '',
         dob: '',
-        ecImage:'',
-        loading:false,
+        ecImage: '',
+        loading: false,
         isEnableFace: false,
         //Step2
         faceImage: "",
@@ -44,93 +49,93 @@ export class RegJoinFaceMain extends Component {
         imageFlag: false,
         isEnable: false,
         validate: false,
-        verifyToken:'',
+        verifyToken: '',
         loading: false,
         //step3
-        applicantName:'',
-        applicantNameBangla:'',
-        applicantDob:'',
-        applicantDobDate:"",
-        applicantNidNo:'',
-        motherName:'',
-        motherNameBangla:'',
-        fatherName:'',
-        fatherNameBangla:'',
-        spouseName:'',
-        gender:'',
-        profession:'',
-        mobileNumber:'',
+        applicantName: '',
+        applicantNameBangla: '',
+        applicantDob: '',
+        applicantDobDate: "",
+        applicantNidNo: '',
+        motherName: '',
+        motherNameBangla: '',
+        fatherName: '',
+        fatherNameBangla: '',
+        spouseName: '',
+        gender: '',
+        profession: '',
+        mobileNumber: '',
         // presentAddress:'',
         // permanentAddress:'',
         // permanentAddressBangla:'',
-        operatorType:'',
+        operatorType: '',
         monthlyIncome: '',
         sourceOfFund: '',
         nationality: '',
         tin: '',
-         // ==== Present Address ====
-         preAdditionalMouzaOrMoholla: "",
-         preAdditionalVillageOrRoad: "",
-         preCityCorporationOrMunicipality: "",
-         preDistrict: "",
-         preDistrictCode:'',
-         preDivision: "",
-         preHomeOrHoldingNo: "",
-         prePostOffice: "",
-         prePostalCode: "",
-         preRegion: "",
-         preRmo: "",
-         preUnionOrWard: "",
-         preUnionOrWardCode: "",
-         preUpozila: "",
-         preUpozilaCode:'',
-         preWardForUnionPorishod: "",
-         preAdditionalMouzaOrMohollaEn: "",
-         preAdditionalVillageOrRoadEn: "",
-         preCityCorporationOrMunicipalityEn: "",
-         preDistrictEn: "",
-         preDivisionEn: "",
-         preHomeOrHoldingNoEn: "",
-         prePostOfficeEn: "",
-         prePostalCodeEn: "",
-         preRegionEn: "",
-         preRmoEn: "",
-         preUnionOrWardEn: "",
-         preUpozilaEn: "",
-         preWardForUnionPorishodEn: "",
-         //==== PermanentAddress ====
-         perAdditionalMouzaOrMoholla: "",
-         perAdditionalVillageOrRoad: "",
-         perCityCorporationOrMunicipality: "",
-         perDistrict: "",
-         perDistrictCode:'',
-         perDivision: "",
-         perHomeOrHoldingNo: "",
-         perPostOffice: "",
-         perPostalCode: "",
-         perRegion: "",
-         perRmo: "",
-         perUnionOrWard: "",
-         perUnionOrWardCode:'',
-         perUpozila: "",
-         perUpozilaCode:'',
-         perWardForUnionPorishod: "",
-         perAdditionalMouzaOrMohollaEn: "",
-         perAdditionalVillageOrRoadEn: "",
-         perCityCorporationOrMunicipalityEn: "",
-         perDistrictEn: "",
-         perDivisionEn: "",
-         perHomeOrHoldingNoEn: "",
-         perPostOfficeEn: "",
-         perPostalCodeEn: "",
-         perRegionEn: "",
-         perRmoEn: "",
-         perUnionOrWardEn: "",
-         perUpozilaEn: "",
-         perWardForUnionPorishodEn: "",
+        // ==== Present Address ====
+        preAdditionalMouzaOrMoholla: "",
+        preAdditionalVillageOrRoad: "",
+        preCityCorporationOrMunicipality: "",
+        preDistrict: "",
+        preDistrictCode: '',
+        preDivision: "",
+        preHomeOrHoldingNo: "",
+        prePostOffice: "",
+        prePostalCode: "",
+        preRegion: "",
+        preRmo: "",
+        preUnionOrWard: "",
+        preUnionOrWardCode: "",
+        preUpozila: "",
+        preUpozilaCode: '',
+        preWardForUnionPorishod: "",
+        preAdditionalMouzaOrMohollaEn: "",
+        preAdditionalVillageOrRoadEn: "",
+        preCityCorporationOrMunicipalityEn: "",
+        preDistrictEn: "",
+        preDivisionEn: "",
+        preHomeOrHoldingNoEn: "",
+        prePostOfficeEn: "",
+        prePostalCodeEn: "",
+        preRegionEn: "",
+        preRmoEn: "",
+        preUnionOrWardEn: "",
+        preUpozilaEn: "",
+        preWardForUnionPorishodEn: "",
+        //==== PermanentAddress ====
+        perAdditionalMouzaOrMoholla: "",
+        perAdditionalVillageOrRoad: "",
+        perCityCorporationOrMunicipality: "",
+        perDistrict: "",
+        perDistrictCode: '',
+        perDivision: "",
+        perHomeOrHoldingNo: "",
+        perPostOffice: "",
+        perPostalCode: "",
+        perRegion: "",
+        perRmo: "",
+        perUnionOrWard: "",
+        perUnionOrWardCode: '',
+        perUpozila: "",
+        perUpozilaCode: '',
+        perWardForUnionPorishod: "",
+        perAdditionalMouzaOrMohollaEn: "",
+        perAdditionalVillageOrRoadEn: "",
+        perCityCorporationOrMunicipalityEn: "",
+        perDistrictEn: "",
+        perDivisionEn: "",
+        perHomeOrHoldingNoEn: "",
+        perPostOfficeEn: "",
+        perPostalCodeEn: "",
+        perRegionEn: "",
+        perRmoEn: "",
+        perUnionOrWardEn: "",
+        perUpozilaEn: "",
+        perWardForUnionPorishodEn: "",
         //Step 4 
         jointArray: [],
-       // showHide: false,
+        // showHide: false,
         //Step 5
 
         signature: '',
@@ -152,12 +157,12 @@ export class RegJoinFaceMain extends Component {
         hasSourceOfFunds: "",
 
         //common for all component
-        applicantEkycId: JSON.parse(sessionStorage.getItem('accountId'))? JSON.parse(sessionStorage.getItem('accountId')):'',
+        applicantEkycId: JSON.parse(sessionStorage.getItem('accountId')) ? JSON.parse(sessionStorage.getItem('accountId')) : '',
         flag: 'data:image/jpeg;base64,',
         confirmFlag: false,
-        channelAccStatus:[]
+        channelAccStatus: []
 
-        
+
     }
 
     //Proceed to next step
@@ -176,7 +181,7 @@ export class RegJoinFaceMain extends Component {
         });
     }
 
-   
+
 
     componentDidMount() {
         // Account Info
@@ -190,12 +195,12 @@ export class RegJoinFaceMain extends Component {
 
                 accountType: acc.accountType,
                 product: acc.productCategory,
-                productType:acc.productCategory,
-                transactionOrMaturityAmount:acc.amount,
-                productName:acc.productName,
+                productType: acc.productCategory,
+                transactionOrMaturityAmount: acc.amount,
+                productName: acc.productName,
                 channelName: acc.channelName
             })
-          
+
         } catch (error) {
             if (error.response) {
                 let message = error.response.data.message
@@ -225,24 +230,24 @@ export class RegJoinFaceMain extends Component {
         this.setState({ [input]: date });
     }
 
-        // RiskGrading handling Occupation
-        handleOccupationChange = e => {
-        
-            this.setState({ occupation: e.target.value });
-        }
+    // RiskGrading handling Occupation
+    handleOccupationChange = e => {
 
-  
-
-    addNomineeOne = ()=> {
-        let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({  nominee: '', dob: '', relation: '', photograph: '', percentage: '', isShow: true  });
-        this.setState({jointArray:copyArray});
+        this.setState({ occupation: e.target.value });
     }
 
-    addNomineeTwo = ()=> {
+
+
+    addNomineeOne = () => {
+        let copyArray = Object.assign([], this.state.jointArray);
+        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '', isShow: true });
+        this.setState({ jointArray: copyArray });
+    }
+
+    addNomineeTwo = () => {
         let copyArray = Object.assign([], this.state.jointArray);
         copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', isShow: false });
-        this.setState({jointArray:copyArray});
+        this.setState({ jointArray: copyArray });
     }
 
 
@@ -264,7 +269,7 @@ export class RegJoinFaceMain extends Component {
                     copyArray[index].photograph = base64Image;
                 };
                 reader.onerror = () => {
-                   // console.log('there are some problems');
+                    // console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
@@ -283,7 +288,7 @@ export class RegJoinFaceMain extends Component {
                     copyArray[index].minorNomineePhoto = base64Image;
                 };
                 reader.onerror = () => {
-                   // console.log('there are some problems');
+                    // console.log('there are some problems');
                     alert('File can not be read');
                 };
             }
@@ -307,8 +312,8 @@ export class RegJoinFaceMain extends Component {
                 };
             }
         }
- 
-     this.setState({ jointArray: copyArray });
+
+        this.setState({ jointArray: copyArray });
 
     }
 
@@ -324,12 +329,21 @@ export class RegJoinFaceMain extends Component {
 
     render() {
         const { step } = this.state;
-        const {accountType,  product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront, NidFrontType, NidFrontOcr,  NidBack, NidBackOcr, NidBackType,loadingSpin, allData,flag,nid, dob, ecImage,isEnableFace, faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading, applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber, operatorType,monthlyIncome,sourceOfFund,nationality,tin, signature, signatureType, jointArray, confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFundschannelAccStatus } = this.state;
-        const values = {accountType, product,productType,branchOrAgentPointCode,transactionOrMaturityAmount, channelName,productName,applicantEkycId, NidFront,NidFrontOcr,NidFrontType, NidBack, NidBackOcr, NidBackType,loadingSpin,allData, flag, nid, dob, ecImage,isEnableFace,faceImage, showCamera, imageFlag, isEnable,validate,verifyToken, loading,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo, motherName,motherNameBangla, fatherName,fatherNameBangla, spouseName, gender, profession, mobileNumber,operatorType,monthlyIncome,sourceOfFund,nationality,tin, signature, signatureType, jointArray,confirmFlag,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDistrictCode,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preUpozilaCode,preWardForUnionPorishod,preAdditionalMouzaOrMohollaEn,preAdditionalVillageOrRoadEn,preCityCorporationOrMunicipalityEn,preDistrictEn,preDivisionEn,preHomeOrHoldingNoEn,prePostOfficeEn,prePostalCodeEn,preRegionEn,preRmoEn,preUnionOrWardEn,preUpozilaEn,preWardForUnionPorishodEn,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDistrictCode,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perUpozilaCode,perWardForUnionPorishod,perAdditionalMouzaOrMohollaEn,perAdditionalVillageOrRoadEn,perCityCorporationOrMunicipalityEn,perDistrictEn,perDivisionEn,perHomeOrHoldingNoEn,perPostOfficeEn,perPostalCodeEn,perRegionEn,perRmoEn,perUnionOrWardEn,perUpozilaEn,perWardForUnionPorishodEn, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFundschannelAccStatus }
+        const { verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, ecImage, isEnableFace, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, operatorType, monthlyIncome, sourceOfFund, nationality, tin, signature, signatureType, jointArray, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFundschannelAccStatus } = this.state;
+        const values = { verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, ecImage, isEnableFace, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, operatorType, monthlyIncome, sourceOfFund, nationality, tin, signature, signatureType, jointArray, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFundschannelAccStatus }
 
 
         switch (step) {
             case 1:
+                return (
+                    <RegJointMobileVerification
+                        nextStep={this.nextStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+            case 2:
                 return (
                     <RegJointNidImages
                         nextStep={this.nextStep}
@@ -339,7 +353,7 @@ export class RegJoinFaceMain extends Component {
                     />
                 )
 
-            case 2:
+            case 3:
                 return (
                     <RegJointFaceRPA
                         nextStep={this.nextStep}
@@ -350,96 +364,96 @@ export class RegJoinFaceMain extends Component {
                     />
                 )
 
-                case 3:
-                    return (
-                        <RegJointCapture
+            case 4:
+                return (
+                    <RegJointCapture
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}
                         handleDate={this.handleDate}
                         values={values}
-                        />
-                    )
+                    />
+                )
 
-                    case 4:
-                        return (
-                            <RegJointPersonalDetails
-                                nextStep={this.nextStep}
-                                prevStep={this.prevStep}
-                                handleChange={this.handleChange}
-                                handleState={this.handleState}
-                                values={values}
-                            />
-                        )
+            case 5:
+                return (
+                    <RegJointPersonalDetails
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
 
-                        case 5:
-                            return (
-                                <RegJointNominee
-                                    nextStep={this.nextStep}
-                                    prevStep={this.prevStep}
-                                    handleState={this.handleState}
-                                    onChange={this.handleInputChange}
-                                    showHideChange={this.showHideChange}
-                                    addNomineeOne={this.addNomineeOne}
-                                    addNomineeTwo={this.addNomineeTwo}
-                                    deteteRow={this.deteteRow}
-                                    values={values}
-                                />
-                            )
-
-
-                            case 6:
-                                return (
-                                    <RegJointSignature
-                                        nextStep={this.nextStep}
-                                        prevStep={this.prevStep}
-                                        handleChange={this.handleChange}
-                                        handleState={this.handleState}
-                                        values={values}
-                                    />
-                                )
-
-                                case 7:
-                                    return (
-                                        <RegJointRiskGrading
-                                            nextStep={this.nextStep}
-                                            prevStep={this.prevStep}
-                                            handleChange={this.handleChange}
-                                            handleOccupationChange={this.handleOccupationChange}
-                                            handleState={this.handleState}
-                                            values={values}
-                                        />
-                                    )
+            case 6:
+                return (
+                    <RegJointNominee
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleState={this.handleState}
+                        onChange={this.handleInputChange}
+                        showHideChange={this.showHideChange}
+                        addNomineeOne={this.addNomineeOne}
+                        addNomineeTwo={this.addNomineeTwo}
+                        deteteRow={this.deteteRow}
+                        values={values}
+                    />
+                )
 
 
-                                    case 8:
-                                        return (
-                                            <RegJointConfirm
-                                                nextStep={this.nextStep}
-                                                prevStep={this.prevStep}
-                                                handleChange={this.handleChange}
-                                                handleOccupationChange={this.handleOccupationChange}
-                                                handleState={this.handleState}
-                                                values={values}
-                                            />
-                                        )
+            case 7:
+                return (
+                    <RegJointSignature
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
 
-                                        case 9:
-                                            return (
-                                                <RegJointComplete
-                                                handleState={this.handleState}
-                                                values={values}
-                                                />
-                                            )
+            case 8:
+                return (
+                    <RegJointRiskGrading
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleOccupationChange={this.handleOccupationChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
 
-           
+
+            case 9:
+                return (
+                    <RegJointConfirm
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleOccupationChange={this.handleOccupationChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+            case 10:
+                return (
+                    <RegJointComplete
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+
 
         }
 
         return (
             <div>
-                
+
             </div>
         )
     }
