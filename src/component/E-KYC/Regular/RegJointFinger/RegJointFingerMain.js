@@ -7,8 +7,10 @@ import RegJointNominee from '../RegJointFace/RegJointNominee';
 import RegJointCustomerPic from './RegJointCustomerPic';
 import RegJointFingerSignature from './RegJointFingerSignature';
 import RegJointRiskGrading from '../RegJointFace/RegJointRiskGrading';
+import RegJointFileUpload from './../RegJointFace/RegJointFileUpload';
 import RegJointFingerConfirm from './RegJointFingerConfirm';
 import RegJointComplete from '../RegJointFace/RegJointComplete';
+
 
 
 export class RegJointFingerMain extends Component {
@@ -141,6 +143,8 @@ export class RegJointFingerMain extends Component {
         //Step 6
         signature: '',
         signatureType: '',
+        // RiskGrading
+        riskGradingArray: [],
         // step 7
         onBoardingValue: "",
         geoRiskClient: '',
@@ -154,6 +158,17 @@ export class RegJointFingerMain extends Component {
         professionName: "",
         yearlyTransaction: "",
         hasSourceOfFunds: "",
+
+        // Additional file upload
+        passport: "",
+        passportFileName: '',
+        passFileType: "",
+        birthCertificate: "",
+        birthCertificateFileName: '',
+        birthCerFileType: "",
+        tinCertificate: "",
+        tinCertificateFileName: '',
+        tinFileType: "",
         //common for all component
         applicantEkycId: '',
         flag: 'data:image/jpeg;base64,',
@@ -316,11 +331,11 @@ export class RegJointFingerMain extends Component {
         const { step } = this.state;
 
         const { verificationMobile, verificationCodeMobile, accountType, product, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, rIndex, rThumb, lIndex, lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, operatorType, monthlyIncome, sourceOfFund, nationality, tin, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-            signature, signatureType, jointArray, confirmFlag, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, channelAccStatus } = this.state;
+            signature, signatureType, jointArray, confirmFlag, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, channelAccStatus, riskGradingArray, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType } = this.state;
 
         const values = {
             verificationMobile, verificationCodeMobile, accountType, product, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, rIndex, rThumb, lIndex, lThumb, isEnableFinger, loadingPrint, verifyTokenFinger, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, mobileNumber, operatorType, monthlyIncome, sourceOfFund, nationality, tin, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
-            signature, signatureType, jointArray, confirmFlag, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, channelAccStatus
+            signature, signatureType, jointArray, confirmFlag, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, channelAccStatus, riskGradingArray, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType
         }
 
         switch (step) {
@@ -417,8 +432,18 @@ export class RegJointFingerMain extends Component {
                         values={values}
                     />
                 )
-
             case 9:
+                return (
+                    <RegJointFileUpload
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+            case 10:
                 return (
                     <RegJointFingerConfirm
                         nextStep={this.nextStep}
@@ -430,7 +455,7 @@ export class RegJointFingerMain extends Component {
                     />
                 )
 
-            case 10:
+            case 11:
                 return (
                     <RegJointComplete
                         handleState={this.handleState}
