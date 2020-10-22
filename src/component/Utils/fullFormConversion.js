@@ -2,7 +2,7 @@ import {getProduct} from '../E-KYC/Url/ApiList';
 import axios from 'axios';
 
 export let ProductCodeGetName= async(code)=>{
-    
+    try{
     const config = {
         headers: {
             'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -13,6 +13,9 @@ export let ProductCodeGetName= async(code)=>{
     let fillData = apiCall.data.data.filter(fill => fill.code === code);
     let ProductName=fillData[0].name;
     return ProductName;
+    }catch(err){
+        return null;
+    }
 }
 
 

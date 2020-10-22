@@ -48,7 +48,7 @@ export class SimUpgradeReg extends Component {
       }
       try {
         let searchResult = await axios.post(simConvReg, val, config)
-        console.log("searchResult", searchResult)
+        //console.log("searchResult", searchResult)
         if (searchResult.data.data.length === 0) {
           NotificationManager.warning("No Nid Match", "Warning", mediumTime)
         }
@@ -81,7 +81,7 @@ export class SimUpgradeReg extends Component {
       }
       try {
         let searchResult = await axios.post(simConvReg, val, config)
-        console.log("searchResult", searchResult)
+        //console.log("searchResult", searchResult)
         if (searchResult.data.data.length === 0) {
           NotificationManager.warning("Mobile Number does not Match", "Warning", mediumTime)
         }
@@ -117,7 +117,7 @@ export class SimUpgradeReg extends Component {
   // UPGRADE BUTTON functionality
 
   upgrade = (e) => {
-    console.log("cardId", e.target.id)
+    // console.log("cardId", e.target.id)
     this.props.history.push('/dashboard/multiform-Regular-conversion', this.state.cardData[e.target.id]);
   }
 
@@ -197,6 +197,7 @@ export class SimUpgradeReg extends Component {
                       <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>NID No : </span>{data.nid}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Cell No : </span>{data.mobile}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Verification Type : </span>{data.verificationType}</small><br />
+                      <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>On Boarding Type : </span>{data.onboardingType}</small><br />
                       {/* <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Address : </span>{data.permanentAddressBangla}</small><br /> */}
                     </div>
 

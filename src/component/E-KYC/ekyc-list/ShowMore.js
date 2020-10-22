@@ -10,6 +10,7 @@ class ShowMore extends Component {
     async componentDidMount() {
         //    console.log("All data", this.state.ekyc[0].account.productCode)
         let data = await ProductCodeGetName(this.state.ekyc[0].account.productCode);
+        // console.log("data", data);
         this.setState({ ProductCodetoName: data });
     }
 
@@ -22,7 +23,8 @@ class ShowMore extends Component {
     }
 
     render() {
-        let { ekyc } = this.state
+        let { ekyc } = this.state;
+        // console.log("ekyc", this.state.ekyc);
         return (
             <div className="container">
 
@@ -51,7 +53,7 @@ class ShowMore extends Component {
 
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Status : </span>{AccountVerificationStatus(data.verificationStatus)}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Type : </span>{data.verificationType}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>On Boarding Type : </span>{ekyc.onboardingType}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>On Boarding Type : </span>{data.onboardingType}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Date : </span>{data.verificationDate}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>NID No : </span>{data.nid}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Cell No : </span>{data.mobile}</small><br />
@@ -65,8 +67,10 @@ class ShowMore extends Component {
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Profession : </span>{data.profession}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Monthly Income : </span>{data.monthlyIncome === null ? "" : data.monthlyIncome}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Source Of Fund : </span>{data.sourceOfFund === null ? "" : data.sourceOfFund}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{data.updateBy === null ? "" : data.updateBy}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{data.updateDate}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.createdBy === null ? "" : data.createdBy}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Create Date : </span>{data.createDate === null ? '' : data.createDate}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{data.updatedBy === null ? "" : data.updatedBy}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{data.updateDate === null ? '' : data.updateDate}</small><br />
 
 
                                                 </div>
@@ -81,14 +85,16 @@ class ShowMore extends Component {
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Account ID : </span>{data.account === null ? "" : data.account.id}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{data.account === null ? "" : data.account.title}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{data.account === null ? "" : data.account.channelAccountId ? data.account.channelAccountId : ""}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{data.account === null ? "" : data.account.channelCode ? data.account.channelCode : ""}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{data.account === null ? "" : ProductCategoryType(data.account.productType)}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{data.account === null ? "" : `${data.account.productCode} (${(this.state.ProductCodetoName)})`}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{data.account === null ? "" : `${data.account.productCode} (${this.state.ProductCodetoName === null ? "" : this.state.ProductCodetoName})`}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{data.account === null ? "" : EkycProfileStatus(data.account.status)}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{data.account === null ? "" : AccountType(data.account.type)}</small><br />
 
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.account === null ? "" : data.account.createdBy}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{data.account === null ? "" : data.account.createDate}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{data.account === null ? "" : data.account.channelCode ? data.account.channelCode : ""}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.account.createdBy === null ? "" : data.account.createdBy}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{data.account.createDate === null ? "" : data.account.createDate}</small><br />
+                               
+
 
                                                     {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{data.account.channelResponse}</small><br /> */}
                                                 </div>

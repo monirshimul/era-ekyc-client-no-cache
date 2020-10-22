@@ -221,6 +221,7 @@ class FullEkyc extends Component {
         let { ekyc, flag, loading, additionalFile, arrowUp, opFileDownloadLoading } = this.state
         //console.log("single value",ekyc.presentAddress.additionalMouzaOrMoholla)
         //console.log("Arrow", arrowUp)
+        // console.log("ekyc", this.state.ekyc);
         return (
             <div className="container">
 
@@ -247,13 +248,13 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{ekyc.account === null ? "" : ekyc.account.title}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{ekyc.account === null ? "" : ekyc.account.channelAccountId}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{ekyc.account === null ? "" : ProductCategoryType(ekyc.account.productType)}</small><br />
-
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc.account === null ? "" : `${ekyc.account.productCode} (${this.state.ProductCodetoName})`}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{ekyc.account === null ? "" : ekyc.account.channelCode}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc.account === null ? "" : `${ekyc.account.productCode} (${this.state.ProductCodetoName === null ? "" : this.state.ProductCodetoName })`}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{ekyc.account === null ? "" : EkycProfileStatus(ekyc.account.status)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{ekyc.account === null ? "" : AccountType(ekyc.account.type)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{ekyc.account === null ? "" : ekyc.account.createdBy}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{ekyc.account === null ? "" : ekyc.account.createDate}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{ekyc.account === null ? "" : ekyc.account.channelCode}</small><br />
+                                           
 
                                             {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{ekyc.account.channelResponse}</small><br /> */}
                                         </div>
@@ -266,12 +267,12 @@ class FullEkyc extends Component {
                                             <hr />
                                         </div>
                                         <div className="" style={{ fontSize: "17px" }}>
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{ekyc.updateBy === null ? "" : ekyc.updateBy}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{ekyc.updateDate}</small><br />
+                                           {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{ekyc.updateBy === null ? "" : ekyc.updateBy}</small><br />*/}
+                                          {/*  <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{ekyc.updateDate}</small><br />*/}
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Pin : </span>{ekyc.pin}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Review Count : </span>{ekyc.reviewCount}</small><br />
                                             {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Risk Grading : </span>{ekyc.riskGrading}</small><br /> */}
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Sanction Screening : </span>{ekyc.sanctionScreening}</small><br />
+                                            {/*<small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Sanction Screening : </span>{ekyc.sanctionScreening}</small><br />*/}
                                         </div>
 
 
@@ -305,7 +306,10 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Profession : </span>{ekyc.profession}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Monthly Income : </span>{ekyc.monthlyIncome === null ? "" : ekyc.monthlyIncome}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Source Of Fund : </span>{ekyc.sourceOfFund === null ? "" : ekyc.sourceOfFund}</small><br />
-
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{ekyc.createdBy === null ? "" : ekyc.createdBy}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Create Date : </span>{ekyc.createDate === null ? '' : ekyc.createDate}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{ekyc.updatedBy === null ? "" : ekyc.updatedBy}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{ekyc.updateDate === null ? '' : ekyc.updateDate}</small><br />
 
                                             {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Present Address : </span>{ekyc.presentAddress}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Permanent Address : </span>{ekyc.permanentAddress}</small><br />
