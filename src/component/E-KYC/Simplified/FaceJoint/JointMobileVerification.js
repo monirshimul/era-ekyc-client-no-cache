@@ -46,7 +46,7 @@ export class JointMobileVerification extends Component {
     try {
       let validationValue1 = await this.numberSchema.validateAsync(data1);
       const mobileObj = { mobile: values.verificationMobile };
-
+      this.setState({loadingSpin: true});
       let apiReq = await axios.post(mobileVerification, mobileObj, config);
       // console.log("apiRequestforOTP", apiReq.data.data.convalToken);
       NotificationManager.info("Please Check OTP in your mobile", "Message", 5000);
@@ -86,10 +86,11 @@ export class JointMobileVerification extends Component {
     try {
       let validationValue2 = await this.codeSchema.validateAsync(data2);
       const otpObj = { otp: values.verificationCodeMobile };
+      this.setState({showButton:true})
       let apiCodeReq = await axios.post(mobileCodeVerification, otpObj, config);
-      console.log("apiRequestforOTP", apiCodeReq.data);
+      //console.log("apiRequestforOTP", apiCodeReq.data);
       NotificationManager.success("Successfully Mobile Number verification Completed", "Success", 5000);
-      this.setState({ verifyStatus: apiCodeReq.data.status, showButton: true })
+      this.setState({ verifyStatus: apiCodeReq.data.status, showButton: false })
     } catch (error) {
       this.setState({ showButton: false });
       if (error.response) {
@@ -195,6 +196,16 @@ export class JointMobileVerification extends Component {
         }
 
         <br />
+
+
+        {this.state.showButton === true ?
+          <div className="row d-flex justify-content-center align-items-center mt-3">
+            <Loading />
+          </div>
+          :
+          ""
+
+        }
 
 
 
