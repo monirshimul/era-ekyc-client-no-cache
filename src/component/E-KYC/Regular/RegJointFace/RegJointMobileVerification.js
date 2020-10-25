@@ -3,7 +3,7 @@ import { mobileVerification, mobileCodeVerification } from '../../Url/ApiList';
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
-import { largeTime } from '../../../Utils/notificationTime';
+import { mediumTime, largeTime } from '../../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
 export class RegJointMobileVerification extends Component {
@@ -51,7 +51,9 @@ export class RegJointMobileVerification extends Component {
       // console.log("apiRequestforOTP", apiReq.data.data.convalToken);
       NotificationManager.info("Please Check OTP in your mobile", "Message", 5000);
       this.props.handleState('mobileNumber', values.verificationMobile);
-      this.setState({ mobileVerifyToken: apiReq.data.data.convalToken, loadingSpin: false });
+      this.setState({ mobileVerifyToken: apiReq.data.data.convalToken, loadingSpin: false })
+
+
     } catch (error) {
       this.setState({ loadingSpin: false });
       if (error.response) {
@@ -89,15 +91,27 @@ export class RegJointMobileVerification extends Component {
       this.setState({ showButton: true });
       let apiCodeReq = await axios.post(mobileCodeVerification, otpObj, config);
       console.log("apiRequestforOTP", apiCodeReq.data);
-      NotificationManager.success("Successfully Mobile Number verification Completed", "Success", 5000);
-      this.props.handleState('mobileNumber', values.verificationMobile);
-      this.setState({ verifyStatus: apiCodeReq.data.status, showButton: false });
+      if (apiCodeReq.data.status === false) {
+        NotificationManager.warning("Please Provide Valid OTP", "Warning", 5000);
+        this.setState({ showButton: false });
+        this.props.handleState('verificationCodeMobile', "");
+      } else {
+        NotificationManager.success("Successfully Mobile Number verification Completed", "Success", 5000);
+        this.setState({ verifyStatus: apiCodeReq.data.status, showButton: false })
+      }
+
     } catch (error) {
       this.setState({ showButton: false });
       if (error.response) {
         let message = error.response.data.message
-        //console.log("Error",error.response)
-        NotificationManager.error(message, "Error", 5000);
+        // console.log("Error", error.response)
+        if (error.response.data.message === 'Invalid Token') {
+          NotificationManager.info("OTP time exceeds Please Retype your mobile Number", "Message", mediumTime);
+          this.setState({ mobileVerifyToken: "" });
+          this.props.handleState('verificationCodeMobile', "");
+          this.props.handleState('verificationMobile', "");
+        }
+        // NotificationManager.error(message, "Error", 5000);
       } else if (error.request) {
         // console.log("Error Connecting...", error.request)
         NotificationManager.error("Error Connecting...", "Error", 5000);
@@ -172,7 +186,7 @@ export class RegJointMobileVerification extends Component {
               <form className="col">
                 <div className="form-group">
                   <label htmlFor="">OTP Code </label>
-                  <input type="password" value={values.mobileCodeVerification} maxLength="6" name="verificationCodeMobile" onChange={handleChange('verificationCodeMobile')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                  <input type="password" value={values.verificationCodeMobile} maxLength="6" name="verificationCodeMobile" onChange={handleChange('verificationCodeMobile')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
 
 
