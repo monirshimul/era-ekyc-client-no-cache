@@ -46,7 +46,7 @@ export class JointMobileVerification extends Component {
     try {
       let validationValue1 = await this.numberSchema.validateAsync(data1);
       const mobileObj = { mobile: values.verificationMobile };
-      this.setState({loadingSpin: true});
+      this.setState({ loadingSpin: true });
       let apiReq = await axios.post(mobileVerification, mobileObj, config);
       // console.log("apiRequestforOTP", apiReq.data.data.convalToken);
       NotificationManager.info("Please Check OTP in your mobile", "Message", 5000);
@@ -86,7 +86,7 @@ export class JointMobileVerification extends Component {
     try {
       let validationValue2 = await this.codeSchema.validateAsync(data2);
       const otpObj = { otp: values.verificationCodeMobile };
-      this.setState({showButton:true})
+      this.setState({ showButton: true })
       let apiCodeReq = await axios.post(mobileCodeVerification, otpObj, config);
       //console.log("apiRequestforOTP", apiCodeReq.data);
       NotificationManager.success("Successfully Mobile Number verification Completed", "Success", 5000);
@@ -171,7 +171,7 @@ export class JointMobileVerification extends Component {
               <form className="col">
                 <div className="form-group">
                   <label htmlFor="">OTP Code </label>
-                  <input type="text" value={values.mobileCodeVerification} maxLength="6" name="verificationCodeMobile" onChange={handleChange('verificationCodeMobile')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                  <input type="password" value={values.mobileCodeVerification} maxLength="6" name="verificationCodeMobile" onChange={handleChange('verificationCodeMobile')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
 
 

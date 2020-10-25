@@ -176,7 +176,7 @@ export class MobileVerification extends Component {
               <form className="col">
                 <div className="form-group">
                   <label htmlFor="">OTP Code </label>
-                  <input type="text" value={values.mobileCodeVerification} maxLength="6" name="verificationCodeMobile" onChange={handleChange('verificationCodeMobile')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                  <input type="password" value={values.mobileCodeVerification} maxLength="6" name="verificationCodeMobile" onChange={handleChange('verificationCodeMobile')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                 </div>
 
 
