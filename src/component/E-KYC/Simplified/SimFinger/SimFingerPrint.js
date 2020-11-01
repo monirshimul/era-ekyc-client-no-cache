@@ -31,16 +31,18 @@ export class SimFingerPrint extends Component {
     let checkObj = {
       nid: nid,
       productCode: productName
-    }
+  }
+
+  console.log("objcheck", checkObj);
 
     this.props.handleState('isEnableFinger', true);
     this.props.handleState('loadingPrint', true);
 
     if (channelName === 'ABS') {
-
+        
       try {
         let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-        console.log("abs", absCheckApi.data.data.result);
+        console.log("abs", absCheckApi.data);
         let apiResult = absCheckApi.data.data.result;
         let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
         if (apiResult === true) {

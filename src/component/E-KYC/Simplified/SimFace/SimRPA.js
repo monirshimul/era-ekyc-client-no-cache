@@ -33,35 +33,35 @@ export class SimRPA extends Component {
         console.log("objcheck", checkObj);
         this.props.handleState('isEnableFace', true);
         this.props.handleState('loading', true);
-        // if (channelName === "ABS") {
-        //     try {
-        //         let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-        //         console.log("abs", absCheckApi.data);
-        //         console.log("abs", absCheckApi.data.data.result);
-        //         let apiResult = absCheckApi.data.data.result;
-        //         let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
-        //         if (apiResult === true) {
-        //             isRpaRequired = false;
-        //             NotificationManager.info(notificationData, "Click to Remove", largeTime);
-        //             this.props.handleState('isEnableFace', false);
-        //             this.props.handleState('loading', false);
-        //         }
+        if (channelName === "ABS") {
+            try {
+                let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
+                console.log("abs", absCheckApi.data);
+                console.log("abs", absCheckApi.data.data.result);
+                let apiResult = absCheckApi.data.data.result;
+                let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
+                if (apiResult === true) {
+                    isRpaRequired = false;
+                    NotificationManager.info(notificationData, "Click to Remove", largeTime);
+                    this.props.handleState('isEnableFace', false);
+                    this.props.handleState('loading', false);
+                }
 
-        //     } catch (error) {
-        //         this.props.handleState('isEnableFace', false);
-        //         this.props.handleState('loading', false);
-        //         if (error.response) {
-        //             let message = error.response.data.message
-        //             //console.log("Error",error.response)
-        //             NotificationManager.error(message, "Error", 5000);
-        //         } else if (error.request) {
-        //             //console.log("Error Connecting...",error.request)
-        //             NotificationManager.error("Error Connecting...", "Error", 5000);
-        //         } else if (error) {
-        //             NotificationManager.error(error.toString(), "Error", 5000);
-        //         }
-        //     }
-        // }
+            } catch (error) {
+                this.props.handleState('isEnableFace', false);
+                this.props.handleState('loading', false);
+                if (error.response) {
+                    let message = error.response.data.message
+                    //console.log("Error",error.response)
+                    NotificationManager.error(message, "Error", 5000);
+                } else if (error.request) {
+                    //console.log("Error Connecting...",error.request)
+                    NotificationManager.error("Error Connecting...", "Error", 5000);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Error", 5000);
+                }
+            }
+        }
 
             // RPA CALLING
             if (isRpaRequired === true) {

@@ -32,8 +32,8 @@ export class Camera extends Component {
     libImage.capture(
       "videoCap",
       "imageCap",
-      // "http://103.17.69.111/models/"
-      "https://ovichowdhury.github.io/face-api-models/"
+       "http://103.17.69.111/models/"
+      //  "https://ovichowdhury.github.io/face-api-models/"
     );
     this.libImage = libImage;
 
