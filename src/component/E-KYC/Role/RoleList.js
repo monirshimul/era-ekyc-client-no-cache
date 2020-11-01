@@ -100,14 +100,23 @@ class RoleList extends Component {
 
     }
 
+    //=========================================Radio
     textHandleChange = e => {
         e.preventDefault()
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    searchValueChange = (e) => {
+
+        this.setState({
+            radioValue: e.target.value
+        })
+    }
+
 
     onSearchSubmit = async (e) => {
         e.preventDefault();
+        let { radioValue } = this.state
         const config = {
             headers: {
 
@@ -116,7 +125,7 @@ class RoleList extends Component {
             }
         };
         let { searchValue } = this.state
-        if (this.state.checkBoxValue === "id") {
+        if (radioValue === "id") {
 
 
 
@@ -132,9 +141,8 @@ class RoleList extends Component {
                 let res = await axios.post(getRoleWithStatus, obj, config);
                 this.setState({
                     pendingList: res.data.data,
-                    checkBoxValue: "",
                     searchValue: "",
-                    checkBoxOne: false
+
                 })
 
             } catch (error) {
@@ -150,7 +158,7 @@ class RoleList extends Component {
                 }
             }
         }
-        if (this.state.checkBoxValue === "status") {
+        if (radioValue === "status") {
             try {
                 let obj = {
                     status: searchValue
@@ -159,9 +167,9 @@ class RoleList extends Component {
                 let res = await axios.post(getRoleWithStatus, obj, config);
                 this.setState({
                     pendingList: res.data.data,
-                    checkBoxValue: "",
+
                     searchValue: "",
-                    checkBoxTwo: false
+
                 })
 
             } catch (error) {
@@ -177,7 +185,7 @@ class RoleList extends Component {
                 }
             }
         }
-        if (this.state.checkBoxValue === "roleName") {
+        if (radioValue === "roleName") {
             try {
                 let obj = {
                     roleName: searchValue
@@ -186,9 +194,9 @@ class RoleList extends Component {
                 let res = await axios.post(getRoleWithStatus, obj, config);
                 this.setState({
                     pendingList: res.data.data,
-                    checkBoxValue: "",
+
                     searchValue: "",
-                    checkBoxThree: false
+
                 })
 
             } catch (error) {
@@ -206,66 +214,9 @@ class RoleList extends Component {
         }
     }
 
-    onCheckOneChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxOne === false) {
-            this.setState({
-                checkBoxOne: !this.state.checkBoxOne,
-                checkBoxValue: value
+    //==========================================Radio end
 
-            })
-        } else {
-            this.setState({
-                checkBoxOne: !this.state.checkBoxOne,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
-    onCheckTwoChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxTwo === false) {
-            this.setState({
-                checkBoxTwo: !this.state.checkBoxTwo,
-                checkBoxValue: value
-
-            })
-        } else {
-            this.setState({
-                checkBoxTwo: !this.state.checkBoxTwo,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
-    onCheckThreeChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxThree === false) {
-            this.setState({
-                checkBoxThree: !this.state.checkBoxThree,
-                checkBoxValue: value
-
-            })
-        } else {
-            this.setState({
-                checkBoxThree: !this.state.checkBoxThree,
-                checkBoxValue: ""
-
-            })
-        }
-
-
-    }
+  
 
 
     onUpdate = async (id) => {
@@ -410,90 +361,59 @@ class RoleList extends Component {
         return (
             <div className="col-sm-12" >
 
-
-                <div className="d-flex justify-content-center">
-                    <div className="card col" style={{ padding: "25px" }}>
-                        <div className="im">
-                            <h5 className="text-muted text-center pt-2">
-                                <i ><FaSearch /></i> Search Role
-                        </h5>
-                        </div>
-                        <div className="card-body d-flex justify-content-center">
-
-                            <ReactTooltip id="searchRole" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                                <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select a search option before searching...</span>
-                            </ReactTooltip>
-
-                            <form className="col-sm-8">
-                                <div className="form-group " >
-                                    <label htmlFor=""></label>
-                                    <input data-tip data-for='searchRole' style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by Id / Role Name / Status" />
-                                    <small className="text-muted pl-2">
-                                        <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
-                            </small>
-                                </div>
-                                <div className="form-group d-flex justify-content-center">
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxOne}
-                                            onChange={(e) => this.onCheckOneChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="id"
-                                            style={{ cursor: "pointer" }}
-                                            id="one"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="one">Search By ID</label>
-
-                                    </div>
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxTwo}
-                                            onChange={(e) => this.onCheckTwoChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="status"
-                                            style={{ cursor: "pointer" }}
-                                            id="two"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="two">Search By Status</label>
-
-                                    </div>
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxThree}
-                                            onChange={(e) => this.onCheckThreeChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="roleName"
-                                            style={{ cursor: "pointer" }}
-                                            id="three"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="three">Search By Role Name</label>
-
-                                    </div>
-                                </div>
-                                <div className="d-flex justify-content-center pt-2" >
-                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i ><FaSearch /></i> Search</button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-
+            <div className="d-flex justify-content-center">
+            <div className="card col" style={{ padding: "25px" }}>
+                <div className="im">
+                    <h5 className="text-muted text-center pt-2">
+                        <i ><FaSearch /></i> Search Role
+                </h5>
                 </div>
+                <div className="card-body d-flex justify-content-center">
+
+                    <ReactTooltip id="searchRole" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                        <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select a search option before searching...</span>
+                    </ReactTooltip>
+
+                    <form className="col-sm-8">
+                        <div className="form-group " >
+                            <label htmlFor=""></label>
+                            <input data-tip data-for='searchRole' style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by Id / Role Name / Status" />
+                            <small className="text-muted pl-2">
+                                <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
+                    </small>
+                        </div>
+                        <div className="form-group d-flex justify-content-center">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="id" />
+                                    Search By id
+                                </label>
+                            </div>&nbsp;&nbsp;&nbsp;
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="status" />
+                                    Search By Status
+                                </label>
+                            </div>&nbsp;&nbsp;&nbsp;
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="roleName" />
+                                    Search By Role Name
+                                </label>
+                            </div>
+
+                        </div>
+                        <div className="d-flex justify-content-center pt-2" >
+                            <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i ><FaSearch /></i> Search</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+                
 
                 {/* <table className="table table-hover mt-5" style={{ boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)" }}>
                     <thead>

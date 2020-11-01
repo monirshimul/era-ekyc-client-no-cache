@@ -132,171 +132,285 @@ export class UserList extends Component {
     //     }
     // }
 
+// ============================Radio start
+textHandleChange = e => {
+    e.preventDefault()
+    this.setState({ [e.target.name]: e.target.value });
+}
 
+searchValueChange = (e) => {
 
-    textHandleChange = e => {
-        e.preventDefault()
-        this.setState({ [e.target.name]: e.target.value });
-    }
-    // Submit Search button
-    onSearchSubmit = async (e) => {
-        e.preventDefault();
-        const config = {
-            headers: {
+    this.setState({
+        radioValue: e.target.value
+    })
+}
 
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+// Submit Search button
+onSearchSubmit = async (e) => {
+    e.preventDefault();
+    let { radioValue } = this.state
+    const config = {
+        headers: {
 
-            }
-        };
-        let { searchValue } = this.state
-        // console.log("checkboxvalue", this.state.checkBoxValue);
-        //console.log("searchValue", searchValue);
-        if (this.state.checkBoxValue === "id") {
+            'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
-
-
-            try {
-                let obj = {
-                    userId: searchValue
-                }
-
-                let res = await axios.post(searchUser + 1, obj, config);
-                this.setState({
-                    allAppUser: res.data.data,
-                    checkBoxValue: "",
-                    searchValue: "",
-                    checkBoxOne: false
-                })
-
-            } catch (error) {
-                if (error.response) {
-                    let message = error.response.data.message
-                    //console.log("Error",error.response)
-                    NotificationManager.error(message, "Error", 5000);
-                } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
-                    NotificationManager.error("Error Connecting...", "Error", 5000);
-                } else if (error) {
-                    NotificationManager.error(error.toString(), "Error", 5000);
-                }
-            }
         }
-        if (this.state.checkBoxValue === "status") {
-            try {
-                let obj = {
-                    status: searchValue
-                }
+    };
+    let { searchValue } = this.state
+    // console.log("checkboxvalue", this.state.checkBoxValue);
+    //console.log("searchValue", searchValue);
+    if (radioValue === "id") {
 
-                let res = await axios.post(searchUser + 1, obj, config);
-                this.setState({
-                    allAppUser: res.data.data,
-                    checkBoxValue: "",
-                    searchValue: "",
-                    checkBoxTwo: false
-                })
 
-            } catch (error) {
-                if (error.response) {
-                    let message = error.response.data.message
-                    //console.log("Error",error.response)
-                    NotificationManager.error(message, "Error", 5000);
-                } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
-                    NotificationManager.error("Error Connecting...", "Error", 5000);
-                } else if (error) {
-                    NotificationManager.error(error.toString(), "Error", 5000);
-                }
+
+        try {
+            let obj = {
+                userId: searchValue
             }
-        }
-        if (this.state.checkBoxValue === "roleName") {
-            try {
-                let obj = {
-                    name: searchValue
-                }
 
-                let res = await axios.post(searchUser + 1, obj, config);
-                this.setState({
-                    allAppUser: res.data.data,
-                    checkBoxValue: "",
-                    searchValue: "",
-                    checkBoxThree: false
-                })
+            let res = await axios.post(searchUser + 1, obj, config);
+            this.setState({
+                allAppUser: res.data.data,
 
-            } catch (error) {
-                if (error.response) {
-                    let message = error.response.data.message
-                    //console.log("Error",error.response)
-                    NotificationManager.error(message, "Error", 5000);
-                } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
-                    NotificationManager.error("Error Connecting...", "Error", 5000);
-                } else if (error) {
-                    NotificationManager.error(error.toString(), "Error", 5000);
-                }
+                searchValue: "",
+
+            })
+
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                //  console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
     }
+    if (radioValue === "status") {
+        try {
+            let obj = {
+                status: searchValue
+            }
 
-    onCheckOneChange = (e) => {
-        let value = e.target.value
-        // console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxOne === false) {
+            let res = await axios.post(searchUser + 1, obj, config);
             this.setState({
-                checkBoxOne: !this.state.checkBoxOne,
-                checkBoxValue: value
+                allAppUser: res.data.data,
+
+                searchValue: "",
 
             })
-        } else {
-            this.setState({
-                checkBoxOne: !this.state.checkBoxOne,
-                checkBoxValue: ""
 
-            })
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                //  console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
-
-
     }
-    onCheckTwoChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxTwo === false) {
+    if (radioValue === "mobile") {
+        try {
+            let obj = {
+                mobile: searchValue
+            }
+
+            let res = await axios.post(searchUser + 1, obj, config);
             this.setState({
-                checkBoxTwo: !this.state.checkBoxTwo,
-                checkBoxValue: value
+                allAppUser: res.data.data,
+
+                searchValue: "",
 
             })
-        } else {
-            this.setState({
-                checkBoxTwo: !this.state.checkBoxTwo,
-                checkBoxValue: ""
 
-            })
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                //  console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
-
-
     }
-    onCheckThreeChange = (e) => {
-        let value = e.target.value
-        //console.log("Check Value", value)
-        //this.state.checkBoxOneValue = value
-        if (this.state.checkBoxThree === false) {
-            this.setState({
-                checkBoxThree: !this.state.checkBoxThree,
-                checkBoxValue: value
-
-            })
-        } else {
-            this.setState({
-                checkBoxThree: !this.state.checkBoxThree,
-                checkBoxValue: ""
-
-            })
-        }
+}
+// ============================Radio end
 
 
-    }
+
+    // textHandleChange = e => {
+    //     e.preventDefault()
+    //     this.setState({ [e.target.name]: e.target.value });
+    // }
+    // // Submit Search button
+    // onSearchSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const config = {
+    //         headers: {
+
+    //             'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+    //         }
+    //     };
+    //     let { searchValue } = this.state
+    //     // console.log("checkboxvalue", this.state.checkBoxValue);
+    //     //console.log("searchValue", searchValue);
+    //     if (this.state.checkBoxValue === "id") {
+
+
+
+    //         try {
+    //             let obj = {
+    //                 userId: searchValue
+    //             }
+
+    //             let res = await axios.post(searchUser + 1, obj, config);
+    //             this.setState({
+    //                 allAppUser: res.data.data,
+    //                 checkBoxValue: "",
+    //                 searchValue: "",
+    //                 checkBoxOne: false
+    //             })
+
+    //         } catch (error) {
+    //             if (error.response) {
+    //                 let message = error.response.data.message
+    //                 //console.log("Error",error.response)
+    //                 NotificationManager.error(message, "Error", 5000);
+    //             } else if (error.request) {
+    //               //  console.log("Error Connecting...", error.request)
+    //                 NotificationManager.error("Error Connecting...", "Error", 5000);
+    //             } else if (error) {
+    //                 NotificationManager.error(error.toString(), "Error", 5000);
+    //             }
+    //         }
+    //     }
+    //     if (this.state.checkBoxValue === "status") {
+    //         try {
+    //             let obj = {
+    //                 status: searchValue
+    //             }
+
+    //             let res = await axios.post(searchUser + 1, obj, config);
+    //             this.setState({
+    //                 allAppUser: res.data.data,
+    //                 checkBoxValue: "",
+    //                 searchValue: "",
+    //                 checkBoxTwo: false
+    //             })
+
+    //         } catch (error) {
+    //             if (error.response) {
+    //                 let message = error.response.data.message
+    //                 //console.log("Error",error.response)
+    //                 NotificationManager.error(message, "Error", 5000);
+    //             } else if (error.request) {
+    //               //  console.log("Error Connecting...", error.request)
+    //                 NotificationManager.error("Error Connecting...", "Error", 5000);
+    //             } else if (error) {
+    //                 NotificationManager.error(error.toString(), "Error", 5000);
+    //             }
+    //         }
+    //     }
+    //     if (this.state.checkBoxValue === "roleName") {
+    //         try {
+    //             let obj = {
+    //                 name: searchValue
+    //             }
+
+    //             let res = await axios.post(searchUser + 1, obj, config);
+    //             this.setState({
+    //                 allAppUser: res.data.data,
+    //                 checkBoxValue: "",
+    //                 searchValue: "",
+    //                 checkBoxThree: false
+    //             })
+
+    //         } catch (error) {
+    //             if (error.response) {
+    //                 let message = error.response.data.message
+    //                 //console.log("Error",error.response)
+    //                 NotificationManager.error(message, "Error", 5000);
+    //             } else if (error.request) {
+    //               //  console.log("Error Connecting...", error.request)
+    //                 NotificationManager.error("Error Connecting...", "Error", 5000);
+    //             } else if (error) {
+    //                 NotificationManager.error(error.toString(), "Error", 5000);
+    //             }
+    //         }
+    //     }
+    // }
+
+    // onCheckOneChange = (e) => {
+    //     let value = e.target.value
+    //     // console.log("Check Value", value)
+    //     //this.state.checkBoxOneValue = value
+    //     if (this.state.checkBoxOne === false) {
+    //         this.setState({
+    //             checkBoxOne: !this.state.checkBoxOne,
+    //             checkBoxValue: value
+
+    //         })
+    //     } else {
+    //         this.setState({
+    //             checkBoxOne: !this.state.checkBoxOne,
+    //             checkBoxValue: ""
+
+    //         })
+    //     }
+
+
+    // }
+    // onCheckTwoChange = (e) => {
+    //     let value = e.target.value
+    //     //console.log("Check Value", value)
+    //     //this.state.checkBoxOneValue = value
+    //     if (this.state.checkBoxTwo === false) {
+    //         this.setState({
+    //             checkBoxTwo: !this.state.checkBoxTwo,
+    //             checkBoxValue: value
+
+    //         })
+    //     } else {
+    //         this.setState({
+    //             checkBoxTwo: !this.state.checkBoxTwo,
+    //             checkBoxValue: ""
+
+    //         })
+    //     }
+
+
+    // }
+    // onCheckThreeChange = (e) => {
+    //     let value = e.target.value
+    //     //console.log("Check Value", value)
+    //     //this.state.checkBoxOneValue = value
+    //     if (this.state.checkBoxThree === false) {
+    //         this.setState({
+    //             checkBoxThree: !this.state.checkBoxThree,
+    //             checkBoxValue: value
+
+    //         })
+    //     } else {
+    //         this.setState({
+    //             checkBoxThree: !this.state.checkBoxThree,
+    //             checkBoxValue: ""
+
+    //         })
+    //     }
+
+
+    // }
 
     // ===========================Pagination=====================================================
     handlePage = (e) => {
@@ -537,81 +651,48 @@ export class UserList extends Component {
                     }
                     <br />
                 </div> */}
-
                 <div className="d-flex justify-content-center">
                     <div className="card col" style={{ padding: "25px" }}>
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i><FaSearch/></i> Search User
+                                <i><FaSearch /></i> Search User
                         </h5>
                         </div>
                         <div className="card-body d-flex justify-content-center">
                             <form className="col-sm-8">
-                            <ReactTooltip id="searchUser" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                                <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select a search option before searching...</span>
-                            </ReactTooltip>
+                                <ReactTooltip id="searchUser" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
+                                    <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select a search option before searching...</span>
+                                </ReactTooltip>
                                 <div className="form-group " >
                                     <label htmlFor=""></label>
-                                    <input data-tip data-for="searchUser" style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by UserId / Status/ UserName " />
+                                    <input data-tip data-for="searchUser" style={{ borderRadius: "50px" }} name="searchValue" value={searchValue} onChange={this.textHandleChange} type="text" className="form-control" placeholder="Search by UserId / Status/ Mobile " />
                                     <small className="text-muted pl-2">
                                         <span style={{ color: "#39c12a", fontSize: "14px" }}>*</span> Chosse any option from below for searching.
                             </small>
                                 </div>
                                 <div className="form-group d-flex justify-content-center">
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxOne}
-                                            onChange={(e) => this.onCheckOneChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="id"
-                                            style={{ cursor: "pointer" }}
-                                            id="one"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="one">Search By User ID</label>
-
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="id" />
+                                            Search By User Id
+                                        </label>
+                                    </div>&nbsp;&nbsp;&nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="status" />
+                                            Search By Status
+                                        </label>
+                                    </div>&nbsp;&nbsp;&nbsp;
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" onChange={this.searchValueChange} name="optionsRadios" id="optionsRadios1" value="mobile" />
+                                            Search By Mobile
+                                        </label>
                                     </div>
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
 
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxTwo}
-                                            onChange={(e) => this.onCheckTwoChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="status"
-                                            style={{ cursor: "pointer" }}
-                                            id="two"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="two">Search By Status</label>
-
-                                    </div>
-                                    <div className="custom-control custom-checkbox" style={{ marginLeft: "25px" }} >
-
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            checked={checkBoxThree}
-                                            onChange={(e) => this.onCheckThreeChange(e)}
-                                            className="custom-control-input"
-                                            style={{ marginRight: "5px" }}
-                                            value="roleName"
-                                            style={{ cursor: "pointer" }}
-                                            id="three"
-                                            disabled={checkBoxValue !== "" ? true : false}
-                                        />
-                                        <label className="custom-control-label" htmlFor="three">Search By User Name</label>
-
-                                    </div>
                                 </div>
                                 <div className="d-flex justify-content-center pt-2" >
-                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i><FaSearch/></i> Search</button>
+                                    <button onClick={(e) => this.onSearchSubmit(e)} className="b" ><i><FaSearch /></i> Search</button>
                                 </div>
                             </form>
                         </div>
