@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import { fingerValidate } from "../../Url/ApiList";
+import { absAccountCheck, fingerValidate } from "../../Url/ApiList";
 import Loading from "../utils/CustomLoding/Loading.js";
 import Finger from "../images/tap.svg";
 import FingerOk from ".././images/fingerprintOk.svg";
 import { NotificationManager } from "react-notifications";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {showDate} from '../../../Utils/dateConversion';
-import {largeTime} from '../../../Utils/notificationTime';
+import { showDate } from '../../../Utils/dateConversion';
+import { largeTime } from '../../../Utils/notificationTime';
 
 export class FingerPrintJoint extends Component {
   handleClick = (e) => {
@@ -62,7 +62,7 @@ export class FingerPrintJoint extends Component {
           NotificationManager.error("data not found!!", "Error", 5000);
         }
 
-       
+
         this.props.handleState('isEnableFinger', false);
         this.props.handleState('loadingPrint', false);
       })
@@ -70,7 +70,7 @@ export class FingerPrintJoint extends Component {
         this.props.handleState('loadingPrint', false);
         if (err.response) {
           if (err.response.status === 400 || err.response.status === 401) {
-           // console.log(err.response.data);
+            // console.log(err.response.data);
             //alert(err.response.data.message);
             NotificationManager.error(err.response.data.message, "Error", 5000);
             this.props.handleState('isEnableFinger', false);
@@ -97,21 +97,167 @@ export class FingerPrintJoint extends Component {
       });
   };
 
+  ///////////////////////////// // // Abs Account Check Added start//////////////////////////////
+
+  // handleClick = async (e) => {
+  //   let { nid, dob, productName, channelName } = this.props.values;
+  //   e.preventDefault();
+  //   let isFingerPrint = true;
+  //   // this.setState({ isEnable: true, loading: !this.state.loading });
+
+  //   let config = {
+  //     headers: {
+  //       "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
+  //     },
+  //   };
+
+  //   let checkObj = {
+  //     nid: nid,
+  //     productCode: productName
+  //   }
+
+  //   console.log("objcheck", checkObj);
+
+  //   this.props.handleState('isEnableFinger', true);
+  //   this.props.handleState('loadingPrint', true);
+
+  //   if (channelName === 'ABS') {
+
+  //     try {
+  //       let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
+  //       console.log("abs", absCheckApi.data);
+  //       let apiResult = absCheckApi.data.data.result;
+  //       let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
+  //       if (apiResult === true) {
+  //         isFingerPrint = false;
+  //         this.props.handleState('isEnableFinger', false);
+  //         this.props.handleState('loadingPrint', false);
+  //         NotificationManager.info(notificationData, "Click to Remove", largeTime);
+  //       }
+  //     } catch (error) {
+  //       this.props.handleState('isEnableFinger', false);
+  //       this.props.handleState('loadingPrint', false);
+  //       if (error.response) {
+  //         let message = error.response.data.message
+  //         //console.log("Error",error.response)
+  //         NotificationManager.error(message, "Click to Remove", largeTime);
+  //       } else if (error.request) {
+  //         //console.log("Error Connecting...",error.request)
+  //         NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
+  //       } else if (error) {
+  //         NotificationManager.error(error.toString(), "Click to Remove", largeTime);
+  //       }
+  //     }
+
+  //   }
+
+  //   //  finger Print collect
+
+  //   if (isFingerPrint === true) {
+  //     const fingerobj = {
+  //       MinQ: 30,
+  //       Retry: 3,
+  //       TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
+  //     };
+
+  //     axios
+  //       .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
+  //       .then((res) => {
+  //         //  console.log(res);
+  //         const data = res.data;
+  //         let rightThumb = data[0].fingerData;
+  //         let rightIndex = data[1].fingerData;
+  //         let leftThumb = data[2].fingerData;
+  //         let leftIndex = data[3].fingerData;
+
+  //         if (data[0].fingerId === 1) {
+  //           this.props.handleState('rThumb', rightThumb);
+  //         } else {
+  //           //alert("data not found!!");
+  //           NotificationManager.error("data not found!!", "Error", 5000);
+  //         }
+  //         if (data[1].fingerId === 2) {
+  //           this.props.handleState('rIndex', rightIndex);
+  //         } else {
+  //           //alert("data not found!!");
+  //           NotificationManager.error("data not found!!", "Error", 5000);
+  //         }
+  //         if (data[2].fingerId === 6) {
+
+  //           this.props.handleState('lThumb', leftThumb);
+  //         } else {
+  //           //alert("data not found!!");
+  //           NotificationManager.error("data not found!!", "Error", 5000);
+  //         }
+  //         if (data[3].fingerId === 7) {
+
+  //           this.props.handleState('lIndex', leftIndex);
+  //         } else {
+  //           //alert("data not found!!");
+  //           NotificationManager.error("data not found!!", "Error", 5000);
+  //         }
+
+  //         // this.setState({
+  //         //   isEnable: false,
+  //         //   loading: !this.state.loading,
+  //         // });
+  //         this.props.handleState('isEnableFinger', false);
+  //         this.props.handleState('loadingPrint', false);
+  //       })
+  //       .catch((err) => {
+  //         this.props.handleState('loadingPrint', false);
+  //         if (err.response) {
+  //           if (err.response.status === 400 || err.response.status === 401) {
+  //             // console.log(err.response.data);
+  //             //alert(err.response.data.message);
+  //             NotificationManager.error(err.response.data.message, "Error", 5000);
+  //             this.props.handleState('isEnableFinger', false);
+  //           } else if (err.response.status === 404) {
+  //             //alert("Not Found");
+  //             NotificationManager.error("Not Fount", "Error", 5000);
+  //             this.props.handleState('isEnableFinger', false);
+  //           } else if (err.response.status === 500) {
+  //             //alert(err.response.data.message);
+  //             NotificationManager.error(err.response.data.message, "Error", 5000);
+  //             this.props.handleState('isEnableFinger', false);
+  //           }
+  //         } else if (err.request) {
+  //           //console.log(err.request);
+  //           //alert("Error Connectiong");
+  //           NotificationManager.error("Error Connecting", "Error", 5000);
+  //           this.props.handleState('isEnableFinger', false);
+  //         } else {
+  //           console.log("Error", err.message);
+  //           //alert(err.message);
+  //           NotificationManager.error(err.message, "Error", 5000);
+  //           this.props.handleState('isEnableFinger', false);
+  //         }
+  //       });
+  //   }
+
+
+
+  // };
+
+
+  ///////////////////////////// // // Abs Account Check Added End//////////////////////////////
+
+
   continue = async (e) => {
     e.preventDefault();
     const { nid, dob, rThumb, rIndex, lThumb, lIndex } = this.props.values;
 
-    if(nid === ""){
+    if (nid === "") {
       NotificationManager.warning("Please Provide NID Number", "Click to Remove", largeTime);
       return;
     }
 
-    if(dob === ''){
+    if (dob === '') {
       NotificationManager.warning("Please Provide Date Of Birth", "Click to Remove", largeTime);
       return;
     }
 
-    if(rThumb === "" && rIndex === '' && lThumb === "" && lIndex === ""){
+    if (rThumb === "" && rIndex === '' && lThumb === "" && lIndex === "") {
       NotificationManager.warning("Please Provide Finger Print", "Click to Remove", largeTime);
       return;
     }
@@ -124,7 +270,7 @@ export class FingerPrintJoint extends Component {
 
     let obj = {
       nid,
-      dob:showDate(dob),
+      dob: showDate(dob),
       rIndex,
       rThumb,
       lIndex,
@@ -143,7 +289,7 @@ export class FingerPrintJoint extends Component {
       //console.log("fingerRes",fingerRes.data.data.verificationToken)
       // Setting Data to State === start
 
-      if(fingerRes.data.data.fingerVerificationResult.details.statusCode === 404){
+      if (fingerRes.data.data.fingerVerificationResult.details.statusCode === 404) {
         let message = fingerRes.data.data.fingerVerificationResult.details.message;
         NotificationManager.error(message, "Error", 5000);
         return;
@@ -270,26 +416,26 @@ export class FingerPrintJoint extends Component {
                 />
               </div>
               <div className='form-group d-flex justify-content-between'>
-              <div className=''>
-                <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
+                <div className=''>
+                  <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
+                </div>
+                <div className=''>
+
+                  <DatePicker
+                    placeholderText='DD/MM/YYYY'
+                    selected={values.dob}
+                    dateFormat='dd/MM/yyyy'
+                    onChange={d => {
+                      this.props.handleState("dob", d);
+                    }}
+                    isClearable
+                    showYearDropdown
+                    showMonthDropdown
+                    scrollableMonthYearDropdown
+
+                  />
+                </div>
               </div>
-              <div className=''>
-               
-              <DatePicker
-              placeholderText='DD/MM/YYYY'
-              selected={values.dob}
-              dateFormat='dd/MM/yyyy'
-              onChange={d => {
-                this.props.handleState("dob", d);
-              }}
-              isClearable
-              showYearDropdown
-              showMonthDropdown
-              scrollableMonthYearDropdown
-              
-            />
-              </div>
-            </div>
               {/* <label htmlFor="dob">Date of Birth:</label><br />
     <input type="date" id="dob" name="dob" onChange={this.onChange} value={this.state.dob} /><br /><br /> */}
 

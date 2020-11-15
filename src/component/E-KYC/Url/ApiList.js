@@ -109,3 +109,6 @@ export const simRegApi = hostIp + `ekyc/regular/simplified-to-regular`;
 // MOBILE NUMBER VERIFICATION
 export const mobileVerification = hostIp + `conval/mobile/send-otp`;
 export const mobileCodeVerification = hostIp + `conval/mobile/verify`;
+
+//ABS ACCOUNT CHECK
+export const absAccountCheck = hostIp + `integration/abs/account-check`;
