@@ -124,7 +124,7 @@ export class RegCustomerPic extends Component {
                             <div class="custom-file">
                                 <input type="file"
                                     onChange={this.fileSelectedHandler}
-                                    onClick={(event)=>event.target.value = null}
+                                    onClick={(event) => event.target.value = null}
 
                                     class="form-control-file" id="input-file" />
                                 <label class="custom-file-label" htmlFor="input-file">Choose Image</label>
@@ -133,7 +133,12 @@ export class RegCustomerPic extends Component {
                         </div>
 
 
+
+
                     </div>
+                    <div className="im" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOn}>
+                        <i class="fas fa-camera"></i> Capture Image
+                        </div>
 
                     <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog mw-100 w-75" role="document">
