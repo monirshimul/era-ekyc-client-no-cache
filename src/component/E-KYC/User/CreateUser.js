@@ -7,16 +7,17 @@ import { getRoleWithFilter, createUserWithRole, checkUserId, checkUserMobile, ch
 import { convertNumber } from '../../Utils/StrToNum';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
-import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
+import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
 import ReactTooltip from 'react-tooltip';
 
 
 class CreateUser extends Component {
     state = {
         userId: '',
-        channelName:'',
+        channelName: '',
         name: '',
         password: '',
+        confirmPass: '',
         mobile: '',
         email: '',
         approved_by: '',
@@ -66,14 +67,14 @@ class CreateUser extends Component {
             //  console.log(this.state.role_list[0].rolePrivileges[0][1]); 
 
         } catch (error) {
-            if(error.response){
+            if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
-            }else if(error.request){
+            } else if (error.request) {
                 //console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
-            }else if(error){
+            } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
@@ -105,9 +106,9 @@ class CreateUser extends Component {
     // OnSubmit for Submit button
     onSubmit = async (e) => {
         e.preventDefault();
-        const { userId,channelName, name, password, mobile, email, roles, pinAuthStatus } = this.state;
+        const { userId, channelName, name, password, confirmPass, mobile, email, roles, pinAuthStatus } = this.state;
         let regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
-        let mobileCheck= /^(?:\+88|88)?(01[3-9]\d{8})$/;
+        let mobileCheck = /^(?:\+88|88)?(01[3-9]\d{8})$/;
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
@@ -134,19 +135,19 @@ class CreateUser extends Component {
 
 
         } catch (error) {
-            if(error.response){
+            if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
-            }else if(error.request){
-               // console.log("Error Connecting...",error.request)
+            } else if (error.request) {
+                // console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
-            }else if(error){
+            } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
 
-        if(channelName === ''){
+        if (channelName === '') {
             let channelMessage = "Please Provide your ChannelName";
             NotificationManager.warning(channelMessage, "Click to Remove", largeTime);
             return;
@@ -160,21 +161,46 @@ class CreateUser extends Component {
 
         if (password === "") {
             let passMessage = "Please Provide your Password";
-            NotificationManager.warning(passMessage,"Click to Remove", largeTime);
+            NotificationManager.warning(passMessage, "Click to Remove", largeTime);
             return;
         }
 
-        if(password.length < 8){
+        if (password.length < 8) {
             let passlenMessage = "Password length minimum 8 characters";
             NotificationManager.warning(passlenMessage, "Click to Remove", largeTime);
             return;
         }
 
-        if(regex.exec(password) === null){
+        if (regex.exec(password) === null) {
             let passRegMessage = "Password must have capital letter, special character and digits";
             NotificationManager.warning(passRegMessage, "Click to Remove", largeTime);
             return;
         }
+
+        if (confirmPass === "") {
+            let passMessage = "Please Provide Confirm Password";
+            NotificationManager.warning(passMessage, "Click to Remove", largeTime);
+            return;
+        }
+
+        if (confirmPass !== password) {
+            let checkConfirmPass = "Password and Confirm Password are not same";
+            NotificationManager.warning(checkConfirmPass, "Click to Remove", largeTime);
+            return;
+        }
+
+        // if(confirmPass.length < 8){
+        //     let passlenMessage = "Password length minimum 8 characters";
+        //     NotificationManager.warning(passlenMessage, "Click to Remove", largeTime);
+        //     return;
+        // }
+
+        // if(regex.exec(password) === null){
+        //     let passRegMessage = "Password must have capital letter, special character and digits";
+        //     NotificationManager.warning(passRegMessage, "Click to Remove", largeTime);
+        //     return;
+        // }
+
 
         if (mobile === "") {
             let mobileMessage = "Please Provide your Mobile Number";
@@ -192,7 +218,7 @@ class CreateUser extends Component {
             return;
         }
 
-        if( mobileCheck.test(mobile) === false){
+        if (mobileCheck.test(mobile) === false) {
             let mobileLengthMessage = "Invalid Mobile Number";
             NotificationManager.warning(mobileLengthMessage, "Click to Remove", largeTime);
             return;
@@ -210,14 +236,14 @@ class CreateUser extends Component {
 
 
         } catch (error) {
-            if(error.response){
+            if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
-            }else if(error.request){
-               // console.log("Error Connecting...",error.request)
+            } else if (error.request) {
+                // console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
-            }else if(error){
+            } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
@@ -241,14 +267,14 @@ class CreateUser extends Component {
 
 
         } catch (error) {
-            if(error.response){
+            if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
-            }else if(error.request){
-               // console.log("Error Connecting...",error.request)
+            } else if (error.request) {
+                // console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
-            }else if(error){
+            } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
@@ -290,14 +316,14 @@ class CreateUser extends Component {
             NotificationManager.success(suc_message, "Success", 5000);
             this.props.history.push('/dashboard');
         } catch (error) {
-            if(error.response){
+            if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
-            }else if(error.request){
-               // console.log("Error Connecting...",error.request)
+            } else if (error.request) {
+                // console.log("Error Connecting...",error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
-            }else if(error){
+            } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
             this.setState({
@@ -308,7 +334,7 @@ class CreateUser extends Component {
                 email: '',
                 pinAuthStatus: '',
                 roles: [],
-                channelName:'',
+                channelName: '',
             });
 
         }
@@ -323,7 +349,7 @@ class CreateUser extends Component {
             mobile: '',
             email: '',
             pinAuthStatus: '',
-            roles:[]
+            roles: []
         })
     }
 
@@ -333,8 +359,8 @@ class CreateUser extends Component {
             return (
                 <tr key={id}>
 
-                    <td className="text-center" style={{fontWeight:"600"}}>{roleName}</td>
-                    <td className="text-center" style={{color:"green"}}>
+                    <td className="text-center" style={{ fontWeight: "600" }}>{roleName}</td>
+                    <td className="text-center" style={{ color: "green" }}>
                         {rolePrivileges.map((val, i) => (
                             rolePrivileges[i][1] + " / "
                         ))
@@ -372,28 +398,28 @@ class CreateUser extends Component {
                     <form onSubmit={this.onSubmit}>
 
                         <ReactTooltip id="userId" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span>  UserId should be same as channel UserId for channel login, it's a mandatory input-field (minimum 6 characters)</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span>  UserId should be same as channel UserId for channel login, it's a mandatory input-field (minimum 6 characters)</span>
                         </ReactTooltip>
                         <ReactTooltip id="channel" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please choose a channel name, it's a mandatory field</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please choose a channel name, it's a mandatory field</span>
                         </ReactTooltip>
                         <ReactTooltip id="userName" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide User Name, it's a mandatory input-field</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Provide User Name, it's a mandatory input-field</span>
                         </ReactTooltip>
                         <ReactTooltip id="pass" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Password should contain English uppercase letters (A-Z), English lowercase letters (a-z), Base 10 digits (0-9), any special characters </span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Password should contain English uppercase letters (A-Z), English lowercase letters (a-z), Base 10 digits (0-9), any special characters </span>
                         </ReactTooltip>
                         <ReactTooltip id="userEmail" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid email address, it's a mandatory input-field </span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Provide valid email address, it's a mandatory input-field </span>
                         </ReactTooltip>
                         <ReactTooltip id="userMobile" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid mobile number, it's a mandatory input-field </span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Provide valid mobile number, it's a mandatory input-field </span>
                         </ReactTooltip>
                         <ReactTooltip id="twoStep" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please select any option, it's a mandatory input-field </span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select any option, it's a mandatory input-field </span>
                         </ReactTooltip>
                         <ReactTooltip id="role" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please select any role or select multiple, it's mandatory</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select any role or select multiple, it's mandatory</span>
                         </ReactTooltip>
 
                         {/* User ID */}
@@ -403,24 +429,24 @@ class CreateUser extends Component {
                         </div>
 
 
-                           {/* Channel Name */}
-                    <div data-tip data-for="channel" className='form-group'>
-                        <label htmlFor="">Channel Name</label>
-                        <select
-            
-                            className='custom-select'
-                            value={this.state.channelName}
-                            onChange={this.onChange}
-                            name="channelName"
-                        >
-                            <option value='' disabled>--Select--</option>
-                            <option value='ABS'>Agent Banking</option>
-                            <option value='CBS'>Conventional Core Banking</option>
-                            <option value='ICBS'>Islamic Core Banking</option>
-                            <option value='OMNI'>Omni Channel </option>
-                            <option value='EKYC'>EKYC </option>
-                        </select>
-                    </div>
+                        {/* Channel Name */}
+                        <div data-tip data-for="channel" className='form-group'>
+                            <label htmlFor="">Channel Name</label>
+                            <select
+
+                                className='custom-select'
+                                value={this.state.channelName}
+                                onChange={this.onChange}
+                                name="channelName"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='ABS'>Agent Banking</option>
+                                <option value='CBS'>Conventional Core Banking</option>
+                                <option value='ICBS'>Islamic Core Banking</option>
+                                <option value='OMNI'>Omni Channel </option>
+                                <option value='EKYC'>EKYC </option>
+                            </select>
+                        </div>
 
 
                         {/* User Name */}
@@ -434,6 +460,12 @@ class CreateUser extends Component {
                         <div className="form-group">
                             <label htmlFor="">Password</label>
                             <input data-tip data-for="pass" type="password" value={this.state.password} onChange={this.onChange} className="form-control" name="password" id="inputPassword" aria-describedby="emailHelp" placeholder="Password" />
+                        </div>
+
+                        {/* Confirm Password */}
+                        <div className="form-group">
+                            <label htmlFor="">Confirm Password</label>
+                            <input data-tip data-for="pass" type="password" value={this.state.confirmPass} onChange={this.onChange} className="form-control" name="confirmPass" id="inputPassword" aria-describedby="emailHelp" placeholder="Confirm Password" />
                         </div>
 
 
@@ -484,10 +516,10 @@ class CreateUser extends Component {
                         <div data-tip data-for="role" className='form-group'>
                             <label htmlFor="">Role Selection:</label>
                             <table id='data' className="" style={{ fontSize: '14px' }}>
-                                <thead className="divBg" style={{fontWeight:"400", fontSize:"14px"}}>
+                                <thead className="divBg" style={{ fontWeight: "400", fontSize: "14px" }}>
                                     <tr>
 
-                                        <th className="text-center" style={{width:"150px"}}>Role Name</th>
+                                        <th className="text-center" style={{ width: "150px" }}>Role Name</th>
                                         <th className="text-center">Privileges</th>
                                         <th>Checkbox</th>
                                     </tr>
@@ -500,14 +532,14 @@ class CreateUser extends Component {
 
                         {/* Roles Added show */}
                         {/* <div style={{ marginTop: "20px" }}>Selected: {this.state.roles.join(', ')}</div> */}
-                        
+
                         {/* Submit Button */}
                         <div className="d-flex justify-content-center" >
-                        <ReactTooltip id="sub" place="top" type="warning" effect="float">
-                            <span style={{ fontSize:"15px"}}> Before submit, check all the mandatory fields again</span>
-                        </ReactTooltip>
+                            <ReactTooltip id="sub" place="top" type="warning" effect="float">
+                                <span style={{ fontSize: "15px" }}> Before submit, check all the mandatory fields again</span>
+                            </ReactTooltip>
 
-                            <button data-tip data-for="sub"  className="b" type="submit" style={{ border: "none" }} >Submit</button>
+                            <button data-tip data-for="sub" className="b" type="submit" style={{ border: "none" }} >Submit</button>
 
                         </div>
 

@@ -126,7 +126,7 @@ export class VerifyLoginCode extends Component {
                                 {/* Input field of verify code  */}
                                 <div id="verify">
                                     {/* <h5>Username</h5> */}
-                                    <input name="verifyCode" value={this.state.otp} onChange={this.onChange} type="text" id="verifycode" placeholder="Code" />
+                                    <input name="verifyCode" value={this.state.otp} onChange={this.onChange} type="password" id="verifycode" placeholder="Code" />
                                 </div>
                             </div>
 
