@@ -112,3 +112,9 @@ export const mobileCodeVerification = hostIp + `conval/mobile/verify`;
 
 //ABS ACCOUNT CHECK
 export const absAccountCheck = hostIp + `integration/abs/account-check`;
+
+// Forget Password Verification
+
+export const forgetPassUserId = hostIp + `user/forget-password`;
+export const forgetPasswordVerifyCode = hostIp + `user/forget-password/verify`;
+export const setPassword = hostIp + `user/forget-password/confirm`;
