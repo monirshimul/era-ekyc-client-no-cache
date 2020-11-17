@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { getTPAPI, deleteTPAPI } from '../Url/ApiList';
-import { EkycType,ProductCategoryType,ResourceStatus} from "../../Utils/fullFormConversion";
+import { EkycType, ProductCategoryType, ResourceStatus } from "../../Utils/fullFormConversion";
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
 
@@ -9,7 +9,8 @@ export class TPList extends Component {
     state = {
         allTP: [],
         details: [],
-        tpReq: false
+        tpReq: false,
+        featureTest: JSON.parse(sessionStorage.getItem('featureList')) ? JSON.parse(sessionStorage.getItem('featureList')) : []
     }
 
     async componentDidMount() {
@@ -195,20 +196,20 @@ export class TPList extends Component {
                                         </div>
 
                                         {
-                                        this.state.details.map((tpDetails, index) => (
-                                            <div className="imTwoWhite" style={{textAlign:"left", paddingLeft:"20px"}} key={tpDetails.id}>
-                                                <p style={{color:"green"}}>Ekyc Type: <span style={{color:"#e3174c"}}>{EkycType(tpDetails.ekycType)}</span></p>
-                                                <p style={{color:"green"}}> ProductCategoryCode: <span style={{color:"#e3174c"}}>{ ProductCategoryType(tpDetails.productCategoryCode)}</span></p>
-                                                <p style={{color:"green"}}> Channel Code: <span style={{color:"#e3174c"}}>{tpDetails.channelCode}</span></p>
-                                                <p style={{color:"green"}}>Low Limit: <span style={{color:"#e3174c"}}>{tpDetails.minLimit}</span></p>
-                                                <p style={{color:"green"}}>High Limit: <span style={{color:"#e3174c"}}>{tpDetails.maxLimit}</span></p>
-                                                <p style={{color:"green"}}>Status: <span style={{color:"#e3174c"}}>{ResourceStatus(tpDetails.status)}</span></p>
-                                                <p style={{color:"green"}}>Created By: <span style={{color:"#e3174c"}}>{tpDetails.createdBy}</span></p>
-                                                <p style={{color:"green"}}>Created Date: <span style={{color:"#e3174c"}}>{tpDetails.createDate}</span></p>
+                                            this.state.details.map((tpDetails, index) => (
+                                                <div className="imTwoWhite" style={{ textAlign: "left", paddingLeft: "20px" }} key={tpDetails.id}>
+                                                    <p style={{ color: "green" }}>Ekyc Type: <span style={{ color: "#e3174c" }}>{EkycType(tpDetails.ekycType)}</span></p>
+                                                    <p style={{ color: "green" }}> ProductCategoryCode: <span style={{ color: "#e3174c" }}>{ProductCategoryType(tpDetails.productCategoryCode)}</span></p>
+                                                    <p style={{ color: "green" }}> Channel Code: <span style={{ color: "#e3174c" }}>{tpDetails.channelCode}</span></p>
+                                                    <p style={{ color: "green" }}>Low Limit: <span style={{ color: "#e3174c" }}>{tpDetails.minLimit}</span></p>
+                                                    <p style={{ color: "green" }}>High Limit: <span style={{ color: "#e3174c" }}>{tpDetails.maxLimit}</span></p>
+                                                    <p style={{ color: "green" }}>Status: <span style={{ color: "#e3174c" }}>{ResourceStatus(tpDetails.status)}</span></p>
+                                                    <p style={{ color: "green" }}>Created By: <span style={{ color: "#e3174c" }}>{tpDetails.createdBy}</span></p>
+                                                    <p style={{ color: "green" }}>Created Date: <span style={{ color: "#e3174c" }}>{tpDetails.createDate}</span></p>
 
 
-                                            </div>
-                                        ))
+                                                </div>
+                                            ))
                                         }
 
 
@@ -222,8 +223,20 @@ export class TPList extends Component {
                         {/* Action Button  */}
                         <td>
                             <div className="d-flex">
-                                <div className="sbtn" onClick={() => this.onUpdate(id)}>Update</div>&nbsp;
-                        <div className="sbtnx" onClick={() =>window.confirm("Are you sure you want to delete this TP ?") && this.onDelete(id)}>Delete</div>&nbsp;
+                                {this.state.featureTest.includes('4.2.3') === true ?
+                                    <div className="sbtn" onClick={() => this.onUpdate(id)}>Update</div>
+                                    :
+                                    ""
+                                }
+                            &nbsp;
+                           {this.state.featureTest.includes('4.2.4') === true ?
+                                    <div className="sbtnx" onClick={() => window.confirm("Are you sure you want to delete this TP ?") && this.onDelete(id)}>Delete</div>
+                                    :
+                                    ""
+                                }
+                    &nbsp;
+
+
                     </div>
                         </td>
                     </tr>

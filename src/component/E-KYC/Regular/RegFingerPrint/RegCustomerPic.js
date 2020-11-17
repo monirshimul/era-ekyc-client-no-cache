@@ -116,7 +116,7 @@ export class RegCustomerPic extends Component {
                     </div>
 
                     <div
-                        className="card-footer d-flex justify-content-around"
+                        className="card-footer "
                         style={{ background: "#fff" }}
                     >
 
@@ -132,13 +132,13 @@ export class RegCustomerPic extends Component {
 
                         </div>
 
-
+                        <div className="im" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOn}>
+                            <i class="fas fa-camera"></i> Capture Image
+                        </div>
 
 
                     </div>
-                    <div className="im" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOn}>
-                        <i class="fas fa-camera"></i> Capture Image
-                        </div>
+
 
                     <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog mw-100 w-75" role="document">

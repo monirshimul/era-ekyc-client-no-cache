@@ -53,7 +53,7 @@ class ShowMore extends Component {
 
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Status : </span>{AccountVerificationStatus(data.verificationStatus)}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Type : </span>{data.verificationType}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>On Boarding Type : </span>{data.onboardingType}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Onboarding Type : </span>{data.onboardingType}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Date : </span>{data.verificationDate}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>NID No : </span>{data.nid}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Cell No : </span>{data.mobile}</small><br />
@@ -93,7 +93,7 @@ class ShowMore extends Component {
 
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.account.createdBy === null ? "" : data.account.createdBy}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{data.account.createDate === null ? "" : data.account.createDate}</small><br />
-                               
+
 
 
                                                     {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{data.account.channelResponse}</small><br /> */}

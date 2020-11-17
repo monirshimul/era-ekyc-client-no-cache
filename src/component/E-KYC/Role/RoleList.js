@@ -6,16 +6,10 @@ import { NotificationManager } from "react-notifications";
 import { getRoleWithStatus, roleApproval } from '../Url/ApiList';
 import ReactTooltip from 'react-tooltip';
 import {
-    FaUser, FaHome, FaIndent,
-    FaAddressCard, FaTools, FaBookReader,
-    FaAddressBook, FaMicrochip, FaGetPocket,
-    FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
+    FaEdit,
     FaBatteryThreeQuarters, FaMizuni, FaPenNib,
     FaDigitalTachograph, FaArchive, FaBinoculars,
-    FaSearch, FaListUl, FaUsersCog, FaFileSignature,
-    FaAlignLeft, FaClipboardList, FaCheckSquare,
-    FaPlusCircle, FaUserCheck, FaSortNumericUp,
-    FaCheckCircle, FaWindowClose, FaArrowAltCircleRight,
+    FaSearch, FaListUl, FaSortNumericUp, FaArrowAltCircleRight,
     FaElementor, FaUserShield, FaUserTag, FaUserEdit,
     FaCalendarCheck, FaCalendarAlt
 } from "react-icons/fa";
@@ -26,7 +20,8 @@ class RoleList extends Component {
         modalData: [],
         searchValue: "",
         radioValue: '',
-        archeived: false
+        archeived: false,
+        featureTest: JSON.parse(sessionStorage.getItem('featureList')) ? JSON.parse(sessionStorage.getItem('featureList')) : []
     }
 
     async componentDidMount() {
@@ -483,8 +478,19 @@ class RoleList extends Component {
                                             <ReactTooltip id="arc" place="top" type="warning" effect="float">
                                                 <span style={{ fontSize: "15px" }}> Warning..! Role will be deleted permanently.</span>
                                             </ReactTooltip>
-                                            <span className="sbtn mr-2" onClick={() => this.onUpdate(value.id)}><i ><FaEdit /></i> Update</span>
-                                            <span data-tip data-for="arc" className="sbtnx mr-2" onClick={() => window.confirm("Are you sure you want to archive the Role?") && this.onArchive(value.id)}><i ><FaArchive /></i> Archive</span>
+
+                                            {
+                                                this.state.featureTest.includes('1.3') === true ?
+                                                    <span className="sbtn mr-2" onClick={() => this.onUpdate(value.id)}><i ><FaEdit /></i> Update</span>
+                                                    :
+                                                    ""
+                                            }
+
+                                            {this.state.featureTest.includes('1.6') === true ?
+                                                <span data-tip data-for="arc" className="sbtnx mr-2" onClick={() => window.confirm("Are you sure you want to archive the Role?") && this.onArchive(value.id)}><i ><FaArchive /></i> Archive</span>
+                                                :
+                                                ""
+                                            }
                                             <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onModalShow(value.id)} ><i ><FaBinoculars /></i> Details</span>
                                         </div>
 

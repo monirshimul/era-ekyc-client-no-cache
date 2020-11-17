@@ -491,7 +491,7 @@ class EkycListUser extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>NID No : </span>{data.nid}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Cell No : </span>{data.mobile}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Verification Type : </span>{data.verificationType}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>On Boarding Type : </span>{data.onboardingType}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Onboarding Type : </span>{data.onboardingType}</small><br />
                                             {/* <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Address : </span>{data.permanentAddressBangla}</small><br /> */}
                                         </div>
 

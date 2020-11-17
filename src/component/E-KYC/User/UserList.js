@@ -10,16 +10,10 @@ import NidThree from '../Simplified/images/man.svg';
 import { NotificationManager } from "react-notifications";
 import ReactTooltip from 'react-tooltip';
 import {
-    FaUser, FaHome, FaIndent,
-    FaAddressCard, FaTools, FaBookReader,
-    FaAddressBook, FaMicrochip, FaGetPocket,
-    FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
+    FaEdit,
     FaBatteryThreeQuarters, FaMizuni, FaPenNib,
     FaDigitalTachograph, FaArchive, FaBinoculars,
-    FaSearch, FaListUl, FaUsersCog, FaFileSignature,
-    FaAlignLeft, FaClipboardList, FaCheckSquare,
-    FaPlusCircle, FaUserCheck, FaSortNumericUp,
-    FaCheckCircle, FaWindowClose, FaArrowAltCircleRight,
+    FaSearch, FaListUl, FaSortNumericUp,
     FaElementor, FaUserShield, FaUserTag, FaUserEdit,
     FaCalendarCheck, FaCalendarAlt, FaMicroblog, FaPenAlt, FaCalendarDay
 } from "react-icons/fa";
@@ -41,7 +35,8 @@ export class UserList extends Component {
         profileImage: {},
         profileName: "",
         flag: 'data:image/jpeg;base64,',
-        deleteToggle: false
+        deleteToggle: false,
+        featureTest: JSON.parse(sessionStorage.getItem('featureList')) ? JSON.parse(sessionStorage.getItem('featureList')) : []
     }
 
     async componentDidMount() {
@@ -626,8 +621,17 @@ export class UserList extends Component {
                                                 <ReactTooltip id="arc" place="top" type="warning" effect="float">
                                                     <span style={{ fontSize: "15px" }}> Warning..! User will be deleted permanently.</span>
                                                 </ReactTooltip>
-                                                <span className="sbtn mr-2" onClick={() => this.onUpdate(user.userId)} ><i class="far fa-edit"><FaEdit /></i> Update</span>
-                                                <span data-tip data-for="arc" className="sbtnx mr-2" onClick={() => window.confirm("Are you sure you want to archive the User?") && this.onDelete(user.id)} ><i class="fas fa-archive"><FaArchive /></i> Archive</span>
+                                                {this.state.featureTest.includes('2.3') === true ?
+                                                    <span className="sbtn mr-2" onClick={() => this.onUpdate(user.userId)} ><i class="far fa-edit"><FaEdit /></i> Update</span>
+                                                    :
+                                                    ""
+                                                }
+
+                                                {this.state.featureTest.includes('2.6') === true ?
+                                                    <span data-tip data-for="arc" className="sbtnx mr-2" onClick={() => window.confirm("Are you sure you want to archive the User?") && this.onDelete(user.id)} ><i class="fas fa-archive"><FaArchive /></i> Archive</span>
+                                                    :
+                                                    ""
+                                                }
                                                 <span className="sbtnxy" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => this.onDetails(user.id)}  ><i class="fas fa-binoculars"><FaBinoculars /></i> Details</span>
                                             </div>
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { absDateFormat,dayMonthYearFormat} from '../../../Utils/dateConversion';
-import {ProductCodeGetName,ProductCategoryType,AccountType,GenderForm} from '../../../Utils/fullFormConversion';
+import { absDateFormat, dayMonthYearFormat } from '../../../Utils/dateConversion';
+import { ProductCodeGetName, ProductCategoryType, AccountType, GenderForm } from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { regularSingleApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
@@ -20,13 +20,13 @@ import Acordion from '../../Acordion/Acordion'
 
 
 export class RegFingerPrintConfirm extends Component {
-    state={
-        ProductCodetoName:""
+    state = {
+        ProductCodetoName: ""
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let data = await ProductCodeGetName(this.props.values.productName);
-        this.setState({ProductCodetoName: data});
+        this.setState({ ProductCodetoName: data });
     }
 
 
@@ -76,7 +76,7 @@ export class RegFingerPrintConfirm extends Component {
             districtEng: values.preDistrictEn.toString(),
             upozilaEng: values.preUpozilaEn.toString(),
             unionOrWardEng: values.preUnionOrWardEn.toString()
-            
+
         }
 
         if (values.preAdditionalMouzaOrMoholla !== '') applicantPresentInfo.additionalMouzaOrMoholla = values.preAdditionalMouzaOrMoholla.toString();
@@ -178,13 +178,13 @@ export class RegFingerPrintConfirm extends Component {
 
         }
 
-        let tinInfo={
+        let tinInfo = {
             fileName: values.tinCertificateFileName,
             fileType: values.tinFileType,
-            data: values.tinCertificate 
+            data: values.tinCertificate
         }
 
-        let passportInfo={
+        let passportInfo = {
             fileName: values.passportFileName,
             fileType: values.passFileType,
             data: values.passport
@@ -196,16 +196,16 @@ export class RegFingerPrintConfirm extends Component {
             data: values.birthCertificate
         }
 
-        let regularInfo={
+        let regularInfo = {
             monthlyIncome: parseInt(values.monthlyIncome),
             sourceOfFund: values.sourceOfFund,
             nationality: values.nationality,
-            riskInfo: values.riskGradingArray 
+            riskInfo: values.riskGradingArray
         }
 
-        if(Object.values(tinInfo)[0] !== '' ||Object.values(tinInfo)[1]!== "" || Object.values(tinInfo)[2] !== '') regularInfo.tin = tinInfo;
-        if(Object.values(passportInfo)[0] !== '' ||Object.values(passportInfo)[1]!== "" || Object.values(passportInfo)[2] !== '') regularInfo.passport = passportInfo;
-        if(Object.values(birthCertificateInfo)[0] !== '' ||Object.values(birthCertificateInfo)[1]!== "" || Object.values(birthCertificateInfo)[2] !== '') regularInfo.birthCertificate = birthCertificateInfo;
+        if (Object.values(tinInfo)[0] !== '' || Object.values(tinInfo)[1] !== "" || Object.values(tinInfo)[2] !== '') regularInfo.tin = tinInfo;
+        if (Object.values(passportInfo)[0] !== '' || Object.values(passportInfo)[1] !== "" || Object.values(passportInfo)[2] !== '') regularInfo.passport = passportInfo;
+        if (Object.values(birthCertificateInfo)[0] !== '' || Object.values(birthCertificateInfo)[1] !== "" || Object.values(birthCertificateInfo)[2] !== '') regularInfo.birthCertificate = birthCertificateInfo;
 
 
         let fingerObj = {
@@ -219,12 +219,12 @@ export class RegFingerPrintConfirm extends Component {
             applicantPresentAddress: applicantPresentInfo,
             applicantPermanentAddress: applicantPermanentInfo,
             nominees: nomineesInfo,
-            regularAdditionalData:regularInfo,
+            regularAdditionalData: regularInfo,
             fingerprint: fingerObj
         }
 
         console.log("confirmobj", confirmObj);
-       
+
 
         const config = {
             headers: {
@@ -256,11 +256,11 @@ export class RegFingerPrintConfirm extends Component {
             this.props.nextStep();
 
         } catch (error) {
-            console.log("Error",error.response)
+            console.log("Error", error.response)
             this.props.handleState('confirmFlag', false);
             if (error.response) {
                 let message = error.response.data.message
-                console.log("Error",error.response)
+                console.log("Error", error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
                 console.log("Error Connecting...", error.request)
@@ -270,7 +270,7 @@ export class RegFingerPrintConfirm extends Component {
             }
         }
 
-        
+
 
     }
 
@@ -285,67 +285,67 @@ export class RegFingerPrintConfirm extends Component {
         const { values } = this.props;
         return (
             <div className="container">
-            <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
-                <div className="card-header up">
-                    <h3>All Information</h3>
-                </div>
+                <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
+                    <div className="card-header up">
+                        <h3>All Information</h3>
+                    </div>
 
 
-                <div className="row d-flex justify-content-center">
-                    <div className="col-sm-6 " style={{ margin: "20px 0px" }}>
-                        <div className="im">
-                            <p style={{ color: "green" }}>Account Details</p>
-                        </div>
-                        <hr />
-                        <div className="">
-                            <small className="" style={{fontSize:"14px"}}>
-                            <span style={{color:"green", fontSize:"14px"}}>Account Type :</span> {AccountType(values.accountType)},<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Product and Services :</span> {ProductCategoryType(values.product)},<br /> 
-                            <span style={{color:"green", fontSize:"14px"}}>channel Name :</span> {values.channelName},<br /> 
-                            <span style={{color:"green", fontSize:"14px"}}>Product Name :</span> {`${values.productName} (${this.state.ProductCodetoName})`},<br /> 
-                            <span style={{color:"green", fontSize:"14px"}}>Transaction Amount :</span> {values.transactionOrMaturityAmount},<br /> 
+                    <div className="row d-flex justify-content-center">
+                        <div className="col-sm-6 " style={{ margin: "20px 0px" }}>
+                            <div className="im">
+                                <p style={{ color: "green" }}>Account Details</p>
+                            </div>
+                            <hr />
+                            <div className="">
+                                <small className="" style={{ fontSize: "14px" }}>
+                                    <span style={{ color: "green", fontSize: "14px" }}>Account Type :</span> {AccountType(values.accountType)},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Product and Services :</span> {ProductCategoryType(values.product)},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>channel Name :</span> {values.channelName},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Product Name :</span> {`${values.productName} (${this.state.ProductCodetoName})`},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Transaction Amount :</span> {values.transactionOrMaturityAmount},<br />
                                 </small>
-                            {/* <p className="text-muted">Product and Services : {accountData.product}</p>
+                                {/* <p className="text-muted">Product and Services : {accountData.product}</p>
                         <p className="text-muted">channel Name : {accountData.channelName}</p> */}
+                            </div>
+                            <hr />
                         </div>
-                        <hr />
-                    </div>
 
-                    <div className="col-sm-6 " style={{ margin: "20px 0px" }}>
-                        <div className="im">
-                            <p style={{ color: "green" }}>Personal Information</p>
+                        <div className="col-sm-6 " style={{ margin: "20px 0px" }}>
+                            <div className="im">
+                                <p style={{ color: "green" }}>Personal Information</p>
+                            </div>
+                            <hr />
+                            <div className="">
+
+                                <small className="" style={{ fontSize: "14px" }}>
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name :</span> {values.applicantName}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Mother's Name :</span> {values.motherName}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Mother's Name Bangla :</span> {values.motherNameBangla}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Father's Name :</span> {values.fatherName}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Father's Name Bangla :</span> {values.fatherNameBangla}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Spouse Name :</span> {values.spouseName}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Gender :</span> {GenderForm(values.gender)}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Profession :</span> {values.profession}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Monthly Income :</span> {values.monthlyIncome}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Source of Fund :</span> {values.sourceOfFund}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Nationality :</span> {values.nationality}<br />
+                                    {/* <span style={{color:"green", fontSize:"14px"}}>Tin No :</span> {values.tin}<br /> */}
+
+
+
+
+
+
+                                </small>
+
+
+                            </div>
                         </div>
-                        <hr />
-                        <div className="">
 
-                            <small className="" style={{fontSize:"14px"}}>
-                            <span style={{color:"green", fontSize:"14px"}}>Applicant's Name :</span> {values.applicantName}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Mother's Name :</span> {values.motherName}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Mother's Name Bangla :</span> {values.motherNameBangla}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Father's Name :</span> {values.fatherName}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Father's Name Bangla :</span> {values.fatherNameBangla}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Spouse Name :</span> {values.spouseName}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Gender :</span> {GenderForm(values.gender)}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Profession :</span> {values.profession}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Monthly Income :</span> {values.monthlyIncome}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Source of Fund :</span> {values.sourceOfFund}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Nationality :</span> {values.nationality}<br />
-                            <span style={{color:"green", fontSize:"14px"}}>Tin No :</span> {values.tin}<br />
-                           
-
-
-
-
-
-                            </small>
-
-
-                        </div>
-                    </div>
-
-                    {/* <div className=" col-sm-6 animated zoomIn" style={{ margin: "20px 0px" }}>
+                        {/* <div className=" col-sm-6 animated zoomIn" style={{ margin: "20px 0px" }}>
                         <div className="text-center">
                             <h3 style={{ color: "green" }}>NID Images</h3>
                         </div>
@@ -353,303 +353,303 @@ export class RegFingerPrintConfirm extends Component {
                         
                     </div> */}
 
-                </div>
-
-
-                <hr />
-
-                <div className="row d-flex justify-content-center">
-                    <div className="col-sm-6">
-                        <Acordion
-                            size={"col"}
-                            heading={"Permanent Address Details"}
-                            acBody={
-                                <div className="imTwoWhite">
-                                    <small className="" style={{fontSize:"14px"}}>
-                                    <span style={{color:"green", fontSize:"14px"}}>Mouza Or Moholla :</span> {values.perAdditionalMouzaOrMoholla + `${values.perAdditionalMouzaOrMohollaEn ? `(${values.perAdditionalMouzaOrMohollaEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Village Or Road :</span> {values.perAdditionalVillageOrRoad + `${values.perAdditionalVillageOrRoadEn ? `(${values.perAdditionalVillageOrRoadEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>City Corp. :</span> {values.perCityCorporationOrMunicipality + `${values.perCityCorporationOrMunicipalityEn ? `(${values.perCityCorporationOrMunicipalityEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>District :</span> {values.perDistrict + `${values.perDistrictEn ? `(${values.perDistrictEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>District Code :</span> {values.perDistrictCode}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Division :</span> {values.perDivision + `${values.perDivisionEn ? `(${values.perDivisionEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Home Or Holding No. :</span> {values.perHomeOrHoldingNo + `${values.perHomeOrHoldingNoEn ? `(${values.perHomeOrHoldingNoEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Post Office :</span> {values.perPostOffice + `${values.perPostOfficeEn ? `(${values.perPostOfficeEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Postal Code :</span> {values.perPostalCode + `${values.perPostalCodeEn ? `(${values.perPostalCodeEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Region :</span> {values.perRegion + `${values.perRegionEn ? `(${values.perRegionEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>RMO :</span> {values.perRmo + `${values.perRmoEn ? `(${values.perRmoEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Union Or Ward :</span> {values.perUnionOrWard + `${values.perUnionOrWardEn ? `(${values.perUnionOrWardEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Union Or Ward Code :</span> {values.perUnionOrWardCode}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Upozila :</span> {values.perUpozila + `${values.perUpozilaEn ? `(${values.perUpozilaEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Upozila Code :</span> {values.perUpozilaCode}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Ward For Union Porishod :</span> {values.perWardForUnionPorishod + `${values.perWardForUnionPorishodEn ? `(${values.perWardForUnionPorishodEn})` : "" }`}<br />
-                                    </small>
-
-                                </div>
-                            }
-                        />
                     </div>
 
-                    <div className="col-sm-6">
-                        <Acordion
-                            size={"col"}
-                            heading={"Present Address Details"}
-                            acBody={
-                                <div className="imTwoWhite">
-                                    <small className="" style={{fontSize:"14px"}}>
-                                    <span style={{color:"green", fontSize:"14px"}}>Mouza Or Moholla :</span> {values.preAdditionalMouzaOrMoholla + `${values.preAdditionalMouzaOrMohollaEn ? `(${values.preAdditionalMouzaOrMohollaEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Village Or Road :</span> {values.preAdditionalVillageOrRoad + `${values.preAdditionalVillageOrRoadEn ? `(${values.preAdditionalVillageOrRoadEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>City Corp. :</span> {values.preCityCorporationOrMunicipality + `${values.preCityCorporationOrMunicipalityEn ? `(${values.preCityCorporationOrMunicipalityEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>District :</span> {values.preDistrict + `${values.preDistrictEn ? `(${values.preDistrictEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>District Code :</span> {values.preDistrictCode}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Division :</span> {values.preDivision + `${values.preDivisionEn ? `(${values.preDivisionEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Home Or Holding No. :</span> {values.preHomeOrHoldingNo + `${values.preHomeOrHoldingNoEn ? `(${values.preHomeOrHoldingNoEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Post Office :</span> {values.prePostOffice + `${values.prePostOfficeEn ? `(${values.prePostOfficeEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Postal Code :</span> {values.prePostalCode + `${values.prePostalCodeEn ? `(${values.prePostalCodeEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Region :</span> {values.preRegion + `${values.preRegionEn ? `(${values.preRegionEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>RMO :</span> {values.preRmo + `${values.preRmoEn ? `(${values.preRmoEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Union Or Ward :</span> {values.preUnionOrWard + `${values.preUnionOrWardEn ? `(${values.preUnionOrWardEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Union Or Ward Code :</span> {values.preUnionOrWardCode}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Upozila :</span> {values.preUpozila + `${values.preUpozilaEn ? `(${values.preUpozilaEn})` : "" }`}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Upozila Code :</span> {values.preUpozilaCode}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Ward For Union Porishod :</span> {values.preWardForUnionPorishod + `${values.preWardForUnionPorishodEn ? `(${values.preWardForUnionPorishodEn})` : "" }`}<br />
-                                    </small>
 
-                                </div>
-                            }
-                        />
-                    </div>
-                </div>
-                <hr />
+                    <hr />
 
-                <div className="row d-flex justify-content-center">
-                    <div className="imTwo text-center col-sm-3">
-                        <div className="im">
-                            <small>NID Front</small>
-                        </div>
-
-                        <img src={values.NidFront ? values.flag + values.NidFront : front}
-                            style={{
-                                margin: "0 auto",
-                                width: "250px",
-                                height: "150px",
-                                border: "none",
-                            }}
-                            className="img-fluid img-thumbnail"
-                        />
-                        <hr />
-
-
-
-                    </div>
-                    <div className="imTwo text-center col-sm-3" >
-                        <div className="im">
-                            <small>NID Back</small>
-                        </div>
-
-                        <img src={values.NidBack ? values.flag + values.NidBack : back}
-                            style={{
-                                margin: "0 auto",
-                                width: "250px",
-                                height: "150px",
-                                border: "none",
-                            }}
-                            className="img-fluid img-thumbnail"
-                        />
-                        <hr />
-
-
-
-                    </div>
-
-                    <div className="imTwo text-center col-sm-3">
-                        <div className="im">
-                            <small>Profile Image</small>
-                        </div>
-
-                        <img src={values.faceImage ? values.flag + values.faceImage : Avater}
-                            style={{
-                                margin: "0 auto",
-                                width: "250px",
-                                height: "150px",
-                                border: "none"
-
-                            }}
-                            className="img-fluid img-thumbnail"
-                        />
-                        <hr />
-
-
-                    </div>
-
-                    <div className="imTwo text-center col-sm-3">
-                        <div className="im">
-                            <small>Signature</small>
-                        </div>
-
-                        <img src={values.signature ? values.flag + values.signature : Sign}
-                            style={{
-                                margin: "0 auto",
-                                width: "250px",
-                                height: "150px",
-                                border: "none"
-
-                            }}
-                            className="img-fluid img-thumbnail"
-                        />
-                        <hr />
-
-
-                    </div>
-                </div>
-
-                <hr />
-
-
-                <div class="col-sm-12">
-                    <div className="col-sm-12 im">
-                        <p style={{ color: "green" }}>Nominee Details</p>
-                    </div>
                     <div className="row d-flex justify-content-center">
+                        <div className="col-sm-6">
+                            <Acordion
+                                size={"col"}
+                                heading={"Permanent Address Details"}
+                                acBody={
+                                    <div className="imTwoWhite">
+                                        <small className="" style={{ fontSize: "14px" }}>
+                                            <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {values.perAdditionalMouzaOrMoholla + `${values.perAdditionalMouzaOrMohollaEn ? `(${values.perAdditionalMouzaOrMohollaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Village Or Road :</span> {values.perAdditionalVillageOrRoad + `${values.perAdditionalVillageOrRoadEn ? `(${values.perAdditionalVillageOrRoadEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>City Corp. :</span> {values.perCityCorporationOrMunicipality + `${values.perCityCorporationOrMunicipalityEn ? `(${values.perCityCorporationOrMunicipalityEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District :</span> {values.perDistrict + `${values.perDistrictEn ? `(${values.perDistrictEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District Code :</span> {values.perDistrictCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Division :</span> {values.perDivision + `${values.perDivisionEn ? `(${values.perDivisionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Home Or Holding No. :</span> {values.perHomeOrHoldingNo + `${values.perHomeOrHoldingNoEn ? `(${values.perHomeOrHoldingNoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Post Office :</span> {values.perPostOffice + `${values.perPostOfficeEn ? `(${values.perPostOfficeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Postal Code :</span> {values.perPostalCode + `${values.perPostalCodeEn ? `(${values.perPostalCodeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Region :</span> {values.perRegion + `${values.perRegionEn ? `(${values.perRegionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>RMO :</span> {values.perRmo + `${values.perRmoEn ? `(${values.perRmoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward :</span> {values.perUnionOrWard + `${values.perUnionOrWardEn ? `(${values.perUnionOrWardEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward Code :</span> {values.perUnionOrWardCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila :</span> {values.perUpozila + `${values.perUpozilaEn ? `(${values.perUpozilaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila Code :</span> {values.perUpozilaCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {values.perWardForUnionPorishod + `${values.perWardForUnionPorishodEn ? `(${values.perWardForUnionPorishodEn})` : ""}`}<br />
+                                        </small>
 
-
-                        {values.jointArray.map((val, i) => (
-                            val.isShow === true ?
-                                // Major
-                                <div className="col-sm-6 ">
-                                    <div className="im">
-                                        <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                     </div>
-                                    <small className="" style={{fontSize:"14px"}}>
-                                    <span style={{color:"green", fontSize:"14px"}}>Nominee :</span> {val.nominee},<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Relation :</span> {val.relation},<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.percentage}&#37;<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Date of Birth :</span> {dayMonthYearFormat(val.dob)}
-                                    </small >
+                                }
+                            />
+                        </div>
 
-                                </div>
-                                :
-                                // Minor
+                        <div className="col-sm-6">
+                            <Acordion
+                                size={"col"}
+                                heading={"Present Address Details"}
+                                acBody={
+                                    <div className="imTwoWhite">
+                                        <small className="" style={{ fontSize: "14px" }}>
+                                            <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {values.preAdditionalMouzaOrMoholla + `${values.preAdditionalMouzaOrMohollaEn ? `(${values.preAdditionalMouzaOrMohollaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Village Or Road :</span> {values.preAdditionalVillageOrRoad + `${values.preAdditionalVillageOrRoadEn ? `(${values.preAdditionalVillageOrRoadEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>City Corp. :</span> {values.preCityCorporationOrMunicipality + `${values.preCityCorporationOrMunicipalityEn ? `(${values.preCityCorporationOrMunicipalityEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District :</span> {values.preDistrict + `${values.preDistrictEn ? `(${values.preDistrictEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District Code :</span> {values.preDistrictCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Division :</span> {values.preDivision + `${values.preDivisionEn ? `(${values.preDivisionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Home Or Holding No. :</span> {values.preHomeOrHoldingNo + `${values.preHomeOrHoldingNoEn ? `(${values.preHomeOrHoldingNoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Post Office :</span> {values.prePostOffice + `${values.prePostOfficeEn ? `(${values.prePostOfficeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Postal Code :</span> {values.prePostalCode + `${values.prePostalCodeEn ? `(${values.prePostalCodeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Region :</span> {values.preRegion + `${values.preRegionEn ? `(${values.preRegionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>RMO :</span> {values.preRmo + `${values.preRmoEn ? `(${values.preRmoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward :</span> {values.preUnionOrWard + `${values.preUnionOrWardEn ? `(${values.preUnionOrWardEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward Code :</span> {values.preUnionOrWardCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila :</span> {values.preUpozila + `${values.preUpozilaEn ? `(${values.preUpozilaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila Code :</span> {values.preUpozilaCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {values.preWardForUnionPorishod + `${values.preWardForUnionPorishodEn ? `(${values.preWardForUnionPorishodEn})` : ""}`}<br />
+                                        </small>
 
-                                <div className="col-sm-6 ">
-
-                                    <div className="im">
-                                        <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                     </div>
-
-                                    <small className="text-muted" style={{fontSize:"14px"}}>
-                                    <span style={{color:"green", fontSize:"14px"}}>Minor Nominee :</span> {val.minorNominee}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Relation With Account Holder:</span> {val.minorRelationWAccH}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.minorPercentage}&#37;<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian NID No :</span> {val.minorGuardianNid}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian Name :</span> {val.minorGuardianName}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Guardian Relation with Minor Nominee :</span> {val.guardianRelationWMinor}<br />
-                                    <span style={{color:"green", fontSize:"14px"}}>Guardian Address :</span> {val.minorGuardianAddress}<br />
-
-                                    </small >
-
-
-
-
-                                </div>
-                        ))}
-
-
-
+                                }
+                            />
+                        </div>
                     </div>
                     <hr />
 
                     <div className="row d-flex justify-content-center">
-                        {
-                            values.jointArray.map((val, i) => (
-                                val.isShow === true ? (
-                                    <div className="imTwo text-center col-sm-3">
+                        <div className="imTwo text-center col-sm-3">
+                            <div className="im">
+                                <small>NID Front</small>
+                            </div>
+
+                            <img src={values.NidFront ? values.flag + values.NidFront : front}
+                                style={{
+                                    margin: "0 auto",
+                                    width: "250px",
+                                    height: "150px",
+                                    border: "none",
+                                }}
+                                className="img-fluid img-thumbnail"
+                            />
+                            <hr />
+
+
+
+                        </div>
+                        <div className="imTwo text-center col-sm-3" >
+                            <div className="im">
+                                <small>NID Back</small>
+                            </div>
+
+                            <img src={values.NidBack ? values.flag + values.NidBack : back}
+                                style={{
+                                    margin: "0 auto",
+                                    width: "250px",
+                                    height: "150px",
+                                    border: "none",
+                                }}
+                                className="img-fluid img-thumbnail"
+                            />
+                            <hr />
+
+
+
+                        </div>
+
+                        <div className="imTwo text-center col-sm-3">
+                            <div className="im">
+                                <small>Profile Image</small>
+                            </div>
+
+                            <img src={values.faceImage ? values.flag + values.faceImage : Avater}
+                                style={{
+                                    margin: "0 auto",
+                                    width: "250px",
+                                    height: "150px",
+                                    border: "none"
+
+                                }}
+                                className="img-fluid img-thumbnail"
+                            />
+                            <hr />
+
+
+                        </div>
+
+                        <div className="imTwo text-center col-sm-3">
+                            <div className="im">
+                                <small>Signature</small>
+                            </div>
+
+                            <img src={values.signature ? values.flag + values.signature : Sign}
+                                style={{
+                                    margin: "0 auto",
+                                    width: "250px",
+                                    height: "150px",
+                                    border: "none"
+
+                                }}
+                                className="img-fluid img-thumbnail"
+                            />
+                            <hr />
+
+
+                        </div>
+                    </div>
+
+                    <hr />
+
+
+                    <div class="col-sm-12">
+                        <div className="col-sm-12 im">
+                            <p style={{ color: "green" }}>Nominee Details</p>
+                        </div>
+                        <div className="row d-flex justify-content-center">
+
+
+                            {values.jointArray.map((val, i) => (
+                                val.isShow === true ?
+                                    // Major
+                                    <div className="col-sm-6 ">
                                         <div className="im">
-                                            <small>Adult Nominee {i + 1}</small>
+                                            <small style={{ color: "green" }}>Nominee {i + 1}</small>
+                                        </div>
+                                        <small className="" style={{ fontSize: "14px" }}>
+                                            <span style={{ color: "green", fontSize: "14px" }}>Nominee :</span> {val.nominee},<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Relation :</span> {val.relation},<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Percentage :</span> {val.percentage}&#37;<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Date of Birth :</span> {dayMonthYearFormat(val.dob)}
+                                        </small >
+
+                                    </div>
+                                    :
+                                    // Minor
+
+                                    <div className="col-sm-6 ">
+
+                                        <div className="im">
+                                            <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                         </div>
 
-                                        <img src={val.photograph ? values.flag + val.photograph : adult}
-                                            style={{
-                                                margin: "0 auto",
-                                                width: "250px",
-                                                height: "150px",
-                                                border: "none",
-                                            }}
-                                            className="img-fluid img-thumbnail"
-                                        />
-                                        <hr />
+                                        <small className="text-muted" style={{ fontSize: "14px" }}>
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee :</span> {val.minorNominee}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Relation With Account Holder:</span> {val.minorRelationWAccH}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Percentage :</span> {val.minorPercentage}&#37;<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Guardian NID No :</span> {val.minorGuardianNid}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Guardian Name :</span> {val.minorGuardianName}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Guardian Relation with Minor Nominee :</span> {val.guardianRelationWMinor}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Guardian Address :</span> {val.minorGuardianAddress}<br />
+
+                                        </small >
+
+
 
 
                                     </div>
-                                ) : (
-                                        <React.Fragment>
-                                            <div className="imTwo text-center col-sm-3">
-                                                <div className="im">
-                                                    <small>Minor Nominee {i + 1}</small>
-                                                </div>
-
-                                                <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
-                                                    style={{
-                                                        margin: "0 auto",
-                                                        width: "250px",
-                                                        height: "150px",
-                                                        border: "none",
-                                                    }}
-                                                    className="img-fluid img-thumbnail"
-                                                />
-                                                <hr />
+                            ))}
 
 
+
+                        </div>
+                        <hr />
+
+                        <div className="row d-flex justify-content-center">
+                            {
+                                values.jointArray.map((val, i) => (
+                                    val.isShow === true ? (
+                                        <div className="imTwo text-center col-sm-3">
+                                            <div className="im">
+                                                <small>Adult Nominee {i + 1}</small>
                                             </div>
-                                            <div className="imTwo text-center col-sm-3">
-                                                <div className="im">
-                                                    <small>Nominee's Guardian {i + 1}</small>
+
+                                            <img src={val.photograph ? values.flag + val.photograph : adult}
+                                                style={{
+                                                    margin: "0 auto",
+                                                    width: "250px",
+                                                    height: "150px",
+                                                    border: "none",
+                                                }}
+                                                className="img-fluid img-thumbnail"
+                                            />
+                                            <hr />
+
+
+                                        </div>
+                                    ) : (
+                                            <React.Fragment>
+                                                <div className="imTwo text-center col-sm-3">
+                                                    <div className="im">
+                                                        <small>Minor Nominee {i + 1}</small>
+                                                    </div>
+
+                                                    <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
+                                                        style={{
+                                                            margin: "0 auto",
+                                                            width: "250px",
+                                                            height: "150px",
+                                                            border: "none",
+                                                        }}
+                                                        className="img-fluid img-thumbnail"
+                                                    />
+                                                    <hr />
+
+
                                                 </div>
+                                                <div className="imTwo text-center col-sm-3">
+                                                    <div className="im">
+                                                        <small>Nominee's Guardian {i + 1}</small>
+                                                    </div>
 
-                                                <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
-                                                    style={{
-                                                        margin: "0 auto",
-                                                        width: "250px",
-                                                        height: "150px",
-                                                        border: "none",
-                                                    }}
-                                                    className="img-fluid img-thumbnail"
-                                                />
-                                                <hr />
+                                                    <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
+                                                        style={{
+                                                            margin: "0 auto",
+                                                            width: "250px",
+                                                            height: "150px",
+                                                            border: "none",
+                                                        }}
+                                                        className="img-fluid img-thumbnail"
+                                                    />
+                                                    <hr />
 
 
-                                            </div>
-                                        </React.Fragment>
-                                    )
-                            ))
-                        }
+                                                </div>
+                                            </React.Fragment>
+                                        )
+                                ))
+                            }
+
+                        </div>
+
+
 
                     </div>
 
+                    {
+                        values.confirmFlag ? (
+                            <div className="row d-flex justify-content-center align-items-center mt-3">
+                                <Loading />
+                            </div>
+                        ) : ''
+                    }
+                    <br />
 
+                    <div className="d-flex justify-content-center"
+                        style={{ marginBottom: "20px" }}
+                    >
 
+                        <span className="b mr-5" onClick={this.back}>Back</span>
+                        <span className="b" disabled={values.confirmFlag} onClick={this.continue}>Confirm</span>
+                    </div>
                 </div>
 
-                {
-                    values.confirmFlag ? (
-                        <div className="row d-flex justify-content-center align-items-center mt-3">
-                            <Loading />
-                        </div>
-                    ) : ''
-                }
-                <br />
 
-                <div className="d-flex justify-content-center"
-                    style={{ marginBottom: "20px" }}
-                >
-
-                    <span className="b mr-5" onClick={this.back}>Back</span>
-                    <span className="b" disabled={values.confirmFlag} onClick={this.continue}>Confirm</span>
-                </div>
             </div>
-
-
-        </div>
         )
     }
 }

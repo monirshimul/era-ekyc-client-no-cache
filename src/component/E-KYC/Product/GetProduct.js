@@ -30,6 +30,7 @@ class GetProduct extends Component {
         productDetails: [],
         searchProduct: "ABS",
         checkingProduct: '',
+        featureTest: JSON.parse(sessionStorage.getItem('featureList')) ? JSON.parse(sessionStorage.getItem('featureList')) : []
     }
 
     // Radio Button Search
@@ -298,10 +299,21 @@ class GetProduct extends Component {
 
 
                                         <hr />
-                                        <div className="row d-flex justify-content-around">
-                                            <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={() => this.onUpdate(data.id)} >Update</button>
-                                            <button className="neoBtnSmall" data-toggle="modal" data-target="#exampleModalCenter" style={{ color: "green" }} onClick={() => this.onDetails(parseInt(data.id))}>Details</button>
-                                            <button className="neoBtnSmall" style={{ color: "#d3830a" }} onClick={() => this.onDelete(parseInt(data.id))}>Delete</button>
+                                        <div className="row d-flex justify-content-center">
+                                            {this.state.featureTest.includes('7.3') === true ?
+                                                <button className="neoBtnSmall mr-3" style={{ color: "#308f8f" }} onClick={() => this.onUpdate(data.id)} >Update</button>
+                                                :
+                                                ""
+                                            }
+
+                                            <button className="neoBtnSmall mr-3" data-toggle="modal" data-target="#exampleModalCenter" style={{ color: "green" }} onClick={() => this.onDetails(parseInt(data.id))}>Details</button>
+
+                                            {this.state.featureTest.includes('7.4') === true ?
+                                                <button className="neoBtnSmall" style={{ color: "#d3830a" }} onClick={() => this.onDelete(parseInt(data.id))}>Delete</button>
+                                                :
+                                                ""
+                                            }
+
 
 
                                         </div>
