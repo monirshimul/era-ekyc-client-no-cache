@@ -22,7 +22,7 @@ export class VerifyPassCode extends Component {
     onSubmit = async (e) => {
         e.preventDefault();
         const { verifyCode } = this.state;
-        // console.log("verifaction code for forget password ", verifyCode);
+        //  console.log("verifaction code for forget password ", verifyCode);
 
         if (verifyCode === "") {
             let verifyCodeMessage = "Verify Code field is empty";
@@ -43,25 +43,29 @@ export class VerifyPassCode extends Component {
 
         try {
             let verifyCode = await axios.post(forgetPasswordVerifyCode, objCode, config);
-            console.log("code verification", verifyCode.headers["x-mobile-token"]);
+            // console.log("code verification", verifyCode);
             this.setState({ mobileToken: verifyCode.headers["x-mobile-token"] })
-            if (verifyCode.headers["x-mobile-token"] !== "") {
+            if (verifyCode.headers["x-mobile-token"] !== "" && verifyCode.data.status === true) {
                 this.props.history.push('/forget-pass', this.state.mobileToken);
             } else {
                 NotificationManager.warning('Please Provide Valid OTP', "Click To Remove", largeTime);
+                this.setState({ verifyCode: '' });
             }
 
 
         } catch (error) {
             if (error.response) {
-                let message = error.response.data.message
-                //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
+                if (error.response.data.message === "Invalid Token") {
+                    // console.log("Error", error.response)
+                    NotificationManager.info("OTP time Exceeds", "Message", largeTime);
+                    this.props.history.push('/');
+                }
+
             } else if (error.request) {
                 // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Error", largeTime);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Error", largeTime);
             }
         }
 
@@ -89,7 +93,7 @@ export class VerifyPassCode extends Component {
                             <div className="field mb-3">
                                 <input name="verifyCode" value={this.state.verifyCode} onChange={this.onChange} type="password" id="inputUser" placeholder="Code" autoComplete="off" />
                                 <span>
-                                    <FaUser />
+                                    <FaLock />
                                 </span>
 
                                 <label>Verification Code</label>

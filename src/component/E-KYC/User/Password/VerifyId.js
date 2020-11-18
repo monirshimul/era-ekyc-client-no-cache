@@ -39,18 +39,21 @@ export class VerifyId extends Component {
 
         try {
             let userData = await axios.post(forgetPassUserId, obj, config);
-            this.setState({ convalToken: userData.data.data.convalToken });
+            // console.log("apitest", userData.data);
+            if (userData.data.message === "No User Found") {
+                this.setState({ userId: "" });
+                NotificationManager.warning("No User Found", "Click To Remove", largeTime);
+            } else {
+                this.setState({ convalToken: userData.data.data.convalToken });
+                NotificationManager.info("Please check OTP in your Mobile", "Message", largeTime);
+                this.props.history.push('./verify-pass-code', this.state.convalToken);
+            }
 
-            //  if(this.state.convalToken === ""){
-            //     NotificationManager.warning("Token Missing", "Warning", largeTime);
-            //  }
-            NotificationManager.info("Please check OTP in your Mobile", "Message", largeTime);
-            this.props.history.push('./verify-pass-code', this.state.convalToken);
 
         } catch (error) {
             if (error.response) {
                 let message = error.response.data.message
-                //console.log("Error",error.response)
+                console.log("Error", error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
                 // console.log("Error Connecting...", error.request)
@@ -74,24 +77,6 @@ export class VerifyId extends Component {
                             {/* <img id="proImg" src={logo} /> */}
                             <div className="loginDivBg pt-2"><h1>Forget Password</h1></div>
                             <h2 className="heading mb-5">User ID</h2>
-                            {/* <div className="input-div one">
-                                <div className="i">
-                                    <i className="fas fa-user"></i>
-                                </div>
-                                <div id="user">
-                                    <h5>Username</h5>
-                                    <input name="userId" value={this.state.userId} onChange={this.onChange} type="text" id="inputUser" placeholder="User ID" autoComplete="off" />
-                                </div>
-                            </div>
-                            <div className="input-div pass">
-                                <div className="i">
-                                    <i className="fas fa-lock"></i>
-                                </div>
-                                <div id="passwd">
-                                    <h5>Password</h5>
-                                    <input name="password" value={this.state.password} onChange={this.onChange} type="password" id="inputPass" placeholder="Password" />
-                                </div>
-                            </div> */}
 
 
                             <div className="field mb-3">

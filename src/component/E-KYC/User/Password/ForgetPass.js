@@ -28,30 +28,62 @@ class ForgetPass extends Component {
 
         if (newPass === '') {
             let msg2 = "Please Provide New Password";
-            NotificationManager.warning(msg2, "Click to Remove", largeTime);
+            NotificationManager.warning(msg2, "Click To Remove", largeTime);
             return;
         }
 
         if (newPass.length < 8) {
             let passlenMessage = "New Password length minimum 8 characters";
-            NotificationManager.warning(passlenMessage, "Click to Remove", largeTime);
+            NotificationManager.warning(passlenMessage, "Click To Remove", largeTime);
             return;
         }
 
         if (regex.exec(newPass) === null) {
             let passRegMessage = "New Password must have capital letter, special character and digits";
-            NotificationManager.warning(passRegMessage, "Click to Remove", largeTime);
+            NotificationManager.warning(passRegMessage, "Click To Remove", largeTime);
             return;
         }
 
         if (confirmPass === "") {
-            NotificationManager.warning('Confirm Password field is empty!! Please Enter Confirm Password Field', "Click to Remove", largeTime);
+            NotificationManager.warning('Confirm Password field is empty!! Please Enter Confirm Password Field', "Click To Remove", largeTime);
             return;
         }
 
         if (confirmPass !== newPass) {
-            NotificationManager.warning("New Password and Confirm Password are not Same", "Click to Remove", largeTime);
+            NotificationManager.warning("New Password and Confirm Password are not Same", "Click To Remove", largeTime);
             return;
+        }
+
+        const passObj = {
+            newPassword: newPass
+        }
+
+        const config = {
+            headers: {
+                'x-auth-passcode': '$Er@InfoTech#LtdCMMI3',
+                'x-mobile-token': this.state.mobileToken
+            }
+        };
+
+        try {
+            let setPass = await axios.post(setPassword, passObj, config);
+            console.log("response", setPass.data.message);
+            if (setPass.data.statusCode === 200) {
+                NotificationManager.success("Password Change Successfull", "Success", 10000);
+                this.props.history.push('/');
+            }
+
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                //console.log("Error",error.response)
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
         }
 
 
@@ -62,6 +94,7 @@ class ForgetPass extends Component {
 
 
     render() {
+
         return (
             <div>
                 <img className="wave" src={bg} alt="" />
@@ -77,7 +110,7 @@ class ForgetPass extends Component {
                             <div className="field mb-3">
                                 <input name="newPass" value={this.state.newPass} onChange={this.onChange} type="password" id="inputUser" placeholder="New Password" autoComplete="off" />
                                 <span>
-                                    <FaUser />
+                                    <FaLock />
                                 </span>
 
                                 <label>New Password</label>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import './VerifyLoginCode.css';
+import "../Login.css";
 import { NotificationManager } from "react-notifications";
 import bg from '../../Login/image/wave2.png';
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { twoFALogin } from '../../E-KYC/Url/ApiList';
 import { largeTime } from './../../Utils/notificationTime';
+import { FaLock } from "react-icons/fa";
 
 export class VerifyLoginCode extends Component {
     state = {
@@ -85,24 +86,7 @@ export class VerifyLoginCode extends Component {
                 NotificationManager.error(err.toString(), "Click to Remove", largeTime);
             }
         }
-        //     if (statusCode === 401) {
-        //         let errorMessage = "Invalid OTP";
-        //         //alert(statusCode + ' ' + errorMessage);
-        //         NotificationManager.error(statusCode + ' ' + errorMessage, "Error", 5000);
-        //         this.setState({
-        //             otp: ""
-        //         });
-        //         this.props.history.push('/');
-        //     } else {
-        //         let errorMessage = "Server Error";
-        //         //alert(statusCode + ' ' + errorMessage);
-        //         NotificationManager.error(statusCode + ' ' + errorMessage, "Error", 5000);
-        //         this.setState({
-        //             otp: ""
-        //         });
-        //         this.props.history.push('/');
-        //     }
-        // }
+
 
     }
 
@@ -110,29 +94,31 @@ export class VerifyLoginCode extends Component {
     render() {
         return (
             <div>
-                <img className="wave" src={bg} />
+                <img className="wave" src={bg} alt="" />
                 <div id="container">
 
                     <div className="login-content">
                         <form id="loginForm" onSubmit={this.onSubmit}>
 
+                            {/* <img id="proImg" src={logo} /> */}
+                            <div className="loginDivBg pt-2"><h1>E-KYC</h1></div>
+                            <h5 className="mb-5">Two Steps Verification</h5>
 
-                            <div id="proImg"><h1>Verification</h1></div>
-                            <h2 className="title">Login Code</h2>
-                            <div className="input-div one">
-                                <div className="i">
-                                    <i className="fas fa-cogs"></i>
-                                </div>
-                                {/* Input field of verify code  */}
-                                <div id="verify">
-                                    {/* <h5>Username</h5> */}
-                                    <input name="verifyCode" value={this.state.otp} onChange={this.onChange} type="password" id="verifycode" placeholder="Code" />
-                                </div>
+
+
+                            <div className="field mb-3">
+                                <input name="otp" value={this.state.otp} onChange={this.onChange} type="password" id="inputUser" placeholder="OTP" autoComplete="off" />
+                                <span>
+                                    <FaLock />
+                                </span>
+
+                                <label>OTP</label>
                             </div>
 
 
-                            <input type="submit" id="btn" value="Submit" />
-
+                            <input type="submit" className="neoBtn" value="Submit" />
+                            {/* <button type="submit" className="neoBtn">Login</button> */}
+                            {/* <Link to="/dashboard" id="btn" >Login</Link> */}
                         </form>
                     </div>
                 </div>
