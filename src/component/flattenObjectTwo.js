@@ -55,6 +55,8 @@ import SimUpgradeReg from './E-KYC/Upgrade-ekyc/SimUpgradeReg';
 // //EKYC Simplified
 // import FaceOrFinger from './E-KYC/Simplified/FaceOrFinger'
 
+import PendingAccount from './E-KYC/Account/PendingAccount';
+
 
 const cloneDeep = require('lodash.clonedeep');
 
@@ -536,7 +538,7 @@ export const allRoutes = [
                     "featureName": "Statistics",
                     "path": "/statistics",
                     "exact": true,
-                    "component": <UnderDev />
+                    "component": <PendingAccount />
                 }
 
             },

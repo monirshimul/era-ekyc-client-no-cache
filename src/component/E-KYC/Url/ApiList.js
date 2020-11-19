@@ -118,3 +118,8 @@ export const absAccountCheck = hostIp + `integration/abs/account-check`;
 export const forgetPassUserId = hostIp + `user/forget-password`;
 export const forgetPasswordVerifyCode = hostIp + `user/forget-password/verify`;
 export const setPassword = hostIp + `user/forget-password/confirm`;
+
+
+// Account
+export const pendingAccount = hostIp + `account/get/`;
+export const pendingSearchbyId = hostIp + `account/get/`;
