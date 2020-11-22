@@ -122,4 +122,4 @@ export const setPassword = hostIp + `user/forget-password/confirm`;
 
 // Account
 export const pendingAccount = hostIp + `account/get/`;
-export const pendingSearchbyId = hostIp + `account/get/`;
+export const discardAccount = hostIp + `account/discard`;
