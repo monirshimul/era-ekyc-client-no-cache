@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FaUser, FaHome, FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip } from "react-icons/fa";
+import { FaUser, FaHome, FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip, FaUserCircle } from "react-icons/fa";
 
 import Portfolio from './Dashboard/NestedComponentDemo/Portfolio';
 import Blogs from './Dashboard/NestedComponentDemo/Blogs';
@@ -538,7 +538,7 @@ export const allRoutes = [
                     "featureName": "Statistics",
                     "path": "/statistics",
                     "exact": true,
-                    "component": <PendingAccount />
+                    "component": <UnderDev />
                 }
 
             },
@@ -566,6 +566,8 @@ export const allRoutes = [
 
         ]
     },
+
+
     {
         items: {
             "key": "7",
@@ -619,6 +621,52 @@ export const allRoutes = [
 
 
             }
+        ]
+    },
+
+
+    {
+        items: {
+            "key": "8",
+            'isShowing': true,
+            "featureName": "Account",
+            "className": <FaUserCircle />,
+            "path": "",
+            "exact": true,
+            "component": ""
+        },
+        nested: [
+            {
+                items: {
+                    "key": "8.1",
+                    'isShowing': true,
+                    "featureName": "Account List",
+                    "path": "/account-list",
+                    "exact": true,
+                    "component": <PendingAccount />
+                }
+            },
+            {
+                items: {
+                    "key": "8.2",
+                    'isShowing': false,
+                    "featureName": "Reopen",
+                    "path": "/account-reopen",
+                    "exact": true,
+                    "component": <UnderDev />
+                }
+            },
+            {
+                items: {
+                    "key": "8.3",
+                    'isShowing': false,
+                    "featureName": "Discard",
+                    "path": "/account-discard",
+                    "exact": true,
+                    "component": <UnderDev />
+                }
+            },
+
         ]
     }
 
