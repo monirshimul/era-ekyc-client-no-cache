@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sign from '../images/sign.svg';
 import Capture from '../Capture/Capture';
 import { NotificationManager } from "react-notifications";
+import { demoSignature } from './../../../Utils/demoSignature';
 
 export class SimFingerSignature extends Component {
     state = {
@@ -34,18 +35,22 @@ export class SimFingerSignature extends Component {
 
 
     continue = e => {
-         const { values } = this.props;
+        const { values } = this.props;
         e.preventDefault();
+        // if (values.signature === "") {
+        //     let signatureMessage = "Please Provide Signature";
+        //     NotificationManager.warning(signatureMessage, "Warning", 5000);
+        //     return;
+        //   }
         if (values.signature === "") {
-            let signatureMessage = "Please Provide Signature";
-            NotificationManager.warning(signatureMessage, "Warning", 5000);
-            return;
-          }
+            this.props.handleState("signature", demoSignature);
+        }
+
         this.props.nextStep();
     };
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
         // for (let i = 0; i < values.jointArray.length; i++) {
@@ -134,7 +139,7 @@ export class SimFingerSignature extends Component {
                             <div class="custom-file">
                                 <input type="file"
                                     onChange={this.fileSelectedHandler}
-                                    onClick={(event)=>event.target.value = null}
+                                    onClick={(event) => event.target.value = null}
 
                                     class="form-control-file" id="input-file" />
                                 <label class="custom-file-label" for="input-file">Choose Image</label>

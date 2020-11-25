@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Sign from '../images/sign.svg';
 import Capture from '../Capture/Capture';
 import { NotificationManager } from "react-notifications";
-import {datePickerPrefiilConv} from '../../../Utils/dateConversion';
+import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
+import { demoSignature } from './../../../Utils/demoSignature';
 
 export class SimSignature extends Component {
 
@@ -36,18 +37,22 @@ export class SimSignature extends Component {
 
 
     continue = e => {
-         const { values } = this.props;
+        const { values } = this.props;
         e.preventDefault();
+        // if (values.signature === "") {
+        //     let signatureMessage = "Please Provide Signature";
+        //     NotificationManager.warning(signatureMessage, "Warning", 5000);
+        //     return;
+        //   }
+
         if (values.signature === "") {
-            let signatureMessage = "Please Provide Signature";
-            NotificationManager.warning(signatureMessage, "Warning", 5000);
-            return;
-          }
+            this.props.handleState("signature", demoSignature);
+        }
         this.props.nextStep();
     };
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
         for (let i = 0; i < values.jointArray.length; i++) {
@@ -57,15 +62,15 @@ export class SimSignature extends Component {
                     copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
                     this.props.handleState('jointArray', copyArray);
                 }
-                }else{
-                    if (values.jointArray[i].minorDob !== '') {
-                        let copyArray = Object.assign([], this.props.values.jointArray);
-                        copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
-                        this.props.handleState('jointArray', copyArray);
-                    }
+            } else {
+                if (values.jointArray[i].minorDob !== '') {
+                    let copyArray = Object.assign([], this.props.values.jointArray);
+                    copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
+                    this.props.handleState('jointArray', copyArray);
                 }
-
             }
+
+        }
         this.props.prevStep();
     }
 
@@ -136,7 +141,7 @@ export class SimSignature extends Component {
                             <div class="custom-file">
                                 <input type="file"
                                     onChange={this.fileSelectedHandler}
-                                    onClick={(event)=>event.target.value = null}
+                                    onClick={(event) => event.target.value = null}
 
                                     class="form-control-file" id="input-file" />
                                 <label class="custom-file-label" for="input-file">Choose Image</label>

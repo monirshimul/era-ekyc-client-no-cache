@@ -523,6 +523,7 @@ class EkycListSearch extends Component {
                                         <hr />
                                         <div className="" style={{ fontSize: "16px" }}>
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>NID No : </span>{data.nid}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Channel Account No. : </span>{data.account === null ? "" : data.account.channelAccountId ? data.account.channelAccountId : ""}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Cell No : </span>{data.mobile}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Verification Type : </span>{data.verificationType}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Onboarding Type : </span>{data.onboardingType}</small><br />

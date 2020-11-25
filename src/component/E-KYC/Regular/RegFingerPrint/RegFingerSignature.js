@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Sign from '../../Simplified/images/sign.svg';
 import Capture from '../../Simplified/Capture/Capture';
 import { NotificationManager } from "react-notifications";
+import { demoSignature } from '../../../Utils/demoSignature';
 
 export class RegFingerSignature extends Component {
 
@@ -35,20 +36,25 @@ export class RegFingerSignature extends Component {
 
     continue = e => {
         const { values } = this.props;
-       e.preventDefault();
-       if (values.signature === "") {
-           let signatureMessage = "Please Provide Signature";
-           NotificationManager.warning(signatureMessage, "Warning", 5000);
-           return;
-         }
-       this.props.nextStep();
-   };
+        e.preventDefault();
+        //    if (values.signature === "") {
+        //        let signatureMessage = "Please Provide Signature";
+        //        NotificationManager.warning(signatureMessage, "Warning", 5000);
+        //        return;
+        //      }
+
+        if (values.signature === "") {
+            this.props.handleState("signature", demoSignature);
+        }
+
+        this.props.nextStep();
+    };
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
-      
+
         this.props.prevStep();
     }
 
@@ -116,7 +122,7 @@ export class RegFingerSignature extends Component {
                             <div class="custom-file">
                                 <input type="file"
                                     onChange={this.fileSelectedHandler}
-                                    onClick={(event)=>event.target.value = null}
+                                    onClick={(event) => event.target.value = null}
 
                                     class="form-control-file" id="input-file" />
                                 <label class="custom-file-label" for="input-file">Choose Image</label>
