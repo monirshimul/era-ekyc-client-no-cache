@@ -500,7 +500,7 @@ export class PendingAccount extends Component {
                       }
                       <button className="neoBtnSmall mr-2" data-toggle="modal" data-target="#modalForPendingDetails" style={{ color: "#d3830a" }} id={index} onClick={(e) => this.onDetails(e)}>Details</button>
                       {data.status === "P" ?
-                        <button className="neoBtnSmall" style={{ color: "red" }} id={index} onClick={this.onDiscard}>Discard</button>
+                        <button className="neoBtnSmall" style={{ color: "red" }} id={index} onClick={() => window.confirm("Are you sure you want to discard this Account ?") && this.onDiscard}>Discard</button>
                         :
                         ""
                       }
