@@ -6,6 +6,11 @@ export const nidOcr = hostIp + `ai/nid-ocr`;
 // RPA
 export const nidValidationRPA = hostIp + `ai/nid-rpa`;
 
+// Chart Data
+
+export const allDataCount = hostIp + `report/count`;
+export const ekycPie = hostIp + `report/ekyc/count`;
+
 // zonecode-conversion
 export const zoneCodeConversion = hostIp + `integration/zonecode-conversion`;
 
