@@ -51,11 +51,13 @@ export class UserList extends Component {
         try {
             // API called name getAllUser here no status need... page used for pagination
             let appUser = await axios.post(getAllUser + pages, null, config);
-            // console.log("getAllUser", appUser.data.data);
+             //console.log("getAllUser", appUser.data.data);
             let divide1 = appUser.data.data;
             let numberOfPages = divide1.totalPages;
             let numberOfUsers = divide1.totalUsers;
             let divide2 = divide1.users;
+            let currPage= divide1.currentPage;
+
 
 
             let res = await axios.get(getProfile, config);
@@ -63,6 +65,7 @@ export class UserList extends Component {
             //console.log("profileData", profileData.userImage)
 
             this.setState({
+                pages:currPage,
                 totalPages: numberOfPages,
                 totalUsers: numberOfUsers,
                 allAppUser: divide2,
@@ -264,6 +267,7 @@ export class UserList extends Component {
             pageReq = text_input;
             this.setState({ pages: pageReq });
             this.pageChanges(pageReq);
+            this.setState({text_input:''});
         } else {
             console.log('Invalid Page No.');
             //alert('Invalid Page No.');
@@ -318,12 +322,12 @@ export class UserList extends Component {
         };
         try {
             let paginationUser = await axios.post(getAllUser + newPage, "", config);
-            // console.log("pagination pages", paginationUser.data.data.users);
+            // console.log("pagination pages", paginationUser.data.data);
             let paginUser = paginationUser.data.data;
             let numPages = paginUser.totalPages;
             let numUsers = paginUser.totalUsers;
             let approveNew = paginUser.users;
-            this.setState({ totalPages: numPages, totalUsers: numUsers, allAppUser: approveNew });
+            this.setState({ totalPages: numPages, pages: paginUser.currentPage, totalUsers: numUsers, allAppUser: approveNew });
 
         } catch (error) {
             if (error.response) {

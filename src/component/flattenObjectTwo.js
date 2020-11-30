@@ -56,6 +56,7 @@ import SimUpgradeReg from './E-KYC/Upgrade-ekyc/SimUpgradeReg';
 // import FaceOrFinger from './E-KYC/Simplified/FaceOrFinger'
 
 import PendingAccount from './E-KYC/Account/PendingAccount';
+import AccessLog from './E-KYC/AccessLog/AccessLog'
 
 // Statistics
 import AllStatistics from './E-KYC/Statistics/AllStatistics'
@@ -552,7 +553,7 @@ export const allRoutes = [
                     "featureName": "Access Log",
                     "path": "/reposrt-access-log",
                     "exact": true,
-                    "component": <UnderDev />
+                    "component": <AccessLog />
                 }
             },
             {

@@ -138,6 +138,8 @@ export class PendingAccount extends Component {
       pageReq = text_input;
       this.setState({ page: pageReq });
       this.pageChanges(pageReq);
+      this.setState({text_input:''});
+      
     } else {
       console.log('Invalid Page No.');
       //alert('Invalid Page No.');
@@ -190,11 +192,11 @@ export class PendingAccount extends Component {
 
       }
     };
-    console.log("page count", newPage);
+   
 
     try {
       let paginationUser = await axios.post(pendingAccount + newPage, "", config);
-       console.log("pagination pages", paginationUser.data.data);
+       //console.log("pagination pages", paginationUser.data.data);
        this.setState({totalPages: paginationUser.data.data.totalPages});
       let paginUser = paginationUser.data.data;
       // let numPages = paginUser.totalPages;

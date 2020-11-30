@@ -51,7 +51,7 @@ const Pagination = ({ increment, decrement, page, total_pages, onInputChange, ha
                         <li>
                             <div className="form-group d-flex justify-content-around">
                                 
-                                    <input className="form-control text-center shadow-none" placeholder="Page No." value={text_input} style={{ width: "100px", borderRadius:"0px" }} id="disabledInput" type="text" onChange={onInputChange} />
+                                    <input className="form-control text-center shadow-none" placeholder="Page No." value={text_input} style={{ width: "100px", borderRadius:"0px" }} id="disabledInput" type="text" autocomplete="off" onChange={onInputChange} />
                                     <input type="button"  value="Go" style={{backgroundColor: '#56c9ef', color:"#ffffff"}} onClick={handleGo} disabled={!goButton}/>
                                 
                             </div>

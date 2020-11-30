@@ -34,12 +34,13 @@ class EkycListUser extends Component {
 
         try {
             let ekycList = await axios.post(ekycForUser + page, null, config)
-            console.log("ekycList", ekycList.data.data);
-            console.log("ekycList", ekycList.data.data.ekyc)
+            //console.log("ekycList", ekycList.data.data);
+            //console.log("ekycList", ekycList.data.data.ekyc)
             this.setState({
                 ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc,
                 totalPages: ekycList.data.data.totalPages,
-                totalEkyc: ekycList.data.data.totalEkyc
+                totalEkyc: ekycList.data.data.totalEkyc,
+                page:ekycList.data.data.currentPage
             })
         } catch (error) {
             if (error.response) {
@@ -276,6 +277,7 @@ class EkycListUser extends Component {
             pageReq = text_input;
             this.setState({ page: pageReq });
             this.pageChanges(pageReq);
+            this.setState({text_input:''});
         } else {
             console.log('Invalid Page No.');
             //alert('Invalid Page No.');
@@ -330,12 +332,12 @@ class EkycListUser extends Component {
         };
         try {
             let paginationUser = await axios.post(ekycForUser + newPage, "", config);
-            // console.log("pagination pages", paginationUser.data.data.users);
+            // console.log("pagination pages", paginationUser.data.data);
             let paginEkyc = paginationUser.data.data;
             let numPages = paginEkyc.totalPages;
             let numEkyc = paginEkyc.totalEkyc;
             let approveNew = paginEkyc.ekyc;
-            this.setState({ totalPages: numPages, totalEkyc: numEkyc, ekycData: approveNew });
+            this.setState({ totalPages: numPages, page:paginEkyc.currentPage, totalEkyc: numEkyc, ekycData: approveNew });
 
         } catch (error) {
             if (error.response) {
