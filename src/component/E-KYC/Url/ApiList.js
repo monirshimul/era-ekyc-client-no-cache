@@ -10,6 +10,7 @@ export const nidValidationRPA = hostIp + `ai/nid-rpa`;
 
 export const allDataCount = hostIp + `report/count`;
 export const ekycPie = hostIp + `report/ekyc/count`;
+export const lineChart = hostIp + `report/ekyc/count/by/month`;
 
 // zonecode-conversion
 export const zoneCodeConversion = hostIp + `integration/zonecode-conversion`;
