@@ -148,17 +148,19 @@ class Welcome extends Component {
         };
 
         let d = new Date();
+        //new Date("2000-11-25T12:53:08.795Z").toLocaleString()
         let n = d.toISOString();
+        console.log(n)
 
         const dataObj = {
             startDate: "2000-11-25T12:53:08.795Z",
             endDate: n,
-            onboardingType: "SELF"
+            onboardingType: "ASSISTED"
         }
 
         try {
             let res = await axios.post(ekycPie, dataObj, config);
-            let dataCount = res.data.data;
+            let dataCount = res;
 
             console.log("Data Welcome page", dataCount)
             // this.setState({

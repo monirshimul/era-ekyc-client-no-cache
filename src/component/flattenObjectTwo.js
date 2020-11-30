@@ -57,6 +57,9 @@ import SimUpgradeReg from './E-KYC/Upgrade-ekyc/SimUpgradeReg';
 
 import PendingAccount from './E-KYC/Account/PendingAccount';
 
+// Statistics
+import AllStatistics from './E-KYC/Statistics/AllStatistics'
+
 
 const cloneDeep = require('lodash.clonedeep');
 
@@ -538,7 +541,7 @@ export const allRoutes = [
                     "featureName": "Statistics",
                     "path": "/statistics",
                     "exact": true,
-                    "component": <UnderDev />
+                    "component": <AllStatistics />
                 }
 
             },
