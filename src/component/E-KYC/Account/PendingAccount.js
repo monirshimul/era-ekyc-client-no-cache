@@ -79,23 +79,24 @@ export class PendingAccount extends Component {
 
 
 
-    console.log("myObj", obj);
+    // console.log("myObj", obj);
     try {
       let pendingApi = await axios.post(pendingAccount + this.state.page, obj, config);
-      console.log("pendingApi", pendingApi.data.data);
+      // console.log("pendingApi", pendingApi.data.data);
 
       let pendingData = pendingApi.data.data;
       if (pendingData.length !== 0) {
-        this.setState({ accountData: pendingData.accounts, totalPages: pendingData.totalPages, totalAccount: pendingData.totalAccount });
+        this.setState({ accountData: pendingData.accounts, page:pendingData.currentPage, totalPages: pendingData.totalPages, totalAccount: pendingData.totalAccount });
         this.setState({ currentStateObj: obj });
 
-        console.log("currentObj", this.state.currentStateObj);
+        // console.log("currentObj", this.state.currentStateObj);
         // let data = await ProductCodeGetName(pendingData.accounts.productCode);
         // console.log("productName", data);
         // this.setState({ ProductCodeConvertName: data });
 
       } else {
-        NotificationManager.info("No Data Found", "Message", largeTime);
+        this.setState({accountData:[], totalPages:"", page:1 });
+        NotificationManager.info("No Data Found", "Click To Remove", largeTime);
       }
 
     } catch (error) {
@@ -135,7 +136,7 @@ export class PendingAccount extends Component {
     let pageReq = "";
     if (text_input !== "" && text_input > 0 && text_input <= totalPages) {
       pageReq = text_input;
-      this.setState({ pages: pageReq });
+      this.setState({ page: pageReq });
       this.pageChanges(pageReq);
     } else {
       console.log('Invalid Page No.');
@@ -148,9 +149,9 @@ export class PendingAccount extends Component {
   }
 
   increment = () => {
-    const { pages, totalPages } = this.state;
-    let nextPage = this.state.pages + 1;
-    this.setState({ pages: nextPage })
+    const { totalPages } = this.state;
+    let nextPage = this.state.page + 1;
+    this.setState({ page: nextPage })
     //console.log(nextPage);
     if (nextPage > 0 && nextPage <= totalPages) {
       this.pageChanges(nextPage);
@@ -164,10 +165,10 @@ export class PendingAccount extends Component {
 
   //=================================Decrement function=======================================
   decrement = () => {
-    const { pages, totalPages } = this.state;
+    const { totalPages } = this.state;
 
-    let nextPage = this.state.pages - 1;
-    this.setState({ pages: nextPage })
+    let nextPage = this.state.page - 1;
+    this.setState({ page: nextPage })
     // console.log(nextPage);
     if (nextPage > 0 && nextPage <= totalPages) {
       this.pageChanges(nextPage);
@@ -189,14 +190,17 @@ export class PendingAccount extends Component {
 
       }
     };
+    console.log("page count", newPage);
+
     try {
       let paginationUser = await axios.post(pendingAccount + newPage, "", config);
-      // console.log("pagination pages", paginationUser.data.data.users);
+       console.log("pagination pages", paginationUser.data.data);
+       this.setState({totalPages: paginationUser.data.data.totalPages});
       let paginUser = paginationUser.data.data;
-      let numPages = paginUser.totalPages;
-      let numUsers = paginUser.totalUsers;
-      let approveNew = paginUser.users;
-      this.setState({ totalPages: numPages, totalUsers: numUsers, allAppUser: approveNew });
+      // let numPages = paginUser.totalPages;
+      // let numUsers = paginUser.totalUsers;
+      // let approveNew = paginUser.users;
+      this.setState({page: paginUser.currentPage, totalAccount: paginUser.totalAccount, accountData: paginUser.accounts });
 
     } catch (error) {
       if (error.response) {
@@ -302,14 +306,14 @@ export class PendingAccount extends Component {
 
     try {
       let pendingApi = await axios.post(pendingAccount + this.state.page, this.state.currentStateObj, config);
-      // console.log("pendingApi", pendingApi.data.data);
+       console.log("pendingApi", pendingApi.data.data);
 
       let pendingData = pendingApi.data.data;
       if (pendingData.length !== 0) {
         this.setState({ accountData: pendingData.accounts, totalPages: pendingData.totalPages, totalAccount: pendingData.totalAccount });
 
       } else {
-        NotificationManager.info("No Data Found", "Message", largeTime);
+        NotificationManager.info("No Data Found", "Click TO Remove", largeTime);
       }
 
     } catch (error) {
@@ -340,7 +344,7 @@ export class PendingAccount extends Component {
           <div className="card col" style={{ padding: "25px" }}>
             <div className="im">
               <h5 className="text-muted text-center pt-2">
-                <i><FaSearch /></i> Filter Search
+                <i><FaSearch /></i> Account Search
                         </h5>
             </div>
             <div className="card-body">
