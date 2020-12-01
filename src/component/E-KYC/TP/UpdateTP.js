@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { updateTPAPI, getTPAPI } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
-import {shortTime, mediumTime,largeTime} from '../../Utils/notificationTime';
+import {largeTime} from '../../Utils/notificationTime';
 import axios from 'axios';
 
 const Joi = require('@hapi/joi');
@@ -121,8 +121,8 @@ export class UpdateTP extends Component {
             //console.log("validationValue", validationValue)
             let tpData = await axios.put(updateTPAPI, obj, config);
             //console.log("tpData", tpData.data);
-            let tpDataStatus = tpData.data.statusCode;
-            let tpDataMessage = tpData.data.message;
+            //let tpDataStatus = tpData.data.statusCode;
+           // let tpDataMessage = tpData.data.message;
             NotificationManager.success("TP Update Successfull", "Success", 5000);
             this.props.history.push('/dashboard/list-tp');
         } catch (error) {

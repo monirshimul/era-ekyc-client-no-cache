@@ -104,7 +104,7 @@ export class MobileVerification extends Component {
     } catch (error) {
       this.setState({ showButton: false });
       if (error.response) {
-        let message = error.response.data.message
+        //let message = error.response.data.message
         // console.log("Error", error.response)
         if (error.response.data.message === 'Invalid Token') {
           NotificationManager.info("OTP time exceeds Please Retype your mobile Number", "Message", mediumTime);

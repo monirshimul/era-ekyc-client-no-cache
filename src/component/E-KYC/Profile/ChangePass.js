@@ -4,7 +4,7 @@ import '../../E-KYC/Simplified/utils/Common.css';
 import axios from 'axios';
 import {changePassword} from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
-import {shortTime,mediumTime,largeTime} from '../../Utils/notificationTime';
+import {largeTime} from '../../Utils/notificationTime';
 
 
 class ChangePass extends Component {
@@ -112,7 +112,7 @@ class ChangePass extends Component {
                 //        } 
                
            // console.log("Api Status",passChange.data);
-            let statusCode = passChange.data.statusCode;
+           // let statusCode = passChange.data.statusCode;
             let message = "Password Change Completed";
             // alert(statusCode+ " "+ message);
             NotificationManager.success(message, "Success", 5000);

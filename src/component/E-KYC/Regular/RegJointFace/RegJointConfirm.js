@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { absDateFormat,dayMonthYearFormat } from '../../../Utils/dateConversion';
-import {ProductCodeGetName,ProductCategoryType,AccountType,JointOperatorType,GenderForm} from '../../../Utils/fullFormConversion';
-import axios from 'axios';
-import { NotificationManager } from "react-notifications";
-import { simplifiedJointAPI, simplifiedJointAddAPI } from '../../Url/ApiList';
-import down from '../../Simplified/images/downArrow.svg';
+import { dayMonthYearFormat } from '../../../Utils/dateConversion';
+import {ProductCodeGetName,ProductCategoryType,AccountType,GenderForm} from '../../../Utils/fullFormConversion';
+//import axios from 'axios';
+//import { NotificationManager } from "react-notifications";
+//import down from '../../Simplified/images/downArrow.svg';
 import Avater from '../../Simplified/images/profile.svg';
 import front from '../../Simplified/images/nid-f.svg';
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
 import back from '../../Simplified/images/nid-f2.svg';
 import Sign from '../../Simplified/images/signature2.svg';
-import up from '../../Simplified/images/upArrow.svg';
+//import up from '../../Simplified/images/upArrow.svg';
 import adult from '../../Simplified/images/adultNominee.svg';
 import child from '../../Simplified/images/child2.svg';
 import guardian from '../../Simplified/images/guardian.svg';
@@ -28,7 +27,7 @@ export class RegJointConfirm extends Component {
 
 
     continue = async (e) => {
-        const { values } = this.props;
+        //const { values } = this.props;
         e.preventDefault();
         //Process form//
         //console.log(values.applicantEkycId);
@@ -566,6 +565,7 @@ export class RegJointConfirm extends Component {
                         </div>
 
                         <img src={values.NidFront ? values.flag + values.NidFront : front}
+                            alt=""
                             style={{
                                 margin: "0 auto",
                                 width: "250px",
@@ -585,6 +585,7 @@ export class RegJointConfirm extends Component {
                         </div>
 
                         <img src={values.NidBack ? values.flag + values.NidBack : back}
+                            alt=""
                             style={{
                                 margin: "0 auto",
                                 width: "250px",
@@ -605,6 +606,7 @@ export class RegJointConfirm extends Component {
                         </div>
 
                         <img src={values.faceImage ? values.flag + values.faceImage : Avater}
+                            alt=""
                             style={{
                                 margin: "0 auto",
                                 width: "250px",
@@ -625,6 +627,7 @@ export class RegJointConfirm extends Component {
                         </div>
 
                         <img src={values.signature ? values.flag + values.signature : Sign}
+                            alt=""
                             style={{
                                 margin: "0 auto",
                                 width: "250px",
@@ -707,6 +710,7 @@ export class RegJointConfirm extends Component {
                                         </div>
 
                                         <img src={val.photograph ? values.flag + val.photograph : adult}
+                                            alt=""
                                             style={{
                                                 margin: "0 auto",
                                                 width: "250px",
@@ -727,6 +731,7 @@ export class RegJointConfirm extends Component {
                                                 </div>
 
                                                 <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
+                                                    alt=""
                                                     style={{
                                                         margin: "0 auto",
                                                         width: "250px",
@@ -745,6 +750,7 @@ export class RegJointConfirm extends Component {
                                                 </div>
 
                                                 <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
+                                                    alt=""
                                                     style={{
                                                         margin: "0 auto",
                                                         width: "250px",

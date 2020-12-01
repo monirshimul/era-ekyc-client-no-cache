@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 import {getAge} from '../../../Utils/ageCheck'
-import Face from "../../Simplified/images/face.svg";
+//import Face from "../../Simplified/images/face.svg";
 import Family from '../../Simplified/images/family.svg';
-import Familyes from '../../Simplified/images/candidates.svg';
+//import Familyes from '../../Simplified/images/candidates.svg';
 import adult from '../../Simplified/images/age-limit-one.svg';
 import child from '../../Simplified/images/age-limit-two.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { showDate, convert } from '../../../Utils/dateConversion';
+import { showDate } from '../../../Utils/dateConversion';
 import {largeTime} from '../../../Utils/notificationTime';
 
 export class RegJointNominee extends Component {
@@ -255,7 +255,7 @@ export class RegJointNominee extends Component {
    
        }
     render() {
-        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange } = this.props;
+        const { values,addNomineeOne, addNomineeTwo,onChange } = this.props;
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
                 <div className="row d-flex justify-content-center">

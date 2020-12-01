@@ -5,7 +5,7 @@ import NidThree from '../Simplified/images/nid-f4.svg';
 import { NotificationManager } from "react-notifications";
 import { getProfile, imageUpdate, dataUpdate } from '../Url/ApiList'
 import { image } from './damiImage';
-import Acordion from '../Acordion/Acordion';
+//import Acordion from '../Acordion/Acordion';
 import { largeTime } from '../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
@@ -200,7 +200,7 @@ export class GetProfile extends Component {
 
     render() {
 
-        let { profileData, imageData, flag, showUpdate, profileImage } = this.state
+        let { profileData, flag, showUpdate, profileImage } = this.state
         //console.log("State", imageData.data)
 
         return (

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 import { absDateFormat, dayMonthYearFormat } from '../../../Utils/dateConversion';
 import { ProductCodeGetName, ProductCategoryType, AccountType, GenderForm } from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { regularSingleApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import getJsonObjectToArray from '../../Simplified/utils/jsonObjToArray';
-import Family from '../../Simplified/images/family.svg'
+//import Family from '../../Simplified/images/family.svg'
 import Avater from '../../Simplified/images/user-two.svg'
 import front from '../../Simplified/images/id-front-three.svg'
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
 import back from '../../Simplified/images/id-back-three.svg'
 import Sign from '../../Simplified/images/signature.svg'
-import Familyes from '../../Simplified/images/candidates.svg'
+//import Familyes from '../../Simplified/images/candidates.svg'
 import adult from '../../Simplified/images/age-limit-one.svg'
 import child from '../../Simplified/images/age-limit-two.svg'
 import guardian from '../../Simplified/images/guardian.svg';
@@ -428,6 +428,7 @@ export class RegFingerPrintConfirm extends Component {
                             </div>
 
                             <img src={values.NidFront ? values.flag + values.NidFront : front}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -447,6 +448,7 @@ export class RegFingerPrintConfirm extends Component {
                             </div>
 
                             <img src={values.NidBack ? values.flag + values.NidBack : back}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -467,6 +469,7 @@ export class RegFingerPrintConfirm extends Component {
                             </div>
 
                             <img src={values.faceImage ? values.flag + values.faceImage : Avater}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -487,6 +490,7 @@ export class RegFingerPrintConfirm extends Component {
                             </div>
 
                             <img src={values.signature ? values.flag + values.signature : Sign}
+                                alt="" 
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -569,6 +573,7 @@ export class RegFingerPrintConfirm extends Component {
                                             </div>
 
                                             <img src={val.photograph ? values.flag + val.photograph : adult}
+                                                alt=""
                                                 style={{
                                                     margin: "0 auto",
                                                     width: "250px",
@@ -589,6 +594,7 @@ export class RegFingerPrintConfirm extends Component {
                                                     </div>
 
                                                     <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
+                                                        alt=""
                                                         style={{
                                                             margin: "0 auto",
                                                             width: "250px",
@@ -607,6 +613,7 @@ export class RegFingerPrintConfirm extends Component {
                                                     </div>
 
                                                     <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
+                                                        alt=""
                                                         style={{
                                                             margin: "0 auto",
                                                             width: "250px",

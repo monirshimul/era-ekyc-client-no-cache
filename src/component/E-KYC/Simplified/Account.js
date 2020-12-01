@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import { getProductMultiFilter, getEkycType } from '../Url/ApiList';
-import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
+import {largeTime } from '../../Utils/notificationTime';
 import axios from 'axios';
 
 class Account extends Component {
@@ -87,7 +87,7 @@ class Account extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { productCategory, productName, amount, tenor, accountType, channelName, SimReg } = this.state;
+        const { productCategory, productName, amount, accountType, channelName } = this.state;
         // console.log(JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")))
         // Branch and agent point code check
         if (JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null) {
@@ -147,7 +147,7 @@ class Account extends Component {
             console.log("decisionData", dec.data);
             this.setState({ SimReg: dec.data.data.ekycType })
             let typeEkyc = dec.data.data.ekycType;
-            let statusCode = dec.data.statusCode;
+            //let statusCode = dec.data.statusCode;
             let successMessage = dec.data.message;
             let myObj = {
                 accountType,

@@ -9,12 +9,12 @@ import { profileDownload, opFileDownload, regPdfDownload } from '../Url/ApiList'
 import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycProfileStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
 import Acordion from '../Acordion/Acordion';
 import { saveAs } from 'file-saver';
-import ReactTooltip from 'react-tooltip';
+//import ReactTooltip from 'react-tooltip';
 import { b64toBlob } from '../../Utils/FileUtils';
 
 import { FaFileDownload, FaArrowCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 import axios from 'axios';
-import { Button } from 'reactstrap';
+//import { Button } from 'reactstrap';
 
 class FullEkyc extends Component {
 

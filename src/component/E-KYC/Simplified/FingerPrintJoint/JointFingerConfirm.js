@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { formatDate } from '../utils/DateFormat';
+//import { formatDate } from '../utils/DateFormat';
 import {ProductCodeGetName,ProductCategoryType,AccountType,JointOperatorType,GenderForm} from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
 import { simplifiedJointAPI, simplifiedJointAddAPI } from '../../Url/ApiList';
-import down from '../images/downArrow.svg';
+//import down from '../images/downArrow.svg';
 import Avater from '../images/profile.svg';
 import front from '../images/nid-f.svg';
 import Loading from '../utils/CustomLoding/Loading';
 import back from '../images/nid-f2.svg';
 import Sign from '../images/signature2.svg';
-import up from '../images/upArrow.svg';
+//import up from '../images/upArrow.svg';
 import adult from '../images/adultNominee.svg';
 import child from '../images/child2.svg';
 import guardian from '../images/guardian.svg';
@@ -207,7 +207,7 @@ export class JointFingerConfirm extends Component {
                 //console.log("responseforFIRST", responseFirst.data);
                 this.props.handleState('confirmFlag', false);
                 let data = responseFirst.data;
-                let statusCode = data.statusCode;
+                //let statusCode = data.statusCode;
                 let successMessage = data.message;
 
                 let resAccountId = responseFirst.data.data.accountId;
@@ -391,7 +391,7 @@ export class JointFingerConfirm extends Component {
                 this.props.handleState('confirmFlag', false);
                 console.log(resJointAdded.data);
 
-                let respStatus = resJointAdded.data.statusCode;
+                //let respStatus = resJointAdded.data.statusCode;
                 let respMessage = resJointAdded.data.message;
                 NotificationManager.success(respMessage, "Success", 5000);
                 this.props.nextStep();
@@ -564,6 +564,7 @@ export class JointFingerConfirm extends Component {
                             </div>
 
                             <img src={values.NidFront ? values.flag + values.NidFront : front}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -583,6 +584,7 @@ export class JointFingerConfirm extends Component {
                             </div>
 
                             <img src={values.NidBack ? values.flag + values.NidBack : back}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -603,6 +605,7 @@ export class JointFingerConfirm extends Component {
                             </div>
 
                             <img src={values.faceImage ? values.flag + values.faceImage : Avater}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -623,6 +626,7 @@ export class JointFingerConfirm extends Component {
                             </div>
 
                             <img src={values.signature ? values.flag + values.signature : Sign}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -705,6 +709,7 @@ export class JointFingerConfirm extends Component {
                                             </div>
 
                                             <img src={val.photograph ? values.flag + val.photograph : adult}
+                                                alt=""
                                                 style={{
                                                     margin: "0 auto",
                                                     width: "250px",
@@ -725,6 +730,7 @@ export class JointFingerConfirm extends Component {
                                                     </div>
 
                                                     <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
+                                                        alt=""
                                                         style={{
                                                             margin: "0 auto",
                                                             width: "250px",
@@ -743,6 +749,7 @@ export class JointFingerConfirm extends Component {
                                                     </div>
 
                                                     <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
+                                                        alt=""
                                                         style={{
                                                             margin: "0 auto",
                                                             width: "250px",

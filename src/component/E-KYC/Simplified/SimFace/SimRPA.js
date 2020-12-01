@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { getAge } from '../../../Utils/ageCheck';
+//import { getAge } from '../../../Utils/ageCheck';
 import Loading from "../utils/CustomLoding/Loading.js";
 import { absAccountCheck, nidValidationRPA } from '../../Url/ApiList';
-import Finger from "../images/fingerprintEC.svg";
-import FingerOk from ".././images/successPrint.svg";
+//import Finger from "../images/fingerprintEC.svg";
+//import FingerOk from ".././images/successPrint.svg";
 import Sign from '../images/man.svg';
 import { NotificationManager } from "react-notifications";
 import DatePicker from 'react-datepicker';
@@ -40,7 +40,7 @@ export class SimRPA extends Component {
         try {
             let rpaData = await axios.post(nidValidationRPA, obj, config);
             console.log(rpaData.data);
-            let responseData = rpaData.data.data;
+            //let responseData = rpaData.data.data;
             if (rpaData.data.data) {
                 let dataResp = rpaData.data.data;
                 this.props.handleState('applicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
@@ -262,7 +262,7 @@ export class SimRPA extends Component {
 
     continue = (e) => {
         e.preventDefault();
-        const { nid, dob, ecImage } = this.props.values;
+        const { nid, dob} = this.props.values;
 
         if (nid === '') {
             NotificationManager.warning('Please Provide Nid Number', "Click to Remove", largeTime);

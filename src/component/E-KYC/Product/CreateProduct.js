@@ -3,7 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { createProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
-import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
+import { largeTime } from '../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
 class CreateProduct extends Component {

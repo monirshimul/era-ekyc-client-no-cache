@@ -4,7 +4,7 @@ import axios from 'axios';
 import { mediumTime, largeTime } from './../../Utils/notificationTime';
 import { simConvReg } from '../Url/ApiList';
 import { withRouter } from 'react-router-dom';
-const Joi = require('@hapi/joi');
+//const Joi = require('@hapi/joi');
 
 export class SimUpgradeReg extends Component {
   state = {

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { FaUser, FaHome, FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip, FaUserCircle } from "react-icons/fa";
+import { FaUser,FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip, FaUserCircle } from "react-icons/fa";
 
-import Portfolio from './Dashboard/NestedComponentDemo/Portfolio';
-import Blogs from './Dashboard/NestedComponentDemo/Blogs';
-import Contact from './Dashboard/NestedComponentDemo/Contact';
+//import Portfolio from './Dashboard/NestedComponentDemo/Portfolio';
+//import Blogs from './Dashboard/NestedComponentDemo/Blogs';
+//import Contact from './Dashboard/NestedComponentDemo/Contact';
 
 import Account from './E-KYC/Simplified/Account';
 import AccountSimp from './E-KYC/Simplified/SimFace/AccountSimp';

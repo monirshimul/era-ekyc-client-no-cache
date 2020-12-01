@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ekycWithFilter, ekycFullProfile, ekycForUser } from '../Url/ApiList';
 import Pagination from '../../Reusable/Pagination';
 import { NotificationManager } from "react-notifications";
-import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
+import {  mediumTime } from '../../Utils/notificationTime';
 
 class EkycListUser extends Component {
 
@@ -289,7 +289,7 @@ class EkycListUser extends Component {
     }
 
     increment = () => {
-        const { page, totalPages } = this.state;
+        const {  totalPages } = this.state;
         let nextPage = this.state.page + 1;
         this.setState({ page: nextPage })
         //console.log(nextPage);
@@ -305,7 +305,7 @@ class EkycListUser extends Component {
 
     //=================================Decrement function=======================================
     decrement = () => {
-        const { page, totalPages } = this.state;
+        const {  totalPages } = this.state;
 
         let nextPage = this.state.page - 1;
         this.setState({ page: nextPage })
@@ -403,7 +403,7 @@ class EkycListUser extends Component {
 
 
     render() {
-        let { ekycData, radioValue, search } = this.state
+        let { ekycData, search } = this.state
         // console.log("state data", ekycData.map(kyc => kyc))
         return (
             <div className="container">

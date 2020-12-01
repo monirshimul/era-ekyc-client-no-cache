@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { nidOcr } from '../../Url/ApiList';
 import "../utils/Common.css";
-import NidOne from '../images/nid-f2.svg';
+//import NidOne from '../images/nid-f2.svg';
 import NidTwo from '../images/nid-f3.svg';
 import NidThree from '../images/nid-f4.svg';
 import Loading from '../utils/CustomLoding/Loading.js';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import Capture from '../Capture/Capture';
 import {datePickerPrefiilConv,DateFul} from '../../../Utils/dateConversion';

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { nidOcr } from '../../Url/ApiList';
 import "../../Simplified/utils/Common.css";
-import NidOne from '../../Simplified/images/nid-f2.svg';
+//import NidOne from '../../Simplified/images/nid-f2.svg';
 import NidTwo from '../../Simplified/images/nid-f3.svg';
 import NidThree from '../../Simplified/images/nid-f4.svg';
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import { datePickerPrefiilConv, DateFul } from '../../../Utils/dateConversion';
 import { largeTime } from '../../../Utils/notificationTime';

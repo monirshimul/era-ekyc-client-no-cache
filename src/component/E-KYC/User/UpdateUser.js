@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { getupdateUser, getRoleWithFilter, userUpdate } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
-import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
+import {largeTime} from '../../Utils/notificationTime';
 import ReactTooltip from 'react-tooltip';
 
 class UpdateUser extends Component {
@@ -35,7 +35,7 @@ class UpdateUser extends Component {
 
     async componentDidMount() {
         //console.log(this.props.location.state);
-        let getId = this.props.location.state;
+        //let getId = this.props.location.state;
         //console.log("getId",this.props.location);
         let arr = [];
         //Update user api
@@ -322,7 +322,7 @@ class UpdateUser extends Component {
         try {
             let update = await axios.put(userUpdate, obj, config);
             //console.log(update.data);
-            let statusCode = update.data.statusCode;
+            //let statusCode = update.data.statusCode;
             let message = "Update Successfull";
             //alert(statusCode + " " + message);
             NotificationManager.success(message, "Success", 5000);

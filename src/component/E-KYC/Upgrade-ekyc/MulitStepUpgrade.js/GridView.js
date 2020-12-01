@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
-import passImage from '../../Simplified/images/passport.svg';
-import tinImage from '../../Simplified/images/diploma.svg';
-import birthImage from '../../Simplified/images/tin.svg';
+//import passImage from '../../Simplified/images/passport.svg';
+//import tinImage from '../../Simplified/images/diploma.svg';
+//import birthImage from '../../Simplified/images/tin.svg';
 import ok from '../../Simplified/images/ok.svg';
 import ok1 from '../../Simplified/images/ok1.svg';
 import ok2 from '../../Simplified/images/ok2.svg';
@@ -157,6 +157,7 @@ export class GridView extends Component {
               </div>
 
               <img src={values.passport ? ok2 : cross}
+                alt=""
                 style={{
                   margin: "0 auto",
                   width: "250px",
@@ -176,6 +177,7 @@ export class GridView extends Component {
               </div>
 
               <img src={values.tinCertificate ? ok :cross}
+                alt=""
                 style={{
                   margin: "0 auto",
                   width: "250px",
@@ -196,6 +198,7 @@ export class GridView extends Component {
               </div>
 
               <img src={values.birthCertificate ? ok1 : cross}
+                alt=""
                 style={{
                   margin: "0 auto",
                   width: "250px",

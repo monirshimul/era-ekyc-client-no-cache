@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Sign from '../../Simplified/images/sign.svg';
 import Capture from '../../Simplified/Capture/Capture';
-import { NotificationManager } from "react-notifications";
+//import { NotificationManager } from "react-notifications";
 import { demoSignature } from '../../../Utils/demoSignature';
 
 export class RegFingerSignature extends Component {
@@ -51,7 +51,7 @@ export class RegFingerSignature extends Component {
     };
 
     back = e => {
-        let { values } = this.props;
+       // let { values } = this.props;
         e.preventDefault();
 
 

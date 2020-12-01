@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 import { getAge } from '../../../Utils/ageCheck';
-import Face from "../images/face.svg";
+//import Face from "../images/face.svg";
 import Family from '../images/family.svg';
-import Familyes from '../images/candidates.svg';
+//import Familyes from '../images/candidates.svg';
 import adult from '../images/age-limit-one.svg';
 import child from '../images/age-limit-two.svg';
 import DatePicker from 'react-datepicker';
@@ -274,7 +274,7 @@ export class SimNominee extends Component {
 
 
     render() {
-        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange, handleDateChange } = this.props;
+        const { values,addNomineeOne,addNomineeTwo,onChange} = this.props;
        // console.log(values.jointArray);
         //console.log("showHide",this.state.showHide);
         return (

@@ -6,17 +6,8 @@ import { getUserWithStatus, userApprovalAPI } from '../Url/ApiList';
 import {RoleAndUserStatus} from '../../Utils/fullFormConversion';
 // import {getUnique} from '../../Utils/UniqueArr';
 import { NotificationManager } from "react-notifications";
-import {
-    FaUser, FaHome, FaIndent,
-    FaAddressCard, FaTools, FaBookReader,
-    FaAddressBook, FaMicrochip, FaGetPocket,
-    FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
-    FaBatteryThreeQuarters, FaMizuni, FaPenNib,
-    FaDigitalTachograph, FaArchive, FaBinoculars,
-    FaSearch, FaListUl, FaUsersCog, FaFileSignature,
-    FaAlignLeft, FaClipboardList, FaCheckSquare,
-    FaPlusCircle, FaUserCheck, FaSortNumericUp,
-    FaCheckCircle, FaWindowClose, FaArrowAltCircleRight,
+import {  FaBatteryThreeQuarters, FaMizuni, FaPenNib,
+    FaDigitalTachograph, FaSortNumericUp,
     FaElementor, FaUserShield, FaUserTag, FaUserEdit,
     FaCalendarCheck, FaCalendarAlt, FaMicroblog, FaPenAlt, FaCalendarDay
 } from "react-icons/fa";
@@ -34,7 +25,7 @@ export class UserApproval extends Component {
     }
 
     async componentDidMount() {
-        const { page } = this.state;
+        //const { page } = this.state;
         const ApproveObj = { status: "P" };
         const config = {
             headers: {
@@ -70,7 +61,7 @@ export class UserApproval extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState) {
-        const { page } = this.state;
+       // const { page } = this.state;
 
         if (prevState.approvedReject !== this.state.approvedReject) {
             let didApproveObj = { status: "P" };
@@ -134,7 +125,7 @@ export class UserApproval extends Component {
                 approvedReject: !this.state.approvedReject
             })
             // console.log(approveUser.data);
-            let statusCode = approveUser.data.statusCode;
+           // let statusCode = approveUser.data.statusCode;
 
             let message = "Approve " + approveUser.data.message;
             // alert(statusCode + " " + message);
@@ -186,7 +177,7 @@ export class UserApproval extends Component {
             // showload[index] = false;
             // this.setState({ showPendingStatus: showload });
             //console.log(approveUser.data);
-            let statusCode = approveUser.data.statusCode;
+            //let statusCode = approveUser.data.statusCode;
 
 
 
@@ -257,7 +248,7 @@ export class UserApproval extends Component {
             const data1 = "A";
             const data2 = "R";
             let aprId = "status" + id;
-            let mystatus = "Approve"
+           // let mystatus = "Approve"
             return (
                 <tr key={id}>
 

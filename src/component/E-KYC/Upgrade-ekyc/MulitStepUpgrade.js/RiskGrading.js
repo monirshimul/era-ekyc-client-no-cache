@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications"
-import { shortTime, mediumTime, largeTime } from '../../../Utils/notificationTime';
+import {largeTime } from '../../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
 export class RiskGrading extends Component {
@@ -9,11 +9,11 @@ export class RiskGrading extends Component {
 
     let { values } = this.props;
 
-    let token = {
-      headers: {
-        'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-      }
-    };
+    // let token = {
+    //   headers: {
+    //     'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+    //   }
+    // };
 
 
 
@@ -48,7 +48,7 @@ export class RiskGrading extends Component {
 
       const validationValue = await schema.validateAsync(joiObj);
       let RiskGraArray = Object.values(obj)
-      let filterArray = RiskGraArray.filter(v => v != "")
+      let filterArray = RiskGraArray.filter(v => v !== "")
       //console.log(filterArray)
 
       this.props.handleState('riskGradingArray', filterArray);

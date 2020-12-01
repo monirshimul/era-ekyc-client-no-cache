@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
 import { allDataCount, ekycPie, lineChart } from '../Url/ApiList';
-import { Line, Pie, Doughnut } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 
 

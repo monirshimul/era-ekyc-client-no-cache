@@ -52,7 +52,7 @@ export class RegJoinFaceMain extends Component {
         isEnable: false,
         validate: false,
         verifyToken: '',
-        loading: false,
+        // loading: false,
         //step3
         applicantName: '',
         applicantNameBangla: '',

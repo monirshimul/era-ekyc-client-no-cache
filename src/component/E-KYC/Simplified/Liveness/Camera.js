@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LibImage from "./liveness";
 import Loading from '../utils/CustomLoding/Loading'
-import { getElementError } from "@testing-library/react";
-import Face from "../images/loading.svg";
+//import { getElementError } from "@testing-library/react";
+//import Face from "../images/loading.svg";
 
 export class Camera extends Component {
   base64Image = "";

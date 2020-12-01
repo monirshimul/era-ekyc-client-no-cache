@@ -5,15 +5,9 @@ import { allRoutes } from '../../flattenObjectTwo'
 import { NotificationManager } from "react-notifications";
 import { getFlatRouteArray } from '../../flattenObjectTwo';
 import {createRole} from '../Url/ApiList';
-import {shortTime, mediumTime, largeTime} from '../../Utils/notificationTime';
+import { largeTime} from '../../Utils/notificationTime';
 import ReactTooltip from 'react-tooltip';
-import { FaUser,FaHome,FaIndent,
-    FaAddressCard, FaTools, FaBookReader,
-     FaAddressBook, FaMicrochip, FaGetPocket,
-      FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
-       FaBatteryThreeQuarters, FaMizuni, FaPenNib,
-        FaDigitalTachograph, FaArchive, FaBinoculars,
-         FaSearch, FaListUl, FaUsersCog, FaFileSignature,
+import {  FaUsersCog, FaFileSignature,
           FaAlignLeft, FaClipboardList, FaCheckSquare, FaPlusCircle } from "react-icons/fa";
 
 const Joi = require('@hapi/joi');
@@ -143,7 +137,7 @@ class CreateRole extends Component {
 
 
     render() {
-        const { rolePrivileges, roleName, description, ipList } = this.state
+        const { roleName, description, ipList } = this.state
 
 
         return (

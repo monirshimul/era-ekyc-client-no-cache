@@ -274,7 +274,7 @@ class Dashboard extends Component {
     render() {
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag, imgFlag } = this.state;
+        let { userProfileImage, flag} = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
         // console.log("Auth Token", this.state.isAuthToken);

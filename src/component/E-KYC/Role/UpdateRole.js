@@ -185,7 +185,7 @@ export class UpdateRole extends Component {
 
 
     render() {
-        const { id, status, roleName, description, ipList, grantedIPList, rolePrivileges, rolePrivilegesOne, rolePrivilegesTwo } = this.state
+        const { status, roleName, description, ipList } = this.state
 
 
 

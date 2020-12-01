@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "../Login.css";
 import { NotificationManager } from "react-notifications";
 import bg from '../../Login/image/wave2.png';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { twoFALogin } from '../../E-KYC/Url/ApiList';
 import { largeTime } from './../../Utils/notificationTime';

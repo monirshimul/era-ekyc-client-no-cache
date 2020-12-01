@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NotificationManager } from "react-notifications";
+//import { NotificationManager } from "react-notifications";
  import RegJointFaceMain from './RegJointFaceMain';
  import RegJointFingerMain from '../RegJointFinger/RegJointFingerMain';
 //  import FingerPrintMain from '../FingerPrintJoint/FingerPrintMain';
@@ -9,11 +9,11 @@ import '../../Simplified/utils/Common.css';
 import adult from '../../Simplified/images/face-scan.svg'
 import child from '../../Simplified/images/fingerprint-three.svg'
 import bio from '../../Simplified/images/verified.svg'
-import userDelete from '../../Simplified/images/userDel.svg'
+//import userDelete from '../../Simplified/images/userDel.svg'
 import userAdd from '../../Simplified/images/userAdd.svg'
 import userFinish from '../../Simplified/images/userFinish.svg'
 import complete from '../../Simplified/images/complete.svg'
-import axios from 'axios';
+//import axios from 'axios';
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
 
 export class RegDynamicComp extends Component {
@@ -43,18 +43,18 @@ export class RegDynamicComp extends Component {
     complete = async (e) => {
         e.preventDefault();
 
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
+        // const config = {
+        //     headers: {
+        //         'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+        //     }
+        // };
 
 
 
 
-        let obj = {
-            accountId: this.state.accountId
-        }
+        // let obj = {
+        //     accountId: this.state.accountId
+        // }
 
         // try {
         //     this.setState({ loadingFlag: true });

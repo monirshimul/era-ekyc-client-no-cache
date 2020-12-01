@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { pendingAccount, getProduct, discardAccount } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
-import ReactTooltip from 'react-tooltip';
+//import ReactTooltip from 'react-tooltip';
 import { AccountType, PendingStatus, ProductCategoryType, ProductCodeGetName } from '../../Utils/fullFormConversion'
 import axios from 'axios';
 import Pagination from '../../Reusable/Pagination';
 import {
-  FaEdit,
-  FaBatteryThreeQuarters, FaMizuni, FaPenNib,
-  FaDigitalTachograph, FaArchive, FaBinoculars,
-  FaSearch, FaListUl, FaSortNumericUp,
-  FaElementor, FaUserShield, FaUserTag, FaUserEdit,
-  FaCalendarCheck, FaCalendarAlt, FaMicroblog, FaPenAlt, FaCalendarDay
+  FaBatteryThreeQuarters, FaMizuni, 
+  FaSearch, FaSortNumericUp, FaUserShield,
+  FaCalendarCheck,FaPenAlt
 } from "react-icons/fa";
 import { largeTime } from './../../Utils/notificationTime';
 
@@ -338,7 +335,7 @@ export class PendingAccount extends Component {
 
 
   render() {
-    let { searchValue } = this.state;
+    //let { searchValue } = this.state;
     return (
       <div className="container">
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Acordion from '../Acordion/Acordion';
 import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycProfileStatus, GenderForm,ProductCodeGetName } from '../../Utils/fullFormConversion';
-import axios from 'axios';
+//import axios from 'axios';
 
 export class UpgradeDetails extends Component {
   state = {
@@ -26,7 +26,7 @@ export class UpgradeDetails extends Component {
 
 
   render() {
-    let { ekyc, arrowUp } = this.state;
+    let { ekyc} = this.state;
    // console.log("ekyc", ekyc);
    // console.log('product', this.state.ekyc.account.productCode );
 

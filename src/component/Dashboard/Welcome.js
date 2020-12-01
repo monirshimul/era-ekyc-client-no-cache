@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import {withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Line, Pie, Doughnut } from 'react-chartjs-2';
 
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 import Watch from './Watch/Watch';
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 import { NotificationManager } from "react-notifications";
 import { getProfile, allDataCount, ekycPie } from '../E-KYC/Url/ApiList';
 import { image } from '../E-KYC/Profile/damiImage';
@@ -250,7 +250,7 @@ class Welcome extends Component {
     render() {
         // let path = this.props.match.path;
         // let url = this.props.match.url;
-        let { userProfileImage, flag, quickLinks, showLinks, branchOrAgentPointCodeArr, branchCode, branchName, data } = this.state
+        let { userProfileImage, flag,branchCode,data } = this.state
         
         // sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode))
         return (

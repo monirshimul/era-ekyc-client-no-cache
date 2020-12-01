@@ -10,7 +10,7 @@ import '../utils/Common.css';
 import adult from '../images/face-scan.svg'
 import child from '../images/fingerprint-three.svg'
 import bio from '../images/verified.svg'
-import userDelete from '../images/userDel.svg'
+//import userDelete from '../images/userDel.svg'
 import userAdd from '../images/userAdd.svg'
 import userFinish from '../images/userFinish.svg'
 import complete from '../images/complete.svg'
@@ -62,8 +62,8 @@ export class DynamicComp extends Component {
             let completeApi = await axios.post(simplifiedJointConfirmAPI, obj, config);
             //console.log(completeApi.data);
             this.setState({ loadingFlag: false });
-            let statusCode = completeApi.data.statusCode;
-            let successMessage = completeApi.data.message;
+           // let statusCode = completeApi.data.statusCode;
+            //let successMessage = completeApi.data.message;
             NotificationManager.success("Joint Account Create Successfull", "Success", 5000);
             //localStorage.clear();
             sessionStorage.removeItem("accountId");

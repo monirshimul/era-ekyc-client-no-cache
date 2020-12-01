@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Sign from '../images/sign.svg';
 import Capture from '../Capture/Capture';
-import { NotificationManager } from "react-notifications";
+//import { NotificationManager } from "react-notifications";
 import { demoSignature } from './../../../Utils/demoSignature';
 
 export class JointFingerSignature extends Component {
@@ -49,7 +49,7 @@ export class JointFingerSignature extends Component {
     };
 
     back = e => {
-        let { values } = this.props;
+        //let { values } = this.props;
         e.preventDefault();
 
         // for (let i = 0; i < values.jointArray.length; i++) {

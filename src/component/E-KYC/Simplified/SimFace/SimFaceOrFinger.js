@@ -10,7 +10,7 @@ export class SimFaceOrFinger extends Component {
     typeVerification = (val)=>{
         //e.preventDefault();
         
-        const obj= { type: val };
+        //const obj= { type: val };
         if(val === 'FACE'){
             this.props.history.push('/dashboard/simplified-face');
         }else{

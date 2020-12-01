@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './image/bankAsia-removebg.png'
 import './nav.css'
 import '../E-KYC/Simplified/utils/Common.css'
-import axios from 'axios';
-import { withRouter, Redirect } from 'react-router-dom';
-import { logoutUser } from '../E-KYC/Url/ApiList';
+//import axios from 'axios';
+import { withRouter} from 'react-router-dom';
+//import { logoutUser } from '../E-KYC/Url/ApiList';
 import Login from '../Login/Login';
 import {
-    FaUser, FaHome, FaIndent,
-    FaAddressCard, FaTools, FaBookReader,
-    FaAddressBook, FaMicrochip, FaGetPocket, FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt
+    FaHome,FaGetPocket, FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt
 } from "react-icons/fa";
 
 

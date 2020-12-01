@@ -3,15 +3,8 @@ import axios from 'axios';
 import {RoleAndUserStatus} from '../../Utils/fullFormConversion';
 import { NotificationManager } from "react-notifications";
 import {getRoleWithStatus, roleApproval} from "../Url/ApiList";
-import { FaUser,FaHome,FaIndent,
-    FaAddressCard, FaTools, FaBookReader,
-     FaAddressBook, FaMicrochip, FaGetPocket,
-      FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
-       FaBatteryThreeQuarters, FaMizuni, FaPenNib,
-        FaDigitalTachograph, FaArchive, FaBinoculars,
-         FaSearch, FaListUl, FaUsersCog, FaFileSignature,
-          FaAlignLeft, FaClipboardList, FaCheckSquare,
-           FaPlusCircle, FaUserCheck, FaSortNumericUp,
+import { FaBatteryThreeQuarters, FaMizuni, FaPenNib,
+        FaDigitalTachograph, FaBinoculars, FaUserCheck, FaSortNumericUp,
             FaCheckCircle, FaWindowClose, FaArrowAltCircleRight,
              FaElementor, FaUserShield, FaUserTag, FaUserEdit,
               FaCalendarCheck, FaCalendarAlt } from "react-icons/fa";

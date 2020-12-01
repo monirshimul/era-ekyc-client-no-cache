@@ -7,7 +7,7 @@ import { getRoleWithFilter, createUserWithRole, checkUserId, checkUserMobile, ch
 import { convertNumber } from '../../Utils/StrToNum';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
-import { shortTime, mediumTime, largeTime } from '../../Utils/notificationTime';
+import {  largeTime } from '../../Utils/notificationTime';
 import ReactTooltip from 'react-tooltip';
 
 
@@ -33,7 +33,7 @@ class CreateUser extends Component {
 
 
     async componentDidMount() {
-        const { page } = this.state;
+        //const { page } = this.state;
         const roleObj = { status: "A" }
         const config = {
             headers: {
@@ -309,7 +309,7 @@ class CreateUser extends Component {
         try {
             let createUser = await axios.post(createUserWithRole, obj, config);
             // console.log(createUser.data);
-            let statCode = createUser.data.statusCode;
+            //let statCode = createUser.data.statusCode;
             // let suc_message = createUser.data.message;
             let suc_message = "User Created Successfull";
             // alert(statCode + "  " + suc_message);

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
 import { getAge } from '../../../Utils/ageCheck';
-import Face from "../../Simplified/images/face.svg";
+//import Face from "../../Simplified/images/face.svg";
 import Family from '../../Simplified/images/family.svg';
-import Familyes from '../../Simplified/images/candidates.svg';
+//import Familyes from '../../Simplified/images/candidates.svg';
 import adult from '../../Simplified/images/age-limit-one.svg';
 import child from '../../Simplified/images/age-limit-two.svg';
 import DatePicker from 'react-datepicker';
@@ -243,7 +243,7 @@ export class RegNominee extends Component {
 
 
     render() {
-        const { values, jointArray, addNomineeOne, addNomineeTwo, deteteRow, onChange } = this.props;
+        const { values,addNomineeOne, addNomineeTwo,onChange } = this.props;
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
                 <div className="im col-sm-2" onClick={this.Escape}>

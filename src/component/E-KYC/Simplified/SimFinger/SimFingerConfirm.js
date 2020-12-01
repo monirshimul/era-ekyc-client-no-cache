@@ -5,18 +5,18 @@ import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import getJsonObjectToArray from '../utils/jsonObjToArray'
-import down from '../images/downArrow.svg';
+//import down from '../images/downArrow.svg';
 import Avater from '../images/profile.svg';
 import front from '../images/nid-f.svg';
 import Loading from '../utils/CustomLoding/Loading';
 import back from '../images/nid-f2.svg';
 import Sign from '../images/signature2.svg';
-import up from '../images/upArrow.svg';
+//import up from '../images/upArrow.svg';
 import adult from '../images/adultNominee.svg';
 import child from '../images/child2.svg';
 import guardian from '../images/guardian.svg';
 import Acordion from '../../Acordion/Acordion';
-import { showDate } from '../utils/DateFormat';
+//import { showDate } from '../utils/DateFormat';
 
 export class SimFingerConfirm extends Component {
 
@@ -395,6 +395,7 @@ export class SimFingerConfirm extends Component {
                             </div>
 
                             <img src={values.NidFront ? values.flag + values.NidFront : front}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -414,6 +415,7 @@ export class SimFingerConfirm extends Component {
                             </div>
 
                             <img src={values.NidBack ? values.flag + values.NidBack : back}
+                             alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -434,6 +436,7 @@ export class SimFingerConfirm extends Component {
                             </div>
 
                             <img src={values.faceImage ? values.flag + values.faceImage : Avater}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -454,6 +457,7 @@ export class SimFingerConfirm extends Component {
                             </div>
 
                             <img src={values.signature ? values.flag + values.signature : Sign}
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -536,6 +540,7 @@ export class SimFingerConfirm extends Component {
                                             </div>
 
                                             <img src={val.photograph ? values.flag + val.photograph : adult}
+                                                alt=""
                                                 style={{
                                                     margin: "0 auto",
                                                     width: "250px",
@@ -556,6 +561,7 @@ export class SimFingerConfirm extends Component {
                                                     </div>
 
                                                     <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
+                                                        alt=""
                                                         style={{
                                                             margin: "0 auto",
                                                             width: "250px",
@@ -574,6 +580,7 @@ export class SimFingerConfirm extends Component {
                                                     </div>
 
                                                     <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
+                                                        alt=""
                                                         style={{
                                                             margin: "0 auto",
                                                             width: "250px",

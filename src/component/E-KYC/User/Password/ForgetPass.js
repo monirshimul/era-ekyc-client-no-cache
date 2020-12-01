@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import '../../../Login/Login.css';
 import bg from '../../../Login/image/wave2.png'
 import axios from 'axios';
-import { FaUser, FaLock, FaKey, FaSignInAlt } from "react-icons/fa";
-import { withRouter, Link } from 'react-router-dom';
+import { FaLock} from "react-icons/fa";
+import { withRouter} from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import { largeTime } from './../../../Utils/notificationTime';
 import { setPassword } from '../../Url/ApiList';

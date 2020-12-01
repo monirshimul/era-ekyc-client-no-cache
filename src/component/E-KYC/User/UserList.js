@@ -279,7 +279,7 @@ export class UserList extends Component {
     }
 
     increment = () => {
-        const { pages, totalPages } = this.state;
+        const { totalPages } = this.state;
         let nextPage = this.state.pages + 1;
         this.setState({ pages: nextPage })
         //console.log(nextPage);
@@ -295,7 +295,7 @@ export class UserList extends Component {
 
     //=================================Decrement function=======================================
     decrement = () => {
-        const { pages, totalPages } = this.state;
+        const { totalPages } = this.state;
 
         let nextPage = this.state.pages - 1;
         this.setState({ pages: nextPage })
@@ -406,7 +406,7 @@ export class UserList extends Component {
                 deleteToggle: !this.state.deleteToggle
             })
             //console.log(delUser.data);
-            let statusCode = delUser.data.statusCode;
+           // let statusCode = delUser.data.statusCode;
             let delMessage = "Delete " + delUser.data.message;
             //alert(statusCode + ' ' + message);
             NotificationManager.success(delMessage, "Success", 5000);
@@ -461,7 +461,7 @@ export class UserList extends Component {
 
 
     render() {
-        let { profileImage, flag, profileName, checkBoxOne, checkBoxTwo, checkBoxThree, checkBoxValue, searchValue } = this.state
+        let { profileImage, flag, profileName,searchValue } = this.state
         return (
             <div className="container">
                 {/* Search bar  */}

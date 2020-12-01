@@ -47,7 +47,7 @@ export class MainFace extends Component {
         isEnable: false,
         validate: false,
         verifyToken: '',
-        loading: false,
+        //loading: false,
         //step4
         applicantName: '',
         applicantNameBangla: '',

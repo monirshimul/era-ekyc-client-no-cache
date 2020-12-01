@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
-import { shortTime, mediumTime, largeTime } from '../../../Utils/notificationTime';
+import {largeTime } from '../../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 export class RegJointRiskGrading extends Component {
     continue = async (e) => {
@@ -8,11 +8,11 @@ export class RegJointRiskGrading extends Component {
 
         let { values } = this.props;
 
-        let token = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
+        // let token = {
+        //     headers: {
+        //         'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+        //     }
+        // };
 
         let obj = {
             onBoardingValue: values.onBoardingValue,
@@ -49,7 +49,7 @@ export class RegJointRiskGrading extends Component {
 
             console.log("Risk Data", RiskGraArray)
 
-            let filterArray = RiskGraArray.filter(v => v != "")
+            let filterArray = RiskGraArray.filter(v => v !== "")
             //console.log(filterArray)
 
             this.props.handleState('riskGradingArray', filterArray);

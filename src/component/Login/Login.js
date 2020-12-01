@@ -4,10 +4,10 @@ import React, { Component } from 'react'
 import { NotificationManager } from "react-notifications";
 import './Login.css'
 import bg from './image/wave2.png'
-import { withRouter, Link, Redirect } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { loginAPI } from '../E-KYC/Url/ApiList';
-import { FaUser, FaLock, FaKey, FaSignInAlt } from "react-icons/fa";
+import { FaUser, FaLock} from "react-icons/fa";
 
 
 const Joi = require('@hapi/joi');
@@ -42,7 +42,7 @@ class Login extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     handleChannelLogin = e => {
-        const { channelLogin } = e.target
+        //const { channelLogin } = e.target
         this.setState({
             channelLogin: !this.state.channelLogin
         })

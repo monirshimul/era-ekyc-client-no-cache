@@ -2,21 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { ResourceStatus, ProductCategoryType } from '../../Utils/fullFormConversion';
-import { getProduct, createProduct, deleteProduct } from '../Url/ApiList';
+import { getProduct,deleteProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
-import {
-    FaUser, FaHome, FaIndent,
-    FaAddressCard, FaTools, FaBookReader,
-    FaAddressBook, FaMicrochip, FaGetPocket,
-    FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt,
-    FaBatteryThreeQuarters, FaMizuni, FaPenNib,
-    FaDigitalTachograph, FaArchive, FaBinoculars,
-    FaSearch, FaListUl, FaUsersCog, FaFileSignature,
-    FaAlignLeft, FaClipboardList, FaCheckSquare,
-    FaPlusCircle, FaUserCheck, FaSortNumericUp,
-    FaCheckCircle, FaWindowClose, FaArrowAltCircleRight,
-    FaElementor, FaUserShield, FaUserTag, FaUserEdit,
-    FaCalendarCheck, FaCalendarAlt, FaMicroblog, FaPenAlt, FaCalendarDay
+import {FaBatteryThreeQuarters, FaMizuni, 
+     FaSortNumericUp,FaUserShield, FaUserEdit,
+    FaCalendarCheck,FaPenAlt, FaCalendarDay
 } from "react-icons/fa";
 
 import Radio from '@material-ui/core/Radio';
@@ -104,7 +94,7 @@ class GetProduct extends Component {
 
     // Details
     onDetails = async (id) => {
-        let { productDetails } = this.state;
+       // let { productDetails } = this.state;
         let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -139,7 +129,7 @@ class GetProduct extends Component {
     }
 
     onUpdate = async (id) => {
-        let { productData } = this.state
+        //let { productData } = this.state
 
         let config = {
             headers: {

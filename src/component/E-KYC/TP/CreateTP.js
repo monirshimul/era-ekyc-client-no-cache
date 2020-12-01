@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { createTPAPI } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
-import {shortTime, mediumTime,largeTime} from '../../Utils/notificationTime';
+import {largeTime} from '../../Utils/notificationTime';
 import axios from 'axios';
 
 const Joi = require('@hapi/joi');
@@ -85,7 +85,7 @@ export class CreateTP extends Component {
             //console.log("validationValue", validationValue)
             let tpData = await axios.post(createTPAPI, obj, config);
            // console.log("tpData", tpData.data);
-            let tpDataStatus = tpData.data.statusCode;
+            //let tpDataStatus = tpData.data.statusCode;
             let tpDataMessage = tpData.data.message;
             NotificationManager.success(tpDataMessage, "Success", 5000);
             this.setState({

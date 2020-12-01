@@ -334,7 +334,7 @@ class RoleList extends Component {
 
 
     render() {
-        const { pendingList, modalData, checkBoxOne, checkBoxTwo, checkBoxThree, checkBoxValue, searchValue } = this.state
+        const { pendingList, modalData, searchValue } = this.state
 
         // {
         //     console.log("Check One", checkBoxOne)

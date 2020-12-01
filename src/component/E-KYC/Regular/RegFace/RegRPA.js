@@ -37,7 +37,7 @@ export class RegRPA extends Component {
         try {
             let rpaData = await axios.post(nidValidationRPA, obj, config);
             console.log(rpaData.data);
-            let responseData = rpaData.data.data;
+            //let responseData = rpaData.data.data;
             if (rpaData.data.data) {
                 let dataResp = rpaData.data.data;
                 this.props.handleState('applicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
@@ -255,7 +255,7 @@ export class RegRPA extends Component {
 
     continue = (e) => {
         e.preventDefault();
-        const { nid, dob, ecImage } = this.props.values;
+        const { nid, dob} = this.props.values;
 
         if (nid === '') {
             NotificationManager.warning('Please Provide Nid Number', "Click to Remove", largeTime);

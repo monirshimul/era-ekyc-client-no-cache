@@ -23,6 +23,7 @@ class Acordion extends Component {
                         <div className="imTwo d-flex justify-content-between align-items-center">
                             <span className="" style={{color:"green"}}>{this.props.heading}</span>{!showAcordion ? <sapn onClick={this.changeAcordion} style={{ cursor: "pointer" }} className="neoBg">
                                 <img src={down}
+                                    alt=""
                                     style={{
                                         margin: "0 auto",
                                         width: "25px",
@@ -33,6 +34,7 @@ class Acordion extends Component {
                                 />
                             </sapn> : <span onClick={this.changeAcordion} style={{ cursor: "pointer" }} className="neoBg">
                                     <img src={up}
+                                        alt=""
                                         style={{
                                             margin: "0 auto",
                                             width: "25px",

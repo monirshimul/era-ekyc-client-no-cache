@@ -49,7 +49,7 @@ export class SimFaceMain extends Component {
         isEnable: false,
         validate: false,
         verifyToken: '',
-        loading: false,
+        //loading: false,
         //step5
         applicantName: '',
         applicantNameBangla: '',

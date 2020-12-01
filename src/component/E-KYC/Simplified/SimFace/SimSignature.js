@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Sign from '../images/sign.svg';
 import Capture from '../Capture/Capture';
-import { NotificationManager } from "react-notifications";
+//import { NotificationManager } from "react-notifications";
 import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
 import { demoSignature } from './../../../Utils/demoSignature';
 
