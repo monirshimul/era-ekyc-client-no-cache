@@ -18,6 +18,7 @@ import adult from '../images/adultNominee.svg';
 import child from '../images/child2.svg';
 import guardian from '../images/guardian.svg';
 import Acordion from '../../Acordion/Acordion'
+import {largeTime} from '../../../Utils/notificationTime';
 
 
 export class SimConfirmInfo extends Component {
@@ -147,7 +148,7 @@ export class SimConfirmInfo extends Component {
             if (values.jointArray[i].isShow === true) {
                 let nomineeObj = {
                     name: values.jointArray[i].nominee,
-                    relation: values.jointArray[i].relation,
+                    relation: JSON.parse(values.jointArray[i].relation)[values.channelName],
                     dob: values.jointArray[i].dob ? new Date(values.jointArray[i].dob).toISOString() : '',
                     photo: values.jointArray[i].photograph,
                     isMinor: !(values.jointArray[i].isShow),
@@ -158,14 +159,14 @@ export class SimConfirmInfo extends Component {
                 let guardianInfo = {
                     nid: values.jointArray[i].minorGuardianNid,
                     name: values.jointArray[i].minorGuardianName,
-                    relation: values.jointArray[i].guardianRelationWMinor,
+                    relation:JSON.parse(values.jointArray[i].guardianRelationWMinor)[values.channelName],
                     address: values.jointArray[i].minorGuardianAddress,
                     photo: values.jointArray[i].minorPhotoGuardian
                 }
 
                 let nomineeObj = {
                     name: values.jointArray[i].minorNominee,
-                    relation: values.jointArray[i].minorRelationWAccH,
+                    relation: JSON.parse(values.jointArray[i].minorRelationWAccH)[values.channelName],
                     dob: values.jointArray[i].minorDob ? new Date(values.jointArray[i].minorDob).toISOString() : '',
                     //dob: convertminorIso,
                     photo: values.jointArray[i].minorNomineePhoto,
@@ -226,12 +227,12 @@ export class SimConfirmInfo extends Component {
             if (error.response) {
                 let message = error.response.data.message
                 console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error(message, "Click To Remove", largeTime);
             } else if (error.request) {
                 console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Click To Remove", largeTime);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Click To Remove", largeTime);
             }
         }
 
@@ -488,7 +489,7 @@ export class SimConfirmInfo extends Component {
                                         </div>
                                         <small className="" style={{fontSize:"14px"}}>
                                         <span style={{color:"green", fontSize:"14px"}}>Nominee :</span> {val.nominee},<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Relation :</span> {val.relation},<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Relation :</span> {JSON.parse(val.relation)[values.channelName]},<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.percentage}&#37;<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Date of Birth :</span> {dayMonthYearFormat(val.dob)}
                                         </small >
@@ -506,11 +507,11 @@ export class SimConfirmInfo extends Component {
                                         <small className="text-muted" style={{fontSize:"14px"}}>
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee :</span> {val.minorNominee}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Relation With Account Holder:</span> {val.minorRelationWAccH}<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Relation With Account Holder:</span> {JSON.parse(val.minorRelationWAccH)[values.channelName]}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.minorPercentage}&#37;<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian NID No :</span> {val.minorGuardianNid}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian Name :</span> {val.minorGuardianName}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Guardian Relation with Minor Nominee :</span> {val.guardianRelationWMinor}<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Guardian Relation with Minor Nominee :</span> {JSON.parse(val.guardianRelationWMinor)[values.channelName]}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Guardian Address :</span> {val.minorGuardianAddress}<br />
 
                                         </small >

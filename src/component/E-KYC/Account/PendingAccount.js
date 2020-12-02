@@ -37,10 +37,51 @@ export class PendingAccount extends Component {
 
 
 
+  callSearch = async() =>{
+    this.setState({accountData:[]});
 
+    let config = {
+      headers: {
+
+        'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+
+      }
+    };
+
+     // console.log("myObj", obj);
+     try {
+      let pendingApiSec = await axios.post(pendingAccount + this.state.page, this.state.currentStateObj, config);
+      // console.log("pendingApi", pendingApi.data.data);
+
+      let pendingData = pendingApiSec.data.data;
+      if (pendingData.length !== 0) {
+        this.setState({ accountData: pendingData.accounts, page:pendingData.currentPage, totalPages: pendingData.totalPages, totalAccount: pendingData.totalAccount });
+
+      } else {
+        this.setState({accountData:[], totalPages:"", page:1 });
+        NotificationManager.info("No Data Found", "Click To Remove", largeTime);
+      }
+
+    } catch (error) {
+      if (error.response) {
+        let message = error.response.data.message
+        //console.log("Error",error.response)
+        NotificationManager.error(message, "Click TO Remove", largeTime);
+      } else if (error.request) {
+        // console.log("Error Connecting...", error.request)
+        NotificationManager.error("Error Connecting...", "Click TO Remove", largeTime);
+      } else if (error) {
+        NotificationManager.error(error.toString(), "Click TO Remove", largeTime);
+      }
+    }
+
+
+  }
 
   handleAPI = async (e) => {
     e.preventDefault();
+
+    this.setState({accountData:[]});
 
     let config = {
       headers: {
@@ -85,12 +126,6 @@ export class PendingAccount extends Component {
       if (pendingData.length !== 0) {
         this.setState({ accountData: pendingData.accounts, page:pendingData.currentPage, totalPages: pendingData.totalPages, totalAccount: pendingData.totalAccount });
         this.setState({ currentStateObj: obj });
-
-        // console.log("currentObj", this.state.currentStateObj);
-        // let data = await ProductCodeGetName(pendingData.accounts.productCode);
-        // console.log("productName", data);
-        // this.setState({ ProductCodeConvertName: data });
-
       } else {
         this.setState({accountData:[], totalPages:"", page:1 });
         NotificationManager.info("No Data Found", "Click To Remove", largeTime);
@@ -225,12 +260,8 @@ export class PendingAccount extends Component {
 
   onDetails = async (e) => {
     e.preventDefault();
-    // console.log("allDetails", this.state.accountData[e.target.id]);
     this.setState({ accountDetails: this.state.accountData[e.target.id] });
 
-    // let data = await ProductCodeGetName(this.state.accountDetails.productCode);
-    // console.log("data", data);
-    // this.setState({ ProductCodeConvertName: data });
 
     let config = {
       headers: {
@@ -242,8 +273,6 @@ export class PendingAccount extends Component {
     let idObj = {
       code: this.state.accountData[e.target.id].productCode
     }
-
-    // console.log("obj", idObj);
 
 
     try {
@@ -266,11 +295,11 @@ export class PendingAccount extends Component {
     }
 
 
-
   }
 
 
   onDiscard = async (e) => {
+    console.log("discard start");
     e.preventDefault();
 
     let config = {
@@ -287,6 +316,8 @@ export class PendingAccount extends Component {
     try {
 
       let discardData = await axios.post(discardAccount, discardObj, config);
+      // console.log("discard", discardData.data);
+        this.callSearch();
       NotificationManager.success("Discard Successfull", "Success", 10000);
     } catch (error) {
       if (error.response) {
@@ -301,32 +332,6 @@ export class PendingAccount extends Component {
       }
     }
 
-
-
-    try {
-      let pendingApi = await axios.post(pendingAccount + this.state.page, this.state.currentStateObj, config);
-       console.log("pendingApi", pendingApi.data.data);
-
-      let pendingData = pendingApi.data.data;
-      if (pendingData.length !== 0) {
-        this.setState({ accountData: pendingData.accounts, totalPages: pendingData.totalPages, totalAccount: pendingData.totalAccount });
-
-      } else {
-        NotificationManager.info("No Data Found", "Click TO Remove", largeTime);
-      }
-
-    } catch (error) {
-      if (error.response) {
-        let message = error.response.data.message
-        //console.log("Error",error.response)
-        NotificationManager.error(message, "Click TO Remove", largeTime);
-      } else if (error.request) {
-        // console.log("Error Connecting...", error.request)
-        NotificationManager.error("Error Connecting...", "Click TO Remove", largeTime);
-      } else if (error) {
-        NotificationManager.error(error.toString(), "Click TO Remove", largeTime);
-      }
-    }
 
 
   }
@@ -503,7 +508,7 @@ export class PendingAccount extends Component {
                       }
                       <button className="neoBtnSmall mr-2" data-toggle="modal" data-target="#modalForPendingDetails" style={{ color: "#d3830a" }} id={index} onClick={(e) => this.onDetails(e)}>Details</button>
                       {data.status === "P" ?
-                        <button className="neoBtnSmall" style={{ color: "red" }} id={index} onClick={() => window.confirm("Are you sure you want to discard this Account ?") && this.onDiscard}>Discard</button>
+                        <button className="neoBtnSmall" style={{ color: "red" }} id={index} onClick={(e) => window.confirm("Are you sure you want to discard this Account ?") && this.onDiscard(e)}>Discard</button>
                         :
                         ""
                       }
@@ -609,7 +614,7 @@ export class PendingAccount extends Component {
 
         {/* pagination added*/}
 
-        {this.state.totalPages > 1 ?
+         {this.state.totalPages > 1 ?
           (<Pagination
             //   historyPerPage={this.state.historyPerPage}
             //   totalHistory={this.state.totalHistory}
