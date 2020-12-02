@@ -255,15 +255,15 @@ class Welcome extends Component {
         // sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode))
         return (
             <div className="container">
+                <div className="row d-flex justify-content-center align-items-center">
 
-                <div className="row d-flex justify-content-around align-items-center">
-                    <div className="col-sm-3 d-flex justify-content-center" style={{ padding: "13px" }}>
+                <Watch />
 
-                        <Watch />
+                </div>
 
-
-                    </div>
-                    <div className="col-sm-9">
+                
+                    
+                    
 
                         <div className="row imTwoWhite  d-flex justify-content-around align-items-center">
 
@@ -316,9 +316,9 @@ class Welcome extends Component {
                         </div>
 
 
-                    </div>
+                    
 
-                </div>
+                
                 <hr />
 
                 <div className="row imTwoWhite d-flex justify-content-around align-items-center">
@@ -375,60 +375,6 @@ class Welcome extends Component {
                     </div>
 
                 </div>
-
-
-
-
-
-                <div className="row imTwoWhite d-flex justify-content-around align-items-center" style={{ padding: "5px" }}>
-
-                    <div className="col-sm-6 imTwoWhite">
-
-                        <Line
-                            data={data}
-
-                        />
-                        <hr />
-
-                    </div>
-                    <div className="col-sm-6 imTwoWhite">
-
-                        <Line
-                            data={data}
-                        />
-                        <hr />
-
-                    </div>
-                    <div className="col-sm-6 imTwoWhite mt-2">
-
-                        <Pie
-                            data={data}
-                        />
-                        <hr />
-
-                    </div>
-
-                    <div className="col-sm-6 imTwoWhite mt-2">
-
-                        <Doughnut
-                            data={data}
-                        />
-                        <hr />
-
-                    </div>
-
-
-
-
-
-                </div>
-
-
-
-
-
-
-
 
 
 
