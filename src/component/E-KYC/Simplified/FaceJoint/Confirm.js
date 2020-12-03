@@ -193,7 +193,7 @@ export class Confirm extends Component {
         if (values.jointArray[i].isShow === true) {
           let nomineeObj = {
             name: values.jointArray[i].nominee,
-            relation: values.jointArray[i].relation,
+            relation: JSON.parse(values.jointArray[i].relation)[values.channelName],
             dob: values.jointArray[i].dob
               ? new Date(values.jointArray[i].dob).toISOString()
               : "",
@@ -206,14 +206,14 @@ export class Confirm extends Component {
           let guardianInfo = {
             nid: values.jointArray[i].minorGuardianNid,
             name: values.jointArray[i].minorGuardianName,
-            relation: values.jointArray[i].guardianRelationWMinor,
+            relation: JSON.parse(values.jointArray[i].guardianRelationWMinor)[values.channelName],
             address: values.jointArray[i].minorGuardianAddress,
             photo: values.jointArray[i].minorPhotoGuardian,
           };
 
           let nomineeObj = {
             name: values.jointArray[i].minorNominee,
-            relation: values.jointArray[i].minorRelationWAccH,
+            relation: JSON.parse(values.jointArray[i].minorRelationWAccH)[values.channelName],
             dob: values.jointArray[i].minorDob
               ? new Date(values.jointArray[i].minorDob).toISOString()
               : "",
@@ -1023,7 +1023,7 @@ export class Confirm extends Component {
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Relation :
                       </span>{" "}
-                      {val.relation},<br />
+                      {val.showAdultRelation},<br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Percentage :
                       </span>{" "}
@@ -1057,7 +1057,7 @@ export class Confirm extends Component {
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Minor Nominee Relation With Account Holder:
                       </span>{" "}
-                      {val.minorRelationWAccH}
+                      {val.showMinorRelation}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Percentage :
@@ -1077,7 +1077,7 @@ export class Confirm extends Component {
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Guardian Relation with Minor Nominee :
                       </span>{" "}
-                      {val.guardianRelationWMinor}
+                      {val.showMinorRelationWithGuardian}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Guardian Address :

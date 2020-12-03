@@ -489,7 +489,7 @@ export class SimConfirmInfo extends Component {
                                         </div>
                                         <small className="" style={{fontSize:"14px"}}>
                                         <span style={{color:"green", fontSize:"14px"}}>Nominee :</span> {val.nominee},<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Relation :</span> {JSON.parse(val.relation)[values.channelName]},<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Relation :</span> {val.showAdultRelation},<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.percentage}&#37;<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Date of Birth :</span> {dayMonthYearFormat(val.dob)}
                                         </small >
@@ -507,11 +507,11 @@ export class SimConfirmInfo extends Component {
                                         <small className="text-muted" style={{fontSize:"14px"}}>
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee :</span> {val.minorNominee}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Relation With Account Holder:</span> {JSON.parse(val.minorRelationWAccH)[values.channelName]}<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Relation With Account Holder:</span> {val.showMinorRelation}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.minorPercentage}&#37;<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian NID No :</span> {val.minorGuardianNid}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian Name :</span> {val.minorGuardianName}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Guardian Relation with Minor Nominee :</span> {JSON.parse(val.guardianRelationWMinor)[values.channelName]}<br />
+                                        <span style={{color:"green", fontSize:"14px"}}>Guardian Relation with Minor Nominee :</span> {val.showMinorRelationWithGuardian}<br />
                                         <span style={{color:"green", fontSize:"14px"}}>Guardian Address :</span> {val.minorGuardianAddress}<br />
 
                                         </small >

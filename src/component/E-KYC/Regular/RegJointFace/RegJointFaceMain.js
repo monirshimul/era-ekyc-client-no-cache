@@ -254,13 +254,13 @@ export class RegJoinFaceMain extends Component {
 
     addNomineeOne = () => {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '', isShow: true });
+        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '',showAdultRelation:'', isShow: true });
         this.setState({ jointArray: copyArray });
     }
 
     addNomineeTwo = () => {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', isShow: false });
+        copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '',showMinorRelation:'',showMinorRelationWithGuardian:'', isShow: false });
         this.setState({ jointArray: copyArray });
     }
 
