@@ -254,18 +254,19 @@ export class RegNominee extends Component {
         // console.log(this.props.values.fields);
 
     }
-    Escape = ()=>{
-        this.props.nextStep();
-      }
+    // Escape = ()=>{
+    //     this.props.nextStep();
+    //   }
 
 
     render() {
         const { values,addNomineeOne, addNomineeTwo,onChange } = this.props;
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
+            {/* 
                 <div className="im col-sm-2" onClick={this.Escape}>
               Escape
-              </div>
+              </div>*/}
                 <div className="row d-flex justify-content-center">
                     <div className="col-sm-6 imTwoWhite mt-3" >
                         <h4 className="im text-muted mt-2"><i className="fas fa-user" style={{ color: "green" }}></i> Nominee</h4>
@@ -403,14 +404,7 @@ export class RegNominee extends Component {
                                                                     CBS:"nic",
                                                                     ICBS:"niece"
                                                                 })}>Niece</option>
-
-                                                                <option value={JSON.stringify({
-                                                                    ABS:"NIC",
-                                                                    CBS:"nic",
-                                                                    ICBS:"niece"
-                                                                })}>Niece</option>
-
-                                                                
+                                                  
                                                                 <option value={JSON.stringify({
                                                                     ABS:"BIL",
                                                                     CBS:"bil",
@@ -647,12 +641,6 @@ export class RegNominee extends Component {
                                                             ICBS:"niece"
                                                         })}>Niece</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"NIC",
-                                                            CBS:"nic",
-                                                            ICBS:"niece"
-                                                        })}>Niece</option>
-
                                                         
                                                         <option value={JSON.stringify({
                                                             ABS:"BIL",
@@ -877,12 +865,6 @@ export class RegNominee extends Component {
                                                             CBS:"nep",
                                                             ICBS:"nephew"
                                                         })}>Nephew</option>
-
-                                                        <option value={JSON.stringify({
-                                                            ABS:"NIC",
-                                                            CBS:"nic",
-                                                            ICBS:"niece"
-                                                        })}>Niece</option>
 
                                                         <option value={JSON.stringify({
                                                             ABS:"NIC",

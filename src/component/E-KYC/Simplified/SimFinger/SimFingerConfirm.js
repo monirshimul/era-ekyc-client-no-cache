@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { absDateFormat, dayMonthYearFormat} from '../../../Utils/dateConversion';
+import {  dayMonthYearFormat} from '../../../Utils/dateConversion';
 import {ProductCodeGetName,ProductCategoryType,AccountType,GenderForm} from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
@@ -50,7 +50,7 @@ export class SimFingerConfirm extends Component {
             nid: values.applicantNidNo,
             name: values.applicantName,
             nameBangla: values.applicantNameBangla,
-            dob: absDateFormat(values.applicantDob),
+            dob: values.applicantDob,
             dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,

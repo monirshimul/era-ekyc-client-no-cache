@@ -79,16 +79,17 @@ export class RegRiskGrading extends Component {
 
     }
 
-    Escape = () => {
-        this.props.nextStep();
-    }
+    // Escape = () => {
+    //     this.props.nextStep();
+    // }
     render() {
         let { values, handleChange, handleOccupationChange } = this.props;
         return (
             <div className="card col-sm-10" style={{ paddingTop: "25px" }}>
+            {/* 
                 <div className="im col-sm-2" onClick={this.Escape}>
                     Escape
-              </div>
+              </div>*/}
 
                 <div className="card-header divBg">
 

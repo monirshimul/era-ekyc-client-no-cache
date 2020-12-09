@@ -278,18 +278,19 @@ export class RegRPA extends Component {
         this.props.prevStep();
     };
 
-    Escape = () => {
-        this.props.nextStep();
-    }
+    // Escape = () => {
+    //     this.props.nextStep();
+    // }
 
 
     render() {
         let { values, handleChange } = this.props;
         return (
             <div className="container">
-                <div className="im col-sm-2" onClick={this.Escape}>
+            {/*     
+            <div className="im col-sm-2" onClick={this.Escape}>
                     Escape
-              </div>
+              </div>*/}
                 <div className="row d-flex justify-content-center">
                     <div className="col-sm-6 imTwoWhite p-5">
                         <div className="divBg pt-3">

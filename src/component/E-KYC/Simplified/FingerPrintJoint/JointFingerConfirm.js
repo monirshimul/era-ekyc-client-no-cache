@@ -15,7 +15,7 @@ import adult from '../images/adultNominee.svg';
 import child from '../images/child2.svg';
 import guardian from '../images/guardian.svg';
 import Acordion from '../../Acordion/Acordion';
-import {absDateFormat,dayMonthYearFormat } from '../../../Utils/dateConversion';
+import {dayMonthYearFormat } from '../../../Utils/dateConversion';
 
 
 export class JointFingerConfirm extends Component {
@@ -54,7 +54,7 @@ export class JointFingerConfirm extends Component {
                 nid: values.applicantNidNo,
                 name: values.applicantName,
                 nameBangla: values.applicantNameBangla,
-                dob: absDateFormat(values.applicantDob),
+                dob: values.applicantDob,
                 dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
                 motherName: values.motherName,
                 motherNameBangla: values.motherNameBangla,
@@ -240,7 +240,7 @@ export class JointFingerConfirm extends Component {
                 nid: values.applicantNidNo,
                 name: values.applicantName,
                 nameBangla: values.applicantNameBangla,
-                dob: absDateFormat(values.applicantDob),
+                dob: values.applicantDob,
                 dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
                 motherName: values.motherName,
                 motherNameBangla: values.motherNameBangla,

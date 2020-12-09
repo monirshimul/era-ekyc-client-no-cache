@@ -412,12 +412,6 @@ export class RegJointNominee extends Component {
                                                                 ICBS:"niece"
                                                             })}>Niece</option>
 
-                                                            <option value={JSON.stringify({
-                                                                ABS:"NIC",
-                                                                CBS:"nic",
-                                                                ICBS:"niece"
-                                                            })}>Niece</option>
-
                                                             
                                                             <option value={JSON.stringify({
                                                                 ABS:"BIL",
@@ -647,11 +641,6 @@ export class RegJointNominee extends Component {
                                                             ICBS:"nephew"
                                                         })}>Nephew</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"NIC",
-                                                            CBS:"nic",
-                                                            ICBS:"niece"
-                                                        })}>Niece</option>
 
                                                         <option value={JSON.stringify({
                                                             ABS:"NIC",
@@ -878,12 +867,6 @@ export class RegJointNominee extends Component {
                                                             CBS:"nep",
                                                             ICBS:"nephew"
                                                         })}>Nephew</option>
-
-                                                        <option value={JSON.stringify({
-                                                            ABS:"NIC",
-                                                            CBS:"nic",
-                                                            ICBS:"niece"
-                                                        })}>Niece</option>
 
                                                         <option value={JSON.stringify({
                                                             ABS:"NIC",
