@@ -129,6 +129,7 @@ export const setPassword = hostIp + `user/forget-password/confirm`;
 // Account
 export const pendingAccount = hostIp + `account/get/`;
 export const discardAccount = hostIp + `account/discard`;
+export const reopenAccount = hostIp + `account/reopen`;
 
 // Access Log
 export const accessLog = hostIp + `report/access-log/`;

@@ -25,6 +25,8 @@ import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 // E-kyc List
 import ShowMore from '../E-KYC/ekyc-list/ShowMore';
 import fullEkyc from '../E-KYC/ekyc-list/FullEkyc';
+// Reopen Complete
+import ReopenComplete from '../E-KYC/Account/ReopenComplete';
 // ===============Simplified start==============
 //import FaceOrFinger from '../E-KYC/Simplified/FaceOrFinger';
 import SimFaceOrFinger from '../E-KYC/Simplified/SimFace/SimFaceOrFinger';
@@ -447,7 +449,8 @@ class Dashboard extends Component {
                                     <Route path={`${path}/showMore`} component={ShowMore} />
                                     <Route path={`${path}/fullEkyc`} component={fullEkyc} />
 
-
+                                    {/*Reopen Complete Page */}
+                                    <Route path={`${path}/reopencofirm`} component={ReopenComplete} />
                                     {/* MultiSteps */}
                                     {/* <Route path={`${path}/face-account`} component={MultiStepFace} /> */}
                                     <Route path={`${path}/dynamic-comp`} component={JointMultiStep} />

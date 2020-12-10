@@ -206,6 +206,14 @@ export class SimConfirmInfo extends Component {
             this.props.handleState('confirmFlag', false);
             //console.log(res.data);
             let resData = res.data.data;
+            if (resData.channelResponse === null) {
+                NotificationManager.error(
+                  "Integration Server Error",
+                  "Click TO Remove",
+                  largeTime
+                );
+                return;
+              }
             let resToArr = getJsonObjectToArray(resData)
             //console.log("Result Array",resToArr)
             this.props.handleState('channelAccStatus', resToArr);

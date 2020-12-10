@@ -16,7 +16,8 @@ import Sign from '../../Simplified/images/signature.svg'
 import adult from '../../Simplified/images/age-limit-one.svg'
 import child from '../../Simplified/images/age-limit-two.svg'
 import guardian from '../../Simplified/images/guardian.svg';
-import Acordion from '../../Acordion/Acordion'
+import Acordion from '../../Acordion/Acordion';
+import {largeTime} from '../../../Utils/notificationTime';
 
 
 export class RegFingerPrintConfirm extends Component {
@@ -240,6 +241,14 @@ export class RegFingerPrintConfirm extends Component {
             this.props.handleState('confirmFlag', false);
             //console.log(res.data);
             let resData = res.data.data;
+            if (resData.channelResponse === null) {
+                NotificationManager.error(
+                  "Integration Server Error",
+                  "Click TO Remove",
+                  largeTime
+                );
+                return;
+              }
             let resToArr = getJsonObjectToArray(resData)
             //console.log("Result Array",resToArr)
             this.props.handleState('channelAccStatus', resToArr);
@@ -261,12 +270,12 @@ export class RegFingerPrintConfirm extends Component {
             if (error.response) {
                 let message = error.response.data.message
                 console.log("Error", error.response)
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error(message, "Click To Remove", largeTime);
             } else if (error.request) {
                 console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Click To Remove", largeTime);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Click To Remove", largeTime);
             }
         }
 
