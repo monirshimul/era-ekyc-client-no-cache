@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FaUser,FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip, FaUserCircle } from "react-icons/fa";
+import { FaUser, FaIndent, FaAddressCard, FaTools, FaBookReader, FaAddressBook, FaMicrochip, FaUserCircle } from "react-icons/fa";
 
 //import Portfolio from './Dashboard/NestedComponentDemo/Portfolio';
 //import Blogs from './Dashboard/NestedComponentDemo/Blogs';
@@ -441,7 +441,7 @@ export const allRoutes = [
                             "featureName": "Review",
                             "path": "/simplified-review",
                             "exact": true,
-                            "component": <Vission />
+                            "component": <UnderDev />
                         }
 
                     },
@@ -488,7 +488,7 @@ export const allRoutes = [
                             "featureName": "Review",
                             "path": "/regular-review",
                             "exact": true,
-                            "component": <Target />
+                            "component": <UnderDev />
                         }
 
                     }

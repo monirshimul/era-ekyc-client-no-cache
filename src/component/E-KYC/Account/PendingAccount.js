@@ -26,7 +26,8 @@ import {
 } from "react-icons/fa";
 import { largeTime } from "./../../Utils/notificationTime";
 import getJsonObjectToArray from "../Simplified/utils/jsonObjToArray";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+// import { Loading } from './../Simplified/utils/CustomLoding/Loading';
 
 export class PendingAccount extends Component {
   state = {
@@ -408,7 +409,7 @@ export class PendingAccount extends Component {
         this.setState({ allButton: false });
         this.callSearch();
         NotificationManager.error(
-          "Already Have an Account",
+          "Account Reopen Failed",
           "Click TO Remove",
           largeTime
         );
@@ -586,97 +587,99 @@ export class PendingAccount extends Component {
                 {this.state.accountData.length === 0
                   ? ""
                   : this.state.accountData.map((data, index) => (
-                      <div
-                        key={index}
-                        className="neoBg col-sm-4 m-2 p-3 animated zoomIn"
-                      >
-                        <div className="im">
-                          <small style={{ color: "#308f8f" }}>
-                            {data.title}
-                          </small>
-                        </div>
-                        <hr />
-                        <div className="" style={{ fontSize: "16px" }}>
-                          <small style={{ color: "green" }}>
-                            <span style={{ color: "#d3830a" }}>Type : </span>
-                            {AccountType(data.type)}
-                          </small>
-                          <br />
-                          <small style={{ color: "green" }}>
-                            <span style={{ color: "#d3830a" }}>
-                              Channel Code :{" "}
-                            </span>
-                            {data.channelCode}
-                          </small>
-                          <br />
-                          <small style={{ color: "green" }}>
-                            <span style={{ color: "#d3830a" }}>
-                              Product Type :{" "}
-                            </span>
-                            {ProductCategoryType(data.productType)}
-                          </small>
-                          <br />
-                          <small style={{ color: "green" }}>
-                            <span style={{ color: "#c47a0b" }}>Status : </span>
-                            {PendingStatus(data.status)}
-                          </small>
-                          <br />
-                          <small style={{ color: "green" }}>
-                            <span style={{ color: "#c47a0b" }}>
-                              Channel Account ID :{" "}
-                            </span>
-                            {data.channelAccountId}
-                          </small>
-                          <br />
-                          {/* <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Address : </span>{data.permanentAddressBangla}</small><br /> */}
-                        </div>
+                    <div
+                      key={index}
+                      className="neoBg col-sm-4 m-2 p-3 animated zoomIn"
+                    >
+                      <div className="im">
+                        <small style={{ color: "#308f8f" }}>
+                          {data.title}
+                        </small>
+                      </div>
+                      <hr />
 
-                        <hr />
-                        <div className="row d-flex justify-content-center">
-                          {data.status === "P" ? (
-                            <button
-                              className="neoBtnSmall mr-2"
-                              style={{ color: "#308f8f" }}
-                              id={index}
-                              onClick={(e) => this.onReopen(e)}
-                              disabled={this.state.allButton}
-                            >
-                              Reopen
-                            </button>
-                          ) : (
-                            ""
-                          )}
+                      <div className="" style={{ fontSize: "16px" }}>
+                        <small style={{ color: "green" }}>
+                          <span style={{ color: "#d3830a" }}>Type : </span>
+                          {AccountType(data.type)}
+                        </small>
+                        <br />
+                        <small style={{ color: "green" }}>
+                          <span style={{ color: "#d3830a" }}>
+                            Channel Code :{" "}
+                          </span>
+                          {data.channelCode}
+                        </small>
+                        <br />
+                        <small style={{ color: "green" }}>
+                          <span style={{ color: "#d3830a" }}>
+                            Product Type :{" "}
+                          </span>
+                          {ProductCategoryType(data.productType)}
+                        </small>
+                        <br />
+                        <small style={{ color: "green" }}>
+                          <span style={{ color: "#c47a0b" }}>Status : </span>
+                          {PendingStatus(data.status)}
+                        </small>
+                        <br />
+                        <small style={{ color: "green" }}>
+                          <span style={{ color: "#c47a0b" }}>
+                            Channel Account ID :{" "}
+                          </span>
+                          {data.channelAccountId}
+                        </small>
+                        <br />
+                        {/* <small style={{ color: "green" }}><span style={{ color: "#d3830a" }}>Address : </span>{data.permanentAddressBangla}</small><br /> */}
+                      </div>
+
+
+                      <hr />
+                      <div className="row d-flex justify-content-center">
+                        {data.status === "P" ? (
                           <button
                             className="neoBtnSmall mr-2"
-                            data-toggle="modal"
-                            data-target="#modalForPendingDetails"
-                            style={{ color: "#d3830a" }}
+                            style={{ color: "#308f8f" }}
                             id={index}
-                            onClick={(e) => this.onDetails(e)}
+                            onClick={(e) => this.onReopen(e)}
                             disabled={this.state.allButton}
                           >
-                            Details
+                            Reopen
                           </button>
-                          {data.status === "P" ? (
-                            <button
-                              className="neoBtnSmall"
-                              style={{ color: "red" }}
-                              id={index}
-                              onClick={(e) =>
-                                window.confirm(
-                                  "Are you sure you want to discard this Account ?"
-                                ) && this.onDiscard(e)
-                              }
-                              disabled={this.state.allButton}
-                            >
-                              Discard
-                            </button>
-                          ) : (
+                        ) : (
                             ""
                           )}
-                        </div>
+                        <button
+                          className="neoBtnSmall mr-2"
+                          data-toggle="modal"
+                          data-target="#modalForPendingDetails"
+                          style={{ color: "#d3830a" }}
+                          id={index}
+                          onClick={(e) => this.onDetails(e)}
+                          disabled={this.state.allButton}
+                        >
+                          Details
+                          </button>
+                        {data.status === "P" ? (
+                          <button
+                            className="neoBtnSmall"
+                            style={{ color: "red" }}
+                            id={index}
+                            onClick={(e) =>
+                              window.confirm(
+                                "Are you sure you want to discard this Account ?"
+                              ) && this.onDiscard(e)
+                            }
+                            disabled={this.state.allButton}
+                          >
+                            Discard
+                          </button>
+                        ) : (
+                            ""
+                          )}
                       </div>
-                    ))}
+                    </div>
+                  ))}
 
                 {/* Modal For pending Details*/}
                 <div
@@ -903,19 +906,19 @@ export class PendingAccount extends Component {
             handleGo={this.handleGoInput}
           />
         ) : (
-          <div>
-            <br />
-            <br />
-            <br />
-            <p style={{ textAlign: "center" }}>
-              {" "}
-              <strong>
+            <div>
+              <br />
+              <br />
+              <br />
+              <p style={{ textAlign: "center" }}>
                 {" "}
+                <strong>
+                  {" "}
                 page No: {this.state.page + "/" + this.state.totalPages}
-              </strong>{" "}
-            </p>
-          </div>
-        )}
+                </strong>{" "}
+              </p>
+            </div>
+          )}
       </div>
     );
   }
