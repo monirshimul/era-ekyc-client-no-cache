@@ -327,7 +327,7 @@ export class PendingAccount extends Component {
   };
 
   onDiscard = async (e) => {
-    console.log("discard start");
+    // console.log("discard start");
     e.preventDefault();
 
     let config = {
@@ -641,7 +641,9 @@ export class PendingAccount extends Component {
                             className="neoBtnSmall mr-2"
                             style={{ color: "#308f8f" }}
                             id={index}
-                            onClick={(e) => this.onReopen(e)}
+                            onClick={(e) => window.confirm(
+                              "Are you sure you want to Reopen this Account ?"
+                            ) && this.onReopen(e)}
                             disabled={this.state.allButton}
                           >
                             Reopen

@@ -51,12 +51,12 @@ export class UserList extends Component {
         try {
             // API called name getAllUser here no status need... page used for pagination
             let appUser = await axios.post(getAllUser + pages, null, config);
-             //console.log("getAllUser", appUser.data.data);
+            //console.log("getAllUser", appUser.data.data);
             let divide1 = appUser.data.data;
             let numberOfPages = divide1.totalPages;
             let numberOfUsers = divide1.totalUsers;
             let divide2 = divide1.users;
-            let currPage= divide1.currentPage;
+            let currPage = divide1.currentPage;
 
 
 
@@ -65,7 +65,7 @@ export class UserList extends Component {
             //console.log("profileData", profileData.userImage)
 
             this.setState({
-                pages:currPage,
+                pages: currPage,
                 totalPages: numberOfPages,
                 totalUsers: numberOfUsers,
                 allAppUser: divide2,
@@ -168,7 +168,6 @@ export class UserList extends Component {
                 let res = await axios.post(searchUser + 1, obj, config);
                 this.setState({
                     allAppUser: res.data.data,
-
                     searchValue: "",
 
                 })
@@ -195,7 +194,6 @@ export class UserList extends Component {
                 let res = await axios.post(searchUser + 1, obj, config);
                 this.setState({
                     allAppUser: res.data.data,
-
                     searchValue: "",
 
                 })
@@ -222,7 +220,6 @@ export class UserList extends Component {
                 let res = await axios.post(searchUser + 1, obj, config);
                 this.setState({
                     allAppUser: res.data.data,
-
                     searchValue: "",
 
                 })
@@ -267,7 +264,7 @@ export class UserList extends Component {
             pageReq = text_input;
             this.setState({ pages: pageReq });
             this.pageChanges(pageReq);
-            this.setState({text_input:''});
+            this.setState({ text_input: '' });
         } else {
             console.log('Invalid Page No.');
             //alert('Invalid Page No.');
@@ -406,7 +403,7 @@ export class UserList extends Component {
                 deleteToggle: !this.state.deleteToggle
             })
             //console.log(delUser.data);
-           // let statusCode = delUser.data.statusCode;
+            // let statusCode = delUser.data.statusCode;
             let delMessage = "Delete " + delUser.data.message;
             //alert(statusCode + ' ' + message);
             NotificationManager.success(delMessage, "Success", 5000);
@@ -461,7 +458,7 @@ export class UserList extends Component {
 
 
     render() {
-        let { profileImage, flag, profileName,searchValue } = this.state
+        let { profileImage, flag, profileName, searchValue } = this.state
         return (
             <div className="container">
                 {/* Search bar  */}

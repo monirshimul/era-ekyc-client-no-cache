@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
@@ -26,7 +25,7 @@ class AllStatistics extends Component {
         year: "",
         fromDate: new Date(),
         tillDate: new Date(),
-        findData:0
+        findData: 0
 
     }
 
@@ -53,7 +52,7 @@ class AllStatistics extends Component {
         try {
             let res = await axios.post(ekycPie, dataObj, config);
             let dataCount = res.data.data.count;
-            this.setState({findData:dataCount})
+            this.setState({ findData: dataCount })
             //console.log("Find Data", dataCount)
         } catch (error) {
             console.log("Error", error)
@@ -589,7 +588,7 @@ class AllStatistics extends Component {
     render() {
 
         let { lineData, data, dData, lineDataSpe, dDataTwo, findData } = this.state
-        
+
 
         return (
             <div className="container">
@@ -602,7 +601,7 @@ class AllStatistics extends Component {
 
 
                     <div className=" col-sm-4 imTwoWhite d-flex justify-content-center align-items-center">
-                        <h1 className="neoBg" style={{fontSize:"25px", color:"green"}}>E-KYC: {findData}</h1>
+                        <h1 className="neoBg" style={{ fontSize: "25px", color: "green" }}>E-KYC: {findData}</h1>
                     </div>
 
 
