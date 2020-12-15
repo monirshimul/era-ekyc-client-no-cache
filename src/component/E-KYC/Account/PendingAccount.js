@@ -367,8 +367,18 @@ export class PendingAccount extends Component {
     }
   };
 
+  activeBorder = (id) => {
+    const element = document.getElementById(id);
+    element.style.border = "3px dotted green";
+    element.textContent = "Loading...";
+  }
+
   onReopen = async (e) => {
     e.preventDefault();
+
+    console.log("Id: ", e.target.id);
+
+    this.activeBorder(e.target.id);
 
     let config = {
       headers: {
@@ -893,7 +903,7 @@ export class PendingAccount extends Component {
 
         {/* pagination added*/}
 
-        {this.state.totalPages > 1 ? (
+        {this.state.totalPages === 1 ? (
           <Pagination
             //   historyPerPage={this.state.historyPerPage}
             //   totalHistory={this.state.totalHistory}
