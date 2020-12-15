@@ -6,6 +6,7 @@ import { allDataCount, ekycPie, lineChart } from '../Url/ApiList';
 import { Line, Doughnut } from 'react-chartjs-2';
 import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns';
+import CountUp from 'react-countup';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker
@@ -21,7 +22,14 @@ class AllStatistics extends Component {
         lineDataSpe: [],
         dData: [],
         dDataTwo: [],
-        data: [],
+        data: {
+            accountCount: 0,
+            ekycCount: 0,
+            roleCount: 0,
+            userCount: 0,
+            verificationCount: 0
+
+        },
         year: "",
         fromDate: new Date(),
         tillDate: new Date(),
@@ -492,55 +500,97 @@ class AllStatistics extends Component {
                         </div>
                     </div>
                     <div className=" col-sm-4 imTwoWhite d-flex justify-content-center align-items-center">
-                        <h1 className="imTwoWhite" style={{ fontSize: "25px", color: "green" }}>E-KYC: {findData}</h1>
+                        <h1 className="imTwoWhite" style={{ fontSize: "25px", color: "green" }}>E-KYC: <CountUp start={0} end={findData} duration={2} /></h1>
                     </div>
                 </div>
                 <div className="row imTwoWhite d-flex justify-content-around align-items-center">
                     <div className="col-sm-2 lightTwo">
                         <hr />
                         <div className="imTwoWhite">
-                            <h2>{data.accountCount}</h2>
+                            <h2>
+                                <CountUp
+                                    start={0}
+                                    end={data.accountCount}
+                                    duration={2}
+
+                                />
+                            </h2>
                         </div>
                         <hr />
                         <h5>Total Account</h5>
                         <hr />
+
                     </div>
                     <div className="col-sm-2 lightThree">
                         <hr />
                         <div className="imTwoWhite">
-                            <h2>{data.userCount}</h2>
+                            <h2>
+                                <CountUp
+                                    start={0}
+                                    end={data.userCount}
+                                    duration={2}
+
+                                />
+                            </h2>
                         </div>
                         <hr />
                         <h5>Total User</h5>
                         <hr />
+
+
                     </div>
                     <div className="col-sm-2 lightFour">
                         <hr />
                         <div className="imTwoWhite">
-                            <h2>{data.roleCount}</h2>
+                            <h2>
+                                <CountUp
+                                    start={0}
+                                    end={data.roleCount}
+                                    duration={2}
+
+                                />
+                            </h2>
                         </div>
                         <hr />
                         <h5>Total Role</h5>
                         <hr />
+
                     </div>
                     <div className="col-sm-2 lightOne">
                         <hr />
                         <div className="imTwoWhite">
-                            <h2>{data.ekycCount}</h2>
+                            <h2>
+                                <CountUp
+                                    start={0}
+                                    end={data.ekycCount}
+                                    duration={2}
+
+                                />
+                            </h2>
                         </div>
                         <hr />
                         <h5>Total E-KYC</h5>
                         <hr />
+
                     </div>
                     <div className="col-sm-2 lightMain">
                         <hr />
                         <div className="imTwoWhite">
-                            <h2>{data.verificationCount}</h2>
+                            <h2>
+                                <CountUp
+                                    start={0}
+                                    end={data.verificationCount}
+                                    duration={2}
+
+                                />
+                            </h2>
                         </div>
                         <hr />
                         <h5>Total Verify</h5>
                         <hr />
+
                     </div>
+
                 </div>
                 {/* <div className="row imTwoWhite d-flex justify-content-center align-items-center" style={{ padding: "5px" }}>
                     <div className="col-sm-10 imTwoWhite">

@@ -9,13 +9,21 @@ import Watch from './Watch/Watch';
 import { NotificationManager } from "react-notifications";
 import { getProfile, allDataCount, ekycPie } from '../E-KYC/Url/ApiList';
 import { image } from '../E-KYC/Profile/damiImage';
+import CountUp from 'react-countup';
 
 
 
 class Welcome extends Component {
 
     state = {
-        data: [],
+        data: {
+            accountCount: 0,
+            ekycCount: 0,
+            roleCount: 0,
+            userCount: 0,
+            verificationCount: 0
+
+        },
         hasReport: false,
         showLinks: false,
         userProfileImage: '',
@@ -109,6 +117,7 @@ class Welcome extends Component {
         try {
             let res = await axios.get(allDataCount, config);
             let dataCount = res.data.data;
+            console.log("Total Data", dataCount)
             // let modData = {
             //     labels: ['Account', 'User', 'Role', 'E-KYC', 'Verify'],
             //     datasets: [
@@ -341,7 +350,14 @@ class Welcome extends Component {
                             <div className="col-sm-2 lightTwo">
                                 <hr />
                                 <div className="imTwoWhite">
-                                    <h2>{data.accountCount}</h2>
+                                    <h2>
+                                        <CountUp
+                                            start={0}
+                                            end={data.accountCount}
+                                            duration={2}
+
+                                        />
+                                    </h2>
                                 </div>
                                 <hr />
                                 <h5>Total Account</h5>
@@ -351,7 +367,14 @@ class Welcome extends Component {
                             <div className="col-sm-2 lightThree">
                                 <hr />
                                 <div className="imTwoWhite">
-                                    <h2>{data.userCount}</h2>
+                                    <h2>
+                                        <CountUp
+                                            start={0}
+                                            end={data.userCount}
+                                            duration={2}
+
+                                        />
+                                    </h2>
                                 </div>
                                 <hr />
                                 <h5>Total User</h5>
@@ -362,7 +385,14 @@ class Welcome extends Component {
                             <div className="col-sm-2 lightFour">
                                 <hr />
                                 <div className="imTwoWhite">
-                                    <h2>{data.roleCount}</h2>
+                                    <h2>
+                                        <CountUp
+                                            start={0}
+                                            end={data.roleCount}
+                                            duration={2}
+
+                                        />
+                                    </h2>
                                 </div>
                                 <hr />
                                 <h5>Total Role</h5>
@@ -372,7 +402,14 @@ class Welcome extends Component {
                             <div className="col-sm-2 lightOne">
                                 <hr />
                                 <div className="imTwoWhite">
-                                    <h2>{data.ekycCount}</h2>
+                                    <h2>
+                                        <CountUp
+                                            start={0}
+                                            end={data.ekycCount}
+                                            duration={2}
+
+                                        />
+                                    </h2>
                                 </div>
                                 <hr />
                                 <h5>Total E-KYC</h5>
@@ -382,7 +419,14 @@ class Welcome extends Component {
                             <div className="col-sm-2 lightMain">
                                 <hr />
                                 <div className="imTwoWhite">
-                                    <h2>{data.verificationCount}</h2>
+                                    <h2>
+                                        <CountUp
+                                            start={0}
+                                            end={data.verificationCount}
+                                            duration={2}
+
+                                        />
+                                    </h2>
                                 </div>
                                 <hr />
                                 <h5>Total Verify</h5>
