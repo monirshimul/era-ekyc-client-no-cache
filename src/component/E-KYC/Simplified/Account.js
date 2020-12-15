@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
 import { getProductMultiFilter, getEkycType } from '../Url/ApiList';
-import {largeTime } from '../../Utils/notificationTime';
+import { largeTime } from '../../Utils/notificationTime';
 import axios from 'axios';
 
 class Account extends Component {
@@ -21,6 +21,7 @@ class Account extends Component {
 
     componentDidMount() {
         sessionStorage.removeItem('accountId');
+        sessionStorage.removeItem("accountInfo");
     }
 
     onChange = e => {
@@ -260,7 +261,7 @@ class Account extends Component {
 
 
 
-                       
+
 
                         {/* Product Name */}
                         <div className='form-group'>
@@ -298,7 +299,7 @@ class Account extends Component {
                             </select>
                         </div>
 
-                        
+
 
                         <hr></hr>
                         <h4>Transaction Limit</h4>

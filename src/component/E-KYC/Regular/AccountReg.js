@@ -18,6 +18,7 @@ export class AccountReg extends Component {
     }
 
     componentDidMount() {
+        sessionStorage.removeItem('accountId');
         sessionStorage.removeItem('accountInfo');
     }
 
@@ -83,7 +84,7 @@ export class AccountReg extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { productCategory, productName, amount,  accountType, channelName } = this.state;
+        const { productCategory, productName, amount, accountType, channelName } = this.state;
 
         // Branch and agent point code check
         if (JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null) {
