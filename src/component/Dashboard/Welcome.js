@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { Line, Pie, Doughnut } from 'react-chartjs-2';
 
@@ -16,6 +16,7 @@ class Welcome extends Component {
 
     state = {
         data: [],
+        hasReport: false,
         showLinks: false,
         userProfileImage: '',
         flag: 'data:image/jpeg;base64,',
@@ -38,6 +39,18 @@ class Welcome extends Component {
         // this.setState({
         //     linkShower: !this.state.linkShower
         // })
+
+        let getFeature = JSON.parse(sessionStorage.getItem("featureList"))
+        for (let i = 0; i < getFeature.length; i++) {
+            if (getFeature[i] === "6.1") {
+                this.setState({
+                    hasReport: true
+                })
+                break;
+            }
+        }
+
+
 
 
 
@@ -250,131 +263,139 @@ class Welcome extends Component {
     render() {
         // let path = this.props.match.path;
         // let url = this.props.match.url;
-        let { userProfileImage, flag,branchCode,data } = this.state
-        
+        let { userProfileImage, flag, branchCode, data, hasReport } = this.state
+
         // sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode))
         return (
             <div className="container">
                 <div className="row d-flex justify-content-center align-items-center">
 
-                <Watch />
+                    <Watch />
 
                 </div>
 
-                
-                    
-                    
-
-                        <div className="row imTwoWhite  d-flex justify-content-around align-items-center">
-
-
-                            <div className="col-sm-2 d-flex justify-content-center" style={{ padding: "13px" }}>
-
-                                <img src={userProfileImage ? flag + userProfileImage : profileImage}
-                                    alt="profile_img"
-                                    className=""
-
-                                    style={{
-                                        width: "75px",
-                                        height: "75px",
-                                        borderRadius: "50%",
-                                        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)"
-                                    }}
-                                />
-
-                            </div>
-
-                            <div className="col-sm-10 d-flex justify-content-center align-items-center im" style={{ paddingTop: "13px", color: "green" }}>
-                                <div className="text-center">
-                                    <h5><span style={{ fontSize: "24px", color: "red" }}>Please</span> Choose Branch Or Agent Point  :&nbsp;&nbsp;&nbsp;</h5>
-                                </div>
-                                {/* <i class="fas fa-dungeon"></i> */}
-                                <div className='form-group '>
-                                    <label htmlFor=""></label>
-                                    <select
-                                        style={{ fontSize: "14px" }}
-                                        className='custom-select sbtn'
-                                        value={branchCode}
-                                        onChange={this.onChange}
-                                        name="branchCode"
-                                    >
-                                        <option value='' disabled >--Select Branch Code--</option>
-                                        {
-
-                                            this.selectOptions()
-
-                                        }
 
 
 
-                                    </select>
-                                </div>
+
+                <div className="row imTwoWhite  d-flex justify-content-around align-items-center">
 
 
-                            </div>
+                    <div className="col-sm-2 d-flex justify-content-center" style={{ padding: "13px" }}>
 
+                        <img src={userProfileImage ? flag + userProfileImage : profileImage}
+                            alt="profile_img"
+                            className=""
+
+                            style={{
+                                width: "75px",
+                                height: "75px",
+                                borderRadius: "50%",
+                                boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.24)"
+                            }}
+                        />
+
+                    </div>
+
+                    <div className="col-sm-10 d-flex justify-content-center align-items-center im" style={{ paddingTop: "13px", color: "green" }}>
+                        <div className="text-center">
+                            <h5><span style={{ fontSize: "24px", color: "red" }}>Please</span> Choose Branch Or Agent Point  :&nbsp;&nbsp;&nbsp;</h5>
+                        </div>
+                        {/* <i class="fas fa-dungeon"></i> */}
+                        <div className='form-group '>
+                            <label htmlFor=""></label>
+                            <select
+                                style={{ fontSize: "14px" }}
+                                className='custom-select sbtn'
+                                value={branchCode}
+                                onChange={this.onChange}
+                                name="branchCode"
+                            >
+                                <option value='' disabled >--Select Branch Code--</option>
+                                {
+
+                                    this.selectOptions()
+
+                                }
+
+
+
+                            </select>
                         </div>
 
 
-                    
+                    </div>
 
-                
+                </div>
+
+
+
+
+
                 <hr />
 
-                <div className="row imTwoWhite d-flex justify-content-around align-items-center">
-                    <div className="col-sm-2 lightTwo">
-                        <hr />
-                        <div className="imTwoWhite">
-                            <h2>{data.accountCount}</h2>
+                {
+                    hasReport ? (
+
+                        <div className="row imTwoWhite d-flex justify-content-around align-items-center">
+                            <div className="col-sm-2 lightTwo">
+                                <hr />
+                                <div className="imTwoWhite">
+                                    <h2>{data.accountCount}</h2>
+                                </div>
+                                <hr />
+                                <h5>Total Account</h5>
+                                <hr />
+
+                            </div>
+                            <div className="col-sm-2 lightThree">
+                                <hr />
+                                <div className="imTwoWhite">
+                                    <h2>{data.userCount}</h2>
+                                </div>
+                                <hr />
+                                <h5>Total User</h5>
+                                <hr />
+
+
+                            </div>
+                            <div className="col-sm-2 lightFour">
+                                <hr />
+                                <div className="imTwoWhite">
+                                    <h2>{data.roleCount}</h2>
+                                </div>
+                                <hr />
+                                <h5>Total Role</h5>
+                                <hr />
+
+                            </div>
+                            <div className="col-sm-2 lightOne">
+                                <hr />
+                                <div className="imTwoWhite">
+                                    <h2>{data.ekycCount}</h2>
+                                </div>
+                                <hr />
+                                <h5>Total E-KYC</h5>
+                                <hr />
+
+                            </div>
+                            <div className="col-sm-2 lightMain">
+                                <hr />
+                                <div className="imTwoWhite">
+                                    <h2>{data.verificationCount}</h2>
+                                </div>
+                                <hr />
+                                <h5>Total Verify</h5>
+                                <hr />
+
+                            </div>
+
                         </div>
-                        <hr />
-                        <h5>Total Account</h5>
-                        <hr />
 
-                    </div>
-                    <div className="col-sm-2 lightThree">
-                        <hr />
-                        <div className="imTwoWhite">
-                            <h2>{data.userCount}</h2>
-                        </div>
-                        <hr />
-                        <h5>Total User</h5>
-                        <hr />
+                    ) : ""
+                }
 
 
-                    </div>
-                    <div className="col-sm-2 lightFour">
-                        <hr />
-                        <div className="imTwoWhite">
-                            <h2>{data.roleCount}</h2>
-                        </div>
-                        <hr />
-                        <h5>Total Role</h5>
-                        <hr />
-
-                    </div>
-                    <div className="col-sm-2 lightOne">
-                        <hr />
-                        <div className="imTwoWhite">
-                            <h2>{data.ekycCount}</h2>
-                        </div>
-                        <hr />
-                        <h5>Total E-KYC</h5>
-                        <hr />
-
-                    </div>
-                    <div className="col-sm-2 lightMain">
-                        <hr />
-                        <div className="imTwoWhite">
-                            <h2>{data.verificationCount}</h2>
-                        </div>
-                        <hr />
-                        <h5>Total Verify</h5>
-                        <hr />
-
-                    </div>
-
-                </div>
 
 
 
