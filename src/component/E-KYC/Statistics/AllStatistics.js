@@ -69,7 +69,7 @@ class AllStatistics extends Component {
         }
     }
 
-    specificYear = (e) => {
+    specificYear = async (e) => {
         this.setState({
             year: e.target.value
         })
@@ -78,123 +78,60 @@ class AllStatistics extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-
-        // const dataObj = {
-        //     year: this.state.year
-        // }
-
+        const dataObj = {
+            year: e.target.value
+        }
+        let myYear = e.target.value;
         try {
-            //let res = await axios.post(lineChart, dataObj, config);
-            //let dataCount = res.data.data;
-            //console.log("dataCount", dataCount)
-            let tD = [
-                {
-                    month: 1,
-                    count: "29"
-                },
-                {
-                    month: 12,
-                    count: "39"
-                },
-                {
-                    month: 3,
-                    count: "47"
-                },
-                {
-                    month: 11,
-                    count: "50"
-                },
-                {
-                    month: 2,
-                    count: "22"
-                },
-                {
-                    month: 7,
-                    count: "31"
-                },
-                {
-                    month: 9,
-                    count: "84"
-                },
-                {
-                    month: 10,
-                    count: "116"
-                },
-                {
-                    month: 5,
-                    count: "99"
-                }
-            ]
-
-            let tDTwo = [
-                {
-                    month: 1,
-                    count: "23"
-                },
-                {
-                    month: 12,
-                    count: "30"
-                },
-                {
-                    month: 3,
-                    count: "85"
-                },
-                {
-                    month: 11,
-                    count: "29"
-                },
-                {
-                    month: 2,
-                    count: "24"
-                },
-                {
-                    month: 7,
-                    count: "39"
-                },
-                {
-                    month: 9,
-                    count: "44"
-                },
-                {
-                    month: 10,
-                    count: "98"
-                },
-                {
-                    month: 5,
-                    count: "58"
-                },
-                {
-                    month: 4,
-                    count: "33"
-                },
-                {
-                    month: 6,
-                    count: "30"
-                },
-                {
-                    month: 8,
-                    count: "53"
-                }
-            ]
+            let res = await axios.post(lineChart, dataObj, config);
+            let dataCount = res.data.data;
+            //console.log("Specific by year", dataCount)
+            // let tD = [
+            //     {
+            //         month: 1,
+            //         count: "29"
+            //     },
+            //     {
+            //         month: 12,
+            //         count: "39"
+            //     },
+            //     {
+            //         month: 3,
+            //         count: "47"
+            //     },
+            //     {
+            //         month: 11,
+            //         count: "50"
+            //     },
+            //     {
+            //         month: 2,
+            //         count: "22"
+            //     },
+            //     {
+            //         month: 7,
+            //         count: "31"
+            //     },
+            //     {
+            //         month: 9,
+            //         count: "84"
+            //     },
+            //     {
+            //         month: 10,
+            //         count: "116"
+            //     },
+            //     {
+            //         month: 5,
+            //         count: "99"
+            //     }
+            // ]
             let emptyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            console.log("Spe Year", this.state.year)
-            if (e.target.value === "2019") {
-
-                for (let i = 0; i < tD.length; i++) {
-
-                    //console.log("In the Loop", tD[i]['month']-1, tD[i]['count'])
-                    // console.log("Index", emptyData.indexOf(tD[i]['month']))
-                    emptyData[tD[i].month - 1] = parseInt(tD[i].count)
-
+            if (myYear === "2020") {
+                for (let i = 0; i < dataCount.length; i++) {
+                    emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
                 }
-
-            } else if (e.target.value === "2018") {
-                for (let i = 0; i < tDTwo.length; i++) {
-
-                    //console.log("In the Loop", tD[i]['month']-1, tD[i]['count'])
-                    // console.log("Index", emptyData.indexOf(tD[i]['month']))
-                    emptyData[tDTwo[i].month - 1] = parseInt(tDTwo[i].count)
-
+            } else if (myYear === "2019") {
+                for (let i = 0; i < dataCount.length; i++) {
+                    emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
                 }
             }
 
@@ -206,29 +143,19 @@ class AllStatistics extends Component {
                 datasets: [
 
                     {
-                        label: `Total E-KYC(${e.target.value})`,
+                        label: `Total E-KYC(${myYear})`,
                         // data:[3,2,5,4,6],
                         data: emptyData,
-                        backgroundColor: `${e.target.value === "2019" ? "#fff0f0" : "#d9ecf2"}`,
+                        backgroundColor: `${myYear === "2020" ? "#fff0f0" : "#d9ecf2"}`,
                         borderColor: "#84ceca",
                         pointBackgroundColor: "red",
                         pointBorderColor: "red",
-
-
                     }
-
-
-
                 ]
             }
-
-
-
             this.setState({
                 lineDataSpe: modData,
-
             })
-
             console.log("Line Data", modData)
         } catch (error) {
             console.log("Error", error)
@@ -254,162 +181,72 @@ class AllStatistics extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-
         const dataObj = {
             year: "2020"
         }
-
         try {
             let res = await axios.post(lineChart, dataObj, config);
             let dataCount = res.data.data;
-            //console.log("dataCount", dataCount)
-            let tD = [
-                {
-                    month: 1,
-                    count: "29"
-                },
-                {
-                    month: 12,
-                    count: "39"
-                },
-                {
-                    month: 3,
-                    count: "47"
-                },
-                {
-                    month: 11,
-                    count: "50"
-                },
-                {
-                    month: 2,
-                    count: "22"
-                },
-                {
-                    month: 7,
-                    count: "31"
-                },
-                {
-                    month: 9,
-                    count: "84"
-                },
-                {
-                    month: 10,
-                    count: "116"
-                },
-                {
-                    month: 5,
-                    count: "99"
-                }
-            ]
-
-            let tDTwo = [
-                {
-                    month: 1,
-                    count: "23"
-                },
-                {
-                    month: 12,
-                    count: "30"
-                },
-                {
-                    month: 3,
-                    count: "85"
-                },
-                {
-                    month: 11,
-                    count: "29"
-                },
-                {
-                    month: 2,
-                    count: "24"
-                },
-                {
-                    month: 7,
-                    count: "39"
-                },
-                {
-                    month: 9,
-                    count: "44"
-                },
-                {
-                    month: 10,
-                    count: "98"
-                },
-                {
-                    month: 5,
-                    count: "58"
-                },
-                {
-                    month: 4,
-                    count: "33"
-                },
-                {
-                    month: 6,
-                    count: "30"
-                },
-                {
-                    month: 8,
-                    count: "53"
-                }
-            ]
+            console.log("dataCount", dataCount)
+            //Static Data for Line chart
+            // let tD = [
+            //     {
+            //         month: 1,
+            //         count: "29"
+            //     },
+            //     {
+            //         month: 12,
+            //         count: "39"
+            //     },
+            //     {
+            //         month: 3,
+            //         count: "47"
+            //     },
+            //     {
+            //         month: 11,
+            //         count: "50"
+            //     },
+            //     {
+            //         month: 2,
+            //         count: "22"
+            //     },
+            //     {
+            //         month: 7,
+            //         count: "31"
+            //     },
+            //     {
+            //         month: 9,
+            //         count: "84"
+            //     },
+            //     {
+            //         month: 10,
+            //         count: "116"
+            //     },
+            //     {
+            //         month: 5,
+            //         count: "99"
+            //     }
+            // ]
             let emptyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            for (let i = 0; i < tD.length; i++) {
-
-                //console.log("In the Loop", tD[i]['month']-1, tD[i]['count'])
-                // console.log("Index", emptyData.indexOf(tD[i]['month']))
-                emptyData[tD[i].month - 1] = parseInt(tD[i].count)
-
+            for (let i = 0; i < dataCount.length; i++) {
+                emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
             }
-            let emptyDataTwo = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            for (let i = 0; i < tDTwo.length; i++) {
-
-                //console.log("In the Loop", tD[i]['month']-1, tD[i]['count'])
-                // console.log("Index", emptyData.indexOf(tD[i]['month']))
-                emptyDataTwo[tDTwo[i].month - 1] = parseInt(tDTwo[i].count)
-
-            }
-            //console.log("Empty", emptyData)
-
             let modData = {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [
-
                     {
                         label: "Total E-KYC(2020)",
-                        // data:[3,2,5,4,6],
                         data: emptyData,
                         backgroundColor: "#dbf6e9",
                         borderColor: "#84ceca",
                         pointBackgroundColor: "red",
                         pointBorderColor: "red",
-
-
                     },
-                    {
-                        label: "Total E-KYC(2019)",
-                        // data:[3,2,5,4,6],
-                        data: emptyDataTwo,
-                        backgroundColor: "#f2f4c0",
-                        borderColor: "#84ceca",
-                        pointBackgroundColor: "green",
-                        pointBorderColor: "green",
-
-
-                    }
-
-
                 ]
             }
-
-
-
             this.setState({
                 lineData: modData,
-
             })
-
-            //console.log("Line Data", modData)
-
         } catch (error) {
             console.log("Error", error)
             if (error.response) {
@@ -600,9 +437,7 @@ class AllStatistics extends Component {
                 <div className="row d-flex justify-content-center">
 
 
-                    <div className=" col-sm-4 imTwoWhite d-flex justify-content-center align-items-center">
-                        <h1 className="neoBg" style={{ fontSize: "25px", color: "green" }}>E-KYC: {findData}</h1>
-                    </div>
+
 
 
                     <div className="col-sm-8 imTwoWhite">
@@ -655,6 +490,9 @@ class AllStatistics extends Component {
 
                             </div>
                         </div>
+                    </div>
+                    <div className=" col-sm-4 imTwoWhite d-flex justify-content-center align-items-center">
+                        <h1 className="imTwoWhite" style={{ fontSize: "25px", color: "green" }}>E-KYC: {findData}</h1>
                     </div>
                 </div>
                 <div className="row imTwoWhite d-flex justify-content-around align-items-center">
@@ -736,8 +574,8 @@ class AllStatistics extends Component {
                                 name="year"
                             >
                                 <option value='' disabled>--Select Year--</option>
+                                <option value='2020'>2020</option>
                                 <option value='2019'>2019</option>
-                                <option value='2018'>2018</option>
 
                             </select>
                         </div>
@@ -752,12 +590,18 @@ class AllStatistics extends Component {
                 <div className="row imTwoWhite d-flex justify-content-center align-items-center" style={{ padding: "5px" }}>
 
                     <div className="col-sm-6 imTwoWhite">
+                        <h5 className="text-center lightThree" style={{ color: "", fontSize: "16px" }} htmlFor="">
+                            E-KYC compare betweeen running Self and Assisted Onboard.
+                        </h5>
                         <Doughnut
                             data={dData}
                         />
                         <hr />
                     </div>
                     <div className="col-sm-6 imTwoWhite">
+                        <h5 className="text-center lightFour" style={{ color: "", fontSize: "16px" }} htmlFor="">
+                            E-KYC Verification compare betweeen running Face and Finger.
+                        </h5>
                         <Doughnut
                             data={dDataTwo}
                         />
