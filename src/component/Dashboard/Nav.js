@@ -4,11 +4,11 @@ import Logo from './image/bankAsia-removebg.png'
 import './nav.css'
 import '../E-KYC/Simplified/utils/Common.css'
 //import axios from 'axios';
-import { withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 //import { logoutUser } from '../E-KYC/Url/ApiList';
 import Login from '../Login/Login';
 import {
-    FaHome,FaGetPocket, FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt
+    FaHome, FaGetPocket, FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt
 } from "react-icons/fa";
 
 
@@ -39,10 +39,10 @@ const Nav = (props) => {
                         <li className="nav-item ">
                             <Link to="/dashboard" className="nav-link text-white"><i style={{ fontSize: "17px" }}><FaHome /></i>  Home</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link text-white" to="#"><i style={{ fontSize: "17px" }}><FaGetPocket /></i> About</Link>
-                        </li>
-                        <li className="nav-item dropdown">
+                        </li> */}
+                        {/* <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i style={{ fontSize: "17px" }}><FaClone /></i> Services</Link>
                             <div id="sub-menu-1">
@@ -53,8 +53,8 @@ const Nav = (props) => {
                                     <li><a href="#">Achievment</a></li>
                                 </ul>
                             </div>
-                        </li>
-                        <li className="nav-item dropdown">
+                        </li> */}
+                        {/* <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i style={{ fontSize: "17px" }}><FaUsers /></i> Clients</Link>
                             <div id="sub-menu-1">
@@ -65,9 +65,9 @@ const Nav = (props) => {
                                     <li><a href="#">Achievment</a></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
 
-                        <li className="nav-item dropdown">
+                        {/* <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i style={{ fontSize: "17px" }}><FaPhone /></i> Contact</Link>
                             <div id="sub-menu-1">
@@ -78,8 +78,8 @@ const Nav = (props) => {
                                     <li><a href="#">Achievment</a></li>
                                 </ul>
                             </div>
-                        </li>
-                        <li className="nav-item dropdown">
+                        </li> */}
+                        {/* <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle text-white" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i style={{ fontSize: "17px" }}><FaEdit /></i> Business</Link>
                             <div id="sub-menu-1">
@@ -90,7 +90,7 @@ const Nav = (props) => {
                                     <li><a href="#">Achievment</a></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
 
 
 

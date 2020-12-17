@@ -11,7 +11,7 @@ import Acordion from '../Acordion/Acordion';
 import { saveAs } from 'file-saver';
 //import ReactTooltip from 'react-tooltip';
 import { b64toBlob } from '../../Utils/FileUtils';
-
+import { dayMonthYearFormat } from '../../Utils/dateConversion';
 import { FaFileDownload, FaArrowCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 import axios from 'axios';
 //import { Button } from 'reactstrap';
@@ -283,7 +283,7 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Date : </span>{ekyc.verificationDate}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>NID No : </span>{ekyc.nid}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Cell No : </span>{ekyc.mobile}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{ekyc.dob}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{dayMonthYearFormat(ekyc.dob)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Father Name : </span>{ekyc.fatherName}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Father Name Bangla : </span>{ekyc.fatherNameBangla}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Mother Name : </span>{ekyc.motherName}</small><br />

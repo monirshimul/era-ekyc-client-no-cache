@@ -6,6 +6,7 @@ import Pagination from '../../Reusable/Pagination';
 import { NotificationManager } from "react-notifications";
 import { mediumTime } from '../../Utils/notificationTime';
 
+
 class EkycListSearch extends Component {
 
     state = {

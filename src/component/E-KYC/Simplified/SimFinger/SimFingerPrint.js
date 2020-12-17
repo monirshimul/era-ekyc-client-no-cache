@@ -16,241 +16,241 @@ export class SimFingerPrint extends Component {
 
 
 
-  handleClick = (e) => {
-    e.preventDefault();
-
-    // this.setState({ isEnable: true, loading: !this.state.loading });
-    this.props.handleState('isEnableFinger', true);
-    this.props.handleState('loadingPrint', true);
-    const config = {
-      headers: {
-        "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
-      },
-    };
-
-    const fingerobj = {
-      MinQ: 30,
-      Retry: 3,
-      TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
-    };
-
-    axios
-      .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
-      .then((res) => {
-        //  console.log(res);
-        const data = res.data;
-        let rightThumb = data[0].fingerData;
-        let rightIndex = data[1].fingerData;
-        let leftThumb = data[2].fingerData;
-        let leftIndex = data[3].fingerData;
-
-        if (data[0].fingerId === 1) {
-          this.props.handleState('rThumb', rightThumb);
-        } else {
-          //alert("data not found!!");
-          NotificationManager.error("data not found!!", "Error", 5000);
-        }
-        if (data[1].fingerId === 2) {
-          this.props.handleState('rIndex', rightIndex);
-        } else {
-          //alert("data not found!!");
-          NotificationManager.error("data not found!!", "Error", 5000);
-        }
-        if (data[2].fingerId === 6) {
-
-          this.props.handleState('lThumb', leftThumb);
-        } else {
-          //alert("data not found!!");
-          NotificationManager.error("data not found!!", "Error", 5000);
-        }
-        if (data[3].fingerId === 7) {
-
-          this.props.handleState('lIndex', leftIndex);
-        } else {
-          //alert("data not found!!");
-          NotificationManager.error("data not found!!", "Error", 5000);
-        }
-
-        // this.setState({
-        //   isEnable: false,
-        //   loading: !this.state.loading,
-        // });
-        this.props.handleState('isEnableFinger', false);
-        this.props.handleState('loadingPrint', false);
-      })
-      .catch((err) => {
-        this.props.handleState('loadingPrint', false);
-        if (err.response) {
-          if (err.response.status === 400 || err.response.status === 401) {
-            // console.log(err.response.data);
-            //alert(err.response.data.message);
-            NotificationManager.error(err.response.data.message, "Error", 5000);
-            this.props.handleState('isEnableFinger', false);
-          } else if (err.response.status === 404) {
-            //alert("Not Found");
-            NotificationManager.error("Not Fount", "Error", 5000);
-            this.props.handleState('isEnableFinger', false);
-          } else if (err.response.status === 500) {
-            //alert(err.response.data.message);
-            NotificationManager.error(err.response.data.message, "Error", 5000);
-            this.props.handleState('isEnableFinger', false);
-          }
-        } else if (err.request) {
-          //console.log(err.request);
-          //alert("Error Connectiong");
-          NotificationManager.error("Error Connecting", "Error", 5000);
-          this.props.handleState('isEnableFinger', false);
-        } else {
-          console.log("Error", err.message);
-          //alert(err.message);
-          NotificationManager.error(err.message, "Error", 5000);
-          this.props.handleState('isEnableFinger', false);
-        }
-      });
-  };
-
-  ///////////////////////////// // // Abs Account Check Added start//////////////////////////////
-
-
-  // handleClick = async (e) => {
-  //   let { nid, dob, productName, channelName } = this.props.values;
+  // handleClick = (e) => {
   //   e.preventDefault();
-  //   let isFingerPrint = true;
-  //   // this.setState({ isEnable: true, loading: !this.state.loading });
 
-  //   let config = {
+  //   // this.setState({ isEnable: true, loading: !this.state.loading });
+  //   this.props.handleState('isEnableFinger', true);
+  //   this.props.handleState('loadingPrint', true);
+  //   const config = {
   //     headers: {
   //       "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
   //     },
   //   };
 
-  //   let checkObj = {
-  //     nid: nid,
-  //     productCode: productName
-  //   }
+  //   const fingerobj = {
+  //     MinQ: 30,
+  //     Retry: 3,
+  //     TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
+  //   };
 
-  //   console.log("objcheck", checkObj);
+  //   axios
+  //     .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
+  //     .then((res) => {
+  //       //  console.log(res);
+  //       const data = res.data;
+  //       let rightThumb = data[0].fingerData;
+  //       let rightIndex = data[1].fingerData;
+  //       let leftThumb = data[2].fingerData;
+  //       let leftIndex = data[3].fingerData;
 
-  //   this.props.handleState('isEnableFinger', true);
-  //   this.props.handleState('loadingPrint', true);
-
-  //   if (channelName === 'ABS') {
-
-  //     try {
-  //       let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-  //       console.log("abs", absCheckApi.data);
-  //       let apiResult = absCheckApi.data.data.result;
-  //       let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
-  //       if (apiResult === true) {
-  //         isFingerPrint = false;
-  //         this.props.handleState('isEnableFinger', false);
-  //         this.props.handleState('loadingPrint', false);
-  //         NotificationManager.info(notificationData, "Click to Remove", largeTime);
+  //       if (data[0].fingerId === 1) {
+  //         this.props.handleState('rThumb', rightThumb);
+  //       } else {
+  //         //alert("data not found!!");
+  //         NotificationManager.error("data not found!!", "Error", 5000);
   //       }
-  //     } catch (error) {
+  //       if (data[1].fingerId === 2) {
+  //         this.props.handleState('rIndex', rightIndex);
+  //       } else {
+  //         //alert("data not found!!");
+  //         NotificationManager.error("data not found!!", "Error", 5000);
+  //       }
+  //       if (data[2].fingerId === 6) {
+
+  //         this.props.handleState('lThumb', leftThumb);
+  //       } else {
+  //         //alert("data not found!!");
+  //         NotificationManager.error("data not found!!", "Error", 5000);
+  //       }
+  //       if (data[3].fingerId === 7) {
+
+  //         this.props.handleState('lIndex', leftIndex);
+  //       } else {
+  //         //alert("data not found!!");
+  //         NotificationManager.error("data not found!!", "Error", 5000);
+  //       }
+
+  //       // this.setState({
+  //       //   isEnable: false,
+  //       //   loading: !this.state.loading,
+  //       // });
   //       this.props.handleState('isEnableFinger', false);
   //       this.props.handleState('loadingPrint', false);
-  //       if (error.response) {
-  //         let message = error.response.data.message
-  //         //console.log("Error",error.response)
-  //         NotificationManager.error(message, "Click to Remove", largeTime);
-  //       } else if (error.request) {
-  //         //console.log("Error Connecting...",error.request)
-  //         NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-  //       } else if (error) {
-  //         NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-  //       }
-  //     }
-
-  //   }
-
-  //   //  finger Print collect
-
-  //   if (isFingerPrint === true) {
-  //     const fingerobj = {
-  //       MinQ: 30,
-  //       Retry: 3,
-  //       TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
-  //     };
-
-  //     axios
-  //       .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
-  //       .then((res) => {
-  //         //  console.log(res);
-  //         const data = res.data;
-  //         let rightThumb = data[0].fingerData;
-  //         let rightIndex = data[1].fingerData;
-  //         let leftThumb = data[2].fingerData;
-  //         let leftIndex = data[3].fingerData;
-
-  //         if (data[0].fingerId === 1) {
-  //           this.props.handleState('rThumb', rightThumb);
-  //         } else {
-  //           //alert("data not found!!");
-  //           NotificationManager.error("data not found!!", "Error", 5000);
+  //     })
+  //     .catch((err) => {
+  //       this.props.handleState('loadingPrint', false);
+  //       if (err.response) {
+  //         if (err.response.status === 400 || err.response.status === 401) {
+  //           // console.log(err.response.data);
+  //           //alert(err.response.data.message);
+  //           NotificationManager.error(err.response.data.message, "Error", 5000);
+  //           this.props.handleState('isEnableFinger', false);
+  //         } else if (err.response.status === 404) {
+  //           //alert("Not Found");
+  //           NotificationManager.error("Not Fount", "Error", 5000);
+  //           this.props.handleState('isEnableFinger', false);
+  //         } else if (err.response.status === 500) {
+  //           //alert(err.response.data.message);
+  //           NotificationManager.error(err.response.data.message, "Error", 5000);
+  //           this.props.handleState('isEnableFinger', false);
   //         }
-  //         if (data[1].fingerId === 2) {
-  //           this.props.handleState('rIndex', rightIndex);
-  //         } else {
-  //           //alert("data not found!!");
-  //           NotificationManager.error("data not found!!", "Error", 5000);
-  //         }
-  //         if (data[2].fingerId === 6) {
-
-  //           this.props.handleState('lThumb', leftThumb);
-  //         } else {
-  //           //alert("data not found!!");
-  //           NotificationManager.error("data not found!!", "Error", 5000);
-  //         }
-  //         if (data[3].fingerId === 7) {
-
-  //           this.props.handleState('lIndex', leftIndex);
-  //         } else {
-  //           //alert("data not found!!");
-  //           NotificationManager.error("data not found!!", "Error", 5000);
-  //         }
-
-  //         // this.setState({
-  //         //   isEnable: false,
-  //         //   loading: !this.state.loading,
-  //         // });
+  //       } else if (err.request) {
+  //         //console.log(err.request);
+  //         //alert("Error Connectiong");
+  //         NotificationManager.error("Error Connecting", "Error", 5000);
   //         this.props.handleState('isEnableFinger', false);
-  //         this.props.handleState('loadingPrint', false);
-  //       })
-  //       .catch((err) => {
-  //         this.props.handleState('loadingPrint', false);
-  //         if (err.response) {
-  //           if (err.response.status === 400 || err.response.status === 401) {
-  //             // console.log(err.response.data);
-  //             //alert(err.response.data.message);
-  //             NotificationManager.error(err.response.data.message, "Error", 5000);
-  //             this.props.handleState('isEnableFinger', false);
-  //           } else if (err.response.status === 404) {
-  //             //alert("Not Found");
-  //             NotificationManager.error("Not Fount", "Error", 5000);
-  //             this.props.handleState('isEnableFinger', false);
-  //           } else if (err.response.status === 500) {
-  //             //alert(err.response.data.message);
-  //             NotificationManager.error(err.response.data.message, "Error", 5000);
-  //             this.props.handleState('isEnableFinger', false);
-  //           }
-  //         } else if (err.request) {
-  //           //console.log(err.request);
-  //           //alert("Error Connectiong");
-  //           NotificationManager.error("Error Connecting", "Error", 5000);
-  //           this.props.handleState('isEnableFinger', false);
-  //         } else {
-  //           console.log("Error", err.message);
-  //           //alert(err.message);
-  //           NotificationManager.error(err.message, "Error", 5000);
-  //           this.props.handleState('isEnableFinger', false);
-  //         }
-  //       });
-  //   }
-
-
-
+  //       } else {
+  //         console.log("Error", err.message);
+  //         //alert(err.message);
+  //         NotificationManager.error(err.message, "Error", 5000);
+  //         this.props.handleState('isEnableFinger', false);
+  //       }
+  //     });
   // };
+
+  ///////////////////////////// // // Abs Account Check Added start//////////////////////////////
+
+
+  handleClick = async (e) => {
+    let { nid, dob, productName, channelName } = this.props.values;
+    e.preventDefault();
+    let isFingerPrint = true;
+    // this.setState({ isEnable: true, loading: !this.state.loading });
+
+    let config = {
+      headers: {
+        "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
+      },
+    };
+
+    let checkObj = {
+      nid: nid,
+      productCode: productName
+    }
+
+    console.log("objcheck", checkObj);
+
+    this.props.handleState('isEnableFinger', true);
+    this.props.handleState('loadingPrint', true);
+
+    if (channelName === 'ABS') {
+
+      try {
+        let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
+        console.log("abs", absCheckApi.data);
+        let apiResult = absCheckApi.data.data.result;
+        let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
+        if (apiResult === true) {
+          isFingerPrint = false;
+          this.props.handleState('isEnableFinger', false);
+          this.props.handleState('loadingPrint', false);
+          NotificationManager.info(notificationData, "Click to Remove", largeTime);
+        }
+      } catch (error) {
+        this.props.handleState('isEnableFinger', false);
+        this.props.handleState('loadingPrint', false);
+        if (error.response) {
+          let message = error.response.data.message
+          //console.log("Error",error.response)
+          NotificationManager.error(message, "Click to Remove", largeTime);
+        } else if (error.request) {
+          //console.log("Error Connecting...",error.request)
+          NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
+        } else if (error) {
+          NotificationManager.error(error.toString(), "Click to Remove", largeTime);
+        }
+      }
+
+    }
+
+    //  finger Print collect
+
+    if (isFingerPrint === true) {
+      const fingerobj = {
+        MinQ: 30,
+        Retry: 3,
+        TokenId: "g86v5s4g5se84g5sfd4g5werx25sdf4f",
+      };
+
+      axios
+        .post(`http://localhost:20000/api/info/fingerdata`, fingerobj, config)
+        .then((res) => {
+          //  console.log(res);
+          const data = res.data;
+          let rightThumb = data[0].fingerData;
+          let rightIndex = data[1].fingerData;
+          let leftThumb = data[2].fingerData;
+          let leftIndex = data[3].fingerData;
+
+          if (data[0].fingerId === 1) {
+            this.props.handleState('rThumb', rightThumb);
+          } else {
+            //alert("data not found!!");
+            NotificationManager.error("data not found!!", "Error", 5000);
+          }
+          if (data[1].fingerId === 2) {
+            this.props.handleState('rIndex', rightIndex);
+          } else {
+            //alert("data not found!!");
+            NotificationManager.error("data not found!!", "Error", 5000);
+          }
+          if (data[2].fingerId === 6) {
+
+            this.props.handleState('lThumb', leftThumb);
+          } else {
+            //alert("data not found!!");
+            NotificationManager.error("data not found!!", "Error", 5000);
+          }
+          if (data[3].fingerId === 7) {
+
+            this.props.handleState('lIndex', leftIndex);
+          } else {
+            //alert("data not found!!");
+            NotificationManager.error("data not found!!", "Error", 5000);
+          }
+
+          // this.setState({
+          //   isEnable: false,
+          //   loading: !this.state.loading,
+          // });
+          this.props.handleState('isEnableFinger', false);
+          this.props.handleState('loadingPrint', false);
+        })
+        .catch((err) => {
+          this.props.handleState('loadingPrint', false);
+          if (err.response) {
+            if (err.response.status === 400 || err.response.status === 401) {
+              // console.log(err.response.data);
+              //alert(err.response.data.message);
+              NotificationManager.error(err.response.data.message, "Error", 5000);
+              this.props.handleState('isEnableFinger', false);
+            } else if (err.response.status === 404) {
+              //alert("Not Found");
+              NotificationManager.error("Not Fount", "Error", 5000);
+              this.props.handleState('isEnableFinger', false);
+            } else if (err.response.status === 500) {
+              //alert(err.response.data.message);
+              NotificationManager.error(err.response.data.message, "Error", 5000);
+              this.props.handleState('isEnableFinger', false);
+            }
+          } else if (err.request) {
+            //console.log(err.request);
+            //alert("Error Connectiong");
+            NotificationManager.error("Error Connecting", "Error", 5000);
+            this.props.handleState('isEnableFinger', false);
+          } else {
+            console.log("Error", err.message);
+            //alert(err.message);
+            NotificationManager.error(err.message, "Error", 5000);
+            this.props.handleState('isEnableFinger', false);
+          }
+        });
+    }
+
+
+
+  };
 
 
   ///////////////////////////// // // Abs Account Check Added End//////////////////////////////

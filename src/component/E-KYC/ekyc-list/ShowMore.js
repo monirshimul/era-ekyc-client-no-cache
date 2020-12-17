@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycProfileStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
+import { dayMonthYearFormat } from '../../Utils/dateConversion';
+
 class ShowMore extends Component {
 
     state = {
@@ -57,7 +59,7 @@ class ShowMore extends Component {
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Verification Date : </span>{data.verificationDate}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>NID No : </span>{data.nid}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Cell No : </span>{data.mobile}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{data.dob}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Date Of Birth : </span>{dayMonthYearFormat(data.dob)}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Father Name : </span>{data.fatherName}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Father Name Bangla : </span>{data.fatherNameBangla}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Mother Name : </span>{data.motherName}</small><br />
