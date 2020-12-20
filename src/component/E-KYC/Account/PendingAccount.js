@@ -903,7 +903,7 @@ export class PendingAccount extends Component {
 
         {/* pagination added*/}
 
-        {this.state.totalPages === 1 ? (
+        {this.state.totalPages >= 1 ? (
           <Pagination
             //   historyPerPage={this.state.historyPerPage}
             //   totalHistory={this.state.totalHistory}

@@ -13,6 +13,8 @@ import {
 } from '@material-ui/pickers';
 
 
+import { toLowerObject } from './../../Utils/ObjectUtils';
+
 
 
 class AllStatistics extends Component {
@@ -93,6 +95,8 @@ class AllStatistics extends Component {
         try {
             let res = await axios.post(lineChart, dataObj, config);
             let dataCount = res.data.data;
+            dataCount = toLowerObject(dataCount);
+
             //console.log("Specific by year", dataCount)
             // let tD = [
             //     {
@@ -190,12 +194,14 @@ class AllStatistics extends Component {
             }
         };
         const dataObj = {
-            year: "2020"
+            year: new Date().getFullYear().toString()
         }
         try {
             let res = await axios.post(lineChart, dataObj, config);
             let dataCount = res.data.data;
-            console.log("dataCount", dataCount)
+            dataCount = toLowerObject(dataCount);
+            console.log("All Ekyc Data", dataCount)
+
             //Static Data for Line chart
             // let tD = [
             //     {
@@ -236,9 +242,11 @@ class AllStatistics extends Component {
             //     }
             // ]
             let emptyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
             for (let i = 0; i < dataCount.length; i++) {
                 emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
             }
+            console.log("Empty data", emptyData)
             let modData = {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [
@@ -624,6 +632,11 @@ class AllStatistics extends Component {
                                 name="year"
                             >
                                 <option value='' disabled>--Select Year--</option>
+                                <option value='2025'>2025</option>
+                                <option value='2024'>2024</option>
+                                <option value='2023'>2023</option>
+                                <option value='2022'>2022</option>
+                                <option value='2021'>2021</option>
                                 <option value='2020'>2020</option>
                                 <option value='2019'>2019</option>
 
