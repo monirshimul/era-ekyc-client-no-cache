@@ -15,16 +15,16 @@ export class GetProfile extends Component {
         name: '',
         mobile: '',
         email: '',
-        pinAuthStatus: '',
+        pinAuthStatus: false,
         profileData: {},
         profileImage: {},
         profileImageType: '',
         showUpdate: false,
         flag: 'data:image/jpeg;base64,'
-        
+
     }
 
-    
+
 
     async componentDidMount() {
         //console.log("Image Data", image.data)
@@ -60,7 +60,7 @@ export class GetProfile extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-              //  console.log("Error Connecting...", error.request)
+                //  console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -95,8 +95,8 @@ export class GetProfile extends Component {
                 // this.props.handleState("NidFrontType", file.type);
             };
             reader.onerror = () => {
-                console.log("there are some problems");
-                alert("File can not be read");
+                // console.log("there are some problems");
+                NotificationManager.error('File can not be read', "Error", 5000);
             };
         }
     };
@@ -104,6 +104,12 @@ export class GetProfile extends Component {
 
 
     onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+    onChangeStatus = (e) => {
+        this.setState({
+            pinAuthStatus: e.target.value === "true" ? true : false
+        })
+    }
 
 
 
@@ -128,9 +134,9 @@ export class GetProfile extends Component {
                 data: this.state.profileImage,
                 mimeType: this.state.profileImageType === "" ? "image/jpeg" : this.state.profileImageType
             }
-            console.log("Mime Type", imgData.mimeType)
+            // console.log("Mime Type", imgData.mimeType)
             let resImage = await axios.put(imageUpdate, imgData, config);
-            console.log("Image Response", resImage)
+            // console.log("Image Response", resImage)
             localStorage.setItem('profileImage', JSON.stringify(this.state.profileImage))
 
 
@@ -139,7 +145,7 @@ export class GetProfile extends Component {
                 name: this.state.name,
                 email: this.state.email,
                 mobile: this.state.mobile,
-                pinAuthStatus: this.state.pinAuthStatus === "true" ? true : false
+                pinAuthStatus: this.state.pinAuthStatus
 
             }
             //console.log("p data", profileData)
@@ -176,12 +182,13 @@ export class GetProfile extends Component {
             NotificationManager.success("Profile Updated", "Success", 5000);
 
         } catch (error) {
+            //console.log("Error", error.response)
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-              //  console.log("Error Connecting...", error.request)
+                //  console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Click to Remove", largeTime);
@@ -189,7 +196,7 @@ export class GetProfile extends Component {
         }
     }
 
-    onBack = e =>{
+    onBack = e => {
         e.preventDefault();
         this.setState({
             showUpdate: !this.state.showUpdate
@@ -329,12 +336,12 @@ export class GetProfile extends Component {
                                                 <select
                                                     className='custom-select'
                                                     value={this.state.pinAuthStatus}
-                                                    onChange={this.onChange}
+                                                    onChange={this.onChangeStatus}
                                                     name="pinAuthStatus"
                                                 >
                                                     <option value='' disabled>--Select--</option>
-                                                    <option value='true'>Yes</option>
-                                                    <option value='false'>No</option>
+                                                    <option value={true}>Yes</option>
+                                                    <option value={false}>No</option>
 
                                                 </select>
                                             </div>
@@ -348,9 +355,9 @@ export class GetProfile extends Component {
                             </div>
                         ) : ""
                 }
-                    {/* Acordion Demo */}
+                {/* Acordion Demo */}
 
-                    {/* <Acordion
+                {/* <Acordion
                         size={"col-sm-6"}
                         heading = {"Click For Details"}
                         acBody = {
@@ -359,7 +366,7 @@ export class GetProfile extends Component {
                             </div>
                         }
                     /> */}
-                
+
 
 
             </div>
