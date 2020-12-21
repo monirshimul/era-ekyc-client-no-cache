@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ekycWithFilter, ekycFullProfile, ekycForUser } from '../Url/ApiList';
 import Pagination from '../../Reusable/Pagination';
 import { NotificationManager } from "react-notifications";
-import {  mediumTime } from '../../Utils/notificationTime';
+import { mediumTime } from '../../Utils/notificationTime';
 
 class EkycListUser extends Component {
 
@@ -40,7 +40,7 @@ class EkycListUser extends Component {
                 ekycData: ekycList.data.data.ekyc === undefined ? [] : ekycList.data.data.ekyc,
                 totalPages: ekycList.data.data.totalPages,
                 totalEkyc: ekycList.data.data.totalEkyc,
-                page:ekycList.data.data.currentPage
+                page: ekycList.data.data.currentPage
             })
         } catch (error) {
             if (error.response) {
@@ -277,7 +277,7 @@ class EkycListUser extends Component {
             pageReq = text_input;
             this.setState({ page: pageReq });
             this.pageChanges(pageReq);
-            this.setState({text_input:''});
+            this.setState({ text_input: '' });
         } else {
             console.log('Invalid Page No.');
             //alert('Invalid Page No.');
@@ -289,7 +289,7 @@ class EkycListUser extends Component {
     }
 
     increment = () => {
-        const {  totalPages } = this.state;
+        const { totalPages } = this.state;
         let nextPage = this.state.page + 1;
         this.setState({ page: nextPage })
         //console.log(nextPage);
@@ -305,7 +305,7 @@ class EkycListUser extends Component {
 
     //=================================Decrement function=======================================
     decrement = () => {
-        const {  totalPages } = this.state;
+        const { totalPages } = this.state;
 
         let nextPage = this.state.page - 1;
         this.setState({ page: nextPage })
@@ -337,7 +337,7 @@ class EkycListUser extends Component {
             let numPages = paginEkyc.totalPages;
             let numEkyc = paginEkyc.totalEkyc;
             let approveNew = paginEkyc.ekyc;
-            this.setState({ totalPages: numPages, page:paginEkyc.currentPage, totalEkyc: numEkyc, ekycData: approveNew });
+            this.setState({ totalPages: numPages, page: paginEkyc.currentPage, totalEkyc: numEkyc, ekycData: approveNew });
 
         } catch (error) {
             if (error.response) {
@@ -367,38 +367,38 @@ class EkycListUser extends Component {
 
 
     fullProfile = async (id) => {
+        console.log("id", id);
+        // const config = {
+        //     headers: {
 
-        const config = {
-            headers: {
+        //         'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+        //     }
+        // };
 
-            }
-        };
+        // try {
+        //     let idObj = {
+        //         applicantId: id
+        //     }
+        //     let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
+        //     //console.log("full Ekyc", fullEkyc.data.data)
+        //     let dataObj = {
+        //         data: fullEkyc.data.data
+        //     }
 
-        try {
-            let idObj = {
-                applicantId: id
-            }
-            let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
-            //console.log("full Ekyc", fullEkyc.data.data)
-            let dataObj = {
-                data: fullEkyc.data.data
-            }
-
-            this.props.history.push('/dashboard/fullEkyc', dataObj)
-        } catch (error) {
-            if (error.response) {
-                let message = error.response.data.message
-                //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
-            } else if (error.request) {
-                // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
-            }
-        }
+        //     this.props.history.push('/dashboard/fullEkyc', dataObj)
+        // } catch (error) {
+        //     if (error.response) {
+        //         let message = error.response.data.message
+        //         //console.log("Error",error.response)
+        //         NotificationManager.error(message, "Error", 5000);
+        //     } else if (error.request) {
+        //         // console.log("Error Connecting...", error.request)
+        //         NotificationManager.error("Error Connecting...", "Error", 5000);
+        //     } else if (error) {
+        //         NotificationManager.error(error.toString(), "Error", 5000);
+        //     }
+        // }
     }
 
 

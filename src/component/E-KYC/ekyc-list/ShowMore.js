@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycProfileStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
+import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycAccountStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
 import { dayMonthYearFormat } from '../../Utils/dateConversion';
 
 class ShowMore extends Component {
@@ -90,7 +90,7 @@ class ShowMore extends Component {
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{data.account === null ? "" : data.account.channelCode ? data.account.channelCode : ""}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{data.account === null ? "" : ProductCategoryType(data.account.productType)}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{data.account === null ? "" : `${data.account.productCode} (${this.state.ProductCodetoName === null ? "" : this.state.ProductCodetoName})`}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{data.account === null ? "" : EkycProfileStatus(data.account.status)}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{data.account === null ? "" : EkycAccountStatus(data.account.status)}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{data.account === null ? "" : AccountType(data.account.type)}</small><br />
 
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{data.account.createdBy === null ? "" : data.account.createdBy}</small><br />

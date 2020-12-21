@@ -35,7 +35,7 @@ export function JointOperatorType(data) {
 
 
 
-export function EkycProfileStatus(data) {
+export function EkycAccountStatus(data) {
     let text;
     switch (data) {
         case "A":
@@ -43,6 +43,12 @@ export function EkycProfileStatus(data) {
             break;
         case "P":
             text = "Pending";
+            break;
+        case "R":
+            text = "Rejected";
+            break;
+        case "D":
+            text = "Deleted"
             break;
     }
     return text;

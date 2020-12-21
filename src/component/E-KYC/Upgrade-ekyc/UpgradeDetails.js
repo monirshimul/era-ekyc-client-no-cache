@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Acordion from '../Acordion/Acordion';
-import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycProfileStatus, GenderForm,ProductCodeGetName } from '../../Utils/fullFormConversion';
+import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycAccountStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
 //import axios from 'axios';
 
 export class UpgradeDetails extends Component {
@@ -26,9 +26,9 @@ export class UpgradeDetails extends Component {
 
 
   render() {
-    let { ekyc} = this.state;
-   // console.log("ekyc", ekyc);
-   // console.log('product', this.state.ekyc.account.productCode );
+    let { ekyc } = this.state;
+    // console.log("ekyc", ekyc);
+    // console.log('product', this.state.ekyc.account.productCode );
 
     return (
       <div className="container">
@@ -59,13 +59,13 @@ export class UpgradeDetails extends Component {
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{ekyc.account === null ? "" : ekyc.account.channelAccountId}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{ekyc.account === null ? "" : ProductCategoryType(ekyc.account.productType)}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{ekyc.account === null ? "" : ekyc.account.channelCode}</small><br />
-                      <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc.account === null ? "" : `${ekyc.account.productCode} (${this.state.productCodetoName === null ? "" :this.state.productCodetoName })`}</small><br />
-                      <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{ekyc.account === null ? "" : EkycProfileStatus(ekyc.account.status)}</small><br />
+                      <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc.account === null ? "" : `${ekyc.account.productCode} (${this.state.productCodetoName === null ? "" : this.state.productCodetoName})`}</small><br />
+                      <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{ekyc.account === null ? "" : EkycAccountStatus(ekyc.account.status)}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{ekyc.account === null ? "" : AccountType(ekyc.account.type)}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Transaction Or Maturity Amount : </span>{ekyc.account === null ? "" : ekyc.account.transactionOrMaturityAmount}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{ekyc.account === null ? "" : ekyc.account.createdBy}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{ekyc.account === null ? "" : ekyc.account.createDate}</small><br />
-                      
+
 
                       {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{data.account.channelResponse}</small><br /> */}
                     </div>
@@ -80,12 +80,12 @@ export class UpgradeDetails extends Component {
                     </div>
 
                     <div className="" style={{ fontSize: "17px" }}>
-                     {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{ekyc.updatedBy === null ? "" : ekyc.updatedBy}</small><br />*/}
-                     {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{ekyc.updateDate === null ? "" :ekyc.updateDate}</small><br />*/}
+                      {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update By : </span>{ekyc.updatedBy === null ? "" : ekyc.updatedBy}</small><br />*/}
+                      {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Update Date : </span>{ekyc.updateDate === null ? "" :ekyc.updateDate}</small><br />*/}
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Pin : </span>{ekyc.pin}</small><br />
                       <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Review Count : </span>{ekyc.reviewCount}</small><br />
                       {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Risk Grading : </span>{ekyc.riskGrading}</small><br /> */}
-                     {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Sanction Screening : </span>{ekyc.sanctionScreening}</small><br />*/}
+                      {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Sanction Screening : </span>{ekyc.sanctionScreening}</small><br />*/}
                     </div>
 
 

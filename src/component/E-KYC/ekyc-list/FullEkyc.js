@@ -6,7 +6,7 @@ import man from '../Simplified/images/man.svg';
 import { Loading } from '../Simplified/utils/CustomLoding/Loading'
 import { NotificationManager } from "react-notifications";
 import { profileDownload, opFileDownload, regPdfDownload } from '../Url/ApiList';
-import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycProfileStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
+import { AccountVerificationStatus, ProductCategoryType, AccountType, EkycAccountStatus, GenderForm, ProductCodeGetName } from '../../Utils/fullFormConversion';
 import Acordion from '../Acordion/Acordion';
 import { saveAs } from 'file-saver';
 //import ReactTooltip from 'react-tooltip';
@@ -237,7 +237,7 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{ekyc.account === null ? "" : ProductCategoryType(ekyc.account.productType)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{ekyc.account === null ? "" : ekyc.account.channelCode}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc.account === null ? "" : `${ekyc.account.productCode} (${this.state.ProductCodetoName === null ? "" : this.state.ProductCodetoName})`}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{ekyc.account === null ? "" : EkycProfileStatus(ekyc.account.status)}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{ekyc.account === null ? "" : EkycAccountStatus(ekyc.account.status)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{ekyc.account === null ? "" : AccountType(ekyc.account.type)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{ekyc.account === null ? "" : ekyc.account.createdBy}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{ekyc.account === null ? "" : ekyc.account.createDate}</small><br />
