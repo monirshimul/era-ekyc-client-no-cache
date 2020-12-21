@@ -366,39 +366,40 @@ class EkycListUser extends Component {
     ///////////////////////////////////////////////////Pagination End/////////////////////////
 
 
-    fullProfile = async (id) => {
+    fullProfile = (id) => {
         // console.log("id", id);
-        const config = {
-            headers: {
+        this.props.history.push('/dashboard/fullEkyc', id);
+        // const config = {
+        //     headers: {
 
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+        //         'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
-            }
-        };
+        //     }
+        // };
 
-        try {
-            let idObj = {
-                applicantId: id
-            }
-            let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
-            //console.log("full Ekyc", fullEkyc.data.data)
-            let dataObj = {
-                data: fullEkyc.data.data
-            }
+        // try {
+        //     let idObj = {
+        //         applicantId: id
+        //     }
+        //     let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
+        //     //console.log("full Ekyc", fullEkyc.data.data)
+        //     let dataObj = {
+        //         data: fullEkyc.data.data
+        //     }
 
-            this.props.history.push('/dashboard/fullEkyc', dataObj)
-        } catch (error) {
-            if (error.response) {
-                let message = error.response.data.message
-                //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
-            } else if (error.request) {
-                // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
-            }
-        }
+        //     this.props.history.push('/dashboard/fullEkyc', dataObj)
+        // } catch (error) {
+        //     if (error.response) {
+        //         let message = error.response.data.message
+        //         //console.log("Error",error.response)
+        //         NotificationManager.error(message, "Error", 5000);
+        //     } else if (error.request) {
+        //         // console.log("Error Connecting...", error.request)
+        //         NotificationManager.error("Error Connecting...", "Error", 5000);
+        //     } else if (error) {
+        //         NotificationManager.error(error.toString(), "Error", 5000);
+        //     }
+        // }
     }
 
 

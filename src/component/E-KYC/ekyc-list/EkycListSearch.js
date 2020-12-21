@@ -400,40 +400,8 @@ class EkycListSearch extends Component {
 
 
 
-    fullProfile = async (id) => {
-
-        const config = {
-            headers: {
-
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-
-            }
-        };
-
-        try {
-            let idObj = {
-                applicantId: id
-            }
-            let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
-            console.log("full Ekyc", fullEkyc.data.data)
-            let dataObj = {
-                data: fullEkyc.data.data
-            }
-
-            this.props.history.push('/dashboard/fullEkyc', dataObj)
-        } catch (error) {
-            console.log("Error", error)
-            if (error.response) {
-                let message = error.response.data.message
-                //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
-            } else if (error.request) {
-                //console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
-            }
-        }
+    fullProfile = (id) => {
+        this.props.history.push('/dashboard/fullEkyc', id);
     }
 
 
