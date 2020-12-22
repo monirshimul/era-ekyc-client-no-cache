@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { ResourceStatus, ProductCategoryType } from '../../Utils/fullFormConversion';
-import { getProduct,deleteProduct } from '../Url/ApiList';
+import { getProduct, deleteProduct } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
-import {FaBatteryThreeQuarters, FaMizuni, 
-     FaSortNumericUp,FaUserShield, FaUserEdit,
-    FaCalendarCheck,FaPenAlt, FaCalendarDay
+import {
+    FaBatteryThreeQuarters, FaMizuni,
+    FaSortNumericUp, FaUserShield, FaUserEdit,
+    FaCalendarCheck, FaPenAlt, FaCalendarDay
 } from "react-icons/fa";
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { mediumTime } from '../../Utils/notificationTime';
 
 class GetProduct extends Component {
 
@@ -45,19 +47,19 @@ class GetProduct extends Component {
             })
 
             if (this.state.productData.length === 0) {
-                NotificationManager.info("No Product Found", "Message", 5000);
+                NotificationManager.info("No Product Found", "Message", mediumTime);
             }
 
         } catch (error) {
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error(message, "Error", mediumTime);
             } else if (error.request) {
                 // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Error", mediumTime);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Error", mediumTime);
             }
         }
 
@@ -82,19 +84,19 @@ class GetProduct extends Component {
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error(message, "Error", mediumTime);
             } else if (error.request) {
                 // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Error", mediumTime);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Error", mediumTime);
             }
         }
     }
 
     // Details
     onDetails = async (id) => {
-       // let { productDetails } = this.state;
+        // let { productDetails } = this.state;
         let config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -117,12 +119,12 @@ class GetProduct extends Component {
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error(message, "Error", mediumTime);
             } else if (error.request) {
                 //  console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Error", mediumTime);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Error", mediumTime);
             }
         }
 
@@ -155,12 +157,12 @@ class GetProduct extends Component {
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error(message, "Error", mediumTime);
             } else if (error.request) {
                 //  console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Error", mediumTime);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Error", mediumTime);
             }
         }
     }
@@ -210,19 +212,19 @@ class GetProduct extends Component {
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error(message, "Error", mediumTime);
             } else if (error.request) {
                 // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
+                NotificationManager.error("Error Connecting...", "Error", mediumTime);
             } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
+                NotificationManager.error(error.toString(), "Error", mediumTime);
             }
         }
     }
 
     render() {
         let { productData } = this.state;
-        console.log("checkboxProduct", this.state.searchProduct);
+        // console.log("checkboxProduct", this.state.searchProduct);
         return (
             <div className="container">
 

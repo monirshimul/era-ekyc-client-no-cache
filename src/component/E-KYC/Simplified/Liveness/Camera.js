@@ -4,6 +4,8 @@ import LibImage from "./liveness";
 import Loading from '../utils/CustomLoding/Loading'
 //import { getElementError } from "@testing-library/react";
 //import Face from "../images/loading.svg";
+import { largeTime } from './../../../Utils/notificationTime';
+import { NotificationManager } from "react-notifications";
 
 export class Camera extends Component {
   base64Image = "";
@@ -66,6 +68,10 @@ export class Camera extends Component {
     libImage.addEventListener("detectionInterrupted", (e) => {
       console.log("detectionInterrupted fired");
     });
+
+    libImage.addEventListener("mediaDeviceException", (e) => {
+      NotificationManager.error("Camera device not found", "Click To Remove", largeTime);
+    })
 
     // const video = document.querySelector('#videoCap');
     // const image = document.querySelector('#imageShow');

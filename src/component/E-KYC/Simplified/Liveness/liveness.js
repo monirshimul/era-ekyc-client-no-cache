@@ -3,6 +3,7 @@ import * as faceapi from 'face-api.js';
 
 
 
+
 export default class LibImage extends EventTarget {
 
     FACE_THRESH = 0.40;
@@ -89,7 +90,7 @@ export default class LibImage extends EventTarget {
                 this.streamObj = stream
                 if (typeof callback === "function") callback();
             }).catch(err => {
-                console.error(err)
+                console.error(err);
                 this.dispatchEvent(new Event("mediaDeviceException"))
             });
 
@@ -116,52 +117,52 @@ export default class LibImage extends EventTarget {
 
                 const detection = await faceapi.detectSingleFace(this.video).withFaceLandmarks().withFaceExpressions().withFaceDescriptor();
                 //console.log("detection", detection)
-                if(detection){
+                if (detection) {
                     let expression = this.getMaxKey(detection.expressions);
-                this.dispatchEvent(new CustomEvent("expressionDetected", {detail: expression}));
-                switch (expression) {
-                    case 'neutral':
-                        this.neutralStatus = true;
-                        if (this.faceMatcher == null) {
-                            this.faceMatcher = new faceapi.FaceMatcher(detection);
-                        }
-                        break;
-                    default:
-                        this.happyStatus = true;
-                        if (this.faceMatcher == null) {
-                            this.faceMatcher = new faceapi.FaceMatcher(detection);
-                        }
-                        break;
-                }
-                if (this.neutralStatus && this.happyStatus) {
-                    const match = this.faceMatcher.matchDescriptor(detection.descriptor);
-                    if (match.distance < this.FACE_THRESH) {
-                        clearInterval(this.interval);
-                        this.dispatchEvent(new Event("livenessDetected"));
-                        this.setImage();
-                        
-                        // const detectionAfter = await faceapi.detectSingleFace(this.video).withFaceExpressions();
-                        // let expressionAfter = this.getMaxKey(detectionAfter.expressions);
-                        // console.log("Please be neutral");
-                        // if(expressionAfter === 'neutral') {
-                        //     console.log("neutral face found");
-                        //     this.setImage();
-                        // }
-                        // else {
-                        //     console.log("neutral face not found");
-                        // }
-                        
+                    this.dispatchEvent(new CustomEvent("expressionDetected", { detail: expression }));
+                    switch (expression) {
+                        case 'neutral':
+                            this.neutralStatus = true;
+                            if (this.faceMatcher == null) {
+                                this.faceMatcher = new faceapi.FaceMatcher(detection);
+                            }
+                            break;
+                        default:
+                            this.happyStatus = true;
+                            if (this.faceMatcher == null) {
+                                this.faceMatcher = new faceapi.FaceMatcher(detection);
+                            }
+                            break;
                     }
-                    else {
-                        this.dispatchEvent(new Event("faceSpoofingDetected"));
-                        this.neutralStatus = false;
-                        this.happyStatus = false;
-                        this.faceMatcher = null;
-                    }
+                    if (this.neutralStatus && this.happyStatus) {
+                        const match = this.faceMatcher.matchDescriptor(detection.descriptor);
+                        if (match.distance < this.FACE_THRESH) {
+                            clearInterval(this.interval);
+                            this.dispatchEvent(new Event("livenessDetected"));
+                            this.setImage();
 
+                            // const detectionAfter = await faceapi.detectSingleFace(this.video).withFaceExpressions();
+                            // let expressionAfter = this.getMaxKey(detectionAfter.expressions);
+                            // console.log("Please be neutral");
+                            // if(expressionAfter === 'neutral') {
+                            //     console.log("neutral face found");
+                            //     this.setImage();
+                            // }
+                            // else {
+                            //     console.log("neutral face not found");
+                            // }
+
+                        }
+                        else {
+                            this.dispatchEvent(new Event("faceSpoofingDetected"));
+                            this.neutralStatus = false;
+                            this.happyStatus = false;
+                            this.faceMatcher = null;
+                        }
+
+                    }
                 }
-                }
-                
+
             }
             catch (ex) {
                 console.log("Exception during detection");
@@ -180,12 +181,12 @@ export default class LibImage extends EventTarget {
         this.dispatchEvent(new Event("detectionInterrupted"))
     }
 
-    closeStream(){
+    closeStream() {
         if (this.streamObj) {
             this.streamObj.getTracks().forEach(function (track) {
                 track.stop();
-              });
-        } 
+            });
+        }
     }
 
 

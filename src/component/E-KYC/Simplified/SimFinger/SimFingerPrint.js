@@ -8,7 +8,7 @@ import { NotificationManager } from "react-notifications";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { showDate } from '../../../Utils/dateConversion';
-import { largeTime } from '../../../Utils/notificationTime';
+import { largeTime } from './../../../Utils/notificationTime';
 
 export class SimFingerPrint extends Component {
 
@@ -305,7 +305,7 @@ export class SimFingerPrint extends Component {
     };
 
 
-    console.log("Obj", obj);
+    // console.log("Obj", obj);
 
     try {
 
@@ -316,15 +316,22 @@ export class SimFingerPrint extends Component {
 
 
       let fingerRes = await axios.post(fingerValidate, obj, config)
-      //console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.fingerVerificationResult.status)
-      console.log("fingerRes", fingerRes.data)
+      // console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.fingerVerificationResult.status)
+      // console.log("fingerRes", fingerRes.data)
       this.props.handleState('loadingSpin', false);
 
 
 
+
       if (fingerRes.data.data.fingerVerificationResult.details.statusCode === 404) {
-        let message = fingerRes.data.data.fingerVerificationResult.details.message;
-        NotificationManager.error(message, "Error", 5000);
+        // let message = fingerRes.data.data.fingerVerificationResult.details.message;
+        NotificationManager.error("Could not connect to Election Commission Server", "ClickToRemove", largeTime);
+        return;
+      }
+
+      if (fingerRes.data.data.fingerVerificationResult.status === false) {
+        let message = "Finger Print not Matched";
+        NotificationManager.error(message, "ClickToRemove", largeTime);
         return;
       }
 
@@ -348,7 +355,7 @@ export class SimFingerPrint extends Component {
 
         // Present Address
         let preAddress = dataResp.presentAddress;
-        console.log("present Address", preAddress)
+        // console.log("present Address", preAddress)
         this.props.handleState('preAdditionalMouzaOrMoholla', preAddress.additionalMouzaOrMoholla ? preAddress.additionalMouzaOrMoholla : '');
         this.props.handleState('preAdditionalVillageOrRoad', preAddress.additionalVillageOrRoad ? preAddress.additionalVillageOrRoad : '');
         this.props.handleState('preCityCorporationOrMunicipality', preAddress.cityCorporationOrMunicipality ? preAddress.cityCorporationOrMunicipality : '');

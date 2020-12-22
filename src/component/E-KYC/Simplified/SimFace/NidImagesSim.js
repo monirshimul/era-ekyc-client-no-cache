@@ -57,7 +57,7 @@ export class NidImagesSim extends Component {
   onImageConfirm = (base64Image) => {
     //console.log("In image confirm");
     // console.log("Image",base64Image);
-    
+
     if (this.state.cameraOnFront) {
       this.props.handleState("NidFront", base64Image);
       this.captureOffFront();
@@ -66,7 +66,7 @@ export class NidImagesSim extends Component {
       this.props.handleState("NidBack", base64Image);
       this.captureOffBack();
     }
-  
+
 
   }
 
@@ -183,7 +183,7 @@ export class NidImagesSim extends Component {
         let ocrData = await axios.post(nidOcr, Obj, config);
         this.props.handleState('loadingSpin', false);
         //console.log("ocrResponse1", ocrData.data);
-        console.log("ocrResponse", ocrData.data.data);
+        // console.log("ocrResponse", ocrData.data.data);
         let data = ocrData.data.data;
         this.props.handleState("nid", data.nidFront.nid);
         let dateofBirth = data.formatted.dob;
@@ -302,7 +302,7 @@ export class NidImagesSim extends Component {
                 <div className="custom-file">
                   <input type="file"
                     onChange={this.fileSelectedHandler}
-                    onClick={(event)=>event.target.value = null}
+                    onClick={(event) => event.target.value = null}
 
                     className="form-control-file" id="input-file" />
                   <label className="custom-file-label" htmlFor="input-file">Choose Image</label>
@@ -352,7 +352,7 @@ export class NidImagesSim extends Component {
                 <div className="custom-file">
                   <input type="file"
                     onChange={this.fileSelectedHandlerTwo}
-                    onClick={(event)=>event.target.value = null}
+                    onClick={(event) => event.target.value = null}
 
                     className="form-control-file" id="input-file-two" />
                   <label className="custom-file-label" htmlFor="input-file-two">Choose Image</label>

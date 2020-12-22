@@ -300,14 +300,20 @@ export class RegJointFingerPrint extends Component {
 
             let fingerRes = await axios.post(fingerValidate, obj, config)
             //console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.fingerVerificationResult.status)
-            console.log("fingerRes", fingerRes.data)
+            // console.log("fingerRes", fingerRes.data)
             this.props.handleState('loadingSpin', false);
 
 
 
+
             if (fingerRes.data.data.fingerVerificationResult.details.statusCode === 404) {
-                let message = fingerRes.data.data.fingerVerificationResult.details.message;
-                NotificationManager.error(message, "Error", 5000);
+                NotificationManager.error("Could not connect to Election Commission Server", "ClickToRemove", largeTime);
+                return;
+            }
+
+            if (fingerRes.data.data.fingerVerificationResult.status === false) {
+                let message = "Finger Print not Matched";
+                NotificationManager.error(message, "ClickToRemove", largeTime);
                 return;
             }
 

@@ -123,7 +123,7 @@ export class RegFingerPrint extends Component {
       productCode: productName
     }
 
-    console.log("objcheck", checkObj);
+    // console.log("objcheck", checkObj);
 
     this.props.handleState('isEnableFinger', true);
     this.props.handleState('loadingPrint', true);
@@ -132,7 +132,7 @@ export class RegFingerPrint extends Component {
 
       try {
         let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-        console.log("abs", absCheckApi.data);
+        // console.log("abs", absCheckApi.data);
         let apiResult = absCheckApi.data.data.result;
         let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
         if (apiResult === true) {
@@ -300,17 +300,22 @@ export class RegFingerPrint extends Component {
 
       let fingerRes = await axios.post(fingerValidate, obj, config)
       //console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.fingerVerificationResult.status)
-      console.log("fingerRes", fingerRes.data)
+      // console.log("fingerRes", fingerRes.data)
       this.props.handleState('loadingSpin', false);
 
 
 
+
       if (fingerRes.data.data.fingerVerificationResult.details.statusCode === 404) {
-        let message = fingerRes.data.data.fingerVerificationResult.details.message;
-        NotificationManager.error(message, "Error", 5000);
+        NotificationManager.error("Could not connect to Election Commission Server", "ClickToRemove", largeTime);
         return;
       }
 
+      if (fingerRes.data.data.fingerVerificationResult.status === false) {
+        let message = "Finger Print not Matched";
+        NotificationManager.error(message, "ClickToRemove", largeTime);
+        return;
+      }
 
       // Setting Data to State === start
 
@@ -331,7 +336,7 @@ export class RegFingerPrint extends Component {
 
         // Present Address
         let preAddress = dataResp.presentAddress;
-        console.log("present Address", preAddress)
+        // console.log("present Address", preAddress)
         this.props.handleState('preAdditionalMouzaOrMoholla', preAddress.additionalMouzaOrMoholla ? preAddress.additionalMouzaOrMoholla : '');
         this.props.handleState('preAdditionalVillageOrRoad', preAddress.additionalVillageOrRoad ? preAddress.additionalVillageOrRoad : '');
         this.props.handleState('preCityCorporationOrMunicipality', preAddress.cityCorporationOrMunicipality ? preAddress.cityCorporationOrMunicipality : '');

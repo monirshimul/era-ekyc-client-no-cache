@@ -289,9 +289,15 @@ export class FingerPrintJoint extends Component {
       //console.log("fingerRes",fingerRes.data.data.verificationToken)
       // Setting Data to State === start
 
+
       if (fingerRes.data.data.fingerVerificationResult.details.statusCode === 404) {
-        let message = fingerRes.data.data.fingerVerificationResult.details.message;
-        NotificationManager.error(message, "Error", 5000);
+        NotificationManager.error("Could not connect to Election Commission Server", "ClickToRemove", largeTime);
+        return;
+      }
+
+      if (fingerRes.data.data.fingerVerificationResult.status === false) {
+        let message = "Finger Print not Matched";
+        NotificationManager.error(message, "ClickToRemove", largeTime);
         return;
       }
 
