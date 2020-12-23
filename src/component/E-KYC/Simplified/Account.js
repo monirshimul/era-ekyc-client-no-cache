@@ -145,7 +145,7 @@ class Account extends Component {
 
         try {
             let dec = await axios.post(getEkycType, obj, config);
-            console.log("decisionData", dec.data);
+            // console.log("decisionData", dec.data);
             this.setState({ SimReg: dec.data.data.ekycType })
             let typeEkyc = dec.data.data.ekycType;
             //let statusCode = dec.data.statusCode;

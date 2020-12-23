@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import { withRouter } from 'react-router-dom';
-import {dayMonthYearFormat } from '../../../Utils/dateConversion';
+import { dayMonthYearFormat } from '../../../Utils/dateConversion';
 import { ProductCodeGetName, ProductCategoryType, AccountType, GenderForm } from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { regularSingleApi } from '../../Url/ApiList';
@@ -17,7 +17,7 @@ import adult from '../../Simplified/images/age-limit-one.svg'
 import child from '../../Simplified/images/age-limit-two.svg'
 import guardian from '../../Simplified/images/guardian.svg';
 import Acordion from '../../Acordion/Acordion';
-import {largeTime} from '../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 
 
 export class RegFingerPrintConfirm extends Component {
@@ -54,7 +54,7 @@ export class RegFingerPrintConfirm extends Component {
             nid: values.applicantNidNo,
             name: values.applicantName,
             nameBangla: values.applicantNameBangla,
-            dob:values.applicantDob,
+            dob: values.applicantDob,
             dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
@@ -243,12 +243,12 @@ export class RegFingerPrintConfirm extends Component {
             let resData = res.data.data;
             if (resData.channelResponse === null) {
                 NotificationManager.error(
-                  "Integration Server Error",
-                  "Click TO Remove",
-                  largeTime
+                    "Integration Server Error",
+                    "Click TO Remove",
+                    largeTime
                 );
                 return;
-              }
+            }
             let resToArr = getJsonObjectToArray(resData)
             //console.log("Result Array",resToArr)
             this.props.handleState('channelAccStatus', resToArr);
@@ -499,7 +499,7 @@ export class RegFingerPrintConfirm extends Component {
                             </div>
 
                             <img src={values.signature ? values.flag + values.signature : Sign}
-                                alt="" 
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",

@@ -352,6 +352,7 @@ export class SimFingerPrint extends Component {
         this.props.handleState('fatherNameBangla', dataResp.father ? dataResp.father : "");
         this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
         this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
+        this.props.handleState('ecImage', dataResp.photo ? dataResp.photo : "");
 
         // Present Address
         let preAddress = dataResp.presentAddress;
@@ -404,38 +405,6 @@ export class SimFingerPrint extends Component {
         this.props.nextStep();
       }
 
-
-
-
-
-
-
-
-
-
-      // With out vpn
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // if(verifyToken){
-
-
-      // }else{
-      //   NotificationManager.error("Please Provide Finger","Error",5000)
-      // }
 
     } catch (error) {
       console.log("In the error", error)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import { formatDate } from '../utils/DateFormat';
-import {ProductCodeGetName,ProductCategoryType,AccountType,JointOperatorType,GenderForm} from '../../../Utils/fullFormConversion';
+import { ProductCodeGetName, ProductCategoryType, AccountType, JointOperatorType, GenderForm } from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
 import { simplifiedJointAPI, simplifiedJointAddAPI } from '../../Url/ApiList';
@@ -15,17 +15,17 @@ import adult from '../images/adultNominee.svg';
 import child from '../images/child2.svg';
 import guardian from '../images/guardian.svg';
 import Acordion from '../../Acordion/Acordion';
-import {dayMonthYearFormat } from '../../../Utils/dateConversion';
+import { dayMonthYearFormat } from '../../../Utils/dateConversion';
 
 
 export class JointFingerConfirm extends Component {
-    state={
-        ProductCodetoName:""
+    state = {
+        ProductCodetoName: ""
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let data = await ProductCodeGetName(this.props.values.productName);
-        this.setState({ProductCodetoName: data});
+        this.setState({ ProductCodetoName: data });
     }
 
     continue = async (e) => {
@@ -36,7 +36,7 @@ export class JointFingerConfirm extends Component {
         if (values.applicantEkycId === '') {
 
             let branchOrAgentPointCode = JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode"));
-           
+
             let accountInfo = {
                 title: values.applicantName,
                 type: values.accountType,
@@ -135,7 +135,8 @@ export class JointFingerConfirm extends Component {
                 nidFront: values.NidFront,
                 nidBack: values.NidBack,
                 photo: values.faceImage,
-                signature: values.signature
+                signature: values.signature,
+                nidFrontImage: values.ecImage
             }
 
             let nomineesInfo = [];
@@ -179,7 +180,7 @@ export class JointFingerConfirm extends Component {
                 rIndex: values.rIndex
             }
 
-           // console.log("Finger Obj===========>", fingerObj)
+            // console.log("Finger Obj===========>", fingerObj)
 
             let confirmObj = {
                 account: accountInfo,
@@ -403,7 +404,7 @@ export class JointFingerConfirm extends Component {
                     console.log("Error", error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                  //  console.log("Error Connecting...", error.request)
+                    //  console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -502,22 +503,22 @@ export class JointFingerConfirm extends Component {
                                 acBody={
                                     <div className="imTwoWhite">
                                         <small className="" style={{ fontSize: "14px" }}>
-                                            <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {values.perAdditionalMouzaOrMoholla + `${values.perAdditionalMouzaOrMohollaEn ? `(${values.perAdditionalMouzaOrMohollaEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Village Or Road :</span> {values.perAdditionalVillageOrRoad + `${values.perAdditionalVillageOrRoadEn ? `(${values.perAdditionalVillageOrRoadEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>City Corp. :</span> {values.perCityCorporationOrMunicipality + `${values.perCityCorporationOrMunicipalityEn ? `(${values.perCityCorporationOrMunicipalityEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>District :</span> {values.perDistrict + `${values.perDistrictEn ? `(${values.perDistrictEn})` : "" }`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {values.perAdditionalMouzaOrMoholla + `${values.perAdditionalMouzaOrMohollaEn ? `(${values.perAdditionalMouzaOrMohollaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Village Or Road :</span> {values.perAdditionalVillageOrRoad + `${values.perAdditionalVillageOrRoadEn ? `(${values.perAdditionalVillageOrRoadEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>City Corp. :</span> {values.perCityCorporationOrMunicipality + `${values.perCityCorporationOrMunicipalityEn ? `(${values.perCityCorporationOrMunicipalityEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District :</span> {values.perDistrict + `${values.perDistrictEn ? `(${values.perDistrictEn})` : ""}`}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>District Code :</span> {values.perDistrictCode}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Division :</span> {values.perDivision + `${values.perDivisionEn ? `(${values.perDivisionEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Home Or Holding No. :</span> {values.perHomeOrHoldingNo + `${values.perHomeOrHoldingNoEn ? `(${values.perHomeOrHoldingNoEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Post Office :</span> {values.perPostOffice + `${values.perPostOfficeEn ? `(${values.perPostOfficeEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Postal Code :</span> {values.perPostalCode + `${values.perPostalCodeEn ? `(${values.perPostalCodeEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Region :</span> {values.perRegion + `${values.perRegionEn ? `(${values.perRegionEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>RMO :</span> {values.perRmo + `${values.perRmoEn ? `(${values.perRmoEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward :</span> {values.perUnionOrWard + `${values.perUnionOrWardEn ? `(${values.perUnionOrWardEn})` : "" }`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Division :</span> {values.perDivision + `${values.perDivisionEn ? `(${values.perDivisionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Home Or Holding No. :</span> {values.perHomeOrHoldingNo + `${values.perHomeOrHoldingNoEn ? `(${values.perHomeOrHoldingNoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Post Office :</span> {values.perPostOffice + `${values.perPostOfficeEn ? `(${values.perPostOfficeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Postal Code :</span> {values.perPostalCode + `${values.perPostalCodeEn ? `(${values.perPostalCodeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Region :</span> {values.perRegion + `${values.perRegionEn ? `(${values.perRegionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>RMO :</span> {values.perRmo + `${values.perRmoEn ? `(${values.perRmoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward :</span> {values.perUnionOrWard + `${values.perUnionOrWardEn ? `(${values.perUnionOrWardEn})` : ""}`}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward Code :</span> {values.perUnionOrWardCode}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila :</span> {values.perUpozila + `${values.perUpozilaEn ? `(${values.perUpozilaEn})` : "" }`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila :</span> {values.perUpozila + `${values.perUpozilaEn ? `(${values.perUpozilaEn})` : ""}`}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Upozila Code :</span> {values.perUpozilaCode}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {values.perWardForUnionPorishod + `${values.perWardForUnionPorishodEn ? `(${values.perWardForUnionPorishodEn})` : "" }`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {values.perWardForUnionPorishod + `${values.perWardForUnionPorishodEn ? `(${values.perWardForUnionPorishodEn})` : ""}`}<br />
                                         </small>
 
                                     </div>
@@ -532,22 +533,22 @@ export class JointFingerConfirm extends Component {
                                 acBody={
                                     <div className="imTwoWhite">
                                         <small className="" style={{ fontSize: "14px" }}>
-                                            <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {values.preAdditionalMouzaOrMoholla + `${values.preAdditionalMouzaOrMohollaEn ? `(${values.preAdditionalMouzaOrMohollaEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Village Or Road :</span> {values.preAdditionalVillageOrRoad + `${values.preAdditionalVillageOrRoadEn ? `(${values.preAdditionalVillageOrRoadEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>City Corp. :</span> {values.preCityCorporationOrMunicipality + `${values.preCityCorporationOrMunicipalityEn ? `(${values.preCityCorporationOrMunicipalityEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>District :</span> {values.preDistrict + `${values.preDistrictEn ? `(${values.preDistrictEn})` : "" }`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {values.preAdditionalMouzaOrMoholla + `${values.preAdditionalMouzaOrMohollaEn ? `(${values.preAdditionalMouzaOrMohollaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Village Or Road :</span> {values.preAdditionalVillageOrRoad + `${values.preAdditionalVillageOrRoadEn ? `(${values.preAdditionalVillageOrRoadEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>City Corp. :</span> {values.preCityCorporationOrMunicipality + `${values.preCityCorporationOrMunicipalityEn ? `(${values.preCityCorporationOrMunicipalityEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District :</span> {values.preDistrict + `${values.preDistrictEn ? `(${values.preDistrictEn})` : ""}`}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>District Code :</span> {values.preDistrictCode}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Division :</span> {values.preDivision + `${values.preDivisionEn ? `(${values.preDivisionEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Home Or Holding No. :</span> {values.preHomeOrHoldingNo + `${values.preHomeOrHoldingNoEn ? `(${values.preHomeOrHoldingNoEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Post Office :</span> {values.prePostOffice + `${values.prePostOfficeEn ? `(${values.prePostOfficeEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Postal Code :</span> {values.prePostalCode + `${values.prePostalCodeEn ? `(${values.prePostalCodeEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Region :</span> {values.preRegion + `${values.preRegionEn ? `(${values.preRegionEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>RMO :</span> {values.preRmo + `${values.preRmoEn ? `(${values.preRmoEn})` : "" }`}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward :</span> {values.preUnionOrWard + `${values.preUnionOrWardEn ? `(${values.preUnionOrWardEn})` : "" }`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Division :</span> {values.preDivision + `${values.preDivisionEn ? `(${values.preDivisionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Home Or Holding No. :</span> {values.preHomeOrHoldingNo + `${values.preHomeOrHoldingNoEn ? `(${values.preHomeOrHoldingNoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Post Office :</span> {values.prePostOffice + `${values.prePostOfficeEn ? `(${values.prePostOfficeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Postal Code :</span> {values.prePostalCode + `${values.prePostalCodeEn ? `(${values.prePostalCodeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Region :</span> {values.preRegion + `${values.preRegionEn ? `(${values.preRegionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>RMO :</span> {values.preRmo + `${values.preRmoEn ? `(${values.preRmoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward :</span> {values.preUnionOrWard + `${values.preUnionOrWardEn ? `(${values.preUnionOrWardEn})` : ""}`}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward Code :</span> {values.preUnionOrWardCode}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila :</span> {values.preUpozila + `${values.preUpozilaEn ? `(${values.preUpozilaEn})` : "" }`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila :</span> {values.preUpozila + `${values.preUpozilaEn ? `(${values.preUpozilaEn})` : ""}`}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Upozila Code :</span> {values.preUpozilaCode}<br />
-                                            <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {values.preWardForUnionPorishod + `${values.preWardForUnionPorishodEn ? `(${values.preWardForUnionPorishodEn})` : "" }`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {values.preWardForUnionPorishod + `${values.preWardForUnionPorishodEn ? `(${values.preWardForUnionPorishodEn})` : ""}`}<br />
                                         </small>
 
                                     </div>
@@ -676,7 +677,7 @@ export class JointFingerConfirm extends Component {
                                             <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                         </div>
 
-                                        <small className="text-muted" style={{fontSize:"14px"}}>
+                                        <small className="text-muted" style={{ fontSize: "14px" }}>
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee :</span> {val.minorNominee}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Relation With Account Holder:</span> {val.showMinorRelation}<br />

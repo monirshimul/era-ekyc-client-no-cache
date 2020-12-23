@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {  dayMonthYearFormat} from '../../../Utils/dateConversion';
-import {ProductCodeGetName,ProductCategoryType,AccountType,GenderForm} from '../../../Utils/fullFormConversion';
+import { dayMonthYearFormat } from '../../../Utils/dateConversion';
+import { ProductCodeGetName, ProductCategoryType, AccountType, GenderForm } from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { confirmApi } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
@@ -17,17 +17,17 @@ import child from '../images/child2.svg';
 import guardian from '../images/guardian.svg';
 import Acordion from '../../Acordion/Acordion';
 //import { showDate } from '../utils/DateFormat';
-import {largeTime} from '../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 
 export class SimFingerConfirm extends Component {
 
-    state={
-        ProductCodetoName:""
+    state = {
+        ProductCodetoName: ""
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let data = await ProductCodeGetName(this.props.values.productName);
-        this.setState({ProductCodetoName: data});
+        this.setState({ ProductCodetoName: data });
     }
 
     continue = async (e) => {
@@ -40,9 +40,9 @@ export class SimFingerConfirm extends Component {
             title: values.applicantName,
             type: values.accountType,
             productType: values.product,
-            productCategoryCode:values.product,
-            branchOrAgentPointCode:branchOrAgentPointCode,
-            transactionOrMaturityAmount:values.transactionOrMaturityAmount,
+            productCategoryCode: values.product,
+            branchOrAgentPointCode: branchOrAgentPointCode,
+            transactionOrMaturityAmount: values.transactionOrMaturityAmount,
             productCode: values.productName,
             channelCode: values.channelName
         }
@@ -134,7 +134,8 @@ export class SimFingerConfirm extends Component {
             nidFront: values.NidFront,
             nidBack: values.NidBack,
             photo: values.faceImage,
-            signature: values.signature
+            signature: values.signature,
+            nidFrontImage: values.ecImage
         }
 
         let nomineesInfo = [];
@@ -143,7 +144,7 @@ export class SimFingerConfirm extends Component {
                 let nomineeObj = {
                     name: values.jointArray[i].nominee,
                     relation: JSON.parse(values.jointArray[i].relation)[values.channelName],
-                    dob: values.jointArray[i].dob ? new Date(values.jointArray[i].dob).toISOString(): '',
+                    dob: values.jointArray[i].dob ? new Date(values.jointArray[i].dob).toISOString() : '',
                     photo: values.jointArray[i].photograph,
                     isMinor: !(values.jointArray[i].isShow),
                     percentage: parseInt(values.jointArray[i].percentage)
@@ -192,7 +193,7 @@ export class SimFingerConfirm extends Component {
         }
 
         console.log("fingerConfirmobj", confirmObj)
-        
+
 
         const config = {
             headers: {
@@ -204,7 +205,7 @@ export class SimFingerConfirm extends Component {
 
         console.log("config", config);
 
-        
+
 
         try {
             this.props.handleState('confirmFlag', true);
@@ -214,17 +215,17 @@ export class SimFingerConfirm extends Component {
             let resData = res.data.data;
             if (resData.channelResponse === null) {
                 NotificationManager.error(
-                  "Integration Server Error",
-                  "Click TO Remove",
-                  largeTime
+                    "Integration Server Error",
+                    "Click TO Remove",
+                    largeTime
                 );
                 return;
-              }
+            }
             let resToArr = getJsonObjectToArray(resData)
             //console.log("Result Array",resToArr)
             this.props.handleState('channelAccStatus', resToArr);
-            
-            
+
+
             // if(resData.data.channelResponse.accountNo){
             //     let accountNumber = resData.data.channelResponse.accountNo;
             //     this.props.handleState('accountNo', accountNumber);
@@ -238,11 +239,11 @@ export class SimFingerConfirm extends Component {
             this.props.nextStep();
 
         } catch (error) {
-            console.log("1stError",error);
+            console.log("1stError", error);
             this.props.handleState('confirmFlag', false);
             if (error.response) {
                 let message = error.response.data.message
-                console.log("Error",error.response)
+                console.log("Error", error.response)
                 NotificationManager.error(message, "Click To Remove", largeTime);
             } else if (error.request) {
                 //console.log("Error Connecting...", error.request)
@@ -262,7 +263,7 @@ export class SimFingerConfirm extends Component {
 
     render() {
         const { values } = this.props;
-        
+
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
@@ -278,13 +279,13 @@ export class SimFingerConfirm extends Component {
                             </div>
                             <hr />
                             <div className="">
-                                <small className="" style={{fontSize:"14px"}}>
-                                <span style={{color:"green", fontSize:"14px"}}>Account Type :</span> {AccountType(values.accountType)},<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Product and Services :</span> {ProductCategoryType(values.product)},<br /> 
-                                <span style={{color:"green", fontSize:"14px"}}>channel Name :</span> {values.channelName},<br /> 
-                                <span style={{color:"green", fontSize:"14px"}}>Product Name :</span> {`${values.productName} (${this.state.ProductCodetoName})`},<br /> 
-                                <span style={{color:"green", fontSize:"14px"}}>Transaction Amount :</span> {values.transactionOrMaturityAmount},<br /> 
-                                    </small>
+                                <small className="" style={{ fontSize: "14px" }}>
+                                    <span style={{ color: "green", fontSize: "14px" }}>Account Type :</span> {AccountType(values.accountType)},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Product and Services :</span> {ProductCategoryType(values.product)},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>channel Name :</span> {values.channelName},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Product Name :</span> {`${values.productName} (${this.state.ProductCodetoName})`},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Transaction Amount :</span> {values.transactionOrMaturityAmount},<br />
+                                </small>
                                 {/* <p className="text-muted">Product and Services : {accountData.product}</p>
                             <p className="text-muted">channel Name : {accountData.channelName}</p> */}
                             </div>
@@ -298,17 +299,17 @@ export class SimFingerConfirm extends Component {
                             <hr />
                             <div className="">
 
-                                <small className="" style={{fontSize:"14px"}}>
-                                <span style={{color:"green", fontSize:"14px"}}>Applicant's Name :</span> {values.applicantName}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Mother's Name :</span> {values.motherName}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Mother's Name Bangla :</span> {values.motherNameBangla}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Father's Name :</span> {values.fatherName}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Father's Name Bangla :</span> {values.fatherNameBangla}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Spouse Name :</span> {values.spouseName}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Gender :</span> {GenderForm(values.gender)}<br />
-                                <span style={{color:"green", fontSize:"14px"}}>Profession :</span> {values.profession}<br />
+                                <small className="" style={{ fontSize: "14px" }}>
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name :</span> {values.applicantName}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Mother's Name :</span> {values.motherName}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Mother's Name Bangla :</span> {values.motherNameBangla}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Father's Name :</span> {values.fatherName}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Father's Name Bangla :</span> {values.fatherNameBangla}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Spouse Name :</span> {values.spouseName}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Gender :</span> {GenderForm(values.gender)}<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Profession :</span> {values.profession}<br />
 
 
 
@@ -340,23 +341,23 @@ export class SimFingerConfirm extends Component {
                                 heading={"Permanent Address Details"}
                                 acBody={
                                     <div className="imTwoWhite">
-                                        <small className="" style={{fontSize:"14px"}}>
-                                        <span style={{color:"green", fontSize:"14px"}}>Mouza Or Moholla :</span> {values.perAdditionalMouzaOrMoholla + `${values.perAdditionalMouzaOrMohollaEn ? `(${values.perAdditionalMouzaOrMohollaEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Village Or Road :</span> {values.perAdditionalVillageOrRoad + `${values.perAdditionalVillageOrRoadEn ? `(${values.perAdditionalVillageOrRoadEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>City Corp. :</span> {values.perCityCorporationOrMunicipality + `${values.perCityCorporationOrMunicipalityEn ? `(${values.perCityCorporationOrMunicipalityEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>District :</span> {values.perDistrict + `${values.perDistrictEn ? `(${values.perDistrictEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>District Code :</span> {values.perDistrictCode}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Division :</span> {values.perDivision + `${values.perDivisionEn ? `(${values.perDivisionEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Home Or Holding No. :</span> {values.perHomeOrHoldingNo + `${values.perHomeOrHoldingNoEn ? `(${values.perHomeOrHoldingNoEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Post Office :</span> {values.perPostOffice + `${values.perPostOfficeEn ? `(${values.perPostOfficeEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Postal Code :</span> {values.perPostalCode + `${values.perPostalCodeEn ? `(${values.perPostalCodeEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Region :</span> {values.perRegion + `${values.perRegionEn ? `(${values.perRegionEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>RMO :</span> {values.perRmo + `${values.perRmoEn ? `(${values.perRmoEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Union Or Ward :</span> {values.perUnionOrWard + `${values.perUnionOrWardEn ? `(${values.perUnionOrWardEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Union Or Ward Code :</span> {values.perUnionOrWardCode}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Upozila :</span> {values.perUpozila + `${values.perUpozilaEn ? `(${values.perUpozilaEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Upozila Code :</span> {values.perUpozilaCode}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Ward For Union Porishod :</span> {values.perWardForUnionPorishod + `${values.perWardForUnionPorishodEn ? `(${values.perWardForUnionPorishodEn})` : "" }`}<br />
+                                        <small className="" style={{ fontSize: "14px" }}>
+                                            <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {values.perAdditionalMouzaOrMoholla + `${values.perAdditionalMouzaOrMohollaEn ? `(${values.perAdditionalMouzaOrMohollaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Village Or Road :</span> {values.perAdditionalVillageOrRoad + `${values.perAdditionalVillageOrRoadEn ? `(${values.perAdditionalVillageOrRoadEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>City Corp. :</span> {values.perCityCorporationOrMunicipality + `${values.perCityCorporationOrMunicipalityEn ? `(${values.perCityCorporationOrMunicipalityEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District :</span> {values.perDistrict + `${values.perDistrictEn ? `(${values.perDistrictEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District Code :</span> {values.perDistrictCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Division :</span> {values.perDivision + `${values.perDivisionEn ? `(${values.perDivisionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Home Or Holding No. :</span> {values.perHomeOrHoldingNo + `${values.perHomeOrHoldingNoEn ? `(${values.perHomeOrHoldingNoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Post Office :</span> {values.perPostOffice + `${values.perPostOfficeEn ? `(${values.perPostOfficeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Postal Code :</span> {values.perPostalCode + `${values.perPostalCodeEn ? `(${values.perPostalCodeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Region :</span> {values.perRegion + `${values.perRegionEn ? `(${values.perRegionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>RMO :</span> {values.perRmo + `${values.perRmoEn ? `(${values.perRmoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward :</span> {values.perUnionOrWard + `${values.perUnionOrWardEn ? `(${values.perUnionOrWardEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward Code :</span> {values.perUnionOrWardCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila :</span> {values.perUpozila + `${values.perUpozilaEn ? `(${values.perUpozilaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila Code :</span> {values.perUpozilaCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {values.perWardForUnionPorishod + `${values.perWardForUnionPorishodEn ? `(${values.perWardForUnionPorishodEn})` : ""}`}<br />
                                         </small>
 
                                     </div>
@@ -370,24 +371,24 @@ export class SimFingerConfirm extends Component {
                                 heading={"Present Address Details"}
                                 acBody={
                                     <div className="imTwoWhite">
-                                        <small className="" style={{fontSize:"14px"}}>
-                                        <span style={{color:"green", fontSize:"14px"}}>Mouza Or Moholla :</span> {values.preAdditionalMouzaOrMoholla + `${values.preAdditionalMouzaOrMohollaEn ? `(${values.preAdditionalMouzaOrMohollaEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Village Or Road :</span> {values.preAdditionalVillageOrRoad + `${values.preAdditionalVillageOrRoadEn ? `(${values.preAdditionalVillageOrRoadEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>City Corp. :</span> {values.preCityCorporationOrMunicipality + `${values.preCityCorporationOrMunicipalityEn ? `(${values.preCityCorporationOrMunicipalityEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>District :</span> {values.preDistrict + 
-                                            `${values.preDistrictEn ? `(${values.preDistrictEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>District Code :</span> {values.preDistrictCode}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Division :</span> {values.preDivision + `${values.preDivisionEn ? `(${values.preDivisionEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Home Or Holding No. :</span> {values.preHomeOrHoldingNo + `${values.preHomeOrHoldingNoEn ? `(${values.preHomeOrHoldingNoEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Post Office :</span> {values.prePostOffice + `${values.prePostOfficeEn ? `(${values.prePostOfficeEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Postal Code :</span> {values.prePostalCode + `${values.prePostalCodeEn ? `(${values.perPostalCodeEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Region :</span> {values.preRegion + `${values.preRegionEn ? `(${values.preRegionEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>RMO :</span> {values.preRmo + `${values.preRmoEn ? `(${values.preRmoEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Union Or Ward :</span> {values.preUnionOrWard + `${values.preUnionOrWardEn ? `(${values.preUnionOrWardEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Union Or Ward Code :</span> {values.preUnionOrWardCode}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Upozila :</span> {values.preUpozila +`${values.preUpozilaEn ? `(${values.preUpozilaEn})` : "" }`}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Upozila Code :</span> {values.preUpozilaCode}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Ward For Union Porishod :</span> {values.preWardForUnionPorishod + `${values.preWardForUnionPorishodEn ? `(${values.preWardForUnionPorishodEn})` : "" }`}<br />
+                                        <small className="" style={{ fontSize: "14px" }}>
+                                            <span style={{ color: "green", fontSize: "14px" }}>Mouza Or Moholla :</span> {values.preAdditionalMouzaOrMoholla + `${values.preAdditionalMouzaOrMohollaEn ? `(${values.preAdditionalMouzaOrMohollaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Village Or Road :</span> {values.preAdditionalVillageOrRoad + `${values.preAdditionalVillageOrRoadEn ? `(${values.preAdditionalVillageOrRoadEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>City Corp. :</span> {values.preCityCorporationOrMunicipality + `${values.preCityCorporationOrMunicipalityEn ? `(${values.preCityCorporationOrMunicipalityEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District :</span> {values.preDistrict +
+                                                `${values.preDistrictEn ? `(${values.preDistrictEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>District Code :</span> {values.preDistrictCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Division :</span> {values.preDivision + `${values.preDivisionEn ? `(${values.preDivisionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Home Or Holding No. :</span> {values.preHomeOrHoldingNo + `${values.preHomeOrHoldingNoEn ? `(${values.preHomeOrHoldingNoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Post Office :</span> {values.prePostOffice + `${values.prePostOfficeEn ? `(${values.prePostOfficeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Postal Code :</span> {values.prePostalCode + `${values.prePostalCodeEn ? `(${values.perPostalCodeEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Region :</span> {values.preRegion + `${values.preRegionEn ? `(${values.preRegionEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>RMO :</span> {values.preRmo + `${values.preRmoEn ? `(${values.preRmoEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward :</span> {values.preUnionOrWard + `${values.preUnionOrWardEn ? `(${values.preUnionOrWardEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Union Or Ward Code :</span> {values.preUnionOrWardCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila :</span> {values.preUpozila + `${values.preUpozilaEn ? `(${values.preUpozilaEn})` : ""}`}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Upozila Code :</span> {values.preUpozilaCode}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {values.preWardForUnionPorishod + `${values.preWardForUnionPorishodEn ? `(${values.preWardForUnionPorishodEn})` : ""}`}<br />
                                         </small>
 
                                     </div>
@@ -424,7 +425,7 @@ export class SimFingerConfirm extends Component {
                             </div>
 
                             <img src={values.NidBack ? values.flag + values.NidBack : back}
-                             alt=""
+                                alt=""
                                 style={{
                                     margin: "0 auto",
                                     width: "250px",
@@ -499,11 +500,11 @@ export class SimFingerConfirm extends Component {
                                         <div className="im">
                                             <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                         </div>
-                                        <small className="" style={{fontSize:"14px"}}>
-                                        <span style={{color:"green", fontSize:"14px"}}>Nominee :</span> {val.nominee},<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Relation :</span> {val.showAdultRelation},<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.percentage}&#37;<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Date of Birth :</span> {dayMonthYearFormat(val.dob)}
+                                        <small className="" style={{ fontSize: "14px" }}>
+                                            <span style={{ color: "green", fontSize: "14px" }}>Nominee :</span> {val.nominee},<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Relation :</span> {val.showAdultRelation},<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Percentage :</span> {val.percentage}&#37;<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Date of Birth :</span> {dayMonthYearFormat(val.dob)}
                                         </small >
 
                                     </div>
@@ -516,15 +517,15 @@ export class SimFingerConfirm extends Component {
                                             <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                         </div>
 
-                                        <small className="text-muted" style={{fontSize:"14px"}} >
-                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee :</span> {val.minorNominee}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Relation With Account Holder:</span> {val.showMinorRelation}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Percentage :</span> {val.minorPercentage}&#37;<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian NID No :</span> {val.minorGuardianNid}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Minor Nominee Guardian Name :</span> {val.minorGuardianName}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Guardian Relation with Minor Nominee :</span> {val.showMinorRelationWithGuardian}<br />
-                                        <span style={{color:"green", fontSize:"14px"}}>Guardian Address :</span> {val.minorGuardianAddress}<br />
+                                        <small className="text-muted" style={{ fontSize: "14px" }} >
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee :</span> {val.minorNominee}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Relation With Account Holder:</span> {val.showMinorRelation}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Percentage :</span> {val.minorPercentage}&#37;<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Guardian NID No :</span> {val.minorGuardianNid}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Guardian Name :</span> {val.minorGuardianName}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Guardian Relation with Minor Nominee :</span> {val.showMinorRelationWithGuardian}<br />
+                                            <span style={{ color: "green", fontSize: "14px" }}>Guardian Address :</span> {val.minorGuardianAddress}<br />
 
                                         </small >
 

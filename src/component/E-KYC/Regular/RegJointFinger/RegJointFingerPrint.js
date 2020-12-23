@@ -334,6 +334,7 @@ export class RegJointFingerPrint extends Component {
                 this.props.handleState('fatherNameBangla', dataResp.father ? dataResp.father : "");
                 this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
                 this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
+                this.props.handleState('ecImage', dataResp.photo ? dataResp.photo : "");
 
                 // Present Address
                 let preAddress = dataResp.presentAddress;
