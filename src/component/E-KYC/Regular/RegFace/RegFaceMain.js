@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import RegMobileVerification from './RegMobileVerification';
+import MobileVerification from '../../../Reusable/MobileVerification';
 import RegNidImages from './RegNidImages';
 import RegRPA from './RegRPA';
 import RegCaptureImage from './RegCaptureImage';
@@ -231,13 +231,13 @@ export class RegFaceMain extends Component {
 
     addNomineeOne = () => {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '',showAdultRelation:'', isShow: true });
+        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '', showAdultRelation: '', isShow: true });
         this.setState({ jointArray: copyArray });
     }
 
     addNomineeTwo = () => {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '',showMinorRelation:'',showMinorRelationWithGuardian:'', isShow: false });
+        copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', showMinorRelation: '', showMinorRelationWithGuardian: '', isShow: false });
         this.setState({ jointArray: copyArray });
     }
 
@@ -325,7 +325,7 @@ export class RegFaceMain extends Component {
 
             case 1:
                 return (
-                    <RegMobileVerification
+                    <MobileVerification
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}

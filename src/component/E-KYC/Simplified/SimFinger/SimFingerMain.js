@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import MobileVerification from '../SimFace/MobileVerification';
+import MobileVerification from '../../../Reusable/MobileVerification';
 import NidImagesSim from '../SimFace/NidImagesSim';
 import SimFingerPrint from '../SimFinger/SimFingerPrint';
 import SimPersonalDetails from '../SimFace/SimPersonalDetails';
@@ -9,7 +9,8 @@ import SimCutomerPic from './SimCutomerPic';
 import SimFingerSignature from './SimFingerSignature';
 import SimFingerConfirm from '../SimFinger/SimFingerConfirm';
 import SimComplete from '../SimFace/SimComplete';
-import { NotificationManager } from 'react-notifications'
+import { NotificationManager } from 'react-notifications';
+
 
 export class SimFingerMain extends Component {
     state = {

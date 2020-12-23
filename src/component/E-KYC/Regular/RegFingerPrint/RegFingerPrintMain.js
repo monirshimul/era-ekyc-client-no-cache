@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import RegMobileVerification from './../RegFace/RegMobileVerification';
+import MobileVerification from '../../../Reusable/MobileVerification';
 import RegNidImages from '../RegFace/RegNidImages';
 import RegFingerPrint from './RegFingerPrint';
 import RegPersonalDetails from '../RegFace/RegPersonalDetails';
@@ -341,7 +341,7 @@ export class RegFingerPrintMain extends Component {
 
             case 1:
                 return (
-                    <RegMobileVerification
+                    <MobileVerification
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}

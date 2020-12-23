@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NotificationManager } from "react-notifications";
-import RegJointMobileVerification from './RegJointMobileVerification';
+import MobileVerification from '../../../Reusable/MobileVerification';
 import RegJointNidImages from './RegJointNidImages';
 import RegJointFaceRPA from './RegJointFaceRPA';
 import RegJointCapture from './RegJointCapture';
@@ -254,13 +254,13 @@ export class RegJoinFaceMain extends Component {
 
     addNomineeOne = () => {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '',showAdultRelation:'', isShow: true });
+        copyArray.push({ nominee: '', dob: '', relation: '', photograph: '', percentage: '', showAdultRelation: '', isShow: true });
         this.setState({ jointArray: copyArray });
     }
 
     addNomineeTwo = () => {
         let copyArray = Object.assign([], this.state.jointArray);
-        copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '',showMinorRelation:'',showMinorRelationWithGuardian:'', isShow: false });
+        copyArray.push({ minorNominee: '', minorDob: '', minorRelationWAccH: '', minorNomineePhoto: '', minorPercentage: '', minorGuardianNid: '', minorGuardianName: '', guardianRelationWMinor: '', minorGuardianAddress: '', minorPhotoGuardian: '', showMinorRelation: '', showMinorRelationWithGuardian: '', isShow: false });
         this.setState({ jointArray: copyArray });
     }
 
@@ -350,7 +350,7 @@ export class RegJoinFaceMain extends Component {
         switch (step) {
             case 1:
                 return (
-                    <RegJointMobileVerification
+                    <MobileVerification
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}

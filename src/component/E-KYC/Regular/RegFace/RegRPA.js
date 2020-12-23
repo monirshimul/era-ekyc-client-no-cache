@@ -146,6 +146,7 @@ export class RegRPA extends Component {
             } catch (error) {
                 this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
+                isRpaRequired = false;
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)

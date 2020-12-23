@@ -144,6 +144,7 @@ export class RegJointFingerPrint extends Component {
             } catch (error) {
                 this.props.handleState('isEnableFinger', false);
                 this.props.handleState('loadingPrint', false);
+                isFingerPrint = false;
                 if (error.response) {
                     let message = error.response.data.message
                     //console.log("Error",error.response)

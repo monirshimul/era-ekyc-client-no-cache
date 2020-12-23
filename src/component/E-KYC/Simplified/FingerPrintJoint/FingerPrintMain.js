@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import JointMobileVerification from '../FaceJoint/JointMobileVerification';
+import MobileVerification from '../../../Reusable/MobileVerification';
 import NidImage from '../FaceJoint/NidImage';
-//import CaptureImage from '../CaptureImage';
 import PersonalDetails from '../FaceJoint/PersonalDetails';
 import JointFingerPrint from './JointFingerPrint';
 import JointPicture from './JointPicture';
@@ -9,7 +8,8 @@ import JointFingerSignature from './JointFingerSignature';
 import Nominee from '../FaceJoint/Nominee';
 import JointFingerConfirm from './JointFingerConfirm';
 import Success from '../FaceJoint/Success';
-import { NotificationManager } from 'react-notifications'
+import { NotificationManager } from 'react-notifications';
+
 
 export class FingerPrintMain extends Component {
 
@@ -315,7 +315,7 @@ export class FingerPrintMain extends Component {
 
             case 1:
                 return (
-                    <JointMobileVerification
+                    <MobileVerification
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}

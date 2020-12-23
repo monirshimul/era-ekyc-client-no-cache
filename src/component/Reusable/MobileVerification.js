@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { mobileVerification, mobileCodeVerification } from '../../Url/ApiList';
-import Loading from '../../Simplified/utils/CustomLoding/Loading';
+import { mobileVerification, mobileCodeVerification } from '../E-KYC/Url/ApiList';
+import Loading from '../E-KYC/Simplified/utils/CustomLoding/Loading';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
-import { mediumTime, largeTime } from '../../../Utils/notificationTime';
+import { mediumTime, largeTime } from '../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
-export class RegJointMobileVerification extends Component {
+export class MobileVerification extends Component {
+
   state = {
     mobileVerifyToken: '',
     verifyStatus: '',
@@ -97,7 +98,8 @@ export class RegJointMobileVerification extends Component {
         this.props.handleState('verificationCodeMobile', "");
       } else {
         NotificationManager.success("Successfully Mobile Number verification Completed", "Success", 5000);
-        this.setState({ verifyStatus: apiCodeReq.data.status, showButton: false })
+        this.setState({ verifyStatus: apiCodeReq.data.status, showButton: false });
+        this.props.nextStep();
       }
 
     } catch (error) {
@@ -212,6 +214,7 @@ export class RegJointMobileVerification extends Component {
 
         <br />
 
+
         {this.state.showButton === true ?
           <div className="row d-flex justify-content-center align-items-center mt-3">
             <Loading />
@@ -222,7 +225,7 @@ export class RegJointMobileVerification extends Component {
         }
 
 
-        <div className="row d-flex justify-content-center mt-3">
+        {/* <div className="row d-flex justify-content-center mt-3">
 
           {this.state.verifyStatus === true ?
             <button type="button" style={{ outline: "none" }} className="b" onClick={this.continue}>
@@ -230,7 +233,7 @@ export class RegJointMobileVerification extends Component {
 </button>
             : ""
           }
-        </div>
+        </div> */}
 
 
       </div>
@@ -238,4 +241,4 @@ export class RegJointMobileVerification extends Component {
   }
 }
 
-export default RegJointMobileVerification
+export default MobileVerification;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RegJointMobileVerification from './../RegJointFace/RegJointMobileVerification';
+import MobileVerification from '../../../Reusable/MobileVerification';
 import RegJointNidImages from '../RegJointFace/RegJointNidImages';
 import RegJointFingerPrint from './RegJointFingerPrint';
 import RegJointPersonalDetails from '../RegJointFace/RegJointPersonalDetails';
@@ -339,7 +339,7 @@ export class RegJointFingerMain extends Component {
 
             case 1:
                 return (
-                    <RegJointMobileVerification
+                    <MobileVerification
                         nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}
