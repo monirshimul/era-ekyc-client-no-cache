@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications"
-import {largeTime } from '../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
 export class RiskGrading extends Component {
@@ -439,8 +439,8 @@ export class RiskGrading extends Component {
                 name="hasSourceOfFunds"
               >
                 <option value='' disabled>--Select Status--</option>
-                <option value='7.1.1'>Yes</option>
-                <option value='7.1.2'>No</option>
+                <option value='7.1.1'>No</option>
+                <option value='7.1.2'>Yes</option>
 
 
 

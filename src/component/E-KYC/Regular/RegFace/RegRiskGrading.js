@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
-import {largeTime } from '../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 const Joi = require('@hapi/joi');
 
 
@@ -86,7 +86,7 @@ export class RegRiskGrading extends Component {
         let { values, handleChange, handleOccupationChange } = this.props;
         return (
             <div className="card col-sm-10" style={{ paddingTop: "25px" }}>
-            {/* 
+                {/* 
                 <div className="im col-sm-2" onClick={this.Escape}>
                     Escape
               </div>*/}
@@ -449,8 +449,8 @@ export class RegRiskGrading extends Component {
                                 name="hasSourceOfFunds"
                             >
                                 <option value='' disabled>--Select Status--</option>
-                                <option value='7.1.1'>Yes</option>
-                                <option value='7.1.2'>No</option>
+                                <option value='7.1.1'>No</option>
+                                <option value='7.1.2'>Yes</option>
 
 
 
