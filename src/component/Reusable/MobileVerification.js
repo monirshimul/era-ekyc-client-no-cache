@@ -179,7 +179,7 @@ export class MobileVerification extends Component {
         }
 
         {this.state.mobileVerifyToken !== '' ?
-          <div className='row d-flex justify-content-center mt-5'>
+          <div className='row d-flex justify-content-center'>
 
 
             <div className="col-sm-6 imTwoWhite d-flex justify-content-around" >

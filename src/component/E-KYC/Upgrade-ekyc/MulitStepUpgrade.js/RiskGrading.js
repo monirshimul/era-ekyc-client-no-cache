@@ -441,9 +441,6 @@ export class RiskGrading extends Component {
                 <option value='' disabled>--Select Status--</option>
                 <option value='7.1.1'>No</option>
                 <option value='7.1.2'>Yes</option>
-
-
-
               </select>
             </div>
 

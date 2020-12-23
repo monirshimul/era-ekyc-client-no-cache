@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NotificationManager } from "react-notifications";
 import { largeTime } from './../../../Utils/notificationTime';
+import imageCompression from 'browser-image-compression';
+import { b64toBlob } from '../../../Utils/BaseToBlob';
 
 export class Capture extends Component {
 
@@ -35,14 +37,32 @@ export class Capture extends Component {
                 NotificationManager.warning("Camera device not Found", "Click to Remove", largeTime);
             });
 
-            capBtn.onclick = video.onclick = () => {
+            capBtn.onclick = video.onclick = async () => {
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 let imageRaw = canvas.toDataURL('image/png');
                 this.base64Image = imageRaw.split(',')[1];
-                image.src = imageRaw;
-                imageContainer.style.display = "block";
+                // for Compressing Image
+                let blob = b64toBlob(this.base64Image)
+                console.log(`originalFile size ${blob.size / 1024 / 1024} MB`);
+                //console.log("Blob", blob)
+                const options = {
+                    maxSizeMB: 0.1,
+                    maxWidthOrHeight: 1920,
+                    useWebWorker: true
+                }
+                try {
+                    const compressedFile = await imageCompression(blob, options);
+                    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+                    let btb = await imageCompression.getDataUrlFromFile(compressedFile)
+                    image.src = btb
+                    this.base64Image = btb.split(',')[1];
+                    //console.log("Base", this.base64Image)
+                    imageContainer.style.display = "block";
+                } catch (error) {
+                    console.log(error);
+                }
             };
         } catch (error) {
             console.log("camera Error", error.response);
@@ -61,9 +81,9 @@ export class Capture extends Component {
     }
 
     onConfirm = (e) => {
-        this.streamObject.getTracks().forEach(function (track) {
-            track.stop();
-        });
+        // this.streamObject.getTracks().forEach(function (track) {
+        //     track.stop();
+        // });
         this.props.onConfirm(this.base64Image);
 
     }

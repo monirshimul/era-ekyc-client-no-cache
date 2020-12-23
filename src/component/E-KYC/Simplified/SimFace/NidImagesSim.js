@@ -11,6 +11,7 @@ import { datePickerPrefiilConv, DateFul } from '../../../Utils/dateConversion';
 import axios from 'axios';
 import { largeTime } from '../../../Utils/notificationTime';
 import Capture from '../Capture/Capture';
+import { ImageCompressor } from '../../../Utils/ImageCompressor'
 
 export class NidImagesSim extends Component {
 
@@ -77,55 +78,24 @@ export class NidImagesSim extends Component {
   //   this.captureOff();
   // }
 
-  fileSelectedHandler = (event) => {
+  fileSelectedHandler = async (event) => {
     if (event.target.files[0]) {
-      let file = event.target.files[0];
-      this.props.handleState("NidFrontOcr", event.target.files[0]);
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
+      let base = await ImageCompressor(event)
+      // console.log("Base", base)
+      this.props.handleState("NidFront", base);
 
-      reader.onload = () => {
-        // console.log(typeof reader.result);
-        // console.log(btoa(reader.result));
-        let base64Image = btoa(reader.result);
-        // this.setState({
-        //   profilePic: base64Image,
-        //   profilePicType: file.type
-
-        //   //nidImage: URL.createObjectURL(event.target.files[0])
-        // });
-        this.props.handleState("NidFront", base64Image);
-
-        this.props.handleState("NidFrontType", file.type);
-      };
-      reader.onerror = () => {
-        // console.log("there are some problems");
-        alert("File can not be read");
-      };
     }
   };
 
   //Nid Back Image upload
-  fileSelectedHandlerTwo = (event) => {
+  fileSelectedHandlerTwo = async (event) => {
     if (event.target.files[0]) {
-      let file = event.target.files[0];
-      this.props.handleState("NidBackOcr", event.target.files[0]);
-      // console.log(file.type);
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
+      let base = await ImageCompressor(event)
+      // console.log("Base", base)
+      this.props.handleState("NidBack", base);
 
-      reader.onload = () => {
-        let base64Image = btoa(reader.result);
+    };
 
-        this.props.handleState("NidBack", base64Image);
-
-        this.props.handleState("NidBackType", file.type);
-      };
-      reader.onerror = () => {
-        console.log("there are some problems");
-        alert("File can not be read");
-      };
-    }
   };
 
 

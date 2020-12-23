@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Sign from '../images/man.svg';
 import Capture from '../Capture/Capture';
 import { NotificationManager } from "react-notifications";
-import { datePickerPrefiilConv} from '../../../Utils/dateConversion';
-import {largeTime} from '../../../Utils/notificationTime';
+import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
+import { largeTime } from '../../../Utils/notificationTime';
+import { ImageCompressor } from '../../../Utils/ImageCompressor'
 
 
 export class SimCutomerPic extends Component {
@@ -30,39 +31,29 @@ export class SimCutomerPic extends Component {
         this.captureOff();
     }
 
-    fileSelectedHandler = event => {
+    fileSelectedHandler = async (event) => {
         if (event.target.files[0]) {
-            let file = event.target.files[0];
-            //console.log(file.type);
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
+            let base = await ImageCompressor(event)
+            this.props.handleState('faceImage', base);
 
-            reader.onload = () => {
-                let base64Image = btoa(reader.result);
-                this.props.handleState('faceImage', base64Image);
-            };
-            reader.onerror = () => {
-                //console.log('there are some problems');
-                alert('File can not be read');
-            };
         }
     };
 
     continue = e => {
-        const {values} = this.props;
+        const { values } = this.props;
         e.preventDefault();
 
         if (values.faceImage === "") {
             let picMessage = "Please Provide Photograph";
             NotificationManager.warning(picMessage, "Click to Remove", largeTime);
             return;
-          }
+        }
 
         this.props.nextStep();
     };
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
         for (let i = 0; i < values.jointArray.length; i++) {
@@ -72,24 +63,24 @@ export class SimCutomerPic extends Component {
                     copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
                     this.props.handleState('jointArray', copyArray);
                 }
-                }else{
-                    if (values.jointArray[i].minorDob !== '') {
-                        let copyArray = Object.assign([], this.props.values.jointArray);
-                        copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
-                        this.props.handleState('jointArray', copyArray);
-                    }
+            } else {
+                if (values.jointArray[i].minorDob !== '') {
+                    let copyArray = Object.assign([], this.props.values.jointArray);
+                    copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
+                    this.props.handleState('jointArray', copyArray);
                 }
-
             }
-            
-        
+
+        }
+
+
         this.props.prevStep();
     }
     render() {
         let { values } = this.props;
-        
+
         return (
-            
+
             <div className="col-sm-12 d-flex justify-content-center" >
                 <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
                     <div className="card-header up">
@@ -122,7 +113,7 @@ export class SimCutomerPic extends Component {
                             <div class="custom-file">
                                 <input type="file"
                                     onChange={this.fileSelectedHandler}
-                                    onClick={(event)=>event.target.value = null}
+                                    onClick={(event) => event.target.value = null}
 
                                     class="form-control-file" id="input-file" />
                                 <label class="custom-file-label" htmlFor="input-file">Choose Image</label>
