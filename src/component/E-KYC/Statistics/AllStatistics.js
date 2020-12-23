@@ -251,7 +251,7 @@ class AllStatistics extends Component {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [
                     {
-                        label: "Total E-KYC(2020)",
+                        label: `Total E-KYC(${new Date().getFullYear().toString()})`,
                         data: emptyData,
                         backgroundColor: "#dbf6e9",
                         borderColor: "#84ceca",
