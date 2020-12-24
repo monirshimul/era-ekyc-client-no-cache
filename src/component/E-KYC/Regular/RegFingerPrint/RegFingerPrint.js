@@ -335,6 +335,13 @@ export class RegFingerPrint extends Component {
         this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
         this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
         this.props.handleState('ecImage', dataResp.photo ? dataResp.photo : "");
+        // Global EC Text start
+        this.props.handleState('ecApplicantNameBangla', dataResp.name ? dataResp.name : "");
+        this.props.handleState('ecApplicantName', dataResp.nameEn ? dataResp.nameEn : "");
+        this.props.handleState('ecMotherNameBangla', dataResp.mother ? dataResp.mother : "");
+        this.props.handleState('ecFatherNameBangla', dataResp.father ? dataResp.father : "");
+        // Global EC Text end
+
 
         // Present Address
         let preAddress = dataResp.presentAddress;

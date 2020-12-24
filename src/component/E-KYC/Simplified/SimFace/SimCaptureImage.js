@@ -12,10 +12,13 @@ import "../utils/Common.css";
 
 export class SimCaptureImage extends Component {
 
+  Escape = () => {
+    this.props.nextStep();
+  }
 
   validate = async (e) => {
     const { values } = this.props;
-    
+
     e.preventDefault();
     // this.setState({
     //   loading: !this.state.loading
@@ -58,7 +61,7 @@ export class SimCaptureImage extends Component {
         // this.setState({
         //   loading: false
         // })
-        this.props.handleState("loading",false);
+        this.props.handleState("loading", false);
         NotificationManager.error("Face does not match", "Error", 5000);
       }
 
@@ -68,12 +71,12 @@ export class SimCaptureImage extends Component {
         let message = error.response.data.message
         //console.log("Error",error.response)
         NotificationManager.error(message, "Error", 5000);
-    } else if (error.request) {
+      } else if (error.request) {
         //console.log("Error Connecting...", error.request)
         NotificationManager.error("Error Connecting...", "Error", 5000);
-    } else if (error) {
+      } else if (error) {
         NotificationManager.error(error.toString(), "Error", 5000);
-    }
+      }
 
     }
 
@@ -98,7 +101,7 @@ export class SimCaptureImage extends Component {
   };
 
   back = (e) => {
-   // const { values } = this.props;
+    // const { values } = this.props;
     e.preventDefault();
     this.closeCamera();
     this.props.prevStep();
@@ -126,94 +129,75 @@ export class SimCaptureImage extends Component {
 
     return (
       <div className="container">
-      <div className="row d-flex justify-content-center">
-        <div className="imTwoWhite col-sm-8" style={{ paddingTop: "25px" }}>
-          <div className="card-header up">
-            <h3><i class="fas fa-camera-retro"></i> Face Verification</h3>
-          </div>
-          <div className="row card-body d-flex justify-content-center align-items-center" >
-            <div className="imTwoWhite col-sm-6" >
-              {/* {imageFlag ? ( */}
-              <div className="animated zoomIn">
-                <img
-                  src={Face}
-                  style={{
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "300px",
-                    height: "200px",
-                  }}
-                  value={values.faceImage}
-                  className=" img-thumbnail center "
-                  id="imagePicture"
-                  alt="cameraPicture"
-                />
 
-                <div className="im"
-                  style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
-                  data-toggle="modal"
-                  data-target="#cameraModal"
-                  onClick={this.showCamera}
-                >
-                  <i class="fas fa-camera"></i> Check Liveness
-          </div>
+        <div className="im col-sm-2" onClick={this.Escape}>
+          Escape
               </div>
 
-
+        <div className="row d-flex justify-content-center">
+          <div className="imTwoWhite col-sm-8" style={{ paddingTop: "25px" }}>
+            <div className="card-header up">
+              <h3><i class="fas fa-camera-retro"></i> Face Verification</h3>
             </div>
+            <div className="row card-body d-flex justify-content-center align-items-center" >
+              <div className="imTwoWhite col-sm-6" >
+                {/* {imageFlag ? ( */}
+                <div className="animated zoomIn">
+                  <img
+                    src={Face}
+                    style={{
+                      display: "block",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      width: "300px",
+                      height: "200px",
+                    }}
+                    value={values.faceImage}
+                    className=" img-thumbnail center "
+                    id="imagePicture"
+                    alt="cameraPicture"
+                  />
 
-            <div className="col-sm-6" >
+                  <div className="im"
+                    style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
+                    data-toggle="modal"
+                    data-target="#cameraModal"
+                    onClick={this.showCamera}
+                  >
+                    <i class="fas fa-camera"></i> Check Liveness
+          </div>
+                </div>
 
-              {
-                values.faceImage ? (
-                  <div className="row imTwoWhite d-flex justify-content-center ">
-                    {
-                      values.loading ? (
-                        // <div className="animated slideInDown d-flex justify-content-center align-items-center" style={{height:"250px"}}>
-                        //   <h1 className="text-muted text-center">Loading...</h1>
 
-                        // </div>
-                        <div className="row d-flex justify-content-center align-items-center mt-3">
-                          <Loading />
-                        </div>
-                      ) : (
-                          <div>
-                            {
-                              values.validate === true ? (
-                                <div className="animated slideInDown">
-                                  <img
-                                    src={Done}
-                                    style={{
-                                      display: "block",
-                                      marginLeft: "auto",
-                                      marginRight: "auto",
-                                      width: "300px",
-                                      height: "200px",
-                                    }}
-                                    value={values.faceImage}
-                                    className=" img-thumbnail center"
-                                    id="imagePicture"
-                                    alt="cameraPicture"
-                                  />
-                                  <div className="im"
-                                    style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
+              </div>
 
-                                  >
-                                    <i class="fas fa-user-check"></i> Success, Click Next
+              <div className="col-sm-6" >
+
+                {
+                  values.faceImage ? (
+                    <div className="row imTwoWhite d-flex justify-content-center ">
+                      {
+                        values.loading ? (
+                          // <div className="animated slideInDown d-flex justify-content-center align-items-center" style={{height:"250px"}}>
+                          //   <h1 className="text-muted text-center">Loading...</h1>
+
+                          // </div>
+                          <div className="row d-flex justify-content-center align-items-center mt-3">
+                            <Loading />
                           </div>
-                                </div>
-                              ) : (
-                                  <div className="animated zoomIn">
+                        ) : (
+                            <div>
+                              {
+                                values.validate === true ? (
+                                  <div className="animated slideInDown">
                                     <img
-                                      src={values.flag + values.faceImage}
+                                      src={Done}
                                       style={{
                                         display: "block",
                                         marginLeft: "auto",
                                         marginRight: "auto",
                                         width: "300px",
                                         height: "200px",
-
                                       }}
                                       value={values.faceImage}
                                       className=" img-thumbnail center"
@@ -222,28 +206,73 @@ export class SimCaptureImage extends Component {
                                     />
                                     <div className="im"
                                       style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
-                                      onClick={this.validate}
+
                                     >
-                                      <i class="fas fa-user-check"></i> Check Validation
+                                      <i class="fas fa-user-check"></i> Success, Click Next
                           </div>
                                   </div>
+                                ) : (
+                                    <div className="animated zoomIn">
+                                      <img
+                                        src={values.flag + values.faceImage}
+                                        style={{
+                                          display: "block",
+                                          marginLeft: "auto",
+                                          marginRight: "auto",
+                                          width: "300px",
+                                          height: "200px",
 
-                                )
-                            }
+                                        }}
+                                        value={values.faceImage}
+                                        className=" img-thumbnail center"
+                                        id="imagePicture"
+                                        alt="cameraPicture"
+                                      />
+                                      <div className="im"
+                                        style={{ width: "300px", color: "green", textAlign: "center", margin: "0 auto", marginBottom: "10px" }}
+                                        onClick={this.validate}
+                                      >
+                                        <i class="fas fa-user-check"></i> Check Validation
                           </div>
+                                    </div>
 
-                        )
-                    }
+                                  )
+                              }
+                            </div>
+
+                          )
+                      }
 
 
 
-                  </div>
-                ) : (
-                    <p className="text-muted" style={{ fontSize: "14px" }}>
-                      <span style={{ color: "green", fontSize: "20px" }}>A facial recognition</span> system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source.<hr /> <span style={{ color: "green", fontSize: "20px" }}>Face verification</span> is the task of comparing a candidate face to another, and verifying whether it is a match. It is a one-to-one mapping: you have to check if this person is the correct one.
-                    </p>
-                  )
+                    </div>
+                  ) : (
+                      <p className="text-muted" style={{ fontSize: "14px" }}>
+                        <span style={{ color: "green", fontSize: "20px" }}>A facial recognition</span> system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source.<hr /> <span style={{ color: "green", fontSize: "20px" }}>Face verification</span> is the task of comparing a candidate face to another, and verifying whether it is a match. It is a one-to-one mapping: you have to check if this person is the correct one.
+                      </p>
+                    )
+                }
+
+
+
+
+              </div>
+            </div>
+
+
+            <div
+              className="card-footer d-flex justify-content-center mt-2"
+              style={{ background: "#fff" }}
+            >
+
+              <span className="b mr-5" onClick={this.back}>Back</span>
+              {
+                values.verifyToken ? (
+                  <span className="b" onClick={this.continue}>Next</span>
+                ) : ""
               }
+              {/*<span className="b" onClick={this.continue}>Next</span>*/}
+
 
 
 
@@ -252,72 +281,51 @@ export class SimCaptureImage extends Component {
           </div>
 
 
+
+          {/* modal for image */}
           <div
-            className="card-footer d-flex justify-content-center mt-2"
-            style={{ background: "#fff" }}
+            className="modal fade "
+            id="cameraModal"
+            tabIndex="-1"
+            role="dialog"
+            aria-labelledby="cameraModalLabel"
+            aria-hidden="true"
+            data-backdrop="static"
+            data-keyboard="false"
           >
+            <div className="modal-dialog mw-100 w-75" role="document">
+              <div className="modal-content">
+                <div className="modal-header divBg">
+                  <h5 className="modal-title" id="cameraModalLabel">
 
-            <span className="b mr-5" onClick={this.back}>Back</span>
-             {
-              values.verifyToken ? (
-                <span className="b" onClick={this.continue}>Next</span>
-              ):""
-            }
-               {/*<span className="b" onClick={this.continue}>Next</span>*/} 
-            
-
-
-
-
-          </div>
-        </div>
-
-
-
-        {/* modal for image */}
-        <div
-          className="modal fade "
-          id="cameraModal"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="cameraModalLabel"
-          aria-hidden="true"
-          data-backdrop="static"
-          data-keyboard="false"
-        >
-          <div className="modal-dialog mw-100 w-75" role="document">
-            <div className="modal-content">
-              <div className="modal-header divBg">
-                <h5 className="modal-title" id="cameraModalLabel">
-
-                </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                  onClick={this.closeCamera}
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                {this.showCamera ? (
-                  <Camera onConfirm={this.onImageConfirm} />
-                ) : (
-                    ""
-                  )}
+                  </h5>
+                  <button
+                    type="button"
+                    className="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    onClick={this.closeCamera}
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  {this.showCamera ? (
+                    <Camera onConfirm={this.onImageConfirm} />
+                  ) : (
+                      ""
+                    )}
+                </div>
               </div>
             </div>
           </div>
+          {/* modal for image */}
+
+
+
+          {/* End Content*/}
         </div>
-        {/* modal for image */}
-
-
-
-        {/* End Content*/}
       </div>
-    </div>
     );
   }
 }

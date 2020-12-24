@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
-import { zoneCodeConversion, division, district, upozila, union, profession } from '../../Url/ApiList';
+import { zoneCodeConversion, division, district, upozila, union, profession, textMatch } from '../../Url/ApiList';
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
@@ -505,6 +505,68 @@ export class RegJointPersonalDetails extends Component {
         try {
             const validationValue = await this.schema.validateAsync(data);
             //console.log("validationValue", validationValue)
+            ///////////////////// Text Matching Start /////////////////////////////
+
+            const config1 = {
+                headers: {
+                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+                }
+            };
+
+
+            try {
+
+                this.props.handleState('confirmFlag', true);
+                let payload = {
+                    "template": [
+                        {
+                            "key": "applicantName",
+                            "value": [values.applicantName, values.ecApplicantName]
+                        },
+                        {
+                            "key": "applicantNameBangla",
+                            "value": [values.applicantNameBangla, values.ecApplicantNameBangla]
+                        },
+                        {
+                            "key": "fatherNameBangla",
+                            "value": [values.fatherNameBangla, values.ecFatherNameBangla]
+                        },
+                        {
+                            "key": "motherNameBangla",
+                            "value": [values.motherNameBangla, values.ecMotherNameBangla]
+                        }
+
+                    ]
+                }
+
+
+                let txtMatchApI = await axios.post(textMatch, payload, config1);
+                console.log("textMatch", txtMatchApI.data.data);
+                this.props.handleState('confirmFlag', false);
+                let txtObj = txtMatchApI.data.data;
+
+                if (txtObj.applicantName < 80 || txtObj.applicantNameBangla < 80 || txtObj.fatherNameBangla < 80 || txtObj.motherNameBangla < 80) {
+                    NotificationManager.info(`Applicant Name required match greater than 80%, current ${txtObj.applicantName}%`, "Click To Remove", largeTime);
+                    NotificationManager.info(`Applicant Name Bangla required match greater than 80%, current ${txtObj.applicantNameBangla}%`, "Click To Remove", largeTime);
+                    NotificationManager.info(`Father Name Bangla required match greater than 80%, current ${txtObj.fatherNameBangla}%`, "Click To Remove", largeTime);
+                    NotificationManager.info(`Mother Name Bangla required match greater than 80%, current ${txtObj.motherNameBangla}%`, "Click To Remove", largeTime);
+                    return;
+                }
+            } catch (error) {
+                this.props.handleState('confirmFlag', false);
+                console.log(error.response);
+                if (error.response) {
+
+                    let message = error.response.data.message
+                    NotificationManager.error(message, "Click To Remove", largeTime);
+                } else if (error.request) {
+                    // console.log("Error Connecting...", error.request)
+                    NotificationManager.error("Error Connecting...", "Click To Remove", largeTime);
+                } else if (error) {
+                    NotificationManager.error(error.toString(), "Click To Remove", largeTime);
+                }
+            }
+            ///////////////////// Text Matching End /////////////////////////////
 
             if (values.channelName === 'ABS') {
                 let presentObj = {
@@ -632,7 +694,7 @@ export class RegJointPersonalDetails extends Component {
                                 {/* Applicant's Date Of Birth */}
                                 <div className="form-group">
                                     <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Date of Birth</label>
-                                    <input style={{ borderRadius: "50px" }} type="date" value={values.applicantDob} name='applicantDob' onChange={handleChange('applicantDob')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="dd-mm-YYYY" />
+                                    <input style={{ borderRadius: "50px" }} type="date" value={values.applicantDob} name='applicantDob' onChange={handleChange('applicantDob')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="dd-mm-YYYY" readOnly />
                                 </div>
                                 {/* Applicant's Date Of Birth
                         <div className="form-group">

@@ -44,6 +44,13 @@ export class RegJointFaceRPA extends Component {
     //             this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
     //             this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
     //             this.props.handleState('ecImage', dataResp.image ? dataResp.image : "");
+    // Global EC Text start
+    // this.props.handleState('ecApplicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
+    // this.props.handleState('ecApplicantName', dataResp.nameEng ? dataResp.nameEng : "");
+    // this.props.handleState('ecMotherNameBangla', dataResp.motherName ? dataResp.motherName : "");
+    // this.props.handleState('ecFatherNameBangla', dataResp.fatherName ? dataResp.fatherName : "");
+    // Global EC Text end
+
 
     //             // Present Address
     //             let preAddress = dataResp.presentAddress;
@@ -180,6 +187,13 @@ export class RegJointFaceRPA extends Component {
                     this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
                     this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
                     this.props.handleState('ecImage', dataResp.image ? dataResp.image : "");
+                    // Global EC Text start
+                    this.props.handleState('ecApplicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
+                    this.props.handleState('ecApplicantName', dataResp.nameEng ? dataResp.nameEng : "");
+                    this.props.handleState('ecMotherNameBangla', dataResp.motherName ? dataResp.motherName : "");
+                    this.props.handleState('ecFatherNameBangla', dataResp.fatherName ? dataResp.fatherName : "");
+                    // Global EC Text end
+
 
                     // Present Address
                     let preAddress = dataResp.presentAddress;

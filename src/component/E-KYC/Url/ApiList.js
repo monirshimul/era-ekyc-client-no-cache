@@ -1,10 +1,24 @@
 import { hostIp } from './IpAdd';
 
+// RPA
+// export const nidValidationRPA = hostIp + `ai/nid-rpa`;
+export const nidValidationRPA = hostIp + `dummy/nid-rpa`;
+
+// face Verification
+
+// export const faceValidate = hostIp + `ai/face-verification`;
+export const faceValidate = hostIp + `dummy/face-verification`;
+
+// Finger Verification
+
+// export const fingerValidate = hostIp + `integration/fingerprint-verification`;
+export const fingerValidate = hostIp + `dummy/fingerprint-verification`;
+
+
 // OCR
 export const nidOcr = hostIp + `ai/nid-ocr`;
 
-// RPA
-export const nidValidationRPA = hostIp + `ai/nid-rpa`;
+
 
 // Chart Data
 
@@ -37,13 +51,7 @@ export const getProfile = hostIp + `profile/`;
 export const imageUpdate = hostIp + `profile/picture`;
 export const dataUpdate = hostIp + `profile/`;
 
-// face Verification
 
-export const faceValidate = hostIp + `ai/face-verification`;
-
-// Finger Verification
-
-export const fingerValidate = hostIp + `integration/fingerprint-verification`;
 
 
 // Check userId,email, mobile no
@@ -133,3 +141,6 @@ export const reopenAccount = hostIp + `account/reopen`;
 
 // Access Log
 export const accessLog = hostIp + `report/access-log/`;
+
+// Text match
+export const textMatch = hostIp + `ai/text-match`;

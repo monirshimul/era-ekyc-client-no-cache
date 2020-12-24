@@ -13,6 +13,9 @@ import { largeTime } from './../../../Utils/notificationTime';
 export class SimFingerPrint extends Component {
 
 
+  Escape = () => {
+    this.props.nextStep();
+  }
 
 
 
@@ -354,6 +357,12 @@ export class SimFingerPrint extends Component {
         this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
         this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
         this.props.handleState('ecImage', dataResp.photo ? dataResp.photo : "");
+        // Global EC Text start
+        this.props.handleState('ecApplicantNameBangla', dataResp.name ? dataResp.name : "");
+        this.props.handleState('ecApplicantName', dataResp.nameEn ? dataResp.nameEn : "");
+        this.props.handleState('ecMotherNameBangla', dataResp.mother ? dataResp.mother : "");
+        this.props.handleState('ecFatherNameBangla', dataResp.father ? dataResp.father : "");
+        // Global EC Text end
 
         // Present Address
         let preAddress = dataResp.presentAddress;
@@ -435,6 +444,12 @@ export class SimFingerPrint extends Component {
     // console.log("Date of birth", JSON.stringify(values.dob))
     return (
       <div className="container">
+
+
+        <div className="im col-sm-2" onClick={this.Escape}>
+          Escape
+              </div>
+
         <div className="row d-flex justify-content-center">
           <div className="col-sm-6 imTwoWhite p-5">
             <div className="divBg pt-3">
