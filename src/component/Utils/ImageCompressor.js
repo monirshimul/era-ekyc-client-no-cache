@@ -15,8 +15,9 @@ export const ImageCompressor = async (event, threshold = 0.1) => {
         try {
             const compressedFile = await imageCompression(imageFile, options);
             console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
-            let btb = await imageCompression.getDataUrlFromFile(compressedFile)
-            let base64Image = btb.split(',')[1];
+            //
+            let blobTobase = await imageCompression.getDataUrlFromFile(compressedFile)
+            let base64Image = blobTobase.split(',')[1];
             //console.log("Blob to Base", base64Image)
             // this.props.handleState("signature", base64Image);
             // this.props.handleState('signatureType', imageFile.type)
