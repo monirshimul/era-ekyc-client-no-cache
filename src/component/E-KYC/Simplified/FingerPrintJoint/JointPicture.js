@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Sign from '../images/man.svg';
 import Capture from '../Capture/Capture';
 import { NotificationManager } from "react-notifications";
-import { datePickerPrefiilConv} from '../../../Utils/dateConversion';
+import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
+import { ImageCompressor } from '../../../Utils/ImageCompressor';
 
 
 
@@ -38,40 +39,29 @@ export class JointPicture extends Component {
 
 
 
-    fileSelectedHandler = event => {
+    fileSelectedHandler = async (event) => {
         if (event.target.files[0]) {
-            let file = event.target.files[0];
-            //console.log(file.type);
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
-
-            reader.onload = () => {
-                let base64Image = btoa(reader.result);
-                this.props.handleState('faceImage', base64Image);
-            };
-            reader.onerror = () => {
-              //  console.log('there are some problems');
-                alert('File can not be read');
-            };
+            let base = await ImageCompressor(event)
+            this.props.handleState('faceImage', base);
         }
     };
 
     continue = e => {
-        const {values} = this.props;
+        const { values } = this.props;
         e.preventDefault();
 
         if (values.faceImage === "") {
             let picMessage = "Please Provide Photograph";
             NotificationManager.warning(picMessage, "Warning", 5000);
             return;
-          }
+        }
 
 
         this.props.nextStep();
     };
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
         for (let i = 0; i < values.jointArray.length; i++) {
@@ -81,18 +71,18 @@ export class JointPicture extends Component {
                     copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
                     this.props.handleState('jointArray', copyArray);
                 }
-                }else{
-                    if (values.jointArray[i].minorDob !== '') {
-                        let copyArray = Object.assign([], this.props.values.jointArray);
-                        copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
-                        this.props.handleState('jointArray', copyArray);
-                    }
+            } else {
+                if (values.jointArray[i].minorDob !== '') {
+                    let copyArray = Object.assign([], this.props.values.jointArray);
+                    copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
+                    this.props.handleState('jointArray', copyArray);
                 }
-
             }
 
-            
-      
+        }
+
+
+
         this.props.prevStep();
     }
     render() {
@@ -131,7 +121,7 @@ export class JointPicture extends Component {
                             <div class="custom-file">
                                 <input type="file"
                                     onChange={this.fileSelectedHandler}
-                                    onClick={(event)=>event.target.value = null}
+                                    onClick={(event) => event.target.value = null}
 
                                     class="form-control-file" id="input-file" />
                                 <label class="custom-file-label" htmlFor="input-file">Choose Image</label>

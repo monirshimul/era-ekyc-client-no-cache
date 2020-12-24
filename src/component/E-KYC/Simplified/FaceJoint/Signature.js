@@ -4,6 +4,7 @@ import Capture from '../Capture/Capture';
 //import { NotificationManager } from "react-notifications";
 import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
 import { demoSignature } from './../../../Utils/demoSignature';
+import { ImageCompressor } from '../../../Utils/ImageCompressor';
 
 export class Signature extends Component {
 
@@ -78,31 +79,10 @@ export class Signature extends Component {
         this.props.prevStep();
     }
 
-    fileSelectedHandler = event => {
+    fileSelectedHandler = async (event) => {
         if (event.target.files[0]) {
-            let file = event.target.files[0];
-            //console.log(file.type);
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
-
-            reader.onload = () => {
-                // console.log(typeof reader.result);
-                // console.log(btoa(reader.result));
-                let base64Image = btoa(reader.result);
-                // this.setState({
-                //   profilePic: base64Image,
-                //   profilePicType: file.type
-
-                //   //nidImage: URL.createObjectURL(event.target.files[0])
-                // });
-                this.props.handleState('signature', base64Image);
-
-                this.props.handleState('signatureType', file.type)
-            };
-            reader.onerror = () => {
-                //  console.log('there are some problems');
-                alert('File can not be read');
-            };
+            let base = await ImageCompressor(event)
+            this.props.handleState('signature', base);
         }
     };
 

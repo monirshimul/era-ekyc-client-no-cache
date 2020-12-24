@@ -9,6 +9,7 @@ import Nominee from '../FaceJoint/Nominee';
 import JointFingerConfirm from './JointFingerConfirm';
 import Success from '../FaceJoint/Success';
 import { NotificationManager } from 'react-notifications';
+import { ImageCompressor } from '../../../Utils/ImageCompressor';
 
 
 export class FingerPrintMain extends Component {
@@ -224,65 +225,26 @@ export class FingerPrintMain extends Component {
     }
 
 
-    handleInputChange = (index, event) => {
+    handleInputChange = async (index, event) => {
         //console.log(event.target);
         let copyArray = Object.assign([], this.state.jointArray);
         copyArray[index][event.target.name] = event.target.value;
         if (event.target.name === "photograph") {
             if (event.target.files[0]) {
-                let file = event.target.files[0];
-                //console.log(file.type);
-                var reader = new FileReader();
-                reader.readAsBinaryString(file);
-
-                reader.onload = () => {
-
-                    let base64Image = btoa(reader.result);
-
-                    copyArray[index].photograph = base64Image;
-                };
-                reader.onerror = () => {
-                    // console.log('there are some problems');
-                    alert('File can not be read');
-                };
+                let base = await ImageCompressor(event)
+                copyArray[index].photograph = base;
             }
         }
         else if (event.target.name === "minorNomineePhoto") {
             if (event.target.files[0]) {
-                let file = event.target.files[0];
-                //console.log(file.type);
-                var reader = new FileReader();
-                reader.readAsBinaryString(file);
-
-                reader.onload = () => {
-
-                    let base64Image = btoa(reader.result);
-
-                    copyArray[index].minorNomineePhoto = base64Image;
-                };
-                reader.onerror = () => {
-                    //  console.log('there are some problems');
-                    alert('File can not be read');
-                };
+                let base = await ImageCompressor(event)
+                copyArray[index].minorNomineePhoto = base;
             }
         }
         else if (event.target.name === "minorPhotoGuardian") {
             if (event.target.files[0]) {
-                let file = event.target.files[0];
-                //console.log(file.type);
-                var reader = new FileReader();
-                reader.readAsBinaryString(file);
-
-                reader.onload = () => {
-
-                    let base64Image = btoa(reader.result);
-
-                    copyArray[index].minorPhotoGuardian = base64Image;
-                };
-                reader.onerror = () => {
-                    //  console.log('there are some problems');
-                    alert('File can not be read');
-                };
+                let base = await ImageCompressor(event)
+                copyArray[index].minorPhotoGuardian = base;
             }
         }
 

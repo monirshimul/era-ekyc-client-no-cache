@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import Sign from '../images/sign.svg';
 import Capture from '../Capture/Capture';
-//import { NotificationManager } from "react-notifications";
 import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
 import { demoSignature } from './../../../Utils/demoSignature';
 import { ImageCompressor } from '../../../Utils/ImageCompressor'
-import { NotificationManager } from "react-notifications";
-import { largeTime } from '../../../Utils/notificationTime';
+
 
 export class SimSignature extends Component {
 

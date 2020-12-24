@@ -11,6 +11,7 @@ import { datePickerPrefiilConv, DateFul } from '../../../Utils/dateConversion';
 import { largeTime } from '../../../Utils/notificationTime';
 import Capture from '../../Simplified/Capture/Capture';
 import axios from 'axios';
+import { ImageCompressor } from '../../../Utils/ImageCompressor'
 
 export class RegNidImages extends Component {
   state = {
@@ -71,55 +72,22 @@ export class RegNidImages extends Component {
   }
 
 
-  fileSelectedHandler = (event) => {
+  fileSelectedHandler = async (event) => {
     if (event.target.files[0]) {
-      let file = event.target.files[0];
-      this.props.handleState("NidFrontOcr", event.target.files[0]);
-      //console.log(file.type);
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
 
-      reader.onload = () => {
-        // console.log(typeof reader.result);
-        // console.log(btoa(reader.result));
-        let base64Image = btoa(reader.result);
-        // this.setState({
-        //   profilePic: base64Image,
-        //   profilePicType: file.type
+      let base = await ImageCompressor(event)
+      this.props.handleState("NidFront", base);
 
-        //   //nidImage: URL.createObjectURL(event.target.files[0])
-        // });
-        this.props.handleState("NidFront", base64Image);
 
-        this.props.handleState("NidFrontType", file.type);
-      };
-      reader.onerror = () => {
-        // console.log("there are some problems");
-        alert("File can not be read");
-      };
     }
   };
 
   //Nid Back Image upload
-  fileSelectedHandlerTwo = (event) => {
+  fileSelectedHandlerTwo = async (event) => {
     if (event.target.files[0]) {
-      let file = event.target.files[0];
-      this.props.handleState("NidBackOcr", event.target.files[0]);
-      // console.log(file.type);
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
+      let base = await ImageCompressor(event)
+      this.props.handleState("NidBack", base);
 
-      reader.onload = () => {
-        let base64Image = btoa(reader.result);
-
-        this.props.handleState("NidBack", base64Image);
-
-        this.props.handleState("NidBackType", file.type);
-      };
-      reader.onerror = () => {
-        // console.log("there are some problems");
-        alert("File can not be read");
-      };
     }
   };
 
@@ -264,110 +232,110 @@ export class RegNidImages extends Component {
     let { values } = this.props;
     return (
       <div className="container">
-      {/* 
+        {/* 
         <div className="im col-sm-2" onClick={this.Escape}>
               Escape
               </div>*/}
-      <div className="row d-flex justify-content-center">
+        <div className="row d-flex justify-content-center">
 
-      <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
-        <div className="card-header up">
-          <h3>NID Front</h3>
-        </div>
-        <div className="card-body d-flex justify-content-center">
-
-          <img
-            src={values.NidFront ? (values.flag + values.NidFront) : NidThree}
-            style={{
-              margin: "auto",
-              cursor: "pointer",
-              width: "300px",
-              height: "200px",
-            }}
-            defaultValue={values.NidFront}
-            className="img-fluid img-thumbnail im"
-            id="FrontNidPic"
-            alt=""
-          />
-        </div>
-        <div
-          className="card-footer"
-          style={{ background: "#fff" }}
-        >
-
-          <div className="input-group">
-            <div className="custom-file">
-              <input type="file"
-                onChange={this.fileSelectedHandler}
-                onClick={(event)=>event.target.value = null}
-
-                className="form-control-file" id="input-file" />
-              <label className="custom-file-label" htmlFor="input-file">Choose Image</label>
+          <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
+            <div className="card-header up">
+              <h3>NID Front</h3>
             </div>
+            <div className="card-body d-flex justify-content-center">
+
+              <img
+                src={values.NidFront ? (values.flag + values.NidFront) : NidThree}
+                style={{
+                  margin: "auto",
+                  cursor: "pointer",
+                  width: "300px",
+                  height: "200px",
+                }}
+                defaultValue={values.NidFront}
+                className="img-fluid img-thumbnail im"
+                id="FrontNidPic"
+                alt=""
+              />
+            </div>
+            <div
+              className="card-footer"
+              style={{ background: "#fff" }}
+            >
+
+              <div className="input-group">
+                <div className="custom-file">
+                  <input type="file"
+                    onChange={this.fileSelectedHandler}
+                    onClick={(event) => event.target.value = null}
+
+                    className="form-control-file" id="input-file" />
+                  <label className="custom-file-label" htmlFor="input-file">Choose Image</label>
+                </div>
+
+              </div>
+
+              {/* <p className="text-center mt-3"style={{color:"green"}}>Or</p> */}
+
+              <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOnFront}>
+                <i class="fas fa-camera"></i> Capture Image
+            </div>
+
+
+
+            </div>
+
+
 
           </div>
 
-          {/* <p className="text-center mt-3"style={{color:"green"}}>Or</p> */}
+          <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
+            <div className="card-header up">
+              <h3>NID Back</h3>
+            </div>
+            <div className="card-body d-flex justify-content-center">
+              <img
+                src={values.NidBack ? (values.flag + values.NidBack) : NidTwo}
+                style={{
+                  margin: "auto",
+                  cursor: "pointer",
+                  width: "300px",
+                  height: "200px",
+                }}
+                defaultValue={values.NidBack}
+                className="img-fluid img-thumbnail im"
+                id="nidBack"
+                alt=""
+              />
+            </div>
+            <div
+              className="card-footer"
+              style={{ background: "#fff" }}
+            >
 
-          <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOnFront}>
-            <i class="fas fa-camera"></i> Capture Image
+              <div className="input-group">
+                <div className="custom-file">
+                  <input type="file"
+                    onChange={this.fileSelectedHandlerTwo}
+                    onClick={(event) => event.target.value = null}
+
+                    className="form-control-file" id="input-file-two" />
+                  <label className="custom-file-label" htmlFor="input-file-two">Choose Image</label>
+                </div>
+              </div>
+              {/* <p className="text-center mt-3"style={{color:"green"}}>Or</p> */}
+
+              <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOnBack}>
+                <i class="fas fa-camera"></i> Capture Image
             </div>
 
 
-
-        </div>
-
-
-
-      </div>
-
-      <div className="card col-sm-5" style={{ paddingTop: "25px" }}>
-        <div className="card-header up">
-          <h3>NID Back</h3>
-        </div>
-        <div className="card-body d-flex justify-content-center">
-          <img
-            src={values.NidBack ? (values.flag + values.NidBack) : NidTwo}
-            style={{
-              margin: "auto",
-              cursor: "pointer",
-              width: "300px",
-              height: "200px",
-            }}
-            defaultValue={values.NidBack}
-            className="img-fluid img-thumbnail im"
-            id="nidBack"
-            alt=""
-          />
-        </div>
-        <div
-          className="card-footer"
-          style={{ background: "#fff" }}
-        >
-
-          <div className="input-group">
-            <div className="custom-file">
-              <input type="file"
-                onChange={this.fileSelectedHandlerTwo}
-                onClick={(event)=>event.target.value = null}
-
-                className="form-control-file" id="input-file-two" />
-              <label className="custom-file-label" htmlFor="input-file-two">Choose Image</label>
             </div>
           </div>
-          {/* <p className="text-center mt-3"style={{color:"green"}}>Or</p> */}
-
-          <div className="im mt-3" style={{ color: "green" }} data-toggle="modal" data-target="#cameraModal" onClick={this.captureOnBack}>
-            <i class="fas fa-camera"></i> Capture Image
-            </div>
-
 
         </div>
-      </div>
 
-    </div>
 
-        
         <div class="modal fade " id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
           <div class="modal-dialog mw-100 w-75" role="document">
             <div class="modal-content">
@@ -386,7 +354,7 @@ export class RegNidImages extends Component {
 
 
 
-              {/* Nid Ocr Selection Part */}
+        {/* Nid Ocr Selection Part */}
         <div className="row d-flex justify-content-center my-5">
 
 
@@ -431,7 +399,7 @@ export class RegNidImages extends Component {
 
         </div>
 
-        
+
 
       </div>
     )

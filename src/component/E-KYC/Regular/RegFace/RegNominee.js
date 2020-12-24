@@ -9,7 +9,8 @@ import child from '../../Simplified/images/age-limit-two.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { showDate, convert } from '../../../Utils/dateConversion';
-import {largeTime} from '../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
+
 
 
 
@@ -28,37 +29,37 @@ export class RegNominee extends Component {
 
     handleAdultNomineeDateChange = (index, event, d) => {
         event.preventDefault();
-      //  console.log("index", index);
+        //  console.log("index", index);
         // console.log("event", event.target.value);
-       // console.log("d", d);
+        // console.log("d", d);
         let copyArray = Object.assign([], this.props.values.jointArray);
         copyArray[index].dob = d;
-     //   console.log("copyArray", copyArray);
+        //   console.log("copyArray", copyArray);
         this.props.handleState("jointArray", copyArray);
 
     }
 
     handleMinorNomineeDateChange = (index, event, d) => {
         event.preventDefault();
-      //  console.log("index", index);
+        //  console.log("index", index);
         // console.log("event", event.target.value);
-      //  console.log("d", d);
+        //  console.log("d", d);
         let copyArray = Object.assign([], this.props.values.jointArray);
         copyArray[index].minorDob = d;
-     //   console.log("copyArray", copyArray);
+        //   console.log("copyArray", copyArray);
         this.props.handleState("jointArray", copyArray);
     }
 
-    onNomineeRelationChange = (index, event) =>{
+    onNomineeRelationChange = (index, event) => {
         let relation = event.target.value;
         console.log("final value", event.target.options[event.target.selectedIndex].text);
         let copyArray = Object.assign([], this.props.values.jointArray);
         copyArray[index][event.target.name] = relation;
-        if(event.target.name === "relation"){
+        if (event.target.name === "relation") {
             copyArray[index]["showAdultRelation"] = event.target.options[event.target.selectedIndex].text;
-        }else if(event.target.name === "minorRelationWAccH"){
+        } else if (event.target.name === "minorRelationWAccH") {
             copyArray[index]["showMinorRelation"] = event.target.options[event.target.selectedIndex].text;
-        }else if(event.target.name === "guardianRelationWMinor"){
+        } else if (event.target.name === "guardianRelationWMinor") {
             copyArray[index]["showMinorRelationWithGuardian"] = event.target.options[event.target.selectedIndex].text;
         }
         this.props.handleState("jointArray", copyArray);
@@ -212,7 +213,7 @@ export class RegNominee extends Component {
         if (values.jointArray.length === 0) {
             NotificationManager.warning("No Nominee Added", "Click to Remove", largeTime);
             return;
-        }else if (checkPercentage > 100) {
+        } else if (checkPercentage > 100) {
             NotificationManager.warning("Total Percentage is greater than 100", "Click to Remove", largeTime);
             return;
         } else if (checkPercentage < 100) {
@@ -260,10 +261,10 @@ export class RegNominee extends Component {
 
 
     render() {
-        const { values,addNomineeOne, addNomineeTwo,onChange } = this.props;
+        const { values, addNomineeOne, addNomineeTwo, onChange } = this.props;
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
-            {/* 
+                {/* 
                 <div className="im col-sm-2" onClick={this.Escape}>
               Escape
               </div>*/}
@@ -296,29 +297,29 @@ export class RegNominee extends Component {
                                                             />
                                                         </div>
 
-                                                      {/* Nominee Date of Birth */}
-                                                      <div className='form-group d-flex justify-content-between'>
-                                                      <div className=''>
-                                                          <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
-                                                      </div>
-                                                      <div className=''>
+                                                        {/* Nominee Date of Birth */}
+                                                        <div className='form-group d-flex justify-content-between'>
+                                                            <div className=''>
+                                                                <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
+                                                            </div>
+                                                            <div className=''>
 
-                                                          <DatePicker
-                                                              placeholderText='DD/MM/YYYY'
-                                                              selected={arr.dob}
-                                                              dateFormat='dd/MM/yyyy'
-                                                              onChange={(d, event) => {
-                                                                  this.handleAdultNomineeDateChange(index, event, d)
+                                                                <DatePicker
+                                                                    placeholderText='DD/MM/YYYY'
+                                                                    selected={arr.dob}
+                                                                    dateFormat='dd/MM/yyyy'
+                                                                    onChange={(d, event) => {
+                                                                        this.handleAdultNomineeDateChange(index, event, d)
 
-                                                              }}
-                                                              isClearable
-                                                              showYearDropdown
-                                                              showMonthDropdown
-                                                              scrollableMonthYearDropdown
+                                                                    }}
+                                                                    isClearable
+                                                                    showYearDropdown
+                                                                    showMonthDropdown
+                                                                    scrollableMonthYearDropdown
 
-                                                          />
-                                                      </div>
-                                                  </div>
+                                                                />
+                                                            </div>
+                                                        </div>
 
                                                         {/* Relation With Account holder */}
                                                         <div className='form-group'>
@@ -326,159 +327,159 @@ export class RegNominee extends Component {
                                                             <select
                                                                 className='custom-select'
                                                                 value={arr.relation}
-                                                                onChange={(event)=>this.onNomineeRelationChange(index,event)}
+                                                                onChange={(event) => this.onNomineeRelationChange(index, event)}
                                                                 name="relation"
                                                             >
-                                                           
+
                                                                 <option value='' disabled>--Select--</option>
-                                                                  
+
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"FAT",
-                                                                    CBS:"Fa",
-                                                                    ICBS:"Father"
+                                                                    ABS: "FAT",
+                                                                    CBS: "Fa",
+                                                                    ICBS: "Father"
                                                                 })}>Father</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"MOT",
-                                                                    CBS:"MA",
-                                                                    ICBS:"Mother"
+                                                                    ABS: "MOT",
+                                                                    CBS: "MA",
+                                                                    ICBS: "Mother"
                                                                 })}>Mother</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"BRO",
-                                                                    CBS:"bro",
-                                                                    ICBS:"brother"
+                                                                    ABS: "BRO",
+                                                                    CBS: "bro",
+                                                                    ICBS: "brother"
                                                                 })}>Brother</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"SIS",
-                                                                    CBS:"sis",
-                                                                    ICBS:"sister"
+                                                                    ABS: "SIS",
+                                                                    CBS: "sis",
+                                                                    ICBS: "sister"
                                                                 })}>Sister</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"HUS",
-                                                                    CBS:"hus",
-                                                                    ICBS:"husband"
+                                                                    ABS: "HUS",
+                                                                    CBS: "hus",
+                                                                    ICBS: "husband"
                                                                 })}>Husband</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"WIF",
-                                                                    CBS:"wif",
-                                                                    ICBS:"wife"
+                                                                    ABS: "WIF",
+                                                                    CBS: "wif",
+                                                                    ICBS: "wife"
                                                                 })}>Wife</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"SON",
-                                                                    CBS:"son",
-                                                                    ICBS:"son"
+                                                                    ABS: "SON",
+                                                                    CBS: "son",
+                                                                    ICBS: "son"
                                                                 })}>Son</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"DAU",
-                                                                    CBS:"dau",
-                                                                    ICBS:"daughter"
+                                                                    ABS: "DAU",
+                                                                    CBS: "dau",
+                                                                    ICBS: "daughter"
                                                                 })}>Daughter</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"FIL",
-                                                                    CBS:"fil",
-                                                                    ICBS:"father-law"
+                                                                    ABS: "FIL",
+                                                                    CBS: "fil",
+                                                                    ICBS: "father-law"
                                                                 })}>Father in Law</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"MIL",
-                                                                    CBS:"mil",
-                                                                    ICBS:"mother-law"
+                                                                    ABS: "MIL",
+                                                                    CBS: "mil",
+                                                                    ICBS: "mother-law"
                                                                 })}>Mother in Law</option>
 
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"NEP",
-                                                                    CBS:"nep",
-                                                                    ICBS:"nephew"
+                                                                    ABS: "NEP",
+                                                                    CBS: "nep",
+                                                                    ICBS: "nephew"
                                                                 })}>Nephew</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"NIC",
-                                                                    CBS:"nic",
-                                                                    ICBS:"niece"
+                                                                    ABS: "NIC",
+                                                                    CBS: "nic",
+                                                                    ICBS: "niece"
                                                                 })}>Niece</option>
-                                                  
+
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"BIL",
-                                                                    CBS:"bil",
-                                                                    ICBS:"brother-law"
+                                                                    ABS: "BIL",
+                                                                    CBS: "bil",
+                                                                    ICBS: "brother-law"
                                                                 })}>Brother in Law</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"SIL",
-                                                                    CBS:"sil",
-                                                                    ICBS:"sister-law"
+                                                                    ABS: "SIL",
+                                                                    CBS: "sil",
+                                                                    ICBS: "sister-law"
                                                                 })}>Sister in Law</option>
 
-                                                                
+
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"GFA",
-                                                                    CBS:"gfa",
-                                                                    ICBS:"grand-FA"
+                                                                    ABS: "GFA",
+                                                                    CBS: "gfa",
+                                                                    ICBS: "grand-FA"
                                                                 })}>Grand Father</option>
 
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"GMO",
-                                                                    CBS:"gmo",
-                                                                    ICBS:"grand-MA"
+                                                                    ABS: "GMO",
+                                                                    CBS: "gmo",
+                                                                    ICBS: "grand-MA"
                                                                 })}>Grand Mother</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"COU",
-                                                                    CBS:"cou",
-                                                                    ICBS:"cousin"
+                                                                    ABS: "COU",
+                                                                    CBS: "cou",
+                                                                    ICBS: "cousin"
                                                                 })}>Cousin</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"UNC",
-                                                                    CBS:"unc",
-                                                                    ICBS:"uncle"
+                                                                    ABS: "UNC",
+                                                                    CBS: "unc",
+                                                                    ICBS: "uncle"
                                                                 })}>Uncle</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"DIL",
-                                                                    CBS:"dil",
-                                                                    ICBS:"daughter-law"
+                                                                    ABS: "DIL",
+                                                                    CBS: "dil",
+                                                                    ICBS: "daughter-law"
                                                                 })}>Daughter In Law</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"SOL",
-                                                                    CBS:"sol",
-                                                                    ICBS:"son-law"
+                                                                    ABS: "SOL",
+                                                                    CBS: "sol",
+                                                                    ICBS: "son-law"
                                                                 })}>Son In Law</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"GSN",
-                                                                    CBS:"gsn",
-                                                                    ICBS:"Gson"
+                                                                    ABS: "GSN",
+                                                                    CBS: "gsn",
+                                                                    ICBS: "Gson"
                                                                 })}>Grand Son</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"GDT",
-                                                                    CBS:"gdt",
-                                                                    ICBS:"Gdau"
+                                                                    ABS: "GDT",
+                                                                    CBS: "gdt",
+                                                                    ICBS: "Gdau"
                                                                 })}>Grand Daughter</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"AUN",
-                                                                    CBS:"aun",
-                                                                    ICBS:"aunt"
+                                                                    ABS: "AUN",
+                                                                    CBS: "aun",
+                                                                    ICBS: "aunt"
                                                                 })}>Aunt</option>
 
                                                                 <option value={JSON.stringify({
-                                                                    ABS:"OTH",
-                                                                    CBS:"oth",
-                                                                    ICBS:"other"
+                                                                    ABS: "OTH",
+                                                                    CBS: "oth",
+                                                                    ICBS: "other"
                                                                 })}>Others</option>
-                                                                
+
                                                             </select>
                                                         </div>
 
@@ -532,193 +533,193 @@ export class RegNominee extends Component {
                                                         </div>
 
 
-                                                           {/* Minor Nominee Date of Birth  */}
-                                                           <div className='form-group d-flex justify-content-between'>
-                                                           <div className=''>
-                                                               <label htmlFor='dob'>Minor Nominee Date of Birth (dd/mm/YYYY) : </label>
-                                                           </div>
-                                                           <div className=''>
+                                                        {/* Minor Nominee Date of Birth  */}
+                                                        <div className='form-group d-flex justify-content-between'>
+                                                            <div className=''>
+                                                                <label htmlFor='dob'>Minor Nominee Date of Birth (dd/mm/YYYY) : </label>
+                                                            </div>
+                                                            <div className=''>
 
-                                                               <DatePicker
-                                                                   placeholderText='DD/MM/YYYY'
-                                                                   selected={arr.minorDob}
-                                                                   dateFormat='dd/MM/yyyy'
-                                                                   onChange={(d, event) => {
-                                                                       this.handleMinorNomineeDateChange(index, event, d)
+                                                                <DatePicker
+                                                                    placeholderText='DD/MM/YYYY'
+                                                                    selected={arr.minorDob}
+                                                                    dateFormat='dd/MM/yyyy'
+                                                                    onChange={(d, event) => {
+                                                                        this.handleMinorNomineeDateChange(index, event, d)
 
-                                                                   }}
-                                                                   isClearable
-                                                                   showYearDropdown
-                                                                   showMonthDropdown
-                                                                   scrollableMonthYearDropdown
+                                                                    }}
+                                                                    isClearable
+                                                                    showYearDropdown
+                                                                    showMonthDropdown
+                                                                    scrollableMonthYearDropdown
 
-                                                               />
-                                                           </div>
-                                                       </div>
+                                                                />
+                                                            </div>
+                                                        </div>
 
 
                                                         {/* Minor Nominee Relation With Account Holder  */}
                                                         <div className='form-group'>
-                                                        <label htmlFor="">Relation With Account Holder</label>
-                                                        <select
-                                                            className='custom-select'
-                                                            value={arr.minorRelationWAccH}
-                                                            onChange={(event)=>this.onNomineeRelationChange(index,event)}
-                                                            name="minorRelationWAccH"
-                                                        >
-                                                        <option value='' disabled>--Select--</option>
-                                                                  
-                                                        <option value={JSON.stringify({
-                                                            ABS:"FAT",
-                                                            CBS:"Fa",
-                                                            ICBS:"Father"
-                                                        })}>Father</option>
+                                                            <label htmlFor="">Relation With Account Holder</label>
+                                                            <select
+                                                                className='custom-select'
+                                                                value={arr.minorRelationWAccH}
+                                                                onChange={(event) => this.onNomineeRelationChange(index, event)}
+                                                                name="minorRelationWAccH"
+                                                            >
+                                                                <option value='' disabled>--Select--</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"MOT",
-                                                            CBS:"MA",
-                                                            ICBS:"Mother"
-                                                        })}>Mother</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "FAT",
+                                                                    CBS: "Fa",
+                                                                    ICBS: "Father"
+                                                                })}>Father</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"BRO",
-                                                            CBS:"bro",
-                                                            ICBS:"brother"
-                                                        })}>Brother</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "MOT",
+                                                                    CBS: "MA",
+                                                                    ICBS: "Mother"
+                                                                })}>Mother</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"SIS",
-                                                            CBS:"sis",
-                                                            ICBS:"sister"
-                                                        })}>Sister</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "BRO",
+                                                                    CBS: "bro",
+                                                                    ICBS: "brother"
+                                                                })}>Brother</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"HUS",
-                                                            CBS:"hus",
-                                                            ICBS:"husband"
-                                                        })}>Husband</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "SIS",
+                                                                    CBS: "sis",
+                                                                    ICBS: "sister"
+                                                                })}>Sister</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"WIF",
-                                                            CBS:"wif",
-                                                            ICBS:"wife"
-                                                        })}>Wife</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "HUS",
+                                                                    CBS: "hus",
+                                                                    ICBS: "husband"
+                                                                })}>Husband</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"SON",
-                                                            CBS:"son",
-                                                            ICBS:"son"
-                                                        })}>Son</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "WIF",
+                                                                    CBS: "wif",
+                                                                    ICBS: "wife"
+                                                                })}>Wife</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"DAU",
-                                                            CBS:"dau",
-                                                            ICBS:"daughter"
-                                                        })}>Daughter</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "SON",
+                                                                    CBS: "son",
+                                                                    ICBS: "son"
+                                                                })}>Son</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"FIL",
-                                                            CBS:"fil",
-                                                            ICBS:"father-law"
-                                                        })}>Father in Law</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "DAU",
+                                                                    CBS: "dau",
+                                                                    ICBS: "daughter"
+                                                                })}>Daughter</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"MIL",
-                                                            CBS:"mil",
-                                                            ICBS:"mother-law"
-                                                        })}>Mother in Law</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "FIL",
+                                                                    CBS: "fil",
+                                                                    ICBS: "father-law"
+                                                                })}>Father in Law</option>
 
-
-                                                        <option value={JSON.stringify({
-                                                            ABS:"NEP",
-                                                            CBS:"nep",
-                                                            ICBS:"nephew"
-                                                        })}>Nephew</option>
-
-                                                        <option value={JSON.stringify({
-                                                            ABS:"NIC",
-                                                            CBS:"nic",
-                                                            ICBS:"niece"
-                                                        })}>Niece</option>
-
-                                                        
-                                                        <option value={JSON.stringify({
-                                                            ABS:"BIL",
-                                                            CBS:"bil",
-                                                            ICBS:"brother-law"
-                                                        })}>Brother in Law</option>
-
-                                                        <option value={JSON.stringify({
-                                                            ABS:"SIL",
-                                                            CBS:"sil",
-                                                            ICBS:"sister-law"
-                                                        })}>Sister in Law</option>
-
-                                                        
-                                                        <option value={JSON.stringify({
-                                                            ABS:"GFA",
-                                                            CBS:"gfa",
-                                                            ICBS:"grand-FA"
-                                                        })}>Grand Father</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "MIL",
+                                                                    CBS: "mil",
+                                                                    ICBS: "mother-law"
+                                                                })}>Mother in Law</option>
 
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"GMO",
-                                                            CBS:"gmo",
-                                                            ICBS:"grand-MA"
-                                                        })}>Grand Mother</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "NEP",
+                                                                    CBS: "nep",
+                                                                    ICBS: "nephew"
+                                                                })}>Nephew</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"COU",
-                                                            CBS:"cou",
-                                                            ICBS:"cousin"
-                                                        })}>Cousin</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "NIC",
+                                                                    CBS: "nic",
+                                                                    ICBS: "niece"
+                                                                })}>Niece</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"UNC",
-                                                            CBS:"unc",
-                                                            ICBS:"uncle"
-                                                        })}>Uncle</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"DIL",
-                                                            CBS:"dil",
-                                                            ICBS:"daughter-law"
-                                                        })}>Daughter In Law</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "BIL",
+                                                                    CBS: "bil",
+                                                                    ICBS: "brother-law"
+                                                                })}>Brother in Law</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"SOL",
-                                                            CBS:"sol",
-                                                            ICBS:"son-law"
-                                                        })}>Son In Law</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "SIL",
+                                                                    CBS: "sil",
+                                                                    ICBS: "sister-law"
+                                                                })}>Sister in Law</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"GSN",
-                                                            CBS:"gsn",
-                                                            ICBS:"Gson"
-                                                        })}>Grand Son</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"GDT",
-                                                            CBS:"gdt",
-                                                            ICBS:"Gdau"
-                                                        })}>Grand Daughter</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "GFA",
+                                                                    CBS: "gfa",
+                                                                    ICBS: "grand-FA"
+                                                                })}>Grand Father</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"AUN",
-                                                            CBS:"aun",
-                                                            ICBS:"aunt"
-                                                        })}>Aunt</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"OTH",
-                                                            CBS:"oth",
-                                                            ICBS:"other"
-                                                        })}>Others</option>
-                                                        
-                   
-                                                        </select>
-                                                    </div>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "GMO",
+                                                                    CBS: "gmo",
+                                                                    ICBS: "grand-MA"
+                                                                })}>Grand Mother</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "COU",
+                                                                    CBS: "cou",
+                                                                    ICBS: "cousin"
+                                                                })}>Cousin</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "UNC",
+                                                                    CBS: "unc",
+                                                                    ICBS: "uncle"
+                                                                })}>Uncle</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "DIL",
+                                                                    CBS: "dil",
+                                                                    ICBS: "daughter-law"
+                                                                })}>Daughter In Law</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "SOL",
+                                                                    CBS: "sol",
+                                                                    ICBS: "son-law"
+                                                                })}>Son In Law</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "GSN",
+                                                                    CBS: "gsn",
+                                                                    ICBS: "Gson"
+                                                                })}>Grand Son</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "GDT",
+                                                                    CBS: "gdt",
+                                                                    ICBS: "Gdau"
+                                                                })}>Grand Daughter</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "AUN",
+                                                                    CBS: "aun",
+                                                                    ICBS: "aunt"
+                                                                })}>Aunt</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "OTH",
+                                                                    CBS: "oth",
+                                                                    ICBS: "other"
+                                                                })}>Others</option>
+
+
+                                                            </select>
+                                                        </div>
 
 
 
@@ -790,166 +791,166 @@ export class RegNominee extends Component {
 
                                                         {/* Guardian relation With Minor Nominee  */}
                                                         <div className='form-group'>
-                                                        <label htmlFor="">Relation With Minor Nominee</label>
-                                                        <select
-                                                            className='custom-select'
-                                                            value={arr.guardianRelationWMinor}
-                                                            onChange={(event)=>this.onNomineeRelationChange(index,event)}
-                                                            name="guardianRelationWMinor"
-                                                        >
-                                                        <option value='' disabled>--Select--</option>
-                                                                  
-                                                        <option value={JSON.stringify({
-                                                            ABS:"FAT",
-                                                            CBS:"Fa",
-                                                            ICBS:"Father"
-                                                        })}>Father</option>
+                                                            <label htmlFor="">Relation With Minor Nominee</label>
+                                                            <select
+                                                                className='custom-select'
+                                                                value={arr.guardianRelationWMinor}
+                                                                onChange={(event) => this.onNomineeRelationChange(index, event)}
+                                                                name="guardianRelationWMinor"
+                                                            >
+                                                                <option value='' disabled>--Select--</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"MOT",
-                                                            CBS:"MA",
-                                                            ICBS:"Mother"
-                                                        })}>Mother</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "FAT",
+                                                                    CBS: "Fa",
+                                                                    ICBS: "Father"
+                                                                })}>Father</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"BRO",
-                                                            CBS:"bro",
-                                                            ICBS:"brother"
-                                                        })}>Brother</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "MOT",
+                                                                    CBS: "MA",
+                                                                    ICBS: "Mother"
+                                                                })}>Mother</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"SIS",
-                                                            CBS:"sis",
-                                                            ICBS:"sister"
-                                                        })}>Sister</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "BRO",
+                                                                    CBS: "bro",
+                                                                    ICBS: "brother"
+                                                                })}>Brother</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"HUS",
-                                                            CBS:"hus",
-                                                            ICBS:"husband"
-                                                        })}>Husband</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "SIS",
+                                                                    CBS: "sis",
+                                                                    ICBS: "sister"
+                                                                })}>Sister</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"WIF",
-                                                            CBS:"wif",
-                                                            ICBS:"wife"
-                                                        })}>Wife</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "HUS",
+                                                                    CBS: "hus",
+                                                                    ICBS: "husband"
+                                                                })}>Husband</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"SON",
-                                                            CBS:"son",
-                                                            ICBS:"son"
-                                                        })}>Son</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "WIF",
+                                                                    CBS: "wif",
+                                                                    ICBS: "wife"
+                                                                })}>Wife</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"DAU",
-                                                            CBS:"dau",
-                                                            ICBS:"daughter"
-                                                        })}>Daughter</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "SON",
+                                                                    CBS: "son",
+                                                                    ICBS: "son"
+                                                                })}>Son</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"FIL",
-                                                            CBS:"fil",
-                                                            ICBS:"father-law"
-                                                        })}>Father in Law</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "DAU",
+                                                                    CBS: "dau",
+                                                                    ICBS: "daughter"
+                                                                })}>Daughter</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"MIL",
-                                                            CBS:"mil",
-                                                            ICBS:"mother-law"
-                                                        })}>Mother in Law</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "FIL",
+                                                                    CBS: "fil",
+                                                                    ICBS: "father-law"
+                                                                })}>Father in Law</option>
 
-
-                                                        <option value={JSON.stringify({
-                                                            ABS:"NEP",
-                                                            CBS:"nep",
-                                                            ICBS:"nephew"
-                                                        })}>Nephew</option>
-
-                                                        <option value={JSON.stringify({
-                                                            ABS:"NIC",
-                                                            CBS:"nic",
-                                                            ICBS:"niece"
-                                                        })}>Niece</option>
-
-                                                        
-                                                        <option value={JSON.stringify({
-                                                            ABS:"BIL",
-                                                            CBS:"bil",
-                                                            ICBS:"brother-law"
-                                                        })}>Brother in Law</option>
-
-                                                        <option value={JSON.stringify({
-                                                            ABS:"SIL",
-                                                            CBS:"sil",
-                                                            ICBS:"sister-law"
-                                                        })}>Sister in Law</option>
-
-                                                        
-                                                        <option value={JSON.stringify({
-                                                            ABS:"GFA",
-                                                            CBS:"gfa",
-                                                            ICBS:"grand-FA"
-                                                        })}>Grand Father</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "MIL",
+                                                                    CBS: "mil",
+                                                                    ICBS: "mother-law"
+                                                                })}>Mother in Law</option>
 
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"GMO",
-                                                            CBS:"gmo",
-                                                            ICBS:"grand-MA"
-                                                        })}>Grand Mother</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "NEP",
+                                                                    CBS: "nep",
+                                                                    ICBS: "nephew"
+                                                                })}>Nephew</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"COU",
-                                                            CBS:"cou",
-                                                            ICBS:"cousin"
-                                                        })}>Cousin</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "NIC",
+                                                                    CBS: "nic",
+                                                                    ICBS: "niece"
+                                                                })}>Niece</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"UNC",
-                                                            CBS:"unc",
-                                                            ICBS:"uncle"
-                                                        })}>Uncle</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"DIL",
-                                                            CBS:"dil",
-                                                            ICBS:"daughter-law"
-                                                        })}>Daughter In Law</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "BIL",
+                                                                    CBS: "bil",
+                                                                    ICBS: "brother-law"
+                                                                })}>Brother in Law</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"SOL",
-                                                            CBS:"sol",
-                                                            ICBS:"son-law"
-                                                        })}>Son In Law</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "SIL",
+                                                                    CBS: "sil",
+                                                                    ICBS: "sister-law"
+                                                                })}>Sister in Law</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"GSN",
-                                                            CBS:"gsn",
-                                                            ICBS:"Gson"
-                                                        })}>Grand Son</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"GDT",
-                                                            CBS:"gdt",
-                                                            ICBS:"Gdau"
-                                                        })}>Grand Daughter</option>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "GFA",
+                                                                    CBS: "gfa",
+                                                                    ICBS: "grand-FA"
+                                                                })}>Grand Father</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"AUN",
-                                                            CBS:"aun",
-                                                            ICBS:"aunt"
-                                                        })}>Aunt</option>
 
-                                                        <option value={JSON.stringify({
-                                                            ABS:"OTH",
-                                                            CBS:"oth",
-                                                            ICBS:"other"
-                                                        })}>Others</option>
-                                                        
-                   
-                                                        </select>
-                                                    </div>
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "GMO",
+                                                                    CBS: "gmo",
+                                                                    ICBS: "grand-MA"
+                                                                })}>Grand Mother</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "COU",
+                                                                    CBS: "cou",
+                                                                    ICBS: "cousin"
+                                                                })}>Cousin</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "UNC",
+                                                                    CBS: "unc",
+                                                                    ICBS: "uncle"
+                                                                })}>Uncle</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "DIL",
+                                                                    CBS: "dil",
+                                                                    ICBS: "daughter-law"
+                                                                })}>Daughter In Law</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "SOL",
+                                                                    CBS: "sol",
+                                                                    ICBS: "son-law"
+                                                                })}>Son In Law</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "GSN",
+                                                                    CBS: "gsn",
+                                                                    ICBS: "Gson"
+                                                                })}>Grand Son</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "GDT",
+                                                                    CBS: "gdt",
+                                                                    ICBS: "Gdau"
+                                                                })}>Grand Daughter</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "AUN",
+                                                                    CBS: "aun",
+                                                                    ICBS: "aunt"
+                                                                })}>Aunt</option>
+
+                                                                <option value={JSON.stringify({
+                                                                    ABS: "OTH",
+                                                                    CBS: "oth",
+                                                                    ICBS: "other"
+                                                                })}>Others</option>
+
+
+                                                            </select>
+                                                        </div>
 
 
 

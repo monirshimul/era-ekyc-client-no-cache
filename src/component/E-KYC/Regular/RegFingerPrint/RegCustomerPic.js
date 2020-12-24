@@ -4,6 +4,7 @@ import Capture from '../../Simplified/Capture/Capture';
 import { NotificationManager } from "react-notifications";
 import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
 import { largeTime } from '../../../Utils/notificationTime';
+import { ImageCompressor } from '../../../Utils/ImageCompressor';
 
 export class RegCustomerPic extends Component {
 
@@ -28,21 +29,10 @@ export class RegCustomerPic extends Component {
         this.captureOff();
     }
 
-    fileSelectedHandler = event => {
+    fileSelectedHandler = async (event) => {
         if (event.target.files[0]) {
-            let file = event.target.files[0];
-            //console.log(file.type);
-            var reader = new FileReader();
-            reader.readAsBinaryString(file);
-
-            reader.onload = () => {
-                let base64Image = btoa(reader.result);
-                this.props.handleState('faceImage', base64Image);
-            };
-            reader.onerror = () => {
-                // console.log('there are some problems');
-                alert('File can not be read');
-            };
+            let base = await ImageCompressor(event)
+            this.props.handleState('faceImage', base);
         }
     };
 

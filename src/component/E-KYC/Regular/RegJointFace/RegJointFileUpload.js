@@ -5,92 +5,36 @@ import birthImage from '../../Simplified/images/tin.svg';
 import ok from '../../Simplified/images/ok.svg';
 import ok1 from '../../Simplified/images/ok1.svg';
 import ok2 from '../../Simplified/images/ok2.svg';
+import { ImageCompressor } from '../../../Utils/ImageCompressor';
 
 export class RegJointFileUpload extends Component {
 
-  fileSelectedHandlerPass = event => {
+  fileSelectedHandlerPass = async (event) => {
 
     if (event.target.files[0]) {
-      let file = event.target.files[0];
-      //console.log(file.type);
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
+      let base = await ImageCompressor(event)
+      this.props.handleState('passport', base);
+      // this.props.handleState('passportFileName', file.name);
+      // this.props.handleState('passFileType', file.type);
 
-      reader.onload = () => {
-        // console.log(typeof reader.result);
-        // console.log(btoa(reader.result));
-        let base64Image = btoa(reader.result);
-        // this.setState({
-        //   profilePic: base64Image,
-        //   profilePicType: file.type
-
-        //   //nidImage: URL.createObjectURL(event.target.files[0])
-        // });
-        this.props.handleState('passport', base64Image);
-        this.props.handleState('passportFileName', file.name);
-        this.props.handleState('passFileType', file.type);
-
-      };
-      reader.onerror = () => {
-        //console.log('there are some problems');
-        alert('File can not be read');
-      };
     }
   };
 
-  fileSelectedHandlerBirth = event => {
+  fileSelectedHandlerBirth = async (event) => {
     if (event.target.files[0]) {
-      let file = event.target.files[0];
-      //console.log(file.type);
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
-
-      reader.onload = () => {
-        // console.log(typeof reader.result);
-        // console.log(btoa(reader.result));
-        let base64Image = btoa(reader.result);
-        // this.setState({
-        //   profilePic: base64Image,
-        //   profilePicType: file.type
-
-        //   //nidImage: URL.createObjectURL(event.target.files[0])
-        // });
-        this.props.handleState('birthCertificate', base64Image);
-        this.props.handleState('birthCertificateFileName', file.name);
-        this.props.handleState('birthCerFileType', file.type)
-      };
-      reader.onerror = () => {
-        //console.log('there are some problems');
-        alert('File can not be read');
-      };
+      let base = await ImageCompressor(event)
+      this.props.handleState('birthCertificate', base);
+      // this.props.handleState('birthCertificateFileName', file.name);
+      // this.props.handleState('birthCerFileType', file.type)
     }
   };
 
-  fileSelectedHandlerTin = event => {
+  fileSelectedHandlerTin = async (event) => {
     if (event.target.files[0]) {
-      let file = event.target.files[0];
-      //console.log(file.type);
-      var reader = new FileReader();
-      reader.readAsBinaryString(file);
-
-      reader.onload = () => {
-        // console.log(typeof reader.result);
-        // console.log(btoa(reader.result));
-        let base64Image = btoa(reader.result);
-        // this.setState({
-        //   profilePic: base64Image,
-        //   profilePicType: file.type
-
-        //   //nidImage: URL.createObjectURL(event.target.files[0])
-        // });
-        this.props.handleState('tinCertificate', base64Image);
-        this.props.handleState('tinCertificateFileName', file.name);
-        this.props.handleState('tinFileType', file.type);
-      };
-      reader.onerror = () => {
-        //console.log('there are some problems');
-        alert('File can not be read');
-      };
+      let base = await ImageCompressor(event)
+      this.props.handleState('tinCertificate', base);
+      // this.props.handleState('tinCertificateFileName', file.name);
+      // this.props.handleState('tinFileType', file.type);
     }
   };
 
