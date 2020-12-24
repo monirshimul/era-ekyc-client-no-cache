@@ -2,13 +2,13 @@ import { NotificationManager } from "react-notifications";
 import imageCompression from 'browser-image-compression';
 import { largeTime } from './notificationTime'
 
-export const ImageCompressor = async (event) => {
+export const ImageCompressor = async (event, threshold = 0.1) => {
     if (event.target.files[0]) {
         const imageFile = event.target.files[0];
         //console.log("Type", imageFile.type)
         console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
         const options = {
-            maxSizeMB: 0.1,
+            maxSizeMB: threshold,
             maxWidthOrHeight: 1920,
             useWebWorker: true
         }

@@ -75,7 +75,7 @@ export class RegNidImages extends Component {
   fileSelectedHandler = async (event) => {
     if (event.target.files[0]) {
 
-      let base = await ImageCompressor(event)
+      let base = await ImageCompressor(event, 1)
       this.props.handleState("NidFront", base);
 
 
@@ -85,7 +85,7 @@ export class RegNidImages extends Component {
   //Nid Back Image upload
   fileSelectedHandlerTwo = async (event) => {
     if (event.target.files[0]) {
-      let base = await ImageCompressor(event)
+      let base = await ImageCompressor(event, 1)
       this.props.handleState("NidBack", base);
 
     }
