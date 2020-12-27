@@ -73,16 +73,56 @@ export class RegJointNidImages extends Component {
   //Nid front Image upload
   fileSelectedHandler = async (event) => {
     if (event.target.files[0]) {
-      let base = await ImageCompressor(event, 1)
-      this.props.handleState("NidFront", base);
+      let file = event.target.files[0];
+      this.props.handleState("NidFrontOcr", event.target.files[0]);
+      var reader = new FileReader();
+      reader.readAsBinaryString(file);
+
+      reader.onload = () => {
+        // console.log(typeof reader.result);
+        // console.log(btoa(reader.result));
+        let base64Image = btoa(reader.result);
+        // this.setState({
+        //   profilePic: base64Image,
+        //   profilePicType: file.type
+
+        //   //nidImage: URL.createObjectURL(event.target.files[0])
+        // });
+        this.props.handleState("NidFront", base64Image);
+
+        this.props.handleState("NidFrontType", file.type);
+      };
+      reader.onerror = () => {
+        // console.log("there are some problems");
+        alert("File can not be read");
+      };
+      // let base = await ImageCompressor(event, 1)
+      // this.props.handleState("NidFront", base);
     }
   };
 
   //Nid Back Image upload
   fileSelectedHandlerTwo = async (event) => {
     if (event.target.files[0]) {
-      let base = await ImageCompressor(event, 1)
-      this.props.handleState("NidBack", base);
+      let file = event.target.files[0];
+      this.props.handleState("NidBackOcr", event.target.files[0]);
+      // console.log(file.type);
+      var reader = new FileReader();
+      reader.readAsBinaryString(file);
+
+      reader.onload = () => {
+        let base64Image = btoa(reader.result);
+
+        this.props.handleState("NidBack", base64Image);
+
+        this.props.handleState("NidBackType", file.type);
+      };
+      reader.onerror = () => {
+        console.log("there are some problems");
+        alert("File can not be read");
+      };
+      // let base = await ImageCompressor(event, 1)
+      // this.props.handleState("NidBack", base);
     }
   };
 
