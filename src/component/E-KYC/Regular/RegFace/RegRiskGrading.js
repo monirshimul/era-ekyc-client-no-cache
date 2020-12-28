@@ -155,8 +155,8 @@ export class RegRiskGrading extends Component {
                                             name="foreignOrigin"
                                         >
                                             <option value='' disabled>--Select Category--</option>
-                                            <option value='2.2.1'>Yes</option>
-                                            <option value='2.2.2'>No</option>
+                                            <option value='2.2.1'>No</option>
+                                            <option value='2.2.2'>Yes</option>
 
                                         </select>
                                     </div>
