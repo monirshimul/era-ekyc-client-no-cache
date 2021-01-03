@@ -61,7 +61,7 @@ export class JointFingerConfirm extends Component {
                 fatherName: values.fatherName,
                 fatherNameBangla: values.fatherNameBangla,
                 gender: values.gender,
-                profession: values.profession,
+                profession: values.professionCode,
                 mobile: values.mobileNumber,
                 verificationType: "FINGER"
             }
@@ -248,7 +248,7 @@ export class JointFingerConfirm extends Component {
                 fatherName: values.fatherName,
                 fatherNameBangla: values.fatherNameBangla,
                 gender: values.gender,
-                profession: values.profession,
+                profession: values.professionCode,
                 mobile: values.mobileNumber,
                 verificationType: 'FINGER'
             }

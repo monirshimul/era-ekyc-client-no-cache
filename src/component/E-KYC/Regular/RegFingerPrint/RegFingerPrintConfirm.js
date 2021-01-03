@@ -61,7 +61,7 @@ export class RegFingerPrintConfirm extends Component {
             fatherName: values.fatherName,
             fatherNameBangla: values.fatherNameBangla,
             gender: values.gender,
-            profession: values.profession,
+            profession: values.professionCode,
             mobile: values.mobileNumber,
             // monthlyincome, tin , nationaliyt ,source of fund need to be added
             verificationType: "FINGER"

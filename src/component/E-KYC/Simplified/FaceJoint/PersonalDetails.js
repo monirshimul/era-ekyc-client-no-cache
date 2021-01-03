@@ -78,6 +78,7 @@ export class PersonalDetails extends Component {
     //////////Profession///////////////
 
     handleProfessionChange = async (e) => {
+        let {values} = this.props;
         const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -85,14 +86,15 @@ export class PersonalDetails extends Component {
         };
         //console.log(e.target.value)
         let payload = {
+            channelCode: values.channelName,
             keyword: e.target.value
         }
         try {
             let professionapi = await axios.post(profession, payload, config);
-            console.log(professionapi.data.data);
+            // console.log(professionapi.data.data);
             let autocompleteData = [];
             professionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.displayName, id: d.id })
+                autocompleteData.push({ name: d.displayName, id: d.id, code: d.code })
             })
             this.setState({ autoProfession: autocompleteData });
         } catch (err) {
@@ -103,14 +105,20 @@ export class PersonalDetails extends Component {
 
 
     handleProfessionSelect = e => {
+        let {autoProfession} = this.state;
         try {
-            // const val = e.target.value.split('-');
-            //   console.log("val", typeof val[1]);
-            console.log(e.target.value);
-            //console.log("val", val[1]);
-
-
+            
             this.props.handleState('profession', e.target.value);
+            let proCode="";
+            for(let i = 0; i<= autoProfession.length; i++){
+              
+              if(autoProfession[i]["name"] === e.target.value){
+                proCode = autoProfession[i]["code"]
+                //console.log("Code",proCode)
+                this.props.handleState("professionCode", proCode);
+              }
+              
+            }
         } catch (err) {
             console.log(err);
         }
@@ -660,7 +668,8 @@ export class PersonalDetails extends Component {
 
     render() {
         const { values, handleChange } = this.props;
-        // console.log(values.fatherName);
+        // console.log("pro", values.profession);
+        // console.log("proCode", values.professionCode);
         return (
             <div className="container">
 

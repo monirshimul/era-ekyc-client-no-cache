@@ -59,7 +59,7 @@ export class RegJointConfirm extends Component {
         //         fatherName: values.fatherName,
         //         fatherNameBangla: values.fatherNameBangla,
         //         gender: values.gender,
-        //         profession: values.profession,
+        //         profession: values.professionCode,
         //         mobile: values.mobileNumber,
         //         // monthlyIncome, tin, sourceOfFund, nationality
         //         verificationType: 'FACE'
@@ -241,7 +241,7 @@ export class RegJointConfirm extends Component {
         //         fatherName: values.fatherName,
         //         fatherNameBangla: values.fatherNameBangla,
         //         gender: values.gender,
-        //         profession: values.profession,
+        //         profession: values.professionCode,
         //         mobile: values.mobileNumber,
         //         // monthlyIncome, tin, sourceOfFund, nationality
         //         verificationType: 'FACE'

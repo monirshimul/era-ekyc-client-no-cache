@@ -59,7 +59,7 @@ export class SimFingerConfirm extends Component {
             fatherNameBangla: values.fatherNameBangla,
             // spouseName: values.spouseName,
             gender: values.gender,
-            profession: values.profession,
+            profession: values.professionCode,
             mobile: values.mobileNumber,
             verificationType: "FINGER"
         }
