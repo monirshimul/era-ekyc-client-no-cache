@@ -137,11 +137,31 @@ class AllStatistics extends Component {
             //     }
             // ]
             let emptyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            if (myYear === "2020") {
+            if (myYear === "2019") {
                 for (let i = 0; i < dataCount.length; i++) {
                     emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
                 }
-            } else if (myYear === "2019") {
+            } else if (myYear === "2020") {
+                for (let i = 0; i < dataCount.length; i++) {
+                    emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
+                }
+            } else if (myYear === "2021") {
+                for (let i = 0; i < dataCount.length; i++) {
+                    emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
+                }
+            } else if (myYear === "2022") {
+                for (let i = 0; i < dataCount.length; i++) {
+                    emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
+                }
+            } else if (myYear === "2023") {
+                for (let i = 0; i < dataCount.length; i++) {
+                    emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
+                }
+            } else if (myYear === "2024") {
+                for (let i = 0; i < dataCount.length; i++) {
+                    emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
+                }
+            } else if (myYear === "2025") {
                 for (let i = 0; i < dataCount.length; i++) {
                     emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
                 }
