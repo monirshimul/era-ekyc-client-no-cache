@@ -11,7 +11,7 @@ import { datePickerPrefiilConv, DateFul } from '../../../Utils/dateConversion';
 import axios from 'axios';
 import { largeTime } from '../../../Utils/notificationTime';
 import Capture from '../Capture/Capture';
-import { ImageCompressor } from '../../../Utils/ImageCompressor'
+// import { ImageCompressor } from '../../../Utils/ImageCompressor'
 
 export class NidImagesSim extends Component {
 

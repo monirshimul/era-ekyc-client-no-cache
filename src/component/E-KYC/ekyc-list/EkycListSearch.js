@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-import { ekycWithFilter, ekycFullProfile } from '../Url/ApiList';
+import { ekycWithFilter } from '../Url/ApiList';
 import Pagination from '../../Reusable/Pagination';
 import { NotificationManager } from "react-notifications";
 import { mediumTime } from '../../Utils/notificationTime';

@@ -11,7 +11,7 @@ import SimComplete from './SimComplete';
 import SimRPA from './SimRPA';
 import { NotificationManager } from "react-notifications";
 import { ImageCompressor } from '../../../Utils/ImageCompressor';
-import Test from '../../../Playground/Test';
+// import Test from '../../../Playground/Test';
 
 
 export class SimFaceMain extends Component {

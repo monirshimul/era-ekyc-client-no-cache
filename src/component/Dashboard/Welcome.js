@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { Line, Pie, Doughnut } from 'react-chartjs-2';
+// import { Line, Pie, Doughnut } from 'react-chartjs-2';
 
 import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 import Watch from './Watch/Watch';

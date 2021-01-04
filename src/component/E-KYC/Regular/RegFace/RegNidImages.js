@@ -11,7 +11,7 @@ import { datePickerPrefiilConv, DateFul } from '../../../Utils/dateConversion';
 import { largeTime } from '../../../Utils/notificationTime';
 import Capture from '../../Simplified/Capture/Capture';
 import axios from 'axios';
-import { ImageCompressor } from '../../../Utils/ImageCompressor'
+// import { ImageCompressor } from '../../../Utils/ImageCompressor'
 
 export class RegNidImages extends Component {
   state = {

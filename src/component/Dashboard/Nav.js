@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 //import { logoutUser } from '../E-KYC/Url/ApiList';
 import Login from '../Login/Login';
 import {
-    FaHome, FaGetPocket, FaClone, FaUsers, FaPhone, FaEdit, FaSignOutAlt
+    FaHome, FaSignOutAlt
 } from "react-icons/fa";
 
 

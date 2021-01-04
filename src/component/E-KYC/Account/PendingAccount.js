@@ -10,8 +10,7 @@ import { NotificationManager } from "react-notifications";
 import {
   AccountType,
   PendingStatus,
-  ProductCategoryType,
-  ProductCodeGetName,
+  ProductCategoryType
 } from "../../Utils/fullFormConversion";
 import axios from "axios";
 import Pagination from "../../Reusable/Pagination";
