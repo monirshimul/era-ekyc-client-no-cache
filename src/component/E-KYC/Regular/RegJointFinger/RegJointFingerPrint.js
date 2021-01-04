@@ -123,7 +123,7 @@ export class RegJointFingerPrint extends Component {
             productCode: productName
         }
 
-        console.log("objcheck", checkObj);
+        // console.log("objcheck", checkObj);
 
         this.props.handleState('isEnableFinger', true);
         this.props.handleState('loadingPrint', true);
@@ -132,7 +132,13 @@ export class RegJointFingerPrint extends Component {
 
             try {
                 let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-                console.log("abs", absCheckApi.data);
+                // console.log("abs", absCheckApi.data);
+                if(absCheckApi.data.data === null){
+                    NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
+                    this.props.handleState('isEnableFinger', false);
+                    this.props.handleState('loadingPrint', false);
+                    return;
+                  }
                 let apiResult = absCheckApi.data.data.result;
                 let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
                 if (apiResult === true) {
@@ -333,7 +339,7 @@ export class RegJointFingerPrint extends Component {
                 this.props.handleState('applicantNidNo', this.props.values.nid ? this.props.values.nid : "");
                 this.props.handleState('motherNameBangla', dataResp.mother ? dataResp.mother : "");
                 this.props.handleState('fatherNameBangla', dataResp.father ? dataResp.father : "");
-                this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
+                // this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
                 this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
                 this.props.handleState('ecImage', dataResp.photo ? dataResp.photo : "");
                 // Global EC Text start

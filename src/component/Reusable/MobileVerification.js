@@ -91,7 +91,7 @@ export class MobileVerification extends Component {
       const otpObj = { otp: values.verificationCodeMobile };
       this.setState({ showButton: true });
       let apiCodeReq = await axios.post(mobileCodeVerification, otpObj, config);
-      console.log("apiRequestforOTP", apiCodeReq.data);
+      // console.log("apiRequestforOTP", apiCodeReq.data);
       if (apiCodeReq.data.status === false) {
         NotificationManager.warning("Please Provide Valid OTP", "Warning", 5000);
         this.setState({ showButton: false });

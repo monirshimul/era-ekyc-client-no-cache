@@ -46,7 +46,7 @@ export class RegRPA extends Component {
     //             this.props.handleState('applicantNidNo', this.props.values.nid ? this.props.values.nid : "");
     //             this.props.handleState('motherNameBangla', dataResp.motherName ? dataResp.motherName : "");
     //             this.props.handleState('fatherNameBangla', dataResp.fatherName ? dataResp.fatherName : "");
-    //             this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
+    //             //this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
     //             this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
     //             this.props.handleState('ecImage', dataResp.image ? dataResp.image : "");
     // Global EC Text start
@@ -132,13 +132,19 @@ export class RegRPA extends Component {
             productCode: productName
         }
 
-        console.log("objcheck", checkObj);
+        // console.log("objcheck", checkObj);
         this.props.handleState('isEnableFace', true);
         this.props.handleState('loading', true);
         if (channelName === "ABS") {
             try {
                 let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-                console.log("abs", absCheckApi.data);
+                // console.log("abs", absCheckApi.data);
+                if(absCheckApi.data.data === null){
+                    NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
+                    this.props.handleState('isEnableFace', false);
+                    this.props.handleState('loading', false);
+                    return;
+                  }
                 // console.log("abs", absCheckApi.data.data.result);
                 let apiResult = absCheckApi.data.data.result;
                 let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
@@ -176,12 +182,12 @@ export class RegRPA extends Component {
                 dob: showDate(dob)
             }
 
-            console.log("obj", obj);
+            // console.log("obj", obj);
 
             try {
                 let rpaData = await axios.post(nidValidationRPA, obj, config);
-                console.log(rpaData.data);
-                let responseData = rpaData.data.data;
+                // console.log(rpaData.data);
+                // let responseData = rpaData.data.data;
                 if (rpaData.data.data.image) {
                     let dataResp = rpaData.data.data;
                     this.props.handleState('applicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
@@ -190,7 +196,7 @@ export class RegRPA extends Component {
                     this.props.handleState('applicantNidNo', this.props.values.nid ? this.props.values.nid : "");
                     this.props.handleState('motherNameBangla', dataResp.motherName ? dataResp.motherName : "");
                     this.props.handleState('fatherNameBangla', dataResp.fatherName ? dataResp.fatherName : "");
-                    this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
+                    // this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
                     this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
                     this.props.handleState('ecImage', dataResp.image ? dataResp.image : "");
                     // Global EC Text start

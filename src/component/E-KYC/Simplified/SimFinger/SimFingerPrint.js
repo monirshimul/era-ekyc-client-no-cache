@@ -13,9 +13,9 @@ import { largeTime } from './../../../Utils/notificationTime';
 export class SimFingerPrint extends Component {
 
 
-  Escape = () => {
-    this.props.nextStep();
-  }
+  // Escape = () => {
+  //   this.props.nextStep();
+  // }
 
 
 
@@ -132,7 +132,7 @@ export class SimFingerPrint extends Component {
       productCode: productName
     }
 
-    console.log("objcheck", checkObj);
+    // console.log("objcheck", checkObj);
 
     this.props.handleState('isEnableFinger', true);
     this.props.handleState('loadingPrint', true);
@@ -141,7 +141,13 @@ export class SimFingerPrint extends Component {
 
       try {
         let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-        console.log("abs", absCheckApi.data);
+        // console.log("abs", absCheckApi.data);
+        if(absCheckApi.data.data === null){
+          NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
+          this.props.handleState('isEnableFinger', false);
+          this.props.handleState('loadingPrint', false);
+          return;
+        }
         let apiResult = absCheckApi.data.data.result;
         let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
         if (apiResult === true) {
@@ -354,7 +360,7 @@ export class SimFingerPrint extends Component {
         this.props.handleState('applicantNidNo', this.props.values.nid ? this.props.values.nid : "");
         this.props.handleState('motherNameBangla', dataResp.mother ? dataResp.mother : "");
         this.props.handleState('fatherNameBangla', dataResp.father ? dataResp.father : "");
-        this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
+        // this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
         this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
         this.props.handleState('ecImage', dataResp.photo ? dataResp.photo : "");
         // Global EC Text start
@@ -445,11 +451,11 @@ export class SimFingerPrint extends Component {
     return (
       <div className="container">
 
-
+      {/* 
         <div className="im col-sm-2" onClick={this.Escape}>
           Escape
               </div>
-
+        */}
         <div className="row d-flex justify-content-center">
           <div className="col-sm-6 imTwoWhite p-5">
             <div className="divBg pt-3">

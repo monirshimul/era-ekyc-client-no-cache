@@ -241,6 +241,7 @@ export class RegFingerPrintConfirm extends Component {
             this.props.handleState('confirmFlag', false);
             //console.log(res.data);
             let resData = res.data.data;
+            // console.log("resdata", resData);
             if (resData.channelResponse === null) {
                 NotificationManager.error(
                     "Integration Server Error",

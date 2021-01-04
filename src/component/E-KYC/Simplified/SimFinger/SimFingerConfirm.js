@@ -203,7 +203,7 @@ export class SimFingerConfirm extends Component {
             }
         };
 
-        console.log("config", config);
+        // console.log("config", config);
 
 
 

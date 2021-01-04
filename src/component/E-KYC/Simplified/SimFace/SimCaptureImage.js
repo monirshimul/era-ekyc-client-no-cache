@@ -12,9 +12,9 @@ import "../utils/Common.css";
 
 export class SimCaptureImage extends Component {
 
-  Escape = () => {
-    this.props.nextStep();
-  }
+  // Escape = () => {
+  //   this.props.nextStep();
+  // }
 
   validate = async (e) => {
     const { values } = this.props;
@@ -129,11 +129,11 @@ export class SimCaptureImage extends Component {
 
     return (
       <div className="container">
-
+        {/* 
         <div className="im col-sm-2" onClick={this.Escape}>
           Escape
               </div>
-
+        */}
         <div className="row d-flex justify-content-center">
           <div className="imTwoWhite col-sm-8" style={{ paddingTop: "25px" }}>
             <div className="card-header up">

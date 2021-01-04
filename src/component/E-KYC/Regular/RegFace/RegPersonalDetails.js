@@ -684,8 +684,8 @@ export class RegPersonalDetails extends Component {
 
     render() {
         const { values, handleChange } = this.props;
-        // console.log("pro", values.profession);
-        // console.log("proCode", values.professionCode);
+        // console.log("profession", values.profession);
+        // console.log("professionCode", values.professionCode);
 
         return (
             <div className="container">
