@@ -375,7 +375,7 @@ export class PendingAccount extends Component {
   onReopen = async (e) => {
     e.preventDefault();
 
-    console.log("Id: ", e.target.id);
+    // console.log("Id: ", e.target.id);
 
     this.activeBorder(e.target.id);
 

@@ -47,7 +47,7 @@ class App extends Component {
       <Provider store={store}>
 
 
-        <Router basename="/ekyc">
+        <Router >
 
           <Suspense fallback={<PageLoader />}>
             <div className="App">

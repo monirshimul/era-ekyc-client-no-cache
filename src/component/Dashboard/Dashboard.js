@@ -289,7 +289,7 @@ class Dashboard extends Component {
         }
 
         return (
-            <Router basename="/ekyc">
+            <Router >
                 <div style={{ minHeight: "100%" }}>
                     <Nav logOut={this.logOut} />
                     <div className="d-flex" style={{ margin: "0", padding: "0", overflowX: "hidden" }}>
