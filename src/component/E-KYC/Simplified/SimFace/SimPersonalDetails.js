@@ -189,7 +189,7 @@ export class SimPersonalDetails extends Component {
 
     handlePerDivisionSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            const val = e.target.value.split(':');
             //   console.log("val", typeof val[1]);
             //    console.log("val", val[1]);
 
@@ -205,7 +205,7 @@ export class SimPersonalDetails extends Component {
 
     handlePreDivisionSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            const val = e.target.value.split(':');
             // console.log("val", val);
             this.setState({
                 preDivisionCode: val[1].trim()
@@ -274,7 +274,7 @@ export class SimPersonalDetails extends Component {
 
     handlePerDistrictSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            const val = e.target.value.split(':');
             //  console.log("val", val);
             this.setState({
                 perDistrictCode: val[1].trim()
@@ -287,7 +287,7 @@ export class SimPersonalDetails extends Component {
 
     handlePreDistrictSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            const val = e.target.value.split(':');
             //   console.log("val", val);
             this.setState({
                 preDistrictCode: val[1].trim()
@@ -359,7 +359,7 @@ export class SimPersonalDetails extends Component {
 
     handlePerUpozilaSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            const val = e.target.value.split(':');
             // console.log("val", val);
             this.setState({
                 perUpozilaCode: val[1].trim()
@@ -372,7 +372,7 @@ export class SimPersonalDetails extends Component {
 
     handlePreUpozilaSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            const val = e.target.value.split(':');
             // console.log("val", val);
             this.setState({
                 preUpozilaCode: val[1].trim()
@@ -447,7 +447,7 @@ export class SimPersonalDetails extends Component {
 
     handlePerUnionSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            const val = e.target.value.split(':');
             // console.log("val", val);
             this.setState({
                 perUnionCode: val[1].trim()
@@ -460,7 +460,7 @@ export class SimPersonalDetails extends Component {
 
     handlePreUnionSelect = e => {
         try {
-            const val = e.target.value.split('-');
+            const val = e.target.value.split(':');
             //console.log("val", val);
             this.setState({
                 preUnionCode: val[1].trim()
@@ -603,6 +603,9 @@ export class SimPersonalDetails extends Component {
                     unionName: values.perUnionOrWardEn
                 }
 
+                // console.log("permanentPay", permanentObj);
+                // console.log("presentPay", presentObj);
+
 
 
                 const config = {
@@ -637,7 +640,7 @@ export class SimPersonalDetails extends Component {
 
 
                     if (permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE === "") {
-                        let preMessage = "Please check Present Address districtName,upozilaName and unionName";
+                        let preMessage = "Please check Permanent Address districtName,upozilaName and unionName";
                         NotificationManager.warning("Present Address - " + preMessage, "Click to Remove", largeTime);
                         return;
                     }
@@ -945,7 +948,7 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-perDivision"
                                         options={this.state.autoPerDivision}
-                                        getOptionLabel={(option) => option.name + " - " + option.id}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
                                         renderInput={(params) => <TextField {...params} label={values.perDivisionEn} variant="outlined" defaultValue={values.perDivisionEn + " - " + this.state.perDivisionCode} onChange={this.handlePerDivisionChange} onSelect={this.handlePerDivisionSelect} />}
                                     />
@@ -959,7 +962,7 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-perDistrict"
                                         options={this.state.autoPerDistrict}
-                                        getOptionLabel={(option) => option.name + " - " + option.id}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
                                         renderInput={(params) => <TextField {...params} label={values.perDistrictEn} variant="outlined" onChange={this.handlePerDistrictChange} onSelect={this.handlePerDistrictSelect} />}
                                     />
@@ -974,7 +977,7 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-perDistrict"
                                         options={this.state.autoPerUpozila}
-                                        getOptionLabel={(option) => option.name + " - " + option.id}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
                                         renderInput={(params) => <TextField {...params} label={values.perUpozilaEn} variant="outlined" onChange={this.handlePerUpozilaChange} onSelect={this.handlePerUpozilaSelect} />}
                                     />
@@ -991,7 +994,7 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-perUnion"
                                         options={this.state.autoPerUnion}
-                                        getOptionLabel={(option) => option.name + " - " + option.id}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
                                         renderInput={(params) => <TextField {...params} label={values.perUnionOrWardEn} variant="outlined" onChange={this.handlePerUnionChange} onSelect={this.handlePerUnionSelect} />}
                                     />
@@ -1177,7 +1180,7 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-preDivision"
                                         options={this.state.autoPreDivision}
-                                        getOptionLabel={(option) => option.name + " - " + option.id}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
                                         renderInput={(params) => <TextField {...params} label={values.preDivisionEn} variant="outlined" onChange={this.handlePreDivisionChange} onSelect={this.handlePreDivisionSelect} />}
                                     />
@@ -1189,7 +1192,7 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-preDistrict"
                                         options={this.state.autoPreDistrict}
-                                        getOptionLabel={(option) => option.name + " - " + option.id}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
                                         renderInput={(params) => <TextField {...params} label={values.preDistrictEn} variant="outlined" onChange={this.handlePreDistrictChange} onSelect={this.handlePreDistrictSelect} />}
                                     />
@@ -1204,7 +1207,7 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-preUpozila"
                                         options={this.state.autoPreUpozila}
-                                        getOptionLabel={(option) => option.name + " - " + option.id}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
                                         renderInput={(params) => <TextField {...params} label={values.preUpozilaEn} variant="outlined" onChange={this.handlePreUpozilaChange} onSelect={this.handlePreUpozilaSelect} />}
                                     />
@@ -1222,7 +1225,7 @@ export class SimPersonalDetails extends Component {
                                     <Autocomplete
                                         id="autocomplete-preUnion"
                                         options={this.state.autoPreUnion}
-                                        getOptionLabel={(option) => option.name + " - " + option.id}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
                                         renderInput={(params) => <TextField {...params} label={values.preUnionOrWardEn} variant="outlined" onChange={this.handlePreUnionChange} onSelect={this.handlePreUnionSelect} />}
                                     />

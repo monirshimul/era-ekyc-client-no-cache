@@ -125,7 +125,7 @@ export class RegCaptureImage extends Component {
     let { values } = this.props;
     return (
       <div className="container">
-      {/* 
+     {/* 
         <div className="im col-sm-2" onClick={this.Escape}>
           Escape
               </div>

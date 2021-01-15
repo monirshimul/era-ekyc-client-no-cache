@@ -551,7 +551,7 @@ export const allRoutes = [
                     "key": "6.2",
                     'isShowing': true,
                     "featureName": "Access Log",
-                    "path": "/reposrt-access-log",
+                    "path": "/report-access-log",
                     "exact": true,
                     "component": <AccessLog />
                 }
@@ -561,7 +561,7 @@ export const allRoutes = [
                     "key": "6.3",
                     'isShowing': true,
                     "featureName": "Activity Log",
-                    "path": "/reposrt-activity-log",
+                    "path": "/report-activity-log",
                     "exact": true,
                     "component": <UnderDev />
                 }
