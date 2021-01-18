@@ -10,6 +10,7 @@ class CreateProduct extends Component {
 
     state = {
         channelName: '',
+        subChannelName: 'CONVENTIONAL',
         productName: "",
         productCode: '',
         productCategory: '',
@@ -27,7 +28,7 @@ class CreateProduct extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { channelName, productName, description, productCode, productCategory, status } = this.state;
+        const { channelName, productName, description, productCode, productCategory, status, subChannelName } = this.state;
 
         let config = {
             headers: {
@@ -37,6 +38,7 @@ class CreateProduct extends Component {
 
         let obj = {
             channelCode: channelName,
+            subChannelCode: subChannelName,
             name: productName,
             code: productCode,
             categoryCode: productCategory,
@@ -46,6 +48,7 @@ class CreateProduct extends Component {
 
         let joiData = {
             ChannelName: channelName,
+            subChannelName: subChannelName,
             productName: productName,
             productCode: productCode,
             productCategory: productCategory,
@@ -66,6 +69,7 @@ class CreateProduct extends Component {
             //this.props.history.replace('/dashboard/product-list');
             this.setState({
                 channelName: '',
+                subChannelName: '',
                 productName: "",
                 productCode: '',
                 productCategory: '',
@@ -97,7 +101,7 @@ class CreateProduct extends Component {
 
 
     render() {
-        let { channelName, productName, description, productCode, productCategory, status } = this.state;
+        let { channelName, productName, description, productCode, productCategory, status, subChannelName } = this.state;
 
         return (
             <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
@@ -126,6 +130,22 @@ class CreateProduct extends Component {
                                 <option value='ICBS'>Islamic Core Banking</option>
                                 <option value='OMNI'>Omni Channel </option>
                                 <option value='EKYC'>EKYC</option>
+                            </select>
+                        </div>
+
+                        <div className='form-group'>
+                            <label htmlFor="">Sub-Channel Name</label>
+                            <select
+
+                                className='custom-select'
+                                value={subChannelName}
+                                onChange={this.onChange}
+                                name="subChannelName"
+                            >
+
+                                <option value='CONVENTIONAL'>CONVENTIONAL</option>
+                                <option value='ISLAMIC'>ISLAMIC</option>
+
                             </select>
                         </div>
 
@@ -205,6 +225,7 @@ class CreateProduct extends Component {
 const schema = Joi.object({
 
     ChannelName: Joi.string().required(),
+    subChannelName: Joi.string().required(),
     productCategory: Joi.string().required(),
     status: Joi.string().required(),
     productName: Joi.string().min(5).max(30).required(),

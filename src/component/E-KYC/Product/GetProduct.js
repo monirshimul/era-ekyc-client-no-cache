@@ -338,6 +338,10 @@ class GetProduct extends Component {
                                                     </div>
 
                                                     <div>
+                                                        <small className="text-muted"><i className="fab fa-mizuni"><FaMizuni /></i> Sub-Channel Name : <span>{val.subChannelCode}</span></small>
+                                                    </div>
+
+                                                    <div>
                                                         <small className="text-muted"><i className="fab fa-mizuni"><FaMizuni /></i> Category Code : <span>{ProductCategoryType(val.categoryCode)}</span></small>
                                                     </div>
 

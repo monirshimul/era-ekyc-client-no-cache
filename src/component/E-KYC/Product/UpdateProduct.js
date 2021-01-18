@@ -10,6 +10,7 @@ class UpdateProduct extends Component {
     state = {
         id: "",
         channelName: '',
+        subChannelName: '',
         productName: "",
         productCode: '',
         productCategory: '',
@@ -30,6 +31,7 @@ class UpdateProduct extends Component {
 
                 id: parseInt(data.map(v => v.id)),
                 channelName: data.map(v => v.channelCode).toString(),
+                subChannelName: data.map(v => v.subChannelCode).toString(),
                 productName: data.map(v => v.name).toString(),
                 productCode: data.map(v => v.code).toString(),
                 productCategory: data.map(v => v.categoryCode).toString(),
@@ -48,7 +50,7 @@ class UpdateProduct extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
-        const { channelName, productName, description, productCode, productCategory, status, id } = this.state;
+        const { channelName, productName, description, productCode, productCategory, status, id, subChannelName } = this.state;
 
 
         let config = {
@@ -60,6 +62,7 @@ class UpdateProduct extends Component {
         let obj = {
             id: id,
             channelCode: channelName,
+            subChannelCode: subChannelName,
             name: productName,
             code: productCode,
             categoryCode: productCategory,
@@ -69,6 +72,7 @@ class UpdateProduct extends Component {
 
         let joiData = {
             ChannelName: channelName,
+            subChannelName: subChannelName,
             productName: productName,
             productCode: productCode,
             productCategory: productCategory,
@@ -119,7 +123,7 @@ class UpdateProduct extends Component {
 
 
     render() {
-        let { channelName, productName, description, productCode, productCategory, status } = this.state
+        let { channelName, productName, description, productCode, productCategory, status, subChannelName } = this.state
         return (
             <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
 
@@ -149,6 +153,22 @@ class UpdateProduct extends Component {
                                 <option value='ICBS'>Islamic Core Banking</option>
                                 <option value='OMNI'>Omni Channel </option>
                                 <option value='EKYC'>EKYC</option>
+                            </select>
+                        </div>
+
+                        <div className='form-group'>
+                            <label htmlFor="">Sub-Channel Name</label>
+                            <select
+
+                                className='custom-select'
+                                value={subChannelName}
+                                onChange={this.onChange}
+                                name="subChannelName"
+                            >
+                                <option value='' disabled>--Select--</option>
+                                <option value='CONVENTIONAL'>CONVENTIONAL</option>
+                                <option value='ISLAMIC'>ISLAMIC</option>
+
                             </select>
                         </div>
 
@@ -235,6 +255,7 @@ class UpdateProduct extends Component {
 
 const schema = Joi.object({
     ChannelName: Joi.string().required(),
+    subChannelName: Joi.string().required(),
     productName: Joi.string().min(5).max(30).required(),
     productCode: Joi.string().min(3).required(),
     productCategory: Joi.string().required(),
