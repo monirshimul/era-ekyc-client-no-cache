@@ -47,7 +47,7 @@ export class Confirm extends Component {
       let accountInfo = {
         title: values.applicantName,
         type: values.accountType,
-        productType: values.product,
+        productType: values.productType,
         productCategoryCode: values.product,
         branchOrAgentPointCode: branchOrAgentPointCode,
         transactionOrMaturityAmount: values.transactionOrMaturityAmount,
@@ -632,40 +632,36 @@ export class Confirm extends Component {
                         Mouza Or Moholla :
                       </span>{" "}
                       {values.perAdditionalMouzaOrMoholla +
-                        `${
-                          values.perAdditionalMouzaOrMohollaEn
-                            ? `(${values.perAdditionalMouzaOrMohollaEn})`
-                            : ""
+                        `${values.perAdditionalMouzaOrMohollaEn
+                          ? `(${values.perAdditionalMouzaOrMohollaEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Village Or Road :
                       </span>{" "}
                       {values.perAdditionalVillageOrRoad +
-                        `${
-                          values.perAdditionalVillageOrRoadEn
-                            ? `(${values.perAdditionalVillageOrRoadEn})`
-                            : ""
+                        `${values.perAdditionalVillageOrRoadEn
+                          ? `(${values.perAdditionalVillageOrRoadEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         City Corp. :
                       </span>{" "}
                       {values.perCityCorporationOrMunicipality +
-                        `${
-                          values.perCityCorporationOrMunicipalityEn
-                            ? `(${values.perCityCorporationOrMunicipalityEn})`
-                            : ""
+                        `${values.perCityCorporationOrMunicipalityEn
+                          ? `(${values.perCityCorporationOrMunicipalityEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         District :
                       </span>{" "}
                       {values.perDistrict +
-                        `${
-                          values.perDistrictEn
-                            ? `(${values.perDistrictEn})`
-                            : ""
+                        `${values.perDistrictEn
+                          ? `(${values.perDistrictEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
@@ -677,48 +673,43 @@ export class Confirm extends Component {
                         Division :
                       </span>{" "}
                       {values.perDivision +
-                        `${
-                          values.perDivisionEn
-                            ? `(${values.perDivisionEn})`
-                            : ""
+                        `${values.perDivisionEn
+                          ? `(${values.perDivisionEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Home Or Holding No. :
                       </span>{" "}
                       {values.perHomeOrHoldingNo +
-                        `${
-                          values.perHomeOrHoldingNoEn
-                            ? `(${values.perHomeOrHoldingNoEn})`
-                            : ""
+                        `${values.perHomeOrHoldingNoEn
+                          ? `(${values.perHomeOrHoldingNoEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Post Office :
                       </span>{" "}
                       {values.perPostOffice +
-                        `${
-                          values.perPostOfficeEn
-                            ? `(${values.perPostOfficeEn})`
-                            : ""
+                        `${values.perPostOfficeEn
+                          ? `(${values.perPostOfficeEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Postal Code :
                       </span>{" "}
                       {values.perPostalCode +
-                        `${
-                          values.perPostalCodeEn
-                            ? `(${values.perPostalCodeEn})`
-                            : ""
+                        `${values.perPostalCodeEn
+                          ? `(${values.perPostalCodeEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Region :
                       </span>{" "}
                       {values.perRegion +
-                        `${
-                          values.perRegionEn ? `(${values.perRegionEn})` : ""
+                        `${values.perRegionEn ? `(${values.perRegionEn})` : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
@@ -731,10 +722,9 @@ export class Confirm extends Component {
                         Union Or Ward :
                       </span>{" "}
                       {values.perUnionOrWard +
-                        `${
-                          values.perUnionOrWardEn
-                            ? `(${values.perUnionOrWardEn})`
-                            : ""
+                        `${values.perUnionOrWardEn
+                          ? `(${values.perUnionOrWardEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
@@ -746,8 +736,7 @@ export class Confirm extends Component {
                         Upozila :
                       </span>{" "}
                       {values.perUpozila +
-                        `${
-                          values.perUpozilaEn ? `(${values.perUpozilaEn})` : ""
+                        `${values.perUpozilaEn ? `(${values.perUpozilaEn})` : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
@@ -759,10 +748,9 @@ export class Confirm extends Component {
                         Ward For Union Porishod :
                       </span>{" "}
                       {values.perWardForUnionPorishod +
-                        `${
-                          values.perWardForUnionPorishodEn
-                            ? `(${values.perWardForUnionPorishodEn})`
-                            : ""
+                        `${values.perWardForUnionPorishodEn
+                          ? `(${values.perWardForUnionPorishodEn})`
+                          : ""
                         }`}
                       <br />
                     </small>
@@ -782,40 +770,36 @@ export class Confirm extends Component {
                         Mouza Or Moholla :
                       </span>{" "}
                       {values.preAdditionalMouzaOrMoholla +
-                        `${
-                          values.preAdditionalMouzaOrMohollaEn
-                            ? `(${values.preAdditionalMouzaOrMohollaEn})`
-                            : ""
+                        `${values.preAdditionalMouzaOrMohollaEn
+                          ? `(${values.preAdditionalMouzaOrMohollaEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Village Or Road :
                       </span>{" "}
                       {values.preAdditionalVillageOrRoad +
-                        `${
-                          values.preAdditionalVillageOrRoadEn
-                            ? `(${values.preAdditionalVillageOrRoadEn})`
-                            : ""
+                        `${values.preAdditionalVillageOrRoadEn
+                          ? `(${values.preAdditionalVillageOrRoadEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         City Corp. :
                       </span>{" "}
                       {values.preCityCorporationOrMunicipality +
-                        `${
-                          values.preCityCorporationOrMunicipalityEn
-                            ? `(${values.preCityCorporationOrMunicipalityEn})`
-                            : ""
+                        `${values.preCityCorporationOrMunicipalityEn
+                          ? `(${values.preCityCorporationOrMunicipalityEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         District :
                       </span>{" "}
                       {values.preDistrict +
-                        `${
-                          values.preDistrictEn
-                            ? `(${values.preDistrictEn})`
-                            : ""
+                        `${values.preDistrictEn
+                          ? `(${values.preDistrictEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
@@ -827,48 +811,43 @@ export class Confirm extends Component {
                         Division :
                       </span>{" "}
                       {values.preDivision +
-                        `${
-                          values.preDivisionEn
-                            ? `(${values.preDivisionEn})`
-                            : ""
+                        `${values.preDivisionEn
+                          ? `(${values.preDivisionEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Home Or Holding No. :
                       </span>{" "}
                       {values.preHomeOrHoldingNo +
-                        `${
-                          values.preHomeOrHoldingNoEn
-                            ? `(${values.preHomeOrHoldingNoEn})`
-                            : ""
+                        `${values.preHomeOrHoldingNoEn
+                          ? `(${values.preHomeOrHoldingNoEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Post Office :
                       </span>{" "}
                       {values.prePostOffice +
-                        `${
-                          values.prePostOfficeEn
-                            ? `(${values.prePostOfficeEn})`
-                            : ""
+                        `${values.prePostOfficeEn
+                          ? `(${values.prePostOfficeEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Postal Code :
                       </span>{" "}
                       {values.prePostalCode +
-                        `${
-                          values.prePostalCodeEn
-                            ? `(${values.prePostalCodeEn})`
-                            : ""
+                        `${values.prePostalCodeEn
+                          ? `(${values.prePostalCodeEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
                         Region :
                       </span>{" "}
                       {values.preRegion +
-                        `${
-                          values.preRegionEn ? `(${values.preRegionEn})` : ""
+                        `${values.preRegionEn ? `(${values.preRegionEn})` : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
@@ -881,10 +860,9 @@ export class Confirm extends Component {
                         Union Or Ward :
                       </span>{" "}
                       {values.preUnionOrWard +
-                        `${
-                          values.preUnionOrWardEn
-                            ? `(${values.preUnionOrWardEn})`
-                            : ""
+                        `${values.preUnionOrWardEn
+                          ? `(${values.preUnionOrWardEn})`
+                          : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
@@ -896,8 +874,7 @@ export class Confirm extends Component {
                         Upozila :
                       </span>{" "}
                       {values.preUpozila +
-                        `${
-                          values.preUpozilaEn ? `(${values.preUpozilaEn})` : ""
+                        `${values.preUpozilaEn ? `(${values.preUpozilaEn})` : ""
                         }`}
                       <br />
                       <span style={{ color: "green", fontSize: "14px" }}>
@@ -909,10 +886,9 @@ export class Confirm extends Component {
                         Ward For Union Porishod :
                       </span>{" "}
                       {values.preWardForUnionPorishod +
-                        `${
-                          values.preWardForUnionPorishodEn
-                            ? `(${values.preWardForUnionPorishodEn})`
-                            : ""
+                        `${values.preWardForUnionPorishodEn
+                          ? `(${values.preWardForUnionPorishodEn})`
+                          : ""
                         }`}
                       <br />
                     </small>
@@ -1035,57 +1011,57 @@ export class Confirm extends Component {
                     </small>
                   </div>
                 ) : (
-                  // Minor
+                    // Minor
 
-                  <div className="col-sm-6 ">
-                    <div className="im">
-                      <small style={{ color: "green" }}>Nominee {i + 1}</small>
+                    <div className="col-sm-6 ">
+                      <div className="im">
+                        <small style={{ color: "green" }}>Nominee {i + 1}</small>
+                      </div>
+
+                      <small className="text-muted" style={{ fontSize: "14px" }}>
+                        <span style={{ color: "green", fontSize: "14px" }}>
+                          Minor Nominee :
+                      </span>{" "}
+                        {val.minorNominee}
+                        <br />
+                        <span style={{ color: "green", fontSize: "14px" }}>
+                          Minor Nominee Date of Birth :
+                      </span>{" "}
+                        {dayMonthYearFormat(val.minorDob)}
+                        <br />
+                        <span style={{ color: "green", fontSize: "14px" }}>
+                          Minor Nominee Relation With Account Holder:
+                      </span>{" "}
+                        {val.showMinorRelation}
+                        <br />
+                        <span style={{ color: "green", fontSize: "14px" }}>
+                          Percentage :
+                      </span>{" "}
+                        {val.minorPercentage}&#37;
+                      <br />
+                        <span style={{ color: "green", fontSize: "14px" }}>
+                          Minor Nominee Guardian NID No :
+                      </span>{" "}
+                        {val.minorGuardianNid}
+                        <br />
+                        <span style={{ color: "green", fontSize: "14px" }}>
+                          Minor Nominee Guardian Name :
+                      </span>{" "}
+                        {val.minorGuardianName}
+                        <br />
+                        <span style={{ color: "green", fontSize: "14px" }}>
+                          Guardian Relation with Minor Nominee :
+                      </span>{" "}
+                        {val.showMinorRelationWithGuardian}
+                        <br />
+                        <span style={{ color: "green", fontSize: "14px" }}>
+                          Guardian Address :
+                      </span>{" "}
+                        {val.minorGuardianAddress}
+                        <br />
+                      </small>
                     </div>
-
-                    <small className="text-muted" style={{ fontSize: "14px" }}>
-                      <span style={{ color: "green", fontSize: "14px" }}>
-                        Minor Nominee :
-                      </span>{" "}
-                      {val.minorNominee}
-                      <br />
-                      <span style={{ color: "green", fontSize: "14px" }}>
-                        Minor Nominee Date of Birth :
-                      </span>{" "}
-                      {dayMonthYearFormat(val.minorDob)}
-                      <br />
-                      <span style={{ color: "green", fontSize: "14px" }}>
-                        Minor Nominee Relation With Account Holder:
-                      </span>{" "}
-                      {val.showMinorRelation}
-                      <br />
-                      <span style={{ color: "green", fontSize: "14px" }}>
-                        Percentage :
-                      </span>{" "}
-                      {val.minorPercentage}&#37;
-                      <br />
-                      <span style={{ color: "green", fontSize: "14px" }}>
-                        Minor Nominee Guardian NID No :
-                      </span>{" "}
-                      {val.minorGuardianNid}
-                      <br />
-                      <span style={{ color: "green", fontSize: "14px" }}>
-                        Minor Nominee Guardian Name :
-                      </span>{" "}
-                      {val.minorGuardianName}
-                      <br />
-                      <span style={{ color: "green", fontSize: "14px" }}>
-                        Guardian Relation with Minor Nominee :
-                      </span>{" "}
-                      {val.showMinorRelationWithGuardian}
-                      <br />
-                      <span style={{ color: "green", fontSize: "14px" }}>
-                        Guardian Address :
-                      </span>{" "}
-                      {val.minorGuardianAddress}
-                      <br />
-                    </small>
-                  </div>
-                )
+                  )
               )}
             </div>
             <hr />
@@ -1114,53 +1090,53 @@ export class Confirm extends Component {
                     <hr />
                   </div>
                 ) : (
-                  <React.Fragment>
-                    <div className="imTwo text-center col-sm-3">
-                      <div className="im">
-                        <small>Minor Nominee {i + 1}</small>
-                      </div>
+                    <React.Fragment>
+                      <div className="imTwo text-center col-sm-3">
+                        <div className="im">
+                          <small>Minor Nominee {i + 1}</small>
+                        </div>
 
-                      <img
-                        src={
-                          val.minorNomineePhoto
-                            ? values.flag + val.minorNomineePhoto
-                            : child
-                        }
-                        alt=""
-                        style={{
-                          margin: "0 auto",
-                          width: "250px",
-                          height: "150px",
-                          border: "none",
-                        }}
-                        className="img-fluid img-thumbnail"
-                      />
-                      <hr />
-                    </div>
-                    <div className="imTwo text-center col-sm-3">
-                      <div className="im">
-                        <small>Nominee's Guardian {i + 1}</small>
+                        <img
+                          src={
+                            val.minorNomineePhoto
+                              ? values.flag + val.minorNomineePhoto
+                              : child
+                          }
+                          alt=""
+                          style={{
+                            margin: "0 auto",
+                            width: "250px",
+                            height: "150px",
+                            border: "none",
+                          }}
+                          className="img-fluid img-thumbnail"
+                        />
+                        <hr />
                       </div>
+                      <div className="imTwo text-center col-sm-3">
+                        <div className="im">
+                          <small>Nominee's Guardian {i + 1}</small>
+                        </div>
 
-                      <img
-                        src={
-                          val.minorPhotoGuardian
-                            ? values.flag + val.minorPhotoGuardian
-                            : guardian
-                        }
-                        alt=""
-                        style={{
-                          margin: "0 auto",
-                          width: "250px",
-                          height: "150px",
-                          border: "none",
-                        }}
-                        className="img-fluid img-thumbnail"
-                      />
-                      <hr />
-                    </div>
-                  </React.Fragment>
-                )
+                        <img
+                          src={
+                            val.minorPhotoGuardian
+                              ? values.flag + val.minorPhotoGuardian
+                              : guardian
+                          }
+                          alt=""
+                          style={{
+                            margin: "0 auto",
+                            width: "250px",
+                            height: "150px",
+                            border: "none",
+                          }}
+                          className="img-fluid img-thumbnail"
+                        />
+                        <hr />
+                      </div>
+                    </React.Fragment>
+                  )
               )}
             </div>
           </div>
@@ -1170,8 +1146,8 @@ export class Confirm extends Component {
               <Loading />
             </div>
           ) : (
-            ""
-          )}
+              ""
+            )}
           <br />
 
           <div

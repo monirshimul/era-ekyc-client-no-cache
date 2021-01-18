@@ -14,6 +14,7 @@ class Account extends Component {
         productNameData: [],
         accountType: '',
         amount: '',
+        subChannel: "",
         tenor: ''
 
     }
@@ -22,11 +23,19 @@ class Account extends Component {
     componentDidMount() {
         sessionStorage.removeItem('accountId');
         sessionStorage.removeItem("accountInfo");
+        sessionStorage.removeItem("subChannelInfo");
     }
 
     onChange = e => {
         e.preventDefault();
         this.setState({ [e.target.name]: e.target.value });
+    }
+
+    productChange = e => {
+        e.preventDefault();
+        const val = JSON.parse(e.target.value);
+        sessionStorage.setItem("subChannelInfo", JSON.stringify(val.subChannel));
+        this.setState({ productName: val.code, subChannel: val.subChannel });
     }
 
 
@@ -269,14 +278,14 @@ class Account extends Component {
                             <select
                                 className='custom-select'
                                 value={this.state.productName}
-                                onChange={this.onChange}
+                                onChange={this.productChange}
                                 name="productName"
                             >
                                 <option value='' disabled>--Select--</option>
                                 {
                                     this.state.productNameData.map((val, index) => {
                                         return (
-                                            <option key={val.id} value={val.code}>{val.code}---{val.name} </option>
+                                            <option key={val.id} value={JSON.stringify({ code: val.code, subChannel: val.subChannelCode })} >{val.code}---{val.name} </option>
                                         )
                                     })
                                 }

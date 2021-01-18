@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import { withRouter } from 'react-router-dom';
-import {dayMonthYearFormat } from '../../../Utils/dateConversion';
+import { dayMonthYearFormat } from '../../../Utils/dateConversion';
 import { ProductCodeGetName, ProductCategoryType, AccountType, GenderForm } from '../../../Utils/fullFormConversion';
 import axios from 'axios';
 import { regularSingleApi } from '../../Url/ApiList';
@@ -17,7 +17,7 @@ import adult from '../../Simplified/images/age-limit-one.svg'
 import child from '../../Simplified/images/age-limit-two.svg'
 import guardian from '../../Simplified/images/guardian.svg';
 import Acordion from '../../Acordion/Acordion';
-import {largeTime} from '../../../Utils/notificationTime';
+import { largeTime } from '../../../Utils/notificationTime';
 
 export class RegFaceConfirm extends Component {
     state = {
@@ -41,7 +41,7 @@ export class RegFaceConfirm extends Component {
         let accountInfo = {
             title: values.applicantName,
             type: values.accountType,
-            productType: values.product,
+            productType: values.productType,
             productCategoryCode: values.product,
             branchOrAgentPointCode: branchOrAgentPointCode,
             transactionOrMaturityAmount: values.transactionOrMaturityAmount,
@@ -53,7 +53,7 @@ export class RegFaceConfirm extends Component {
             nid: values.applicantNidNo,
             name: values.applicantName,
             nameBangla: values.applicantNameBangla,
-            dob:values.applicantDob,
+            dob: values.applicantDob,
             dobDate: values.applicantDob ? new Date(values.applicantDob).toISOString() : '',
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
@@ -228,7 +228,7 @@ export class RegFaceConfirm extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
 
             },
-            timeout:300000
+            timeout: 300000
         };
 
         try {
@@ -239,12 +239,12 @@ export class RegFaceConfirm extends Component {
             let resData = res.data.data;
             if (resData.channelResponse === null) {
                 NotificationManager.error(
-                  "Integration Server Error",
-                  "Click TO Remove",
-                  largeTime
+                    "Integration Server Error",
+                    "Click TO Remove",
+                    largeTime
                 );
                 return;
-              }
+            }
             let resToArr = getJsonObjectToArray(resData)
             //console.log("Result Array",resToArr)
             this.props.handleState('channelAccStatus', resToArr);

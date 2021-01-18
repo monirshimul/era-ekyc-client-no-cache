@@ -37,7 +37,7 @@ export class RegJointFingerConfirm extends Component {
         //     let accountInfo = {
         //         title: values.applicantName,
         //         type: values.accountType,
-        //         productType: values.product,
+        //         productType: values.productType,
         //         productCategoryCode: values.product,
         //         branchOrAgentPointCode: branchOrAgentPointCode,
         //         transactionOrMaturityAmount: values.transactionOrMaturityAmount,
