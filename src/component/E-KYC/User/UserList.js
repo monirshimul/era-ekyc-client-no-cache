@@ -73,6 +73,7 @@ export class UserList extends Component {
                 profileName: profileData.name
             });
         } catch (error) {
+            console.log("error", error.response);
             if (error.response) {
                 let message = error.response.data.message
                 //console.log("Error",error.response)

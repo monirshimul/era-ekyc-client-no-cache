@@ -7,7 +7,7 @@ import bg from './image/wave2.png'
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import { loginAPI } from '../E-KYC/Url/ApiList';
-import { FaUser, FaLock} from "react-icons/fa";
+import { FaUser, FaLock } from "react-icons/fa";
 
 
 const Joi = require('@hapi/joi');
@@ -62,7 +62,7 @@ class Login extends Component {
             userId,
             password
         }
-        //console.log("loginObj", obj);
+        console.log("loginObj", obj);
 
         //this.schema.validate(obj)
 
@@ -72,7 +72,7 @@ class Login extends Component {
             const validationValue = await schema.validateAsync(joiObj);
             // console.log("validationValue", validationValue)
             let userLogin = await axios.post(loginAPI, obj);
-            //  console.log("loginapi ", userLogin.data);
+            console.log("loginapi ", userLogin.data);
 
             let loginSuccess = userLogin.data.data;
             //console.log("login", loginSuccess.branchOrAgentPointCode);
@@ -106,7 +106,7 @@ class Login extends Component {
 
 
         } catch (err) {
-            // console.log(err.response);
+            console.log(err.response);
 
             if (err.response) {
                 let errorMessage = err.response.data.reason;

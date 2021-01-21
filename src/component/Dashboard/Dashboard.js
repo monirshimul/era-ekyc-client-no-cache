@@ -71,13 +71,15 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import UpgradeDetails from '../E-KYC/Upgrade-ekyc/UpgradeDetails';
 import MultiUpgrade from '../E-KYC/Upgrade-ekyc/MulitStepUpgrade.js/MultiUpgrade';
-
+import IdleTimer from 'react-idle-timer';
 
 
 
 
 
 class Dashboard extends Component {
+
+
 
     state = {
         isLogOut: false,
@@ -96,15 +98,16 @@ class Dashboard extends Component {
 
     constructor() {
         super();
+        this.idleTimer = null;
         if (this.state.isAuthToken !== null) {
             this.feature = JSON.parse(sessionStorage.getItem("featureList"));
             this.firstMenu = pruneRouteArray(this.feature);
             this.allMenu = getFlatRouteArray(this.firstMenu);
         }
-
+        this.idleTimer = null;
     }
 
-    //const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem("profile")));
+
 
     async componentDidMount() {
         // console.log("componentDidMount Called==============")
@@ -269,14 +272,39 @@ class Dashboard extends Component {
 
     //=========== End of Testing The Feature File ===============
 
+    // Idle Timer onIdle Function Implementation start////////////////////////////
+
+    onIdle = async () => {
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        try {
+            let res = await axios.post(logoutUser, null, config);
+            console.log("logoutComplete", res.data);
+            sessionStorage.clear();
+            localStorage.clear();
+            this.setState({
+                isLogOut: !this.state.isLogOut
+            })
 
 
+
+
+        } catch (err) {
+            console.log(err.response);
+        }
+    }
+
+    // Idle Timer onIdle Function Implementation start////////////////////////////
 
 
     render() {
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag} = this.state;
+        let { userProfileImage, flag } = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
         // console.log("Auth Token", this.state.isAuthToken);
@@ -291,6 +319,15 @@ class Dashboard extends Component {
         return (
             <Router >
                 <div style={{ minHeight: "100%" }}>
+                    {/*Idle Timer Implementation Start */}
+                    <IdleTimer
+                        ref={ref => { this.idleTimer = ref }}
+                        timeout={1000 * 60 * 60}
+                        onIdle={this.onIdle}
+                    >
+                    </IdleTimer>
+                    {/*Idle Timer Implementation End */}
+
                     <Nav logOut={this.logOut} />
                     <div className="d-flex" style={{ margin: "0", padding: "0", overflowX: "hidden" }}>
                         <ReactTooltip id="show" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">

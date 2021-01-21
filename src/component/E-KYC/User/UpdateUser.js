@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { getupdateUser, getRoleWithFilter, userUpdate } from '../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import axios from 'axios';
-import {largeTime} from '../../Utils/notificationTime';
+import { largeTime } from '../../Utils/notificationTime';
 import ReactTooltip from 'react-tooltip';
 
 class UpdateUser extends Component {
@@ -80,7 +80,7 @@ class UpdateUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -131,7 +131,7 @@ class UpdateUser extends Component {
                 //console.log("Error",error.response)
                 NotificationManager.error(message, "Error", 5000);
             } else if (error.request) {
-               // console.log("Error Connecting...", error.request)
+                // console.log("Error Connecting...", error.request)
                 NotificationManager.error("Error Connecting...", "Error", 5000);
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
@@ -142,7 +142,7 @@ class UpdateUser extends Component {
 
     }
 
-  
+
 
     ///checkbox
 
@@ -164,7 +164,7 @@ class UpdateUser extends Component {
                     //console.log("Error",error.response)
                     NotificationManager.error(message, "Error", 5000);
                 } else if (error.request) {
-                   // console.log("Error Connecting...", error.request)
+                    // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Error", 5000);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Error", 5000);
@@ -233,7 +233,7 @@ class UpdateUser extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         const { id, userId, channelName, name, mobile, email, pinAuthStatus, checking, roles } = this.state;
-        let mobileCheck= /^(?:\+88|88)?(01[3-9]\d{8})$/;
+        let mobileCheck = /^(?:\+88|88)?(01[3-9]\d{8})$/;
 
         if (userId === "") {
             let userIdMessage = "Please Provide your User ID";
@@ -272,7 +272,7 @@ class UpdateUser extends Component {
         }
 
 
-        if( mobileCheck.test(mobile) === false){
+        if (mobileCheck.test(mobile) === false) {
             let mobileLengthMessage = "Invalid Mobile Number";
             NotificationManager.warning(mobileLengthMessage, "Click to Remove", largeTime);
             return;
@@ -329,7 +329,7 @@ class UpdateUser extends Component {
             // this.props.history.push('/dashboard');
             this.props.history.push('/dashboard/user-list');
         } catch (err) {
-            //console.log(err.response);
+            console.log(err.response);
             let error = err.response.data;
             let statusCode = error.statusCode;
             let message = error.message;
@@ -338,8 +338,8 @@ class UpdateUser extends Component {
         }
     }
 
-      // Back Button 
-      onBack = e =>{
+    // Back Button 
+    onBack = e => {
         e.preventDefault();
         this.props.history.push('/dashboard/user-list');
     }
@@ -361,26 +361,26 @@ class UpdateUser extends Component {
                     <form onSubmit={this.handleSubmit}>
 
                         <ReactTooltip id="userId" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide user id (Ex. 'ABID007' or '000999' ), it's a mandatory input-field</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Provide user id (Ex. 'ABID007' or '000999' ), it's a mandatory input-field</span>
                         </ReactTooltip>
                         <ReactTooltip id="channel" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please choose a channel name, it's a mandatory field</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please choose a channel name, it's a mandatory field</span>
                         </ReactTooltip>
                         <ReactTooltip id="userName" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide User Name, it's a mandatory input-field</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Provide User Name, it's a mandatory input-field</span>
                         </ReactTooltip>
-                    
+
                         <ReactTooltip id="userEmail" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid email address, it's a mandatory input-field </span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Provide valid email address, it's a mandatory input-field </span>
                         </ReactTooltip>
                         <ReactTooltip id="userMobile" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Provide valid mobile number, it's a mandatory input-field </span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Provide valid mobile number, it's a mandatory input-field </span>
                         </ReactTooltip>
                         <ReactTooltip id="twoStep" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please select any option, it's a mandatory input-field </span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select any option, it's a mandatory input-field </span>
                         </ReactTooltip>
                         <ReactTooltip id="role" place="top" backgroundColor='#d7eeee' textColor="green" effect="float">
-                            <span style={{ fontSize:"15px"}}><span style={{color:"red"}}>*</span> Please select any role or select multiple, it's mandatory</span>
+                            <span style={{ fontSize: "15px" }}><span style={{ color: "red" }}>*</span> Please select any role or select multiple, it's mandatory</span>
                         </ReactTooltip>
 
 
@@ -481,12 +481,12 @@ class UpdateUser extends Component {
 
                         {/* Submit Button */}
                         <div className="d-flex justify-content-center" >
-                        <ReactTooltip id="sub" place="top" type="warning" effect="float">
-                            <span style={{ fontSize:"15px"}}> Before submit, check all the mandatory fields again</span>
-                        </ReactTooltip>
+                            <ReactTooltip id="sub" place="top" type="warning" effect="float">
+                                <span style={{ fontSize: "15px" }}> Before submit, check all the mandatory fields again</span>
+                            </ReactTooltip>
 
 
-                        <button onClick={() => this.props.history.push('/dashboard/user-list') } className="b mr-2" style={{ border: "none" }} ><i class="fas fa-edit"></i> Back</button>
+                            <button onClick={() => this.props.history.push('/dashboard/user-list')} className="b mr-2" style={{ border: "none" }} ><i class="fas fa-edit"></i> Back</button>
                             <button data-tip data-for="sub" className="b" type="submit" style={{ border: "none" }} >Submit</button>
 
                         </div>
