@@ -33,7 +33,7 @@ export class PersonalDetails extends Component {
         preUnionCode: '',
 
         autoProfession: [],
-        professionCode: ""
+        // professionCode: ""
     }
 
     schema = Joi.object({
@@ -47,7 +47,7 @@ export class PersonalDetails extends Component {
                 "string.pattern.base": `Please Provide Valid Mobile Number`,
             }),
         gender: Joi.string().required(),
-        profession: Joi.string().required(),
+        // profession: Joi.string().required(),
         operatorType: Joi.string().required(),
         motherName: Joi.string().required(),
         motherNameBangla: Joi.string().required(),
@@ -78,7 +78,7 @@ export class PersonalDetails extends Component {
     //////////Profession///////////////
 
     handleProfessionChange = async (e) => {
-        let {values} = this.props;
+        let { values } = this.props;
         const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -105,19 +105,19 @@ export class PersonalDetails extends Component {
 
 
     handleProfessionSelect = e => {
-        let {autoProfession} = this.state;
+        let { autoProfession } = this.state;
         try {
-            
+
             this.props.handleState('profession', e.target.value);
-            let proCode="";
-            for(let i = 0; i<= autoProfession.length; i++){
-              
-              if(autoProfession[i]["name"] === e.target.value){
-                proCode = autoProfession[i]["code"]
-                //console.log("Code",proCode)
-                this.props.handleState("professionCode", proCode);
-              }
-              
+            let proCode = "";
+            for (let i = 0; i <= autoProfession.length; i++) {
+
+                if (autoProfession[i]["name"] === e.target.value) {
+                    proCode = autoProfession[i]["code"]
+                    //console.log("Code",proCode)
+                    this.props.handleState("professionCode", proCode);
+                }
+
             }
         } catch (err) {
             console.log(err);
@@ -482,7 +482,7 @@ export class PersonalDetails extends Component {
             applicantNidNo: values.applicantNidNo,
             mobileNumber: values.mobileNumber,
             gender: values.gender,
-            profession: values.profession,
+            // profession: values.professionCode,
             operatorType: values.operatorType,
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
@@ -508,6 +508,10 @@ export class PersonalDetails extends Component {
 
         try {
             const validationValue = await this.schema.validateAsync(data);
+            if (values.professionCode.length <= 1) {
+                NotificationManager.error("Please Select a Valid Profession From list", "Click To Remove", largeTime);
+                return;
+            }
 
             ///////////////////// Text Matching Start /////////////////////////////
 
@@ -612,8 +616,8 @@ export class PersonalDetails extends Component {
 
 
                     if (permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE === "") {
-                        let preMessage = "Please check Permanent Address districtName,upozilaName and unionName";
-                        NotificationManager.warning("Present Address - " + preMessage, "Click to Remove", largeTime);
+                        let perMessage = "Please check Permanent Address districtName,upozilaName and unionName";
+                        NotificationManager.warning("Permanent Address - " + perMessage, "Click to Remove", largeTime);
                         return;
                     }
 

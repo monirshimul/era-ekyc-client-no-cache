@@ -34,7 +34,7 @@ export class SimPersonalDetails extends Component {
         preUnionCode: '',
 
         autoProfession: [],
-        professionCode: ""
+        // professionCode: ""
 
     }
 
@@ -54,7 +54,8 @@ export class SimPersonalDetails extends Component {
         //         "string.pattern.base": `Please Provide Valid Mobile Number`,
         //     }),
         gender: Joi.string().required(),
-        profession: Joi.string().required(),
+        //profession: Joi.string().min(1).required().error(() => { return { message: 'Please Select a Valid Profession From list' } }),
+        // profession: Joi.string().min(1).required(),
         motherName: Joi.string().required(),
         motherNameBangla: Joi.string().required(),
         fatherName: Joi.string().required(),
@@ -85,7 +86,7 @@ export class SimPersonalDetails extends Component {
     //////////Profession///////////////
 
     handleProfessionChange = async (e) => {
-        let {values} = this.props;
+        let { values } = this.props;
         const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -101,7 +102,7 @@ export class SimPersonalDetails extends Component {
             //  console.log(professionapi.data.data);
             let autocompleteData = [];
             professionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.displayName, id: d.id, code: d.code})
+                autocompleteData.push({ name: d.displayName, id: d.id, code: d.code })
             })
             this.setState({ autoProfession: autocompleteData });
         } catch (err) {
@@ -110,25 +111,25 @@ export class SimPersonalDetails extends Component {
     }
 
     handleProfessionSelect = e => {
-       let {autoProfession} = this.state;
+        let { autoProfession } = this.state;
         try {
             // const val = e.target.value.split('-');
             //   console.log("val", typeof val[1]);
             // console.log(e.target.value);
             //console.log("val", val[1]);
             this.props.handleState('profession', e.target.value);
-            let proCode="";
-            for(let i = 0; i<= autoProfession.length; i++){
-              
-              if(autoProfession[i]["name"] === e.target.value){
-                proCode = autoProfession[i]["code"]
-                // console.log("Code",proCode)
-                this.props.handleState("professionCode", proCode);
-              }
-              
+            let proCode = "";
+            for (let i = 0; i <= autoProfession.length; i++) {
+
+                if (autoProfession[i]["name"] === e.target.value) {
+                    proCode = autoProfession[i]["code"]
+                    // console.log("Code",proCode)
+                    this.props.handleState("professionCode", proCode);
+                }
+
             }
 
-           
+
         } catch (err) {
             console.log(err);
         }
@@ -483,7 +484,7 @@ export class SimPersonalDetails extends Component {
     continue = async e => {
         const { values } = this.props;
         e.preventDefault();
-        //console.log("All ec Values",values);
+        console.log("All ec Values", values);
 
 
 
@@ -494,7 +495,7 @@ export class SimPersonalDetails extends Component {
             applicantNidNo: values.applicantNidNo,
             // mobileNumber: values.mobileNumber,
             gender: values.gender,
-            profession: values.profession,
+            // profession: values.professionCode,
             motherName: values.motherName,
             motherNameBangla: values.motherNameBangla,
             fatherName: values.fatherName,
@@ -523,6 +524,10 @@ export class SimPersonalDetails extends Component {
 
             const validationValue = await this.schema.validateAsync(data);
             //console.log("validationValue", validationValue)
+            if (values.professionCode.length <= 1) {
+                NotificationManager.error("Please Select a Valid Profession From list", "Click To Remove", largeTime);
+                return;
+            }
 
             ///////////////////// Text Matching Start /////////////////////////////
 
@@ -640,8 +645,8 @@ export class SimPersonalDetails extends Component {
 
 
                     if (permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE === "") {
-                        let preMessage = "Please check Permanent Address districtName,upozilaName and unionName";
-                        NotificationManager.warning("Present Address - " + preMessage, "Click to Remove", largeTime);
+                        let perMessage = "Please check Permanent Address districtName,upozilaName and unionName";
+                        NotificationManager.warning("Permanent Address - " + perMessage, "Click to Remove", largeTime);
                         return;
                     }
 
@@ -702,7 +707,7 @@ export class SimPersonalDetails extends Component {
         // console.log("All ec Values", values);
         //  console.log("profession",values.profession);
         //  console.log("professionCode",values.professionCode);
-        
+
         return (
             <div className="container">
 

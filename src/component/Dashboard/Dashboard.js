@@ -72,6 +72,7 @@ import axios from 'axios';
 import UpgradeDetails from '../E-KYC/Upgrade-ekyc/UpgradeDetails';
 import MultiUpgrade from '../E-KYC/Upgrade-ekyc/MulitStepUpgrade.js/MultiUpgrade';
 import IdleTimer from 'react-idle-timer';
+import { largeTime } from './../Utils/notificationTime';
 
 
 
@@ -237,7 +238,22 @@ class Dashboard extends Component {
 
 
         } catch (err) {
-            console.log(err.response);
+            if (err.response) {
+                let message = "Logout Failed";
+                NotificationManager.error(message, "Click TO Remove", largeTime);
+            } else if (err.request) {
+                NotificationManager.error(
+                    "Error Connecting...",
+                    "Click TO Remove",
+                    largeTime
+                );
+            } else if (err) {
+                NotificationManager.error(
+                    err.toString(),
+                    "Click TO Remove",
+                    largeTime
+                );
+            }
         }
 
 
@@ -283,20 +299,33 @@ class Dashboard extends Component {
 
         try {
             let res = await axios.post(logoutUser, null, config);
-            console.log("logoutComplete", res.data);
+            // console.log("logoutComplete", res.data);
             sessionStorage.clear();
             localStorage.clear();
             this.setState({
                 isLogOut: !this.state.isLogOut
             })
 
-
-
-
-        } catch (err) {
-            console.log(err.response);
+        } catch (error) {
+            if (error.response) {
+                let message = "Logout Failed";
+                NotificationManager.error(message, "Click TO Remove", largeTime);
+            } else if (error.request) {
+                NotificationManager.error(
+                    "Error Connecting...",
+                    "Click TO Remove",
+                    largeTime
+                );
+            } else if (error) {
+                NotificationManager.error(
+                    error.toString(),
+                    "Click TO Remove",
+                    largeTime
+                );
+            }
         }
     }
+
 
     // Idle Timer onIdle Function Implementation start////////////////////////////
 

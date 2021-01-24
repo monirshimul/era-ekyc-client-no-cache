@@ -268,6 +268,7 @@ class FullEkyc extends Component {
                                         </div>
                                         <div className="" style={{ fontSize: "17px" }}>
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Account ID : </span>{ekyc?.account === null ? "" : ekyc?.account?.id}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Branch/Agent Point : </span>{ekyc?.account === null ? "" : ekyc?.account?.branchOrAgentPointCode}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{ekyc?.account === null ? "" : ekyc?.account?.title}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{ekyc?.account === null ? "" : ekyc?.account?.channelAccountId}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{ekyc?.account === null ? "" : ProductCategoryType(ekyc?.account?.productType)}</small><br />
