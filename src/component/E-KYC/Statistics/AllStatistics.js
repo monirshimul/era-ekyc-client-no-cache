@@ -6,6 +6,7 @@ import { allDataCount, ekycPie, lineChart } from '../Url/ApiList';
 import { Line, Doughnut } from 'react-chartjs-2';
 import Button from '@material-ui/core/Button';
 import DateFnsUtils from '@date-io/date-fns';
+import { addHours, addDays } from 'date-fns'
 import CountUp from 'react-countup';
 import {
     MuiPickersUtilsProvider,
@@ -14,6 +15,7 @@ import {
 
 
 import { toLowerObject } from './../../Utils/ObjectUtils';
+import { date } from '@hapi/joi';
 
 
 
@@ -55,10 +57,39 @@ class AllStatistics extends Component {
             }
         };
 
-        const dataObj = {
-            startDate: this.state.fromDate.toISOString(),
-            endDate: this.state.tillDate.toISOString()
+        let utcTillDate = this.state.tillDate.setUTCHours(0, 0, 0, 0);
+        let utcFromDate = this.state.fromDate.setUTCHours(0, 0, 0, 0);
+
+
+
+        let tillDate = addHours(new Date(utcTillDate), 24)
+        let fromDate = addDays(new Date(utcFromDate), 1)
+        console.log("New Date", fromDate.toISOString())
+        let dataObj = {};
+        if (fromDate.toISOString() === tillDate.toISOString()) {
+            console.log("True")
+            dataObj = {
+                startDate: new Date(utcFromDate).toISOString(),
+                endDate: tillDate.toISOString()
+            }
+        } else {
+            console.log("False")
+            dataObj = {
+                startDate: fromDate.toISOString(),
+                endDate: tillDate.toISOString()
+            }
+
+            this.setState({
+                fromDate: fromDate.toISOString()
+            })
         }
+        // const dataObj = {
+        //     startDate: fromDate.toISOString(),
+        //     endDate: tillDate.toISOString()
+        // }
+
+        console.log("All Date", dataObj)
+
         try {
             let res = await axios.post(ekycPie, dataObj, config);
             let dataCount = res.data.data.count;

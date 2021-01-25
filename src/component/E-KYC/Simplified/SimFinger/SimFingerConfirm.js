@@ -215,15 +215,21 @@ export class SimFingerConfirm extends Component {
             let resData = res.data.data;
             if (resData.channelResponse === null) {
                 NotificationManager.error(
-                    "Integration Server Error",
+                    "Channel is not Responding...",
                     "Click TO Remove",
                     largeTime
                 );
-                return;
+                let resToArr = getJsonObjectToArray(resData)
+                //console.log("Result Array First", resToArr)
+                this.props.handleState('channelAccStatus', resToArr);
+                this.props.nextStep();
+            } else {
+                let resToArr = getJsonObjectToArray(resData)
+                //console.log("Result Array Last", resToArr)
+                this.props.handleState('channelAccStatus', resToArr);
+                this.props.nextStep();
             }
-            let resToArr = getJsonObjectToArray(resData)
-            //console.log("Result Array",resToArr)
-            this.props.handleState('channelAccStatus', resToArr);
+
 
 
             // if(resData.data.channelResponse.accountNo){
@@ -236,7 +242,7 @@ export class SimFingerConfirm extends Component {
             // let statusCode = resData.statusCode;
             // let successMessage = "Account Opening " + resData.message;
             // NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-            this.props.nextStep();
+
 
         } catch (error) {
             console.log("1stError", error);
@@ -629,7 +635,15 @@ export class SimFingerConfirm extends Component {
                     >
 
                         <span className="b mr-5" onClick={this.back}>Back</span>
-                        <span className="b" disabled={values.confirmFlag} onClick={this.continue}>Confirm</span>
+                        {
+                            values.confirmFlag ? "" : (
+                                <button className="b" onClick={this.continue}>Confirm</button>
+                            )
+                        }
+                        { /**
+                            <button className="b" disabled={values.confirmFlag} onClick={this.continue}>Confirm</button>
+                        */}
+
                     </div>
                 </div>
 

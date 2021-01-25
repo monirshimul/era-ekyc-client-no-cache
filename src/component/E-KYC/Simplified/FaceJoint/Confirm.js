@@ -1157,13 +1157,14 @@ export class Confirm extends Component {
             <span className="b mr-5" onClick={this.back}>
               Back
             </span>
-            <span
-              className="b"
-              disabled={values.confirmFlag}
-              onClick={this.continue}
-            >
-              Confirm
-            </span>
+            {
+              values.confirmFlag ? "" : (
+                <button className="b" onClick={this.continue}>Confirm</button>
+              )
+            }
+            { /**
+                            <button className="b" disabled={values.confirmFlag} onClick={this.continue}>Confirm</button>
+                        */}
           </div>
         </div>
       </div>
