@@ -11,7 +11,7 @@ class EkycListSearch extends Component {
 
     state = {
         page: 1,
-        totalPages: '',
+        totalPages: 1,
         totalEkyc: '',
         text_input: "",
         goButton: false,
