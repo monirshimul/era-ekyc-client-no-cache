@@ -38,7 +38,7 @@ export class PendingAccount extends Component {
     currentStateObj: "",
     ProductCodeConvertName: "",
     page: 1,
-    totalPages: "",
+    totalPages: 1,
     totalAccount: "",
     accountData: [],
     accountDetails: "",
@@ -48,10 +48,14 @@ export class PendingAccount extends Component {
     allButton: false,
   };
 
+
+  // On Change Function 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
+  // re-render again with current obj
   callSearch = async () => {
     this.setState({ accountData: [] });
 
@@ -104,6 +108,8 @@ export class PendingAccount extends Component {
     }
   };
 
+
+  // Search Button Click Function
   handleAPI = async (e) => {
     e.preventDefault();
 
@@ -156,7 +162,7 @@ export class PendingAccount extends Component {
         });
         this.setState({ currentStateObj: obj });
       } else {
-        this.setState({ accountData: [], totalPages: "", page: 1 });
+        this.setState({ accountData: [], totalPages: 1, page: 1 });
         NotificationManager.info("No Data Found", "Click To Remove", largeTime);
       }
     } catch (error) {
@@ -196,6 +202,7 @@ export class PendingAccount extends Component {
     }
   };
 
+  // Go button Text field Search
   handleGoInput = (e) => {
     e.preventDefault();
     const { totalPages, text_input } = this.state;
@@ -214,6 +221,8 @@ export class PendingAccount extends Component {
     }
   };
 
+  //=================================Increment function=======================================
+
   increment = () => {
     const { totalPages } = this.state;
     let nextPage = this.state.page + 1;
@@ -227,6 +236,8 @@ export class PendingAccount extends Component {
       NotificationManager.warning(pageOutBoundMessage, "Warning", 5000);
     }
   };
+  //=================================Increment function=======================================
+
 
   //=================================Decrement function=======================================
   decrement = () => {
@@ -245,6 +256,10 @@ export class PendingAccount extends Component {
     }
   };
 
+  //=================================Decrement function=======================================
+
+
+  //=================================Page Changes Api Call function Start=======================================
   pageChanges = async (newPage) => {
     const config = {
       headers: {
@@ -255,15 +270,12 @@ export class PendingAccount extends Component {
     try {
       let paginationUser = await axios.post(
         pendingAccount + newPage,
-        "",
+        this.state.currentStateObj,
         config
       );
       //console.log("pagination pages", paginationUser.data.data);
       this.setState({ totalPages: paginationUser.data.data.totalPages });
       let paginUser = paginationUser.data.data;
-      // let numPages = paginUser.totalPages;
-      // let numUsers = paginUser.totalUsers;
-      // let approveNew = paginUser.users;
       this.setState({
         page: paginUser.currentPage,
         totalAccount: paginUser.totalAccount,
@@ -272,10 +284,8 @@ export class PendingAccount extends Component {
     } catch (error) {
       if (error.response) {
         let message = error.response.data.message;
-        //console.log("Error",error.response)
         NotificationManager.error(message, "Click TO Remove", largeTime);
       } else if (error.request) {
-        // console.log("Error Connecting...", error.request)
         NotificationManager.error(
           "Error Connecting...",
           "Click TO Remove",
@@ -290,8 +300,9 @@ export class PendingAccount extends Component {
       }
     }
   };
+  //=================================Page Changes Api Call function End================================================
 
-  // =====================================Pagination====================================================
+  //======================================Pagination===============================================================
 
   onDetails = async (e) => {
     e.preventDefault();
@@ -309,7 +320,6 @@ export class PendingAccount extends Component {
 
     try {
       let detailsRes = await axios.post(getProduct, idObj, config);
-      // console.log('detailsRes', detailsRes.data.data[0].name);
       this.setState({ ProductCodeConvertName: detailsRes.data.data[0].name });
     } catch (error) {
       if (error.response) {
@@ -903,7 +913,7 @@ export class PendingAccount extends Component {
 
         {/* pagination added*/}
 
-        {this.state.totalPages >= 1 ? (
+        {this.state.totalPages > 1 ? (
           <Pagination
             //   historyPerPage={this.state.historyPerPage}
             //   totalHistory={this.state.totalHistory}
