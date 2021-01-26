@@ -244,26 +244,20 @@ export class RegFingerPrintConfirm extends Component {
             // console.log("resdata", resData);
             if (resData.channelResponse === null) {
                 NotificationManager.error(
-                    "Integration Server Error",
+                    "Channel is not Responding...",
                     "Click TO Remove",
                     largeTime
                 );
-                return;
+                let resToArr = getJsonObjectToArray(resData)
+                //console.log("Result Array First", resToArr)
+                this.props.handleState('channelAccStatus', resToArr);
+                this.props.nextStep();
+            } else {
+                let resToArr = getJsonObjectToArray(resData)
+                //console.log("Result Array Last", resToArr)
+                this.props.handleState('channelAccStatus', resToArr);
+                this.props.nextStep();
             }
-            let resToArr = getJsonObjectToArray(resData)
-            //console.log("Result Array",resToArr)
-            this.props.handleState('channelAccStatus', resToArr);
-            // if(resData.data.channelResponse.accountNo){
-            //     let accountNumber = resData.data.channelResponse.accountNo;
-            //     this.props.handleState('accountNo', accountNumber);
-            // }else{
-            //     let message = resData.data.channelResponse.details.AC_OPEN.RESPONSE_MSG;
-            //     this.props.handleState('accountMessage', message);
-            // }
-            //let statusCode = resData.statusCode;
-            //let successMessage = "Account Opening " + resData.message;
-            //NotificationManager.success(statusCode + " " + successMessage, "Success", 5000);
-            this.props.nextStep();
 
         } catch (error) {
             console.log("Error", error.response)

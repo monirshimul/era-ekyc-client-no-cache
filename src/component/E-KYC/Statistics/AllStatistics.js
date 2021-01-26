@@ -50,6 +50,66 @@ class AllStatistics extends Component {
 
     }
 
+    // findByDate = async () => {
+    //     const config = {
+    //         headers: {
+    //             'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+    //         }
+    //     };
+
+    //     let utcTillDate = this.state.tillDate.setUTCHours(0, 0, 0, 0);
+    //     let utcFromDate = this.state.fromDate.setUTCHours(0, 0, 0, 0);
+
+
+
+    //     let tillDate = addHours(new Date(utcTillDate), 24)
+    //     let fromDate = addDays(new Date(utcFromDate), 1)
+    //     console.log("New Date", fromDate.toISOString())
+    //     let dataObj = {};
+    //     if (fromDate.toISOString() === tillDate.toISOString()) {
+    //         console.log("True")
+    //         dataObj = {
+    //             startDate: new Date(utcFromDate).toISOString(),
+    //             endDate: tillDate.toISOString()
+    //         }
+    //     } else {
+    //         console.log("False")
+    //         dataObj = {
+    //             startDate: fromDate.toISOString(),
+    //             endDate: tillDate.toISOString()
+    //         }
+
+    //         this.setState({
+    //             fromDate: fromDate.toISOString()
+    //         })
+    //     }
+    //     // const dataObj = {
+    //     //     startDate: fromDate.toISOString(),
+    //     //     endDate: tillDate.toISOString()
+    //     // }
+
+    //     console.log("All Date", dataObj)
+
+    //     try {
+    //         let res = await axios.post(ekycPie, dataObj, config);
+    //         let dataCount = res.data.data.count;
+    //         this.setState({ findData: dataCount })
+    //         //console.log("Find Data", dataCount)
+    //     } catch (error) {
+    //         console.log("Error", error)
+    //         if (error.response) {
+    //             let message = error.response.data.message
+    //             console.log("Error", error.response)
+    //             NotificationManager.error(message, "Error", 5000);
+    //         } else if (error.request) {
+    //             console.log("Error Connecting...", error.request)
+    //             NotificationManager.error("Error Connecting...", "Error", 5000);
+    //         } else if (error) {
+    //             NotificationManager.error(error.toString(), "Error", 5000);
+    //         }
+    //     }
+    // }
+
     findByDate = async () => {
         const config = {
             headers: {
@@ -57,39 +117,22 @@ class AllStatistics extends Component {
             }
         };
 
-        let utcTillDate = this.state.tillDate.setUTCHours(0, 0, 0, 0);
-        let utcFromDate = this.state.fromDate.setUTCHours(0, 0, 0, 0);
+        // 2021-01-26T13:18:17.974Z
 
-
-
-        let tillDate = addHours(new Date(utcTillDate), 24)
-        let fromDate = addDays(new Date(utcFromDate), 1)
-        console.log("New Date", fromDate.toISOString())
-        let dataObj = {};
-        if (fromDate.toISOString() === tillDate.toISOString()) {
-            console.log("True")
-            dataObj = {
-                startDate: new Date(utcFromDate).toISOString(),
-                endDate: tillDate.toISOString()
-            }
-        } else {
-            console.log("False")
-            dataObj = {
-                startDate: fromDate.toISOString(),
-                endDate: tillDate.toISOString()
-            }
-
-            this.setState({
-                fromDate: fromDate.toISOString()
-            })
+        const isoBuilder = (year, month, date, type = "S") => {
+            if (month.toString().length < 2) month = `0${month.toString()}`;
+            const startDateSuffix = "T00:00:00.000Z";
+            const endDateSuffix = "T23:59:59.000Z";
+            return type == "S" ? `${year}-${month}-${date}${startDateSuffix}` : `${year}-${month}-${date}${endDateSuffix}`;
         }
-        // const dataObj = {
-        //     startDate: fromDate.toISOString(),
-        //     endDate: tillDate.toISOString()
-        // }
 
-        console.log("All Date", dataObj)
 
+
+        const dataObj = {
+            startDate: isoBuilder(this.state.fromDate.getFullYear(), this.state.fromDate.getMonth() + 1, this.state.fromDate.getDate()),
+            endDate: isoBuilder(this.state.tillDate.getFullYear(), this.state.tillDate.getMonth() + 1, this.state.tillDate.getDate(), "E")
+        }
+        //console.log(dataObj);
         try {
             let res = await axios.post(ekycPie, dataObj, config);
             let dataCount = res.data.data.count;
@@ -109,6 +152,10 @@ class AllStatistics extends Component {
             }
         }
     }
+
+
+
+
 
     specificYear = async (e) => {
         this.setState({
@@ -251,7 +298,7 @@ class AllStatistics extends Component {
             let res = await axios.post(lineChart, dataObj, config);
             let dataCount = res.data.data;
             dataCount = toLowerObject(dataCount);
-            console.log("All Ekyc Data", dataCount)
+            //console.log("All Ekyc Data", dataCount)
 
             //Static Data for Line chart
             // let tD = [
@@ -297,7 +344,7 @@ class AllStatistics extends Component {
             for (let i = 0; i < dataCount.length; i++) {
                 emptyData[dataCount[i].month - 1] = parseInt(dataCount[i].count)
             }
-            console.log("Empty data", emptyData)
+            //console.log("Empty data", emptyData)
             let modData = {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [
@@ -526,7 +573,16 @@ class AllStatistics extends Component {
                                         id="date-picker-inline"
                                         label="From Date"
                                         value={this.state.fromDate}
-                                        onChange={(date) => this.setState({ fromDate: date })}
+                                        onChange={(date, value) => {
+                                            try {
+
+                                                this.setState({ fromDate: date })
+                                            }
+                                            catch (ex) {
+
+                                            }
+
+                                        }}
                                         KeyboardButtonProps={{
                                             'aria-label': 'change date',
                                         }}
@@ -544,7 +600,16 @@ class AllStatistics extends Component {
                                         id="date-picker-inline"
                                         label="Till Date"
                                         value={this.state.tillDate}
-                                        onChange={(date) => this.setState({ tillDate: date })}
+                                        onChange={(date, value) => {
+                                            try {
+
+                                                this.setState({ tillDate: date })
+                                            }
+                                            catch (ex) {
+
+                                            }
+
+                                        }}
                                         KeyboardButtonProps={{
                                             'aria-label': 'change date',
                                         }}

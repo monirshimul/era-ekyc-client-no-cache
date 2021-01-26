@@ -208,7 +208,7 @@ export class GetProfile extends Component {
     render() {
 
         let { profileData, flag, showUpdate, profileImage } = this.state
-        //console.log("State", imageData.data)
+        console.log("State", flag + profileImage)
 
         return (
             <div className="container">
