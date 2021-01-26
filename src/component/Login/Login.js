@@ -62,7 +62,7 @@ class Login extends Component {
             userId,
             password
         }
-        console.log("loginObj", obj);
+        // console.log("loginObj", obj);
 
         //this.schema.validate(obj)
 
@@ -72,7 +72,7 @@ class Login extends Component {
             const validationValue = await schema.validateAsync(joiObj);
             // console.log("validationValue", validationValue)
             let userLogin = await axios.post(loginAPI, obj);
-            console.log("loginapi ", userLogin.data);
+            // console.log("loginapi ", userLogin.data);
 
             let loginSuccess = userLogin.data.data;
             //console.log("login", loginSuccess.branchOrAgentPointCode);

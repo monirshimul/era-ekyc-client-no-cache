@@ -286,7 +286,7 @@ export class AccountSimp extends Component {
                             >
                                 <option value='' disabled>--Select--</option>
                                 <option value='S'>Single Account</option>
-                                <option value='J'>Joint Account</option>
+                                {/* <option value='J'>Joint Account</option> */}
 
                             </select>
                         </div>

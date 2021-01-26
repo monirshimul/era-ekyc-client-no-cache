@@ -39,18 +39,11 @@ class Welcome extends Component {
 
     async componentDidMount() {
 
-        this.totalDataChart();
-        this.onBoardingTypePie();
-        //console.log("Props", this.props.txt)
-
-
-        // this.setState({
-        //     linkShower: !this.state.linkShower
-        // })
 
         let getFeature = JSON.parse(sessionStorage.getItem("featureList"))
         for (let i = 0; i < getFeature.length; i++) {
             if (getFeature[i] === "6.1") {
+                this.totalDataChart();
                 this.setState({
                     hasReport: true
                 })
@@ -106,7 +99,6 @@ class Welcome extends Component {
     }
 
 
-    // Line Chart Api calling------------------>
     totalDataChart = async () => {
         const config = {
             headers: {
@@ -117,31 +109,12 @@ class Welcome extends Component {
         try {
             let res = await axios.get(allDataCount, config);
             let dataCount = res.data.data;
-            console.log("Total Data", dataCount)
-            // let modData = {
-            //     labels: ['Account', 'User', 'Role', 'E-KYC', 'Verify'],
-            //     datasets: [
+            //console.log("Total Data", dataCount)
 
-            //         {
-            //             label: "Total Data",
-            //             //data:[3,2,5,4,6]
-            //             data: [dataCount['accountCount'], dataCount['userCount'], dataCount['roleCount'], dataCount['ekycCount'], dataCount['verificationCount']],
-            //             backgroundColor: "#f3fbfb",
-            //             borderColor: "#84ceca",
-            //             pointBackgroundColor: "red",
-            //             pointBorderColor: "red",
-
-
-            //         }
-
-
-            //     ]
-            // }
-            //console.log("Data Welcome page", modData)
             this.setState({
                 data: dataCount
             })
-            //console.log("Data Welcome page", this.state.data)
+
 
 
         } catch (error) {
@@ -159,85 +132,14 @@ class Welcome extends Component {
         }
     }
 
-    // Start Pie Chart ===========================================>
-
-    onBoardingTypePie = async () => {
-
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-
-        let d = new Date();
-        //new Date("2000-11-25T12:53:08.795Z").toLocaleString()
-        let n = d.toISOString();
-        console.log(n)
-
-        const dataObj = {
-            startDate: "2000-11-25T12:53:08.795Z",
-            endDate: n,
-            onboardingType: "ASSISTED"
-        }
-
-        try {
-            let res = await axios.post(ekycPie, dataObj, config);
-            let dataCount = res;
-
-            console.log("Data Welcome page", dataCount)
-            // this.setState({
-            //     data: dataCount
-            // })
-            //console.log("Data Welcome page", this.state.data)
-
-
-        } catch (error) {
-            console.log("Error", error)
-            if (error.response) {
-                let message = error.response.data.message
-                console.log("Error", error.response)
-                NotificationManager.error(message, "Error", 5000);
-            } else if (error.request) {
-                console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
-            }
-        }
-
-    }
-
-
-
-    // End Pie Chart   ===========================================>
-
-
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     //console.log("In the welcome")
-    //     if (prevState.linkShower !== this.state.linkShower) {
-    //         this.setState({
-    //             quickLinks: JSON.parse(sessionStorage.getItem("quickLinks")),
-
-    //         })
-
-    //     }
-    // }
-
-
-    // onLinkShow = () => {
-    //     this.setState({
-    //         showLinks: !this.state.showLinks
-    //     })
-    // }
 
     onChange = e => {
-        //e.preventDefault();
+
         this.setState({
             [e.target.name]: e.target.value,
         }, () => {
             sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode));
-            //  console.log("code",this.state.branchCode);
+
         });
 
 
@@ -246,19 +148,13 @@ class Welcome extends Component {
 
     selectOptions = () => {
         let options = [];
-        //     this.state.branchOrAgentPointCodeArr !== undefined ?
 
-        //     this.state.branchOrAgentPointCodeArr.map((val, ind) => (
-        //         <option value={val}>{this.state.branchOrAgentPointNameArr[ind] + ` (${val})`}</option>
-        //     ))
-        // :
-        // ""
 
         if (this.state.branchOrAgentPointCodeArr !== undefined) {
             this.state.branchOrAgentPointCodeArr.forEach((val, index) => {
 
                 options.push(
-                    <option value={val} >{this.state.branchOrAgentPointNameArr[index] + ` (${val})`}</option>
+                    <option key={index} value={val} >{this.state.branchOrAgentPointNameArr[index] + ` (${val})`}</option>
                 )
             })
 
@@ -270,11 +166,9 @@ class Welcome extends Component {
 
 
     render() {
-        // let path = this.props.match.path;
-        // let url = this.props.match.url;
+
         let { userProfileImage, flag, branchCode, data, hasReport } = this.state
 
-        // sessionStorage.setItem("currentBranchOrAgentPointCode", JSON.stringify(this.state.branchCode))
         return (
             <div className="container">
                 <div className="row d-flex justify-content-center align-items-center">

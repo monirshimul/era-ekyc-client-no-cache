@@ -167,6 +167,8 @@ class Account extends Component {
                 amount: parseInt(amount)
             }
 
+            console.log("myObj", myObj);
+
             sessionStorage.setItem("accountInfo", JSON.stringify(myObj));
 
             let featureTest = JSON.parse(sessionStorage.getItem('featureList'));
@@ -303,7 +305,7 @@ class Account extends Component {
                             >
                                 <option value='' disabled>--Select--</option>
                                 <option value='S'>Single Account</option>
-                                <option value='J'>Joint Account</option>
+                                {/* <option value='J'>Joint Account</option> */}
 
                             </select>
                         </div>

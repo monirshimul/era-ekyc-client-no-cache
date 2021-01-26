@@ -49,13 +49,16 @@ export class PendingAccount extends Component {
   };
 
 
-  // On Change Function 
+  //============================ On Change Function Start =======================================
+
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  //============================ On Change Function End =======================================
 
-  // re-render again with current obj
+  //================================ re-render again with current obj Start ================================
+
   callSearch = async () => {
     this.setState({ accountData: [] });
 
@@ -108,8 +111,9 @@ export class PendingAccount extends Component {
     }
   };
 
+  //================================ re-render again with current obj End ================================
 
-  // Search Button Click Function
+  //==================================== Search Button Click Function Start ================================
   handleAPI = async (e) => {
     e.preventDefault();
 
@@ -187,7 +191,9 @@ export class PendingAccount extends Component {
     }
   };
 
-  // ===========================Pagination=====================================================
+  //==================================== Search Button Click Function End ================================
+
+  // ===========================Pagination Start=====================================================
   handlePage = (e) => {
     if (e.target.value !== "") {
       this.setState({
@@ -202,7 +208,7 @@ export class PendingAccount extends Component {
     }
   };
 
-  // Go button Text field Search
+  //============================= Go button Text field Search Start ===============================
   handleGoInput = (e) => {
     e.preventDefault();
     const { totalPages, text_input } = this.state;
@@ -221,7 +227,9 @@ export class PendingAccount extends Component {
     }
   };
 
-  //=================================Increment function=======================================
+  //============================= Go button Text field Search End ===============================
+
+  //=================================Increment function Start=======================================
 
   increment = () => {
     const { totalPages } = this.state;
@@ -236,10 +244,10 @@ export class PendingAccount extends Component {
       NotificationManager.warning(pageOutBoundMessage, "Warning", 5000);
     }
   };
-  //=================================Increment function=======================================
+  //=================================Increment function End =======================================
 
 
-  //=================================Decrement function=======================================
+  //=================================Decrement function Start =======================================
   decrement = () => {
     const { totalPages } = this.state;
 
@@ -256,7 +264,7 @@ export class PendingAccount extends Component {
     }
   };
 
-  //=================================Decrement function=======================================
+  //=================================Decrement function End =======================================
 
 
   //=================================Page Changes Api Call function Start=======================================
@@ -302,8 +310,10 @@ export class PendingAccount extends Component {
   };
   //=================================Page Changes Api Call function End================================================
 
-  //======================================Pagination===============================================================
+  //======================================Pagination End===============================================================
 
+
+  // ==========================================Details Function Start ========================================
   onDetails = async (e) => {
     e.preventDefault();
     this.setState({ accountDetails: this.state.accountData[e.target.id] });
@@ -335,9 +345,13 @@ export class PendingAccount extends Component {
     }
   };
 
+  // ==========================================Details Function End ========================================
+
+
+  // ==========================================Discard Function Start ========================================
   onDiscard = async (e) => {
-    // console.log("discard start");
     e.preventDefault();
+
 
     let config = {
       headers: {
@@ -345,22 +359,21 @@ export class PendingAccount extends Component {
       },
     };
 
+
     let discardObj = {
       id: this.state.accountData[e.target.id].id,
     };
 
     try {
       let discardData = await axios.post(discardAccount, discardObj, config);
-      // console.log("discard", discardData.data);
       this.callSearch();
       NotificationManager.success("Discard Successfull", "Success", 10000);
     } catch (error) {
       if (error.response) {
-        let message = error.response.data.message;
         //console.log("Error",error.response)
+        let message = error.response.data.message;
         NotificationManager.error(message, "Click TO Remove", largeTime);
       } else if (error.request) {
-        //  console.log("Error Connecting...", error.request)
         NotificationManager.error(
           "Error Connecting...",
           "Click TO Remove",
@@ -376,16 +389,23 @@ export class PendingAccount extends Component {
     }
   };
 
+  // ==========================================Discard Function End ========================================
+
+
+
+  // ========================================== Reopen button Loading.. Function Start ========================================
+
   activeBorder = (id) => {
     const element = document.getElementById(id);
     element.style.border = "3px dotted green";
     element.textContent = "Loading...";
   }
 
+  // ========================================== Reopen button Loading.. Function End ========================================
+
+  // =========================================Reopen Function Start==============================================
   onReopen = async (e) => {
     e.preventDefault();
-
-    // console.log("Id: ", e.target.id);
 
     this.activeBorder(e.target.id);
 
@@ -416,8 +436,6 @@ export class PendingAccount extends Component {
         return;
       }
 
-      // console.log("status", resData.channelResponse.result);
-
       if (resData.channelResponse.result === true) {
         let resToArr = getJsonObjectToArray(resData);
         this.setState({ channelAccount: resToArr, allButton: false });
@@ -438,10 +456,8 @@ export class PendingAccount extends Component {
       this.setState({ allButton: false });
       if (error.response) {
         let message = error.response.data.message;
-        //console.log("Error",error.response)
         NotificationManager.error(message, "Click TO Remove", largeTime);
       } else if (error.request) {
-        //  console.log("Error Connecting...", error.request)
         NotificationManager.error(
           "Error Connecting...",
           "Click TO Remove",
@@ -456,6 +472,7 @@ export class PendingAccount extends Component {
       }
     }
   };
+  // =========================================Reopen Function End==============================================
 
   render() {
     //let { searchValue } = this.state;
@@ -599,7 +616,7 @@ export class PendingAccount extends Component {
           <div className="imTwoWhite col-sm-12">
             <div className="im">
               <h5 className="text-muted text-center pt-2">
-                <i class="fas fa-list-ul"></i> Account List
+                <i className="fas fa-list-ul"></i> Account List
               </h5>
             </div>
             <div className="imTwoGray mt-2">
@@ -721,7 +738,7 @@ export class PendingAccount extends Component {
                           className="modal-title"
                           id="exampleModalCenterTitle"
                         >
-                          <i class="far fa-arrow-alt-circle-right"></i> Account
+                          <i className="far fa-arrow-alt-circle-right"></i> Account
                           Details
                         </h5>
                         <button

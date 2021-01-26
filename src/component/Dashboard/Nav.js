@@ -99,7 +99,7 @@ const Nav = (props) => {
 
                 {/* <h4>Hello</h4> */}
                 <div className="mr-5 b" style={{ listStyle: "none" }} onClick={props.logOut}>
-                    <Link className=" text-white" style={{ textDecoration: "none" }}  >
+                    <Link to="#" className=" text-white" style={{ textDecoration: "none" }}  >
                         <i style={{ fontSize: "17px" }}><FaSignOutAlt /></i> Logout
                             </Link>
                 </div>
