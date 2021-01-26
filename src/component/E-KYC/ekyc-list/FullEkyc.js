@@ -70,7 +70,8 @@ class FullEkyc extends Component {
     }
 
     backEkyc = () => {
-        this.props.history.push('/dashboard/e-kyc-list-&-search')
+        // this.props.history.push('/dashboard/e-kyc-list-&-search')
+        this.props.history.goBack();
     }
 
     onDownload = async (id) => {

@@ -402,6 +402,7 @@ export class PendingAccount extends Component {
           "Click TO Remove",
           largeTime
         );
+        this.callSearch();
         return;
       }
 
