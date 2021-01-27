@@ -351,7 +351,7 @@ class Dashboard extends Component {
                     {/*Idle Timer Implementation Start */}
                     <IdleTimer
                         ref={ref => { this.idleTimer = ref }}
-                        timeout={1000 * 60 * 60}
+                        timeout={1000 * 60 * 5}
                         onIdle={this.onIdle}
                     >
                     </IdleTimer>
