@@ -652,7 +652,7 @@ export class PendingAccount extends Component {
                           <span style={{ color: "#d3830a" }}>
                             Product Type :{" "}
                           </span>
-                          {ProductCategoryType(data.productType)}
+                          {ProductCategoryType(data.productCategoryCode)}
                         </small>
                         <br />
                         <small style={{ color: "green" }}>

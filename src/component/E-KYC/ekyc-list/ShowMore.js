@@ -86,10 +86,11 @@ class ShowMore extends Component {
                                                 </div>
                                                 <div className="pl-3" style={{ fontSize: "18px" }}>
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Account ID : </span>{data.account === null ? "" : data.account.id}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Branch/Agent Point : </span>{data.account === null ? "" : data.account.branchOrAgentPointCode}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{data.account === null ? "" : data.account.title}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{data.account === null ? "" : data.account.channelAccountId ? data.account.channelAccountId : ""}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{data.account === null ? "" : data.account.channelCode ? data.account.channelCode : ""}</small><br />
-                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{data.account === null ? "" : ProductCategoryType(data.account.productType)}</small><br />
+                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{data.account === null ? "" : ProductCategoryType(data.account.productCategoryCode)}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{data.account === null ? "" : `${data.account.productCode} (${this.state.ProductCodetoName === null ? "" : this.state.ProductCodetoName})`}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{data.account === null ? "" : EkycAccountStatus(data.account.status)}</small><br />
                                                     <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{data.account === null ? "" : AccountType(data.account.type)}</small><br />

@@ -375,7 +375,7 @@ class EkycListSearch extends Component {
                 id: id
             }
             let singleEkyc = await axios.post(ekycWithFilter + page, idObj, config)
-            console.log("Show More", singleEkyc.data.data)
+            // console.log("Show More", singleEkyc.data.data)
             let dataObj = {
                 data: singleEkyc.data.data
             }
