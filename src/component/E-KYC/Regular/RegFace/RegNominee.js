@@ -6,6 +6,7 @@ import Family from '../../Simplified/images/family.svg';
 //import Familyes from '../../Simplified/images/candidates.svg';
 import adult from '../../Simplified/images/age-limit-one.svg';
 import child from '../../Simplified/images/age-limit-two.svg';
+import Sign from '../../Simplified/images/man.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { showDate, convert } from '../../../Utils/dateConversion';
@@ -484,6 +485,23 @@ export class RegNominee extends Component {
                                                         </div>
 
                                                         {/* Nominee Photograph */}
+                                                        <div className="card-body d-flex justify-content-center">
+                                                            <img
+                                                                src={arr.photograph ? (values.flag + arr.photograph) : Sign}
+                                                                style={{
+                                                                    margin: "auto",
+                                                                    cursor: "pointer",
+                                                                    width: "300px",
+                                                                    height: "200px",
+                                                                }}
+                                                                defaultValue={arr.photograph}
+                                                                className="img-fluid img-thumbnail im"
+                                                                id="adultNomineePhotograph"
+                                                                alt=""
+                                                            />
+                                                        </div>
+
+
                                                         <div className="form-group">
                                                             <label htmlFor="photograph">Photo</label>
                                                             <input
@@ -725,6 +743,21 @@ export class RegNominee extends Component {
 
 
                                                         {/*Minor Nominee's Photo */}
+                                                        <div className="card-body d-flex justify-content-center">
+                                                            <img
+                                                                src={arr.minorNomineePhoto ? (values.flag + arr.minorNomineePhoto) : Sign}
+                                                                style={{
+                                                                    margin: "auto",
+                                                                    cursor: "pointer",
+                                                                    width: "300px",
+                                                                    height: "200px",
+                                                                }}
+                                                                defaultValue={arr.minorNomineePhoto}
+                                                                className="img-fluid img-thumbnail im"
+                                                                id="minorNomineePhotograph"
+                                                                alt=""
+                                                            />
+                                                        </div>
                                                         <div className="form-group">
                                                             <label htmlFor="photograph">Minor Nominee Photo</label>
                                                             <input
@@ -1008,6 +1041,21 @@ export class RegNominee extends Component {
 
 
                                                         {/*Minor Nominee Guardian Photo */}
+                                                        <div className="card-body d-flex justify-content-center">
+                                                            <img
+                                                                src={arr.minorPhotoGuardian ? (values.flag + arr.minorPhotoGuardian) : Sign}
+                                                                style={{
+                                                                    margin: "auto",
+                                                                    cursor: "pointer",
+                                                                    width: "300px",
+                                                                    height: "200px",
+                                                                }}
+                                                                defaultValue={arr.minorPhotoGuardian}
+                                                                className="img-fluid img-thumbnail im"
+                                                                id="minorNomineeGurardianPhotograph"
+                                                                alt=""
+                                                            />
+                                                        </div>
                                                         <div className="form-group">
                                                             <label htmlFor="photograph">Guardian Photo</label>
                                                             <input

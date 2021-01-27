@@ -120,6 +120,31 @@ export class SimFingerPrint extends Component {
     e.preventDefault();
     let isFingerPrint = true;
     // this.setState({ isEnable: true, loading: !this.state.loading });
+    // Field Validation  Start =========================================== ///
+    if (nid === "") {
+      NotificationManager.warning("Please Provide NID Number", "Click to Remove", largeTime);
+      return;
+    }
+
+    if (nid.length < 10) {
+      NotificationManager.warning("NID Number is less than 10 digits", "Click to Remove", largeTime);
+      return;
+    } else if (nid.length > 10 && nid.length < 13) {
+      NotificationManager.warning("NID Number is greater than 10 and less than 13 digits", "Click to Remove", largeTime);
+      return;
+    } else if (nid.length > 13 && nid.length < 17) {
+      NotificationManager.warning("NID Number is greater than 13 and less than 17 digits", "Click to Remove", largeTime);
+      return;
+    } else if (nid.length > 17) {
+      NotificationManager.warning("NID Number is greater than 17 digits", "Click to Remove", largeTime);
+      return;
+    }
+
+    if (dob === '') {
+      NotificationManager.warning("Please Provide Date Of Birth", "Click to Remove", largeTime);
+      return;
+    }
+    // Field Validation End ========================================///////
 
     let config = {
       headers: {
@@ -142,7 +167,7 @@ export class SimFingerPrint extends Component {
       try {
         let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
         // console.log("abs", absCheckApi.data);
-        if(absCheckApi.data.data === null){
+        if (absCheckApi.data.data === null) {
           NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
           this.props.handleState('isEnableFinger', false);
           this.props.handleState('loadingPrint', false);
@@ -275,6 +300,20 @@ export class SimFingerPrint extends Component {
 
     if (nid === "") {
       NotificationManager.warning("Please Provide NID Number", "Click to Remove", largeTime);
+      return;
+    }
+
+    if (nid.length < 10) {
+      NotificationManager.warning("NID Number is less than 10 digits", "Click to Remove", largeTime);
+      return;
+    } else if (nid.length > 10 && nid.length < 13) {
+      NotificationManager.warning("NID Number is greater than 10 and less than 13 digits", "Click to Remove", largeTime);
+      return;
+    } else if (nid.length > 13 && nid.length < 17) {
+      NotificationManager.warning("NID Number is greater than 13 and less than 17 digits", "Click to Remove", largeTime);
+      return;
+    } else if (nid.length > 17) {
+      NotificationManager.warning("NID Number is greater than 17 digits", "Click to Remove", largeTime);
       return;
     }
 
@@ -451,7 +490,7 @@ export class SimFingerPrint extends Component {
     return (
       <div className="container">
 
-      {/* 
+        {/* 
         <div className="im col-sm-2" onClick={this.Escape}>
           Escape
               </div>

@@ -287,8 +287,8 @@ export class NidImagesSim extends Component {
             <div className="card-header up">
               <h3>NID Front</h3>
             </div>
-            <div className="card-body d-flex justify-content-center">
 
+            <div className="card-body d-flex justify-content-center">
               <img
                 src={values.NidFront ? (values.flag + values.NidFront) : NidThree}
                 style={{
@@ -303,6 +303,8 @@ export class NidImagesSim extends Component {
                 alt=""
               />
             </div>
+
+
             <div
               className="card-footer"
               style={{ background: "#fff" }}

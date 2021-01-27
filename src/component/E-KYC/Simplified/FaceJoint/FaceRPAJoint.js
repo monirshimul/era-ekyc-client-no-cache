@@ -115,6 +115,32 @@ export class FaceRPAJoint extends Component {
         let isRpaRequired = true;
         e.preventDefault();
 
+        // Field Validation  Start =========================================== ///
+        if (nid === "") {
+            NotificationManager.warning("Please Provide NID Number", "Click to Remove", largeTime);
+            return;
+        }
+
+        if (nid.length < 10) {
+            NotificationManager.warning("NID Number is less than 10 digits", "Click to Remove", largeTime);
+            return;
+        } else if (nid.length > 10 && nid.length < 13) {
+            NotificationManager.warning("NID Number is greater than 10 and less than 13 digits", "Click to Remove", largeTime);
+            return;
+        } else if (nid.length > 13 && nid.length < 17) {
+            NotificationManager.warning("NID Number is greater than 13 and less than 17 digits", "Click to Remove", largeTime);
+            return;
+        } else if (nid.length > 17) {
+            NotificationManager.warning("NID Number is greater than 17 digits", "Click to Remove", largeTime);
+            return;
+        }
+
+        if (dob === '') {
+            NotificationManager.warning("Please Provide Date Of Birth", "Click to Remove", largeTime);
+            return;
+        }
+        // Field Validation End ========================================///////
+
         let config = {
             headers: {
                 "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -133,12 +159,12 @@ export class FaceRPAJoint extends Component {
             try {
                 let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
                 // console.log("abs", absCheckApi.data);
-                if(absCheckApi.data.data === null){
+                if (absCheckApi.data.data === null) {
                     NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
                     this.props.handleState('isEnableFace', false);
                     this.props.handleState('loading', false);
                     return;
-                  }
+                }
                 // console.log("abs", absCheckApi.data.data.result);
                 let apiResult = absCheckApi.data.data.result;
                 let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;

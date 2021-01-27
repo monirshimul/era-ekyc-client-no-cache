@@ -227,7 +227,7 @@ export class SimFaceMain extends Component {
 
 
     handleInputChange = async (index, event) => {
-        console.log(event.target);
+        // console.log(event.target);
         let copyArray = Object.assign([], this.state.jointArray);
         copyArray[index][event.target.name] = event.target.value;
         if (event.target.name === "photograph") {

@@ -6,6 +6,7 @@ import Family from '../images/family.svg';
 //import Familyes from '../images/candidates.svg';
 import adult from '../images/age-limit-one.svg';
 import child from '../images/age-limit-two.svg';
+import Sign from '../images/man.svg';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { showDate, convert } from '../../../Utils/dateConversion';
@@ -21,9 +22,6 @@ export class SimNominee extends Component {
 
     handleAdultNomineeDateChange = (index, event, d) => {
         event.preventDefault();
-        //  console.log("index", index);
-        // console.log("event", event.target.value);
-        // console.log("d", d);
         let copyArray = Object.assign([], this.props.values.jointArray);
         copyArray[index].dob = d;
         //   console.log("copyArray", copyArray);
@@ -42,7 +40,7 @@ export class SimNominee extends Component {
 
     onNomineeRelationChange = (index, event) => {
         let relation = event.target.value;
-        console.log("final value", event.target.options[event.target.selectedIndex].text);
+        // console.log("final value", event.target.options[event.target.selectedIndex].text);
         let copyArray = Object.assign([], this.props.values.jointArray);
         copyArray[index][event.target.name] = relation;
         if (event.target.name === "relation") {
@@ -87,10 +85,6 @@ export class SimNominee extends Component {
         const { values } = this.props;
         e.preventDefault();
         //    ====================== Validation Start =============================
-
-
-
-
 
 
         let checkPercentage = 0;
@@ -288,7 +282,7 @@ export class SimNominee extends Component {
 
     render() {
         const { values, addNomineeOne, addNomineeTwo, onChange } = this.props;
-        //  console.log("Nominee",values.jointArray);
+        console.log("Nominee", values.jointArray);
         // console.log("values", values);
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>
@@ -532,6 +526,21 @@ export class SimNominee extends Component {
 
 
                                                         {/* Nominee Photograph */}
+                                                        <div className="card-body d-flex justify-content-center">
+                                                            <img
+                                                                src={arr.photograph ? (values.flag + arr.photograph) : Sign}
+                                                                style={{
+                                                                    margin: "auto",
+                                                                    cursor: "pointer",
+                                                                    width: "300px",
+                                                                    height: "200px",
+                                                                }}
+                                                                defaultValue={arr.photograph}
+                                                                className="img-fluid img-thumbnail im"
+                                                                id="adultNomineePhotograph"
+                                                                alt=""
+                                                            />
+                                                        </div>
                                                         <div className="form-group">
                                                             <label htmlFor="photograph">Photo</label>
                                                             <input
@@ -791,6 +800,23 @@ export class SimNominee extends Component {
 
 
                                                         {/*Minor Nominee's Photo */}
+
+                                                        <div className="card-body d-flex justify-content-center">
+                                                            <img
+                                                                src={arr.minorNomineePhoto ? (values.flag + arr.minorNomineePhoto) : Sign}
+                                                                style={{
+                                                                    margin: "auto",
+                                                                    cursor: "pointer",
+                                                                    width: "300px",
+                                                                    height: "200px",
+                                                                }}
+                                                                defaultValue={arr.minorNomineePhoto}
+                                                                className="img-fluid img-thumbnail im"
+                                                                id="minorNomineePhotograph"
+                                                                alt=""
+                                                            />
+                                                        </div>
+
                                                         <div className="form-group">
                                                             <label htmlFor="photograph">Minor Nominee Photo</label>
                                                             <input
@@ -1086,6 +1112,21 @@ export class SimNominee extends Component {
 
 
                                                         {/*Minor Nominee Guardian Photo */}
+                                                        <div className="card-body d-flex justify-content-center">
+                                                            <img
+                                                                src={arr.minorPhotoGuardian ? (values.flag + arr.minorPhotoGuardian) : Sign}
+                                                                style={{
+                                                                    margin: "auto",
+                                                                    cursor: "pointer",
+                                                                    width: "300px",
+                                                                    height: "200px",
+                                                                }}
+                                                                defaultValue={arr.minorPhotoGuardian}
+                                                                className="img-fluid img-thumbnail im"
+                                                                id="minorNomineeGurardianPhotograph"
+                                                                alt=""
+                                                            />
+                                                        </div>
                                                         <div className="form-group">
                                                             <label htmlFor="photograph">Guardian Photo</label>
                                                             <input

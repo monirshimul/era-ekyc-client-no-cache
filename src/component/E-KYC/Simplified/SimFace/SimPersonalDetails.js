@@ -342,7 +342,7 @@ export class SimPersonalDetails extends Component {
             districtCode: this.state.preDistrictCode.toString(),
             keyword: e.target.value
         }
-        console.log("present", payload)
+        // console.log("present", payload)
 
         try {
             let upozilaapi = await axios.post(upozila, payload, config);
@@ -401,7 +401,7 @@ export class SimPersonalDetails extends Component {
             upazilaCode: this.state.perUpozilaCode.toString(),
             keyword: e.target.value
         }
-        console.log("pERMANT", payload)
+        // console.log("pERMANT", payload)
 
         try {
             let unionapi = await axios.post(union, payload, config);
@@ -484,7 +484,8 @@ export class SimPersonalDetails extends Component {
     continue = async e => {
         const { values } = this.props;
         e.preventDefault();
-        console.log("All ec Values", values);
+        // console.log("All ec Values", values);
+        // console.log("profession", values.professionCode);
 
 
 
