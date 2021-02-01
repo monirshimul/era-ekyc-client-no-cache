@@ -5,7 +5,7 @@ import { channelAccountSearch } from "../../Url/ApiList";
 import { largeTime, mediumTime } from "../../../Utils/notificationTime";
 import axios from "axios";
 import {FaSearch} from "react-icons/fa";
-import Pagination from "../../../Reusable/Pagination";
+
 
 export class ChannelSearch extends Component {
   state = {
@@ -16,63 +16,63 @@ export class ChannelSearch extends Component {
     channelAccountId: "",
   };
 
-  async componentDidMount() {
-    //   console.log(this.props.location.state);
-    try {
-      if (
-        this.props.location.state.channelCode !== "" &&
-        this.props.location.state.channelAccountId !== ""
-      ) {
-        let config = {
-          headers: {
-            "x-auth-token": JSON.parse(sessionStorage.getItem("x-auth-token")),
-          },
-        };
+//   async componentDidMount() {
+//     //   console.log(this.props.location.state);
+//     try {
+//       if (
+//         this.props.location.state.channelCode !== "" &&
+//         this.props.location.state.channelAccountId !== ""
+//       ) {
+//         let config = {
+//           headers: {
+//             "x-auth-token": JSON.parse(sessionStorage.getItem("x-auth-token")),
+//           },
+//         };
 
-        let newObj = {
-          channelCode: this.props.location.state.channelCode,
-          channelAccountId: this.props.location.state.channelAccountId,
-        };
+//         let newObj = {
+//           channelCode: this.props.location.state.channelCode,
+//           channelAccountId: this.props.location.state.channelAccountId,
+//         };
 
-        try {
-          let res = await axios.post(channelAccountSearch, newObj, config);
-          //   console.log("channelData", res.data.data);
-          if (res.data.data === null) {
-            NotificationManager.info("No Data Found", "Message", mediumTime);
-            return;
-          }
-          this.setState({
-            channelData: res.data.data,
-            channelApplicants: res.data.data.applicants,
-          });
-        } catch (error) {
-          if (error.response) {
-            let message = error.response.data.message;
-            //console.log("Error",error.response)
-            NotificationManager.error(message, "Click TO Remove", largeTime);
-          } else if (error.request) {
-            //  console.log("Error Connecting...", error.request)
-            NotificationManager.error(
-              "Error Connecting...",
-              "Click TO Remove",
-              largeTime
-            );
-          } else if (error) {
-            NotificationManager.error(
-              error.toString(),
-              "Click TO Remove",
-              largeTime
-            );
-          }
-        }
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
+//         try {
+//           let res = await axios.post(channelAccountSearch, newObj, config);
+//           //   console.log("channelData", res.data.data);
+//           if (res.data.data === null) {
+//             NotificationManager.info("No Data Found", "Message", mediumTime);
+//             return;
+//           }
+//           this.setState({
+//             channelData: res.data.data,
+//             channelApplicants: res.data.data.applicants,
+//           });
+//         } catch (error) {
+//           if (error.response) {
+//             let message = error.response.data.message;
+//             //console.log("Error",error.response)
+//             NotificationManager.error(message, "Click TO Remove", largeTime);
+//           } else if (error.request) {
+//             //  console.log("Error Connecting...", error.request)
+//             NotificationManager.error(
+//               "Error Connecting...",
+//               "Click TO Remove",
+//               largeTime
+//             );
+//           } else if (error) {
+//             NotificationManager.error(
+//               error.toString(),
+//               "Click TO Remove",
+//               largeTime
+//             );
+//           }
+//         }
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value.trim() });
   };
 
   handleAPI = async (e) => {
@@ -102,7 +102,7 @@ export class ChannelSearch extends Component {
       this.setState({
         channelData: res.data.data,
         channelApplicants: res.data.data.applicants,
-        currentObj: obj,
+        // currentObj: obj,
       });
     } catch (error) {
       if (error.response) {
@@ -127,13 +127,13 @@ export class ChannelSearch extends Component {
   };
 
   fullProfile = (id) => {
-    //   this.props.history.push('/dashboard/fullEkyc', id);
-    let currObj = {
-      channelCode: this.state.channelCode,
-      channelAccountId: this.state.channelAccountId,
-      id,
-    };
-    this.props.history.push("/dashboard/fullChannelEkycData", currObj);
+     this.props.history.push('/dashboard/fullEkyc', id);
+    // let currObj = {
+    //   channelCode: this.state.channelCode,
+    //   channelAccountId: this.state.channelAccountId,
+    //   id,
+    // };
+    // this.props.history.push("/dashboard/fullChannelEkycData", currObj);
   };
 
   render() {
@@ -177,7 +177,7 @@ export class ChannelSearch extends Component {
                 </div>
 
                 <div className="col-12 col-sm-5 imTwoWhite">
-                  {/* Channel Code */}
+                  {/* Channel Account Number */}
                   <div className="form-group">
                     <label htmlFor="">Channel Account Number</label>
                     <input

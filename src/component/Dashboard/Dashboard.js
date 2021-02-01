@@ -27,7 +27,7 @@ import ShowMore from '../E-KYC/ekyc-list/ShowMore';
 import fullEkyc from '../E-KYC/ekyc-list/FullEkyc';
 
 // Channel Account Search Full Data
-import fullChannelData from '../E-KYC/Account/ChannelAccountSearch/FullChannelData';
+// import fullChannelData from '../E-KYC/Account/ChannelAccountSearch/FullChannelData';
 // Reopen Complete
 import ReopenComplete from '../E-KYC/Account/ReopenComplete';
 // ===============Simplified start==============
@@ -519,8 +519,9 @@ class Dashboard extends Component {
                                     <Route path={`${path}/fullEkyc`} component={fullEkyc} />
                                     
                                     {/*Channel Account Data List */}
+                                    {/* 
                                     <Route path={`${path}/fullChannelEkycData`} component={fullChannelData} />
-                                    
+                                    */}
                                     
                                     {/*Reopen Complete Page */}
                                     <Route path={`${path}/reopencofirm`} component={ReopenComplete} />
