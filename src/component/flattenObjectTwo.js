@@ -56,10 +56,12 @@ import SimUpgradeReg from './E-KYC/Upgrade-ekyc/SimUpgradeReg';
 // import FaceOrFinger from './E-KYC/Simplified/FaceOrFinger'
 
 import PendingAccount from './E-KYC/Account/PendingAccount';
-import AccessLog from './E-KYC/AccessLog/AccessLog'
+import AccessLog from './E-KYC/AccessLog/AccessLog';
+
+import ChannelSearch from './E-KYC/Account/ChannelAccountSearch/ChannelSearch';
 
 // Statistics
-import AllStatistics from './E-KYC/Statistics/AllStatistics'
+import AllStatistics from './E-KYC/Statistics/AllStatistics';
 
 
 const cloneDeep = require('lodash.clonedeep');
@@ -668,6 +670,16 @@ export const allRoutes = [
                     "path": "/account-discard",
                     "exact": true,
                     "component": <UnderDev />
+                }
+            },
+            {
+                items: {
+                    "key": "8.4",
+                    'isShowing': true,
+                    "featureName": "Channel Search",
+                    "path": "/channel-search",
+                    "exact": true,
+                    "component": <ChannelSearch />
                 }
             },
 

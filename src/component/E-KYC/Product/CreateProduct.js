@@ -138,7 +138,7 @@ class CreateProduct extends Component {
                             <select
 
                                 className='custom-select'
-                                value={subChannelName}
+                                defaultValue={subChannelName}
                                 onChange={this.onChange}
                                 name="subChannelName"
                             >

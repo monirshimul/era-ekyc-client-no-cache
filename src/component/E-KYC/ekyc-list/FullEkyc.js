@@ -241,7 +241,7 @@ class FullEkyc extends Component {
     }
 
     render() {
-        let { ekyc, flag, loading, additionalFile, arrowUp, opFileDownloadLoading } = this.state
+        let { ekyc, flag, loading, additionalFile, arrowUp, opFileDownloadLoading } = this.state;
         //console.log("single value",ekyc.presentAddress.additionalMouzaOrMoholla)
         //console.log("Arrow", arrowUp)
         // console.log("ekyc", ekyc?.account?.id);
@@ -253,7 +253,7 @@ class FullEkyc extends Component {
                     <div className="imTwoWhite col-sm-12">
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-user-tag"></i> Full E-KYC Profile
+                                <i className="fas fa-user-tag"></i> Full E-KYC Profile
                         </h5>
                         </div>
                         <div className="row d-flex justify-content-center ">
@@ -353,7 +353,7 @@ class FullEkyc extends Component {
                                         <div className="row d-flex justify-content-between" style={{ fontSize: "17px" }}>
                                             {
                                                 ekyc?.nominees.map((data, ind) => (
-                                                    <div className="col-sm-6">
+                                                    <div className="col-sm-6" key={ind}>
 
                                                         <small className="imPlain" style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>{data.isMinor ? "Minor" : "Adult"} Nominee : </span>{ind + 1}</small><br />
                                                         <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>ID : </span>{data.id}</small><br />

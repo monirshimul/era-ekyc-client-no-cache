@@ -139,8 +139,13 @@ export const pendingAccount = hostIp + `account/get/`;
 export const discardAccount = hostIp + `account/discard`;
 export const reopenAccount = hostIp + `account/reopen`;
 
+// Channle Account Number Search 
+export const channelAccountSearch = hostIp + `account/applicant/get`;
+
 // Access Log
 export const accessLog = hostIp + `report/access-log/`;
 
 // Text match
 export const textMatch = hostIp + `ai/text-match`;
+
+

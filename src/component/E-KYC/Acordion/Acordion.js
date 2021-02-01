@@ -21,7 +21,7 @@ class Acordion extends Component {
                 <div className="row d-flex justify-content-center">
                     <div className={this.props.size}>
                         <div className="imTwo d-flex justify-content-between align-items-center">
-                            <span className="" style={{color:"green"}}>{this.props.heading}</span>{!showAcordion ? <sapn onClick={this.changeAcordion} style={{ cursor: "pointer" }} className="neoBg">
+                            <span className="" style={{color:"green"}}>{this.props.heading}</span>{!showAcordion ? <span onClick={this.changeAcordion} style={{ cursor: "pointer" }} className="neoBg">
                                 <img src={down}
                                     alt=""
                                     style={{
@@ -32,7 +32,7 @@ class Acordion extends Component {
                                     }}
                                     className="img-fluid img-thumbnail"
                                 />
-                            </sapn> : <span onClick={this.changeAcordion} style={{ cursor: "pointer" }} className="neoBg">
+                            </span> : <span onClick={this.changeAcordion} style={{ cursor: "pointer" }} className="neoBg">
                                     <img src={up}
                                         alt=""
                                         style={{

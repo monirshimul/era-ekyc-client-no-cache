@@ -192,14 +192,14 @@ class GetProduct extends Component {
                 })
                 // console.log('updateRes', deleteRes)
                 NotificationManager.warning("Product Deleted", "Warning", 5000);
-                let getProductRes = await axios.post(getProduct, null, config)
-                console.log(getProductRes.data.data);
+                let getProductRes = await axios.post(getProduct, {channelCode:this.state.searchProduct}, config)
+                // console.log(getProductRes.data.data);
                 this.setState({
                     productData: getProductRes.data.data
                 })
             } else {
-                let getProductRes = await axios.post(getProduct, null, config)
-                console.log(getProductRes.data.data);
+                let getProductRes = await axios.post(getProduct,  {channelCode:this.state.searchProduct}, config)
+                // console.log(getProductRes.data.data);
                 this.setState({
                     productData: getProductRes.data.data
                 })

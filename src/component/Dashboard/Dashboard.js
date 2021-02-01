@@ -25,6 +25,9 @@ import profileImage from "./image/undraw_profile_pic_ic5t.svg"
 // E-kyc List
 import ShowMore from '../E-KYC/ekyc-list/ShowMore';
 import fullEkyc from '../E-KYC/ekyc-list/FullEkyc';
+
+// Channel Account Search Full Data
+import fullChannelData from '../E-KYC/Account/ChannelAccountSearch/FullChannelData';
 // Reopen Complete
 import ReopenComplete from '../E-KYC/Account/ReopenComplete';
 // ===============Simplified start==============
@@ -351,7 +354,7 @@ class Dashboard extends Component {
                     {/*Idle Timer Implementation Start */}
                     <IdleTimer
                         ref={ref => { this.idleTimer = ref }}
-                        timeout={1000 * 60 * 5}
+                        timeout={1000 * 60 * 60}
                         onIdle={this.onIdle}
                     >
                     </IdleTimer>
@@ -514,7 +517,11 @@ class Dashboard extends Component {
                                     {/* E-kyc List */}
                                     <Route path={`${path}/showMore`} component={ShowMore} />
                                     <Route path={`${path}/fullEkyc`} component={fullEkyc} />
-
+                                    
+                                    {/*Channel Account Data List */}
+                                    <Route path={`${path}/fullChannelEkycData`} component={fullChannelData} />
+                                    
+                                    
                                     {/*Reopen Complete Page */}
                                     <Route path={`${path}/reopencofirm`} component={ReopenComplete} />
                                     {/* MultiSteps */}

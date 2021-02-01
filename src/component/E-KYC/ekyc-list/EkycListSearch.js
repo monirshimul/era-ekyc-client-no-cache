@@ -417,7 +417,7 @@ class EkycListSearch extends Component {
                     <div className="imTwoWhite col-sm-12" style={{ padding: "25px" }}>
                         <div className="im">
                             <h5 className="text-muted text-center pt-2">
-                                <i class="fas fa-search"></i> Search E-KYC
+                                <i className="fas fa-search"></i> Search E-KYC
                         </h5>
                         </div>
                         <div className="card-body d-flex justify-content-center">
