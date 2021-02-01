@@ -63,6 +63,9 @@ import ChannelSearch from './E-KYC/Account/ChannelAccountSearch/ChannelSearch';
 // Statistics
 import AllStatistics from './E-KYC/Statistics/AllStatistics';
 
+//App Setting
+import AppSetting from './E-KYC/Setting/AppSetting';
+
 
 const cloneDeep = require('lodash.clonedeep');
 
@@ -321,7 +324,7 @@ export const allRoutes = [
                     "featureName": "App Setting",
                     "path": "/app-setting",
                     "exact": true,
-                    "component": <UnderDev />
+                    "component": <AppSetting />
                 }
 
             },

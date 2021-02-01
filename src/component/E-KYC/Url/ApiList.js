@@ -18,7 +18,9 @@ export const fingerValidate = hostIp + `dummy/fingerprint-verification`;
 // OCR
 export const nidOcr = hostIp + `ai/nid-ocr`;
 
+// App Setting
 
+export const getAppSetting = hostIp + `setting/get`;
 
 // Chart Data
 
