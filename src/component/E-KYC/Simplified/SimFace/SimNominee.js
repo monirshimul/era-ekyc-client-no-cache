@@ -282,7 +282,7 @@ export class SimNominee extends Component {
 
     render() {
         const { values, addNomineeOne, addNomineeTwo, onChange } = this.props;
-        console.log("Nominee", values.jointArray);
+        // console.log("Nominee", values.jointArray);
         // console.log("values", values);
         return (
             <div className="container card" style={{ margin: "0", padding: "0" }}>

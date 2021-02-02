@@ -1293,7 +1293,9 @@ export class PersonalDetails extends Component {
 
                     <hr />
                     <div className="row d-flex justify-content-center">
+                    {/* 
                         <div className="b mb-3" onClick={this.back} >Back</div>&nbsp; &nbsp;
+                        */}
                 <div className="b mb-3" onClick={this.continue} >Next</div>
                     </div>
 

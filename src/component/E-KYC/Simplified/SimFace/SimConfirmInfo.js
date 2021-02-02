@@ -189,7 +189,8 @@ export class SimConfirmInfo extends Component {
             nominees: nomineesInfo
         }
 
-        console.log("confirmobj", confirmObj);
+        console.log("confirmobj", confirmObj);                              
+                                      
 
 
         const config = {
@@ -254,6 +255,7 @@ export class SimConfirmInfo extends Component {
 
     render() {
         const { values } = this.props;
+        // console.log("token", values.verifyToken);
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
@@ -290,6 +292,7 @@ export class SimConfirmInfo extends Component {
                             <div className="">
 
                                 <small className="" style={{ fontSize: "14px" }}>
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's Nid No :</span> {values.applicantNidNo}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name :</span> {values.applicantName}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
@@ -507,7 +510,7 @@ export class SimConfirmInfo extends Component {
                                             <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                         </div>
 
-                                        <small className="text-muted" style={{ fontSize: "14px" }}>
+                                        <small className="" style={{ fontSize: "14px" }}>
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee :</span> {val.minorNominee}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Relation With Account Holder:</span> {val.showMinorRelation}<br />

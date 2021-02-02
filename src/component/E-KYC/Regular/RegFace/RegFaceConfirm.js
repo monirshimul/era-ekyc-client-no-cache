@@ -319,6 +319,7 @@ export class RegFaceConfirm extends Component {
                             <div className="">
 
                                 <small className="" style={{ fontSize: "14px" }}>
+                                    <span style={{ color: "green", fontSize: "14px" }}>Applicant's Nid No :</span> {values.applicantNidNo}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name :</span> {values.applicantName}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Applicant's DOB :</span> {dayMonthYearFormat(values.applicantDob)}<br />
@@ -540,7 +541,7 @@ export class RegFaceConfirm extends Component {
                                             <small style={{ color: "green" }}>Nominee {i + 1}</small>
                                         </div>
 
-                                        <small className="text-muted" style={{ fontSize: "14px" }}>
+                                        <small className="" style={{ fontSize: "14px" }}>
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee :</span> {val.minorNominee}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Date of Birth :</span> {dayMonthYearFormat(val.minorDob)}<br />
                                             <span style={{ color: "green", fontSize: "14px" }}>Minor Nominee Relation With Account Holder:</span> {val.showMinorRelation}<br />

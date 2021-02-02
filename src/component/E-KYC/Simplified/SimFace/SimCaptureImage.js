@@ -8,6 +8,7 @@ import Done from "../images/done.svg";
 import Camera from "../Liveness/Camera";
 import "react-datepicker/dist/react-datepicker.css";
 import "../utils/Common.css";
+import { largeTime } from "../../../Utils/notificationTime";
 
 
 export class SimCaptureImage extends Component {
@@ -42,7 +43,8 @@ export class SimCaptureImage extends Component {
 
       let resValidation = await axios.post(faceValidate, imgData, token);
       //console.log("resValidation", resValidation.data.data.faceVerificationResult)
-      //console.log("ver-token", resValidation.data.data.verificationToken)
+      //  console.log("ver-token", resValidation.data.data.verificationToken);
+      //  console.log("validate", values.validate);
       if (resValidation.data.data.faceVerificationResult.status) {
 
       }
@@ -89,13 +91,17 @@ export class SimCaptureImage extends Component {
 
 
   continue = (e) => {
-    //const { values } = this.props;
+    const { values } = this.props;
     e.preventDefault();
     // let obj={
     //   faceImage: values.faceImage,
     //   imageFlag:true
     // }
     //localStorage.setItem("CaptureImage", JSON.stringify(obj));
+    if(values.faceImage ===  ""){
+      NotificationManager.error("Please Click Liveness again for Liveness Detection", "Click TO Remove", largeTime);
+      return;
+    }
     this.closeCamera();
     this.props.nextStep();
   };
@@ -116,7 +122,12 @@ export class SimCaptureImage extends Component {
     this.closeCamera();
   };
 
-  showCamera = () => this.props.handleState("showCamera", true);
+  // showCamera = () => this.props.handleState("showCamera", true);
+   showCamera = () => {
+    this.props.handleState("validate", false);
+    this.props.handleState("faceImage", "");
+    this.props.handleState("showCamera", true);
+    };
 
   closeCamera = () => this.props.handleState("showCamera", false);
 

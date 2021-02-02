@@ -8,6 +8,7 @@ import Done from "../../Simplified/images/done.svg";
 import Camera from "../../Simplified/Liveness/Camera";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../Simplified/utils/Common.css";
+import { largeTime } from '../../../Utils/notificationTime';
 
 
 export class RegCaptureImage extends Component {
@@ -81,13 +82,13 @@ export class RegCaptureImage extends Component {
 
 
   continue = (e) => {
-    //const { values } = this.props;
+    const { values } = this.props;
     e.preventDefault();
-    // let obj={
-    //   faceImage: values.faceImage,
-    //   imageFlag:true
-    // }
-    //localStorage.setItem("CaptureImage", JSON.stringify(obj));
+
+    if(values.faceImage ===  ""){
+      NotificationManager.error("Please Click Liveness again for Liveness Detection", "Click TO Remove", largeTime);
+      return;
+    }
     this.closeCamera();
     this.props.nextStep();
   };
@@ -108,7 +109,13 @@ export class RegCaptureImage extends Component {
     this.closeCamera();
   };
 
-  showCamera = () => this.props.handleState("showCamera", true);
+  // showCamera = () => this.props.handleState("showCamera", true);
+
+  showCamera = () => {
+    this.props.handleState("validate", false);
+    this.props.handleState("faceImage", "");
+    this.props.handleState("showCamera", true);
+    };
 
   closeCamera = () => this.props.handleState("showCamera", false);
 

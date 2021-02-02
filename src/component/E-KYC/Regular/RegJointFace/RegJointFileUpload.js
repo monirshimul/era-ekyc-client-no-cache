@@ -12,29 +12,32 @@ export class RegJointFileUpload extends Component {
   fileSelectedHandlerPass = async (event) => {
 
     if (event.target.files[0]) {
+      let file = event.target.files[0];
       let base = await ImageCompressor(event)
       this.props.handleState('passport', base);
-      // this.props.handleState('passportFileName', file.name);
-      // this.props.handleState('passFileType', file.type);
+      this.props.handleState('passportFileName', file.name);
+      this.props.handleState('passFileType', file.type);
 
     }
   };
 
   fileSelectedHandlerBirth = async (event) => {
     if (event.target.files[0]) {
+      let file = event.target.files[0];
       let base = await ImageCompressor(event)
       this.props.handleState('birthCertificate', base);
-      // this.props.handleState('birthCertificateFileName', file.name);
-      // this.props.handleState('birthCerFileType', file.type)
+      this.props.handleState('birthCertificateFileName', file.name);
+      this.props.handleState('birthCerFileType', file.type);
     }
   };
 
   fileSelectedHandlerTin = async (event) => {
     if (event.target.files[0]) {
+      let file = event.target.files[0];
       let base = await ImageCompressor(event)
       this.props.handleState('tinCertificate', base);
-      // this.props.handleState('tinCertificateFileName', file.name);
-      // this.props.handleState('tinFileType', file.type);
+      this.props.handleState('tinCertificateFileName', file.name);
+      this.props.handleState('tinFileType', file.type);
     }
   };
 

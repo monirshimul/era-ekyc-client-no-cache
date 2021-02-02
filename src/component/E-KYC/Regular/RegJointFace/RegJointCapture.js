@@ -10,6 +10,7 @@ import Camera from "../../Simplified/Liveness/Camera";
 //import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../Simplified/utils/Common.css";
+import { largeTime } from '../../../Utils/notificationTime';
 
 export class RegJointCapture extends Component {
     validate = async (e) => {
@@ -37,9 +38,9 @@ export class RegJointCapture extends Component {
           }
     
           let resValidation = await axios.post(faceValidate, imgData, token);
-          console.log(resValidation);
+          // console.log(resValidation);
           //console.log("resValidation", resValidation.data.data.faceVerificationResult)
-          console.log("ver-token", resValidation.data.data.verificationToken)
+          // console.log("ver-token", resValidation.data.data.verificationToken)
           // if (resValidation.data.data.faceVerificationResult.status) {
     
           // }
@@ -86,13 +87,12 @@ export class RegJointCapture extends Component {
     
     
       continue = (e) => {
-        //const { values } = this.props;
+        const { values } = this.props;
         e.preventDefault();
-        // let obj={
-        //   faceImage: values.faceImage,
-        //   imageFlag:true
-        // }
-        //localStorage.setItem("CaptureImage", JSON.stringify(obj));
+        if(values.faceImage ===  ""){
+          NotificationManager.error("Please Click Liveness again for Liveness Detection", "Click TO Remove", largeTime);
+          return;
+        }
         this.closeCamera();
         this.props.nextStep();
       };
@@ -113,8 +113,14 @@ export class RegJointCapture extends Component {
         this.closeCamera();
       };
     
-      showCamera = () => this.props.handleState("showCamera", true);
-    
+      // showCamera = () => this.props.handleState("showCamera", true);
+      
+      showCamera = () => {
+        this.props.handleState("validate", false);
+        this.props.handleState("faceImage", "");
+        this.props.handleState("showCamera", true);
+        };
+
       closeCamera = () => this.props.handleState("showCamera", false);
     
       onSubmit = (e) => {

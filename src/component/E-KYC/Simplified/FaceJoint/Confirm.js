@@ -550,6 +550,7 @@ export class Confirm extends Component {
               <hr />
               <div className="">
                 <small className="" style={{ fontSize: "14px" }}>
+                <span style={{ color: "green", fontSize: "14px" }}>Applicant's Nid No :</span> {values.applicantNidNo}<br />
                   <span style={{ color: "green", fontSize: "14px" }}>
                     Applicant's Name :
                   </span>{" "}
@@ -1018,7 +1019,7 @@ export class Confirm extends Component {
                         <small style={{ color: "green" }}>Nominee {i + 1}</small>
                       </div>
 
-                      <small className="text-muted" style={{ fontSize: "14px" }}>
+                      <small className="" style={{ fontSize: "14px" }}>
                         <span style={{ color: "green", fontSize: "14px" }}>
                           Minor Nominee :
                       </span>{" "}
