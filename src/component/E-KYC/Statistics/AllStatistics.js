@@ -120,6 +120,7 @@ class AllStatistics extends Component {
         // 2021-01-26T13:18:17.974Z
 
         const isoBuilder = (year, month, date, type = "S") => {
+            if(date.toString().length < 2) date = `0${date.toString()}`;
             if (month.toString().length < 2) month = `0${month.toString()}`;
             const startDateSuffix = "T00:00:00.000Z";
             const endDateSuffix = "T23:59:59.000Z";

@@ -63,13 +63,12 @@ class CreateProduct extends Component {
 
             let productCreateRes = await axios.post(createProduct, obj, config);
             // console.log("productCreateRes", productCreateRes)
-            this.setState()
             NotificationManager.success("Product Successfully Created", "Success", 5000);
             //localStorage.setItem("productInfo", JSON.stringify(obj));
             //this.props.history.replace('/dashboard/product-list');
             this.setState({
                 channelName: '',
-                subChannelName: '',
+                subChannelName: 'CONVENTIONAL',
                 productName: "",
                 productCode: '',
                 productCategory: '',
@@ -138,7 +137,7 @@ class CreateProduct extends Component {
                             <select
 
                                 className='custom-select'
-                                defaultValue={subChannelName}
+                                value={subChannelName}
                                 onChange={this.onChange}
                                 name="subChannelName"
                             >
