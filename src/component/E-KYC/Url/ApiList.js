@@ -21,6 +21,8 @@ export const nidOcr = hostIp + `ai/nid-ocr`;
 // App Setting
 
 export const getAppSetting = hostIp + `setting/get`;
+export const initAppSetting = hostIp + `setting/init`;
+export const updateAppSetting = hostIp + `setting/`;
 
 // Chart Data
 

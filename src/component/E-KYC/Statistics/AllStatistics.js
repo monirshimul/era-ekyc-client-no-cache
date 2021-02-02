@@ -630,7 +630,7 @@ class AllStatistics extends Component {
                 <div className="row imTwoWhite d-flex justify-content-around align-items-center">
                     <div className="col-sm-2 lightTwo">
                         <hr />
-                        <div className="imTwoWhite">
+                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -647,7 +647,7 @@ class AllStatistics extends Component {
                     </div>
                     <div className="col-sm-2 lightThree">
                         <hr />
-                        <div className="imTwoWhite">
+                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -665,7 +665,7 @@ class AllStatistics extends Component {
                     </div>
                     <div className="col-sm-2 lightFour">
                         <hr />
-                        <div className="imTwoWhite">
+                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -682,7 +682,7 @@ class AllStatistics extends Component {
                     </div>
                     <div className="col-sm-2 lightOne">
                         <hr />
-                        <div className="imTwoWhite">
+                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -699,7 +699,7 @@ class AllStatistics extends Component {
                     </div>
                     <div className="col-sm-2 lightMain">
                         <hr />
-                        <div className="imTwoWhite">
+                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
                             <h2>
                                 <CountUp
                                     start={0}
