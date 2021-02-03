@@ -300,12 +300,12 @@ export class RegJointFingerPrint extends Component {
         }
 
 
-        if (nid.length === 13) {
-            let dateSp = showDate(dob);
-            let dateSplit = dateSp.split("-")[0];
-            let nid13digit = dateSplit + nid;
-            this.props.handleState('nid', nid13digit);
-        }
+        // if (nid.length === 13) {
+        //     let dateSp = showDate(dob);
+        //     let dateSplit = dateSp.split("-")[0];
+        //     let nid13digit = dateSplit + nid;
+        //     this.props.handleState('nid', nid13digit);
+        // }
 
         const config = {
             headers: {
