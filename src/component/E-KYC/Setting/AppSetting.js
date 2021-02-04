@@ -4,7 +4,7 @@ import { getAppSetting, updateAppSetting, initAppSetting } from '../Url/ApiList'
 import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
+import bgOne from './Images/bgOne.svg';
 import SettingsOne from './Images/SettingsOne.svg';
 import SettingsTwo from './Images/SettingsTwo.svg';
 import SettingsMobile from './Images/SettingsMobile.svg';
@@ -48,7 +48,7 @@ class AppSetting extends Component {
                 this.setState({
                     settingFour: val.value === "YES" ? true : false,
                 })
-            }else if (val.key === "USER_IDLE_TIMEOUT") {
+            } else if (val.key === "USER_IDLE_TIMEOUT") {
                 this.setState({
                     settingThree: val.value
                 })
@@ -82,7 +82,7 @@ class AppSetting extends Component {
                 this.setState({
                     settingFour: val.value === "YES" ? true : false,
                 })
-            }else if (val.key === "USER_IDLE_TIMEOUT") {
+            } else if (val.key === "USER_IDLE_TIMEOUT") {
                 this.setState({
                     settingThree: val.value
                 })
@@ -114,7 +114,7 @@ class AppSetting extends Component {
                 key: "EKYC_MOBILE_VERIFICATION",
                 value: event.target.checked === true ? "YES" : "NO"
             }
-        }  else if (name === "settingFour") {
+        } else if (name === "settingFour") {
             dataObj = {
                 key: "EKYC_DEPOSITORY_USE",
                 value: event.target.checked === true ? "YES" : "NO"
@@ -146,13 +146,13 @@ class AppSetting extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-        
-        
+
+
         const dataObj = {
-                key: "USER_IDLE_TIMEOUT",
-                value: v.toString()
+            key: "USER_IDLE_TIMEOUT",
+            value: v.toString()
         }
-        
+
 
         let updateIdleSetting = await axios.put(updateAppSetting, dataObj, config);
         //console.log("updateIdleSetting", updateIdleSetting)
@@ -165,16 +165,18 @@ class AppSetting extends Component {
         //console.log("this.state.settingOne", this.state.settingOne === true ? "YES" : "NO")
         return (
             <div className="container">
-                <div className="imTwoWhite mb-2 row d-flex justify-content-center" style={{ background: "rgba(255,255,255, 0.2)", backdropFilter: "blur(10px)" }}>
-                    <div className="col-sm-6 text-center">
-                        <Button onClick={this.initApp} className="im" variant="contained" style={{ outline: "none", borderRadius: "10px" }}>Reset to Default</Button>
+                <div className="imTwoWhite row mb-2 d-flex justify-content-center" style={{ background: "rgba(255,255,255, 0.2)", backdropFilter: "blur(10px)" }}>
+                    <div className="col-sm-12">
+                        <h5 className="im d-flex justify-content-center" style={{color:"green", fontSize:"17px", marginTop:"5px"}}>Modify Your Own Application Settings</h5>
                     </div>
+                    
                 </div>
+                
                 <div className="imTwoWhite row d-flex justify-content-center" style={{ background: "rgba(255,255,255, 0.2)", backdropFilter: "blur(10px)" }}>
                     <div className="col-sm-12">
 
-                        <div className="row d-flex justify-content-center">
-                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.7)", backdropFilter: "blur(10px)" }} >
+                        <div className="row d-flex justify-content-center" style={{background: `linear-gradient(rgba(224,243,242, 0.8), rgba(224,243,242, 1)),url(${bgOne}) center/cover fixed no-repeat`,}}>
+                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }} >
                                 <div>
                                     <img
                                         src={SettingsOne}
@@ -202,7 +204,7 @@ class AppSetting extends Component {
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.7)", backdropFilter: "blur(10px)" }}>
+                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }}>
                                 <div>
                                     <img
                                         src={SettingsMobile}
@@ -230,7 +232,7 @@ class AppSetting extends Component {
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.7)", backdropFilter: "blur(10px)" }} >
+                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }} >
                                 <div>
                                     <img
                                         src={SettingsTwo}
@@ -247,7 +249,7 @@ class AppSetting extends Component {
                                     />
                                 </div>
                                 <div className="imTwoWhite">
-                                    <h5 className="text-center" style={{ color: "green", fontSize: "14px" }}>Idle Timeout</h5>
+                                    <h5 className="text-center" style={{ color: "green", fontSize: "14px" }}>Idle Timeout (By Minutes)</h5>
 
 
                                     <Slider
@@ -260,11 +262,11 @@ class AppSetting extends Component {
                                         max={120}
                                         onChange={this.SlideChanger}
                                         value={this.state.settingThree}
-                                        
+
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.7)", backdropFilter: "blur(10px)" }} >
+                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }} >
                                 <div>
                                     <img
                                         src={SettingsDepo}
@@ -298,6 +300,13 @@ class AppSetting extends Component {
 
                     </div>
 
+                </div>
+
+                <div className="imTwoWhite mt-2 row d-flex justify-content-center" style={{ background: "rgba(255,255,255, 0.2)", backdropFilter: "blur(10px)" }}>
+                    
+                    <div className="col-sm-12 text-center im py-2">
+                        <Button onClick={this.initApp} className="imTwoWhite" variant="contained" style={{ color:"green", outline: "none", borderRadius: "10px" }}>Reset to Default</Button>
+                    </div>
                 </div>
             </div>
         )
