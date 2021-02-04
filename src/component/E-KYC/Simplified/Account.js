@@ -12,6 +12,7 @@ class Account extends Component {
         productCategory: "",
         productName: "",
         productNameData: [],
+        productJson:"",
         accountType: '',
         amount: '',
         subChannel: "",
@@ -33,7 +34,9 @@ class Account extends Component {
 
     productChange = e => {
         e.preventDefault();
+        this.setState({productJson:e.target.value});
         const val = JSON.parse(e.target.value);
+        // console.log(e.target.value);
         sessionStorage.setItem("subChannelInfo", JSON.stringify(val.subChannel));
         this.setState({ productName: val.code, subChannel: val.subChannel });
     }
@@ -279,7 +282,7 @@ class Account extends Component {
                             <label htmlFor="">Product Name</label>
                             <select
                                 className='custom-select'
-                                value={this.state.productName}
+                                value={this.state.productJson}
                                 onChange={this.productChange}
                                 name="productName"
                             >

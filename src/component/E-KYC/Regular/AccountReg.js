@@ -10,6 +10,7 @@ export class AccountReg extends Component {
         channelName: JSON.parse(sessionStorage.getItem('ChannelCode')) ? JSON.parse(sessionStorage.getItem('ChannelCode')) : '',
         productCategory: "",
         productName: "",
+        productJson:'',
         productNameData: [],
         accountType: '',
         amount: '',
@@ -72,7 +73,9 @@ export class AccountReg extends Component {
 
     productChange = e => {
         e.preventDefault();
+        this.setState({productJson:e.target.value});
         const val = JSON.parse(e.target.value);
+        // console.log(e.target.value);
         sessionStorage.setItem("subChannelInfo", JSON.stringify(val.subChannel));
         this.setState({ productName: val.code, subChannel: val.subChannel });
     }
@@ -260,7 +263,7 @@ export class AccountReg extends Component {
                             <label htmlFor="">Product Name</label>
                             <select
                                 className='custom-select'
-                                value={this.state.productName}
+                                value={this.state.productJson}
                                 onChange={this.productChange}
                                 name="productName"
                             >

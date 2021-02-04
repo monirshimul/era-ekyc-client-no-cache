@@ -368,6 +368,7 @@ export class SimRPA extends Component {
                                     id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
                                     placeholder="Enter NID NO"
+                                    readOnly
                                 />
                             </div>
 
@@ -390,7 +391,7 @@ export class SimRPA extends Component {
                                         showYearDropdown
                                         showMonthDropdown
                                         scrollableMonthYearDropdown
-
+                                        readOnly
                                     />
                                 </div>
                             </div>

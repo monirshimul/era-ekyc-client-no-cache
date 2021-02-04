@@ -65,7 +65,7 @@ export class SimConfirmInfo extends Component {
             gender: values.gender,
             profession: values.professionCode,
             mobile: values.mobileNumber,
-            verificationType: "FACE"
+            verificationType: values.typeVerification
         }
 
         if (values.spouseName !== '') applicantInfo.spouseName = values.spouseName;

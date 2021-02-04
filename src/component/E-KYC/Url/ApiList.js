@@ -152,4 +152,7 @@ export const accessLog = hostIp + `report/access-log/`;
 // Text match
 export const textMatch = hostIp + `ai/text-match`;
 
+// Depository API
+ export const depoApi =  hostIp + `depository/get`;
+
 

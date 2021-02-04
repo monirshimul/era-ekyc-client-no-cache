@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import MobileVerification from '../../../Reusable/MobileVerification';
 import NidImagesSim from './NidImagesSim';
+import DedubeCheck from './DedubeCheck';
 import SimCaptureImage from './SimCaptureImage';
 import SimPersonalDetails from './SimPersonalDetails';
 import SimNominee from './SimNominee';
@@ -11,6 +12,7 @@ import SimComplete from './SimComplete';
 import SimRPA from './SimRPA';
 import { NotificationManager } from "react-notifications";
 import { ImageCompressor } from '../../../Utils/ImageCompressor';
+import ExistingConfigImage from './ExistingConfigImage';
 // import Test from '../../../Playground/Test';
 
 
@@ -145,7 +147,7 @@ export class SimFaceMain extends Component {
         //common for all component
         flag: 'data:image/jpeg;base64,',
         applicantNo: '',
-        typeVerification: '',
+        typeVerification:'FACE',
         confirmFlag: false,
         channelAccStatus: [],
         accountMessage: ''
@@ -299,7 +301,17 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-            case 3:
+                case 3:
+                return (
+                    <DedubeCheck
+                        nextStep={this.nextStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+            case 4:
                 return (
                     <SimRPA
                         nextStep={this.nextStep}
@@ -310,7 +322,7 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-            case 4:
+            case 5:
                 return (
                     <SimCaptureImage
                         nextStep={this.nextStep}
@@ -322,7 +334,7 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-            case 5:
+            case 6:
                 return (
                     <SimPersonalDetails
                         nextStep={this.nextStep}
@@ -333,7 +345,7 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-            case 6:
+            case 7:
                 return (
                     <SimNominee
                         nextStep={this.nextStep}
@@ -347,7 +359,7 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-            case 7:
+            case 8:
                 return (
                     <SimSignature
                         nextStep={this.nextStep}
@@ -358,7 +370,7 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-            case 8:
+            case 9:
                 return (
                     <SimConfirmInfo
                         nextStep={this.nextStep}
@@ -368,12 +380,24 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-            case 9:
+            case 10:
                 return (
                     <SimComplete
                         handleState={this.handleState}
                         values={values}
                     />
+                )
+
+                case "exist_1":
+                return (
+                    <ExistingConfigImage
+                    nextStep={this.nextStep}
+                    prevStep={this.prevStep}
+                    handleChange={this.handleChange}
+                    handleState={this.handleState}
+                    handleDate={this.handleDate}
+                    values={values}
+                />
                 )
 
         }
