@@ -3,7 +3,8 @@ import Sign from '../images/sign.svg';
 import Capture from '../Capture/Capture';
 //import { NotificationManager } from "react-notifications";
 import { demoSignature } from './../../../Utils/demoSignature';
-import { ImageCompressor } from '../../../Utils/ImageCompressor'
+import { ImageCompressor } from '../../../Utils/ImageCompressor';
+import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
 
 export class SimFingerSignature extends Component {
     state = {
@@ -47,30 +48,42 @@ export class SimFingerSignature extends Component {
             this.props.handleState("signature", demoSignature);
         }
 
-        this.props.nextStep();
+        if(values.step === "exist_4"){
+            this.props.handleState("step", "exist_5");
+        }else{
+            this.props.nextStep();
+        }
+
+        
     };
 
     back = e => {
-        //let { values } = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
-        // for (let i = 0; i < values.jointArray.length; i++) {
-        //     if (values.jointArray[i].isShow === true) {
-        //         if (values.jointArray[i].dob !== "") {
-        //             let copyArray = Object.assign([], this.props.values.jointArray);
-        //             copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
-        //             this.props.handleState('jointArray', copyArray);
-        //         }
-        //         }else{
-        //             if (values.jointArray[i].minorDob !== '') {
-        //                 let copyArray = Object.assign([], this.props.values.jointArray);
-        //                 copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
-        //                 this.props.handleState('jointArray', copyArray);
-        //             }
-        //         }
+       
+        if(values.step === "exist_4"){
+             for (let i = 0; i < values.jointArray.length; i++) {
+            if (values.jointArray[i].isShow === true) {
+                if (values.jointArray[i].dob !== "") {
+                    let copyArray = Object.assign([], this.props.values.jointArray);
+                    copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
+                    this.props.handleState('jointArray', copyArray);
+                }
+                }else{
+                    if (values.jointArray[i].minorDob !== '') {
+                        let copyArray = Object.assign([], this.props.values.jointArray);
+                        copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
+                        this.props.handleState('jointArray', copyArray);
+                    }
+                }
 
-        //     }
-        this.props.prevStep();
+            }
+            this.props.handleState("step", "exist_3");
+        }else{
+            this.props.prevStep();
+        }
+       
     }
 
     fileSelectedHandler = async (event) => {

@@ -717,7 +717,7 @@ export class SimPersonalDetails extends Component {
 
     render() {
         const { values, handleChange } = this.props;
-         console.log("All ec Values", values);
+        //  console.log("All ec Values", values);
         //  console.log("profession",values.profession);
         //  console.log("professionCode",values.professionCode);
 
