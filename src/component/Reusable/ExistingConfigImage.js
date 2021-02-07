@@ -152,7 +152,8 @@ export class ExistingConfigImage extends Component {
                     {/* {imageFlag ? ( */}
                     <div className="animated zoomIn">
                       <img
-                        src={Face}
+                      
+                        src={values.ecImage ? (values.flag + values.ecImage) : Face}
                         style={{
                           display: "block",
                           marginLeft: "auto",
@@ -160,7 +161,7 @@ export class ExistingConfigImage extends Component {
                           width: "300px",
                           height: "200px",
                         }}
-                        value={values.faceImage}
+                        value={values.ecImage}
                         className=" img-thumbnail center "
                         id="imagePicture"
                         alt="cameraPicture"

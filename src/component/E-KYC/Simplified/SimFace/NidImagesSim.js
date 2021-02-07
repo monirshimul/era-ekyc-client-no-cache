@@ -276,11 +276,16 @@ export class NidImagesSim extends Component {
 
   }
 
+  escape=()=>{
+    this.props.nextStep();
+  }
+
   render() {
     let { values } = this.props;
     // console.log("nidSelect", this.state.nidType);
     return (
       <div className="container">
+        <button onClick={this.escape}>Escape</button>
         <div className="row d-flex justify-content-center">
 
           <div className="card col-sm-5" style={{ paddingTop: "25px" }}>

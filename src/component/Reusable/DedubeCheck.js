@@ -213,16 +213,19 @@ export class DedubeCheck extends Component {
        
 
     }
+    Escape=()=>{
+        this.props.nextStep()
+    }
 
 
     render() {
         const { values, handleChange } = this.props;
         return (
-            <div className="container" >
-            {/* 
+            <div className="container" style={{ height:"60vh"}} >
+            
             <div className="im col-sm-2" onClick={this.Escape}>
                 Escape
-          </div>*/}
+          </div>
 
             <div className="row d-flex justify-content-center">
                 <div className="col-sm-6 imTwoWhite p-5">
@@ -230,7 +233,7 @@ export class DedubeCheck extends Component {
                         <h4>DedubeCheck</h4>
                     </div>
 
-                    <form onSubmit={this.continue}>
+                    <form onSubmit={this.continue} style={{zIndex:"10"}}>
                         {/* <label htmlFor="nidNo">Nid No:</label><br />
           <input type="text" id="nidNo" name="nidNo" value={this.state.nidNo} /><br /> */}
                         <div className="form-group">
@@ -254,9 +257,10 @@ export class DedubeCheck extends Component {
                             <div className=''>
                                 <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
                             </div>
-                            <div className=''>
+                            <div className='' >
 
                                 <DatePicker
+                                    
                                     placeholderText='DD/MM/YYYY'
                                     selected={values.dob}
                                     dateFormat='dd/MM/yyyy'

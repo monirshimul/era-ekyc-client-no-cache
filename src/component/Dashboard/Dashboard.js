@@ -610,7 +610,7 @@ class Dashboard extends Component {
 
                     {/* Footer */}
 
-                    <div>
+                    
 
                         {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                             <path fill=" #099e96" fill-opacity="0.5" d="M0,256L80,240C160,224,320,192,480,197.3C640,203,800,245,960,218.7C1120,192,1280,96,1360,48L1440,0L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
@@ -628,7 +628,7 @@ class Dashboard extends Component {
                                 right: "0",
                                 margin: "0",
                                 padding: "0",
-                                border: "none"
+                                border:"none"
                             }}
                             className=" img-fluid img-thumbnail"
                             id='SignaturePic'
@@ -638,7 +638,7 @@ class Dashboard extends Component {
                             <small className="" style={{ position: "absolute", bottom: "15px", color: "#333", fontSize: "14px" }}>© 2020 All rights reserved to ERA-InfoTech Ltd.</small>
                         </div>
 
-                    </div>
+                    
 
 
 

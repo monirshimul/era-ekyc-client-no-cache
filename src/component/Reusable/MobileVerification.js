@@ -133,6 +133,7 @@ export class MobileVerification extends Component {
     const { values, handleChange } = this.props;
     return (
       <div className='container'>
+        <button onClick={this.continue}>Escape</button>
         <div className="row d-flex justify-content-center">
 
           <div className="divBg col-sm-6 pt-3">
