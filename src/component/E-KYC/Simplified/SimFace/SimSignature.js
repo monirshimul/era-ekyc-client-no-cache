@@ -49,7 +49,13 @@ export class SimSignature extends Component {
         if (values.signature === "") {
             this.props.handleState("signature", demoSignature);
         }
-        this.props.nextStep();
+
+        if(values.step === "exist_4"){
+            this.props.handleState("step", "exist_5");
+        }else{
+            this.props.nextStep();
+        }
+      
     };
 
     back = e => {
@@ -72,7 +78,14 @@ export class SimSignature extends Component {
             }
 
         }
-        this.props.prevStep();
+        
+        if(values.step === "exist_4"){
+            this.props.handleState("step", "exist_3");
+        }else{
+            this.props.prevStep();
+        }
+      
+        
     }
 
     fileSelectedHandler = async (event) => {

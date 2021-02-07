@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
-import Loading from '../utils/CustomLoding/Loading';
-import { largeTime } from './../../../Utils/notificationTime';
+import Loading from '../E-KYC/Simplified/utils/CustomLoding/Loading';
+import { largeTime } from '../Utils/notificationTime';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { absAccountCheck, depoApi } from '../../Url/ApiList';
+import { absAccountCheck, depoApi } from '../E-KYC/Url/ApiList';
 import axios from 'axios';
-import { showDate } from '../../../Utils/dateConversion';
+import { showDate } from '../Utils/dateConversion';
 
 
 export class DedubeCheck extends Component {
@@ -166,6 +166,13 @@ export class DedubeCheck extends Component {
                     this.props.handleState('perUpozila', perAddress.upozila ? perAddress.upozila : '');
                     this.props.handleState('perWardForUnionPorishod', perAddress.wardForUnionPorishod ? perAddress.wardForUnionPorishod : '');
 
+                    // ================Converted Type Verification to FACE ================
+                    this.props.handleState('typeVerification', "FACE");
+                    // ================Converted Type Verification to FACE ================
+
+                    this.props.handleState('isEnableFace', false);
+                    this.props.handleState('loading', false);
+
                     this.props.handleState("step", "exist_1");
 
 
@@ -211,7 +218,7 @@ export class DedubeCheck extends Component {
     render() {
         const { values, handleChange } = this.props;
         return (
-            <div className="container">
+            <div className="container" >
             {/* 
             <div className="im col-sm-2" onClick={this.Escape}>
                 Escape

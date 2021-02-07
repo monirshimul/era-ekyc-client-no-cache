@@ -61,7 +61,7 @@ export class SimFingerConfirm extends Component {
             gender: values.gender,
             profession: values.professionCode,
             mobile: values.mobileNumber,
-            verificationType: "FINGER"
+            verificationType: values.typeVerification
         }
 
         if (values.spouseName !== '') applicantInfo.spouseName = values.spouseName;
@@ -188,8 +188,11 @@ export class SimFingerConfirm extends Component {
             applicantFile: applicantFileInfo,
             applicantPresentAddress: applicantPresentInfo,
             applicantPermanentAddress: applicantPermanentInfo,
-            nominees: nomineesInfo,
-            fingerprint: fingerObj
+            nominees: nomineesInfo
+        }
+
+        if(fingerObj.rIndex !== ""){
+            confirmObj.fingerprint = fingerObj
         }
 
         console.log("fingerConfirmobj", confirmObj);

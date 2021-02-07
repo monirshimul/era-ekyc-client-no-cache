@@ -216,12 +216,24 @@ export class SimConfirmInfo extends Component {
                 let resToArr = getJsonObjectToArray(resData)
                 //console.log("Result Array First", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
-                this.props.nextStep();
+
+                if(values.step === "exist_5"){
+                    this.props.handleState("step", "exist_6");
+                }else{
+                    this.props.nextStep();
+                }
+
+              
             } else {
                 let resToArr = getJsonObjectToArray(resData)
                 //console.log("Result Array Last", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
-                this.props.nextStep();
+
+                if(values.step === "exist_5"){
+                    this.props.handleState("step", "exist_6");
+                }else{
+                    this.props.nextStep();
+                }
             }
 
 
@@ -245,8 +257,15 @@ export class SimConfirmInfo extends Component {
     }
 
     back = e => {
+        let {values} = this.props;
         e.preventDefault();
-        this.props.prevStep();
+
+        if(values.step === "exist_5"){
+            this.props.handleState("step", "exist_4");
+        }else{
+            this.props.prevStep();
+        }
+        
     }
 
 

@@ -668,23 +668,29 @@ export class SimPersonalDetails extends Component {
 
 
 
-
-
+                    if(values.step === "exist_2"){
+                        this.props.handleState("step", "exist_3");
+                    }else{
                     this.props.nextStep();
-
+                    }
 
 
 
 
 
                 } catch (err) {
+                    console.log("error", err.response);
                     this.props.handleState('confirmFlag', false);
                     NotificationManager.error("Please check zoneCode", "Click to Remove", largeTime);
                 }
 
 
             } else {
+                if(values.step === "exist_2"){
+                    this.props.handleState("step", "exist_3");
+                }else{
                 this.props.nextStep();
+                }
             }
 
         } catch (error) {
@@ -699,13 +705,19 @@ export class SimPersonalDetails extends Component {
     };
 
     back = e => {
+        let {values} = this.props;
         e.preventDefault();
-        this.props.prevStep();
+        if(values.step === "exist_2"){
+            this.props.handleState("step", "exist_1");
+        }else{
+            this.props.prevStep();
+        }
+        
     }
 
     render() {
         const { values, handleChange } = this.props;
-        // console.log("All ec Values", values);
+         console.log("All ec Values", values);
         //  console.log("profession",values.profession);
         //  console.log("professionCode",values.professionCode);
 

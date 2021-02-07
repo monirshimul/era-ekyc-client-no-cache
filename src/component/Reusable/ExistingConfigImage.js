@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { NotificationManager } from "react-notifications";
 import axios from 'axios'
-import Loading from '../utils/CustomLoding/Loading'
-import { faceValidate } from '../../Url/ApiList';
-import Face from "../images/face.svg";
-import Done from "../images/done.svg";
-import Camera from "../Liveness/Camera";
+import Loading from '../E-KYC/Simplified/utils/CustomLoding/Loading';
+import { faceValidate } from '../E-KYC/Url/ApiList';
+import Face from "../E-KYC/Simplified/images/face.svg";
+import Done from "../E-KYC/Simplified/images/done.svg";
+import Camera from "../E-KYC/Simplified/Liveness/Camera";
 import "react-datepicker/dist/react-datepicker.css";
-import "../utils/Common.css";
-import { largeTime } from "../../../Utils/notificationTime";
+import "../E-KYC/Simplified/utils/Common.css"; 
+import { largeTime } from "../Utils/notificationTime";
 
 export class ExistingConfigImage extends Component {
     // Escape = () => {
@@ -39,13 +39,13 @@ export class ExistingConfigImage extends Component {
         nidFront: values.ecImage
       }
 
+      // console.log("objImageCompare", imgData );
+
       let resValidation = await axios.post(faceValidate, imgData, token);
-      //console.log("resValidation", resValidation.data.data.faceVerificationResult)
+      // console.log("resValidation", resValidation.data.data.faceVerificationResult)
       //  console.log("ver-token", resValidation.data.data.verificationToken);
       //  console.log("validate", values.validate);
-      if (resValidation.data.data.faceVerificationResult.status) {
-
-      }
+     
 
       if (resValidation.data.data.faceVerificationResult.status === true) {
 
@@ -101,14 +101,14 @@ export class ExistingConfigImage extends Component {
       return;
     }
     this.closeCamera();
-    this.props.nextStep();
+    this.props.handleState("step", "exist_2");
   };
 
   back = (e) => {
     // const { values } = this.props;
     e.preventDefault();
     this.closeCamera();
-    this.props.prevStep();
+    this.props.handleState("step", 3);
   };
 
   onImageConfirm = (base64Image) => {
