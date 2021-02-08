@@ -77,13 +77,15 @@ export class RegRiskGrading extends Component {
     }
 
     back = e => {
-        let { values } = this.props;
+        let {values} = this.props;
         e.preventDefault();
+
         if(values.step === "exist_5"){
             this.props.handleState("step", "exist_4");
         }else{
             this.props.prevStep();
         }
+       
 
     }
 

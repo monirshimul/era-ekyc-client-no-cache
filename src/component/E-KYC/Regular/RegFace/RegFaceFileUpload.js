@@ -50,15 +50,17 @@ export class RegFaceFileUpload extends Component {
     };
 
     back = e => {
-        let { values } = this.props;
+        let {values} = this.props;
+
         if(values.step === "exist_6"){
             this.props.handleState("step", "exist_5");
         }else{
             this.props.prevStep();
         }
+       
     }
     continue = e => {
-         const { values } = this.props;
+            const { values } = this.props;
         //    e.preventDefault();
         //    if (values.passport === "") {
         //        let signatureMessage = "Please Provide Passport";

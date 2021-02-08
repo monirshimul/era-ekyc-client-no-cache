@@ -108,7 +108,7 @@ export class DedubeCheck extends Component {
 
             try {
                 let rpaDepo = await axios.post(depoApi, obj, config);
-                //  console.log("repo", rpaDepo.data.data);
+                //   console.log("repo", rpaDepo.data.data);
                  if(rpaDepo.data.data === null){
                     this.props.handleState('isEnableFace', false);
                     this.props.handleState('loading', false);

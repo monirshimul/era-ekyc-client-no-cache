@@ -241,11 +241,11 @@ export class RegNominee extends Component {
             }
         }
 
-        if(values.step === "exist_3"){
-            this.props.handleState("step", "exist_4");
-        }else{
-            this.props.nextStep();
-        }
+                if(values.step === "exist_3"){
+                    this.props.handleState("step", "exist_4");
+                }else{
+                    this.props.nextStep();
+                }
     };
 
     back = e => {
@@ -256,6 +256,7 @@ export class RegNominee extends Component {
         }else{
             this.props.prevStep();
         }
+        
     }
 
 

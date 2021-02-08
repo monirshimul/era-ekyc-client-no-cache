@@ -13,6 +13,8 @@ import RegFaceFileUpload from '../RegFace/RegFaceFileUpload';
 import RegFingerPrintConfirm from './RegFingerPrintConfirm';
 import RegComplete from '../RegFace/RegComplete';
 import { ImageCompressor } from '../../../Utils/ImageCompressor';
+import DedubeCheck from '../../../Reusable/DedubeCheck';
+import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
 
 
 
@@ -48,6 +50,7 @@ export class RegFingerPrintMain extends Component {
         lIndex: "",
         lThumb: "",
         isEnableFinger: false,
+        isEnableFace: false,
         loadingPrint: false,
         verifyToken: "",
         ecImage: '',
@@ -181,6 +184,7 @@ export class RegFingerPrintMain extends Component {
         applicantEkycId: '',
         flag: 'data:image/jpeg;base64,',
         confirmFlag: false,
+        typeVerification: "FINGER",
         channelAccStatus: []
     }
 
@@ -306,18 +310,18 @@ export class RegFingerPrintMain extends Component {
 
     // }
     render() {
-        const { step } = this.state;
+        // const { step } = this.state;
 
-        const { verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, rIndex, rThumb, lIndex, lThumb, ecImage, isEnableFinger, loadingPrint, verifyTokenFinger, ecApplicantName, ecApplicantNameBangla, ecFatherNameBangla, ecMotherNameBangla, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, professionCode, mobileNumber, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, monthlyIncome, sourceOfFund, nationality, tin, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+        const { step, isEnableFace,typeVerification,verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, rIndex, rThumb, lIndex, lThumb, ecImage, isEnableFinger, loadingPrint, verifyTokenFinger, ecApplicantName, ecApplicantNameBangla, ecFatherNameBangla, ecMotherNameBangla, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, professionCode, mobileNumber, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, monthlyIncome, sourceOfFund, nationality, tin, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
             signature, signatureType, jointArray, confirmFlag, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, channelAccStatus, riskGradingArray, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType } = this.state;
 
         const values = {
-            verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, rIndex, rThumb, lIndex, lThumb, ecImage, isEnableFinger, loadingPrint, verifyTokenFinger, ecApplicantName, ecApplicantNameBangla, ecFatherNameBangla, ecMotherNameBangla, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, professionCode, mobileNumber, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, monthlyIncome, sourceOfFund, nationality, tin, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
+            step ,isEnableFace,typeVerification,verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantEkycId, NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, rIndex, rThumb, lIndex, lThumb, ecImage, isEnableFinger, loadingPrint, verifyTokenFinger, ecApplicantName, ecApplicantNameBangla, ecFatherNameBangla, ecMotherNameBangla, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, professionCode, mobileNumber, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, monthlyIncome, sourceOfFund, nationality, tin, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading,
             signature, signatureType, jointArray, confirmFlag, onBoardingValue, geoRiskClient, foreignOrigin, highOfficial, closeHighOfficial, isClientIp, productTypes, occupation, businessName, professionName, yearlyTransaction, hasSourceOfFunds, channelAccStatus, riskGradingArray, passport, passportFileName, passFileType, birthCertificate, birthCertificateFileName, birthCerFileType, tinCertificate, tinCertificateFileName, tinFileType
         }
 
 
-        switch (step) {
+        switch (this.state.step) {
 
             case 1:
                 return (
@@ -338,7 +342,17 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 3:
+                case 3:
+                    return (
+                        <DedubeCheck
+                            nextStep={this.nextStep}
+                            handleChange={this.handleChange}
+                            handleState={this.handleState}
+                            values={values}
+                        />
+                    )
+
+            case 4:
                 return (
                     <RegFingerPrint
                         nextStep={this.nextStep}
@@ -350,7 +364,7 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 4:
+            case 5:
                 return (
                     <RegPersonalDetails
                         nextStep={this.nextStep}
@@ -361,7 +375,7 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 5:
+            case 6:
                 return (
                     <RegNominee
                         nextStep={this.nextStep}
@@ -377,7 +391,7 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 6:
+            case 7:
                 return (
                     <RegCustomerPic
                         nextStep={this.nextStep}
@@ -388,7 +402,7 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 7:
+            case 8:
                 return (
                     <RegFingerSignature
                         nextStep={this.nextStep}
@@ -399,7 +413,7 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 8:
+            case 9:
                 return (
                     <RegRiskGrading
                         nextStep={this.nextStep}
@@ -411,7 +425,7 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 9:
+            case 10:
                 return (
                     <RegFaceFileUpload
                         nextStep={this.nextStep}
@@ -422,7 +436,7 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 10:
+            case 11:
                 return (
                     <RegFingerPrintConfirm
                         nextStep={this.nextStep}
@@ -432,13 +446,88 @@ export class RegFingerPrintMain extends Component {
                     />
                 )
 
-            case 11:
+            case 12:
                 return (
                     <RegComplete
                         handleState={this.handleState}
                         values={values}
                     />
                 )
+
+                case "exist_1":
+                    return (
+                        <ExistingConfigImage
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        handleDate={this.handleDate}
+                        values={values}
+                    />
+                    )
+    
+                    case "exist_2":
+                    return (
+                        <RegPersonalDetails
+                            handleChange={this.handleChange}
+                            handleState={this.handleState}
+                            values={values}
+                        />
+                    )
+    
+                    case "exist_3":
+                        return (
+                            <RegNominee
+                            handleState={this.handleState}
+                            onChange={this.handleInputChange}
+                            showHideChange={this.showHideChange}
+                            addNomineeOne={this.addNomineeOne}
+                            addNomineeTwo={this.addNomineeTwo}
+                            values={values}
+                        />
+                        )
+    
+                        case "exist_4":
+                            return (
+                                <RegFingerSignature
+                                handleChange={this.handleChange}
+                                handleState={this.handleState}
+                                values={values}
+                            />
+                            )
+
+                            case "exist_5":
+                                return (
+                                    <RegRiskGrading    
+                                        handleChange={this.handleChange}
+                                        handleOccupationChange={this.handleOccupationChange}
+                                        handleState={this.handleState}
+                                        values={values}
+                                    />
+                                )
+                
+                            case "exist_6":
+                                return (
+                                    <RegFaceFileUpload        
+                                        handleChange={this.handleChange}
+                                        handleState={this.handleState}
+                                        values={values}
+                                    />
+                                )
+    
+                        case "exist_7":
+                            return (
+                                <RegFingerPrintConfirm
+                                handleState={this.handleState}
+                                values={values}
+                             />
+                                )
+    
+                        case "exist_8":
+                            return (
+                                <RegComplete
+                                handleState={this.handleState}
+                                values={values}
+                            />
+                                    )
 
         }
 

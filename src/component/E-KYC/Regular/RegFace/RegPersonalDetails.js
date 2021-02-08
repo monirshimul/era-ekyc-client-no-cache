@@ -650,13 +650,13 @@ export class RegPersonalDetails extends Component {
 
 
 
-
-
                     if(values.step === "exist_2"){
                         this.props.handleState("step", "exist_3");
                     }else{
-                    this.props.nextStep();
+                        this.props.nextStep();
                     }
+
+                    
 
 
 
@@ -696,6 +696,7 @@ export class RegPersonalDetails extends Component {
         }else{
             this.props.prevStep();
         }
+        
     }
     // Escape = () => {
     //     this.props.nextStep();

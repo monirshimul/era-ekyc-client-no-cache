@@ -108,6 +108,7 @@ export class ExistingConfigImage extends Component {
     // const { values } = this.props;
     e.preventDefault();
     this.closeCamera();
+    this.props.handleState("ecImage", "");
     this.props.handleState("step", 3);
   };
 
