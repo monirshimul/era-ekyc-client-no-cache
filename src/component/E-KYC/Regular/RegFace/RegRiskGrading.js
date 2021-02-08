@@ -65,8 +65,11 @@ export class RegRiskGrading extends Component {
             NotificationManager.success("Risk Grading Completed", "Success", 5000);
 
 
-            this.props.nextStep();
-
+            if(values.step === "exist_5"){
+                this.props.handleState("step", "exist_6");
+            }else{
+                this.props.nextStep();
+            }
         } catch (error) {
             console.log("Error====>", error.response)
             NotificationManager.error(error.toString(), "Click to Remove", largeTime);
@@ -74,8 +77,13 @@ export class RegRiskGrading extends Component {
     }
 
     back = e => {
+        let { values } = this.props;
         e.preventDefault();
-        this.props.prevStep();
+        if(values.step === "exist_5"){
+            this.props.handleState("step", "exist_4");
+        }else{
+            this.props.prevStep();
+        }
 
     }
 

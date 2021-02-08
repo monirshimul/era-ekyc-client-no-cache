@@ -241,12 +241,21 @@ export class RegNominee extends Component {
             }
         }
 
-        this.props.nextStep();
+        if(values.step === "exist_3"){
+            this.props.handleState("step", "exist_4");
+        }else{
+            this.props.nextStep();
+        }
     };
 
     back = e => {
+        let {values} = this.props;
         e.preventDefault();
-        this.props.prevStep();
+        if(values.step === "exist_3"){
+            this.props.handleState("step", "exist_2");
+        }else{
+            this.props.prevStep();
+        }
     }
 
 

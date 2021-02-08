@@ -62,7 +62,7 @@ export class RegFaceConfirm extends Component {
             gender: values.gender,
             profession: values.professionCode,
             mobile: values.mobileNumber,
-            verificationType: "FACE"
+            verificationType: values.typeVerification
         }
 
         if (values.spouseName !== '') applicantInfo.spouseName = values.spouseName;
@@ -246,12 +246,20 @@ export class RegFaceConfirm extends Component {
                 let resToArr = getJsonObjectToArray(resData)
                 //console.log("Result Array First", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
-                this.props.nextStep();
+                if(values.step === "exist_7"){
+                    this.props.handleState("step", "exist_8");
+                }else{
+                    this.props.nextStep();
+                }
             } else {
                 let resToArr = getJsonObjectToArray(resData)
                 //console.log("Result Array Last", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
-                this.props.nextStep();
+                if(values.step === "exist_7"){
+                    this.props.handleState("step", "exist_8");
+                }else{
+                    this.props.nextStep();
+                }
             }
 
         } catch (error) {
@@ -274,8 +282,14 @@ export class RegFaceConfirm extends Component {
     }
 
     back = e => {
+        let {values} = this.props;
         e.preventDefault();
-        this.props.prevStep();
+
+        if(values.step === "exist_7"){
+            this.props.handleState("step", "exist_6");
+        }else{
+            this.props.prevStep();
+        }
     }
 
 

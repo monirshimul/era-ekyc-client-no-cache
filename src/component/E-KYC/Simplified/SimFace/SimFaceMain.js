@@ -147,7 +147,7 @@ export class SimFaceMain extends Component {
         //common for all component
         flag: 'data:image/jpeg;base64,',
         applicantNo: '',
-        typeVerification:'FACE',
+        typeVerification: 'FACE',
         confirmFlag: false,
         channelAccStatus: [],
         accountMessage: ''
@@ -273,7 +273,7 @@ export class SimFaceMain extends Component {
     render() {
         // const { step } = this.state;
         const { step, verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantNo, NidFront, NidFrontType, NidFrontOcr, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, ecImage, isEnableFace, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading, ecApplicantName, ecApplicantNameBangla, ecFatherNameBangla, ecMotherNameBangla, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, professionCode, mobileNumber, signature, signatureType, jointArray, typeVerification, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage } = this.state;
-        const values = {step, verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantNo, NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, ecImage, isEnableFace, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading, ecApplicantName, ecApplicantNameBangla, ecFatherNameBangla, ecMotherNameBangla, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, professionCode, mobileNumber, signature, signatureType, jointArray, typeVerification, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage }
+        const values = { step, verificationMobile, verificationCodeMobile, accountType, product, productType, branchOrAgentPointCode, transactionOrMaturityAmount, channelName, productName, applicantNo, NidFront, NidFrontOcr, NidFrontType, NidBack, NidBackOcr, NidBackType, loadingSpin, allData, flag, nid, dob, ecImage, isEnableFace, faceImage, showCamera, imageFlag, isEnable, validate, verifyToken, loading, ecApplicantName, ecApplicantNameBangla, ecFatherNameBangla, ecMotherNameBangla, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherName, motherNameBangla, fatherName, fatherNameBangla, spouseName, gender, profession, professionCode, mobileNumber, signature, signatureType, jointArray, typeVerification, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage }
 
 
         switch (this.state.step) {
@@ -301,7 +301,7 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-                case 3:
+            case 3:
                 return (
                     <DedubeCheck
                         nextStep={this.nextStep}
@@ -388,17 +388,17 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-                case "exist_1":
+            case "exist_1":
                 return (
                     <ExistingConfigImage
-                    handleChange={this.handleChange}
-                    handleState={this.handleState}
-                    handleDate={this.handleDate}
-                    values={values}
-                />
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        handleDate={this.handleDate}
+                        values={values}
+                    />
                 )
 
-                case "exist_2":
+            case "exist_2":
                 return (
                     <SimPersonalDetails
                         handleChange={this.handleChange}
@@ -407,9 +407,9 @@ export class SimFaceMain extends Component {
                     />
                 )
 
-                case "exist_3":
-                    return (
-                        <SimNominee
+            case "exist_3":
+                return (
+                    <SimNominee
                         handleState={this.handleState}
                         onChange={this.handleInputChange}
                         showHideChange={this.showHideChange}
@@ -417,32 +417,32 @@ export class SimFaceMain extends Component {
                         addNomineeTwo={this.addNomineeTwo}
                         values={values}
                     />
-                    )
+                )
 
-                    case "exist_4":
-                        return (
-                            <SimSignature
-                            handleChange={this.handleChange}
-                            handleState={this.handleState}
-                            values={values}
-                        />
-                        )
+            case "exist_4":
+                return (
+                    <SimSignature
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
 
-                    case "exist_5":
-                        return (
-                            <SimConfirmInfo
-                            handleState={this.handleState}
-                            values={values}
-                         />
-                            )
+            case "exist_5":
+                return (
+                    <SimConfirmInfo
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
 
-                    case "exist_6":
-                        return (
-                            <SimComplete
-                            handleState={this.handleState}
-                            values={values}
-                        />
-                                )
+            case "exist_6":
+                return (
+                    <SimComplete
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
 
 
 

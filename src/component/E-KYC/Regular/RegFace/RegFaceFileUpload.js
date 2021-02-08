@@ -50,11 +50,15 @@ export class RegFaceFileUpload extends Component {
     };
 
     back = e => {
-
-        this.props.prevStep();
+        let { values } = this.props;
+        if(values.step === "exist_6"){
+            this.props.handleState("step", "exist_5");
+        }else{
+            this.props.prevStep();
+        }
     }
     continue = e => {
-        //     const { values } = this.props;
+         const { values } = this.props;
         //    e.preventDefault();
         //    if (values.passport === "") {
         //        let signatureMessage = "Please Provide Passport";
@@ -71,7 +75,11 @@ export class RegFaceFileUpload extends Component {
         //        NotificationManager.warning(signatureMessage, "Warning", 5000);
         //        return;
         //      }
-        this.props.nextStep();
+        if(values.step === "exist_6"){
+            this.props.handleState("step", "exist_7");
+        }else{
+            this.props.nextStep();
+        }
     };
 
 

@@ -652,7 +652,11 @@ export class RegPersonalDetails extends Component {
 
 
 
+                    if(values.step === "exist_2"){
+                        this.props.handleState("step", "exist_3");
+                    }else{
                     this.props.nextStep();
+                    }
 
 
 
@@ -666,7 +670,11 @@ export class RegPersonalDetails extends Component {
 
 
             } else {
+                if(values.step === "exist_2"){
+                    this.props.handleState("step", "exist_3");
+                }else{
                 this.props.nextStep();
+                }
             }
 
         } catch (error) {
@@ -681,8 +689,13 @@ export class RegPersonalDetails extends Component {
     };
 
     back = e => {
+        let {values} = this.props;
         e.preventDefault();
-        this.props.prevStep();
+        if(values.step === "exist_2"){
+            this.props.handleState("step", "exist_1");
+        }else{
+            this.props.prevStep();
+        }
     }
     // Escape = () => {
     //     this.props.nextStep();
