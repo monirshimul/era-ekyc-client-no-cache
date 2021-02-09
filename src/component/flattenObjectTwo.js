@@ -687,6 +687,42 @@ export const allRoutes = [
             },
 
         ]
+    },
+
+    {
+        items: {
+            "key": "9",
+            'isShowing': true,
+            "featureName": "NID",
+            "className": <FaAddressBook />,
+            "path": "",
+            "exact": true,
+            "component": ""
+        },
+        nested: [
+            {
+                items: {
+                    "key": "9.1",
+                    'isShowing': true,
+                    "featureName": "Verify",
+                    "path": "/nid-verify",
+                    "exact": true,
+                    "component": <UnderDev />
+                }
+            },
+            {
+                items: {
+                    "key": "9.2",
+                    'isShowing': true,
+                    "featureName": "List & Search",
+                    "path": "/nid-verify-list",
+                    "exact": true,
+                    "component": <UnderDev />
+                }
+            }
+            
+
+        ]
     }
 
 
