@@ -8,11 +8,11 @@ export class NidDecision extends Component {
     typeVerification = (val) => {
         //const obj= { type: val };
         if (val === 'FACE') {
-            this.props.history.push('/dashboard/nid-finger');
+            this.props.history.push('/dashboard/nid-face');
         } else {
             this.props.history.push('/dashboard/nid-finger');
         }
-        // this.props.history.push("/dashboard/nid-images");
+        
     }
     render() {
         return (
