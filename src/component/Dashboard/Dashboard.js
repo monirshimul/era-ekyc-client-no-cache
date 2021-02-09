@@ -68,6 +68,7 @@ import RegFingerPrintMain from '../E-KYC/Regular/RegFingerPrint/RegFingerPrintMa
 
 //==================Regular End========================
 
+import NidFingerMain  from '../E-KYC/NidVerify/NidFinger/NidFingerMain';
 
 
 import { withRouter } from 'react-router-dom';
@@ -76,6 +77,8 @@ import UpgradeDetails from '../E-KYC/Upgrade-ekyc/UpgradeDetails';
 import MultiUpgrade from '../E-KYC/Upgrade-ekyc/MulitStepUpgrade.js/MultiUpgrade';
 import IdleTimer from 'react-idle-timer';
 import { largeTime } from './../Utils/notificationTime';
+
+
 
 
 
@@ -585,7 +588,10 @@ class Dashboard extends Component {
                                     <Route path={`${path}/upgrade-details`} component={UpgradeDetails} />
                                     <Route path={`${path}/multiform-Regular-conversion`} component={MultiUpgrade} />
 
-
+                                     {/* Nid Verification*/}
+                                     <Route path={`${path}/nid-finger`} component={NidFingerMain} />
+                                   
+                                    
 
                                 </Switch>
 

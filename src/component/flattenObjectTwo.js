@@ -65,6 +65,7 @@ import AllStatistics from './E-KYC/Statistics/AllStatistics';
 
 //App Setting
 import AppSetting from './E-KYC/Setting/AppSetting';
+import NidDecision  from './E-KYC/NidVerify/ReUse/NidDecision';
 
 
 const cloneDeep = require('lodash.clonedeep');
@@ -707,7 +708,7 @@ export const allRoutes = [
                     "featureName": "Verify",
                     "path": "/nid-verify",
                     "exact": true,
-                    "component": <UnderDev />
+                    "component": <NidDecision />
                 }
             },
             {
