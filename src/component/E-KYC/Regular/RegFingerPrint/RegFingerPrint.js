@@ -144,52 +144,55 @@ export class RegFingerPrint extends Component {
       },
     };
 
-    let checkObj = {
-      nid: nid,
-      productCode: productName
-    }
+    // ===========================ABS Account Checking API Start ============================
 
-    // console.log("objcheck", checkObj);
+    // let checkObj = {
+    //   nid: nid,
+    //   productCode: productName
+    // }
 
-    this.props.handleState('isEnableFinger', true);
-    this.props.handleState('loadingPrint', true);
+    // // console.log("objcheck", checkObj);
 
-    if (channelName === 'ABS') {
+    // this.props.handleState('isEnableFinger', true);
+    // this.props.handleState('loadingPrint', true);
 
-      try {
-        let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-        // console.log("abs", absCheckApi.data);
-        if (absCheckApi.data.data === null) {
-          NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
-          this.props.handleState('isEnableFinger', false);
-          this.props.handleState('loadingPrint', false);
-          return;
-        }
-        let apiResult = absCheckApi.data.data.result;
-        let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
-        if (apiResult === true) {
-          isFingerPrint = false;
-          this.props.handleState('isEnableFinger', false);
-          this.props.handleState('loadingPrint', false);
-          NotificationManager.info(notificationData, "Click to Remove", largeTime);
-        }
-      } catch (error) {
-        this.props.handleState('isEnableFinger', false);
-        this.props.handleState('loadingPrint', false);
-        isFingerPrint = false;
-        if (error.response) {
-          let message = error.response.data.message
-          //console.log("Error",error.response)
-          NotificationManager.error(message, "Click to Remove", largeTime);
-        } else if (error.request) {
-          //console.log("Error Connecting...",error.request)
-          NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-        } else if (error) {
-          NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-        }
-      }
+    // if (channelName === 'ABS') {
 
-    }
+    //   try {
+    //     let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
+    //     // console.log("abs", absCheckApi.data);
+    //     if (absCheckApi.data.data === null) {
+    //       NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
+    //       this.props.handleState('isEnableFinger', false);
+    //       this.props.handleState('loadingPrint', false);
+    //       return;
+    //     }
+    //     let apiResult = absCheckApi.data.data.result;
+    //     let notificationData = absCheckApi.data.data.channelResponse.AC_INFO.RESPONSE_MSG;
+    //     if (apiResult === true) {
+    //       isFingerPrint = false;
+    //       this.props.handleState('isEnableFinger', false);
+    //       this.props.handleState('loadingPrint', false);
+    //       NotificationManager.info(notificationData, "Click to Remove", largeTime);
+    //     }
+    //   } catch (error) {
+    //     this.props.handleState('isEnableFinger', false);
+    //     this.props.handleState('loadingPrint', false);
+    //     isFingerPrint = false;
+    //     if (error.response) {
+    //       let message = error.response.data.message
+    //       //console.log("Error",error.response)
+    //       NotificationManager.error(message, "Click to Remove", largeTime);
+    //     } else if (error.request) {
+    //       //console.log("Error Connecting...",error.request)
+    //       NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
+    //     } else if (error) {
+    //       NotificationManager.error(error.toString(), "Click to Remove", largeTime);
+    //     }
+    //   }
+
+    // }
+    // ===========================ABS Account Checking API END ============================
 
     //  finger Print collect
 
