@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import NidFingerPrint from './NidFingerPrint';
+import NidLiveness from './NidLiveness';
 
 
 
@@ -14,31 +15,28 @@ export class NidFingerMain extends Component {
         rThumb: "",
         lIndex: "",
         lThumb: "",
-        isEnableFinger: false,
-        loadingPrint: false,
+        isEnable: false,
+        loading: false,
+        loadingSpin:false,
         ecImage: '',
+        faceImage : '',
 
         applicantName: '',
         applicantNameBangla: '',
         applicantDob: '',
         applicantDobDate: "",
         applicantNidNo: '',
-        motherName: '',
         motherNameBangla: '',
-        fatherName: '',
         fatherNameBangla: '',
-        spouseName: '',
-        gender: '',
-        profession: '',
-        professionCode: '',
-        mobileNumber: '',
+        
+        
        
-        // ==== Present Address ====
+        
+       
         preAdditionalMouzaOrMoholla: "",
         preAdditionalVillageOrRoad: "",
         preCityCorporationOrMunicipality: "",
         preDistrict: "",
-        preDistrictCode: '',
         preDivision: "",
         preHomeOrHoldingNo: "",
         prePostOffice: "",
@@ -48,27 +46,13 @@ export class NidFingerMain extends Component {
         preUnionOrWard: "",
         preUnionOrWardCode: "",
         preUpozila: "",
-        preUpozilaCode: '',
         preWardForUnionPorishod: "",
-        preAdditionalMouzaOrMohollaEn: "",
-        preAdditionalVillageOrRoadEn: "",
-        preCityCorporationOrMunicipalityEn: "",
-        preDistrictEn: "",
-        preDivisionEn: "",
-        preHomeOrHoldingNoEn: "",
-        prePostOfficeEn: "",
-        prePostalCodeEn: "",
-        preRegionEn: "",
-        preRmoEn: "",
-        preUnionOrWardEn: "",
-        preUpozilaEn: "",
-        preWardForUnionPorishodEn: "",
+       
         //==== PermanentAddress ====
         perAdditionalMouzaOrMoholla: "",
         perAdditionalVillageOrRoad: "",
         perCityCorporationOrMunicipality: "",
         perDistrict: "",
-        perDistrictCode: '',
         perDivision: "",
         perHomeOrHoldingNo: "",
         perPostOffice: "",
@@ -78,21 +62,8 @@ export class NidFingerMain extends Component {
         perUnionOrWard: "",
         perUnionOrWardCode: '',
         perUpozila: "",
-        perUpozilaCode: '',
         perWardForUnionPorishod: "",
-        perAdditionalMouzaOrMohollaEn: "",
-        perAdditionalVillageOrRoadEn: "",
-        perCityCorporationOrMunicipalityEn: "",
-        perDistrictEn: "",
-        perDivisionEn: "",
-        perHomeOrHoldingNoEn: "",
-        perPostOfficeEn: "",
-        perPostalCodeEn: "",
-        perRegionEn: "",
-        perRmoEn: "",
-        perUnionOrWardEn: "",
-        perUpozilaEn: "",
-        perWardForUnionPorishodEn: "",
+        
 
         flag: 'data:image/jpeg;base64,',
         confirmFlag: false,
@@ -132,10 +103,10 @@ export class NidFingerMain extends Component {
 
 
     render() {
-        const {step, mobileNumber, faceImage, showCamera, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage,  typeVerification } = this.state;
+        const {step,nid,dob,rIndex,rThumb,lIndex,lThumb,isEnable,loading,loadingSpin,ecImage,faceImage,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo,motherNameBangla,fatherNameBangla,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preWardForUnionPorishod,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perWardForUnionPorishod,flag,confirmFlag,typeVerification} = this.state;
 
         const values = {
-            step, mobileNumber, faceImage, showCamera, confirmFlag, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDistrictCode, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preUpozilaCode, preWardForUnionPorishod, preAdditionalMouzaOrMohollaEn, preAdditionalVillageOrRoadEn, preCityCorporationOrMunicipalityEn, preDistrictEn, preDivisionEn, preHomeOrHoldingNoEn, prePostOfficeEn, prePostalCodeEn, preRegionEn, preRmoEn, preUnionOrWardEn, preUpozilaEn, preWardForUnionPorishodEn, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDistrictCode, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perUpozilaCode, perWardForUnionPorishod, perAdditionalMouzaOrMohollaEn, perAdditionalVillageOrRoadEn, perCityCorporationOrMunicipalityEn, perDistrictEn, perDivisionEn, perHomeOrHoldingNoEn, perPostOfficeEn, perPostalCodeEn, perRegionEn, perRmoEn, perUnionOrWardEn, perUpozilaEn, perWardForUnionPorishodEn, channelAccStatus, accountMessage,  typeVerification
+               step,nid,dob,rIndex,rThumb,lIndex,lThumb,isEnable,loading,loadingSpin,ecImage,faceImage,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo,motherNameBangla,fatherNameBangla,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preWardForUnionPorishod,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perWardForUnionPorishod,flag,confirmFlag,typeVerification
         }
 
         switch (this.state.step) {
@@ -150,6 +121,18 @@ export class NidFingerMain extends Component {
                         values={values}
                     />
                 )
+
+                case 2:
+                    return (
+                        <NidLiveness
+                            nextStep={this.nextStep}
+                            handleChange={this.handleChange}
+                            handleState={this.handleState}
+                            values={values}
+                        />
+                    )
+
+               
 
             
         }

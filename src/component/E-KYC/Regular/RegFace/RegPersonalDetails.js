@@ -40,11 +40,11 @@ export class RegPersonalDetails extends Component {
         applicantNameBangla: Joi.string().required(),
         applicantDob: Joi.string().required(),
         applicantNidNo: Joi.string().required(),
-        mobileNumber: Joi.string().pattern(new RegExp('^01[3456789][0-9]{8}'))
-            .required()
-            .messages({
-                "string.pattern.base": `Please Provide Valid Mobile Number`,
-            }),
+        MobileNumber: Joi.string().pattern(new RegExp('^01[3456789][0-9]{8}'))
+        .required()
+        .messages({
+        "string.pattern.base": `Please Provide Valid Mobile Number`,
+        }),
         gender: Joi.string().required(),
         MonthlyIncome: Joi.string().required(),
         SourceOfFund: Joi.string().required(),
@@ -479,7 +479,7 @@ export class RegPersonalDetails extends Component {
             applicantNameBangla: values.applicantNameBangla,
             applicantDob: values.applicantDob,
             applicantNidNo: values.applicantNidNo,
-            mobileNumber: values.mobileNumber,
+            MobileNumber: values.mobileNumber,
             gender: values.gender,
             MonthlyIncome: values.monthlyIncome,
             SourceOfFund: values.sourceOfFund,
@@ -763,10 +763,19 @@ export class RegPersonalDetails extends Component {
                                     <input style={{ borderRadius: "50px" }} type="text" value={values.applicantNidNo} name='applicantNidNo' onChange={handleChange('applicantNidNo')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Nid No" readOnly />
                                 </div>
                                 {/* Mobile Phone Number */}
-                                <div className="form-group">
-                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Mobile No.</label>
-                                    <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" readOnly />
-                                </div>
+                                
+                                 
+                                {values.useMobilePage === true ?  
+                                    <div className="form-group">
+                                        <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Mobile No.</label>
+                                        <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" readOnly />
+                                    </div>
+                                    :
+                                    <div className="form-group">
+                                        <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Mobile No.</label>
+                                        <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number"/>
+                                    </div>
+                                }
 
                                 {/* Gender */}
                                 <div className='form-group '>

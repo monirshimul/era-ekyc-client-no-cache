@@ -154,5 +154,8 @@ export const textMatch = hostIp + `ai/text-match`;
 
 // Depository API
  export const depoApi =  hostIp + `depository/get`;
+ 
+//  Nid Verification
+export const NidFingerVerification = hostIp + `nid-verification/fingerprint-verification`;
 
 

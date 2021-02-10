@@ -195,8 +195,9 @@ export class RegFingerPrint extends Component {
     // ===========================ABS Account Checking API END ============================
 
     //  finger Print collect
-
+    
     if (isFingerPrint === true) {
+      this.props.handleState('loadingPrint', true);
       const fingerobj = {
         MinQ: 30,
         Retry: 3,
@@ -244,7 +245,7 @@ export class RegFingerPrint extends Component {
           //   isEnable: false,
           //   loading: !this.state.loading,
           // });
-          this.props.handleState('isEnableFinger', false);
+        
           this.props.handleState('loadingPrint', false);
         })
         .catch((err) => {
@@ -254,26 +255,26 @@ export class RegFingerPrint extends Component {
               // console.log(err.response.data);
               //alert(err.response.data.message);
               NotificationManager.error(err.response.data.message, "Error", 5000);
-              this.props.handleState('isEnableFinger', false);
+            
             } else if (err.response.status === 404) {
               //alert("Not Found");
               NotificationManager.error("Not Fount", "Error", 5000);
-              this.props.handleState('isEnableFinger', false);
+            
             } else if (err.response.status === 500) {
               //alert(err.response.data.message);
               NotificationManager.error(err.response.data.message, "Error", 5000);
-              this.props.handleState('isEnableFinger', false);
+            
             }
           } else if (err.request) {
             //console.log(err.request);
             //alert("Error Connectiong");
             NotificationManager.error("Error Connecting", "Error", 5000);
-            this.props.handleState('isEnableFinger', false);
+            
           } else {
             console.log("Error", err.message);
             //alert(err.message);
             NotificationManager.error(err.message, "Error", 5000);
-            this.props.handleState('isEnableFinger', false);
+            
           }
         });
     }
@@ -303,12 +304,7 @@ export class RegFingerPrint extends Component {
     }
 
 
-    // if (nid.length === 13) {
-    //   let dateSp = showDate(dob);
-    //   let dateSplit = dateSp.split("-")[0];
-    //   let nid13digit = dateSplit + nid;
-    //   this.props.handleState('nid', nid13digit);
-    // }
+    
 
     const config = {
       headers: {

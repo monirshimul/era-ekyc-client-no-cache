@@ -215,6 +215,7 @@ export class RegRPA extends Component {
             // console.log("obj", obj);
 
             try {
+                this.props.handleState('loading', true);
                 let rpaData = await axios.post(nidValidationRPA, obj, config);
                 // console.log(rpaData.data);
                 // let responseData = rpaData.data.data;
@@ -271,29 +272,26 @@ export class RegRPA extends Component {
                     this.props.handleState('perWardForUnionPorishod', perAddress.wardForUnionPorishod ? perAddress.wardForUnionPorishod : '');
 
                 } else {
-                    this.props.handleState('isEnableFace', false);
+                    
                     this.props.handleState('loading', false);
                     NotificationManager.error("Please Check Your Nid No and Date Of Birth", "Click to Remove", largeTime);
                 }
-                this.props.handleState('isEnableFace', false);
+                
                 this.props.handleState('loading', false);
             } catch (error) {
                 // console.log(error.response);
-
+                this.props.handleState('loading', false);
                 if (error.response) {
                     let message = error.response.data.message
                     NotificationManager.error(message, "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
-                    this.props.handleState('loading', false);
+                    
                 } else if (error.request) {
                     // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
-                    this.props.handleState('loading', false);
+                    
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
-                    this.props.handleState('loading', false);
+                    
                 }
             }
         }

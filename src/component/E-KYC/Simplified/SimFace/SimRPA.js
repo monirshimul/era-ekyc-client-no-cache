@@ -24,7 +24,7 @@ export class SimRPA extends Component {
     //     e.preventDefault();
 
 
-    //     this.props.handleState('isEnableFace', true);
+    
     //     this.props.handleState('loading', true);
 
     //     const config = {
@@ -99,7 +99,7 @@ export class SimRPA extends Component {
     //             this.props.handleState('perWardForUnionPorishod', perAddress.wardForUnionPorishod ? perAddress.wardForUnionPorishod : '');
 
     //         }
-    //         this.props.handleState('isEnableFace', false);
+    //        
     //         this.props.handleState('loading', false);
     //     } catch (error) {
     //         // console.log(error.response);
@@ -107,16 +107,16 @@ export class SimRPA extends Component {
     //         if (error.response) {
     //             let message = error.response.data.message
     //             NotificationManager.error(message, "Click to Remove", largeTime);
-    //             this.props.handleState('isEnableFace', false);
+    //            
     //             this.props.handleState('loading', false);
     //         } else if (error.request) {
     //             // console.log("Error Connecting...", error.request)
     //             NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-    //             this.props.handleState('isEnableFace', false);
+    //            
     //             this.props.handleState('loading', false);
     //         } else if (error) {
     //             NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-    //             this.props.handleState('isEnableFace', false);
+    //            
     //             this.props.handleState('loading', false);
     //         }
     //     }
@@ -125,7 +125,7 @@ export class SimRPA extends Component {
     ///////////////////////////// // // Abs Account Check Added start//////////////////////////////
 
     handleClick = async (e) => {
-        let { nid, dob, productName, channelName } = this.props.values;
+        let { nid, dob } = this.props.values;
         let isRpaRequired = true;
         e.preventDefault();
 
@@ -170,7 +170,7 @@ export class SimRPA extends Component {
         // }
 
         // // console.log("objcheck", checkObj);
-        // this.props.handleState('isEnableFace', true);
+        
         // this.props.handleState('loading', true);
         // if (channelName === "ABS") {
         //     try {
@@ -178,7 +178,7 @@ export class SimRPA extends Component {
         //         // console.log("abs", absCheckApi.data);
         //         if (absCheckApi.data.data === null) {
         //             NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
-        //             this.props.handleState('isEnableFace', false);
+        //             
         //             this.props.handleState('loading', false);
         //             return;
         //         }
@@ -187,12 +187,12 @@ export class SimRPA extends Component {
         //         if (apiResult === true) {
         //             isRpaRequired = false;
         //             NotificationManager.info(notificationData, "Click to Remove", largeTime);
-        //             this.props.handleState('isEnableFace', false);
+        //             
         //             this.props.handleState('loading', false);
         //         }
 
         //     } catch (error) {
-        //         this.props.handleState('isEnableFace', false);
+        //         
         //         this.props.handleState('loading', false);
         //         isRpaRequired = false;
         //         if (error.response) {
@@ -223,6 +223,7 @@ export class SimRPA extends Component {
             // console.log("obj", obj);
 
             try {
+                this.props.handleState('loading', true);
                 let rpaData = await axios.post(nidValidationRPA, obj, config);
                 // console.log(rpaData.data);
                 // let responseData = rpaData.data.data;
@@ -277,13 +278,13 @@ export class SimRPA extends Component {
                     this.props.handleState('perUnionOrWard', perAddress.unionOrWard ? perAddress.unionOrWard : '');
                     this.props.handleState('perUpozila', perAddress.upozila ? perAddress.upozila : '');
                     this.props.handleState('perWardForUnionPorishod', perAddress.wardForUnionPorishod ? perAddress.wardForUnionPorishod : '');
-
+                    
                 } else {
-                    this.props.handleState('isEnableFace', false);
+                   
                     this.props.handleState('loading', false);
                     NotificationManager.error("Please Check Your Nid No and Date Of Birth", "Click to Remove", largeTime);
                 }
-                this.props.handleState('isEnableFace', false);
+               
                 this.props.handleState('loading', false);
             } catch (error) {
                 // console.log(error.response);
@@ -291,16 +292,16 @@ export class SimRPA extends Component {
                 if (error.response) {
                     let message = error.response.data.message
                     NotificationManager.error(message, "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
+                   
                     this.props.handleState('loading', false);
                 } else if (error.request) {
                     // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
+                   
                     this.props.handleState('loading', false);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
+                   
                     this.props.handleState('loading', false);
                 }
             }
