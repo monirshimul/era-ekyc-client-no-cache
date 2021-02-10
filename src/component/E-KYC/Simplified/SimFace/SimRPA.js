@@ -162,7 +162,7 @@ export class SimRPA extends Component {
         };
 
         // ===========================ABS Account Checking API start ============================
-        
+
 
         // let checkObj = {
         //     nid: nid,
