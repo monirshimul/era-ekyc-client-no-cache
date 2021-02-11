@@ -158,4 +158,7 @@ export const textMatch = hostIp + `ai/text-match`;
 //  Nid Verification
 export const NidFingerVerification = hostIp + `nid-verification/fingerprint-verification`;
 
+// Face Compare New
+export const nidFaceCompareNew = hostIp + `nid-verification/face-verification`;
+
 

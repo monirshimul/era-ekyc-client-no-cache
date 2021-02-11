@@ -2,11 +2,19 @@ import React, { Component } from 'react'
 import Capture from '../../Simplified/Capture/Capture';
 import Face from "../../Simplified/images/face.svg";
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import { nidFaceCompareNew } from '../../Url/ApiList';
+import { NotificationManager } from "react-notifications";
+//import { showDate } from '../../../Utils/dateConversion';
+import Loading from "../../Simplified/utils/CustomLoding/Loading";
+import { largeTime } from '../../../Utils/notificationTime';
+
 
 export class FaceCompare extends Component {
 
     state = {
-        cameraOn: false
+        cameraOn: false,
+        faceCompareRes:""
     }
 
     captureOn = () => {
@@ -30,13 +38,67 @@ export class FaceCompare extends Component {
 
     }
 
-    Back = ()=>{
+    FaceCompare = async () => {
+        let { nid, ecImage, faceImage } = this.props.values
+        let config = {
+            headers: {
+                "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        let obj = {
+            nid: nid,
+            photo: faceImage,
+            nidFrontImage: ecImage
+        }
+
+        //console.log(obj)
+        try {
+            this.props.handleState('loading', true);
+            let faceComRes = await axios.post(nidFaceCompareNew, obj, config);
+            console.log("faceComRes", faceComRes)
+            if(faceComRes.data.data){
+                this.setState({
+                    faceCompareRes: faceComRes.data.data.faceVerificationResult.details.result
+                })
+                this.state.faceCompareRes === true ? NotificationManager.success("Face Validated, Please go next", "Click to Remove", largeTime) : NotificationManager.warning("Face is not valid", "Click to Remove", largeTime)
+                
+                this.props.handleState('loading', false);
+
+            }
+            else{
+                this.props.handleState('loading', false);
+            }
+        } catch (error) {
+            console.log(error);
+
+            if (error.response) {
+                let message = error.response.data.message
+                NotificationManager.error(message, "Click to Remove", largeTime);
+                this.props.handleState('isEnableFace', false);
+                this.props.handleState('loading', false);
+            } else if (error.request) {
+                // console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
+                this.props.handleState('isEnableFace', false);
+                this.props.handleState('loading', false);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
+                this.props.handleState('isEnableFace', false);
+                this.props.handleState('loading', false);
+            }
+        }
+        
+    }
+
+    Back = () => {
         this.props.prevStep();
     }
 
 
     render() {
-        const {values} = this.props;
+        const { values } = this.props;
+        //console.log("state", this.state.faceCompareRes)
         return (
             <div className="container">
                 {/* 
@@ -47,7 +109,7 @@ export class FaceCompare extends Component {
                 <div className="row d-flex justify-content-center">
                     <div className="imTwoWhite col-sm-10" style={{ paddingTop: "25px" }}>
                         <div className="card-header im">
-                            <h5 style={{color:"green"}}><i class="fas fa-camera-retro"></i> Face Verification</h5>
+                            <h5 style={{ color: "green" }}><i class="fas fa-camera-retro"></i> Face Verification</h5>
                         </div>
                         <div className="row card-body d-flex justify-content-center align-items-center" >
                             <div className="imTwoWhite col-sm-6" >
@@ -71,12 +133,12 @@ export class FaceCompare extends Component {
 
                                     <div className="text-center mt-2">
                                         <Button
-                                        data-toggle="modal"
-                                        data-target="#cameraModal" 
-                                        onClick={this.captureOn} 
-                                        className="im" 
-                                        variant="contained" 
-                                        style={{ color:"green", outline: "none", borderRadius: "10px" }}>Take Photo</Button>
+                                            data-toggle="modal"
+                                            data-target="#cameraModal"
+                                            onClick={this.captureOn}
+                                            className="im"
+                                            variant="contained"
+                                            style={{ color: "green", outline: "none", borderRadius: "10px" }}>Take Photo</Button>
                                     </div>
                                 </div>
 
@@ -86,40 +148,49 @@ export class FaceCompare extends Component {
                             {
                                 values.faceImage ? (
                                     <div className="imTwoWhite col-sm-6" >
-                                {/* {imageFlag ? ( */}
-                                <div className="animated zoomIn">
-                                    <img
+                                        {/* {imageFlag ? ( */}
+                                        <div className="animated zoomIn">
+                                            <img
 
-                                        src={values.faceImage ? (values.flag + values.faceImage) : Face}
-                                        style={{
-                                            display: "block",
-                                            marginLeft: "auto",
-                                            marginRight: "auto",
-                                            width: "280px",
-                                            height: "200px",
-                                        }}
-                                        value={values.faceImage}
-                                        className=" img-thumbnail center "
-                                        id="imagePicture"
-                                        alt="cameraPicture"
-                                    />
+                                                src={values.faceImage ? (values.flag + values.faceImage) : Face}
+                                                style={{
+                                                    display: "block",
+                                                    marginLeft: "auto",
+                                                    marginRight: "auto",
+                                                    width: "280px",
+                                                    height: "200px",
+                                                }}
+                                                value={values.faceImage}
+                                                className=" img-thumbnail center "
+                                                id="imagePicture"
+                                                alt="cameraPicture"
+                                            />
 
-                                    <div className="text-center mt-2">
-                                        <Button
-                                        className="im" 
-                                        variant="contained" 
-                                        style={{ color:"green", outline: "none", borderRadius: "10px" }}>Compare Face</Button>
+                                            <div className="text-center mt-2">
+                                                <Button
+                                                    className="im"
+                                                    variant="contained"
+                                                    onClick={this.FaceCompare}
+                                                    style={{ color: "green", outline: "none", borderRadius: "10px" }}>Compare Face</Button>
+                                            </div>
+
+
+                                        </div>
+
+
                                     </div>
-
-                                    
-                                </div>
-
-
-                            </div>
-                                ):""
+                                ) : ""
                             }
 
                         </div>
+
+                        {
+                            values.loading ? (
+                                <div className="text-center">
+                                    <Loading/>
+                                </div>
+                            ):""
+                        }
 
 
                         <div
@@ -129,7 +200,7 @@ export class FaceCompare extends Component {
 
                             <span className="b mr-5" onClick={this.Back} >Back</span>
                             {
-                                values.verifyToken ? (
+                                this.state.faceCompareRes === true ? (
                                     <span className="b" >Next</span>
                                 ) : ""
                             }
