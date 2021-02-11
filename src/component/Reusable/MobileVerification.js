@@ -28,9 +28,9 @@ export class MobileVerification extends Component {
             key: "EKYC_MOBILE_VERIFICATION"
         }
         try{
-            let depositoryUse = await axios.post(getAppSetting, obj, config);
-            // console.log(depositoryUse.data.data[0].value);
-          if(depositoryUse.data.data[0].value === "NO"){
+            let mobileUse = await axios.post(getAppSetting, obj, config);
+            // console.log(mobileUse.data.data[0].value);
+          if(mobileUse.data.data[0].value === "NO"){
               this.props.handleState("useMobilePage", false);
               this.props.nextStep();
           }else{
