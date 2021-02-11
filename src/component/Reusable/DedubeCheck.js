@@ -4,17 +4,48 @@ import Loading from '../E-KYC/Simplified/utils/CustomLoding/Loading';
 import { largeTime } from '../Utils/notificationTime';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { absAccountCheck, depoApi } from '../E-KYC/Url/ApiList';
+import { absAccountCheck, depoApi,getAppSetting } from '../E-KYC/Url/ApiList';
 import axios from 'axios';
 import { showDate } from '../Utils/dateConversion';
 
 
 export class DedubeCheck extends Component {
 
+    async componentDidMount(){
+
+        let config = {
+            headers: {
+              "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
+            },
+          };
+
+          const obj ={
+              key: "EKYC_DEPOSITORY_USE"
+          }
+          try{
+              let depositoryUse = await axios.post(getAppSetting, obj, config);
+            //   console.log(depositoryUse.data.data[0].value);
+            if(depositoryUse.data.data[0].value === "YES"){
+                this.props.handleState("useDepo", true);
+            }else{
+                this.props.handleState("useDepo", false);
+            }
+          }catch(error){
+            if (error.response) {
+                let message = error.response.data.message
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+          }
+    }
+
       continue = async (e) => {
         e.preventDefault();
         let isCheckDepo = true;
-        let { nid, dob, productName, channelName } = this.props.values;
+        let { nid, dob, productName, channelName,useDepo } = this.props.values;
         //===============================Validation Added===========================
         if (nid === '') {
             NotificationManager.warning('Please Provide Nid Number', "Click to Remove", largeTime);
@@ -57,7 +88,7 @@ export class DedubeCheck extends Component {
         }
 
         // console.log("objcheck", checkObj);
-        this.props.handleState('isEnableFace', true);
+       
         this.props.handleState('loading', true);
         if (channelName === "ABS") {
             try {
@@ -65,7 +96,6 @@ export class DedubeCheck extends Component {
                 // console.log("abs", absCheckApi.data);
                 if (absCheckApi.data.data === null) {
                     NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
                     this.props.handleState('loading', false);
                     return;
                 }
@@ -74,12 +104,11 @@ export class DedubeCheck extends Component {
                 if (apiResult === true) {
                     isCheckDepo = false;
                     NotificationManager.info(notificationData, "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
                     this.props.handleState('loading', false);
+                    return;
                 }
 
             } catch (error) {
-                this.props.handleState('isEnableFace', false);
                 this.props.handleState('loading', false);
                 isCheckDepo = false;
                 if (error.response) {
@@ -98,6 +127,7 @@ export class DedubeCheck extends Component {
         //=====================ABS Account Check End =============================
 
         //=============================Depository Check API Start ==========================
+        if(useDepo === true){
         if(isCheckDepo === true){
                  
             let dob13 = showDate(dob).split("-")[0];
@@ -110,8 +140,8 @@ export class DedubeCheck extends Component {
             try {
                 let rpaDepo = await axios.post(depoApi, obj, config);
                 //   console.log("repo", rpaDepo.data.data);
+                   console.log("Repository call");
                  if(rpaDepo.data.data === null){
-                    this.props.handleState('isEnableFace', false);
                     this.props.handleState('loading', false);
                      this.props.nextStep();
                  }else if (rpaDepo.data.data.image) {
@@ -171,14 +201,14 @@ export class DedubeCheck extends Component {
                     this.props.handleState('typeVerification', "FACE");
                     // ================Converted Type Verification to FACE ================
 
-                    this.props.handleState('isEnableFace', false);
+                    
                     this.props.handleState('loading', false);
 
                     this.props.handleState("step", "exist_1");
 
 
                 } else {
-                    this.props.handleState('isEnableFace', false);
+                    
                     this.props.handleState('loading', false);
                     //NotificationManager.error("Please Check Your Nid No and Date Of Birth", "Click to Remove", largeTime);
                     this.props.nextStep();
@@ -186,20 +216,16 @@ export class DedubeCheck extends Component {
                 
             } catch (error) {
                 // console.log(error.response);
-
                 if (error.response) {
                     let message = error.response.data.message
-                    NotificationManager.error(message, "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
+                    NotificationManager.error(message, "Click to Remove", largeTime); 
                     this.props.handleState('loading', false);
                 } else if (error.request) {
                     // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
                     this.props.handleState('loading', false);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-                    this.props.handleState('isEnableFace', false);
                     this.props.handleState('loading', false);
                 }
             }
@@ -207,13 +233,16 @@ export class DedubeCheck extends Component {
 
 
         }
+    }else{
+        this.props.handleState("loading", false);
+        this.props.nextStep();
+    }
 
-        //=============================Depository Check API End ============================
-
-
-       
+        //=============================Depository Check API End ===========================
+        
 
     }
+    
     Escape=()=>{
         this.props.nextStep()
     }

@@ -12,7 +12,7 @@ import ReactTooltip from 'react-tooltip';
 // Reg Joint Dynamic Component
 import RegDynamicComp from '../E-KYC/Regular/RegJointFace/RegDynamicComp';
 
-import { logoutUser } from '../E-KYC/Url/ApiList';
+import { logoutUser,getAppSetting } from '../E-KYC/Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import { getProfile } from '../E-KYC/Url/ApiList';
 import { image } from '../E-KYC/Profile/damiImage';
@@ -96,7 +96,8 @@ class Dashboard extends Component {
         flag: 'data:image/jpeg;base64,',
         quickLinks: '',
         imgFlag: false,
-        isAuthToken: JSON.parse(sessionStorage.getItem('x-auth-token'))
+        isAuthToken: JSON.parse(sessionStorage.getItem('x-auth-token')),
+        idleTimeSet:60
     }
 
     // feature = JSON.parse(sessionStorage.getItem("featureList"));
@@ -113,12 +114,40 @@ class Dashboard extends Component {
             this.firstMenu = pruneRouteArray(this.feature);
             this.allMenu = getFlatRouteArray(this.firstMenu);
         }
-        this.idleTimer = null;
+       
     }
 
 
 
     async componentDidMount() {
+
+        // Idle Time set Start ===================================================
+        let config = {
+            headers: {
+              "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
+            },
+          };
+  
+          const obj ={
+              key: "USER_IDLE_TIMEOUT"
+          }
+          try{
+              let idleUse = await axios.post(getAppSetting, obj, config);
+            //    console.log(idleUse.data.data[0].value);
+            //    let closingTime = parseInt();
+                  this.setState({idleTimeSet: parseInt(idleUse.data.data[0].value)});
+                
+          }catch(error){
+            if (error.response) {
+                let message = error.response.data.message
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+          }
+        // Idle Time set End ===================================================
         // console.log("componentDidMount Called==============")
 
         if (this.state.isAuthToken !== null) {
@@ -167,6 +196,9 @@ class Dashboard extends Component {
                 }
             }
         }
+
+
+        
 
 
 
@@ -341,7 +373,7 @@ class Dashboard extends Component {
     render() {
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag } = this.state;
+        let { userProfileImage, flag,idleTimeSet } = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
         // console.log("Auth Token", this.state.isAuthToken);
@@ -354,12 +386,13 @@ class Dashboard extends Component {
         }
 
         return (
+            
             <Router >
                 <div style={{ minHeight: "100%" }}>
                     {/*Idle Timer Implementation Start */}
                     <IdleTimer
-                        ref={ref => { this.idleTimer = ref }}
-                        timeout={1000 * 60 * 60}
+                        ref={ref => { this.idleTimer  = ref }}
+                        timeout={1000 * 60 * idleTimeSet}
                         onIdle={this.onIdle}
                     >
                     </IdleTimer>
