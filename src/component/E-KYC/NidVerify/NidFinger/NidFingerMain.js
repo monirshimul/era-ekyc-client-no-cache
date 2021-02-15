@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import NidFingerPrint from './NidFingerPrint';
-import NidLiveness from './NidLiveness';
+import FaceCompare from '../ReUse/FaceCompare';
 
 
 
 export class NidFingerMain extends Component {
-    state={
+    state = {
         step: 1,
 
         nid: "",
@@ -17,9 +17,9 @@ export class NidFingerMain extends Component {
         lThumb: "",
         isEnable: false,
         loading: false,
-        loadingSpin:false,
+        loadingSpin: false,
         ecImage: '',
-        faceImage : '',
+        faceImage: '',
 
         applicantName: '',
         applicantNameBangla: '',
@@ -28,11 +28,11 @@ export class NidFingerMain extends Component {
         applicantNidNo: '',
         motherNameBangla: '',
         fatherNameBangla: '',
-        
-        
-       
-        
-       
+
+
+
+
+
         preAdditionalMouzaOrMoholla: "",
         preAdditionalVillageOrRoad: "",
         preCityCorporationOrMunicipality: "",
@@ -47,7 +47,7 @@ export class NidFingerMain extends Component {
         preUnionOrWardCode: "",
         preUpozila: "",
         preWardForUnionPorishod: "",
-       
+
         //==== PermanentAddress ====
         perAdditionalMouzaOrMoholla: "",
         perAdditionalVillageOrRoad: "",
@@ -63,15 +63,15 @@ export class NidFingerMain extends Component {
         perUnionOrWardCode: '',
         perUpozila: "",
         perWardForUnionPorishod: "",
-        
+
 
         flag: 'data:image/jpeg;base64,',
         confirmFlag: false,
-        typeVerification:'FINGER',
+        typeVerification: 'FINGER',
     }
 
-     //Proceed to next step
-     nextStep = () => {
+    //Proceed to next step
+    nextStep = () => {
         const { step } = this.state;
         this.setState({
             step: step + 1
@@ -87,8 +87,8 @@ export class NidFingerMain extends Component {
     }
 
 
-     //Handle Fields Change
-     handleChange = input => e => {
+    //Handle Fields Change
+    handleChange = input => e => {
         this.setState({ [input]: e.target.value });
     }
 
@@ -103,16 +103,16 @@ export class NidFingerMain extends Component {
 
 
     render() {
-        const {step,nid,dob,rIndex,rThumb,lIndex,lThumb,isEnable,loading,loadingSpin,ecImage,faceImage,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo,motherNameBangla,fatherNameBangla,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preWardForUnionPorishod,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perWardForUnionPorishod,flag,confirmFlag,typeVerification} = this.state;
+        const { step, nid, dob, rIndex, rThumb, lIndex, lThumb, isEnable, loading, loadingSpin, ecImage, faceImage, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherNameBangla, fatherNameBangla, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preWardForUnionPorishod, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perWardForUnionPorishod, flag, confirmFlag, typeVerification } = this.state;
 
         const values = {
-               step,nid,dob,rIndex,rThumb,lIndex,lThumb,isEnable,loading,loadingSpin,ecImage,faceImage,applicantName,applicantNameBangla,applicantDob,applicantDobDate,applicantNidNo,motherNameBangla,fatherNameBangla,preAdditionalMouzaOrMoholla,preAdditionalVillageOrRoad,preCityCorporationOrMunicipality,preDistrict,preDivision,preHomeOrHoldingNo,prePostOffice,prePostalCode,preRegion,preRmo,preUnionOrWard,preUnionOrWardCode,preUpozila,preWardForUnionPorishod,perAdditionalMouzaOrMoholla,perAdditionalVillageOrRoad,perCityCorporationOrMunicipality,perDistrict,perDivision,perHomeOrHoldingNo,perPostOffice,perPostalCode,perRegion,perRmo,perUnionOrWard,perUnionOrWardCode,perUpozila,perWardForUnionPorishod,flag,confirmFlag,typeVerification
+            step, nid, dob, rIndex, rThumb, lIndex, lThumb, isEnable, loading, loadingSpin, ecImage, faceImage, applicantName, applicantNameBangla, applicantDob, applicantDobDate, applicantNidNo, motherNameBangla, fatherNameBangla, preAdditionalMouzaOrMoholla, preAdditionalVillageOrRoad, preCityCorporationOrMunicipality, preDistrict, preDivision, preHomeOrHoldingNo, prePostOffice, prePostalCode, preRegion, preRmo, preUnionOrWard, preUnionOrWardCode, preUpozila, preWardForUnionPorishod, perAdditionalMouzaOrMoholla, perAdditionalVillageOrRoad, perCityCorporationOrMunicipality, perDistrict, perDivision, perHomeOrHoldingNo, perPostOffice, perPostalCode, perRegion, perRmo, perUnionOrWard, perUnionOrWardCode, perUpozila, perWardForUnionPorishod, flag, confirmFlag, typeVerification
         }
 
         switch (this.state.step) {
 
 
-                case 1:
+            case 1:
                 return (
                     <NidFingerPrint
                         nextStep={this.nextStep}
@@ -122,24 +122,25 @@ export class NidFingerMain extends Component {
                     />
                 )
 
-                case 2:
-                    return (
-                        <NidLiveness
-                            nextStep={this.nextStep}
-                            handleChange={this.handleChange}
-                            handleState={this.handleState}
-                            values={values}
-                        />
-                    )
+            case 2:
+                return (
+                    <FaceCompare
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
 
-               
 
-            
+
+
         }
 
         return (
             <div>
-                
+
             </div>
         )
     }

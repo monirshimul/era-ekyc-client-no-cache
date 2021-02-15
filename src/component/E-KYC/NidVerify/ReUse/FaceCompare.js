@@ -14,7 +14,7 @@ export class FaceCompare extends Component {
 
     state = {
         cameraOn: false,
-        faceCompareRes:""
+        faceCompareRes: ""
     }
 
     captureOn = () => {
@@ -56,19 +56,24 @@ export class FaceCompare extends Component {
         try {
             this.props.handleState('loading', true);
             let faceComRes = await axios.post(nidFaceCompareNew, obj, config);
-            console.log("faceComRes", faceComRes)
-            if(faceComRes.data.data){
+            console.log("faceComRes", faceComRes);
+            let goNext = faceComRes.data.data.faceVerificationResult.details;
+
+            if (goNext.statusCode === 404) {
+                NotificationManager.warning(goNext.message, "Click to Remove", largeTime);
+            }
+
+            if (goNext.result) {
+                let message = goNext.result === "True" ? NotificationManager.success("Face Validated, Please go next", "Click to Remove", largeTime) : NotificationManager.warning("Face is not valid", "Click to Remove", largeTime)
                 this.setState({
                     faceCompareRes: faceComRes.data.data.faceVerificationResult.details.result
                 })
-                this.state.faceCompareRes === true ? NotificationManager.success("Face Validated, Please go next", "Click to Remove", largeTime) : NotificationManager.warning("Face is not valid", "Click to Remove", largeTime)
-                
-                this.props.handleState('loading', false);
+            }
 
-            }
-            else{
-                this.props.handleState('loading', false);
-            }
+            this.props.handleState('loading', false);
+
+
+
         } catch (error) {
             console.log(error);
 
@@ -88,7 +93,7 @@ export class FaceCompare extends Component {
                 this.props.handleState('loading', false);
             }
         }
-        
+
     }
 
     Back = () => {
@@ -187,9 +192,9 @@ export class FaceCompare extends Component {
                         {
                             values.loading ? (
                                 <div className="text-center">
-                                    <Loading/>
+                                    <Loading />
                                 </div>
-                            ):""
+                            ) : ""
                         }
 
 
@@ -200,7 +205,7 @@ export class FaceCompare extends Component {
 
                             <span className="b mr-5" onClick={this.Back} >Back</span>
                             {
-                                this.state.faceCompareRes === true ? (
+                                this.state.faceCompareRes === "True" ? (
                                     <span className="b" >Next</span>
                                 ) : ""
                             }
@@ -242,4 +247,4 @@ export class FaceCompare extends Component {
     }
 }
 
-export default FaceCompare
+export default FaceCompare;
