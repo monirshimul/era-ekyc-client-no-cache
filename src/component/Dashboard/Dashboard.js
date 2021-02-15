@@ -12,7 +12,7 @@ import ReactTooltip from 'react-tooltip';
 // Reg Joint Dynamic Component
 import RegDynamicComp from '../E-KYC/Regular/RegJointFace/RegDynamicComp';
 
-import { logoutUser,getAppSetting } from '../E-KYC/Url/ApiList';
+import { logoutUser, getAppSetting } from '../E-KYC/Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import { getProfile } from '../E-KYC/Url/ApiList';
 import { image } from '../E-KYC/Profile/damiImage';
@@ -68,7 +68,7 @@ import RegFingerPrintMain from '../E-KYC/Regular/RegFingerPrint/RegFingerPrintMa
 
 //==================Regular End========================
 
-import NidFingerMain  from '../E-KYC/NidVerify/NidFinger/NidFingerMain';
+import NidFingerMain from '../E-KYC/NidVerify/NidFinger/NidFingerMain';
 import NidFaceMain from '../E-KYC/NidVerify/NidFace/NidFaceMain';
 
 
@@ -97,7 +97,7 @@ class Dashboard extends Component {
         quickLinks: '',
         imgFlag: false,
         isAuthToken: JSON.parse(sessionStorage.getItem('x-auth-token')),
-        idleTimeSet:60
+        idleTimeSet: 60
     }
 
     // feature = JSON.parse(sessionStorage.getItem("featureList"));
@@ -114,30 +114,27 @@ class Dashboard extends Component {
             this.firstMenu = pruneRouteArray(this.feature);
             this.allMenu = getFlatRouteArray(this.firstMenu);
         }
-       
+
     }
 
 
-
-    async componentDidMount() {
-
+    async UNSAFE_componentWillMount() {
         // Idle Time set Start ===================================================
         let config = {
             headers: {
-              "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
+                "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
             },
-          };
-  
-          const obj ={
-              key: "USER_IDLE_TIMEOUT"
-          }
-          try{
-              let idleUse = await axios.post(getAppSetting, obj, config);
-            //    console.log(idleUse.data.data[0].value);
-            //    let closingTime = parseInt();
-                  this.setState({idleTimeSet: parseInt(idleUse.data.data[0].value)});
-                
-          }catch(error){
+        };
+
+        const obj = {
+            key: "USER_IDLE_TIMEOUT"
+        }
+        try {
+            let idleUse = await axios.post(getAppSetting, obj, config);
+            // console.log(idleUse.data.data[0].value);
+            this.setState({ idleTimeSet: parseInt(idleUse.data.data[0].value) });
+
+        } catch (error) {
             if (error.response) {
                 let message = error.response.data.message
                 NotificationManager.error(message, "Error", 5000);
@@ -146,9 +143,14 @@ class Dashboard extends Component {
             } else if (error) {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
-          }
+        }
         // Idle Time set End ===================================================
         // console.log("componentDidMount Called==============")
+    }
+
+
+
+    async componentDidMount() {
 
         if (this.state.isAuthToken !== null) {
             this.feature = JSON.parse(sessionStorage.getItem("featureList"))
@@ -196,10 +198,6 @@ class Dashboard extends Component {
                 }
             }
         }
-
-
-        
-
 
 
         // console.log("mount Called")
@@ -371,9 +369,10 @@ class Dashboard extends Component {
 
 
     render() {
+        // console.log("setTimeout", this.state.idleTimeSet);
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag,idleTimeSet } = this.state;
+        let { userProfileImage, flag, idleTimeSet } = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
         // console.log("Auth Token", this.state.isAuthToken);
@@ -386,12 +385,12 @@ class Dashboard extends Component {
         }
 
         return (
-            
+
             <Router >
                 <div style={{ minHeight: "100%" }}>
                     {/*Idle Timer Implementation Start */}
                     <IdleTimer
-                        ref={ref => { this.idleTimer  = ref }}
+                        ref={ref => { this.idleTimer = ref }}
                         timeout={1000 * 60 * idleTimeSet}
                         onIdle={this.onIdle}
                     >
@@ -555,12 +554,12 @@ class Dashboard extends Component {
                                     {/* E-kyc List */}
                                     <Route path={`${path}/showMore`} component={ShowMore} />
                                     <Route path={`${path}/fullEkyc`} component={fullEkyc} />
-                                    
+
                                     {/*Channel Account Data List */}
                                     {/* 
                                     <Route path={`${path}/fullChannelEkycData`} component={fullChannelData} />
                                     */}
-                                    
+
                                     {/*Reopen Complete Page */}
                                     <Route path={`${path}/reopencofirm`} component={ReopenComplete} />
                                     {/* MultiSteps */}
@@ -623,12 +622,12 @@ class Dashboard extends Component {
                                     <Route path={`${path}/upgrade-details`} component={UpgradeDetails} />
                                     <Route path={`${path}/multiform-Regular-conversion`} component={MultiUpgrade} />
 
-                                     {/* Nid Verification*/}
-                                     
-                                     <Route path={`${path}/nid-face`} component={NidFaceMain} />
-                                     <Route path={`${path}/nid-finger`} component={NidFingerMain} />
-                                   
-                                    
+                                    {/* Nid Verification*/}
+
+                                    <Route path={`${path}/nid-face`} component={NidFaceMain} />
+                                    <Route path={`${path}/nid-finger`} component={NidFingerMain} />
+
+
 
                                 </Switch>
 
@@ -653,35 +652,35 @@ class Dashboard extends Component {
 
                     {/* Footer */}
 
-                    
 
-                        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+
+                    {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                             <path fill=" #099e96" fill-opacity="0.5" d="M0,256L80,240C160,224,320,192,480,197.3C640,203,800,245,960,218.7C1120,192,1280,96,1360,48L1440,0L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
                         </svg> */}
-                        <img
+                    <img
 
-                            src={footerWave}
-                            style={{
+                        src={footerWave}
+                        style={{
 
-                                width: "100vw",
-                                position: "absolute",
-                                zIndex: "-3",
-                                outline: "none",
-                                bottom: "0",
-                                right: "0",
-                                margin: "0",
-                                padding: "0",
-                                border:"none"
-                            }}
-                            className=" img-fluid img-thumbnail"
-                            id='SignaturePic'
-                            alt=""
-                        />
-                        <div className="d-flex justify-content-center">
-                            <small className="" style={{ position: "absolute", bottom: "15px", color: "#333", fontSize: "14px" }}>© 2020 All rights reserved to ERA-InfoTech Ltd.</small>
-                        </div>
+                            width: "100vw",
+                            position: "absolute",
+                            zIndex: "-3",
+                            outline: "none",
+                            bottom: "0",
+                            right: "0",
+                            margin: "0",
+                            padding: "0",
+                            border: "none"
+                        }}
+                        className=" img-fluid img-thumbnail"
+                        id='SignaturePic'
+                        alt=""
+                    />
+                    <div className="d-flex justify-content-center">
+                        <small className="" style={{ position: "absolute", bottom: "15px", color: "#333", fontSize: "14px" }}>© 2020 All rights reserved to ERA-InfoTech Ltd.</small>
+                    </div>
 
-                    
+
 
 
 
