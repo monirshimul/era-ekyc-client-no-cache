@@ -4,18 +4,46 @@ import { NotificationManager } from "react-notifications";
 import bg from '../../Login/image/wave2.png';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { twoFALogin } from '../../E-KYC/Url/ApiList';
+import { twoFALogin, getAppSetting } from '../../E-KYC/Url/ApiList';
 import { largeTime } from './../../Utils/notificationTime';
 import { FaLock } from "react-icons/fa";
 
 export class VerifyLoginCode extends Component {
     state = {
-        otp: ''
+        otp: '',
+        idleTimeSet: ''
     }
 
 
     onChange = e => this.setState({ otp: e.target.value });
 
+    // FOR IDLE TIMEOUT//////////////
+    async sessionTimeOut(authVal) {
+        let config = {
+            headers: {
+                "x-auth-token": authVal,
+            },
+        };
+        const obj = {
+            key: "USER_IDLE_TIMEOUT"
+        }
+        try {
+            let idleUse = await axios.post(getAppSetting, obj, config);
+            // console.log(idleUse.data.data[0].value);
+            this.setState({ idleTimeSet: parseInt(idleUse.data.data[0].value) });
+
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+    }
+    // FOR IDLE TIMEOUT//////////////
 
 
     onSubmit = async (e) => {
@@ -49,6 +77,9 @@ export class VerifyLoginCode extends Component {
             let branchName = verifySuccess.branchOrAgentPointName;
             let codeChannel = verifySuccess.channelCode;
 
+            // ----------------------idleTimeout===================
+            await this.sessionTimeOut(token);
+            // ----------------------idleTimeout===================
 
             // //Session Storage
             sessionStorage.setItem('x-auth-token', JSON.stringify(token));
@@ -62,7 +93,7 @@ export class VerifyLoginCode extends Component {
             let message = "Login Successfull";
             //alert(statusCode + ' ' + message);
             NotificationManager.success(message, "Success", 5000);
-            this.props.history.replace('/dashboard');
+            this.props.history.replace('/dashboard', this.state.idleTimeSet);
 
 
         } catch (err) {

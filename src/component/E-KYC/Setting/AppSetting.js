@@ -167,15 +167,15 @@ class AppSetting extends Component {
             <div className="container">
                 <div className="imTwoWhite row mb-2 d-flex justify-content-center" style={{ background: "rgba(255,255,255, 0.2)", backdropFilter: "blur(10px)" }}>
                     <div className="col-sm-12">
-                        <h5 className="im d-flex justify-content-center" style={{color:"green", fontSize:"17px", marginTop:"5px"}}>Modify Your Own Application Settings</h5>
+                        <h5 className="im d-flex justify-content-center" style={{ color: "green", fontSize: "17px", marginTop: "5px" }}>Modify Your Own Application Settings</h5>
                     </div>
-                    
+
                 </div>
-                
+
                 <div className="imTwoWhite row d-flex justify-content-center" style={{ background: "rgba(255,255,255, 0.2)", backdropFilter: "blur(10px)" }}>
                     <div className="col-sm-12">
 
-                        <div className="row d-flex justify-content-center" style={{background: `linear-gradient(rgba(224,243,242, 0.8), rgba(224,243,242, 1)),url(${bgOne}) center/cover fixed no-repeat`,}}>
+                        <div className="row d-flex justify-content-center" style={{ background: `linear-gradient(rgba(224,243,242, 0.8), rgba(224,243,242, 1)),url(${bgOne}) center/cover fixed no-repeat`, }}>
                             <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }} >
                                 <div>
                                     <img
@@ -256,10 +256,10 @@ class AppSetting extends Component {
                                         aria-label="settingThree"
                                         defaultValue={20}
                                         valueLabelDisplay="auto"
-                                        step={10}
+                                        step={2}
                                         marks
-                                        min={10}
-                                        max={120}
+                                        min={0}
+                                        max={30}
                                         onChange={this.SlideChanger}
                                         value={this.state.settingThree}
 
@@ -303,9 +303,9 @@ class AppSetting extends Component {
                 </div>
 
                 <div className="imTwoWhite mt-2 row d-flex justify-content-center" style={{ background: "rgba(255,255,255, 0.2)", backdropFilter: "blur(10px)" }}>
-                    
+
                     <div className="col-sm-12 text-center im py-2">
-                        <Button onClick={this.initApp} className="imTwoWhite" variant="contained" style={{ color:"green", outline: "none", borderRadius: "10px" }}>Reset to Default</Button>
+                        <Button onClick={this.initApp} className="imTwoWhite" variant="contained" style={{ color: "green", outline: "none", borderRadius: "10px" }}>Reset to Default</Button>
                     </div>
                 </div>
             </div>

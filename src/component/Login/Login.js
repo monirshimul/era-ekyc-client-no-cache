@@ -6,7 +6,7 @@ import './Login.css'
 import bg from './image/wave2.png'
 import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
-import { loginAPI } from '../E-KYC/Url/ApiList';
+import { loginAPI, getAppSetting } from '../E-KYC/Url/ApiList';
 import { FaUser, FaLock } from "react-icons/fa";
 
 
@@ -23,7 +23,8 @@ class Login extends Component {
     state = {
         userId: '',
         password: '',
-        channelLogin: false
+        channelLogin: false,
+        idleTimeSet: ""
     }
 
     componentDidMount() {
@@ -49,6 +50,35 @@ class Login extends Component {
         // console.log("Channel Status in func", this.state.channelLogin)
 
     }
+
+    // FOR IDLE TIMEOUT//////////////
+    async sessionTimeOut(authVal) {
+        let config = {
+            headers: {
+                "x-auth-token": authVal,
+            },
+        };
+        const obj = {
+            key: "USER_IDLE_TIMEOUT"
+        }
+        try {
+            let idleUse = await axios.post(getAppSetting, obj, config);
+            // console.log(idleUse.data.data[0].value);
+            this.setState({ idleTimeSet: parseInt(idleUse.data.data[0].value) });
+
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                NotificationManager.error(message, "Error", 5000);
+            } else if (error.request) {
+                NotificationManager.error("Error Connecting...", "Error", 5000);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Error", 5000);
+            }
+        }
+    }
+    // FOR IDLE TIMEOUT//////////////
+
 
     onSubmit = async (e) => {
         const { userId, password, channelLogin } = this.state
@@ -92,6 +122,10 @@ class Login extends Component {
                 let token = loginSuccess.authToken;
                 let features = loginSuccess.features;
 
+                // ----------------------idleTimeout===================
+                await this.sessionTimeOut(token);
+                // ----------------------idleTimeout===================
+
                 //Session Storage
                 sessionStorage.setItem('x-auth-token', JSON.stringify(token));
                 sessionStorage.setItem('featureList', JSON.stringify(features));
@@ -100,7 +134,7 @@ class Login extends Component {
                 let message = "Login Successfull";
                 //alert(statusCode + ' ' + message);
                 NotificationManager.success(message, "Success", 5000);
-                this.props.history.replace('/dashboard');
+                this.props.history.replace('/dashboard', this.state.idleTimeSet);
             }
 
 

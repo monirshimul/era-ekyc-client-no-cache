@@ -56,7 +56,7 @@ export class FaceCompare extends Component {
         try {
             this.props.handleState('loading', true);
             let faceComRes = await axios.post(nidFaceCompareNew, obj, config);
-            console.log("faceComRes", faceComRes);
+            // console.log("faceComRes", faceComRes);
             let goNext = faceComRes.data.data.faceVerificationResult.details;
 
             if (goNext.statusCode === 404) {

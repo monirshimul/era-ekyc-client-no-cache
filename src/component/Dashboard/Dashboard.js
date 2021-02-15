@@ -97,7 +97,7 @@ class Dashboard extends Component {
         quickLinks: '',
         imgFlag: false,
         isAuthToken: JSON.parse(sessionStorage.getItem('x-auth-token')),
-        idleTimeSet: 60
+        // idleTimeVal: this.props.location.state
     }
 
     // feature = JSON.parse(sessionStorage.getItem("featureList"));
@@ -118,35 +118,36 @@ class Dashboard extends Component {
     }
 
 
-    async UNSAFE_componentWillMount() {
-        // Idle Time set Start ===================================================
-        let config = {
-            headers: {
-                "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
-            },
-        };
+    // async UNSAFE_componentWillMount() {
+    //     console.log("component will mount called ....");
+    //     // Idle Time set Start ===================================================
+    //     let config = {
+    //         headers: {
+    //             "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
+    //         },
+    //     };
 
-        const obj = {
-            key: "USER_IDLE_TIMEOUT"
-        }
-        try {
-            let idleUse = await axios.post(getAppSetting, obj, config);
-            // console.log(idleUse.data.data[0].value);
-            this.setState({ idleTimeSet: parseInt(idleUse.data.data[0].value) });
+    //     const obj = {
+    //         key: "USER_IDLE_TIMEOUT"
+    //     }
+    //     try {
+    //         let idleUse = await axios.post(getAppSetting, obj, config);
+    //         // console.log(idleUse.data.data[0].value);
+    //         this.setState({ idleTimeSet: parseInt(idleUse.data.data[0].value) });
 
-        } catch (error) {
-            if (error.response) {
-                let message = error.response.data.message
-                NotificationManager.error(message, "Error", 5000);
-            } else if (error.request) {
-                NotificationManager.error("Error Connecting...", "Error", 5000);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Error", 5000);
-            }
-        }
-        // Idle Time set End ===================================================
-        // console.log("componentDidMount Called==============")
-    }
+    //     } catch (error) {
+    //         if (error.response) {
+    //             let message = error.response.data.message
+    //             NotificationManager.error(message, "Error", 5000);
+    //         } else if (error.request) {
+    //             NotificationManager.error("Error Connecting...", "Error", 5000);
+    //         } else if (error) {
+    //             NotificationManager.error(error.toString(), "Error", 5000);
+    //         }
+    //     }
+    //     // Idle Time set End ===================================================
+
+    // }
 
 
 
@@ -336,7 +337,7 @@ class Dashboard extends Component {
         };
 
         try {
-            let res = await axios.post(logoutUser, null, config);
+            let res = await axios.post(logoutUser, "", config);
             // console.log("logoutComplete", res.data);
             sessionStorage.clear();
             localStorage.clear();
@@ -369,10 +370,9 @@ class Dashboard extends Component {
 
 
     render() {
-        // console.log("setTimeout", this.state.idleTimeSet);
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag, idleTimeSet } = this.state;
+        let { userProfileImage, flag, idleTimeVal } = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
         // console.log("Auth Token", this.state.isAuthToken);
@@ -391,7 +391,7 @@ class Dashboard extends Component {
                     {/*Idle Timer Implementation Start */}
                     <IdleTimer
                         ref={ref => { this.idleTimer = ref }}
-                        timeout={1000 * 60 * idleTimeSet}
+                        timeout={1000 * 60 * this.props.location.state}
                         onIdle={this.onIdle}
                     >
                     </IdleTimer>
