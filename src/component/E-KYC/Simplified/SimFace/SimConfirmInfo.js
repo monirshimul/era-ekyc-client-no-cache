@@ -189,8 +189,8 @@ export class SimConfirmInfo extends Component {
             nominees: nomineesInfo
         }
 
-        console.log("confirmobj", confirmObj);                              
-                                      
+        console.log("confirmobj", confirmObj);
+
 
 
         const config = {
@@ -217,21 +217,21 @@ export class SimConfirmInfo extends Component {
                 //console.log("Result Array First", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
 
-                if(values.step === "exist_5"){
+                if (values.step === "exist_5") {
                     this.props.handleState("step", "exist_6");
-                }else{
+                } else {
                     this.props.nextStep();
                 }
 
-              
+
             } else {
                 let resToArr = getJsonObjectToArray(resData)
                 //console.log("Result Array Last", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
 
-                if(values.step === "exist_5"){
+                if (values.step === "exist_5") {
                     this.props.handleState("step", "exist_6");
-                }else{
+                } else {
                     this.props.nextStep();
                 }
             }
@@ -257,15 +257,15 @@ export class SimConfirmInfo extends Component {
     }
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
-        if(values.step === "exist_5"){
+        if (values.step === "exist_5") {
             this.props.handleState("step", "exist_4");
-        }else{
+        } else {
             this.props.prevStep();
         }
-        
+
     }
 
 
@@ -322,11 +322,6 @@ export class SimConfirmInfo extends Component {
                                     <span style={{ color: "green", fontSize: "14px" }}>Spouse Name :</span> {values.spouseName}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Gender :</span> {GenderForm(values.gender)}<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Profession :</span> {values.profession}<br />
-
-
-
-
-
 
                                 </small>
 

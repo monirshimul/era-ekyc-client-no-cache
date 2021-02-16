@@ -281,7 +281,7 @@ export class NidFaceRpa extends Component {
             try {
                 this.props.handleState('loading', true);
                 let rpaData = await axios.post(nidValidationRPA, obj, config);
-                console.log(rpaData.data);
+                console.log("From RPA", rpaData.data);
                 // let responseData = rpaData.data.data;
                 if (rpaData.data.data.image) {
                     let dataResp = rpaData.data.data;
@@ -294,6 +294,7 @@ export class NidFaceRpa extends Component {
                     // this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
                     this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
                     this.props.handleState('ecImage', dataResp.image ? dataResp.image : "");
+                    this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : "");
                     // Global EC Text start
                     this.props.handleState('ecApplicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
                     this.props.handleState('ecApplicantName', dataResp.nameEng ? dataResp.nameEng : "");
@@ -421,47 +422,47 @@ export class NidFaceRpa extends Component {
                             {/* <label htmlFor="nidNo">Nid No:</label><br />
               <input type="text" id="nidNo" name="nidNo" value={this.state.nidNo} /><br /> */}
                             <div className="imTwoWhite">
-                            <div className="form-group ">
-                                <label htmlFor="">Nid No:</label>
-                                <input
-                                    style={{ borderRadius: "50px" }}
-                                    type="text"
-                                    value={values.nid}
-                                    name="nid"
-                                    onChange={handleChange('nid')}
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Enter NID NO"
-
-                                />
-                            </div>
-
-
-
-                            <div className='form-group d-flex justify-content-between'>
-                                <div className=''>
-                                    <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
-                                </div>
-                                <div className=''>
-
-                                    <DatePicker
-                                        placeholderText='DD/MM/YYYY'
-                                        selected={values.dob}
-                                        dateFormat='dd/MM/yyyy'
-                                        onChange={d => {
-                                            this.props.handleState("dob", d);
-                                        }}
-                                        isClearable
-                                        showYearDropdown
-                                        showMonthDropdown
-                                        scrollableMonthYearDropdown
+                                <div className="form-group ">
+                                    <label htmlFor="">Nid No:</label>
+                                    <input
+                                        style={{ borderRadius: "50px" }}
+                                        type="text"
+                                        value={values.nid}
+                                        name="nid"
+                                        onChange={handleChange('nid')}
+                                        className="form-control"
+                                        id="exampleInputEmail1"
+                                        aria-describedby="emailHelp"
+                                        placeholder="Enter NID NO"
 
                                     />
                                 </div>
+
+
+
+                                <div className='form-group d-flex justify-content-between'>
+                                    <div className=''>
+                                        <label htmlFor='dob'>Date of Birth (dd/mm/YYYY) : </label>
+                                    </div>
+                                    <div className=''>
+
+                                        <DatePicker
+                                            placeholderText='DD/MM/YYYY'
+                                            selected={values.dob}
+                                            dateFormat='dd/MM/yyyy'
+                                            onChange={d => {
+                                                this.props.handleState("dob", d);
+                                            }}
+                                            isClearable
+                                            showYearDropdown
+                                            showMonthDropdown
+                                            scrollableMonthYearDropdown
+
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            </div>
-                            
+
 
                             {/* <label htmlFor="dob">Date of Birth:</label><br />
               <input type="date" id="dob" name="dob" onChange={this.onChange} value={this.state.dob} /><br /><br /> */}
@@ -500,15 +501,15 @@ export class NidFaceRpa extends Component {
                             <div
                                 // disabled={this.state.isEnable}
                                 className="imTwoWhite text-center mt-2"
-                                
-                                
+
+
                             >
-                                <Button 
-                                        onClick={this.handleClick} 
-                                        className="im" 
-                                        variant="contained" 
-                                        style={{ color:"green", outline: "none", borderRadius: "10px" }}>Verify NID</Button>
-                                <i className="fa fa-id-card" /> 
+                                <Button
+                                    onClick={this.handleClick}
+                                    className="im"
+                                    variant="contained"
+                                    style={{ color: "green", outline: "none", borderRadius: "10px" }}>Verify NID</Button>
+                                <i className="fa fa-id-card" />
                             </div>
 
                             <div className="row d-flex justify-content-center mt-3">

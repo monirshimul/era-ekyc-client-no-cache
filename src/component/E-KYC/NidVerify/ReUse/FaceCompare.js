@@ -100,6 +100,10 @@ export class FaceCompare extends Component {
         this.props.prevStep();
     }
 
+    continue = () => {
+        this.props.nextStep();
+    }
+
 
     render() {
         const { values } = this.props;
@@ -206,7 +210,7 @@ export class FaceCompare extends Component {
                             <span className="b mr-5" onClick={this.Back} >Back</span>
                             {
                                 this.state.faceCompareRes === "True" ? (
-                                    <span className="b" >Next</span>
+                                    <span className="b" onClick={this.continue} >Next</span>
                                 ) : ""
                             }
                             {/*<span className="b" onClick={this.continue}>Next</span>*/}
