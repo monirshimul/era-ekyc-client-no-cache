@@ -79,7 +79,7 @@ export class VerifyLoginCode extends Component {
             let codeChannel = verifySuccess.channelCode;
 
             // ----------------------idleTimeout===================
-            //await this.sessionTimeOut(token);
+            await this.sessionTimeOut(token);
             // ----------------------idleTimeout===================
 
             // //Session Storage

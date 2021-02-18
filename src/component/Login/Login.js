@@ -125,7 +125,7 @@ class Login extends Component {
                 let features = loginSuccess.features;
 
                 // ----------------------idleTimeout===================
-                //await this.sessionTimeOut(token);
+                await this.sessionTimeOut(token);
                 // ----------------------idleTimeout===================
 
                 //Session Storage
