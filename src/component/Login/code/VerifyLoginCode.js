@@ -31,6 +31,7 @@ export class VerifyLoginCode extends Component {
             let idleUse = await axios.post(getAppSetting, obj, config);
             // console.log(idleUse.data.data[0].value);
             this.setState({ idleTimeSet: parseInt(idleUse.data.data[0].value) });
+            sessionStorage.setItem('idleTimeout', JSON.stringify(parseInt(idleUse.data.data[0].value)));
 
         } catch (error) {
             if (error.response) {

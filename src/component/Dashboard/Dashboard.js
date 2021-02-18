@@ -97,7 +97,7 @@ class Dashboard extends Component {
         quickLinks: '',
         imgFlag: false,
         isAuthToken: JSON.parse(sessionStorage.getItem('x-auth-token')),
-        // idleTimeVal: this.props.location.state
+        idleTimeVal: JSON.parse(sessionStorage.getItem('idleTimeout'))
     }
 
     // feature = JSON.parse(sessionStorage.getItem("featureList"));
@@ -118,36 +118,7 @@ class Dashboard extends Component {
     }
 
 
-    // async UNSAFE_componentWillMount() {
-    //     console.log("component will mount called ....");
-    //     // Idle Time set Start ===================================================
-    //     let config = {
-    //         headers: {
-    //             "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
-    //         },
-    //     };
 
-    //     const obj = {
-    //         key: "USER_IDLE_TIMEOUT"
-    //     }
-    //     try {
-    //         let idleUse = await axios.post(getAppSetting, obj, config);
-    //         // console.log(idleUse.data.data[0].value);
-    //         this.setState({ idleTimeSet: parseInt(idleUse.data.data[0].value) });
-
-    //     } catch (error) {
-    //         if (error.response) {
-    //             let message = error.response.data.message
-    //             NotificationManager.error(message, "Error", 5000);
-    //         } else if (error.request) {
-    //             NotificationManager.error("Error Connecting...", "Error", 5000);
-    //         } else if (error) {
-    //             NotificationManager.error(error.toString(), "Error", 5000);
-    //         }
-    //     }
-    //     // Idle Time set End ===================================================
-
-    // }
 
 
 
@@ -330,6 +301,7 @@ class Dashboard extends Component {
     // Idle Timer onIdle Function Implementation start////////////////////////////
 
     onIdle = async () => {
+
         const config = {
             headers: {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -363,6 +335,8 @@ class Dashboard extends Component {
                 );
             }
         }
+
+
     }
 
 
@@ -391,7 +365,7 @@ class Dashboard extends Component {
                     {/*Idle Timer Implementation Start */}
                     <IdleTimer
                         ref={ref => { this.idleTimer = ref }}
-                        timeout={1000 * 60 * this.props.location.state}
+                        timeout={1000 * 60 * idleTimeVal}
                         onIdle={this.onIdle}
                     >
                     </IdleTimer>

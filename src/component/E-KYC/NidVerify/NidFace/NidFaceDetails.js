@@ -46,12 +46,12 @@ class NidFaceDetails extends Component {
                             <span style={{ color: "green", fontSize: "14px" }}>Applicant's Nid No :</span> {values.applicantNidNo}<br />
                             <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name :</span> {values.applicantName}<br />
                             <span style={{ color: "green", fontSize: "14px" }}>Applicant's Name Bangla :</span> {values.applicantNameBangla}<br />
-                            <span style={{ color: "green", fontSize: "14px" }}>Mother's Name :</span> {values.motherName}<br />
-                            <span style={{ color: "green", fontSize: "14px" }}>Mother's Name Bangla :</span> {values.motherNameBangla}<br />
-                            <span style={{ color: "green", fontSize: "14px" }}>Father's Name :</span> {values.fatherName}<br />
+                            {/*  <span style={{ color: "green", fontSize: "14px" }}> Mother's Name :</span> {values.motherName}<br />*/}
+                            <span style={{ color: "green", fontSize: "14px" }}>Mother's Name  :</span> {values.motherNameBangla}<br />
+                            {/* <span style={{ color: "green", fontSize: "14px" }}>Father's Name :</span> {values.fatherName}<br />*/}
                             <span style={{ color: "green", fontSize: "14px" }}>Father's Name Bangla :</span> {values.fatherNameBangla}<br />
-                            <span style={{ color: "green", fontSize: "14px" }}>Spouse Name :</span> {values.spouseName}<br />
-                            <span style={{ color: "green", fontSize: "14px" }}>Profession :</span> {values.profession}<br />
+                            {/*<span style={{ color: "green", fontSize: "14px" }}>Spouse Name :</span> {values.spouseName}<br />*/}
+                            {/*<span style={{ color: "green", fontSize: "14px" }}>Profession :</span> {values.profession}<br />*/}
 
 
 

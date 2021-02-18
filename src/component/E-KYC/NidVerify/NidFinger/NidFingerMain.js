@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import NidFingerPrint from './NidFingerPrint';
 import FaceCompare from '../ReUse/FaceCompare';
+import NidFaceDetails from '../NidFace/NidFaceDetails';
 
 
 
@@ -127,6 +128,16 @@ export class NidFingerMain extends Component {
                     <FaceCompare
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
+                        handleChange={this.handleChange}
+                        handleState={this.handleState}
+                        values={values}
+                    />
+                )
+
+            case 3:
+                return (
+                    <NidFaceDetails
+                        nextStep={this.nextStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}
                         values={values}
