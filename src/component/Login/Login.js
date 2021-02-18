@@ -125,7 +125,7 @@ class Login extends Component {
                 let features = loginSuccess.features;
 
                 // ----------------------idleTimeout===================
-                await this.sessionTimeOut(token);
+                //await this.sessionTimeOut(token);
                 // ----------------------idleTimeout===================
 
                 //Session Storage
@@ -136,7 +136,7 @@ class Login extends Component {
                 let message = "Login Successfull";
                 //alert(statusCode + ' ' + message);
                 NotificationManager.success(message, "Success", 5000);
-                this.props.history.replace('/dashboard', this.state.idleTimeSet);
+                this.props.history.replace('/dashboard');
             }
 
 

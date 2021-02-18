@@ -153,10 +153,11 @@ export const accessLog = hostIp + `report/access-log/`;
 export const textMatch = hostIp + `ai/text-match`;
 
 // Depository API
- export const depoApi =  hostIp + `depository/get`;
- 
+export const depoApi = hostIp + `depository/get`;
+
 //  Nid Verification
 export const NidFingerVerification = hostIp + `nid-verification/fingerprint-verification`;
+export const NidVerifyList = hostIp + `nid-verification/get/`;
 
 // Face Compare New
 export const nidFaceCompareNew = hostIp + `nid-verification/face-verification`;

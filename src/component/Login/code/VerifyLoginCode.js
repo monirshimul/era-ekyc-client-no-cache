@@ -79,7 +79,7 @@ export class VerifyLoginCode extends Component {
             let codeChannel = verifySuccess.channelCode;
 
             // ----------------------idleTimeout===================
-            await this.sessionTimeOut(token);
+            //await this.sessionTimeOut(token);
             // ----------------------idleTimeout===================
 
             // //Session Storage
@@ -94,7 +94,7 @@ export class VerifyLoginCode extends Component {
             let message = "Login Successfull";
             //alert(statusCode + ' ' + message);
             NotificationManager.success(message, "Success", 5000);
-            this.props.history.replace('/dashboard', this.state.idleTimeSet);
+            this.props.history.replace('/dashboard');
 
 
         } catch (err) {
