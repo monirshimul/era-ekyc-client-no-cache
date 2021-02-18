@@ -72,12 +72,14 @@ import NidFingerMain from '../E-KYC/NidVerify/NidFinger/NidFingerMain';
 import NidFaceMain from '../E-KYC/NidVerify/NidFace/NidFaceMain';
 
 
+
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import UpgradeDetails from '../E-KYC/Upgrade-ekyc/UpgradeDetails';
 import MultiUpgrade from '../E-KYC/Upgrade-ekyc/MulitStepUpgrade.js/MultiUpgrade';
 import IdleTimer from 'react-idle-timer';
 import { largeTime } from './../Utils/notificationTime';
+import NidDetails from './../E-KYC/NidVerify/NidVerifyList/ListDetails/NidDetails';
 
 
 
@@ -600,6 +602,7 @@ class Dashboard extends Component {
 
                                     <Route path={`${path}/nid-face`} component={NidFaceMain} />
                                     <Route path={`${path}/nid-finger`} component={NidFingerMain} />
+                                    <Route path={`${path}/nid-details`} component={NidDetails} />
 
 
 

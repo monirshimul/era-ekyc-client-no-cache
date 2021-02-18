@@ -16,6 +16,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 
 class VerifyList extends Component {
 
@@ -51,6 +52,11 @@ class VerifyList extends Component {
 
 
 
+    }
+
+    onDetails = (nid) => {
+        // console.log("details", nid);
+        this.props.history.push('/dashboard/nid-details', nid);
     }
 
 
@@ -93,7 +99,9 @@ class VerifyList extends Component {
                                                 <Button
                                                     className="imTwoWhite"
                                                     variant="contained"
-                                                    style={{ color: "green", outline: "none", borderRadius: "10px" }}>Details</Button>
+                                                    style={{ color: "green", outline: "none", borderRadius: "10px" }}
+                                                    onClick={() => this.onDetails(val.nid)}
+                                                >Details</Button>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -154,4 +162,4 @@ class VerifyList extends Component {
     }
 }
 
-export default VerifyList
+export default withRouter(VerifyList);
