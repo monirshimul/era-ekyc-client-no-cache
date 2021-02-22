@@ -4,6 +4,7 @@ import Face from "../../../Simplified/images/face.svg";
 import axios from 'axios';
 import { depoApi } from '../../../Url/ApiList';
 import { withRouter } from 'react-router-dom';
+import { NotificationManager } from "react-notifications";
 
 export class NidDetails extends Component {
   state = {
@@ -31,9 +32,22 @@ export class NidDetails extends Component {
       this.setState({ perAddress: repoData.data.data.permanentAddress });
       this.setState({ preAddress: repoData.data.data.presentAddress });
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        let message = error.response.data.message
+        //console.log("Error",error.response)
+        NotificationManager.error(message, "Error", 5000);
+      } else if (error.request) {
+        // console.log("Error Connecting...", error.request)
+        NotificationManager.error("Error Connecting...", "Error", 5000);
+      } else if (error) {
+        NotificationManager.error(error.toString(), "Error", 5000);
+      }
     }
 
+  }
+
+  back = () => {
+    this.props.history.goBack();
   }
 
 
@@ -133,6 +147,9 @@ export class NidDetails extends Component {
               <span style={{ color: "green", fontSize: "14px" }}>Upozila Code :</span> {this.state.preAddress.preUpozilaCode}<br />
               <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {this.state.preAddress.wardForUnionPorishod}<br />
             </small>
+          </div>
+          <div className="row d-flex justify-content-center">
+            <div className="b mt-3" onClick={this.back} >Back</div>
           </div>
         </div>
       </div>
