@@ -25,7 +25,7 @@ export class AccessLog extends Component {
 
     try {
       let accessData = await axios.get(accessLog + this.state.page, config);
-    //    console.log('accessLog', accessData.data.data);
+      //    console.log('accessLog', accessData.data.data);
       let accessDetails = accessData.data.data;
       this.setState({
         accessLog: accessDetails.data,
@@ -78,7 +78,7 @@ export class AccessLog extends Component {
       pageReq = text_input;
       this.setState({ page: pageReq });
       this.pageChanges(pageReq);
-      this.setState({text_input:''});
+      this.setState({ text_input: '' });
     } else {
       console.log("Invalid Page No.");
       //alert('Invalid Page No.');
@@ -171,7 +171,7 @@ export class AccessLog extends Component {
               {new Date(loginDateTime).toLocaleString()}
             </td>
             <td style={{ textAlign: "center", fontWeight: "600px" }}>
-              { logoutDateTime === null ? "" : new Date(logoutDateTime).toLocaleString()}
+              {logoutDateTime === null ? "" : new Date(logoutDateTime).toLocaleString()}
             </td>
             <td style={{ textAlign: "center", fontWeight: "600px" }}>
               {userIdRef}
@@ -213,9 +213,6 @@ export class AccessLog extends Component {
 
         {this.state.totalPages > 1 ? (
           <Pagination
-            //   historyPerPage={this.state.historyPerPage}
-            //   totalHistory={this.state.totalHistory}
-            // increment, decrement, page, total_pages, onInputChange, handleGo, text_input, goButton
             increment={this.increment}
             decrement={this.decrement}
             page={this.state.page}
@@ -226,19 +223,19 @@ export class AccessLog extends Component {
             handleGo={this.handleGoInput}
           />
         ) : (
-          <div>
-            <br />
-            <br />
-            <br />
-            <p style={{ textAlign: "center" }}>
-              {" "}
-              <strong>
+            <div>
+              <br />
+              <br />
+              <br />
+              <p style={{ textAlign: "center" }}>
                 {" "}
+                <strong>
+                  {" "}
                 page No: {this.state.page + "/" + this.state.totalPages}
-              </strong>{" "}
-            </p>
-          </div>
-        )}
+                </strong>{" "}
+              </p>
+            </div>
+          )}
       </div>
     );
   }

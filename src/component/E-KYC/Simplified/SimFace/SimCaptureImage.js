@@ -69,6 +69,7 @@ export class SimCaptureImage extends Component {
 
 
     } catch (error) {
+      this.props.handleState("loading", false);
       if (error.response) {
         let message = error.response.data.message
         //console.log("Error",error.response)
@@ -98,7 +99,7 @@ export class SimCaptureImage extends Component {
     //   imageFlag:true
     // }
     //localStorage.setItem("CaptureImage", JSON.stringify(obj));
-    if(values.faceImage ===  ""){
+    if (values.faceImage === "") {
       NotificationManager.error("Please Click Liveness again for Liveness Detection", "Click TO Remove", largeTime);
       return;
     }
@@ -123,11 +124,11 @@ export class SimCaptureImage extends Component {
   };
 
   // showCamera = () => this.props.handleState("showCamera", true);
-   showCamera = () => {
+  showCamera = () => {
     this.props.handleState("validate", false);
     this.props.handleState("faceImage", "");
     this.props.handleState("showCamera", true);
-    };
+  };
 
   closeCamera = () => this.props.handleState("showCamera", false);
 

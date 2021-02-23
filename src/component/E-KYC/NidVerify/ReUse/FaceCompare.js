@@ -33,9 +33,6 @@ export class FaceCompare extends Component {
 
         this.props.handleState("faceImage", base64Image);
         this.captureOff();
-
-
-
     }
 
     FaceCompare = async () => {
@@ -103,6 +100,8 @@ export class FaceCompare extends Component {
     continue = () => {
         this.props.nextStep();
     }
+
+
 
 
     render() {
