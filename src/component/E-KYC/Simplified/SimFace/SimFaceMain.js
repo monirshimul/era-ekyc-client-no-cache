@@ -13,7 +13,8 @@ import SimComplete from './SimComplete';
 import SimRPA from './SimRPA';
 import { NotificationManager } from "react-notifications";
 import { ImageCompressor } from '../../../Utils/ImageCompressor';
-import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
+// import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
+import ExistingCapture from '../../../Reusable/ExistingCapture';
 // import Test from '../../../Playground/Test';
 
 
@@ -395,7 +396,7 @@ export class SimFaceMain extends Component {
 
             case "exist_1":
                 return (
-                    <ExistingConfigImage
+                    <ExistingCapture
                         handleChange={this.handleChange}
                         handleState={this.handleState}
                         handleDate={this.handleDate}

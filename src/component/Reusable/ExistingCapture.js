@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import Capture from '../Capture/Capture';
-import Button from '@material-ui/core/Button';
 import { NotificationManager } from "react-notifications";
+import Button from '@material-ui/core/Button';
+import Capture from '../E-KYC/Simplified/Capture/Capture';
 import axios from 'axios'
-import Loading from '../utils/CustomLoding/Loading'
-import { faceValidate } from '../../Url/ApiList';
-import Face from "../images/face.svg";
-// import Done from "../images/done.svg";
+import Loading from '../E-KYC/Simplified/utils/CustomLoding/Loading';
+import { faceValidate } from '../E-KYC/Url/ApiList';
+import Face from "../E-KYC/Simplified/images/face.svg";
 import "react-datepicker/dist/react-datepicker.css";
-import "../utils/Common.css";
-import { largeTime } from "../../../Utils/notificationTime";
+import "../E-KYC/Simplified/utils/Common.css";
+import { largeTime } from "../Utils/notificationTime";
 
-export class SimCapture extends Component {
+export class ExistingCapture extends Component {
   state = {
     cameraOn: false,
     faceCompareRes: ""
@@ -98,12 +97,12 @@ export class SimCapture extends Component {
 
   continue = (e) => {
     e.preventDefault();
-    this.props.nextStep();
+    this.props.handleState("step", "exist_2");
   }
 
   back = (e) => {
     e.preventDefault();
-    this.props.prevStep();
+    this.props.handleState("step", 3);
   };
 
 
@@ -112,10 +111,10 @@ export class SimCapture extends Component {
     return (
       <div className="container">
         {/* 
-            <div className="im col-sm-2" onClick={this.Escape}>
-              Escape
-            </div>
-            */}
+          <div className="im col-sm-2" onClick={this.Escape}>
+            Escape
+          </div>
+          */}
         <div className="row d-flex justify-content-center">
           <div className="imTwoWhite col-sm-10" style={{ paddingTop: "25px" }}>
             <div className="card-header im">
@@ -252,4 +251,4 @@ export class SimCapture extends Component {
   }
 }
 
-export default SimCapture;
+export default ExistingCapture;

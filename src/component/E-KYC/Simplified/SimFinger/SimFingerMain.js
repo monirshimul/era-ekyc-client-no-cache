@@ -12,7 +12,8 @@ import SimComplete from '../SimFace/SimComplete';
 import { NotificationManager } from 'react-notifications';
 import { ImageCompressor } from '../../../Utils/ImageCompressor';
 import DedubeCheck from '../../../Reusable/DedubeCheck';
-import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
+// import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
+import ExistingCapture from '../../../Reusable/ExistingCapture';
 
 export class SimFingerMain extends Component {
     state = {
@@ -407,7 +408,7 @@ export class SimFingerMain extends Component {
                 )
             case "exist_1":
                 return (
-                    <ExistingConfigImage
+                    <ExistingCapture
                         handleChange={this.handleChange}
                         handleState={this.handleState}
                         handleDate={this.handleDate}

@@ -14,7 +14,8 @@ import RegFaceFileUpload from './RegFaceFileUpload';
 import RegFaceConfirm from './RegFaceConfirm';
 import RegComplete from './RegComplete';
 import DedubeCheck from '../../../Reusable/DedubeCheck'
-import ExistingConfigImage from '../../../Reusable/ExistingConfigImage'
+// import ExistingConfigImage from '../../../Reusable/ExistingConfigImage'; 
+import ExistingCapture from '../../../Reusable/ExistingCapture';
 import { ImageCompressor } from '../../../Utils/ImageCompressor';
 
 
@@ -448,7 +449,7 @@ export class RegFaceMain extends Component {
 
             case "exist_1":
                 return (
-                    <ExistingConfigImage
+                    <ExistingCapture
                         handleChange={this.handleChange}
                         handleState={this.handleState}
                         handleDate={this.handleDate}
