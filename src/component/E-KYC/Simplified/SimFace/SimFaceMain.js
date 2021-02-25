@@ -309,6 +309,7 @@ export class SimFaceMain extends Component {
                 return (
                     <DedubeCheck
                         nextStep={this.nextStep}
+                        prevStep={this.prevStep}
                         handleChange={this.handleChange}
                         handleState={this.handleState}
                         values={values}

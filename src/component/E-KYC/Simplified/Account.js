@@ -12,7 +12,7 @@ class Account extends Component {
         productCategory: "",
         productName: "",
         productNameData: [],
-        productJson:"",
+        productJson: "",
         accountType: '',
         amount: '',
         subChannel: "",
@@ -34,7 +34,7 @@ class Account extends Component {
 
     productChange = e => {
         e.preventDefault();
-        this.setState({productJson:e.target.value});
+        this.setState({ productJson: e.target.value });
         const val = JSON.parse(e.target.value);
         // console.log(e.target.value);
         sessionStorage.setItem("subChannelInfo", JSON.stringify(val.subChannel));
@@ -170,7 +170,7 @@ class Account extends Component {
                 amount: parseInt(amount)
             }
 
-            console.log("myObj", myObj);
+            // console.log("myObj", myObj);
 
             sessionStorage.setItem("accountInfo", JSON.stringify(myObj));
 
