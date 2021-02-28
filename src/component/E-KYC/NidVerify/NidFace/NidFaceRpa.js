@@ -21,7 +21,7 @@ export class NidFaceRpa extends Component {
 
     async componentDidMount() {
 
-        // Depo Status calling ==========================================================
+        //! Depo Status calling ==========================================================
         let config = {
             headers: {
                 "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -47,7 +47,7 @@ export class NidFaceRpa extends Component {
     }
 
 
-    // Nid Verify click e ja ja hobe ===================================================================
+    //! Nid Verify click e ja ja hobe ===================================================================
     handleClick = async (e) => {
         let { nid, dob } = this.props.values;
         let { depoUse } = this.state;
@@ -71,12 +71,12 @@ export class NidFaceRpa extends Component {
 
             try {
 
-                // Depo checking===================================================================
+                //! Depo checking===================================================================
                 this.props.handleState('loading', true);
                 let rpaDepo = await axios.post(depoApi, obj, config);
                 console.log("Depo Check", rpaDepo.data.data);
 
-                // Jodi Depo na thake, thaole RPA call Hobe========================================
+                //! Jodi Depo na thake, thaole RPA call Hobe========================================
                 if (rpaDepo.data.data === null) {
                     let dob13 = showDate(dob).split("-")[0];
 
@@ -85,7 +85,7 @@ export class NidFaceRpa extends Component {
                         dob: showDate(dob)
                     }
 
-                    // RPA calling=======================================================
+                    //! RPA calling=======================================================
                     try {
                         this.props.handleState('loading', true);
                         let rpaData = await axios.post(nidValidationRPA, obj, config);
@@ -169,9 +169,9 @@ export class NidFaceRpa extends Component {
                             this.props.handleState('loading', false);
                         }
                     }
-                    // RPA Call End Here =============================================================
+                    //! RPA Call End Here =============================================================
                 }
-                // Ar jodi Depo Thake tahole =====================================================
+                //! Ar jodi Depo Thake tahole =====================================================
                 else if (rpaDepo.data.data.image) {
 
                     let dataResp = rpaDepo.data.data;
@@ -267,7 +267,7 @@ export class NidFaceRpa extends Component {
 
 
         }
-        // Ar jodi Depo False thake,,tahole shudhu RPA Call hobe ========================================
+        //! Ar jodi Depo False thake,,tahole shudhu RPA Call hobe ========================================
         else {
 
             let dob13 = showDate(dob).split("-")[0];

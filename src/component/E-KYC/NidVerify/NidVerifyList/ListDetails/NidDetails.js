@@ -28,6 +28,7 @@ export class NidDetails extends Component {
 
     try {
       let repoData = await axios.post(depoApi, obj, config);
+      console.log("Depo Data", repoData)
       this.setState({ depoData: repoData.data.data });
       this.setState({ perAddress: repoData.data.data.permanentAddress });
       this.setState({ preAddress: repoData.data.data.presentAddress });
