@@ -50,6 +50,15 @@ export class NidDetails extends Component {
     this.props.history.goBack();
   }
 
+  getImage = (image) => {
+    if (image) {
+      return this.state.flag + image
+    }
+    else {
+      return Face;
+    }
+  }
+
 
   render() {
     let { depoData, flag } = this.state;
@@ -64,7 +73,7 @@ export class NidDetails extends Component {
           }}>
             <img
 
-              src={depoData.image ? (flag + depoData.image) : Face}
+              src={this.getImage(depoData.image)}
               style={{
 
                 width: "150px",

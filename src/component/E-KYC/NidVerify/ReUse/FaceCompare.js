@@ -14,7 +14,7 @@ export class FaceCompare extends Component {
 
     state = {
         cameraOn: false,
-        faceCompareRes: ""
+        faceCompareRes: false
     }
 
     captureOn = () => {
@@ -53,19 +53,30 @@ export class FaceCompare extends Component {
         try {
             this.props.handleState('loading', true);
             let faceComRes = await axios.post(nidFaceCompareNew, obj, config);
-            // console.log("faceComRes", faceComRes);
+            console.log("faceComRes", faceComRes);
             let goNext = faceComRes.data.data.faceVerificationResult.details;
+            let verificationStatus = faceComRes.data.data.faceVerificationResult.status;
 
             if (goNext.statusCode === 404) {
                 NotificationManager.warning(goNext.message, "Click to Remove", largeTime);
             }
 
-            if (goNext.result) {
-                let message = goNext.result === "True" ? NotificationManager.success("Face Validated, Please go next", "Click to Remove", largeTime) : NotificationManager.warning("Face is not valid", "Click to Remove", largeTime)
+            if (verificationStatus) {
+                NotificationManager.success("Face Validated, Please go next", "Click to Remove", largeTime);
                 this.setState({
-                    faceCompareRes: faceComRes.data.data.faceVerificationResult.details.result
-                })
+                    faceCompareRes: verificationStatus
+                });
+
+            } else {
+                NotificationManager.warning("Face does not matched", "Click to Remove", largeTime);
             }
+
+            // if (goNext.result) {
+            //     let message = verificationStatus === true ? NotificationManager.success("Face Validated, Please go next", "Click to Remove", largeTime) : NotificationManager.warning("Face is not valid", "Click to Remove", largeTime)
+            //     this.setState({
+            //         faceCompareRes: faceComRes.data.data.faceVerificationResult.details.result
+            //     })
+            // }
 
             this.props.handleState('loading', false);
 
@@ -208,7 +219,7 @@ export class FaceCompare extends Component {
 
                             <span className="b mr-5" onClick={this.Back} >Back</span>
                             {
-                                this.state.faceCompareRes === "True" ? (
+                                this.state.faceCompareRes ? (
                                     <span className="b" onClick={this.continue} >Next</span>
                                 ) : ""
                             }
