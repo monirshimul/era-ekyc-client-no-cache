@@ -208,7 +208,7 @@ export class SimCapture extends Component {
               style={{ background: "#fff" }}
             >
 
-              <span className="b mr-5" onClick={this.Back} >Back</span>
+              <span className="b mr-5" onClick={this.back} >Back</span>
               {
                 values.validate === true ? (
                   <span className="b" onClick={this.continue} >Next</span>

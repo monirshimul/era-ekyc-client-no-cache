@@ -1,13 +1,13 @@
 import { hostIp } from './IpAdd';
 
 // RPA
-export const nidValidationRPA = hostIp + `ai/nid-rpa`;
-//export const nidValidationRPA = hostIp + `dummy/nid-rpa`;
+// export const nidValidationRPA = hostIp + `ai/nid-rpa`;
+export const nidValidationRPA = hostIp + `dummy/nid-rpa`;
 
 // face Verification
 
-export const faceValidate = hostIp + `ai/face-verification`;
-//export const faceValidate = hostIp + `dummy/face-verification`;
+// export const faceValidate = hostIp + `ai/face-verification`;
+export const faceValidate = hostIp + `dummy/face-verification`;
 
 // Finger Verification
 
