@@ -13,7 +13,7 @@ import { largeTime } from "../Utils/notificationTime";
 export class ExistingCapture extends Component {
   state = {
     cameraOn: false,
-    faceCompareRes: ""
+    faceCompareRes: false
   }
 
 

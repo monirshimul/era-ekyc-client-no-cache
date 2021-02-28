@@ -14,7 +14,7 @@ export class RegCapture extends Component {
 
   state = {
     cameraOn: false,
-    faceCompareRes: ""
+    faceCompareRes: false
   }
 
   captureOn = () => {

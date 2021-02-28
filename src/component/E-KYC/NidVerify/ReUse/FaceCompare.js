@@ -71,12 +71,7 @@ export class FaceCompare extends Component {
                 NotificationManager.warning("Face does not matched", "Click to Remove", largeTime);
             }
 
-            // if (goNext.result) {
-            //     let message = verificationStatus === true ? NotificationManager.success("Face Validated, Please go next", "Click to Remove", largeTime) : NotificationManager.warning("Face is not valid", "Click to Remove", largeTime)
-            //     this.setState({
-            //         faceCompareRes: faceComRes.data.data.faceVerificationResult.details.result
-            //     })
-            // }
+
 
             this.props.handleState('loading', false);
 

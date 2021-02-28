@@ -14,7 +14,7 @@ import { largeTime } from "../../../Utils/notificationTime";
 export class SimCapture extends Component {
   state = {
     cameraOn: false,
-    faceCompareRes: ""
+    faceCompareRes: false
   }
 
 
