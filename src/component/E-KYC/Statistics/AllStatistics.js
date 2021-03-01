@@ -16,6 +16,7 @@ import {
 
 import { toLowerObject } from './../../Utils/ObjectUtils';
 import { date } from '@hapi/joi';
+import TotalVerifyLine from './TotalVerifyLine'
 
 
 
@@ -50,65 +51,6 @@ class AllStatistics extends Component {
 
     }
 
-    // findByDate = async () => {
-    //     const config = {
-    //         headers: {
-    //             'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-    //         }
-    //     };
-
-    //     let utcTillDate = this.state.tillDate.setUTCHours(0, 0, 0, 0);
-    //     let utcFromDate = this.state.fromDate.setUTCHours(0, 0, 0, 0);
-
-
-
-    //     let tillDate = addHours(new Date(utcTillDate), 24)
-    //     let fromDate = addDays(new Date(utcFromDate), 1)
-    //     console.log("New Date", fromDate.toISOString())
-    //     let dataObj = {};
-    //     if (fromDate.toISOString() === tillDate.toISOString()) {
-    //         console.log("True")
-    //         dataObj = {
-    //             startDate: new Date(utcFromDate).toISOString(),
-    //             endDate: tillDate.toISOString()
-    //         }
-    //     } else {
-    //         console.log("False")
-    //         dataObj = {
-    //             startDate: fromDate.toISOString(),
-    //             endDate: tillDate.toISOString()
-    //         }
-
-    //         this.setState({
-    //             fromDate: fromDate.toISOString()
-    //         })
-    //     }
-    //     // const dataObj = {
-    //     //     startDate: fromDate.toISOString(),
-    //     //     endDate: tillDate.toISOString()
-    //     // }
-
-    //     console.log("All Date", dataObj)
-
-    //     try {
-    //         let res = await axios.post(ekycPie, dataObj, config);
-    //         let dataCount = res.data.data.count;
-    //         this.setState({ findData: dataCount })
-    //         //console.log("Find Data", dataCount)
-    //     } catch (error) {
-    //         console.log("Error", error)
-    //         if (error.response) {
-    //             let message = error.response.data.message
-    //             console.log("Error", error.response)
-    //             NotificationManager.error(message, "Error", 5000);
-    //         } else if (error.request) {
-    //             console.log("Error Connecting...", error.request)
-    //             NotificationManager.error("Error Connecting...", "Error", 5000);
-    //         } else if (error) {
-    //             NotificationManager.error(error.toString(), "Error", 5000);
-    //         }
-    //     }
-    // }
 
     findByDate = async () => {
         const config = {
@@ -120,7 +62,7 @@ class AllStatistics extends Component {
         // 2021-01-26T13:18:17.974Z
 
         const isoBuilder = (year, month, date, type = "S") => {
-            if(date.toString().length < 2) date = `0${date.toString()}`;
+            if (date.toString().length < 2) date = `0${date.toString()}`;
             if (month.toString().length < 2) month = `0${month.toString()}`;
             const startDateSuffix = "T00:00:00.000Z";
             const endDateSuffix = "T23:59:59.000Z";
@@ -176,45 +118,6 @@ class AllStatistics extends Component {
             let dataCount = res.data.data;
             dataCount = toLowerObject(dataCount);
 
-            //console.log("Specific by year", dataCount)
-            // let tD = [
-            //     {
-            //         month: 1,
-            //         count: "29"
-            //     },
-            //     {
-            //         month: 12,
-            //         count: "39"
-            //     },
-            //     {
-            //         month: 3,
-            //         count: "47"
-            //     },
-            //     {
-            //         month: 11,
-            //         count: "50"
-            //     },
-            //     {
-            //         month: 2,
-            //         count: "22"
-            //     },
-            //     {
-            //         month: 7,
-            //         count: "31"
-            //     },
-            //     {
-            //         month: 9,
-            //         count: "84"
-            //     },
-            //     {
-            //         month: 10,
-            //         count: "116"
-            //     },
-            //     {
-            //         month: 5,
-            //         count: "99"
-            //     }
-            // ]
             let emptyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             if (myYear === "2019") {
                 for (let i = 0; i < dataCount.length; i++) {
@@ -631,7 +534,7 @@ class AllStatistics extends Component {
                 <div className="row imTwoWhite d-flex justify-content-around align-items-center">
                     <div className="col-sm-2 lightTwo">
                         <hr />
-                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
+                        <div className="imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(15px)" }}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -648,7 +551,7 @@ class AllStatistics extends Component {
                     </div>
                     <div className="col-sm-2 lightThree">
                         <hr />
-                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
+                        <div className="imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(15px)" }}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -666,7 +569,7 @@ class AllStatistics extends Component {
                     </div>
                     <div className="col-sm-2 lightFour">
                         <hr />
-                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
+                        <div className="imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(15px)" }}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -683,7 +586,7 @@ class AllStatistics extends Component {
                     </div>
                     <div className="col-sm-2 lightOne">
                         <hr />
-                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
+                        <div className="imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(15px)" }}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -700,7 +603,7 @@ class AllStatistics extends Component {
                     </div>
                     <div className="col-sm-2 lightMain">
                         <hr />
-                        <div className="imTwoWhite" style={{background:"rgba(255,255,255, 0.5)", backdropFilter:"blur(15px)"}}>
+                        <div className="imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(15px)" }}>
                             <h2>
                                 <CountUp
                                     start={0}
@@ -767,6 +670,11 @@ class AllStatistics extends Component {
 
 
                 </div>
+
+                {/*! verify line chart==========================================*/}
+
+                <TotalVerifyLine />
+
                 <div className="row imTwoWhite d-flex justify-content-center align-items-center" style={{ padding: "5px" }}>
 
                     <div className="col-sm-6 imTwoWhite">

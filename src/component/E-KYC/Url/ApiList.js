@@ -29,6 +29,7 @@ export const updateAppSetting = hostIp + `setting/`;
 export const allDataCount = hostIp + `report/count`;
 export const ekycPie = hostIp + `report/ekyc/count`;
 export const lineChart = hostIp + `report/ekyc/count/by/month`;
+export const lineChartVerify = hostIp + `report/verification/count/by/day`;
 
 // zonecode-conversion
 export const zoneCodeConversion = hostIp + `integration/zonecode-conversion`;
