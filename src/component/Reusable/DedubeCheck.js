@@ -247,6 +247,10 @@ export class DedubeCheck extends Component {
         this.props.prevStep();
     }
 
+    Escape = () => {
+        this.props.nextStep();
+    }
+
 
     render() {
         const { values, handleChange } = this.props;

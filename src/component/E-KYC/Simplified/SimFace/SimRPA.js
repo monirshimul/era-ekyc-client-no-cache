@@ -24,7 +24,7 @@ export class SimRPA extends Component {
     //     e.preventDefault();
 
 
-    
+
     //     this.props.handleState('loading', true);
 
     //     const config = {
@@ -170,7 +170,7 @@ export class SimRPA extends Component {
         // }
 
         // // console.log("objcheck", checkObj);
-        
+
         // this.props.handleState('loading', true);
         // if (channelName === "ABS") {
         //     try {
@@ -278,13 +278,13 @@ export class SimRPA extends Component {
                     this.props.handleState('perUnionOrWard', perAddress.unionOrWard ? perAddress.unionOrWard : '');
                     this.props.handleState('perUpozila', perAddress.upozila ? perAddress.upozila : '');
                     this.props.handleState('perWardForUnionPorishod', perAddress.wardForUnionPorishod ? perAddress.wardForUnionPorishod : '');
-                    
+
                 } else {
-                   
+
                     this.props.handleState('loading', false);
                     NotificationManager.error("Please Check Your Nid No and Date Of Birth", "Click to Remove", largeTime);
                 }
-               
+
                 this.props.handleState('loading', false);
             } catch (error) {
                 // console.log(error.response);
@@ -292,16 +292,16 @@ export class SimRPA extends Component {
                 if (error.response) {
                     let message = error.response.data.message
                     NotificationManager.error(message, "Click to Remove", largeTime);
-                   
+
                     this.props.handleState('loading', false);
                 } else if (error.request) {
                     // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-                   
+
                     this.props.handleState('loading', false);
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-                   
+
                     this.props.handleState('loading', false);
                 }
             }
@@ -360,7 +360,7 @@ export class SimRPA extends Component {
 
                         <form onSubmit={this.continue}>
                             {/* <label htmlFor="nidNo">Nid No:</label><br />
-              <input type="text" id="nidNo" name="nidNo" value={this.state.nidNo} /><br /> */}
+                             <input type="text" id="nidNo" name="nidNo" value={this.state.nidNo} /><br /> */}
                             <div className="form-group">
                                 <label htmlFor="">Nid No:</label>
                                 <input
@@ -373,7 +373,7 @@ export class SimRPA extends Component {
                                     id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
                                     placeholder="Enter NID NO"
-                                    readOnly
+
                                 />
                             </div>
 
@@ -396,7 +396,7 @@ export class SimRPA extends Component {
                                         showYearDropdown
                                         showMonthDropdown
                                         scrollableMonthYearDropdown
-                                        readOnly
+
                                     />
                                 </div>
                             </div>

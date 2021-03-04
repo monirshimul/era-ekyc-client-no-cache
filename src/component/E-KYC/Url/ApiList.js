@@ -163,4 +163,7 @@ export const NidVerifyList = hostIp + `nid-verification/get/`;
 // Face Compare New
 export const nidFaceCompareNew = hostIp + `nid-verification/face-verification`;
 
+// Translator api
+export const translate = hostIp + `ai/translate`;
+
 

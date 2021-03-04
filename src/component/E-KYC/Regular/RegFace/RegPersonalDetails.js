@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
-import { zoneCodeConversion, division, district, upozila, union, profession, textMatch } from '../../Url/ApiList';
+import { zoneCodeConversion, division, district, upozila, union, profession, textMatch, translate } from '../../Url/ApiList';
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { largeTime } from '../../../Utils/notificationTime';
+import { convertTranslate } from '../../../Utils/Translate';
 
 const Joi = require('@hapi/joi');
 
@@ -35,16 +36,68 @@ export class RegPersonalDetails extends Component {
 
     }
 
+
+    async componentDidMount() {
+        let { values } = this.props;
+        const config = {
+            headers: {
+                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        let createArray = [{ key: "fatherName", value: values.fatherNameBangla }, { key: "motherName", value: values.motherNameBangla }];
+
+        if (values.spouseName !== "") {
+            createArray.push({ key: "spouseName", value: values.spouseName });
+        }
+
+        let translateArray = convertTranslate(createArray);
+
+        // console.log("translateArrayShow", translateArray);
+
+        let translateObj = {
+            translationTemplate: translateArray,
+            language: "en"
+        }
+
+        try {
+            let translateRes = await axios.post(translate, translateObj, config);
+            // console.log("translation", translateRes.data);
+            let translateData = translateRes.data.data;
+
+            this.props.handleState('fatherName', translateData.fatherName);
+            this.props.handleState('motherName', translateData.motherName);
+
+            if (translateData.spouseName) {
+                this.props.handleState('spouseName', translateData.motherName);
+            }
+        } catch (error) {
+            if (error.response) {
+                let message = error.response.data.message
+                NotificationManager.error(message, "Click to Remove", largeTime);
+            } else if (error.request) {
+                // console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
+
+            }
+        }
+    }
+
+
+
+
     schema = Joi.object({
         applicantName: Joi.string().required(),
         applicantNameBangla: Joi.string().required(),
         applicantDob: Joi.string().required(),
         applicantNidNo: Joi.string().required(),
         MobileNumber: Joi.string().pattern(new RegExp('^01[3456789][0-9]{8}'))
-        .required()
-        .messages({
-        "string.pattern.base": `Please Provide Valid Mobile Number`,
-        }),
+            .required()
+            .messages({
+                "string.pattern.base": `Please Provide Valid Mobile Number`,
+            }),
         gender: Joi.string().required(),
         MonthlyIncome: Joi.string().required(),
         SourceOfFund: Joi.string().required(),
@@ -650,13 +703,13 @@ export class RegPersonalDetails extends Component {
 
 
 
-                    if(values.step === "exist_2"){
+                    if (values.step === "exist_2") {
                         this.props.handleState("step", "exist_3");
-                    }else{
+                    } else {
                         this.props.nextStep();
                     }
 
-                    
+
 
 
 
@@ -670,10 +723,10 @@ export class RegPersonalDetails extends Component {
 
 
             } else {
-                if(values.step === "exist_2"){
+                if (values.step === "exist_2") {
                     this.props.handleState("step", "exist_3");
-                }else{
-                this.props.nextStep();
+                } else {
+                    this.props.nextStep();
                 }
             }
 
@@ -689,14 +742,14 @@ export class RegPersonalDetails extends Component {
     };
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
-        if(values.step === "exist_2"){
+        if (values.step === "exist_2") {
             this.props.handleState("step", "exist_1");
-        }else{
+        } else {
             this.props.prevStep();
         }
-        
+
     }
     // Escape = () => {
     //     this.props.nextStep();
@@ -763,9 +816,9 @@ export class RegPersonalDetails extends Component {
                                     <input style={{ borderRadius: "50px" }} type="text" value={values.applicantNidNo} name='applicantNidNo' onChange={handleChange('applicantNidNo')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Nid No" readOnly />
                                 </div>
                                 {/* Mobile Phone Number */}
-                                
-                                 
-                                {values.useMobilePage === true ?  
+
+
+                                {values.useMobilePage === true ?
                                     <div className="form-group">
                                         <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Mobile No.</label>
                                         <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" readOnly />
@@ -773,7 +826,7 @@ export class RegPersonalDetails extends Component {
                                     :
                                     <div className="form-group">
                                         <label htmlFor=""><span style={{ color: "red" }}>*</span>Applicant's Mobile No.</label>
-                                        <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number"/>
+                                        <input style={{ borderRadius: "50px" }} type="text" maxLength="11" value={values.mobileNumber} name='mobileNumber' pattern='^01[3456789][0-9]{8}' onChange={handleChange('mobileNumber')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Applicant's Mobile Number" />
                                     </div>
                                 }
 
@@ -1355,10 +1408,10 @@ export class RegPersonalDetails extends Component {
 
                     <hr />
                     <div className="row d-flex justify-content-center">
-                    {/* 
+                        {/* 
                         <div className="b mb-3" onClick={this.back} >Back</div>&nbsp; &nbsp;
                         */}
-                <div className="b mb-3" onClick={this.continue} >Next</div>
+                        <div className="b mb-3" onClick={this.continue} >Next</div>
                     </div>
 
                 </div>
