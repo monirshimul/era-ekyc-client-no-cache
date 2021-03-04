@@ -104,11 +104,11 @@ class Account extends Component {
         // console.log(JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")))
 
         // Branch and agent point code check
-        // if (JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null) {
-        //     let messageForAgentPointCode = "Please Select Branch or Agent Point From Home";
-        //     NotificationManager.warning(messageForAgentPointCode, "Click to Remove", largeTime);
-        //     return;
-        // }
+        if (JSON.parse(sessionStorage.getItem("currentBranchOrAgentPointCode")) === null) {
+            let messageForAgentPointCode = "Please Select Branch or Agent Point From Home";
+            NotificationManager.warning(messageForAgentPointCode, "Click to Remove", largeTime);
+            return;
+        }
 
         if (channelName === '') {
             let channelNameMessage = 'Please Select Channel Name';
