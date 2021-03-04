@@ -73,7 +73,7 @@ export class SimPersonalDetails extends Component {
             this.props.handleState('motherName', translateData.motherName);
 
             if (translateData.spouseName) {
-                this.props.handleState('spouseName', translateData.motherName);
+                this.props.handleState('spouseName', translateData.spouseName);
             }
         } catch (error) {
             if (error.response) {

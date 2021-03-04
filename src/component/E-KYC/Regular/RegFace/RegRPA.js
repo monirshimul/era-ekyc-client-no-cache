@@ -217,7 +217,7 @@ export class RegRPA extends Component {
             try {
                 this.props.handleState('loading', true);
                 let rpaData = await axios.post(nidValidationRPA, obj, config);
-                // console.log(rpaData.data);
+                console.log(rpaData.data);
                 // let responseData = rpaData.data.data;
                 if (rpaData.data.data.image) {
                     let dataResp = rpaData.data.data;
@@ -228,7 +228,7 @@ export class RegRPA extends Component {
                     this.props.handleState('motherNameBangla', dataResp.motherName ? dataResp.motherName : "");
                     this.props.handleState('fatherNameBangla', dataResp.fatherName ? dataResp.fatherName : "");
                     // this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
-                    this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
+                    this.props.handleState('spouseName', dataResp.spouseName ? dataResp.spouseName : "");
                     this.props.handleState('ecImage', dataResp.image ? dataResp.image : "");
                     // Global EC Text start
                     this.props.handleState('ecApplicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
@@ -272,11 +272,11 @@ export class RegRPA extends Component {
                     this.props.handleState('perWardForUnionPorishod', perAddress.wardForUnionPorishod ? perAddress.wardForUnionPorishod : '');
 
                 } else {
-                    
+
                     this.props.handleState('loading', false);
                     NotificationManager.error("Please Check Your Nid No and Date Of Birth", "Click to Remove", largeTime);
                 }
-                
+
                 this.props.handleState('loading', false);
             } catch (error) {
                 // console.log(error.response);
@@ -284,14 +284,14 @@ export class RegRPA extends Component {
                 if (error.response) {
                     let message = error.response.data.message
                     NotificationManager.error(message, "Click to Remove", largeTime);
-                    
+
                 } else if (error.request) {
                     // console.log("Error Connecting...", error.request)
                     NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-                    
+
                 } else if (error) {
                     NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-                    
+
                 }
             }
         }

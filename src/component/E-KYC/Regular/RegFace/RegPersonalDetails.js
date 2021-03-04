@@ -46,8 +46,8 @@ export class RegPersonalDetails extends Component {
         };
 
         let createArray = [{ key: "fatherName", value: values.fatherNameBangla }, { key: "motherName", value: values.motherNameBangla }];
-
-        if (values.spouseName !== "") {
+        // console.log("spouse", values.spouseName);
+        if (values.spouseName && values.spouseName !== "") {
             createArray.push({ key: "spouseName", value: values.spouseName });
         }
 
@@ -69,7 +69,7 @@ export class RegPersonalDetails extends Component {
             this.props.handleState('motherName', translateData.motherName);
 
             if (translateData.spouseName) {
-                this.props.handleState('spouseName', translateData.motherName);
+                this.props.handleState('spouseName', translateData.spouseName);
             }
         } catch (error) {
             if (error.response) {
