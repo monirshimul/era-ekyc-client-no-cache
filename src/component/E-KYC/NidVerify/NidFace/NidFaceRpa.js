@@ -100,7 +100,7 @@ export class NidFaceRpa extends Component {
                             this.props.handleState('motherNameBangla', dataResp.motherName ? dataResp.motherName : "");
                             this.props.handleState('fatherNameBangla', dataResp.fatherName ? dataResp.fatherName : "");
                             // this.props.handleState('profession', dataResp.occupation ? dataResp.occupation : '');
-                            this.props.handleState('spouseName', dataResp.spouse ? dataResp.spouse : "");
+                            this.props.handleState('spouseName', dataResp.spouseName ? dataResp.spouseName : "");
                             this.props.handleState('ecImage', dataResp.image ? dataResp.image : "");
                             // Global EC Text start
                             this.props.handleState('ecApplicantNameBangla', dataResp.nameBan ? dataResp.nameBan : "");
