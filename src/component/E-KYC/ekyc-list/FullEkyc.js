@@ -25,7 +25,10 @@ class FullEkyc extends Component {
         loading: false,
         opFileDownloadLoading: false,
         additionalFile: [],
-        arrowUp: false
+        arrowUp: false,
+        riskGradingData: [],
+        business: "",
+        showRiskBtn: ""
     }
 
     async componentDidMount() {
@@ -45,7 +48,38 @@ class FullEkyc extends Component {
                 applicantId: this.props.location.state
             }
             let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
-            // console.log("full Ekyc", fullEkyc.data.data)
+            let ekycRes = []
+            if (fullEkyc.data.data.riskGrading != null) {
+                ekycRes = fullEkyc.data.data.riskGrading.riskGradingData
+                //console.log("full Ekyc", ekycRes.sort())
+                let occupation = ekycRes[7]
+                let match = occupation.indexOf("5.a")
+                //console.log("matching", match);
+
+                if (match >= 0) {
+                    this.setState({
+                        business: true
+                    })
+                } else {
+                    this.setState({
+                        business: false
+                    })
+                }
+
+                // console.log("====", this.state.business)
+
+                this.setState({
+                    riskGradingData: ekycRes.sort(),
+                    showRiskBtn: true
+
+                })
+            } else {
+                console.log("No Data Found for Risk Grading")
+                this.setState({
+                    showRiskBtn: false
+                })
+            }
+
             // let dataObj = {
             //     data: fullEkyc.data.data
             // }
@@ -64,9 +98,13 @@ class FullEkyc extends Component {
                 NotificationManager.error(error.toString(), "Error", 5000);
             }
         }
+        try {
+            let data = await ProductCodeGetName(this.state.ekyc.account.productCode);
+            this.setState({ ProductCodetoName: data });
+        } catch (error) {
+            console.log("Error======>", error)
+        }
 
-        let data = await ProductCodeGetName(this.state.ekyc.account.productCode);
-        this.setState({ ProductCodetoName: data });
     }
 
     backEkyc = () => {
@@ -241,11 +279,12 @@ class FullEkyc extends Component {
     }
 
     render() {
-        let { ekyc, flag, loading, additionalFile, arrowUp, opFileDownloadLoading } = this.state;
+        let { ekyc, flag, loading, additionalFile, arrowUp, opFileDownloadLoading, riskGradingData, business, showRiskBtn } = this.state;
         //console.log("single value",ekyc.presentAddress.additionalMouzaOrMoholla)
         //console.log("Arrow", arrowUp)
         // console.log("ekyc", ekyc?.account?.id);
         // console.log("dob", typeof (ekyc?.dob));
+
         return (
             <div className="container">
 
@@ -298,7 +337,21 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Review Count : </span>{ekyc?.reviewCount}</small><br />
                                             {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Risk Grading : </span>{ekyc.riskGrading}</small><br /> */}
                                             {/*<small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Sanction Screening : </span>{ekyc.sanctionScreening}</small><br />*/}
+
+                                            {
+                                                showRiskBtn ? (
+                                                    <div>
+                                                        <hr />
+                                                        <span className="neoBg" style={{ color: "green", cursor: "pointer" }} data-toggle="modal" data-target="#exampleModalCenter" >Risk Grading Details</span>
+                                                    </div>
+                                                ) : ""
+                                            }
+
+
                                         </div>
+
+
+
 
 
 
@@ -679,6 +732,435 @@ class FullEkyc extends Component {
                             <button className="neoBtnSmall mr-2" style={{ color: "#308f8f" }} onClick={this.printData}>Print</button>
                             <button className="neoBtnSmall" style={{ color: "#308f8f" }} onClick={() => this.onDownload(ekyc.id)}>Download</button>
                         </div>
+
+
+
+                        <div className="row modal fade" id="exampleModalCenter" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div className="modal-content imTwo">
+                                    <div className="modal-header divBg">
+                                        <h5 className="modal-title" id="exampleModalCenterTitle"> Risk Grading Details</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <div className="row d-flex justify-content-center imTwoWhite">
+                                            <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
+                                                {/* 
+                <div className="im col-sm-2" onClick={this.Escape}>
+                    Escape
+              </div>*/}
+
+
+                                                <div className="card-body">
+                                                    <form>
+
+                                                        <div className='form-group'>
+                                                            <label htmlFor="">Type Of On-boarding</label>
+                                                            <select
+                                                                disabled
+                                                                className='custom-select'
+                                                                value={riskGradingData[0]}
+
+                                                                name="onBoardingValue"
+                                                            >
+                                                                <option value='' disabled>--Select Category--</option>
+                                                                <option value='1.1'>Branch/Relationship Manager</option>
+                                                                <option value='1.2'>Direct Sales Agent</option>
+                                                                <option value='1.3'>Walk-in</option>
+                                                                <option value='1.4'>Internet/Self check-in/Other non Face to Face</option>
+
+
+                                                            </select>
+                                                        </div>
+
+                                                        <div className='form-group'>
+                                                            <label htmlFor="">Geographic Risks</label>
+                                                            <select
+                                                                disabled
+                                                                className='custom-select'
+                                                                value={riskGradingData[1]}
+
+                                                                name="geoRiskClient"
+                                                            >
+                                                                <option value='' disabled>--Select Client--</option>
+                                                                <option value='2.1.1'>Resident Bangladeshi</option>
+                                                                <option value='2.1.2'>Non-resident Bangladeshi</option>
+                                                                <option value='2.1.3'>Foreign Citizen</option>
+
+
+
+                                                            </select>
+                                                        </div>
+
+                                                        {/* For Foreigners */}
+
+                                                        {
+                                                            riskGradingData[1] === "2.1.3" ? (
+                                                                <div>
+                                                                    <div className='form-group'>
+                                                                        <label htmlFor="">
+                                                                            Does client's country of
+                                                                            citizenship feature in
+                                                                            FATF/EU/OFAC/UN Black
+                                                                            List/Grey List?
+
+                        </label>
+                                                                        <select
+                                                                            disabled
+                                                                            className='custom-select'
+                                                                            value={riskGradingData[2]}
+
+                                                                            name="foreignOrigin"
+                                                                        >
+                                                                            <option value='' disabled>--Select Category--</option>
+                                                                            <option value='2.2.1'>No</option>
+                                                                            <option value='2.2.2'>Yes</option>
+
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            ) : ""
+                                                        }
+
+
+                                                        <div className="row d-flex justify-content-center">
+                                                            <h3 className="col-sm-12 im">
+                                                                Type Of Customer
+                        </h3>
+
+                                                        </div>
+                                                        <hr />
+
+                                                        <div className='form-group'>
+                                                            <label htmlFor="">
+                                                                Is client a PEP/Chief or High
+                                                                Official of International
+                                                                Organization, as per BFIU
+                                                                Circular?
+
+                        </label>
+                                                            <select
+                                                                disabled
+                                                                className='custom-select'
+                                                                value={riskGradingData[3]}
+
+                                                                name="highOfficial"
+                                                            >
+                                                                <option value='' disabled>--Select Category--</option>
+                                                                <option value='3.1.2'>Yes</option>
+                                                                <option value='3.1.1'>No</option>
+
+                                                            </select>
+                                                        </div>
+
+                                                        <div className='form-group'>
+                                                            <label htmlFor="">
+                                                                Is client’s family/close associates
+                                                                related to PEP/Chief or High
+                                                                Official of International
+                                                                Organization?
+
+
+                        </label>
+                                                            <select
+                                                                disabled
+                                                                className='custom-select'
+                                                                value={riskGradingData[4]}
+
+                                                                name="closeHighOfficial"
+                                                            >
+                                                                <option value='' disabled>--Select Category--</option>
+                                                                <option value='3.2.2'>Yes</option>
+                                                                <option value='3.2.1'>No</option>
+
+                                                            </select>
+                                                        </div>
+
+                                                        <div className='form-group'>
+                                                            <label htmlFor="">
+                                                                Is client a IP? or his family/close
+                                                                associates related to IP?
+
+
+
+                        </label>
+                                                            <select
+                                                                disabled
+                                                                className='custom-select'
+                                                                value={riskGradingData[5]}
+
+                                                                name="isClientIp"
+                                                            >
+                                                                <option value='' disabled>--Select Category--</option>
+                                                                <option value='3.3.2'>Yes - based on assessed risk</option>
+                                                                <option value='3.3.1'>No</option>
+
+                                                            </select>
+                                                        </div>
+
+
+
+                                                        <div className="row d-flex justify-content-center">
+                                                            <h3 className="col-sm-12 im">
+                                                                Product and Channel Risk
+                        </h3>
+
+                                                        </div>
+                                                        <hr />
+
+                                                        <div className='form-group'>
+                                                            <label htmlFor="">Type of Product</label>
+                                                            <select
+                                                                disabled
+                                                                className='custom-select'
+                                                                value={riskGradingData[6]}
+
+                                                                name="productTypes"
+                                                            >
+                                                                <option value='' disabled>--Select Status--</option>
+                                                                <option value='4.1.1'>Savings account</option>
+                                                                <option value='4.1.2'>Current account</option>
+                                                                <option value='4.1.3'>FDR</option>
+                                                                <option value='4.1.4'>Deposit Scheme upto12 lac</option>
+                                                                <option value='4.1.5'>Deposit Scheme above 12 lac</option>
+                                                                <option value='4.1.6'>Forex account</option>
+                                                                <option value='4.1.7'>S.N.D.</option>
+                                                                <option value='4.1.8'>R.F.C.D.</option>
+
+                                                            </select>
+                                                        </div>
+
+                                                        <div className="row d-flex justify-content-center">
+                                                            <h3 className="col-sm-12 im">
+                                                                Business and Activity Risk
+                        </h3>
+
+                                                        </div>
+                                                        <hr />
+
+                                                        <div className="form-group d-flex justify-content-center">
+                                                            {
+                                                                business === true ? (
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" disabled class="form-check-input" name="optionsRadios" id="optionsRadios1" value="5.a" />
+                                        Business
+                                    </label>
+                                                                    </div>
+                                                                ) : (
+                                                                        <div class="form-check">
+                                                                            <label class="form-check-label">
+                                                                                <input type="radio" disabled class="form-check-input" name="optionsRadios" id="optionsRadios1" value="5.b" />
+                                        Profession
+                                    </label>
+                                                                        </div>
+                                                                    )
+                                                            }
+
+
+
+
+                                                        </div>
+
+                                                        {
+                                                            business === true ? (
+                                                                <div>
+
+                                                                    <div className='form-group'>
+                                                                        <label htmlFor="">Type of Product</label>
+                                                                        <select
+                                                                            disabled
+                                                                            className='custom-select'
+                                                                            value={riskGradingData[7]}
+
+                                                                            name="businessName"
+                                                                        >
+                                                                            <option value='' disabled>--Select Business--</option>
+                                                                            <option value='5.a.1'>Jeweller/Gold/Valuable Metals Business</option>
+                                                                            <option value='5.a.2'>Money Changer/Courier Service/MobileBanking Agent</option>
+                                                                            <option value='5.a.3'>Real Estate Developer/Agent</option>
+                                                                            <option value='5.a.4'>Promoter/Contractor: ConstructionProjects</option>
+                                                                            <option value='5.a.5'>Art and Antiquities Dealer</option>
+                                                                            <option value='5.a.6'>Restaurant/Bar/NightClub/Parlour/Hotel</option>
+                                                                            <option value='5.a.7'>Export/Import</option>
+                                                                            <option value='5.a.8'>Manpower export</option>
+                                                                            <option value='5.a.9'>Firearms</option>
+                                                                            <option value='5.a.10'>RMG/Garments Accessories/BuyingHouse</option>
+                                                                            <option value='5.a.11'>Share/Stocks Investor</option>
+                                                                            <option value='5.a.12'>Software/Information and Technology Business</option>
+                                                                            <option value='5.a.13'>Travel Agent</option>
+                                                                            <option value='5.a.14'>Merchant with over 10 million takas invested in business</option>
+                                                                            <option value='5.a.15'>Freight/Shipping/Cargo Agent</option>
+                                                                            <option value='5.a.16'>Automobiles business (New or Reconditioned)</option>
+                                                                            <option value='5.a.17'>Leather/Leather goods Business</option>
+                                                                            <option value='5.a.18'>Construction Materials Trader</option>
+                                                                            <option value='5.a.19'>Business Agent</option>
+                                                                            <option value='5.a.20'>Thread/"Jhut" Merchant</option>
+                                                                            <option value='5.a.21'>Transport Operator</option>
+                                                                            <option value='5.a.22'>Tobacco and Cigarettes Business</option>
+                                                                            <option value='5.a.23'>Amusement Park/Entertainment Provider</option>
+                                                                            <option value='5.a.24'>Motor Parts Trader/Workshop</option>
+                                                                            <option value='5.a.25'>Small Business (Investment below BDT 5 million)</option>
+                                                                            <option value='5.a.26'>Computer/Mobile Phone Dealer</option>
+                                                                            <option value='5.a.27'>Manufacturer (except, weapons)</option>
+                                                                            <option value='5.a.28'>Others</option>
+
+                                                                        </select>
+                                                                    </div>
+
+
+
+                                                                    <hr />
+                                                                </div>
+
+                                                            ) : ""
+                                                        }
+
+                                                        {
+                                                            business === false ?
+                                                                (
+                                                                    <div>
+
+                                                                        <div className='form-group'>
+                                                                            <label htmlFor="">Type of Product</label>
+                                                                            <select
+                                                                                disabled
+                                                                                className='custom-select'
+                                                                                value={riskGradingData[7]}
+
+                                                                                name="professionName"
+                                                                            >
+                                                                                <option value='' disabled>--Select Profession--</option>
+                                                                                <option value='5.b.1'>Pilot/Flight Attendant</option>
+                                                                                <option value='5.b.2'>Trustee</option>
+                                                                                <option value='5.b.3'>Professional (Journalist, Lawyer, Doctor, Engineer, Chartered Accountant, etc.)</option>
+                                                                                <option value='5.b.4'>Director (Private/Public Limited Company)</option>
+                                                                                <option value='5.b.5'>High Official of Multinational Company (MNC)</option>
+                                                                                <option value='5.b.6'>Homemaker</option>
+                                                                                <option value='5.b.7'>Information Technology (IT) sector employee</option>
+                                                                                <option value='5.b.8'>Athlete/Media Celebrity/Producer/Director</option>
+                                                                                <option value='5.b.9'>Freelance Software Developer</option>
+                                                                                <option value='5.b.10'>Government Service</option>
+                                                                                <option value='5.b.11'>Landlord/Homeowner</option>
+                                                                                <option value='5.b.12'>Private Service: Managerial</option>
+                                                                                <option value='5.b.13'>Teacher (Public/Private/Autonomous Educational Institution)</option>
+                                                                                <option value='5.b.14'>Private Sector Employee</option>
+                                                                                <option value='5.b.15'>Self-employed Professional</option>
+                                                                                <option value='5.b.16'>Student</option>
+                                                                                <option value='5.b.17'>Retiree</option>
+                                                                                <option value='5.b.18'>Farmer/Fisherman/Labourer</option>
+                                                                                <option value='5.b.19'>Others</option>
+
+
+                                                                            </select>
+                                                                        </div>
+
+
+
+                                                                        <hr />
+
+                                                                    </div>
+
+                                                                ) : ""
+                                                        }
+
+
+
+
+
+                                                        <div className="row d-flex justify-content-center">
+                                                            <h3 className="col-sm-12 im">
+                                                                Transactional Risks
+                        </h3>
+
+                                                        </div>
+                                                        <hr />
+
+                                                        <div className='form-group'>
+                                                            <label htmlFor="">
+                                                                What is the Client's Average
+                                                                Yearly Transactions Worth?
+
+                        </label>
+                                                            <select
+                                                                disabled
+                                                                className='custom-select'
+                                                                value={riskGradingData[8]}
+
+                                                                name="yearlyTransaction"
+                                                            >
+                                                                <option value='' disabled>--Select Status--</option>
+                                                                <option value='6.1.1'>Less than BDT 1 million</option>
+                                                                <option value='6.1.2'>From BDT 1 million to 5 million</option>
+                                                                <option value='6.1.3'>From BDT 5 million to 50 million</option>
+                                                                <option value='6.1.4'>More than BDT 50 million</option>
+
+
+                                                            </select>
+                                                        </div>
+
+                                                        <div className="row d-flex justify-content-center">
+                                                            <h3 className="col-sm-12 im">
+                                                                Transparency Risk
+                        </h3>
+
+                                                        </div>
+                                                        <hr />
+
+                                                        <div className='form-group'>
+                                                            <label htmlFor="">
+                                                                Does client has Provided
+                                                                credible source of funds
+
+
+                        </label>
+                                                            <select
+                                                                disabled
+                                                                className='custom-select'
+                                                                value={riskGradingData[9]}
+
+                                                                name="hasSourceOfFunds"
+                                                            >
+                                                                <option value='' disabled>--Select Status--</option>
+                                                                <option value='7.1.1'>No</option>
+                                                                <option value='7.1.2'>Yes</option>
+
+
+
+                                                            </select>
+                                                        </div>
+
+
+
+
+
+
+
+
+                                                    </form>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="modal-footer imTwo">
+                                        <span className="sbtnx" data-dismiss="modal">Close</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
                     </div>
                 </div>
 
