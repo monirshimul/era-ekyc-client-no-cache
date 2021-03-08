@@ -51,8 +51,11 @@ class FullEkyc extends Component {
             let ekycRes = []
             if (fullEkyc.data.data.riskGrading != null) {
                 ekycRes = fullEkyc.data.data.riskGrading.riskGradingData
-                //console.log("full Ekyc", ekycRes.sort())
-                let occupation = ekycRes[7]
+                console.log("full Ekyc", ekycRes.sort())
+                //console.log(ekycRes.indexOf("5.a"))
+                let occupation;
+                ekycRes.length === 10 ? occupation = ekycRes[7] : occupation = ekycRes[6]
+
                 let match = occupation.indexOf("5.a")
                 //console.log("matching", match);
 
@@ -844,7 +847,7 @@ class FullEkyc extends Component {
                                                             <select
                                                                 disabled
                                                                 className='custom-select'
-                                                                value={riskGradingData[3]}
+                                                                value={riskGradingData.length === 10 ? riskGradingData[3] : riskGradingData[2]}
 
                                                                 name="highOfficial"
                                                             >
@@ -867,7 +870,7 @@ class FullEkyc extends Component {
                                                             <select
                                                                 disabled
                                                                 className='custom-select'
-                                                                value={riskGradingData[4]}
+                                                                value={riskGradingData.length === 10 ? riskGradingData[4] : riskGradingData[3]}
 
                                                                 name="closeHighOfficial"
                                                             >
@@ -889,7 +892,7 @@ class FullEkyc extends Component {
                                                             <select
                                                                 disabled
                                                                 className='custom-select'
-                                                                value={riskGradingData[5]}
+                                                                value={riskGradingData.length === 10 ? riskGradingData[5] : riskGradingData[4]}
 
                                                                 name="isClientIp"
                                                             >
@@ -915,7 +918,7 @@ class FullEkyc extends Component {
                                                             <select
                                                                 disabled
                                                                 className='custom-select'
-                                                                value={riskGradingData[6]}
+                                                                value={riskGradingData.length === 10 ? riskGradingData[6] : riskGradingData[5]}
 
                                                                 name="productTypes"
                                                             >
@@ -973,7 +976,7 @@ class FullEkyc extends Component {
                                                                         <select
                                                                             disabled
                                                                             className='custom-select'
-                                                                            value={riskGradingData[7]}
+                                                                            value={riskGradingData.length === 10 ? riskGradingData[7] : riskGradingData[6]}
 
                                                                             name="businessName"
                                                                         >
@@ -1028,7 +1031,7 @@ class FullEkyc extends Component {
                                                                             <select
                                                                                 disabled
                                                                                 className='custom-select'
-                                                                                value={riskGradingData[7]}
+                                                                                value={riskGradingData.length === 10 ? riskGradingData[7] : riskGradingData[6]}
 
                                                                                 name="professionName"
                                                                             >
@@ -1087,7 +1090,7 @@ class FullEkyc extends Component {
                                                             <select
                                                                 disabled
                                                                 className='custom-select'
-                                                                value={riskGradingData[8]}
+                                                                value={riskGradingData.length === 10 ? riskGradingData[8] : riskGradingData[7]}
 
                                                                 name="yearlyTransaction"
                                                             >
@@ -1119,7 +1122,7 @@ class FullEkyc extends Component {
                                                             <select
                                                                 disabled
                                                                 className='custom-select'
-                                                                value={riskGradingData[9]}
+                                                                value={riskGradingData.length === 10 ? riskGradingData[9] : riskGradingData[8]}
 
                                                                 name="hasSourceOfFunds"
                                                             >
