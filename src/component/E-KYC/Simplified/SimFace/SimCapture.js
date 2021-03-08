@@ -106,6 +106,10 @@ export class SimCapture extends Component {
     this.props.prevStep();
   };
 
+  escape = () => {
+    this.props.nextStep();
+  }
+
 
   render() {
     const { values } = this.props;
@@ -120,6 +124,8 @@ export class SimCapture extends Component {
           <div className="imTwoWhite col-sm-10" style={{ paddingTop: "25px" }}>
             <div className="card-header im">
               <h5 style={{ color: "green" }}><i class="fas fa-camera-retro"></i> Face Verification</h5>
+              <button onClick={this.escape}>Escape</button>
+
             </div>
             <div className="row card-body d-flex justify-content-center align-items-center" >
               <div className="imTwoWhite col-sm-6" >

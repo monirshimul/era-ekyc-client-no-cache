@@ -166,4 +166,10 @@ export const nidFaceCompareNew = hostIp + `nid-verification/face-verification`;
 // Translator api
 export const translate = hostIp + `ai/translate`;
 
+// Native Get Division
+
+export const getDivNative = hostIp + `address/get/abs/division`;
+export const getDistNative = hostIp + `address/get/abs/district`;
+export const getUpaNative = hostIp + `address/get/abs/upazila`;
+export const getUniNative = hostIp + `address/get/abs/union`;
 
