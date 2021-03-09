@@ -999,7 +999,7 @@ export class RegPersonalDetails extends Component {
         const { nativeDivPermanent, nativeDivPresent, nativeDistPermanent, nativeDistPresent, nativeUpaPermanent, nativeUpaPresent, nativeUniPermanent, nativeUniPresent } = this.state
         //console.log("profession", values.perDivisionCode, values.perDivisionEn);
         // console.log("professionCode", values.professionCode);
-        console.log("global dist code", values.perDistrictCode)
+        //console.log("global dist code", values.perDistrictCode)
 
         return (
             <div className="container">

@@ -50,31 +50,7 @@ export class SimPersonalDetails extends Component {
 
         //New Native Division, District, UpaZilla, Union For Permanent=======>
         nativeDivPermanent: [],
-        nativeDivPerJson: "",
-        nativeDistPermanent: [],
-        nativeDistPerJson: "",
-
-
-
-        //New Native Division, District, UpaZilla, Union For Present=======>
-        nativeDivPresent: [],
-        nativeDivPreJson: "",
-        nativeDistPresent: [],
-        nativeDistPreJson: "",
-
-
-        //New Native Division, District, UpaZilla, Union For Present=======>
-        nativeUpaPermanent: [],
-        nativeUpaPerJson: "",
-        nativeUpaPresent: [],
-        nativeUpaPreJson: "",
-
-
-        //New Native Division, District, UpaZilla, Union For Present=======>
-        nativeUniPermanent: [],
-        nativeUniPerJson: "",
-        nativeUniPresent: [],
-        nativeUniPreJson: ""
+        nativeDivPresent: []
 
 
     }
@@ -834,7 +810,6 @@ export class SimPersonalDetails extends Component {
     getDistByDiv = async (code, type) => {
 
         try {
-            //getDistNative
             const config = {
                 headers: {
                     'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -843,18 +818,14 @@ export class SimPersonalDetails extends Component {
             const data = {
                 divisionCode: code
             }
-            console.log(data)
+            console.log("getDistByDiv", data)
 
             let getDist = await axios.post(getDistNative, data, config)
             console.log("Dist", getDist.data.data)
             if (type === "per") {
-                this.setState({
-                    nativeDistPermanent: getDist.data.data
-                })
+                this.props.handleState("nativeDistPermanent", getDist.data.data)
             } else {
-                this.setState({
-                    nativeDistPresent: getDist.data.data
-                })
+                this.props.handleState("nativeDistPresent", getDist.data.data)
             }
 
 
@@ -876,7 +847,6 @@ export class SimPersonalDetails extends Component {
     getUpaByDist = async (distCode, divCode, type) => {
 
         try {
-            //getDistNative
             const config = {
                 headers: {
                     'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -891,13 +861,9 @@ export class SimPersonalDetails extends Component {
             let getUpa = await axios.post(getUpaNative, data, config)
             console.log("Dist", getUpa.data.data)
             if (type === "per") {
-                this.setState({
-                    nativeUpaPermanent: getUpa.data.data
-                })
+                this.props.handleState("nativeUpaPermanent", getUpa.data.data)
             } else {
-                this.setState({
-                    nativeUpaPresent: getUpa.data.data
-                })
+                this.props.handleState("nativeUpaPresent", getUpa.data.data)
             }
 
 
@@ -918,7 +884,6 @@ export class SimPersonalDetails extends Component {
 
     getUniByUpa = async (upaCode, divCode, distCode, type) => {
         try {
-            //getDistNative
             const config = {
                 headers: {
                     'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
@@ -934,13 +899,9 @@ export class SimPersonalDetails extends Component {
             let getUni = await axios.post(getUniNative, data, config)
             console.log("Dist", getUni.data.data)
             if (type === "per") {
-                this.setState({
-                    nativeUniPermanent: getUni.data.data
-                })
+                this.props.handleState('nativeUniPermanent', getUni.data.data);
             } else {
-                this.setState({
-                    nativeUniPresent: getUni.data.data
-                })
+                this.props.handleState('nativeUniPresent', getUni.data.data);
             }
 
 
@@ -966,17 +927,12 @@ export class SimPersonalDetails extends Component {
     //========================================================================================================================
     // Change Permanent Division
     changeDivPermanent = async (e) => {
-        //let { values } = this.props;
         e.preventDefault();
-        console.log("e.tar", e.target.value)
-        this.setState({ nativeDivPerJson: e.target.value });
-        const val = JSON.parse(e.target.value);
-        console.log(val.code)
-        this.props.handleState("perDivisionEn", val.name)
-        this.props.handleState("perDivisionCode", val.code)
-
+        let divName = e.target.options[e.target.selectedIndex].text
+        this.props.handleState("perDivisionEn", divName)
+        this.props.handleState("perDivisionCode", e.target.value)
         // Ey division er district er jonno api call====================>
-        await this.getDistByDiv(val.code, "per")
+        await this.getDistByDiv(e.target.value, "per")
 
     }
 
@@ -985,39 +941,28 @@ export class SimPersonalDetails extends Component {
     changeDistPermanent = async (e) => {
         e.preventDefault();
         let { values } = this.props
-        console.log("e.tar", e.target.value)
-        this.setState({ nativeDistPerJson: e.target.value });
-        const val = JSON.parse(e.target.value);
-        console.log(val.code)
-        this.props.handleState("perDistrictEn", val.name)
-        this.props.handleState("perDistrictCode", val.code)
-
-        await this.getUpaByDist(val.code, values.perDivisionCode, "per")
+        let distName = e.target.options[e.target.selectedIndex].text
+        this.props.handleState("perDistrictEn", distName)
+        this.props.handleState("perDistrictCode", e.target.value)
+        await this.getUpaByDist(e.target.value, values.perDivisionCode, "per")
     }
 
     // Change Permanent Upazilla 
     changeUpaPermanent = async (e) => {
         e.preventDefault();
         let { values } = this.props
-        console.log("e.tar", e.target.value)
-        this.setState({ nativeUpaPerJson: e.target.value });
-        const val = JSON.parse(e.target.value);
-        console.log("UpaCode", val.code)
-        this.props.handleState("perUpozilaEn", val.name)
-        this.props.handleState("perUpozilaCode", val.code)
-
-        await this.getUniByUpa(val.code, values.perDivisionCode, values.perDistrictCode, "per")
+        let upaName = e.target.options[e.target.selectedIndex].text
+        this.props.handleState("perUpozilaEn", upaName)
+        this.props.handleState("perUpozilaCode", e.target.value)
+        await this.getUniByUpa(e.target.value, values.perDivisionCode, values.perDistrictCode, "per")
     }
 
     changeUniPermanent = async (e) => {
         e.preventDefault();
         let { values } = this.props
-        console.log("e.tar", e.target.value)
-        this.setState({ nativeUniPerJson: e.target.value });
-        const val = JSON.parse(e.target.value);
-        console.log("Upa Code", val.code)
-        this.props.handleState("perUnionOrWardEn", val.name)
-        this.props.handleState("perUnionOrWardCode", val.code)
+        let uniName = e.target.options[e.target.selectedIndex].text
+        this.props.handleState("perUnionOrWardEn", uniName)
+        this.props.handleState("perUnionOrWardCode", e.target.value)
     }
 
     //=====================================================================================================================
@@ -1027,53 +972,47 @@ export class SimPersonalDetails extends Component {
     changeDivPresent = async (e) => {
         //let { values } = this.props;
         e.preventDefault();
-        console.log("e.tar", e.target.value)
-        this.setState({ nativeDivPreJson: e.target.value });
-        const val = JSON.parse(e.target.value);
-        console.log(val.code)
-        this.props.handleState("preDivisionEn", val.name)
-        this.props.handleState("preDivisionCode", val.code)
-
-        await this.getDistByDiv(val.code, "pre")
+        let divName = e.target.options[e.target.selectedIndex].text
+        //console.log("e.tar", e.target.value)
+        this.props.handleState("preDivisionEn", divName)
+        this.props.handleState("preDivisionCode", e.target.value)
+        await this.getDistByDiv(e.target.value, "pre")
     }
 
     // Change Present District 
     changeDistPresent = async (e) => {
         e.preventDefault();
         let { values } = this.props
-        console.log("e.tar", e.target.value)
-        this.setState({ nativeDistPreJson: e.target.value });
-        const val = JSON.parse(e.target.value);
-        console.log(val.code)
-        this.props.handleState("preDistrictEn", val.name)
-        this.props.handleState("preDistrictCode", val.code)
-        await this.getUpaByDist(val.code, values.preDivisionCode, "pre")
+        let distName = e.target.options[e.target.selectedIndex].text
+        this.props.handleState("preDistrictEn", distName)
+        this.props.handleState("preDistrictCode", e.target.value)
+        await this.getUpaByDist(e.target.value, values.preDivisionCode, "pre")
     }
     // Change Present Upazilla 
     changeUpaPresent = async (e) => {
         e.preventDefault();
         let { values } = this.props
-        console.log("e.tar", e.target.value)
-        this.setState({ nativeUpaPreJson: e.target.value });
-        const val = JSON.parse(e.target.value);
-        console.log("Upa Code", val.code)
-        this.props.handleState("preUpozilaEn", val.name)
-        this.props.handleState("preUpozilaCode", val.code)
+        let upaName = e.target.options[e.target.selectedIndex].text
+        this.props.handleState("preUpozilaEn", upaName)
+        this.props.handleState("preUpozilaCode", e.target.value)
 
-        await this.getUniByUpa(val.code, values.preDivisionCode, values.preDistrictCode, "pre")
+        await this.getUniByUpa(e.target.value, values.preDivisionCode, values.preDistrictCode, "pre")
     }
 
     changeUniPresent = async (e) => {
         e.preventDefault();
-        let { values } = this.props
-        console.log("e.tar", e.target.value)
-        this.setState({ nativeUniPreJson: e.target.value });
-        const val = JSON.parse(e.target.value);
-        console.log("Upa Code", val.code)
-        this.props.handleState("preUnionOrWardEn", val.name)
-        this.props.handleState("preUnionOrWardCode", val.code)
+        let uniName = e.target.options[e.target.selectedIndex].text
+        this.props.handleState("preUnionOrWardEn", uniName)
+        this.props.handleState("preUnionOrWardCode", e.target.value)
     }
 
+
+
+
+
+    Escape = () => {
+        this.props.nextStep();
+    }
 
     render() {
         const { values, handleChange } = this.props;
@@ -1084,6 +1023,9 @@ export class SimPersonalDetails extends Component {
 
         return (
             <div className="container">
+                <div className="im col-sm-2" onClick={this.Escape}>
+                    Escape
+                </div>
 
                 <div className="col-sm-12">
 
@@ -1339,7 +1281,7 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor="">Division</label>
                                     <select
                                         className='custom-select'
-                                        value={this.state.nativeDivPerJson}
+                                        value={values.perDivisionCode}
                                         onChange={(e) => this.changeDivPermanent(e)}
                                         name="perDivisionEn"
 
@@ -1348,7 +1290,7 @@ export class SimPersonalDetails extends Component {
                                         {
                                             nativeDivPermanent.map((v, i) => (
                                                 <Fragment>
-                                                    <option value={JSON.stringify({ code: v.divisionCode, name: v.divisionName })}>{v.divisionName}</option>
+                                                    <option value={v.divisionCode}>{v.divisionName}</option>
                                                 </Fragment>
                                             ))
                                         }
@@ -1366,16 +1308,16 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor="">District</label>
                                     <select
                                         className='custom-select'
-                                        value={this.state.nativeDistPerJson}
+                                        value={values.perDistrictCode}
                                         onChange={(e) => this.changeDistPermanent(e)}
                                         name="perDistrictEn"
                                     >
                                         <option value='' disabled>--Select--</option>
                                         {
-                                            nativeDistPermanent.map((v, i) => (
+                                            values.nativeDistPermanent.map((v, i) => (
                                                 <Fragment>
 
-                                                    <option value={JSON.stringify({ code: v.districtCode, name: v.districtName })}>{v.districtName}</option>
+                                                    <option value={v.districtCode}>{v.districtName}</option>
                                                 </Fragment>
                                             ))
                                         }
@@ -1393,16 +1335,16 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor="">Upazila</label>
                                     <select
                                         className='custom-select'
-                                        value={this.state.nativeUpaPerJson}
+                                        value={values.perUpozilaCode}
                                         onChange={(e) => this.changeUpaPermanent(e)}
                                         name="perUpozilaEn"
                                     >
                                         <option value='' disabled>--Select--</option>
                                         {
-                                            nativeUpaPermanent.map((v, i) => (
+                                            values.nativeUpaPermanent.map((v, i) => (
                                                 <Fragment>
 
-                                                    <option value={JSON.stringify({ code: v.upazilaCode, name: v.upazilaName })}>{v.upazilaName}</option>
+                                                    <option value={v.upazilaCode}>{v.upazilaName}</option>
                                                 </Fragment>
                                             ))
                                         }
@@ -1422,16 +1364,16 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor="">Union</label>
                                     <select
                                         className='custom-select'
-                                        value={this.state.nativeUniPerJson}
+                                        value={values.perUnionOrWardCode}
                                         onChange={(e) => this.changeUniPermanent(e)}
                                         name="perUnionOrWardEn"
                                     >
                                         <option value='' disabled>--Select--</option>
                                         {
-                                            nativeUniPermanent.map((v, i) => (
+                                            values.nativeUniPermanent.map((v, i) => (
                                                 <Fragment>
 
-                                                    <option value={JSON.stringify({ code: v.unionCode, name: v.unionName })}>{v.unionName}</option>
+                                                    <option value={v.unionCode}>{v.unionName}</option>
                                                 </Fragment>
                                             ))
                                         }
@@ -1620,7 +1562,7 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor="">Division</label>
                                     <select
                                         className='custom-select'
-                                        value={this.state.nativeDivPreJson}
+                                        value={values.preDivisionCode}
                                         onChange={(e) => this.changeDivPresent(e)}
                                         name="preDivisionEn"
                                     >
@@ -1629,7 +1571,7 @@ export class SimPersonalDetails extends Component {
                                             nativeDivPresent.map((v, i) => (
                                                 <Fragment>
 
-                                                    <option value={JSON.stringify({ code: v.divisionCode, name: v.divisionName })}>{v.divisionName}</option>
+                                                    <option value={v.divisionCode}>{v.divisionName}</option>
                                                 </Fragment>
                                             ))
                                         }
@@ -1645,16 +1587,16 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor="">District</label>
                                     <select
                                         className='custom-select'
-                                        value={this.state.nativeDistPreJson}
+                                        value={values.preDistrictCode}
                                         onChange={(e) => this.changeDistPresent(e)}
                                         name="preDistrictEn"
                                     >
                                         <option value='' disabled>--Select--</option>
                                         {
-                                            nativeDistPresent.map((v, i) => (
+                                            values.nativeDistPresent.map((v, i) => (
                                                 <Fragment>
 
-                                                    <option value={JSON.stringify({ code: v.districtCode, name: v.districtName })}>{v.districtName}</option>
+                                                    <option value={v.districtCode}>{v.districtName}</option>
                                                 </Fragment>
                                             ))
                                         }
@@ -1672,16 +1614,16 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor="">Upazila</label>
                                     <select
                                         className='custom-select'
-                                        value={this.state.nativeUpaPreJson}
+                                        value={values.preUpozilaCode}
                                         onChange={(e) => this.changeUpaPresent(e)}
                                         name="preUpozilaEn"
                                     >
                                         <option value='' disabled>--Select--</option>
                                         {
-                                            nativeUpaPresent.map((v, i) => (
+                                            values.nativeUpaPresent.map((v, i) => (
                                                 <Fragment>
 
-                                                    <option value={JSON.stringify({ code: v.upazilaCode, name: v.upazilaName })}>{v.upazilaName}</option>
+                                                    <option value={v.upazilaCode}>{v.upazilaName}</option>
                                                 </Fragment>
                                             ))
                                         }
@@ -1702,16 +1644,16 @@ export class SimPersonalDetails extends Component {
                                     <label htmlFor="">Union</label>
                                     <select
                                         className='custom-select'
-                                        value={this.state.nativeUniPreJson}
+                                        value={values.preUnionOrWardCode}
                                         onChange={(e) => this.changeUniPresent(e)}
                                         name="preUnionOrWardEn"
                                     >
                                         <option value='' disabled>--Select--</option>
                                         {
-                                            nativeUniPresent.map((v, i) => (
+                                            values.nativeUniPresent.map((v, i) => (
                                                 <Fragment>
 
-                                                    <option value={JSON.stringify({ code: v.unionCode, name: v.unionName })}>{v.unionName}</option>
+                                                    <option value={v.unionCode}>{v.unionName}</option>
                                                 </Fragment>
                                             ))
                                         }
