@@ -195,7 +195,7 @@ export class RegFingerPrint extends Component {
     // ===========================ABS Account Checking API END ============================
 
     //  finger Print collect
-    
+
     if (isFingerPrint === true) {
       this.props.handleState('loadingPrint', true);
       const fingerobj = {
@@ -245,7 +245,7 @@ export class RegFingerPrint extends Component {
           //   isEnable: false,
           //   loading: !this.state.loading,
           // });
-        
+
           this.props.handleState('loadingPrint', false);
         })
         .catch((err) => {
@@ -255,26 +255,26 @@ export class RegFingerPrint extends Component {
               // console.log(err.response.data);
               //alert(err.response.data.message);
               NotificationManager.error(err.response.data.message, "Error", 5000);
-            
+
             } else if (err.response.status === 404) {
               //alert("Not Found");
               NotificationManager.error("Not Fount", "Error", 5000);
-            
+
             } else if (err.response.status === 500) {
               //alert(err.response.data.message);
               NotificationManager.error(err.response.data.message, "Error", 5000);
-            
+
             }
           } else if (err.request) {
             //console.log(err.request);
             //alert("Error Connectiong");
             NotificationManager.error("Error Connecting", "Error", 5000);
-            
+
           } else {
             console.log("Error", err.message);
             //alert(err.message);
             NotificationManager.error(err.message, "Error", 5000);
-            
+
           }
         });
     }
@@ -304,7 +304,7 @@ export class RegFingerPrint extends Component {
     }
 
 
-    
+
 
     const config = {
       headers: {
@@ -473,6 +473,7 @@ export class RegFingerPrint extends Component {
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                   placeholder="Enter NID NO"
+                  readOnly
                 />
               </div>
 
@@ -493,7 +494,7 @@ export class RegFingerPrint extends Component {
                     showYearDropdown
                     showMonthDropdown
                     scrollableMonthYearDropdown
-
+                    readOnly
                   />
                 </div>
               </div>
@@ -514,21 +515,21 @@ export class RegFingerPrint extends Component {
                             </small>
                     </div>
                   ) : (
-                      <div className="imTwoWhite text-center">
-                        <img
-                          src={values.rThumb ? FingerOk : Finger}
-                          style={{
-                            margin: "0 auto",
-                            width: "300px",
-                            height: "200px",
-                            border: "none",
-                          }}
-                          className="img-fluid img-thumbnail"
-                          id="FrontNidPic"
-                          alt=""
-                        />
-                      </div>
-                    )}
+                    <div className="imTwoWhite text-center">
+                      <img
+                        src={values.rThumb ? FingerOk : Finger}
+                        style={{
+                          margin: "0 auto",
+                          width: "300px",
+                          height: "200px",
+                          border: "none",
+                        }}
+                        className="img-fluid img-thumbnail"
+                        id="FrontNidPic"
+                        alt=""
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 

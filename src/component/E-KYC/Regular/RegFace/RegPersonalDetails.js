@@ -153,6 +153,15 @@ export class RegPersonalDetails extends Component {
         permanentAddressUnionOrWardEn: Joi.string().required(),
         presentAddressUnionOrWard: Joi.string().required(),
         presentAddressUnionOrWardEn: Joi.string().required(),
+        // Code division, district , upazila, union
+        permanentDivisionCode: Joi.string().required(),
+        permanentDistrictCode: Joi.string().required(),
+        permanentUpazilaCode: Joi.string().required(),
+        permanentUnionCode: Joi.string().required(),
+        presentDivisionCode: Joi.string().required(),
+        presentDistrictCode: Joi.string().required(),
+        presentUpazilaCode: Joi.string().required(),
+        presentUnionCode: Joi.string().required()
 
     })
 
@@ -209,339 +218,6 @@ export class RegPersonalDetails extends Component {
 
     //////////Profession///////////////
 
-    /////////////Division START
-
-    handlePerDivisionChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        //console.log(e.target.value)
-        let payload = {
-            keyword: e.target.value
-        }
-        try {
-            let divisionapi = await axios.post(division, payload, config);
-            // console.log(divisionapi.data.data);
-            let autocompleteData = [];
-            divisionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.divisionName, id: d.divisionCode })
-            })
-            this.setState({ autoPerDivision: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreDivisionChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        //console.log(e.target.value)
-        let payload = {
-            keyword: e.target.value
-        }
-        try {
-            let divisionapi = await axios.post(division, payload, config);
-            //console.log(divisionapi.data.data);
-            let autocompleteData = [];
-            divisionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.divisionName, id: d.divisionCode })
-            })
-            this.setState({ autoPreDivision: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePerDivisionSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            //   console.log("val", typeof val[1]);
-            //    console.log("val", val[1]);
-
-            this.setState({
-                perDivisionCode: val[1].trim()
-            })
-            this.props.handleState('perDivisionEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-
-    }
-
-    handlePreDivisionSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            // console.log("val", val);
-            this.setState({
-                preDivisionCode: val[1].trim()
-            })
-            this.props.handleState('preDivisionEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    /////////////Division end
-
-    /////////////District Start
-
-    handlePerDistrictChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        //  console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.perDivisionCode.toString(),
-            keyword: e.target.value
-        }
-        console.log("pERMANT", payload)
-
-        try {
-            let districtapi = await axios.post(district, payload, config);
-            //     console.log("api response", districtapi.data);
-            let autocompleteData = [];
-            districtapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.districtName, id: d.districtCode })
-            })
-            this.setState({ autoPerDistrict: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreDistrictChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        console.log(e.target.value)
-        let payload = {
-            divisionCode: this.state.preDivisionCode.toString(),
-            keyword: e.target.value
-        }
-        try {
-            let districtapi = await axios.post(district, payload, config);
-            //  console.log(districtapi.data.data);
-            let autocompleteData = [];
-            districtapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.districtName, id: d.districtCode })
-            })
-            this.setState({ autoPreDistrict: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-
-    handlePerDistrictSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            //  console.log("val", val);
-            this.setState({
-                perDistrictCode: val[1].trim()
-            })
-            this.props.handleState('perDistrictEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreDistrictSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            //   console.log("val", val);
-            this.setState({
-                preDistrictCode: val[1].trim()
-            })
-            this.props.handleState('preDistrictEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-    /////////////District end
-
-    /////////////Upozila Start
-    handlePerUpozilaChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        // console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.perDivisionCode.toString(),
-            districtCode: this.state.perDistrictCode.toString(),
-            keyword: e.target.value
-        }
-        // console.log("pERMANT", payload)
-
-        try {
-            let upozilaapi = await axios.post(upozila, payload, config);
-            //  console.log("api response", upozilaapi.data);
-            let autocompleteData = [];
-            upozilaapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.upazilaName, id: d.upazilaCode })
-            })
-            this.setState({ autoPerUpozila: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreUpozilaChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        // console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.preDivisionCode.toString(),
-            districtCode: this.state.preDistrictCode.toString(),
-            keyword: e.target.value
-        }
-        console.log("present", payload)
-
-        try {
-            let upozilaapi = await axios.post(upozila, payload, config);
-            //   console.log("api response", upozilaapi.data);
-            let autocompleteData = [];
-            upozilaapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.upazilaName, id: d.upazilaCode })
-            })
-            this.setState({ autoPreUpozila: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-
-    handlePerUpozilaSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            // console.log("val", val);
-            this.setState({
-                perUpozilaCode: val[1].trim()
-            })
-            this.props.handleState('perUpozilaEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreUpozilaSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            // console.log("val", val);
-            this.setState({
-                preUpozilaCode: val[1].trim()
-            })
-            this.props.handleState('preUpozilaEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    /////////////Upozila End
-
-    /////////////Union Start
-    handlePerUnionChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        // console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.perDivisionCode.toString(),
-            districtCode: this.state.perDistrictCode.toString(),
-            upazilaCode: this.state.perUpozilaCode.toString(),
-            keyword: e.target.value
-        }
-        // console.log("pERMANT", payload)
-
-        try {
-            let unionapi = await axios.post(union, payload, config);
-            // console.log("api response", unionapi.data);
-            let autocompleteData = [];
-            unionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.unionName, id: d.unionCode })
-            })
-            this.setState({ autoPerUnion: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreUnionChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        //console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.preDivisionCode.toString(),
-            districtCode: this.state.preDistrictCode.toString(),
-            upazilaCode: this.state.preUpozilaCode.toString(),
-            keyword: e.target.value
-        }
-
-
-        try {
-            let unionapi = await axios.post(union, payload, config);
-            // console.log("api response", unionapi.data);
-            let autocompleteData = [];
-            unionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.unionName, id: d.unionCode })
-            })
-            this.setState({ autoPreUnion: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-
-    handlePerUnionSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            // console.log("val", val);
-            this.setState({
-                perUnionCode: val[1].trim()
-            })
-            this.props.handleState('perUnionOrWardEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreUnionSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            //console.log("val", val);
-            this.setState({
-                preUnionCode: val[1].trim()
-            })
-            this.props.handleState('preUnionOrWardEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    /////////////Union End
 
 
 
@@ -588,6 +264,16 @@ export class RegPersonalDetails extends Component {
             permanentAddressUnionOrWardEn: values.perUnionOrWardEn,
             presentAddressUnionOrWard: values.preUnionOrWard,
             presentAddressUnionOrWardEn: values.preUnionOrWardEn,
+
+            // Code division, district , upazila, union
+            permanentDivisionCode: values.perDivisionCode,
+            permanentDistrictCode: values.perDistrictCode,
+            permanentUpazilaCode: values.perUpozilaCode,
+            permanentUnionCode: values.perUnionOrWardCode,
+            presentDivisionCode: values.preDivisionCode,
+            presentDistrictCode: values.preDistrictCode,
+            presentUpazilaCode: values.preUpozilaCode,
+            presentUnionCode: values.preUnionOrWardCode
         }
 
 
@@ -664,100 +350,10 @@ export class RegPersonalDetails extends Component {
             }
             ///////////////////// Text Matching End /////////////////////////////
 
-            if (values.channelName === 'ABS') {
-                let presentObj = {
-                    districtName: values.preDistrictEn,
-                    upazilaName: values.preUpozilaEn,
-                    unionName: values.preUnionOrWardEn
-                }
-
-
-                let permanentObj = {
-                    districtName: values.perDistrictEn,
-                    upazilaName: values.perUpozilaEn,
-                    unionName: values.perUnionOrWardEn
-                }
-
-                // console.log("permanentPay", permanentObj);
-                // console.log("presentPay", presentObj);
-
-
-                const config = {
-                    headers: {
-                        'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-                    }
-                };
-                try {
-                    this.props.handleState('confirmFlag', true);
-
-                    let permanentZoneCode = await axios.post(zoneCodeConversion, permanentObj, config);
-                    console.log("permanentZoneCode", permanentZoneCode);
-
-                    let presentZoneCode = await axios.post(zoneCodeConversion, presentObj, config);
-                    console.log("presentZoneCode", presentZoneCode);
-
-                    this.props.handleState('confirmFlag', false);
-
-                    if (presentZoneCode.data.data === null || permanentZoneCode.data.data === null) {
-                        let message = "Integration Server Error";
-                        NotificationManager.warning(message, "Click to Remove", largeTime);
-                        return;
-                    }
-
-
-                    let permanentZoneResp = permanentZoneCode.data.data.details.ABS_ZONE_CODE;
-                    let presentZoneResp = presentZoneCode.data.data.details.ABS_ZONE_CODE;
-
-
-
-                    if (permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE === "") {
-                        let perMessage = "Please check Permanent Address districtName,upozilaName and unionName";
-                        NotificationManager.warning("Permanent Address - " + perMessage, "Click to Remove", largeTime);
-                        return;
-                    }
-
-                    if (presentZoneResp.DISTRICT_CODE === "" || presentZoneResp.UPAZILA_CODE === "" || presentZoneResp.UNION_CODE === "") {
-                        let preMessage = "Please check Present Address districtName,upozilaName and unionName";
-                        NotificationManager.warning("Present Address - " + preMessage, "Click to Remove", largeTime);
-                        return;
-                    }
-
-
-                    this.props.handleState('perDistrictCode', permanentZoneResp.DISTRICT_CODE);
-                    this.props.handleState('perUpozilaCode', permanentZoneResp.UPAZILA_CODE);
-                    this.props.handleState('perUnionOrWardCode', permanentZoneResp.UNION_CODE);
-
-                    this.props.handleState('preDistrictCode', presentZoneResp.DISTRICT_CODE);
-                    this.props.handleState('preUpozilaCode', presentZoneResp.UPAZILA_CODE);
-                    this.props.handleState('preUnionOrWardCode', presentZoneResp.UNION_CODE);
-
-
-
-                    if (values.step === "exist_2") {
-                        this.props.handleState("step", "exist_3");
-                    } else {
-                        this.props.nextStep();
-                    }
-
-
-
-
-
-
-
-
-                } catch (err) {
-                    this.props.handleState('confirmFlag', false);
-                    NotificationManager.error("Please check zoneCode", "Click to Remove", largeTime);
-                }
-
-
+            if (values.step === "exist_2") {
+                this.props.handleState("step", "exist_3");
             } else {
-                if (values.step === "exist_2") {
-                    this.props.handleState("step", "exist_3");
-                } else {
-                    this.props.nextStep();
-                }
+                this.props.nextStep();
             }
 
         } catch (error) {
@@ -1160,7 +756,7 @@ export class RegPersonalDetails extends Component {
 
                                 {/* Spouse Name */}
                                 <div className="form-group ">
-                                    <label htmlFor="">Spouse Name</label>
+                                    <label htmlFor="">Spouse Name(English)</label>
                                     <input style={{ borderRadius: "50px" }} type="text" value={values.spouseName} name="spouseName" onChange={handleChange('spouseName')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Spouse Name" />
                                     {/* <small className="form-text text-muted">Enter Spouse Name</small> */}
                                 </div>
@@ -1362,7 +958,7 @@ export class RegPersonalDetails extends Component {
                                 {/*English permanent Union nativeUniPermanent */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">Union</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
                                     <select
                                         className='custom-select'
                                         value={values.perUnionOrWardCode}
@@ -1642,7 +1238,7 @@ export class RegPersonalDetails extends Component {
                                 {/*English present Address  Union */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">Union</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
                                     <select
                                         className='custom-select'
                                         value={values.preUnionOrWardCode}

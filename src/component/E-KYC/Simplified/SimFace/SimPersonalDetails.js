@@ -168,6 +168,16 @@ export class SimPersonalDetails extends Component {
         presentAddressUnionOrWard: Joi.string().required(),
         presentAddressUnionOrWardEn: Joi.string().required(),
 
+        // Code division, district , upazila, union
+        permanentDivisionCode: Joi.string().required(),
+        permanentDistrictCode: Joi.string().required(),
+        permanentUpazilaCode: Joi.string().required(),
+        permanentUnionCode: Joi.string().required(),
+        presentDivisionCode: Joi.string().required(),
+        presentDistrictCode: Joi.string().required(),
+        presentUpazilaCode: Joi.string().required(),
+        presentUnionCode: Joi.string().required()
+
     })
 
 
@@ -608,6 +618,16 @@ export class SimPersonalDetails extends Component {
             permanentAddressUnionOrWardEn: values.perUnionOrWardEn,
             presentAddressUnionOrWard: values.preUnionOrWard,
             presentAddressUnionOrWardEn: values.preUnionOrWardEn,
+
+            // Code division, district , upazila, union
+            permanentDivisionCode: values.perDivisionCode,
+            permanentDistrictCode: values.perDistrictCode,
+            permanentUpazilaCode: values.perUpozilaCode,
+            permanentUnionCode: values.perUnionOrWardCode,
+            presentDivisionCode: values.preDivisionCode,
+            presentDistrictCode: values.preDistrictCode,
+            presentUpazilaCode: values.preUpozilaCode,
+            presentUnionCode: values.preUnionOrWardCode
         }
 
 
@@ -684,114 +704,18 @@ export class SimPersonalDetails extends Component {
             }
             ///////////////////// Text Matching End /////////////////////////////
 
-
-
-            if (values.channelName === 'ABS') {
-                let presentObj = {
-                    districtName: values.preDistrictEn,
-                    upazilaName: values.preUpozilaEn,
-                    unionName: values.preUnionOrWardEn
-                }
-
-
-                let permanentObj = {
-                    districtName: values.perDistrictEn,
-                    upazilaName: values.perUpozilaEn,
-                    unionName: values.perUnionOrWardEn
-                }
-
-                // console.log("permanentPay", permanentObj);
-                // console.log("presentPay", presentObj);
-
-
-
-                const config = {
-                    headers: {
-                        'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-                    }
-                };
-
-
-
-                try {
-                    this.props.handleState('confirmFlag', true);
-
-                    let permanentZoneCode = await axios.post(zoneCodeConversion, permanentObj, config);
-                    console.log("permanentZoneCode", permanentZoneCode);
-
-                    let presentZoneCode = await axios.post(zoneCodeConversion, presentObj, config);
-                    console.log("presentZoneCode", presentZoneCode);
-
-                    this.props.handleState('confirmFlag', false);
-
-                    if (presentZoneCode.data.data === null || permanentZoneCode.data.data === null) {
-                        let message = "Integration Server Error";
-                        NotificationManager.warning(message, "Click to Remove", largeTime);
-                        return;
-                    }
-
-
-                    let permanentZoneResp = permanentZoneCode.data.data.details.ABS_ZONE_CODE;
-                    let presentZoneResp = presentZoneCode.data.data.details.ABS_ZONE_CODE;
-
-
-
-                    if (permanentZoneResp.DISTRICT_CODE === "" || permanentZoneResp.UPAZILA_CODE === "" || permanentZoneResp.UNION_CODE === "") {
-                        let perMessage = "Please check Permanent Address districtName,upozilaName and unionName";
-                        NotificationManager.warning("Permanent Address - " + perMessage, "Click to Remove", largeTime);
-                        return;
-                    }
-
-                    if (presentZoneResp.DISTRICT_CODE === "" || presentZoneResp.UPAZILA_CODE === "" || presentZoneResp.UNION_CODE === "") {
-                        let preMessage = "Please check Present Address districtName,upozilaName and unionName";
-                        NotificationManager.warning("Present Address - " + preMessage, "Click to Remove", largeTime);
-                        return;
-                    }
-
-
-                    this.props.handleState('perDistrictCode', permanentZoneResp.DISTRICT_CODE);
-                    this.props.handleState('perUpozilaCode', permanentZoneResp.UPAZILA_CODE);
-                    this.props.handleState('perUnionOrWardCode', permanentZoneResp.UNION_CODE);
-
-                    this.props.handleState('preDistrictCode', presentZoneResp.DISTRICT_CODE);
-                    this.props.handleState('preUpozilaCode', presentZoneResp.UPAZILA_CODE);
-                    this.props.handleState('preUnionOrWardCode', presentZoneResp.UNION_CODE);
-
-
-
-                    if (values.step === "exist_2") {
-                        this.props.handleState("step", "exist_3");
-                    } else {
-                        this.props.nextStep();
-                    }
-
-
-
-
-
-                } catch (err) {
-                    console.log("error", err.response);
-                    this.props.handleState('confirmFlag', false);
-                    NotificationManager.error("Please check zoneCode", "Click to Remove", largeTime);
-                }
-
-
+            if (values.step === "exist_2") {
+                this.props.handleState("step", "exist_3");
             } else {
-                if (values.step === "exist_2") {
-                    this.props.handleState("step", "exist_3");
-                } else {
-                    this.props.nextStep();
-                }
+                this.props.nextStep();
             }
+
 
         } catch (error) {
             //console.log(error.response);
             NotificationManager.error(error.toString(), "Click to Remove", largeTime);
             console.log("error====>", error.response)
         }
-
-
-
 
     };
 
@@ -1017,7 +941,8 @@ export class SimPersonalDetails extends Component {
     render() {
         const { values, handleChange } = this.props;
         const { nativeDivPermanent, nativeDivPresent, nativeDistPermanent, nativeDistPresent, nativeUpaPermanent, nativeUpaPresent, nativeUniPermanent, nativeUniPresent } = this.state
-        //console.log("All ec Values", values.perDivisionCode);
+        console.log("perDivision", values.perDivisionEn);
+        console.log("preDivision", values.preDivisionEn);
         //  console.log("profession",values.profession);
         //  console.log("professionCode",values.professionCode);
 
@@ -1156,7 +1081,7 @@ export class SimPersonalDetails extends Component {
 
                                 {/* Spouse Name */}
                                 <div className="form-group ">
-                                    <label htmlFor="">Spouse Name</label>
+                                    <label htmlFor="">Spouse Name(English)</label>
                                     <input style={{ borderRadius: "50px" }} type="text" value={values.spouseName} name="spouseName" onChange={handleChange('spouseName')} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Spouse Name" />
                                     {/* <small className="form-text text-muted">Enter Spouse Name</small> */}
                                 </div>
