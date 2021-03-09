@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { NotificationManager } from "react-notifications";
-import {
-    zoneCodeConversion, division, district, upozila, union, profession, textMatch, translate,
-    getDivNative, getDistNative,
-    getUpaNative, getUniNative
-} from '../../Url/ApiList';
+import { zoneCodeConversion, division, district, upozila, union, profession, textMatch, translate } from '../../Url/ApiList';
 import Loading from '../../Simplified/utils/CustomLoding/Loading';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { largeTime } from '../../../Utils/notificationTime';
 import { convertTranslate } from '../../../Utils/Translate';
-import { Fragment } from 'react';
+
 const Joi = require('@hapi/joi');
 
-export class RegPersonalDetails extends Component {
+export class RegPersonalDetailsOld extends Component {
 
     state = {
         autoPerDivision: [],
@@ -36,11 +32,7 @@ export class RegPersonalDetails extends Component {
         autoPreUnion: [],
         preUnionCode: '',
 
-        autoProfession: [],
-
-        //New Native Division, District, UpaZilla, Union For Permanent=======>
-        nativeDivPermanent: [],
-        nativeDivPresent: [],
+        autoProfession: []
 
     }
 
@@ -52,28 +44,6 @@ export class RegPersonalDetails extends Component {
                 'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
             }
         };
-        // Division Api calling======================================>
-        try {
-            let getDiv = await axios.get(getDivNative, config)
-            console.log("Res", getDiv.data.data)
-            this.setState({
-                nativeDivPermanent: getDiv.data.data,
-                nativeDivPresent: getDiv.data.data
-            })
-
-        } catch (error) {
-            console.log("Error====>", error)
-            if (error.response) {
-                let message = error.response.data.message
-                NotificationManager.error(message, "Click to Remove", largeTime);
-            } else if (error.request) {
-                // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
-
-            }
-        }
 
         let createArray = [{ key: "fatherName", value: values.fatherNameBangla }, { key: "motherName", value: values.motherNameBangla }];
         // console.log("spouse", values.spouseName);
@@ -779,234 +749,24 @@ export class RegPersonalDetails extends Component {
         } else {
             this.props.prevStep();
         }
-    }
-
-
-    //================= Function Start ======================================
-    getDistByDiv = async (code, type) => {
-
-        try {
-            const config = {
-                headers: {
-                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-                }
-            };
-            const data = {
-                divisionCode: code
-            }
-            console.log("getDistByDiv", data)
-
-            let getDist = await axios.post(getDistNative, data, config)
-            console.log("Dist", getDist.data.data)
-            if (type === "per") {
-                this.props.handleState("nativeDistPermanent", getDist.data.data)
-            } else {
-                this.props.handleState("nativeDistPresent", getDist.data.data)
-            }
-
-
-
-        } catch (error) {
-            console.log("Error=======>", error)
-            if (error.response) {
-                let message = error.response.data.message
-                NotificationManager.error(message, "Click To Remove", largeTime);
-            } else if (error.request) {
-                // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Click To Remove", largeTime);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Click To Remove", largeTime);
-            }
-        }
-    }
-
-    getUpaByDist = async (distCode, divCode, type) => {
-
-        try {
-            const config = {
-                headers: {
-                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-                }
-            };
-            const data = {
-                divisionCode: divCode,
-                districtCode: distCode
-            }
-            console.log(data)
-
-            let getUpa = await axios.post(getUpaNative, data, config)
-            console.log("Dist", getUpa.data.data)
-            if (type === "per") {
-                this.props.handleState("nativeUpaPermanent", getUpa.data.data)
-            } else {
-                this.props.handleState("nativeUpaPresent", getUpa.data.data)
-            }
-
-
-
-        } catch (error) {
-            console.log("Error=======>", error)
-            if (error.response) {
-                let message = error.response.data.message
-                NotificationManager.error(message, "Click To Remove", largeTime);
-            } else if (error.request) {
-                // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Click To Remove", largeTime);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Click To Remove", largeTime);
-            }
-        }
-    }
-
-    getUniByUpa = async (upaCode, divCode, distCode, type) => {
-        try {
-            const config = {
-                headers: {
-                    'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-                }
-            };
-            const data = {
-                divisionCode: divCode,
-                districtCode: distCode,
-                upazilaCode: upaCode
-            }
-            console.log(data)
-
-            let getUni = await axios.post(getUniNative, data, config)
-            console.log("Dist", getUni.data.data)
-            if (type === "per") {
-                this.props.handleState('nativeUniPermanent', getUni.data.data);
-            } else {
-                this.props.handleState('nativeUniPresent', getUni.data.data);
-            }
-
-
-
-        } catch (error) {
-            console.log("Error=======>", error)
-            if (error.response) {
-                let message = error.response.data.message
-                NotificationManager.error(message, "Click To Remove", largeTime);
-            } else if (error.request) {
-                // console.log("Error Connecting...", error.request)
-                NotificationManager.error("Error Connecting...", "Click To Remove", largeTime);
-            } else if (error) {
-                NotificationManager.error(error.toString(), "Click To Remove", largeTime);
-            }
-        }
-    }
-
-
-    //================= Function End ======================================
-
-
-    //========================================================================================================================
-    // Change Permanent Division
-    changeDivPermanent = async (e) => {
-        e.preventDefault();
-        let divName = e.target.options[e.target.selectedIndex].text
-        this.props.handleState("perDivisionEn", divName)
-        this.props.handleState("perDivisionCode", e.target.value)
-        // Ey division er district er jonno api call====================>
-        await this.getDistByDiv(e.target.value, "per")
 
     }
-
-
-    // Change Permanent District 
-    changeDistPermanent = async (e) => {
-        e.preventDefault();
-        let { values } = this.props
-        let distName = e.target.options[e.target.selectedIndex].text
-        this.props.handleState("perDistrictEn", distName)
-        this.props.handleState("perDistrictCode", e.target.value)
-        await this.getUpaByDist(e.target.value, values.perDivisionCode, "per")
-    }
-
-    // Change Permanent Upazilla 
-    changeUpaPermanent = async (e) => {
-        e.preventDefault();
-        let { values } = this.props
-        let upaName = e.target.options[e.target.selectedIndex].text
-        this.props.handleState("perUpozilaEn", upaName)
-        this.props.handleState("perUpozilaCode", e.target.value)
-        await this.getUniByUpa(e.target.value, values.perDivisionCode, values.perDistrictCode, "per")
-    }
-
-    changeUniPermanent = async (e) => {
-        e.preventDefault();
-        let { values } = this.props
-        let uniName = e.target.options[e.target.selectedIndex].text
-        this.props.handleState("perUnionOrWardEn", uniName)
-        this.props.handleState("perUnionOrWardCode", e.target.value)
-    }
-
-    //=====================================================================================================================
-
-
-    // Change Present Division
-    changeDivPresent = async (e) => {
-        //let { values } = this.props;
-        e.preventDefault();
-        let divName = e.target.options[e.target.selectedIndex].text
-        //console.log("e.tar", e.target.value)
-        this.props.handleState("preDivisionEn", divName)
-        this.props.handleState("preDivisionCode", e.target.value)
-        await this.getDistByDiv(e.target.value, "pre")
-    }
-
-    // Change Present District 
-    changeDistPresent = async (e) => {
-        e.preventDefault();
-        let { values } = this.props
-        let distName = e.target.options[e.target.selectedIndex].text
-        this.props.handleState("preDistrictEn", distName)
-        this.props.handleState("preDistrictCode", e.target.value)
-        await this.getUpaByDist(e.target.value, values.preDivisionCode, "pre")
-    }
-    // Change Present Upazilla 
-    changeUpaPresent = async (e) => {
-        e.preventDefault();
-        let { values } = this.props
-        let upaName = e.target.options[e.target.selectedIndex].text
-        this.props.handleState("preUpozilaEn", upaName)
-        this.props.handleState("preUpozilaCode", e.target.value)
-
-        await this.getUniByUpa(e.target.value, values.preDivisionCode, values.preDistrictCode, "pre")
-    }
-
-    changeUniPresent = async (e) => {
-        e.preventDefault();
-        let uniName = e.target.options[e.target.selectedIndex].text
-        this.props.handleState("preUnionOrWardEn", uniName)
-        this.props.handleState("preUnionOrWardCode", e.target.value)
-    }
-
-
-
-
-
-
-
-
-    Escape = () => {
-        this.props.nextStep();
-    }
+    // Escape = () => {
+    //     this.props.nextStep();
+    // }
 
 
     render() {
         const { values, handleChange } = this.props;
-        const { nativeDivPermanent, nativeDivPresent, nativeDistPermanent, nativeDistPresent, nativeUpaPermanent, nativeUpaPresent, nativeUniPermanent, nativeUniPresent } = this.state
-        //console.log("profession", values.perDivisionCode, values.perDivisionEn);
+        // console.log("profession", values.profession);
         // console.log("professionCode", values.professionCode);
-        console.log("global dist code", values.perDistrictCode)
 
         return (
             <div className="container">
-
+                {/* 
                 <div className="im col-sm-2" onClick={this.Escape}>
                     Escape
-              </div>
+              </div>*/}
 
                 <div className="col-sm-12">
 
@@ -1278,111 +1038,62 @@ export class RegPersonalDetails extends Component {
 
 
                                 {/*English permanent Division */}
-                                <div className='form-group'>
-                                    <label htmlFor="">Division</label>
-                                    <select
-                                        className='custom-select'
-                                        value={values.perDivisionCode}
-                                        onChange={(e) => this.changeDivPermanent(e)}
-                                        name="perDivisionEn"
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Division</label>
+                                    <Autocomplete
+                                        id="autocomplete-perDivision"
+                                        options={this.state.autoPerDivision}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
-                                    >
-                                        <option value='' disabled>--Select--</option>
-                                        {
-                                            nativeDivPermanent.map((v, i) => (
-                                                <Fragment>
-                                                    <option value={v.divisionCode}>{v.divisionName}</option>
-                                                </Fragment>
-                                            ))
-                                        }
-
-
-
-
-                                    </select>
+                                        renderInput={(params) => <TextField {...params} label={values.perDivisionEn} variant="outlined" defaultValue={values.perDivisionEn + " - " + this.state.perDivisionCode} onChange={this.handlePerDivisionChange} onSelect={this.handlePerDivisionSelect} />}
+                                    />
                                 </div>
 
 
-                                {/*English permanent District  */}
+                                {/*English permanent District */}
 
-                                <div className='form-group'>
-                                    <label htmlFor="">District</label>
-                                    <select
-                                        className='custom-select'
-                                        value={values.perDistrictCode}
-                                        onChange={(e) => this.changeDistPermanent(e)}
-                                        name="perDistrictEn"
-                                    >
-                                        <option value='' disabled>--Select--</option>
-                                        {
-                                            values.nativeDistPermanent.map((v, i) => (
-                                                <Fragment>
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>District</label>
+                                    <Autocomplete
+                                        id="autocomplete-perDistrict"
+                                        options={this.state.autoPerDistrict}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
-                                                    <option value={v.districtCode}>{v.districtName}</option>
-                                                </Fragment>
-                                            ))
-                                        }
+                                        renderInput={(params) => <TextField {...params} label={values.perDistrictEn} variant="outlined" onChange={this.handlePerDistrictChange} onSelect={this.handlePerDistrictSelect} />}
+                                    />
 
-
-
-
-                                    </select>
                                 </div>
 
 
-                                {/*English permanent Upozilla  */}
+                                {/*English permanent Upozilla */}
 
-                                <div className='form-group'>
-                                    <label htmlFor="">Upazila</label>
-                                    <select
-                                        className='custom-select'
-                                        value={values.perUpozilaCode}
-                                        onChange={(e) => this.changeUpaPermanent(e)}
-                                        name="perUpozilaEn"
-                                    >
-                                        <option value='' disabled>--Select--</option>
-                                        {
-                                            values.nativeUpaPermanent.map((v, i) => (
-                                                <Fragment>
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Upazila</label>
+                                    <Autocomplete
+                                        id="autocomplete-perDistrict"
+                                        options={this.state.autoPerUpozila}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
-                                                    <option value={v.upazilaCode}>{v.upazilaName}</option>
-                                                </Fragment>
-                                            ))
-                                        }
+                                        renderInput={(params) => <TextField {...params} label={values.perUpozilaEn} variant="outlined" onChange={this.handlePerUpozilaChange} onSelect={this.handlePerUpozilaSelect} />}
+                                    />
 
-
-
-
-                                    </select>
                                 </div>
 
 
 
 
-                                {/*English permanent Union nativeUniPermanent */}
+                                {/*English permanent Union */}
 
-                                <div className='form-group'>
-                                    <label htmlFor="">Union</label>
-                                    <select
-                                        className='custom-select'
-                                        value={values.perUnionOrWardCode}
-                                        onChange={(e) => this.changeUniPermanent(e)}
-                                        name="perUnionOrWardEn"
-                                    >
-                                        <option value='' disabled>--Select--</option>
-                                        {
-                                            values.nativeUniPermanent.map((v, i) => (
-                                                <Fragment>
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
+                                    <Autocomplete
+                                        id="autocomplete-perUnion"
+                                        options={this.state.autoPerUnion}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
-                                                    <option value={v.unionCode}>{v.unionName}</option>
-                                                </Fragment>
-                                            ))
-                                        }
+                                        renderInput={(params) => <TextField {...params} label={values.perUnionOrWardEn} variant="outlined" onChange={this.handlePerUnionChange} onSelect={this.handlePerUnionSelect} />}
+                                    />
 
-
-
-
-                                    </select>
                                 </div>
 
 
@@ -1559,80 +1270,43 @@ export class RegPersonalDetails extends Component {
                                 </div>
 
                                 {/* English present Address Division */}
-                                <div className='form-group'>
-                                    <label htmlFor="">Division</label>
-                                    <select
-                                        className='custom-select'
-                                        value={values.preDivisionCode}
-                                        onChange={(e) => this.changeDivPresent(e)}
-                                        name="preDivisionEn"
-                                    >
-                                        <option value='' disabled>--Select--</option>
-                                        {
-                                            nativeDivPresent.map((v, i) => (
-                                                <Fragment>
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Division</label>
+                                    <Autocomplete
+                                        id="autocomplete-preDivision"
+                                        options={this.state.autoPreDivision}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
-                                                    <option value={v.divisionCode}>{v.divisionName}</option>
-                                                </Fragment>
-                                            ))
-                                        }
-
-
-
-
-                                    </select>
+                                        renderInput={(params) => <TextField {...params} label={values.preDivisionEn} variant="outlined" onChange={this.handlePreDivisionChange} onSelect={this.handlePreDivisionSelect} />}
+                                    />
                                 </div>
 
-                                {/*English present Address District  */}
-                                <div className='form-group'>
-                                    <label htmlFor="">District</label>
-                                    <select
-                                        className='custom-select'
-                                        value={values.preDistrictCode}
-                                        onChange={(e) => this.changeDistPresent(e)}
-                                        name="preDistrictEn"
-                                    >
-                                        <option value='' disabled>--Select--</option>
-                                        {
-                                            values.nativeDistPresent.map((v, i) => (
-                                                <Fragment>
+                                {/*English present Address District */}
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>District</label>
+                                    <Autocomplete
+                                        id="autocomplete-preDistrict"
+                                        options={this.state.autoPreDistrict}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
-                                                    <option value={v.districtCode}>{v.districtName}</option>
-                                                </Fragment>
-                                            ))
-                                        }
+                                        renderInput={(params) => <TextField {...params} label={values.preDistrictEn} variant="outlined" onChange={this.handlePreDistrictChange} onSelect={this.handlePreDistrictSelect} />}
+                                    />
 
-
-
-
-                                    </select>
                                 </div>
 
 
-                                {/*English present Address Upozilla  */}
+                                {/*English present Address Upozilla */}
 
-                                <div className='form-group'>
-                                    <label htmlFor="">Upazila</label>
-                                    <select
-                                        className='custom-select'
-                                        value={values.preUpozilaCode}
-                                        onChange={(e) => this.changeUpaPresent(e)}
-                                        name="preUpozilaEn"
-                                    >
-                                        <option value='' disabled>--Select--</option>
-                                        {
-                                            values.nativeUpaPresent.map((v, i) => (
-                                                <Fragment>
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Upazila</label>
+                                    <Autocomplete
+                                        id="autocomplete-preUpozila"
+                                        options={this.state.autoPreUpozila}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
-                                                    <option value={v.upazilaCode}>{v.upazilaName}</option>
-                                                </Fragment>
-                                            ))
-                                        }
+                                        renderInput={(params) => <TextField {...params} label={values.preUpozilaEn} variant="outlined" onChange={this.handlePreUpozilaChange} onSelect={this.handlePreUpozilaSelect} />}
+                                    />
 
-
-
-
-                                    </select>
                                 </div>
 
 
@@ -1641,28 +1315,16 @@ export class RegPersonalDetails extends Component {
 
                                 {/*English present Address  Union */}
 
-                                <div className='form-group'>
-                                    <label htmlFor="">Union</label>
-                                    <select
-                                        className='custom-select'
-                                        value={values.preUnionOrWardCode}
-                                        onChange={(e) => this.changeUniPresent(e)}
-                                        name="preUnionOrWardEn"
-                                    >
-                                        <option value='' disabled>--Select--</option>
-                                        {
-                                            values.nativeUniPresent.map((v, i) => (
-                                                <Fragment>
+                                <div className="form-group">
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
+                                    <Autocomplete
+                                        id="autocomplete-preUnion"
+                                        options={this.state.autoPreUnion}
+                                        getOptionLabel={(option) => option.name + " : " + option.id}
 
-                                                    <option value={v.unionCode}>{v.unionName}</option>
-                                                </Fragment>
-                                            ))
-                                        }
+                                        renderInput={(params) => <TextField {...params} label={values.preUnionOrWardEn} variant="outlined" onChange={this.handlePreUnionChange} onSelect={this.handlePreUnionSelect} />}
+                                    />
 
-
-
-
-                                    </select>
                                 </div>
 
 
@@ -1763,4 +1425,4 @@ export class RegPersonalDetails extends Component {
     }
 }
 
-export default RegPersonalDetails;
+export default RegPersonalDetailsOld;
