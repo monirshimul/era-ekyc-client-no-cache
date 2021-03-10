@@ -14,8 +14,8 @@ import RegFingerPrintConfirm from './RegFingerPrintConfirm';
 import RegComplete from '../RegFace/RegComplete';
 import { ImageCompressor } from '../../../Utils/ImageCompressor';
 import DedubeCheck from '../../../Reusable/DedubeCheck';
-// import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
-import ExistingCapture from '../../../Reusable/ExistingCapture';
+import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
+// import ExistingCapture from '../../../Reusable/ExistingCapture';
 
 
 
@@ -470,7 +470,7 @@ export class RegFingerPrintMain extends Component {
 
             case "exist_1":
                 return (
-                    <ExistingCapture
+                    <ExistingConfigImage
                         handleChange={this.handleChange}
                         handleState={this.handleState}
                         handleDate={this.handleDate}

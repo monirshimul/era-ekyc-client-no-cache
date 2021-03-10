@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import MobileVerification from '../../../Reusable/MobileVerification';
 import NidImagesSim from './NidImagesSim';
 import DedubeCheck from '../../../Reusable/DedubeCheck';
-// import SimCaptureImage from './SimCaptureImage';
-import SimCapture from './SimCapture';
+import SimCaptureImage from './SimCaptureImage';
+// import SimCapture from './SimCapture';
 import SimPersonalDetails from './SimPersonalDetails';
 import SimNominee from './SimNominee';
 import SimSignature from './SimSignature';
@@ -13,8 +13,8 @@ import SimComplete from './SimComplete';
 import SimRPA from './SimRPA';
 import { NotificationManager } from "react-notifications";
 import { ImageCompressor } from '../../../Utils/ImageCompressor';
-// import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
-import ExistingCapture from '../../../Reusable/ExistingCapture';
+import ExistingConfigImage from '../../../Reusable/ExistingConfigImage';
+// import ExistingCapture from '../../../Reusable/ExistingCapture';
 // import Test from '../../../Playground/Test';
 
 
@@ -336,7 +336,7 @@ export class SimFaceMain extends Component {
 
             case 5:
                 return (
-                    <SimCapture
+                    <SimCaptureImage
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                         handleChange={this.handleChange}
@@ -402,7 +402,7 @@ export class SimFaceMain extends Component {
 
             case "exist_1":
                 return (
-                    <ExistingCapture
+                    <ExistingConfigImage
                         handleChange={this.handleChange}
                         handleState={this.handleState}
                         handleDate={this.handleDate}
