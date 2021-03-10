@@ -28,14 +28,17 @@ export class NidDetails extends Component {
 
     try {
       let repoData = await axios.post(depoApi, obj, config);
-      console.log("Depo Data", repoData)
-      this.setState({ depoData: repoData.data.data });
-      this.setState({ perAddress: repoData.data.data.permanentAddress });
-      this.setState({ preAddress: repoData.data.data.presentAddress });
+      //console.log("Depo Data", repoData.data)
+      if (repoData.data.data !== null) {
+        this.setState({ depoData: repoData.data.data });
+        this.setState({ perAddress: repoData.data.data.permanentAddress });
+        this.setState({ preAddress: repoData.data.data.presentAddress });
+      }
+
     } catch (error) {
       if (error.response) {
         let message = error.response.data.message
-        //console.log("Error",error.response)
+        //console.log("Error", error.response)
         NotificationManager.error(message, "Error", 5000);
       } else if (error.request) {
         // console.log("Error Connecting...", error.request)
@@ -62,10 +65,18 @@ export class NidDetails extends Component {
 
 
   render() {
-    let { depoData, flag } = this.state;
+    let { depoData, flag, perAddress, preAddress } = this.state;
     if (!depoData) return (
-      <div>
-        <h3>No Data Found</h3>
+      <div className="container">
+        <div className="row d-flex justify-content-center">
+          <div className="col-sm-6 imTwoWhite">
+            <h3 className="im" style={{ color: "#fb743e" }}>No Record Found</h3>
+          </div>
+        </div>
+        <div className="row d-flex justify-content-center">
+          <div className="b mt-3" onClick={this.back} >Back</div>
+        </div>
+
       </div>
     );
     return (
