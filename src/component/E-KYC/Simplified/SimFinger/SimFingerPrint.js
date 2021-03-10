@@ -362,8 +362,8 @@ export class SimFingerPrint extends Component {
 
 
       let fingerRes = await axios.post(fingerValidate, obj, config)
-      console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.fingerVerificationResult.status)
-      console.log("fingerRes", fingerRes.data)
+      // console.log("fingerRes.data.data.verificationToken", fingerRes.data.data.fingerVerificationResult.status)
+      // console.log("fingerRes", fingerRes.data)
       this.props.handleState('loadingSpin', false);
 
 

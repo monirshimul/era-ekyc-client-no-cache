@@ -178,7 +178,7 @@ export class SimFingerConfirm extends Component {
         let fingerObj = {
             rIndex: values.rIndex
         }
-       
+
 
 
 
@@ -191,11 +191,11 @@ export class SimFingerConfirm extends Component {
             nominees: nomineesInfo
         }
 
-        if(fingerObj.rIndex !== ""){
+        if (fingerObj.rIndex !== "") {
             confirmObj.fingerprint = fingerObj
         }
 
-        console.log("fingerConfirmobj", confirmObj);
+        // console.log("fingerConfirmobj", confirmObj);
         // console.log("nidNo", values.applicantNidNo);
         // console.log("fingerObjRindex", fingerObj);
         // console.log("verificationToken", values.verifyToken);
@@ -228,21 +228,21 @@ export class SimFingerConfirm extends Component {
                 let resToArr = getJsonObjectToArray(resData)
                 //console.log("Result Array First", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
-                
-                if(values.step === "exist_5"){
+
+                if (values.step === "exist_5") {
                     this.props.handleState("step", "exist_6");
-                }else{
+                } else {
                     this.props.nextStep();
                 }
-                
+
             } else {
                 let resToArr = getJsonObjectToArray(resData)
                 //console.log("Result Array Last", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
 
-                if(values.step === "exist_5"){
+                if (values.step === "exist_5") {
                     this.props.handleState("step", "exist_6");
-                }else{
+                } else {
                     this.props.nextStep();
                 }
             }
@@ -279,15 +279,15 @@ export class SimFingerConfirm extends Component {
     }
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
-        if(values.step === "exist_5"){
+        if (values.step === "exist_5") {
             this.props.handleState("step", "exist_4");
-        }else{
+        } else {
             this.props.prevStep();
         }
-        
+
     }
 
 
@@ -540,7 +540,7 @@ export class SimFingerConfirm extends Component {
 
                                     </div>
                                     :
-                                    
+
 
                                     <div className="col-sm-6 ">
 
@@ -595,47 +595,47 @@ export class SimFingerConfirm extends Component {
 
                                         </div>
                                     ) : (
-                                            <React.Fragment>
-                                                <div className="imTwo text-center col-sm-3">
-                                                    <div className="im">
-                                                        <small>Minor Nominee {i + 1}</small>
-                                                    </div>
-
-                                                    <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
-                                                        alt=""
-                                                        style={{
-                                                            margin: "0 auto",
-                                                            width: "250px",
-                                                            height: "150px",
-                                                            border: "none",
-                                                        }}
-                                                        className="img-fluid img-thumbnail"
-                                                    />
-                                                    <hr />
-
-
+                                        <React.Fragment>
+                                            <div className="imTwo text-center col-sm-3">
+                                                <div className="im">
+                                                    <small>Minor Nominee {i + 1}</small>
                                                 </div>
-                                                <div className="imTwo text-center col-sm-3">
-                                                    <div className="im">
-                                                        <small>Nominee's Guardian {i + 1}</small>
-                                                    </div>
 
-                                                    <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
-                                                        alt=""
-                                                        style={{
-                                                            margin: "0 auto",
-                                                            width: "250px",
-                                                            height: "150px",
-                                                            border: "none",
-                                                        }}
-                                                        className="img-fluid img-thumbnail"
-                                                    />
-                                                    <hr />
+                                                <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
+                                                    alt=""
+                                                    style={{
+                                                        margin: "0 auto",
+                                                        width: "250px",
+                                                        height: "150px",
+                                                        border: "none",
+                                                    }}
+                                                    className="img-fluid img-thumbnail"
+                                                />
+                                                <hr />
 
 
+                                            </div>
+                                            <div className="imTwo text-center col-sm-3">
+                                                <div className="im">
+                                                    <small>Nominee's Guardian {i + 1}</small>
                                                 </div>
-                                            </React.Fragment>
-                                        )
+
+                                                <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
+                                                    alt=""
+                                                    style={{
+                                                        margin: "0 auto",
+                                                        width: "250px",
+                                                        height: "150px",
+                                                        border: "none",
+                                                    }}
+                                                    className="img-fluid img-thumbnail"
+                                                />
+                                                <hr />
+
+
+                                            </div>
+                                        </React.Fragment>
+                                    )
                                 ))
                             }
 

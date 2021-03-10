@@ -24,8 +24,7 @@ export class SimFingerSignature extends Component {
     }
 
     onImageConfirm = (base64Image) => {
-        //console.log("In image confirm");
-        //console.log("Image",base64Image);
+
 
 
         this.props.handleState("signature", base64Image);
@@ -48,29 +47,29 @@ export class SimFingerSignature extends Component {
             this.props.handleState("signature", demoSignature);
         }
 
-        if(values.step === "exist_4"){
+        if (values.step === "exist_4") {
             this.props.handleState("step", "exist_5");
-        }else{
+        } else {
             this.props.nextStep();
         }
 
-        
+
     };
 
     back = e => {
         let { values } = this.props;
         e.preventDefault();
 
-       
-        if(values.step === "exist_4"){
-             for (let i = 0; i < values.jointArray.length; i++) {
-            if (values.jointArray[i].isShow === true) {
-                if (values.jointArray[i].dob !== "") {
-                    let copyArray = Object.assign([], this.props.values.jointArray);
-                    copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
-                    this.props.handleState('jointArray', copyArray);
-                }
-                }else{
+
+        if (values.step === "exist_4") {
+            for (let i = 0; i < values.jointArray.length; i++) {
+                if (values.jointArray[i].isShow === true) {
+                    if (values.jointArray[i].dob !== "") {
+                        let copyArray = Object.assign([], this.props.values.jointArray);
+                        copyArray[i].dob = datePickerPrefiilConv(copyArray[i].dob);
+                        this.props.handleState('jointArray', copyArray);
+                    }
+                } else {
                     if (values.jointArray[i].minorDob !== '') {
                         let copyArray = Object.assign([], this.props.values.jointArray);
                         copyArray[i].minorDob = datePickerPrefiilConv(copyArray[i].minorDob);
@@ -80,10 +79,10 @@ export class SimFingerSignature extends Component {
 
             }
             this.props.handleState("step", "exist_3");
-        }else{
+        } else {
             this.props.prevStep();
         }
-       
+
     }
 
     fileSelectedHandler = async (event) => {
@@ -96,7 +95,7 @@ export class SimFingerSignature extends Component {
 
     render() {
         const { values } = this.props;
-        // console.log(values.signature);
+
         return (
 
 
