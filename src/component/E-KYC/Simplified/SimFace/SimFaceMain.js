@@ -278,7 +278,7 @@ export class SimFaceMain extends Component {
     deteteRow = (e, index) => {
         e.preventDefault();
         const copyArray = Object.assign([], this.state.jointArray);
-        console.log("index", index)
+        // console.log("index", index)
         copyArray.splice(index, 1);
         this.setState({ jointArray: copyArray })
 

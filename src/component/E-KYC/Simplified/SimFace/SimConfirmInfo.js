@@ -274,7 +274,6 @@ export class SimConfirmInfo extends Component {
 
     render() {
         const { values } = this.props;
-        // console.log("token", values.verifyToken);
         return (
             <div className="container">
                 <div className="card col-sm-12" style={{ paddingTop: "25px" }}>
@@ -571,47 +570,47 @@ export class SimConfirmInfo extends Component {
 
                                         </div>
                                     ) : (
-                                            <React.Fragment>
-                                                <div className="imTwo text-center col-sm-3">
-                                                    <div className="im">
-                                                        <small>Minor Nominee {i + 1}</small>
-                                                    </div>
-
-                                                    <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
-                                                        alt=""
-                                                        style={{
-                                                            margin: "0 auto",
-                                                            width: "250px",
-                                                            height: "150px",
-                                                            border: "none",
-                                                        }}
-                                                        className="img-fluid img-thumbnail"
-                                                    />
-                                                    <hr />
-
-
+                                        <React.Fragment>
+                                            <div className="imTwo text-center col-sm-3">
+                                                <div className="im">
+                                                    <small>Minor Nominee {i + 1}</small>
                                                 </div>
-                                                <div className="imTwo text-center col-sm-3">
-                                                    <div className="im">
-                                                        <small>Nominee's Guardian {i + 1}</small>
-                                                    </div>
 
-                                                    <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
-                                                        alt=""
-                                                        style={{
-                                                            margin: "0 auto",
-                                                            width: "250px",
-                                                            height: "150px",
-                                                            border: "none",
-                                                        }}
-                                                        className="img-fluid img-thumbnail"
-                                                    />
-                                                    <hr />
+                                                <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
+                                                    alt=""
+                                                    style={{
+                                                        margin: "0 auto",
+                                                        width: "250px",
+                                                        height: "150px",
+                                                        border: "none",
+                                                    }}
+                                                    className="img-fluid img-thumbnail"
+                                                />
+                                                <hr />
 
 
+                                            </div>
+                                            <div className="imTwo text-center col-sm-3">
+                                                <div className="im">
+                                                    <small>Nominee's Guardian {i + 1}</small>
                                                 </div>
-                                            </React.Fragment>
-                                        )
+
+                                                <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
+                                                    alt=""
+                                                    style={{
+                                                        margin: "0 auto",
+                                                        width: "250px",
+                                                        height: "150px",
+                                                        border: "none",
+                                                    }}
+                                                    className="img-fluid img-thumbnail"
+                                                />
+                                                <hr />
+
+
+                                            </div>
+                                        </React.Fragment>
+                                    )
                                 ))
                             }
 

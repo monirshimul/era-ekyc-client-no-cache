@@ -340,9 +340,9 @@ export class SimRPA extends Component {
         this.props.prevStep();
     };
 
-    escape = () => {
-        this.props.nextStep();
-    }
+    // escape = () => {
+    //     this.props.nextStep();
+    // }
 
 
 
@@ -359,7 +359,7 @@ export class SimRPA extends Component {
                     <div className="col-sm-6 imTwoWhite p-5">
                         <div className="divBg pt-3">
                             <h4>NID Verification</h4>
-                            <button onClick={this.escape}>Escape</button>
+                            {/* <button onClick={this.escape}>Escape</button>*/}
                         </div>
 
                         <form onSubmit={this.continue}>

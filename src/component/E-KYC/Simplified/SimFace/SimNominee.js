@@ -72,8 +72,8 @@ export class SimNominee extends Component {
     deteteRow = (e, index) => {
         e.preventDefault();
         let copyArray = Object.assign([], this.props.values.jointArray);
-        console.log("copyArrat", copyArray)
-        console.log("index", index)
+        // console.log("copyArrat", copyArray)
+        // console.log("index", index)
         copyArray.splice(index, 1);
         this.props.handleState("jointArray", copyArray);
 
@@ -237,24 +237,24 @@ export class SimNominee extends Component {
             }
         }
 
-        if(values.step === "exist_3"){
+        if (values.step === "exist_3") {
             this.props.handleState("step", "exist_4");
-        }else{
+        } else {
             this.props.nextStep();
         }
 
-        
+
     };
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
-        if(values.step === "exist_3"){
+        if (values.step === "exist_3") {
             this.props.handleState("step", "exist_2");
-        }else{
+        } else {
             this.props.prevStep();
         }
-        
+
     }
 
     // addNominee = (val) =>{

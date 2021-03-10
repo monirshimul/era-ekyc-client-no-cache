@@ -57,7 +57,7 @@ export class SimCapture extends Component {
       }
 
       let resValidation = await axios.post(faceValidate, imgData, token);
-      console.log("resValidation", resValidation.data.data)
+      // console.log("resValidation", resValidation.data.data)
       //  console.log("ver-token", resValidation.data.data.verificationToken);
       //  console.log("validate", values.validate);
 
@@ -106,9 +106,9 @@ export class SimCapture extends Component {
     this.props.prevStep();
   };
 
-  escape = () => {
-    this.props.nextStep();
-  }
+  // escape = () => {
+  //   this.props.nextStep();
+  // }
 
 
   render() {
@@ -124,7 +124,7 @@ export class SimCapture extends Component {
           <div className="imTwoWhite col-sm-10" style={{ paddingTop: "25px" }}>
             <div className="card-header im">
               <h5 style={{ color: "green" }}><i class="fas fa-camera-retro"></i> Face Verification</h5>
-              <button onClick={this.escape}>Escape</button>
+              {/* <button onClick={this.escape}>Escape</button>*/}
 
             </div>
             <div className="row card-body d-flex justify-content-center align-items-center" >

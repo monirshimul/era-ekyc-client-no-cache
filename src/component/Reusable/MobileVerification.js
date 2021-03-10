@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { mobileVerification, mobileCodeVerification,getAppSetting} from '../E-KYC/Url/ApiList';
+import { mobileVerification, mobileCodeVerification, getAppSetting } from '../E-KYC/Url/ApiList';
 import Loading from '../E-KYC/Simplified/utils/CustomLoding/Loading';
 import axios from 'axios';
 import { NotificationManager } from "react-notifications";
@@ -15,39 +15,39 @@ export class MobileVerification extends Component {
     showButton: false,
   }
 
-  
-    async componentDidMount(){
 
-      let config = {
-          headers: {
-            "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
-          },
-        };
+  async componentDidMount() {
 
-        const obj ={
-            key: "EKYC_MOBILE_VERIFICATION"
-        }
-        try{
-            let mobileUse = await axios.post(getAppSetting, obj, config);
-            // console.log(mobileUse.data.data[0].value);
-          if(mobileUse.data.data[0].value === "NO"){
-              this.props.handleState("useMobilePage", false);
-              this.props.nextStep();
-          }else{
-            this.props.handleState("useMobilePage", true);
-          }
-        }catch(error){
-          if (error.response) {
-              let message = error.response.data.message
-              NotificationManager.error(message, "Error", 5000);
-          } else if (error.request) {
-              NotificationManager.error("Error Connecting...", "Error", 5000);
-          } else if (error) {
-              NotificationManager.error(error.toString(), "Error", 5000);
-          }
-        }
+    let config = {
+      headers: {
+        "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token')),
+      },
+    };
+
+    const obj = {
+      key: "EKYC_MOBILE_VERIFICATION"
+    }
+    try {
+      let mobileUse = await axios.post(getAppSetting, obj, config);
+      // console.log(mobileUse.data.data[0].value);
+      if (mobileUse.data.data[0].value === "NO") {
+        this.props.handleState("useMobilePage", false);
+        this.props.nextStep();
+      } else {
+        this.props.handleState("useMobilePage", true);
+      }
+    } catch (error) {
+      if (error.response) {
+        let message = error.response.data.message
+        NotificationManager.error(message, "Error", 5000);
+      } else if (error.request) {
+        NotificationManager.error("Error Connecting...", "Error", 5000);
+      } else if (error) {
+        NotificationManager.error(error.toString(), "Error", 5000);
+      }
+    }
   }
-  
+
 
   numberSchema = Joi.object({
     MobileNumber: Joi.string().pattern(new RegExp('^01[3456789][0-9]{8}'))
@@ -167,7 +167,8 @@ export class MobileVerification extends Component {
     const { values, handleChange } = this.props;
     return (
       <div className='container'>
-        <button onClick={this.continue}>Escape</button>
+        {/* 
+        <button onClick={this.continue}>Escape</button>*/}
         <div className="row d-flex justify-content-center">
 
           <div className="divBg col-sm-6 pt-3">

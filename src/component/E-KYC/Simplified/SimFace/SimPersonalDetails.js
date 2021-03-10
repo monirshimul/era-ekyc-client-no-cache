@@ -68,7 +68,7 @@ export class SimPersonalDetails extends Component {
 
         try {
             let getDiv = await axios.get(getDivNative, config)
-            console.log("Res", getDiv.data.data)
+            // console.log("Res", getDiv.data.data)
             this.setState({
                 nativeDivPermanent: getDiv.data.data,
                 nativeDivPresent: getDiv.data.data
@@ -214,10 +214,7 @@ export class SimPersonalDetails extends Component {
     handleProfessionSelect = e => {
         let { autoProfession } = this.state;
         try {
-            // const val = e.target.value.split('-');
-            //   console.log("val", typeof val[1]);
-            // console.log(e.target.value);
-            //console.log("val", val[1]);
+
             this.props.handleState('profession', e.target.value);
             let proCode = "";
             for (let i = 0; i <= autoProfession.length; i++) {
@@ -241,341 +238,6 @@ export class SimPersonalDetails extends Component {
 
     //////////Profession///////////////
 
-    /////////////Division START
-
-    handlePerDivisionChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        //console.log(e.target.value)
-        let payload = {
-            keyword: e.target.value
-        }
-        try {
-            let divisionapi = await axios.post(division, payload, config);
-            // console.log(divisionapi.data.data);
-            let autocompleteData = [];
-            divisionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.divisionName, id: d.divisionCode })
-            })
-            this.setState({ autoPerDivision: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreDivisionChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        //console.log(e.target.value)
-        let payload = {
-            keyword: e.target.value
-        }
-        try {
-            let divisionapi = await axios.post(division, payload, config);
-            //console.log(divisionapi.data.data);
-            let autocompleteData = [];
-            divisionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.divisionName, id: d.divisionCode })
-            })
-            this.setState({ autoPreDivision: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePerDivisionSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            //   console.log("val", typeof val[1]);
-            //    console.log("val", val[1]);
-
-            this.setState({
-                perDivisionCode: val[1].trim()
-            })
-            this.props.handleState('perDivisionEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-
-    }
-
-    handlePreDivisionSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            // console.log("val", val);
-            this.setState({
-                preDivisionCode: val[1].trim()
-            })
-            this.props.handleState('preDivisionEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    /////////////Division end
-
-    /////////////District Start
-
-    handlePerDistrictChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        //  console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.perDivisionCode.toString(),
-            keyword: e.target.value
-        }
-        // console.log("pERMANT", payload)
-
-        try {
-            let districtapi = await axios.post(district, payload, config);
-            //     console.log("api response", districtapi.data);
-            let autocompleteData = [];
-            districtapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.districtName, id: d.districtCode })
-            })
-            this.setState({ autoPerDistrict: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreDistrictChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        console.log(e.target.value)
-        let payload = {
-            divisionCode: this.state.preDivisionCode.toString(),
-            keyword: e.target.value
-        }
-        try {
-            let districtapi = await axios.post(district, payload, config);
-            //  console.log(districtapi.data.data);
-            let autocompleteData = [];
-            districtapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.districtName, id: d.districtCode })
-            })
-            this.setState({ autoPreDistrict: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-
-    handlePerDistrictSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            //  console.log("val", val);
-            this.setState({
-                perDistrictCode: val[1].trim()
-            })
-            this.props.handleState('perDistrictEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreDistrictSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            //   console.log("val", val);
-            this.setState({
-                preDistrictCode: val[1].trim()
-            })
-            this.props.handleState('preDistrictEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-    /////////////District end
-
-    /////////////Upozila Start
-    handlePerUpozilaChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        // console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.perDivisionCode.toString(),
-            districtCode: this.state.perDistrictCode.toString(),
-            keyword: e.target.value
-        }
-        // console.log("pERMANT", payload)
-
-        try {
-            let upozilaapi = await axios.post(upozila, payload, config);
-            //  console.log("api response", upozilaapi.data);
-            let autocompleteData = [];
-            upozilaapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.upazilaName, id: d.upazilaCode })
-            })
-            this.setState({ autoPerUpozila: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreUpozilaChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        // console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.preDivisionCode.toString(),
-            districtCode: this.state.preDistrictCode.toString(),
-            keyword: e.target.value
-        }
-        // console.log("present", payload)
-
-        try {
-            let upozilaapi = await axios.post(upozila, payload, config);
-            //   console.log("api response", upozilaapi.data);
-            let autocompleteData = [];
-            upozilaapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.upazilaName, id: d.upazilaCode })
-            })
-            this.setState({ autoPreUpozila: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-
-    handlePerUpozilaSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            // console.log("val", val);
-            this.setState({
-                perUpozilaCode: val[1].trim()
-            })
-            this.props.handleState('perUpozilaEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreUpozilaSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            // console.log("val", val);
-            this.setState({
-                preUpozilaCode: val[1].trim()
-            })
-            this.props.handleState('preUpozilaEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    /////////////Upozila End
-
-    /////////////Union Start
-    handlePerUnionChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        // console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.perDivisionCode.toString(),
-            districtCode: this.state.perDistrictCode.toString(),
-            upazilaCode: this.state.perUpozilaCode.toString(),
-            keyword: e.target.value
-        }
-        // console.log("pERMANT", payload)
-
-        try {
-            let unionapi = await axios.post(union, payload, config);
-            // console.log("api response", unionapi.data);
-            let autocompleteData = [];
-            unionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.unionName, id: d.unionCode })
-            })
-            this.setState({ autoPerUnion: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreUnionChange = async (e) => {
-        const config = {
-            headers: {
-                'x-auth-token': JSON.parse(sessionStorage.getItem('x-auth-token'))
-            }
-        };
-        //console.log(e.target.value)
-
-        let payload = {
-            divisionCode: this.state.preDivisionCode.toString(),
-            districtCode: this.state.preDistrictCode.toString(),
-            upazilaCode: this.state.preUpozilaCode.toString(),
-            keyword: e.target.value
-        }
-
-
-        try {
-            let unionapi = await axios.post(union, payload, config);
-            // console.log("api response", unionapi.data);
-            let autocompleteData = [];
-            unionapi.data.data.forEach((d) => {
-                autocompleteData.push({ name: d.unionName, id: d.unionCode })
-            })
-            this.setState({ autoPreUnion: autocompleteData });
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-
-    handlePerUnionSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            // console.log("val", val);
-            this.setState({
-                perUnionCode: val[1].trim()
-            })
-            this.props.handleState('perUnionOrWardEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    handlePreUnionSelect = e => {
-        try {
-            const val = e.target.value.split(':');
-            //console.log("val", val);
-            this.setState({
-                preUnionCode: val[1].trim()
-            })
-            this.props.handleState('preUnionOrWardEn', val[0].trim());
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    /////////////Union End
-
-
 
 
     //////////////////////////////////////AutoFeature Function End///////////////////////////////////////
@@ -585,8 +247,7 @@ export class SimPersonalDetails extends Component {
     continue = async e => {
         const { values } = this.props;
         e.preventDefault();
-        // console.log("All ec Values", values);
-        // console.log("profession", values.professionCode);
+
 
 
 
@@ -742,10 +403,10 @@ export class SimPersonalDetails extends Component {
             const data = {
                 divisionCode: code
             }
-            console.log("getDistByDiv", data)
+            // console.log("getDistByDiv", data)
 
             let getDist = await axios.post(getDistNative, data, config)
-            console.log("Dist", getDist.data.data)
+            // console.log("Dist", getDist.data.data)
             if (type === "per") {
                 this.props.handleState("nativeDistPermanent", getDist.data.data)
             } else {
@@ -780,10 +441,10 @@ export class SimPersonalDetails extends Component {
                 divisionCode: divCode,
                 districtCode: distCode
             }
-            console.log(data)
+            // console.log(data)
 
             let getUpa = await axios.post(getUpaNative, data, config)
-            console.log("Dist", getUpa.data.data)
+            // console.log("Dist", getUpa.data.data)
             if (type === "per") {
                 this.props.handleState("nativeUpaPermanent", getUpa.data.data)
             } else {
@@ -818,10 +479,10 @@ export class SimPersonalDetails extends Component {
                 districtCode: distCode,
                 upazilaCode: upaCode
             }
-            console.log(data)
+            // console.log(data)
 
             let getUni = await axios.post(getUniNative, data, config)
-            console.log("Dist", getUni.data.data)
+            // console.log("Dist", getUni.data.data)
             if (type === "per") {
                 this.props.handleState('nativeUniPermanent', getUni.data.data);
             } else {
@@ -934,23 +595,21 @@ export class SimPersonalDetails extends Component {
 
 
 
-    Escape = () => {
-        this.props.nextStep();
-    }
+    // Escape = () => {
+    //     this.props.nextStep();
+    // }
 
     render() {
         const { values, handleChange } = this.props;
         const { nativeDivPermanent, nativeDivPresent, nativeDistPermanent, nativeDistPresent, nativeUpaPermanent, nativeUpaPresent, nativeUniPermanent, nativeUniPresent } = this.state
-        console.log("perDivision", values.perDivisionEn);
-        console.log("preDivision", values.preDivisionEn);
-        //  console.log("profession",values.profession);
-        //  console.log("professionCode",values.professionCode);
+
 
         return (
             <div className="container">
+                {/* 
                 <div className="im col-sm-2" onClick={this.Escape}>
                     Escape
-                </div>
+                </div>*/}
 
                 <div className="col-sm-12">
 

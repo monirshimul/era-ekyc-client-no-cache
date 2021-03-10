@@ -140,7 +140,7 @@ export class DedubeCheck extends Component {
                 try {
                     let rpaDepo = await axios.post(depoApi, obj, config);
                     //   console.log("repo", rpaDepo.data.data);
-                    console.log("Repository call");
+                    // console.log("Repository call");
                     if (rpaDepo.data.data === null) {
                         this.props.handleState('loading', false);
                         this.props.nextStep();
@@ -247,19 +247,19 @@ export class DedubeCheck extends Component {
         this.props.prevStep();
     }
 
-    Escape = () => {
-        this.props.nextStep();
-    }
+    // Escape = () => {
+    //     this.props.nextStep();
+    // }
 
 
     render() {
         const { values, handleChange } = this.props;
         return (
             <div className="container" style={{ height: "60vh" }} >
-
+                {/* 
                 <div className="im col-sm-2" onClick={this.Escape}>
                     Escape
-          </div>
+          </div>*/}
 
                 <div className="row d-flex justify-content-center">
                     <div className="col-sm-6 imTwoWhite p-5">
