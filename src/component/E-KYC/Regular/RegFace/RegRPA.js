@@ -325,9 +325,9 @@ export class RegRPA extends Component {
         this.props.prevStep();
     };
 
-    Escape = () => {
-        this.props.nextStep();
-    }
+    // Escape = () => {
+    //     this.props.nextStep();
+    // }
 
 
     render() {
@@ -335,9 +335,13 @@ export class RegRPA extends Component {
         return (
             <div className="container">
 
-                <div className="im col-sm-2" onClick={this.Escape}>
+                {/*
+                    <div className="im col-sm-2" onClick={this.Escape}>
                     Escape
-            </div>
+                </div>
+                
+                */}
+
                 <div className="row d-flex justify-content-center">
                     <div className="col-sm-6 imTwoWhite p-5">
                         <div className="divBg pt-3">
@@ -403,21 +407,21 @@ export class RegRPA extends Component {
                           </small> */}
                                         </div>
                                     ) : (
-                                        <div className="imTwoWhite text-center">
-                                            <img
-                                                src={values.ecImage ? values.flag + values.ecImage : Sign}
-                                                style={{
-                                                    margin: "0 auto",
-                                                    width: "300px",
-                                                    height: "200px",
-                                                    border: "none",
-                                                }}
-                                                className="img-fluid img-thumbnail"
-                                                id="FrontNidPic"
-                                                alt=""
-                                            />
-                                        </div>
-                                    )}
+                                            <div className="imTwoWhite text-center">
+                                                <img
+                                                    src={values.ecImage ? values.flag + values.ecImage : Sign}
+                                                    style={{
+                                                        margin: "0 auto",
+                                                        width: "300px",
+                                                        height: "200px",
+                                                        border: "none",
+                                                    }}
+                                                    className="img-fluid img-thumbnail"
+                                                    id="FrontNidPic"
+                                                    alt=""
+                                                />
+                                            </div>
+                                        )}
                                 </div>
                             </div>
 

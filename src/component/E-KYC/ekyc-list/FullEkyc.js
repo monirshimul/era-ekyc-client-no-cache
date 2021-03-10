@@ -311,23 +311,19 @@ class FullEkyc extends Component {
                                         </div>
                                         <div className="" style={{ fontSize: "17px" }}>
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Account ID : </span>{ekyc?.account === null ? "" : ekyc?.account?.id}</small><br />
+                                            {/* ekyc?.account?.productCode}--${+ "(" + this.state.ProductCodetoName === null ? "" : this.state.ProductCodetoName + ")"}` */}
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Branch/Agent Point : </span>{ekyc?.account === null ? "" : ekyc?.account?.branchOrAgentPointCode}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Title : </span>{ekyc?.account === null ? "" : ekyc?.account?.title}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{ekyc?.account === null ? "" : ekyc?.account?.channelAccountId}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{ekyc?.account === null ? "" : ProductCategoryType(ekyc?.account?.productCategoryCode)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{ekyc?.account === null ? "" : ekyc?.account?.channelCode}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc?.account === null ? "" : `${ekyc?.account?.productCode} (${this.state.ProductCodetoName === null ? "" : this.state.ProductCodetoName})`}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc?.account === null ? "" : this.state.ProductCodetoName === null ? ekyc?.account?.productCode + "" : ekyc?.account?.productCode + " (" + this.state.ProductCodetoName + ")"}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{ekyc?.account === null ? "" : EkycAccountStatus(ekyc?.account?.status)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{ekyc?.account === null ? "" : AccountType(ekyc?.account?.type)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{ekyc?.account === null ? "" : ekyc?.account?.createdBy}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created Date : </span>{ekyc?.account === null ? "" : ekyc?.account?.createDate}</small><br />
-
-
-                                            {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Response : </span>{ekyc.account.channelResponse}</small><br /> */}
                                         </div>
                                         <hr />
-
-
 
                                         <div className="text-muted">
                                             <h5>Others Info</h5>
@@ -341,21 +337,64 @@ class FullEkyc extends Component {
                                             {/* <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Risk Grading : </span>{ekyc.riskGrading}</small><br /> */}
                                             {/*<small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Sanction Screening : </span>{ekyc.sanctionScreening}</small><br />*/}
 
-                                            {
-                                                showRiskBtn ? (
-                                                    <div>
-                                                        <hr />
-                                                        <span className="neoBg" style={{ color: "green", cursor: "pointer" }} data-toggle="modal" data-target="#exampleModalCenter" >Risk Grading Details</span>
-                                                    </div>
-                                                ) : ""
-                                            }
-
-
                                         </div>
 
+                                        {
+                                            ekyc?.riskGrading ? (
+                                                <div className="">
+                                                    <div className="row d-flex justify-content-between">
+
+                                                        <div className="col-sm-12">
+                                                            <hr />
+
+
+                                                            <div className="im text-muted">
+                                                                <button className=" text-center" style={{ border: "none", outline: "none" }} onClick={() => this.showAdditionalFile(ekyc.id)}><span style={{ color: "green" }}>Additional File <i>{arrowUp ? <FaArrowAltCircleUp /> : <FaArrowCircleDown />}</i></span></button>
+
+                                                            </div>
+                                                            {
+                                                                opFileDownloadLoading ?
+                                                                    (
+                                                                        <div className="row d-flex justify-content-center mt-3">
+                                                                            <Loading />
+                                                                        </div>
+                                                                    )
+                                                                    : (
+                                                                        <div>
+                                                                            {
+                                                                                arrowUp ? (
+                                                                                    <div>
+                                                                                        {
+                                                                                            additionalFile.map((file, i) => (
+                                                                                                <div key={file.id} className="imTwoWhite animated zoomIn" style={{ cursor: "pointer" }}>
+                                                                                                    <p className="" onClick={(e) => this.onBtnClick(e)} style={{ color: "green", textTransform: "uppercase" }} id={i}>{file.type}-Download <FaFileDownload /></p>
+
+                                                                                                </div>
+
+                                                                                            ))
+                                                                                        }
 
 
 
+
+                                                                                    </div>
+                                                                                ) : ""
+                                                                            }
+                                                                        </div>
+                                                                    )
+                                                            }
+
+
+
+
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            ) : ""
+                                        }
 
 
 
@@ -444,67 +483,39 @@ class FullEkyc extends Component {
 
                                     </div>
 
+                                    { /*==================================Risk Grading==========================================*/}
+
                                     {
                                         ekyc?.riskGrading ? (
                                             <div className="col-sm-12">
-                                                <div className="row d-flex justify-content-between">
-                                                    <div className="col-sm-6">
+                                                <div className="row d-flex justify-content-center">
+                                                    <div className="col-sm-12">
                                                         <hr />
                                                         <div className="text-muted">
                                                             <h5 className="">Risk Grading</h5>
                                                             <hr />
                                                         </div>
-                                                        <div className="" style={{ fontSize: "17px" }}>
+                                                        <div className="row d-flex justify-content-center align-items-center">
+                                                            <div className="col-sm-6">
 
-                                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Overall Score : </span>{ekyc?.riskGrading === null ? "" : ekyc?.riskGrading?.score}</small><br />
-                                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Risk Type : </span>{ekyc?.riskGrading === null ? "" : this.measureRisk(ekyc?.riskGrading?.score)}</small><br />
+                                                                <div className="" style={{ fontSize: "17px" }}>
+
+                                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Overall Score : </span>{ekyc?.riskGrading === null ? "" : ekyc?.riskGrading?.score}</small><br />
+                                                                    <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Risk Type : </span>{ekyc?.riskGrading === null ? "" : this.measureRisk(ekyc?.riskGrading?.score)}</small><br />
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="col-sm-6 d-flex justify-content-center">
+                                                                {
+                                                                    showRiskBtn ? (
+                                                                        <>
+
+                                                                            <span className="neoBg" style={{ color: "green", cursor: "pointer" }} data-toggle="modal" data-target="#exampleModalCenter" >Risk Grading Details</span>
+                                                                        </>
+                                                                    ) : ""
+                                                                }
+                                                            </div>
                                                         </div>
-
-                                                    </div>
-                                                    <div className="col-sm-6 ">
-                                                        <hr />
-
-
-                                                        <div className="im text-muted">
-                                                            <button className=" text-center" style={{ border: "none", outline: "none" }} onClick={() => this.showAdditionalFile(ekyc.id)}><span style={{ color: "green" }}>Additional File <i>{arrowUp ? <FaArrowAltCircleUp /> : <FaArrowCircleDown />}</i></span></button>
-
-                                                        </div>
-                                                        {
-                                                            opFileDownloadLoading ?
-                                                                (
-                                                                    <div className="row d-flex justify-content-center mt-3">
-                                                                        <Loading />
-                                                                    </div>
-                                                                )
-                                                                : (
-                                                                    <div>
-                                                                        {
-                                                                            arrowUp ? (
-                                                                                <div>
-                                                                                    {
-                                                                                        additionalFile.map((file, i) => (
-                                                                                            <div key={file.id} className="imTwoWhite animated zoomIn" style={{ cursor: "pointer" }}>
-                                                                                                <p className="" onClick={(e) => this.onBtnClick(e)} style={{ color: "green", textTransform: "uppercase" }} id={i}>{file.type}-Download <FaFileDownload /></p>
-
-                                                                                            </div>
-
-                                                                                        ))
-                                                                                    }
-
-
-
-
-                                                                                </div>
-                                                                            ) : ""
-                                                                        }
-                                                                    </div>
-                                                                )
-                                                        }
-
-
-
-
-
 
                                                     </div>
 
@@ -512,6 +523,9 @@ class FullEkyc extends Component {
                                             </div>
                                         ) : ""
                                     }
+
+
+
 
 
 

@@ -390,10 +390,10 @@ export class RegPersonalDetails extends Component {
             const data = {
                 divisionCode: code
             }
-            console.log("getDistByDiv", data)
+            //console.log("getDistByDiv", data)
 
             let getDist = await axios.post(getDistNative, data, config)
-            console.log("Dist", getDist.data.data)
+            //console.log("Dist", getDist.data.data)
             if (type === "per") {
                 this.props.handleState("nativeDistPermanent", getDist.data.data)
             } else {
@@ -428,10 +428,10 @@ export class RegPersonalDetails extends Component {
                 divisionCode: divCode,
                 districtCode: distCode
             }
-            console.log(data)
+            //console.log(data)
 
             let getUpa = await axios.post(getUpaNative, data, config)
-            console.log("Dist", getUpa.data.data)
+            //console.log("Dist", getUpa.data.data)
             if (type === "per") {
                 this.props.handleState("nativeUpaPermanent", getUpa.data.data)
             } else {
@@ -466,10 +466,10 @@ export class RegPersonalDetails extends Component {
                 districtCode: distCode,
                 upazilaCode: upaCode
             }
-            console.log(data)
+            //console.log(data)
 
             let getUni = await axios.post(getUniNative, data, config)
-            console.log("Dist", getUni.data.data)
+            //console.log("Dist", getUni.data.data)
             if (type === "per") {
                 this.props.handleState('nativeUniPermanent', getUni.data.data);
             } else {
@@ -585,9 +585,9 @@ export class RegPersonalDetails extends Component {
 
 
 
-    Escape = () => {
-        this.props.nextStep();
-    }
+    // Escape = () => {
+    //     this.props.nextStep();
+    // }
 
 
     render() {
@@ -600,9 +600,13 @@ export class RegPersonalDetails extends Component {
         return (
             <div className="container">
 
-                <div className="im col-sm-2" onClick={this.Escape}>
+                {/*
+                    <div className="im col-sm-2" onClick={this.Escape}>
                     Escape
-              </div>
+                </div>
+                    
+                */}
+
 
                 <div className="col-sm-12">
 

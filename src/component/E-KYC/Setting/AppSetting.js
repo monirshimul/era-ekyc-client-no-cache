@@ -32,7 +32,7 @@ class AppSetting extends Component {
         }
 
         let allAppSetting = await axios.post(getAppSetting, null, config)
-        console.log("Get App", allAppSetting.data.data)
+        //console.log("Get App", allAppSetting.data.data)
         allAppSetting.data.data.map(val => {
             if (val.key === "EKYC_SANCTION_SCREENING") {
                 this.setState({
@@ -176,7 +176,7 @@ class AppSetting extends Component {
                     <div className="col-sm-12">
 
                         <div className="row d-flex justify-content-center" style={{ background: `linear-gradient(rgba(224,243,242, 0.8), rgba(224,243,242, 1)),url(${bgOne}) center/cover fixed no-repeat`, }}>
-                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }} >
+                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.1)", backdropFilter: "blur(10px)" }} >
                                 <div>
                                     <img
                                         src={SettingsOne}
@@ -204,7 +204,7 @@ class AppSetting extends Component {
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }}>
+                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.1)", backdropFilter: "blur(10px)" }}>
                                 <div>
                                     <img
                                         src={SettingsMobile}
@@ -232,7 +232,7 @@ class AppSetting extends Component {
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }} >
+                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.1)", backdropFilter: "blur(10px)" }} >
                                 <div>
                                     <img
                                         src={SettingsTwo}
@@ -266,7 +266,7 @@ class AppSetting extends Component {
                                     />
                                 </div>
                             </div>
-                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.5)", backdropFilter: "blur(10px)" }} >
+                            <div className="col-sm-3 m-2 imTwoWhite" style={{ background: "rgba(255,255,255, 0.1)", backdropFilter: "blur(10px)" }} >
                                 <div>
                                     <img
                                         src={SettingsDepo}

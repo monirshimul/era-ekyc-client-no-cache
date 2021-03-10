@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import { NotificationManager } from "react-notifications";
- import RegJointFaceMain from './RegJointFaceMain';
- import RegJointFingerMain from '../RegJointFinger/RegJointFingerMain';
+import RegJointFaceMain from './RegJointFaceMain';
+import RegJointFingerMain from '../RegJointFinger/RegJointFingerMain';
 //  import FingerPrintMain from '../FingerPrintJoint/FingerPrintMain';
 // import { simplifiedJointConfirmAPI } from '../../Url/ApiList';
 import { withRouter } from 'react-router-dom';
@@ -34,9 +34,9 @@ export class RegDynamicComp extends Component {
         this.setState({
             accountId: JSON.parse(sessionStorage.getItem('accountId')),
             processComplete: true,
-            showHide:!this.state.showHide,
+            showHide: !this.state.showHide,
             finishAdd: !this.state.finishAdd
-            
+
         })
     }
 
@@ -97,19 +97,19 @@ export class RegDynamicComp extends Component {
         })
         if (index === 0) {
             this.setState({
-                bioShow: !this.state.bioShow, 
-                
+                bioShow: !this.state.bioShow,
+
             })
 
 
         }
 
-        if(this.state.bioShow === false){
+        if (this.state.bioShow === false) {
             this.setState({
                 bioShow: !this.state.bioShow,
                 showHide: true,
                 finishAdd: true
-                
+
             })
         }
     }
@@ -140,8 +140,8 @@ export class RegDynamicComp extends Component {
             bioShow: !this.state.bioShow,
             showHide: true,
             finishAdd: true
-            
-            
+
+
         })
     }
 
@@ -155,21 +155,21 @@ export class RegDynamicComp extends Component {
 
 
 
-            {
-                this.state.jointArray.map((arr, index) => {
-                    return (
-                        <div className="">
-                            <h2 style={{ fontSize: "17px" }} className="text-muted im text-center"><i className="fas fa-user" style={{ color: "#e3174c" }}></i> Applicant <span style={{ fontSize: "17px" }}>{index + 1}</span></h2>
-                            {arr.comp}
-                            <hr />
-                            {/* <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => window.confirm("Are you sure? All your data will be lost.") && this.deleteComp(index)}>Delete</button> */}
-                            {/* <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => this.deleteComp(index)}>Delete</button>
+                {
+                    this.state.jointArray.map((arr, index) => {
+                        return (
+                            <div className="">
+                                <h2 style={{ fontSize: "17px" }} className="text-muted im text-center"><i className="fas fa-user" style={{ color: "#e3174c" }}></i> Applicant <span style={{ fontSize: "17px" }}>{index + 1}</span></h2>
+                                {arr.comp}
+                                <hr />
+                                {/* <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => window.confirm("Are you sure? All your data will be lost.") && this.deleteComp(index)}>Delete</button> */}
+                                {/* <button className="b" style={{ border: "none", background: "#e3174c" }} onClick={(e) => this.deleteComp(index)}>Delete</button>
                              */}
 
-                            <div>
-                                <hr />
-                                <div className="row d-flex justify-content-center" >
-                                    {/*
+                                <div>
+                                    <hr />
+                                    <div className="row d-flex justify-content-center" >
+                                        {/*
                                         finishAdd ? (
                                             <div className="imTwoWhite text-center col-sm-3">
                                         <img
@@ -192,117 +192,117 @@ export class RegDynamicComp extends Component {
                                     </div>
                                         ):""
                                    */ }
-                                    
-                                    {
-                                        !showHide && index + 1 === this.state.jointArray.length ? (
-                                            <div className="imTwoWhite text-center col-sm-3">
-                                                <img
-                                                    src={userAdd}
-                                                    style={{
-                                                        margin: "0 auto",
-                                                        width: "250px",
-                                                        height: "150px",
-                                                        border: "none",
-                                                    }}
 
-                                                    className="img-fluid img-thumbnail"
-                                                    id="FrontNidPic"
-                                                    alt=""
-                                                />
-                                                <hr />
-
-                                                <h4 className="im" style={{ color: "green" }} onClick={this.showHide}><i class="fas fa-vote-yea"></i>  Add New Applicant</h4>
-
-                                            </div>
-                                        ) : ""
-                                    }
-
-
-                                    {
-                                        this.state.jointArray.length > 1 && this.state.processComplete === false && index + 1 === this.state.jointArray.length ?
-
-
-                                            <div className="imTwoWhite text-center col-sm-3">
-                                                <img
-                                                    src={userFinish}
-                                                    style={{
-                                                        margin: "0 auto",
-                                                        width: "250px",
-                                                        height: "150px",
-                                                        border: "none",
-                                                    }}
-
-                                                    className="img-fluid img-thumbnail"
-                                                    id="FrontNidPic"
-                                                    alt=""
-                                                />
-                                                <hr />
-
-                                                <h4 className="im" style={{ color: "green" }} onClick={this.onProcess}><i class="fas fa-vote-yea"></i>  Finish Adding</h4>
-
-                                            </div>
-
-
-                                            :
-                                            ""
-                                    }
-
-
-                                    {
-
-                                        this.state.jointArray.length > 1 && this.state.processComplete === true && index + 1 === this.state.jointArray.length ?
-
-                                            
+                                        {
+                                            !showHide && index + 1 === this.state.jointArray.length ? (
                                                 <div className="imTwoWhite text-center col-sm-3">
-                                                <img
-                                                    src={complete}
-                                                    style={{
-                                                        margin: "0 auto",
-                                                        width: "250px",
-                                                        height: "150px",
-                                                        border: "none",
-                                                    }}
+                                                    <img
+                                                        src={userAdd}
+                                                        style={{
+                                                            margin: "0 auto",
+                                                            width: "250px",
+                                                            height: "150px",
+                                                            border: "none",
+                                                        }}
 
-                                                    className="img-fluid img-thumbnail"
-                                                    id="FrontNidPic"
-                                                    alt=""
-                                                />
-                                                <hr />
+                                                        className="img-fluid img-thumbnail"
+                                                        id="FrontNidPic"
+                                                        alt=""
+                                                    />
+                                                    <hr />
 
-                                                <h4 className="im" disabled={this.state.loadingFlag} style={{ color: "green" }} onClick={this.complete}><i class="fas fa-vote-yea"></i>  Complete</h4>
-                                                {/* <button className="b" disabled={this.state.loadingFlag} style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button> */}
+                                                    <h4 className="im" style={{ color: "green" }} onClick={this.showHide}><i class="fas fa-vote-yea"></i>  Add New Applicant</h4>
 
-                                            </div>
-                                                
-                                            
-                                            :
-                                            ""
-
-                                    }
+                                                </div>
+                                            ) : ""
+                                        }
 
 
+                                        {
+                                            this.state.jointArray.length > 1 && this.state.processComplete === false && index + 1 === this.state.jointArray.length ?
 
 
+                                                <div className="imTwoWhite text-center col-sm-3">
+                                                    <img
+                                                        src={userFinish}
+                                                        style={{
+                                                            margin: "0 auto",
+                                                            width: "250px",
+                                                            height: "150px",
+                                                            border: "none",
+                                                        }}
+
+                                                        className="img-fluid img-thumbnail"
+                                                        id="FrontNidPic"
+                                                        alt=""
+                                                    />
+                                                    <hr />
+
+                                                    <h4 className="im" style={{ color: "green" }} onClick={this.onProcess}><i class="fas fa-vote-yea"></i>  Finish Adding</h4>
+
+                                                </div>
+
+
+                                                :
+                                                ""
+                                        }
+
+
+                                        {
+
+                                            this.state.jointArray.length > 1 && this.state.processComplete === true && index + 1 === this.state.jointArray.length ?
+
+
+                                                <div className="imTwoWhite text-center col-sm-3">
+                                                    <img
+                                                        src={complete}
+                                                        style={{
+                                                            margin: "0 auto",
+                                                            width: "250px",
+                                                            height: "150px",
+                                                            border: "none",
+                                                        }}
+
+                                                        className="img-fluid img-thumbnail"
+                                                        id="FrontNidPic"
+                                                        alt=""
+                                                    />
+                                                    <hr />
+
+                                                    <h4 className="im" disabled={this.state.loadingFlag} style={{ color: "green" }} onClick={this.complete}><i class="fas fa-vote-yea"></i>  Complete</h4>
+                                                    {/* <button className="b" disabled={this.state.loadingFlag} style={{ border: "none", background: "green" }} onClick={this.complete} >Complete</button> */}
+
+                                                </div>
+
+
+                                                :
+                                                ""
+
+                                        }
+
+
+
+
+
+
+                                    </div>
 
 
                                 </div>
 
-
+                                <hr />
                             </div>
 
-                            <hr />
-                        </div>
-
-                    )
-                })
+                        )
+                    })
 
 
-            }
+                }
 
 
 
-            {this.state.loadingFlag ? <Loading /> : ''}
-            <br />
+                {this.state.loadingFlag ? <Loading /> : ''}
+                <br />
 
 
 
@@ -310,91 +310,91 @@ export class RegDynamicComp extends Component {
 
 
 
-            {!bioShow ? (
-                <div>
-                    <hr />
-                    <div className="row d-flex justify-content-center" >
-                        <div className="imTwoWhite text-center">
-                            <img
-                                src={bio}
-                                style={{
-                                    margin: "0 auto",
-                                    width: "250px",
-                                    height: "150px",
-                                    border: "none",
-                                }}
-
-                                className="img-fluid img-thumbnail"
-                                id="FrontNidPic"
-                                alt=""
-                            />
-                            <hr />
-
-                            <h4 className="im" style={{ color: "green" }} onClick={this.bioShow}><i class="fas fa-vote-yea"></i>  Select Biometric Options</h4>
-
-                        </div>
-                    </div>
-                    <hr />
-
-                </div>
-
-
-            ) : ""}
-
-
-
-
-
-            {
-
-                showHide && finishAdd  ? (
+                {!bioShow ? (
                     <div>
                         <hr />
-                        <div className="row d-flex justify-content-center ">
-                            <div className="col-sm-8 d-flex justify-content-around">
-                                <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<RegJointFaceMain/>)}>
+                        <div className="row d-flex justify-content-center" >
+                            <div className="imTwoWhite text-center">
+                                <img
+                                    src={bio}
+                                    style={{
+                                        margin: "0 auto",
+                                        width: "250px",
+                                        height: "150px",
+                                        border: "none",
+                                    }}
 
-                                    <img
-                                        src={adult}
-                                        style={{
-                                            margin: "0 auto",
-                                            width: "300px",
-                                            height: "150px",
-                                            border: "none"
+                                    className="img-fluid img-thumbnail"
+                                    id="FrontNidPic"
+                                    alt=""
+                                />
+                                <hr />
 
-                                        }}
+                                <h4 className="im" style={{ color: "green" }} onClick={this.bioShow}><i class="fas fa-vote-yea"></i>  Select Biometric Options</h4>
 
-                                        className="img-fluid img-thumbnail"
-                                        id="FrontNidPic"
-                                        alt=""
-                                    />
-
-
-
-                                    <h4 className="im" style={{ color: "green" }}>Face</h4>
-
-                                </button>
-                                <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<RegJointFingerMain/>)}>
-
-                                    <img
-                                        src={child}
-                                        style={{
-                                            margin: "0 auto",
-                                            width: "300px",
-                                            height: "150px",
-                                            border: "none"
-
-                                        }}
-
-                                        className="img-fluid img-thumbnail"
-                                        id="FrontNidPic"
-                                        alt=""
-                                    />
-                                    <h4 className="im" style={{ color: "green" }}>Fingerprint</h4>
-
-                                </button>
                             </div>
-                            {/* <div className="col-sm-8 d-flex justify-content-around mt-1">
+                        </div>
+                        <hr />
+
+                    </div>
+
+
+                ) : ""}
+
+
+
+
+
+                {
+
+                    showHide && finishAdd ? (
+                        <div>
+                            <hr />
+                            <div className="row d-flex justify-content-center ">
+                                <div className="col-sm-8 d-flex justify-content-around">
+                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<RegJointFaceMain />)}>
+
+                                        <img
+                                            src={adult}
+                                            style={{
+                                                margin: "0 auto",
+                                                width: "300px",
+                                                height: "150px",
+                                                border: "none"
+
+                                            }}
+
+                                            className="img-fluid img-thumbnail"
+                                            id="FrontNidPic"
+                                            alt=""
+                                        />
+
+
+
+                                        <h4 className="im" style={{ color: "green" }}>Face</h4>
+
+                                    </button>
+                                    <button className="imTwoWhite animated zoomIn" disabled={this.state.stableButton} style={{ border: "none", borderRadius: "10px" }} onClick={() => this.addComp(<RegJointFingerMain />)}>
+
+                                        <img
+                                            src={child}
+                                            style={{
+                                                margin: "0 auto",
+                                                width: "300px",
+                                                height: "150px",
+                                                border: "none"
+
+                                            }}
+
+                                            className="img-fluid img-thumbnail"
+                                            id="FrontNidPic"
+                                            alt=""
+                                        />
+                                        <h4 className="im" style={{ color: "green" }}>Fingerprint</h4>
+
+                                    </button>
+                                </div>
+                                {/* <div className="col-sm-8 d-flex justify-content-around mt-1">
                     <p className="text-muted imTwoWhite col-sm-5" >
                         <span style={{ color: "green", fontSize: "20px" }}>A facial recognition</span> system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. <span style={{ color: "green", fontSize: "20px" }}>Face verification</span> is the task of comparing a candidate face to another, and verifying whether it is a match. It is a one-to-one mapping: you have to check if this person is the correct one.
                         </p>
@@ -404,19 +404,19 @@ export class RegDynamicComp extends Component {
                 </div> */}
 
 
+                            </div>
+                            <hr />
                         </div>
-                        <hr />
-                    </div>
 
-                ) : ""
-            }
+                    ) : ""
+                }
 
 
 
 
-            {/* <button disabled={this.state.stableButton} className="bigB mr-2" style={{ border: "none" }} onClick={() => this.addComp(<MainFace />)}>Face</button>
+                {/* <button disabled={this.state.stableButton} className="bigB mr-2" style={{ border: "none" }} onClick={() => this.addComp(<MainFace />)}>Face</button>
             <button disabled={this.state.stableButton} className="bigB" style={{ border: "none" }} onClick={() => this.addComp(<Finger />)}>Finger</button> */}
-        </div>
+            </div>
         )
     }
 }

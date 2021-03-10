@@ -104,19 +104,22 @@ export class RegCapture extends Component {
     this.props.prevStep();
   };
 
-  Escape = () => {
-    this.props.nextStep();
-  }
+  // Escape = () => {
+  //   this.props.nextStep();
+  // }
 
 
   render() {
     const { values } = this.props;
     return (
       <div className="container">
-
+        {/*
+        
         <div className="im col-sm-2" onClick={this.Escape}>
           Escape
-                </div>
+        </div>
+        */}
+
 
         <div className="row d-flex justify-content-center">
           <div className="imTwoWhite col-sm-10" style={{ paddingTop: "25px" }}>
