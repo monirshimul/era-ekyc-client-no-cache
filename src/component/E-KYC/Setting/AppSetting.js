@@ -124,9 +124,9 @@ class AppSetting extends Component {
         //console.log("DataObj", dataObj)
 
         let updateSetting = await axios.put(updateAppSetting, dataObj, config);
-        console.log("updateSetting", updateSetting);
+        // console.log("updateSetting", updateSetting);
         let allAppSetting = await axios.post(getAppSetting, null, config)
-        console.log("Get App", allAppSetting.data.data)
+        // console.log("Get App", allAppSetting.data.data)
         this.setState({
             allSetting: allAppSetting.data.data
         })

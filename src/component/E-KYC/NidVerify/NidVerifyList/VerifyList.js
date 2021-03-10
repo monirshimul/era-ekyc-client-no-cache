@@ -189,7 +189,12 @@ class VerifyList extends Component {
                 <div className="row d-flex justify-content-center">
                     <div className="col-sm-10">
 
+                        <div className="imTwoWhite row mb-2 d-flex justify-content-center" style={{ background: "rgba(255,255,255, 0.2)", backdropFilter: "blur(10px)" }}>
+                            <div className="col-sm-12">
+                                <h5 className="im d-flex justify-content-center" style={{ color: "green", fontSize: "17px", marginTop: "5px" }}>Nid Verify List</h5>
+                            </div>
 
+                        </div>
 
 
                         <TableContainer component={Paper}>
@@ -291,19 +296,19 @@ class VerifyList extends Component {
                         handleGo={this.handleGoInput}
                     />
                 ) : (
-                        <div>
-                            <br />
-                            <br />
-                            <br />
-                            <p style={{ textAlign: "center" }}>
+                    <div>
+                        <br />
+                        <br />
+                        <br />
+                        <p style={{ textAlign: "center" }}>
+                            {" "}
+                            <strong>
                                 {" "}
-                                <strong>
-                                    {" "}
                         page No: {this.state.page + "/" + this.state.totalPages}
-                                </strong>{" "}
-                            </p>
-                        </div>
-                    )}
+                            </strong>{" "}
+                        </p>
+                    </div>
+                )}
             </div>
         )
     }
