@@ -99,7 +99,8 @@ class Dashboard extends Component {
         quickLinks: '',
         imgFlag: false,
         isAuthToken: JSON.parse(sessionStorage.getItem('x-auth-token')),
-        idleTimeVal: JSON.parse(sessionStorage.getItem('idleTimeout'))
+        idleTimeVal: JSON.parse(sessionStorage.getItem('idleTimeout')),
+        year: ""
     }
 
     // feature = JSON.parse(sessionStorage.getItem("featureList"));
@@ -127,6 +128,14 @@ class Dashboard extends Component {
     async componentDidMount() {
 
         if (this.state.isAuthToken !== null) {
+
+            let sysYear = new Date().getFullYear()
+            //console.log("Year", year)
+            this.setState({
+                year: sysYear
+            })
+
+
             this.feature = JSON.parse(sessionStorage.getItem("featureList"))
 
 
@@ -348,7 +357,7 @@ class Dashboard extends Component {
     render() {
         let path = this.props.match.path;
         let url = this.props.match.url;
-        let { userProfileImage, flag, idleTimeVal } = this.state;
+        let { userProfileImage, flag, idleTimeVal, year } = this.state;
 
         //================= Redirect to login page,,,for componentUnmount =====================
         // console.log("Auth Token", this.state.isAuthToken);
@@ -654,7 +663,7 @@ class Dashboard extends Component {
                         alt=""
                     />
                     <div className="d-flex justify-content-center">
-                        <small className="" style={{ position: "absolute", bottom: "15px", color: "#333", fontSize: "14px" }}>© 2020 All rights reserved to ERA-InfoTech Ltd.</small>
+                        <small className="" style={{ position: "absolute", bottom: "15px", color: "#333", fontSize: "14px" }}>© {year} All rights reserved to ERA-InfoTech Ltd.</small>
                     </div>
 
 

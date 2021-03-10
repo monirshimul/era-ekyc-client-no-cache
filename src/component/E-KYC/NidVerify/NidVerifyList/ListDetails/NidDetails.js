@@ -69,11 +69,11 @@ export class NidDetails extends Component {
     if (!depoData) return (
       <div className="container">
         <div className="row d-flex justify-content-center">
-          <div className="col-sm-6 imTwoWhite">
+          <div className="col-sm-6 imTwoWhite animated zoomIn">
             <h3 className="im" style={{ color: "#fb743e" }}>No Record Found</h3>
           </div>
         </div>
-        <div className="row d-flex justify-content-center">
+        <div className="row d-flex justify-content-center animated zoomIn">
           <div className="b mt-3" onClick={this.back} >Back</div>
         </div>
 
@@ -112,7 +112,7 @@ export class NidDetails extends Component {
         </div>
 
         <div className="imTwoWhite row d-flex justify-content-center pt-5">
-          <div className="col-sm-4 mt-5 imTwoWhite">
+          <div className="col-sm-4 mt-5 imTwoWhite animated zoomIn">
             <h5 className="im" style={{ color: "green", cursor: "text" }}>Details</h5>
             <hr />
             <small className="" style={{ fontSize: "14px" }}>
@@ -130,7 +130,7 @@ export class NidDetails extends Component {
 
             </small>
           </div>
-          <div className="col-sm-4 mt-5 imTwoWhite">
+          <div className="col-sm-4 mt-5 imTwoWhite animated zoomIn">
             <h5 className="im" style={{ color: "green", cursor: "text" }}>Permanent Address</h5>
             <hr />
             <small className="" style={{ fontSize: "14px" }}>
@@ -152,7 +152,7 @@ export class NidDetails extends Component {
               <span style={{ color: "green", fontSize: "14px" }}>Ward For Union Porishod :</span> {this.state.perAddress.wardForUnionPorishod}<br />
             </small>
           </div>
-          <div className="col-sm-4 mt-5 imTwoWhite">
+          <div className="col-sm-4 mt-5 imTwoWhite animated zoomIn">
             <h5 className="im" style={{ color: "green", cursor: "text" }}>Present Address</h5>
             <hr />
             <small className="" style={{ fontSize: "14px" }}>
