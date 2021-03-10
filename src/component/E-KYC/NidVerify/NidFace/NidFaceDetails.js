@@ -5,7 +5,6 @@ import Face from "../../Simplified/images/face.svg";
 class NidFaceDetails extends Component {
     render() {
         const { values } = this.props;
-        console.log(values.applicantName)
         return (
             <div className="container">
                 <div className={`row d-flex justify-content-center imTwoWhite ${style.bgForUser}`} style={{ position: "relative" }}>

@@ -1,8 +1,8 @@
 import { hostIp } from './IpAdd';
 
 // RPA
-// export const nidValidationRPA = hostIp + `ai/nid-rpa`;
-export const nidValidationRPA = hostIp + `dummy/nid-rpa`;
+export const nidValidationRPA = hostIp + `ai/nid-rpa`;
+// export const nidValidationRPA = hostIp + `dummy/nid-rpa`;
 
 // face Verification
 

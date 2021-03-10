@@ -63,6 +63,11 @@ export class NidDetails extends Component {
 
   render() {
     let { depoData, flag } = this.state;
+    if (!depoData) return (
+      <div>
+        <h3>No Data Found</h3>
+      </div>
+    );
     return (
       <div className="container">
         <div className={`row d-flex justify-content-center imTwoWhite ${style.bgForUser}`} style={{ position: "relative" }}>
@@ -74,7 +79,7 @@ export class NidDetails extends Component {
           }}>
             <img
 
-              src={this.getImage(depoData.image)}
+              src={depoData === null ? Face : this.getImage(depoData.image)}
               style={{
 
                 width: "150px",
@@ -83,7 +88,7 @@ export class NidDetails extends Component {
 
 
               }}
-              value={depoData.image}
+              value={depoData === null ? Face : depoData.image}
               className={`img-thumbnail ${style.imgHover}`}
               id="imagePicture"
               alt="cameraPicture"
