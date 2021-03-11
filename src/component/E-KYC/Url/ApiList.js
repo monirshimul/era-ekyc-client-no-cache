@@ -6,13 +6,13 @@ export const nidValidationRPA = hostIp + `ai/nid-rpa`;
 
 // face Verification
 
-// export const faceValidate = hostIp + `ai/face-verification`;
-export const faceValidate = hostIp + `dummy/face-verification`;
+export const faceValidate = hostIp + `ai/face-verification`;
+// export const faceValidate = hostIp + `dummy/face-verification`;
 
 // Finger Verification
 
-// export const fingerValidate = hostIp + `integration/fingerprint-verification`;
-export const fingerValidate = hostIp + `dummy/fingerprint-verification`;
+export const fingerValidate = hostIp + `integration/fingerprint-verification`;
+// export const fingerValidate = hostIp + `dummy/fingerprint-verification`;
 
 
 // OCR

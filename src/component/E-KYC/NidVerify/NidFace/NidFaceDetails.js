@@ -33,6 +33,7 @@ class NidFaceDetails extends Component {
                         <div>
                             <h5 className="text-center mt-2" style={{ textTransform: "uppercase", color: "green" }}>{values.applicantName}</h5>
                         </div>
+
                     </div>
 
                 </div>

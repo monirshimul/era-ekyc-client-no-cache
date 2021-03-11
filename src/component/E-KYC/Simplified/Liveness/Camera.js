@@ -34,8 +34,8 @@ export class Camera extends Component {
     libImage.capture(
       "videoCap",
       "imageCap",
-      // "http://103.17.69.111/models/"
-      "https://ovichowdhury.github.io/face-api-models/"
+      "http://103.17.69.111/models/"
+      // "https://ovichowdhury.github.io/face-api-models/"
       // "https://agent1.bankasia-bd.com:3000/models/"
     );
     this.libImage = libImage;
@@ -217,23 +217,23 @@ export class Camera extends Component {
                   <Loading />
                 </div>
               ) : (
-                  <div>
-                    {
-                      status ? (
-                        <button
-                          className="imTwo text-center"
-                          id="conBtn"
-                          style={{ border: "none", width: "315px", color: "green", fontSize: "17px" }}
-                          onClick={this.onConfirm}
-                          data-dismiss="modal"
-                        >
-                          <i class="fas fa-check-circle"></i> CONFIRM
-                        </button>
-                      ) : ""
+                <div>
+                  {
+                    status ? (
+                      <button
+                        className="imTwo text-center"
+                        id="conBtn"
+                        style={{ border: "none", width: "315px", color: "green", fontSize: "17px" }}
+                        onClick={this.onConfirm}
+                        data-dismiss="modal"
+                      >
+                        <i class="fas fa-check-circle"></i> CONFIRM
+                      </button>
+                    ) : ""
 
-                    }
-                  </div>
-                )
+                  }
+                </div>
+              )
             }
 
 

@@ -55,11 +55,14 @@ export class RegPersonalDetails extends Component {
         // Division Api calling======================================>
         try {
             let getDiv = await axios.get(getDivNative, config)
-            console.log("Res", getDiv.data.data)
-            this.setState({
-                nativeDivPermanent: getDiv.data.data,
-                nativeDivPresent: getDiv.data.data
-            })
+            //console.log("Res", getDiv.data.data)
+            if (getDiv.data.data) {
+                this.setState({
+                    nativeDivPermanent: getDiv.data.data,
+                    nativeDivPresent: getDiv.data.data
+                })
+            }
+
 
         } catch (error) {
             console.log("Error====>", error)
@@ -394,11 +397,14 @@ export class RegPersonalDetails extends Component {
 
             let getDist = await axios.post(getDistNative, data, config)
             //console.log("Dist", getDist.data.data)
-            if (type === "per") {
-                this.props.handleState("nativeDistPermanent", getDist.data.data)
-            } else {
-                this.props.handleState("nativeDistPresent", getDist.data.data)
+            if (getDist.data.data) {
+                if (type === "per") {
+                    this.props.handleState("nativeDistPermanent", getDist.data.data)
+                } else {
+                    this.props.handleState("nativeDistPresent", getDist.data.data)
+                }
             }
+
 
 
 
@@ -432,11 +438,14 @@ export class RegPersonalDetails extends Component {
 
             let getUpa = await axios.post(getUpaNative, data, config)
             //console.log("Dist", getUpa.data.data)
-            if (type === "per") {
-                this.props.handleState("nativeUpaPermanent", getUpa.data.data)
-            } else {
-                this.props.handleState("nativeUpaPresent", getUpa.data.data)
+            if (getUpa.data.data) {
+                if (type === "per") {
+                    this.props.handleState("nativeUpaPermanent", getUpa.data.data)
+                } else {
+                    this.props.handleState("nativeUpaPresent", getUpa.data.data)
+                }
             }
+
 
 
 
@@ -470,11 +479,14 @@ export class RegPersonalDetails extends Component {
 
             let getUni = await axios.post(getUniNative, data, config)
             //console.log("Dist", getUni.data.data)
-            if (type === "per") {
-                this.props.handleState('nativeUniPermanent', getUni.data.data);
-            } else {
-                this.props.handleState('nativeUniPresent', getUni.data.data);
+            if (getUni.data.data) {
+                if (type === "per") {
+                    this.props.handleState('nativeUniPermanent', getUni.data.data);
+                } else {
+                    this.props.handleState('nativeUniPresent', getUni.data.data);
+                }
             }
+
 
 
 
