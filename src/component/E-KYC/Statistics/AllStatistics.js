@@ -471,7 +471,6 @@ class AllStatistics extends Component {
 
                                     <KeyboardDatePicker
                                         disableToolbar
-                                        variant="inline"
                                         format="dd/MM/yyyy"
                                         margin="normal"
                                         id="date-picker-inline"
@@ -498,7 +497,6 @@ class AllStatistics extends Component {
 
                                     <KeyboardDatePicker
                                         disableToolbar
-                                        variant="inline"
                                         format="dd/MM/yyyy"
                                         margin="normal"
                                         id="date-picker-inline"
