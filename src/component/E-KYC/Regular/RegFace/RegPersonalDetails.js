@@ -891,7 +891,7 @@ export class RegPersonalDetails extends Component {
 
                                 {/*English permanent Division */}
                                 <div className='form-group'>
-                                    <label htmlFor="">Division</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Division</label>
                                     <select
                                         className='custom-select'
                                         value={values.perDivisionCode}
@@ -918,7 +918,7 @@ export class RegPersonalDetails extends Component {
                                 {/*English permanent District  */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">District</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>District</label>
                                     <select
                                         className='custom-select'
                                         value={values.perDistrictCode}
@@ -945,7 +945,7 @@ export class RegPersonalDetails extends Component {
                                 {/*English permanent Upozilla  */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">Upazila</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Upazila</label>
                                     <select
                                         className='custom-select'
                                         value={values.perUpozilaCode}

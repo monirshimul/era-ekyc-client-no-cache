@@ -876,7 +876,7 @@ export class SimPersonalDetails extends Component {
 
 
                                 <div className='form-group'>
-                                    <label htmlFor="">Division</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Division</label>
                                     <select
                                         className='custom-select'
                                         value={values.perDivisionCode}
@@ -903,7 +903,7 @@ export class SimPersonalDetails extends Component {
                                 {/*English permanent District  */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">District</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>District</label>
                                     <select
                                         className='custom-select'
                                         value={values.perDistrictCode}
@@ -930,7 +930,7 @@ export class SimPersonalDetails extends Component {
                                 {/*English permanent Upozilla  */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">Upazila</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Upazila</label>
                                     <select
                                         className='custom-select'
                                         value={values.perUpozilaCode}
@@ -959,7 +959,7 @@ export class SimPersonalDetails extends Component {
                                 {/*English permanent Union nativeUniPermanent */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">Union</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union</label>
                                     <select
                                         className='custom-select'
                                         value={values.perUnionOrWardCode}
@@ -1157,7 +1157,7 @@ export class SimPersonalDetails extends Component {
 
                                 {/* English present Address Division */}
                                 <div className='form-group'>
-                                    <label htmlFor="">Division</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Division</label>
                                     <select
                                         className='custom-select'
                                         value={values.preDivisionCode}
@@ -1182,7 +1182,7 @@ export class SimPersonalDetails extends Component {
 
                                 {/*English present Address District  */}
                                 <div className='form-group'>
-                                    <label htmlFor="">District</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>District</label>
                                     <select
                                         className='custom-select'
                                         value={values.preDistrictCode}
@@ -1209,7 +1209,7 @@ export class SimPersonalDetails extends Component {
                                 {/*English present Address Upozilla  */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">Upazila</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Upazila</label>
                                     <select
                                         className='custom-select'
                                         value={values.preUpozilaCode}
@@ -1239,7 +1239,7 @@ export class SimPersonalDetails extends Component {
                                 {/*English present Address  Union */}
 
                                 <div className='form-group'>
-                                    <label htmlFor="">Union</label>
+                                    <label htmlFor=""><span style={{ color: "red" }}>*</span>Union Or Ward</label>
                                     <select
                                         className='custom-select'
                                         value={values.preUnionOrWardCode}
