@@ -45,7 +45,8 @@ export class DedubeCheck extends Component {
     continue = async (e) => {
         e.preventDefault();
         let isCheckDepo = true;
-        let { nid, dob, productName, channelName, useDepo } = this.props.values;
+        let { nid, dob, productName, channelName, useDepo, productType } = this.props.values;
+
         //===============================Validation Added===========================
         if (nid === '') {
             NotificationManager.warning('Please Provide Nid Number', "Click to Remove", largeTime);
@@ -84,7 +85,8 @@ export class DedubeCheck extends Component {
 
         let checkObj = {
             nid: nid,
-            productCode: productName
+            productCode: productName,
+            productType
         }
 
         // console.log("objcheck", checkObj);
@@ -110,6 +112,7 @@ export class DedubeCheck extends Component {
 
             } catch (error) {
                 this.props.handleState('loading', false);
+                console.log(error.response);
                 isCheckDepo = false;
                 if (error.response) {
                     let message = error.response.data.message

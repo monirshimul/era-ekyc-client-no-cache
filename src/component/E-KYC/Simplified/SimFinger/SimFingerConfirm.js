@@ -195,7 +195,7 @@ export class SimFingerConfirm extends Component {
             confirmObj.fingerprint = fingerObj
         }
 
-        // console.log("fingerConfirmobj", confirmObj);
+        console.log("fingerConfirmobj", confirmObj);
         // console.log("nidNo", values.applicantNidNo);
         // console.log("fingerObjRindex", fingerObj);
         // console.log("verificationToken", values.verifyToken);
@@ -209,7 +209,7 @@ export class SimFingerConfirm extends Component {
             }
         };
 
-        // console.log("config", config);
+        console.log("config", config);
 
 
 

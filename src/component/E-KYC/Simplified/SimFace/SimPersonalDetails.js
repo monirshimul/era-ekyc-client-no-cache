@@ -68,7 +68,7 @@ export class SimPersonalDetails extends Component {
 
         try {
             let getDiv = await axios.get(getDivNative, config)
-            console.log("Res", getDiv.data.data)
+            // console.log("Res", getDiv.data.data)
             if (getDiv.data.data) {
                 this.setState({
                     nativeDivPermanent: getDiv.data.data,
@@ -203,7 +203,7 @@ export class SimPersonalDetails extends Component {
         }
         try {
             let professionapi = await axios.post(profession, payload, config);
-            //  console.log(professionapi.data.data);
+            // console.log(professionapi.data.data);
             let autocompleteData = [];
             professionapi.data.data.forEach((d) => {
                 autocompleteData.push({ name: d.displayName, id: d.id, code: d.code })
