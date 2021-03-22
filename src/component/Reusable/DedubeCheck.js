@@ -86,10 +86,10 @@ export class DedubeCheck extends Component {
         let checkObj = {
             nid: nid,
             productCode: productName,
-            productTypeSelect: productType
+            productType: productType
         }
 
-        console.log("objcheck", checkObj);
+        // console.log("objcheck", checkObj);
 
         this.props.handleState('loading', true);
         if (channelName === "ABS") {
