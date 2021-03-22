@@ -85,8 +85,8 @@ export class DedubeCheck extends Component {
 
         let checkObj = {
             nid: nid,
-            productCode: productName
-            // productType
+            productCode: productName,
+            productTypeSelect: productType
         }
 
         // console.log("objcheck", checkObj);
