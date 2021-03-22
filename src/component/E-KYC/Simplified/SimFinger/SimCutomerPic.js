@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import Sign from '../images/man.svg';
 import Capture from '../Capture/Capture';
+import { nidFaceCompareNew } from '../../Url/ApiList';
 import { NotificationManager } from "react-notifications";
 import { datePickerPrefiilConv } from '../../../Utils/dateConversion';
-import { largeTime } from '../../../Utils/notificationTime';
-import { ImageCompressor } from '../../../Utils/ImageCompressor'
+import { largeTime, mediumTime } from '../../../Utils/notificationTime';
+import { ImageCompressor } from '../../../Utils/ImageCompressor';
+import Loading from '../utils/CustomLoding/Loading';
+import axios from 'axios';
 
 
 export class SimCutomerPic extends Component {
@@ -39,7 +42,7 @@ export class SimCutomerPic extends Component {
         }
     };
 
-    continue = e => {
+    continue = async (e) => {
         const { values } = this.props;
         e.preventDefault();
 
@@ -49,7 +52,54 @@ export class SimCutomerPic extends Component {
             return;
         }
 
-        this.props.nextStep();
+        let config = {
+            headers: {
+                "x-auth-token": JSON.parse(sessionStorage.getItem('x-auth-token'))
+            }
+        };
+
+        let obj = {
+            nid: values.nid,
+            photo: values.faceImage,
+            nidFrontImage: values.ecImage
+        }
+
+        try {
+            this.props.handleState('confirmFlag', true);
+            let faceComRes = await axios.post(nidFaceCompareNew, obj, config);
+            console.log(faceComRes.data.data.faceVerificationResult);
+            let goNext = faceComRes.data.data.faceVerificationResult.details;
+            let verificationStatus = faceComRes.data.data.faceVerificationResult.status;
+
+
+            if (goNext.statusCode === 404) {
+                NotificationManager.warning(goNext.message, "Click to Remove", largeTime);
+            }
+
+            if (verificationStatus) {
+                NotificationManager.success("Face match completed", "Click to Remove", mediumTime);
+                this.props.nextStep();
+
+            } else {
+                NotificationManager.warning("Face does not matched", "Click to Remove", largeTime);
+            }
+
+            this.props.handleState('confirmFlag', false);
+
+
+        } catch (error) {
+            this.props.handleState('confirmFlag', false);
+            if (error.response) {
+                let message = error.response.data.message
+                NotificationManager.error(message, "Click to Remove", largeTime);
+            } else if (error.request) {
+                // console.log("Error Connecting...", error.request)
+                NotificationManager.error("Error Connecting...", "Click to Remove", largeTime);
+            } else if (error) {
+                NotificationManager.error(error.toString(), "Click to Remove", largeTime);
+            }
+        }
+
     };
 
     back = e => {
@@ -144,15 +194,27 @@ export class SimCutomerPic extends Component {
                     </div>
 
 
+                    {
+                        values.confirmFlag ? (
+                            <div className="row d-flex justify-content-center align-items-center mt-3">
+                                <Loading />
+                            </div>
+                        ) : ''
+                    }
+                    <br />
+
+
                     <div
                         className="card-footer d-flex justify-content-between"
                         style={{ background: "#fff" }}
                     >
 
                         <span className="b mr-5" onClick={this.back}>Back</span>
-                        <span className="b" onClick={this.continue}>Next</span>
-
-
+                        {
+                            values.confirmFlag ? "" : (
+                                <span className="b" onClick={this.continue}>Next</span>
+                            )
+                        }
 
 
                     </div>
