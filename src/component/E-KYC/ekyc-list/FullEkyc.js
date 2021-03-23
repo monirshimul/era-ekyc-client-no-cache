@@ -47,7 +47,8 @@ class FullEkyc extends Component {
             let idObj = {
                 applicantId: this.props.location.state
             }
-            let fullEkyc = await axios.post(ekycFullProfile, idObj, config)
+            let fullEkyc = await axios.post(ekycFullProfile, idObj, config);
+            // console.log("profile", fullEkyc);
             let ekycRes = []
             if (fullEkyc.data.data.riskGrading != null) {
                 ekycRes = fullEkyc.data.data.riskGrading.riskGradingData
@@ -317,7 +318,7 @@ class FullEkyc extends Component {
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Account Number : </span>{ekyc?.account === null ? "" : ekyc?.account?.channelAccountId}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Type : </span>{ekyc?.account === null ? "" : ProductCategoryType(ekyc?.account?.productCategoryCode)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Channel Code : </span>{ekyc?.account === null ? "" : ekyc?.account?.channelCode}</small><br />
-                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc?.account === null ? "" : this.state.ProductCodetoName === null ? ekyc?.account?.productCode + "" : ekyc?.account?.productCode + " (" + this.state.ProductCodetoName + ")"}</small><br />
+                                            <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Product Code : </span>{ekyc?.account === null ? "" : this.state.ProductCodetoName === null ? ekyc?.account?.productCode + "" : ekyc?.account?.productCode + " (" + ekyc?.account?.productType + ")"}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Status : </span>{ekyc?.account === null ? "" : EkycAccountStatus(ekyc?.account?.status)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Type : </span>{ekyc?.account === null ? "" : AccountType(ekyc?.account?.type)}</small><br />
                                             <small style={{ color: "green" }}><span style={{ color: "#c47a0b" }}>Created By : </span>{ekyc?.account === null ? "" : ekyc?.account?.createdBy}</small><br />
@@ -967,13 +968,13 @@ class FullEkyc extends Component {
                                     </label>
                                                                     </div>
                                                                 ) : (
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-label">
-                                                                                <input type="radio" disabled class="form-check-input" name="optionsRadios" id="optionsRadios1" value="5.b" />
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" disabled class="form-check-input" name="optionsRadios" id="optionsRadios1" value="5.b" />
                                         Profession
                                     </label>
-                                                                        </div>
-                                                                    )
+                                                                    </div>
+                                                                )
                                                             }
 
 

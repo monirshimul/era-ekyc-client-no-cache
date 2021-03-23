@@ -293,7 +293,7 @@ export class SimConfirmInfo extends Component {
                                     <span style={{ color: "green", fontSize: "14px" }}>Account Type :</span> {AccountType(values.accountType)},<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Product and Services :</span> {ProductCategoryType(values.product)},<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>channel Name :</span> {values.channelName},<br />
-                                    <span style={{ color: "green", fontSize: "14px" }}>Product Name :</span> {`${values.productName} (${this.state.ProductCodetoName})`},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Product Name :</span> {`${values.productName} (${values.productType})`},<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Transaction Amount :</span> {values.transactionOrMaturityAmount},<br />
                                 </small>
                                 {/* <p className="text-muted">Product and Services : {accountData.product}</p>

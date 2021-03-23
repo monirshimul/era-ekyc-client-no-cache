@@ -89,13 +89,13 @@ export class DedubeCheck extends Component {
             productType: productType
         }
 
-        // console.log("objcheck", checkObj);
+        console.log("objcheck", checkObj);
 
         this.props.handleState('loading', true);
         if (channelName === "ABS") {
             try {
                 let absCheckApi = await axios.post(absAccountCheck, checkObj, config);
-                // console.log("abs", absCheckApi.data);
+                console.log("abs", absCheckApi.data);
                 if (absCheckApi.data.data === null) {
                     NotificationManager.error("Integration Server Error", "Click to Remove", largeTime);
                     this.props.handleState('loading', false);

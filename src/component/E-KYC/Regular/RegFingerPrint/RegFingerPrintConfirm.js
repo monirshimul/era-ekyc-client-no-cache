@@ -224,7 +224,7 @@ export class RegFingerPrintConfirm extends Component {
             // fingerprint: fingerObj
         }
 
-        if(fingerObj.rIndex !== ""){
+        if (fingerObj.rIndex !== "") {
             confirmObj.fingerprint = fingerObj
         }
 
@@ -256,9 +256,9 @@ export class RegFingerPrintConfirm extends Component {
                 //console.log("Result Array First", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
 
-                if(values.step === "exist_7"){
+                if (values.step === "exist_7") {
                     this.props.handleState("step", "exist_8");
-                }else{
+                } else {
                     this.props.nextStep();
                 }
 
@@ -267,9 +267,9 @@ export class RegFingerPrintConfirm extends Component {
                 //console.log("Result Array Last", resToArr)
                 this.props.handleState('channelAccStatus', resToArr);
 
-                if(values.step === "exist_7"){
+                if (values.step === "exist_7") {
                     this.props.handleState("step", "exist_8");
-                }else{
+                } else {
                     this.props.nextStep();
                 }
             }
@@ -294,15 +294,15 @@ export class RegFingerPrintConfirm extends Component {
     }
 
     back = e => {
-        let {values} = this.props;
+        let { values } = this.props;
         e.preventDefault();
 
-        if(values.step === "exist_7"){
+        if (values.step === "exist_7") {
             this.props.handleState("step", "exist_6");
-        }else{
+        } else {
             this.props.prevStep();
         }
-       
+
     }
 
 
@@ -328,7 +328,7 @@ export class RegFingerPrintConfirm extends Component {
                                     <span style={{ color: "green", fontSize: "14px" }}>Account Type :</span> {AccountType(values.accountType)},<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Product and Services :</span> {ProductCategoryType(values.product)},<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>channel Name :</span> {values.channelName},<br />
-                                    <span style={{ color: "green", fontSize: "14px" }}>Product Name :</span> {`${values.productName} (${this.state.ProductCodetoName})`},<br />
+                                    <span style={{ color: "green", fontSize: "14px" }}>Product Name :</span> {`${values.productName} (${values.productType})`},<br />
                                     <span style={{ color: "green", fontSize: "14px" }}>Transaction Amount :</span> {values.transactionOrMaturityAmount},<br />
                                 </small>
                                 {/* <p className="text-muted">Product and Services : {accountData.product}</p>
@@ -614,47 +614,47 @@ export class RegFingerPrintConfirm extends Component {
 
                                         </div>
                                     ) : (
-                                            <React.Fragment>
-                                                <div className="imTwo text-center col-sm-3">
-                                                    <div className="im">
-                                                        <small>Minor Nominee {i + 1}</small>
-                                                    </div>
-
-                                                    <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
-                                                        alt=""
-                                                        style={{
-                                                            margin: "0 auto",
-                                                            width: "250px",
-                                                            height: "150px",
-                                                            border: "none",
-                                                        }}
-                                                        className="img-fluid img-thumbnail"
-                                                    />
-                                                    <hr />
-
-
+                                        <React.Fragment>
+                                            <div className="imTwo text-center col-sm-3">
+                                                <div className="im">
+                                                    <small>Minor Nominee {i + 1}</small>
                                                 </div>
-                                                <div className="imTwo text-center col-sm-3">
-                                                    <div className="im">
-                                                        <small>Nominee's Guardian {i + 1}</small>
-                                                    </div>
 
-                                                    <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
-                                                        alt=""
-                                                        style={{
-                                                            margin: "0 auto",
-                                                            width: "250px",
-                                                            height: "150px",
-                                                            border: "none",
-                                                        }}
-                                                        className="img-fluid img-thumbnail"
-                                                    />
-                                                    <hr />
+                                                <img src={val.minorNomineePhoto ? values.flag + val.minorNomineePhoto : child}
+                                                    alt=""
+                                                    style={{
+                                                        margin: "0 auto",
+                                                        width: "250px",
+                                                        height: "150px",
+                                                        border: "none",
+                                                    }}
+                                                    className="img-fluid img-thumbnail"
+                                                />
+                                                <hr />
 
 
+                                            </div>
+                                            <div className="imTwo text-center col-sm-3">
+                                                <div className="im">
+                                                    <small>Nominee's Guardian {i + 1}</small>
                                                 </div>
-                                            </React.Fragment>
-                                        )
+
+                                                <img src={val.minorPhotoGuardian ? values.flag + val.minorPhotoGuardian : guardian}
+                                                    alt=""
+                                                    style={{
+                                                        margin: "0 auto",
+                                                        width: "250px",
+                                                        height: "150px",
+                                                        border: "none",
+                                                    }}
+                                                    className="img-fluid img-thumbnail"
+                                                />
+                                                <hr />
+
+
+                                            </div>
+                                        </React.Fragment>
+                                    )
                                 ))
                             }
 
