@@ -15,7 +15,7 @@ class Account extends Component {
         productJson: "",
         accountType: '',
         amount: '',
-        subChannel: "",
+        subChannel: "CONVENTIONAL",
         tenor: ''
 
     }
@@ -62,7 +62,7 @@ class Account extends Component {
         try {
             let getCode = await axios.post(getProductMultiFilter, obj, config);
             let getCodeData = getCode.data.data.filter(product => product.status === 'A');
-            // console.log("getCodeData", getCodeData);
+            //console.log("getCodeData", getCodeData);
             this.setState({ productNameData: getCodeData });
             //console.log("state", this.state.productNameData);
         } catch (error) {
@@ -220,7 +220,9 @@ class Account extends Component {
     }
 
     render() {
-
+        let subChannel = this.state.subChannel;
+        let subChannelData = this.state.productNameData.filter(val => val.subChannelCode === subChannel)
+        //console.log("data", subChannelData)
         return (
 
 
@@ -252,6 +254,19 @@ class Account extends Component {
                                 <option value='ICBS'>Islamic Core Banking</option>
                                 <option value='OMNI'>Omni Channel </option>
                                 <option value='EKYC'>EKYC</option>
+                            </select>
+                        </div>
+
+                        <div className='form-group'>
+                            <label htmlFor="">Sub-Channel Name</label>
+                            <select
+                                className='custom-select'
+                                value={this.state.subChannel}
+                                onChange={this.onChange}
+                                name="subChannel"
+                            >
+                                <option value='CONVENTIONAL'>CONVENTIONAL</option>
+                                <option value='ISLAMIC'>ISLAMIC</option>
                             </select>
                         </div>
 
@@ -289,7 +304,7 @@ class Account extends Component {
                             >
                                 <option value='' disabled>--Select--</option>
                                 {
-                                    this.state.productNameData.map((val, index) => {
+                                    subChannelData.map((val, index) => {
                                         return (
                                             <option key={val.id} value={JSON.stringify({ code: val.code, subChannel: val.subChannelCode })} >{val.code}---{val.name} </option>
                                         )
@@ -297,6 +312,7 @@ class Account extends Component {
                                 }
                             </select>
                         </div>
+                        
 
                         {/* Account Type */}
                         <div className='form-group'>

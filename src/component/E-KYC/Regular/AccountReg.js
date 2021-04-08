@@ -14,7 +14,7 @@ export class AccountReg extends Component {
         productNameData: [],
         accountType: '',
         amount: '',
-        subChannel: "",
+        subChannel: "CONVENTIONAL",
         tenor: ''
 
     }
@@ -209,6 +209,8 @@ export class AccountReg extends Component {
     }
 
     render() {
+        let subChannel = this.state.subChannel;
+        let subChannelData = this.state.productNameData.filter(val => val.subChannelCode === subChannel)
         return (
             <div className="card col-sm-7" style={{ paddingTop: "25px" }}>
 
@@ -236,6 +238,19 @@ export class AccountReg extends Component {
                                 <option value='ICBS'>Islamic Core Banking</option>
                                 <option value='OMNI'>Omni Channel </option>
                                 <option value='EKYC'>EKYC </option>
+                            </select>
+                        </div>
+
+                        <div className='form-group'>
+                            <label htmlFor="">Sub-Channel Name</label>
+                            <select
+                                className='custom-select'
+                                value={this.state.subChannel}
+                                onChange={this.onChange}
+                                name="subChannel"
+                            >
+                                <option value='CONVENTIONAL'>CONVENTIONAL</option>
+                                <option value='ISLAMIC'>ISLAMIC</option>
                             </select>
                         </div>
 
@@ -269,7 +284,7 @@ export class AccountReg extends Component {
                             >
                                 <option value='' disabled>--Select--</option>
                                 {
-                                    this.state.productNameData.map((val, index) => {
+                                    subChannelData.map((val, index) => {
                                         return (
                                             <option key={val.id} value={JSON.stringify({ code: val.code, subChannel: val.subChannelCode })}>{val.code}---{val.name} </option>
                                         )
