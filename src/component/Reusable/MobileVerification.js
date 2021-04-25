@@ -275,7 +275,7 @@ export class MobileVerification extends Component {
 
       </div>
       ):(
-        <div className="row d-flex justify-content-center align-items-center mt-3">
+        <div className="row d-flex justify-content-center align-items-center">
               <Loading/>    
        </div>
       )
