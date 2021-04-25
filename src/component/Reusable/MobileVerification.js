@@ -166,6 +166,7 @@ export class MobileVerification extends Component {
   render() {
     const { values, handleChange } = this.props;
     return (
+      this.props.values.useMobilePage === true ?(
       <div className='container'>
         {/* 
         <button onClick={this.continue}>Escape</button>*/}
@@ -273,6 +274,11 @@ export class MobileVerification extends Component {
 
 
       </div>
+      ):(
+        <div className="row d-flex justify-content-center align-items-center mt-3">
+              <Loading/>    
+       </div>
+      )
     )
   }
 }
